@@ -82,6 +82,8 @@ enum Species IsaacGetEvolution(enum Species species, u32 choice)
     return count ? targets[choice % count] : SPECIES_NONE;
 }
 
+#define ISAAC_MAX_LINE_SPECIES  128  // espèces d'un biome entier (une trentaine de lignées et leurs évolutions)
+
 // Toutes les espèces des lignées données (espèces de base et leurs évolutions) ; renvoie leur nombre
 static u32 GetLinesSpecies(const u16 *lines, u32 lineCount, u16 *out, u32 max)
 {
@@ -104,10 +106,30 @@ static u32 GetLinesSpecies(const u16 *lines, u32 lineCount, u16 *out, u32 max)
     return count;
 }
 
+// Espèces des lignées données de la catégorie voulue (sans doublon avec celles déjà dans out) ; renvoie le
+// nouveau nombre d'espèces dans out
+u32 IsaacAddLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum IsaacCategory category, u16 *out, u32 count, u32 max)
+{
+    u16 species[ISAAC_MAX_LINE_SPECIES];
+    u32 n = GetLinesSpecies(lines, lineCount, species, ARRAY_COUNT(species));
+    u32 i, j;
+
+    for (i = 0; i < n && count < max; i++)
+    {
+        if (IsaacGetSpeciesCategory(species[i]) != category)
+            continue;
+        for (j = 0; j < count && out[j] != species[i]; j++)
+            ;
+        if (j == count)
+            out[count++] = species[i];
+    }
+    return count;
+}
+
 // Une espèce des lignées données de la catégorie voulue, SPECIES_NONE s'il n'y en a pas
 enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 roll)
 {
-    u16 species[64], candidates[64];
+    u16 species[ISAAC_MAX_LINE_SPECIES], candidates[ISAAC_MAX_LINE_SPECIES];
     u32 count = GetLinesSpecies(lines, lineCount, species, ARRAY_COUNT(species));
     u32 n = 0, i;
 
