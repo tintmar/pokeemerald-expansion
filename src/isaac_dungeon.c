@@ -4,8 +4,10 @@
 #include "field_player_avatar.h"
 #include "field_screen_effect.h"
 #include "fieldmap.h"
+#include "data.h"
 #include "international_string_util.h"
 #include "isaac_dungeon.h"
+#include "isaac_pokemon.h"
 #include "item_icon.h"
 #include "menu.h"
 #include "pokemon_icon.h"
@@ -17,7 +19,13 @@
 #include "task.h"
 #include "text.h"
 #include "window.h"
+#include "constants/battle_ai.h"
+#include "constants/event_object_movement.h"
+#include "constants/flags.h"
 #include "constants/items.h"
+#include "constants/map_event_ids.h"
+#include "constants/opponents.h"
+#include "constants/trainers.h"
 #include "constants/maps.h"
 #include "constants/species.h"
 #include "constants/songs.h"
@@ -47,6 +55,11 @@
  * chargement (retour de combat, de menu...). VAR_ISAAC_ROOM est la cellule où se trouve le joueur,
  * VAR_ISAAC_VISITED_0 à 4 les salles déjà visitées (un bit par cellule).
  *
+ * DRESSEURS : une salle normale a ISAAC_TRAINER_PCT % de chances d'avoir un dresseur du biome, au centre. Il
+ * regarde la porte par laquelle le joueur arrive : le moteur le fait réagir, s'approcher et lancer le combat
+ * dès l'arrivée. Vaincu, il retourne au centre et la salle est « nettoyée » (FLAG_ISAAC_CLEARED_FIRST + cellule).
+ * Pour l'instant : un seul Pokémon, d'une lignée du biome de catégorie 1, set 1.
+ *
  * MINI-CARTE (bouton R dans une salle) : comme Isaac, on voit les salles visitées et celles qui les
  * touchent (pas la salle secrète tant qu'on n'y est pas entré), avec l'icône des salles spéciales.
  */
@@ -55,6 +68,13 @@
 #define ISAAC_SHOP_MIN_FLOOR   2
 #define ISAAC_SECRET_MIN_FLOOR 3
 #define ISAAC_MAX_TRIES        200  // graines essayées pour un étage valide
+
+#define ISAAC_TRAINER_PCT    75  // % de salles normales avec un dresseur
+#define ISAAC_BIOME          ISAAC_BIOME_CAVE  // un seul biome pour l'instant
+
+// Salles nettoyées (dresseur vaincu) : un drapeau par cellule, dans des drapeaux inutilisés du jeu
+#define FLAG_ISAAC_CLEARED_FIRST  FLAG_UNUSED_0x264
+STATIC_ASSERT(FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H - 1 <= FLAG_UNUSED_0x2BB, IsaacClearedFlagsAreUnused);
 
 #define ISAAC_START_X  (ISAAC_GRID_W / 2)
 #define ISAAC_START_Y  (ISAAC_GRID_H / 2)
@@ -502,6 +522,19 @@ static void SetVisited(s32 x, s32 y)
     VarSet(sVisitedVars[cell / 16], VarGet(sVisitedVars[cell / 16]) | (1 << (cell % 16)));
 }
 
+static bool8 IsCleared(s32 x, s32 y)
+{
+    return FlagGet(FLAG_ISAAC_CLEARED_FIRST + y * ISAAC_GRID_W + x);
+}
+
+static void ClearClearedRooms(void)
+{
+    u32 i;
+
+    for (i = 0; i < ISAAC_GRID_W * ISAAC_GRID_H; i++)
+        FlagClear(FLAG_ISAAC_CLEARED_FIRST + i);
+}
+
 static void ClearVisited(void)
 {
     u32 i;
@@ -718,6 +751,166 @@ static void PaintRoom(void)
 }
 
 // ---------------------------------------------------------------------------
+// Dresseurs
+// ---------------------------------------------------------------------------
+
+static const u8 *const sMaleTrainerNames[] = {
+    COMPOUND_STRING("ROCKY"), COMPOUND_STRING("HUGO"), COMPOUND_STRING("MARCO"), COMPOUND_STRING("LÉON"),
+    COMPOUND_STRING("PAUL"), COMPOUND_STRING("THÉO"), COMPOUND_STRING("BASILE"), COMPOUND_STRING("YVES"),
+};
+static const u8 *const sFemaleTrainerNames[] = {
+    COMPOUND_STRING("LINA"), COMPOUND_STRING("EMMA"), COMPOUND_STRING("CLARA"), COMPOUND_STRING("JADE"),
+    COMPOUND_STRING("ROSE"), COMPOUND_STRING("NINA"), COMPOUND_STRING("MAËL"), COMPOUND_STRING("IRIS"),
+};
+
+// Après sa défaite, le dresseur retourne au centre de la salle (voir IsaacPrepareTrainerReturn)
+EWRAM_DATA u8 gIsaacTrainerReturnMovement[ISAAC_ROOM_W + 2] = {0};
+
+static EWRAM_DATA struct Trainer sRoomTrainer = {0};
+static EWRAM_DATA struct TrainerMon sRoomTrainerMons[1] = {0};
+
+// Hasard propre à une salle de l'étage (toujours le même pour une salle donnée)
+static u32 RoomRandom(s32 x, s32 y, u32 salt)
+{
+    u32 r = VarGet(VAR_ISAAC_SEED) * 2654435761u ^ (VarGet(VAR_ISAAC_FLOOR) << 16) ^ ((y * ISAAC_GRID_W + x + 1) * 0x45D9F3B) ^ salt;
+
+    r ^= r >> 16;
+    r *= 0x7FEB352D;
+    r ^= r >> 15;
+    r *= 0x846CA68B;
+    r ^= r >> 16;
+    return r;
+}
+
+static bool8 RoomHasTrainer(s32 x, s32 y)
+{
+    return GetRoom(x, y) == ROOM_NORMAL && RoomRandom(x, y, 0x7A1) % 100 < ISAAC_TRAINER_PCT;
+}
+
+static const struct IsaacTrainerType *GetRoomTrainerType(s32 x, s32 y)
+{
+    const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
+
+    return &biome->trainers[RoomRandom(x, y, 0x7E3) % biome->trainerCount];
+}
+
+// Pokémon du dresseur : une lignée de catégorie 1 parmi les siennes (sinon parmi celles du biome)
+static u16 GetRoomTrainerSpecies(s32 x, s32 y, const struct IsaacTrainerType *type)
+{
+    const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
+    u16 candidates[ISAAC_GRID_W * ISAAC_GRID_H];
+    u32 count = 0, i;
+
+    for (i = 0; i < type->lineCount; i++)
+        if (IsaacGetSpeciesCategory(type->lines[i]) == ISAAC_CATEGORY_1)
+            candidates[count++] = type->lines[i];
+    if (count == 0)
+    {
+        for (i = 0; i < biome->lineCount; i++)
+            if (IsaacGetSpeciesCategory(biome->lines[i]) == ISAAC_CATEGORY_1)
+                candidates[count++] = biome->lines[i];
+    }
+    if (count == 0)
+        return biome->lines[0];
+    return candidates[RoomRandom(x, y, 0x5EC) % count];
+}
+
+bool8 IsIsaacRoomTrainer(u16 trainerId)
+{
+    return trainerId == TRAINER_ISAAC_ROOM && IsInRoomMap();
+}
+
+// Dresseur de la salle courante : classe et nom selon son type, un Pokémon du biome
+const struct Trainer *GetIsaacRoomTrainer(void)
+{
+    const struct IsaacTrainerType *type;
+    const u8 *const *names;
+    const struct TrainerMon *set;
+    s32 x, y;
+    u16 species;
+
+    GetCurrentCell(&x, &y);
+    type = GetRoomTrainerType(x, y);
+    species = GetRoomTrainerSpecies(x, y, type);
+    set = IsaacGetSet(species, 0);
+
+    memset(&sRoomTrainer, 0, sizeof(sRoomTrainer));
+    sRoomTrainer.trainerClass = type->trainerClass;
+    sRoomTrainer.trainerPic = type->trainerPic;
+    sRoomTrainer.gender = type->gender;
+    sRoomTrainer.encounterMusic = type->encounterMusic;
+    sRoomTrainer.battleType = TRAINER_BATTLE_TYPE_SINGLES;
+    sRoomTrainer.aiFlags = AI_FLAG_BASIC_TRAINER;
+    sRoomTrainer.multiTeamSize = MULTI_TEAM_SIZE_FULL;
+    names = (type->gender == TRAINER_GENDER_FEMALE) ? sFemaleTrainerNames : sMaleTrainerNames;
+    StringCopy(sRoomTrainer.trainerName, names[RoomRandom(x, y, 0x4A3) % ARRAY_COUNT(sMaleTrainerNames)]);
+
+    sRoomTrainerMons[0] = *set;
+    sRoomTrainerMons[0].lvl = ISAAC_MON_LEVEL;
+    sRoomTrainer.party = sRoomTrainerMons;
+    sRoomTrainer.partySize = 1;
+    return &sRoomTrainer;
+}
+
+static struct ObjectEventTemplate *GetObjectTemplate(u8 localId)
+{
+    u32 i;
+
+    for (i = 0; i < OBJECT_EVENT_TEMPLATES_COUNT; i++)
+        if (gSaveBlock1Ptr->objectEventTemplates[i].localId == localId)
+            return &gSaveBlock1Ptr->objectEventTemplates[i];
+    return NULL;
+}
+
+// Au chargement de la salle : place (ou cache) le dresseur et choisit son apparence. Pas encore vaincu, il
+// regarde la porte par laquelle le joueur arrive (la vue du dresseur couvre toute la salle).
+static void SetUpRoomTrainer(s32 x, s32 y)
+{
+    struct ObjectEventTemplate *template = GetObjectTemplate(LOCALID_ISAAC_ROOM_TRAINER);
+
+    if (template == NULL)
+        return;
+    if (!RoomHasTrainer(x, y))
+    {
+        template->x = -1000;  // loin hors de la map : jamais affiché
+        template->y = -1000;
+        return;
+    }
+    VarSet(VAR_OBJ_GFX_ID_0, GetRoomTrainerType(x, y)->objEventGfx);
+    template->x = ROOM_MID_X;
+    template->y = ROOM_MID_Y;
+    if (IsCleared(x, y))
+    {
+        FlagSet(TRAINER_FLAGS_START + TRAINER_ISAAC_ROOM);
+        template->movementType = MOVEMENT_TYPE_FACE_DOWN;
+        return;
+    }
+    // Retour de combat ou partie chargée (pas d'arrivée par une porte) : l'objet et le drapeau du dresseur sont
+    // déjà dans le bon état (après une victoire, le drapeau est mis avant que la salle soit marquée nettoyée)
+    if (sArrivalFacing == DIR_NONE)
+        return;
+    FlagClear(TRAINER_FLAGS_START + TRAINER_ISAAC_ROOM);
+    switch (sArrivalFacing)  // le joueur marche vers le centre : le dresseur lui fait face
+    {
+    case DIR_NORTH:
+        template->movementType = MOVEMENT_TYPE_FACE_DOWN;
+        break;
+    case DIR_SOUTH:
+        template->movementType = MOVEMENT_TYPE_FACE_UP;
+        break;
+    case DIR_EAST:
+        template->movementType = MOVEMENT_TYPE_FACE_LEFT;
+        break;
+    case DIR_WEST:
+        template->movementType = MOVEMENT_TYPE_FACE_RIGHT;
+        break;
+    default:
+        template->movementType = MOVEMENT_TYPE_FACE_DOWN;
+        break;
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Déplacements
 // ---------------------------------------------------------------------------
 
@@ -734,6 +927,7 @@ static void WarpToNewFloor(u32 floor)
     VarSet(VAR_ISAAC_FLOOR, floor);
     VarSet(VAR_ISAAC_SEED, Random());
     ClearVisited();
+    ClearClearedRooms();
     SetCurrentCell(ISAAC_START_X, ISAAC_START_Y);
     sArrivalFacing = DIR_SOUTH;
     WarpToRoom(ROOM_MID_X, ROOM_MID_Y);
@@ -949,6 +1143,46 @@ void IsaacPaintRoom(void)
     SetVisited(x, y);
     CarveRoom();
     PaintRoom();
+    SetUpRoomTrainer(x, y);
+}
+
+// Dresseur vaincu : la salle est nettoyée
+void IsaacSetRoomCleared(void)
+{
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    FlagSet(FLAG_ISAAC_CLEARED_FIRST + y * ISAAC_GRID_W + x);
+}
+
+// Remplit gIsaacTrainerReturnMovement : le dresseur revient en ligne droite au centre de la salle (il s'en est
+// éloigné en ligne droite pour approcher le joueur), puis regarde vers le bas
+void IsaacPrepareTrainerReturn(void)
+{
+    struct ObjectEvent *trainer;
+    u8 objectEventId;
+    s32 dx, dy;
+    u32 n = 0;
+
+    if (TryGetObjectEventIdByLocalIdAndMap(LOCALID_ISAAC_ROOM_TRAINER, gSaveBlock1Ptr->location.mapNum,
+                                           gSaveBlock1Ptr->location.mapGroup, &objectEventId))
+    {
+        gIsaacTrainerReturnMovement[0] = MOVEMENT_ACTION_STEP_END;
+        return;
+    }
+    trainer = &gObjectEvents[objectEventId];
+    dx = ROOM_MID_X - (trainer->currentCoords.x - MAP_OFFSET);
+    dy = ROOM_MID_Y - (trainer->currentCoords.y - MAP_OFFSET);
+    for (; dx > 0 && n < ISAAC_ROOM_W; dx--)
+        gIsaacTrainerReturnMovement[n++] = MOVEMENT_ACTION_WALK_NORMAL_RIGHT;
+    for (; dx < 0 && n < ISAAC_ROOM_W; dx++)
+        gIsaacTrainerReturnMovement[n++] = MOVEMENT_ACTION_WALK_NORMAL_LEFT;
+    for (; dy > 0 && n < ISAAC_ROOM_W; dy--)
+        gIsaacTrainerReturnMovement[n++] = MOVEMENT_ACTION_WALK_NORMAL_DOWN;
+    for (; dy < 0 && n < ISAAC_ROOM_W; dy++)
+        gIsaacTrainerReturnMovement[n++] = MOVEMENT_ACTION_WALK_NORMAL_UP;
+    gIsaacTrainerReturnMovement[n++] = MOVEMENT_ACTION_FACE_DOWN;
+    gIsaacTrainerReturnMovement[n] = MOVEMENT_ACTION_STEP_END;
 }
 
 // Bouton R dans une salle : ouvre la mini-carte. Suivre de `waitstate`.

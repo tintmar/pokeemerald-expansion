@@ -2098,6 +2098,9 @@ FEATURE_FLAG_ASSERT(I_EXP_SHARE_FLAG, YouNeedToSetTheExpShareFlagToAnUnusedFlag)
 
 static bool32 BattleTypeAllowsExp(void)
 {
+    // Donjon : tous les Pokémon sont niveau 50, aucun gain d'expérience (ni d'EVs)
+    if (TRUE)
+        return FALSE;
     if (RECORDED_WILD_BATTLE)
         return TRUE;
     else if (gBattleTypeFlags &

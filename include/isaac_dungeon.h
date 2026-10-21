@@ -12,6 +12,10 @@ void IsaacFaceArrivalDirection(void);
 void IsaacTakeExit(void);
 bool8 TryStartIsaacStepScript(s16 x, s16 y);
 void IsaacShowMinimap(void);
+void IsaacSetRoomCleared(void);
+void IsaacPrepareTrainerReturn(void);
+
+extern u8 gIsaacTrainerReturnMovement[];
 bool8 TryOpenIsaacMinimap(void);
 
 #endif // GUARD_ISAAC_DUNGEON_H

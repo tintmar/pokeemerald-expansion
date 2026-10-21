@@ -642,3 +642,5 @@ gSpecials::
 	def_special IsaacFaceArrivalDirection
 	def_special IsaacTakeExit
 	def_special IsaacShowMinimap
+	def_special IsaacSetRoomCleared
+	def_special IsaacPrepareTrainerReturn

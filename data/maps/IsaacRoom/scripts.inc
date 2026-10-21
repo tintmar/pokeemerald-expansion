@@ -32,3 +32,29 @@ Isaac_EventScript_Minimap::
 	waitstate
 	releaseall
 	end
+
+@ Dresseur d'une salle normale (placé par isaac_dungeon.c) : il regarde la porte par laquelle on arrive,
+@ s'approche et lance le combat ; vaincu, il retourne au centre de la salle
+IsaacRoom_EventScript_Trainer::
+	trainerbattle_single TRAINER_ISAAC_ROOM, IsaacRoom_Text_TrainerIntro, IsaacRoom_Text_TrainerDefeat, IsaacRoom_EventScript_TrainerDefeated
+	msgbox IsaacRoom_Text_TrainerPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+IsaacRoom_EventScript_TrainerDefeated::
+	special IsaacSetRoomCleared
+	special IsaacPrepareTrainerReturn
+	applymovement LOCALID_ISAAC_ROOM_TRAINER, gIsaacTrainerReturnMovement
+	waitmovement 0
+	release
+	end
+
+IsaacRoom_Text_TrainerIntro:
+	.string "Personne ne traverse cette salle\n"
+	.string "sans combattre !$"
+
+IsaacRoom_Text_TrainerDefeat:
+	.string "Bien joué…$"
+
+IsaacRoom_Text_TrainerPostBattle:
+	.string "La salle est à toi.\n"
+	.string "Continue ta descente !$"
