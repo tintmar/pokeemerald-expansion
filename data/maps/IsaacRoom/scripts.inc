@@ -111,9 +111,84 @@ IsaacRoom_EventScript_BossDefeated::
 	msgbox IsaacRoom_Text_BossReward, MSGBOX_DEFAULT
 	special IsaacPickBossReward
 	giveitem VAR_0x8004
+	special IsaacPrepareNurseArrival
+	addobject LOCALID_ISAAC_ROOM_NURSE
+	applymovement LOCALID_ISAAC_ROOM_NURSE, gIsaacNurseArrivalMovement
+	waitmovement 0
+	special IsaacSettleNurse
 	msgbox IsaacRoom_Text_BossPostBattle, MSGBOX_DEFAULT
 	release
 	end
+
+@ Infirmière (arrivée par le passage une fois le boss vaincu) : PP rendus gratuitement, puis soin partiel payant
+@ (voir IsaacNurseTryHeal)
+IsaacRoom_EventScript_Nurse::
+	lock
+	faceplayer
+	special IsaacNurseRestorePP
+	msgbox IsaacRoom_Text_NursePP, MSGBOX_DEFAULT
+	special IsaacNurseGetPrice
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_NurseNoNeed
+	showmoneybox 0, 0
+	msgbox IsaacRoom_Text_NurseOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_NurseDeclined
+	special IsaacNurseTryHeal
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_NurseNoMoney
+	updatemoneybox
+	playse SE_SHOP
+	msgbox IsaacRoom_Text_NurseHealing, MSGBOX_DEFAULT
+	playfanfare MUS_HEAL
+	waitfanfare
+	hidemoneybox
+	msgbox IsaacRoom_Text_NurseHealed, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_NurseNoNeed::
+	msgbox IsaacRoom_Text_NurseNoNeed, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_NurseDeclined::
+	hidemoneybox
+	msgbox IsaacRoom_Text_NurseDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_NurseNoMoney::
+	msgbox IsaacRoom_Text_NurseNoMoney, MSGBOX_DEFAULT
+	hidemoneybox
+	release
+	end
+
+IsaacRoom_Text_NursePP:
+	.string "Bravo pour ta victoire !\n"
+	.string "Je t'ai rendu tous tes PP, c'est\l"
+	.string "offert.$"
+
+IsaacRoom_Text_NurseOffer:
+	.string "Pour {STR_VAR_1}¥, je soigne ton équipe :\n"
+	.string "PV au complet pour ceux qui tiennent\l"
+	.string "debout, moitié des PV pour les K.O.\p"
+	.string "Ça te va ?$"
+
+IsaacRoom_Text_NurseHealing:
+	.string "Je m'occupe de tes Pokémon.$"
+
+IsaacRoom_Text_NurseHealed:
+	.string "Voilà ! Bonne chance pour la suite.$"
+
+IsaacRoom_Text_NurseNoNeed:
+	.string "Ton équipe est en pleine forme.\n"
+	.string "Bonne chance pour la suite !$"
+
+IsaacRoom_Text_NurseDeclined:
+	.string "Comme tu veux. Reviens me voir\n"
+	.string "avant de descendre si tu changes d'avis.$"
+
+IsaacRoom_Text_NurseNoMoney:
+	.string "Désolée, tu n'as pas assez\n"
+	.string "d'argent…$"
 
 IsaacRoom_Text_BossIntro:
 	.string "Je suis {STR_VAR_1}, et je garde\n"

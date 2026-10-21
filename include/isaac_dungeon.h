@@ -26,9 +26,15 @@ void IsaacPrepareWildBattle(void);
 void IsaacCaptureMonDone(void);
 void IsaacPickTrainerLoot(void);
 void IsaacPickBossReward(void);
+void IsaacPrepareNurseArrival(void);
+void IsaacSettleNurse(void);
+void IsaacNurseRestorePP(void);
+void IsaacNurseGetPrice(void);
+void IsaacNurseTryHeal(void);
 void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party);
 
 extern u8 gIsaacTrainerReturnMovement[];
+extern u8 gIsaacNurseArrivalMovement[];
 bool8 TryOpenIsaacMinimap(void);
 
 #endif // GUARD_ISAAC_DUNGEON_H

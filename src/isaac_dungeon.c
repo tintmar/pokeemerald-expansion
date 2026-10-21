@@ -11,6 +11,7 @@
 #include "isaac_pokemon.h"
 #include "item_icon.h"
 #include "menu.h"
+#include "money.h"
 #include "pokemon_icon.h"
 #include "overworld.h"
 #include "pokemon.h"
@@ -1317,6 +1318,153 @@ void IsaacOpenBossExit(void)
     DrawWholeMapView();
 }
 
+// ---------------------------------------------------------------------------
+// Infirmière de la salle du boss
+// ---------------------------------------------------------------------------
+// Le boss vaincu, elle arrive par le passage qui vient de s'ouvrir et se poste juste à côté (le passage reste
+// libre). Elle rend les PP gratuitement puis propose, contre ISAAC_NURSE_PRICE_PCT % de l'argent que l'étage
+// peut rapporter (tous ses dresseurs et le boss), un soin partiel : PV et statut au complet pour les Pokémon
+// debout, moitié des PV pour les K.O.
+
+#define ISAAC_NURSE_PRICE_PCT  25
+
+EWRAM_DATA u8 gIsaacNurseArrivalMovement[ISAAC_ROOM_H] = {0};
+
+static const u8 sDirToFaceMovementType[ISAAC_DIR_COUNT] =
+{
+    [ISAAC_DIR_NORTH] = MOVEMENT_TYPE_FACE_UP,
+    [ISAAC_DIR_EAST] = MOVEMENT_TYPE_FACE_RIGHT,
+    [ISAAC_DIR_SOUTH] = MOVEMENT_TYPE_FACE_DOWN,
+    [ISAAC_DIR_WEST] = MOVEMENT_TYPE_FACE_LEFT,
+};
+static const u8 sDirToWalkMovement[ISAAC_DIR_COUNT] =
+{
+    [ISAAC_DIR_NORTH] = MOVEMENT_ACTION_WALK_NORMAL_UP,
+    [ISAAC_DIR_EAST] = MOVEMENT_ACTION_WALK_NORMAL_RIGHT,
+    [ISAAC_DIR_SOUTH] = MOVEMENT_ACTION_WALK_NORMAL_DOWN,
+    [ISAAC_DIR_WEST] = MOVEMENT_ACTION_WALK_NORMAL_LEFT,
+};
+static const u8 sDirToFaceMovement[ISAAC_DIR_COUNT] =
+{
+    [ISAAC_DIR_NORTH] = MOVEMENT_ACTION_FACE_UP,
+    [ISAAC_DIR_EAST] = MOVEMENT_ACTION_FACE_RIGHT,
+    [ISAAC_DIR_SOUTH] = MOVEMENT_ACTION_FACE_DOWN,
+    [ISAAC_DIR_WEST] = MOVEMENT_ACTION_FACE_LEFT,
+};
+
+// Chemin de l'infirmière : de la case du passage, elle traverse le mur (2 cases en haut et en bas, 1 sur les
+// côtés), fait un pas dans la salle, puis un pas de côté (vers la droite ou le bas) et regarde la salle
+static u32 GetNurseSteps(u32 exitDir, u32 *sideDir)
+{
+    *sideDir = (exitDir == ISAAC_DIR_NORTH || exitDir == ISAAC_DIR_SOUTH) ? ISAAC_DIR_EAST : ISAAC_DIR_SOUTH;
+    return (exitDir == ISAAC_DIR_NORTH || exitDir == ISAAC_DIR_SOUTH) ? 3 : 2;
+}
+
+static void PlaceNurse(s32 x, s32 y, bool8 arriving)
+{
+    struct ObjectEventTemplate *template = GetObjectTemplate(LOCALID_ISAAC_ROOM_NURSE);
+    u32 exitDir = GetBossExitDir(x, y), inward = (exitDir + 2) % ISAAC_DIR_COUNT, sideDir, steps;
+
+    if (template == NULL)
+        return;
+    steps = GetNurseSteps(exitDir, &sideDir);
+    template->x = sDoorX[exitDir];
+    template->y = sDoorY[exitDir];
+    if (!arriving)
+    {
+        template->x += steps * sDirDx[inward] + sDirDx[sideDir];
+        template->y += steps * sDirDy[inward] + sDirDy[sideDir];
+    }
+    template->movementType = sDirToFaceMovementType[inward];
+}
+
+// Boss vaincu (après IsaacOpenBossExit) : l'infirmière est placée sur le passage, à faire apparaître avec
+// `addobject` puis marcher avec gIsaacNurseArrivalMovement. Suivre de IsaacSettleNurse.
+void IsaacPrepareNurseArrival(void)
+{
+    s32 x, y;
+    u32 exitDir, inward, sideDir, steps, n = 0;
+
+    GetCurrentCell(&x, &y);
+    exitDir = GetBossExitDir(x, y);
+    inward = (exitDir + 2) % ISAAC_DIR_COUNT;
+    PlaceNurse(x, y, TRUE);
+    for (steps = GetNurseSteps(exitDir, &sideDir); steps != 0; steps--)
+        gIsaacNurseArrivalMovement[n++] = sDirToWalkMovement[inward];
+    gIsaacNurseArrivalMovement[n++] = sDirToWalkMovement[sideDir];
+    gIsaacNurseArrivalMovement[n++] = sDirToFaceMovement[inward];
+    gIsaacNurseArrivalMovement[n] = MOVEMENT_ACTION_STEP_END;
+}
+
+// Une fois arrivée, elle reste à son poste (même si la caméra la fait disparaître puis réapparaître)
+void IsaacSettleNurse(void)
+{
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    PlaceNurse(x, y, FALSE);
+}
+
+void IsaacNurseRestorePP(void)
+{
+    u32 i;
+
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+        MonRestorePP(&gParties[B_TRAINER_PLAYER][i]);
+}
+
+static u32 GetNursePrice(void)
+{
+    s32 x, y;
+    u32 fights = 1;  // le boss
+
+    for (y = 0; y < ISAAC_GRID_H; y++)
+        for (x = 0; x < ISAAC_GRID_W; x++)
+            if (RoomHasTrainer(x, y))
+                fights++;
+    return fights * ISAAC_TRAINER_MONEY_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR) * ISAAC_NURSE_PRICE_PCT / 100 / 100 * 100;
+}
+
+static bool8 MonNeedsHealing(struct Pokemon *mon)
+{
+    return GetMonData(mon, MON_DATA_HP) < GetMonData(mon, MON_DATA_MAX_HP) || GetMonData(mon, MON_DATA_STATUS) != 0;
+}
+
+// Prix du soin dans gStringVar1 ; VAR_RESULT : TRUE si un Pokémon de l'équipe en a besoin
+void IsaacNurseGetPrice(void)
+{
+    u32 i;
+
+    ConvertIntToDecimalStringN(gStringVar1, GetNursePrice(), STR_CONV_MODE_LEFT_ALIGN, 6);
+    gSpecialVar_Result = FALSE;
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG) && MonNeedsHealing(&gParties[B_TRAINER_PLAYER][i]))
+            gSpecialVar_Result = TRUE;
+}
+
+// Soin payant ; VAR_RESULT : FALSE si le joueur n'a pas assez d'argent
+void IsaacNurseTryHeal(void)
+{
+    u32 price = GetNursePrice(), i, hp, status = 0;
+
+    gSpecialVar_Result = IsEnoughMoney(&gSaveBlock1Ptr->money, price);
+    if (!gSpecialVar_Result)
+        return;
+    RemoveMoney(&gSaveBlock1Ptr->money, price);
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+    {
+        struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][i];
+
+        if (GetMonData(mon, MON_DATA_IS_EGG))
+            continue;
+        hp = GetMonData(mon, MON_DATA_MAX_HP);
+        if (GetMonData(mon, MON_DATA_HP) == 0)
+            hp = max(hp / 2, 1);
+        SetMonData(mon, MON_DATA_HP, &hp);
+        SetMonData(mon, MON_DATA_STATUS, &status);
+    }
+}
+
 // Pokémon de la salle de capture pas encore combattus : à leur place, avec leur apparence ; les autres (et ceux
 // des autres salles) loin hors de la map
 static void SetUpCaptureMons(s32 x, s32 y)
@@ -1356,6 +1504,9 @@ static void SetUpRoomObjects(s32 x, s32 y)
 
     PlaceRoomObject(LOCALID_ISAAC_ROOM_ITEM, room == ROOM_TREASURE && !cleared);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_BOSS, room == ROOM_BOSS);
+    PlaceRoomObject(LOCALID_ISAAC_ROOM_NURSE, FALSE);
+    if (room == ROOM_BOSS && cleared)
+        PlaceNurse(x, y, FALSE);
     SetUpCaptureMons(x, y);
     if (room == ROOM_BOSS)
         SetUpBoss(x, y, cleared);
