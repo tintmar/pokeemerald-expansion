@@ -9327,9 +9327,7 @@ void TryRestoreHeldItems(void)
             if (originaItem == ITEM_NONE)
                 continue;
 
-            if (GetItemPocket(originaItem) == POCKET_BERRIES)
-                continue;
-
+            // Donjon : les baies consommées reviennent aussi après le combat, comme les autres objets
             SetMonData(&gParties[trainer][partySlot], MON_DATA_HELD_ITEM, &originaItem);
         }
     }
