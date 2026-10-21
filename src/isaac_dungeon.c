@@ -1813,8 +1813,8 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_TUTOR : maître des capacités, propose 3 attaques fortes (sTutorMoves) que le Pokémon choisi peut
 //    apprendre et ne connaît pas ; il en apprend une (en oubliant une autre s'il en connaît déjà 4) ;
 //  - ROOM_CONTENT_DUELIST : le duelliste annonce son Pokémon (plus fort que ceux de l'étage, voir GetIsaacTrainer),
-//    puis combat en 1 contre 1 contre le Pokémon choisi par le joueur. Perdre ne renvoie pas au hub ; gagner rapporte
-//    un objet de qualité intermédiaire (IsaacPickDuelReward). On peut le redéfier tant qu'on ne l'a pas battu ;
+//    puis combat en 1 contre 1 contre le Pokémon choisi par le joueur. Perdre ne renvoie pas au hub. Un seul duel :
+//    gagné, il donne une Guérison et un Ability Trainer ; perdu, un Rappel pour relever le Pokémon K.O. ;
 //  - ROOM_CONTENT_SEER : le voyant ouvre le passage vers la salle secrète de l'étage (seulement s'il y en a une) ;
 //  - ROOM_CONTENT_ROCK_SMASH : un entraîneur apprend Éclate-Roc au Pokémon choisi, qui pourra briser les roches qui
 //    ferment la salle secrète (seulement s'il y en a une, et si personne ne connaissait Éclate-Roc en début d'étage).
@@ -2231,29 +2231,6 @@ void IsaacDuelCheckMon(void)
     gSpecialVar_Result = !GetMonData(mon, MON_DATA_IS_EGG) && GetMonData(mon, MON_DATA_HP) != 0;
 }
 
-// Récompense du duel (dans VAR_0x8004) : une bonne CT ou un bon objet de combat (listes de la boutique), ou un Rappel
-// Max ; toujours la même pour la salle
-void IsaacPickDuelReward(void)
-{
-    s32 x, y;
-    u32 roll;
-
-    GetCurrentCell(&x, &y);
-    roll = RoomRandom(x, y, 0xD0E2);
-    switch (roll % 3)
-    {
-    case 0:
-        gSpecialVar_0x8004 = sShopTMs[(roll >> 8) % ARRAY_COUNT(sShopTMs)];
-        break;
-    case 1:
-        gSpecialVar_0x8004 = sShopBattleItems[(roll >> 8) % ARRAY_COUNT(sShopBattleItems)];
-        break;
-    default:
-        gSpecialVar_0x8004 = ITEM_MAX_REVIVE;
-        break;
-    }
-}
-
 // Le duel se joue en 1 contre 1 : l'équipe est mise de côté, il ne reste que le Pokémon choisi ; perdre ne renvoie
 // pas au hub (B_FLAG_NO_WHITEOUT). IsaacDuelRestoreParty remet tout en place après le combat.
 static EWRAM_DATA struct Pokemon sDuelSavedParty[PARTY_SIZE] = {0};
@@ -2272,7 +2249,7 @@ void IsaacDuelSetUpParty(void)
         ZeroMonData(&gParties[B_TRAINER_PLAYER][i]);
     CalculatePlayerPartyCount();
     FlagSet(B_FLAG_NO_WHITEOUT);
-    FlagClear(TRAINER_FLAGS_START + TRAINER_ISAAC_DUELIST);  // on peut le redéfier après une défaite
+    FlagClear(TRAINER_FLAGS_START + TRAINER_ISAAC_DUELIST);  // le combat a lieu même si un duelliste a déjà été battu
 }
 
 void IsaacDuelRestoreParty(void)

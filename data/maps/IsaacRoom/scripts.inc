@@ -539,7 +539,7 @@ IsaacRoom_Text_TutorNothing:
 	.string "Je n'ai rien à lui apprendre…$"
 
 @ Duelliste : il annonce son Pokémon, puis combat en 1 contre 1 contre le Pokémon choisi (perdre ne renvoie pas au
-@ hub, on peut le redéfier) ; gagner rapporte un objet de qualité intermédiaire
+@ hub). Un seul duel : gagné, une Guérison et un Ability Trainer ; perdu, un Rappel pour relever le Pokémon K.O.
 IsaacRoom_EventScript_Duelist::
 	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_DuelistDone
 	special IsaacPrepareDuel
@@ -557,16 +557,17 @@ IsaacRoom_EventScript_Duelist::
 IsaacRoom_EventScript_DuelistAfter::
 	copyvar VAR_0x8006, VAR_RESULT
 	special IsaacDuelRestoreParty
+	special IsaacSetRoomCleared
 	goto_if_ne VAR_0x8006, B_OUTCOME_WON, IsaacRoom_EventScript_DuelistLost
 	msgbox IsaacRoom_Text_DuelistWon, MSGBOX_DEFAULT
-	special IsaacPickDuelReward
-	giveitem VAR_0x8004
-	special IsaacSetRoomCleared
+	giveitem ITEM_FULL_RESTORE
+	giveitem ITEM_ABILITY_TRAINER
 	release
 	end
 
 IsaacRoom_EventScript_DuelistLost::
 	msgbox IsaacRoom_Text_DuelistLost, MSGBOX_DEFAULT
+	giveitem ITEM_REVIVE
 	release
 	end
 
@@ -605,8 +606,10 @@ IsaacRoom_Text_DuelistWon:
 	.string "récompense.$"
 
 IsaacRoom_Text_DuelistLost:
-	.string "Ha ! Reviens quand tu veux ta\n"
-	.string "revanche.$"
+	.string "Ha ! Belle tentative, mais un duel\n"
+	.string "ne se rejoue pas.\p"
+	.string "Tiens, pour remettre ton Pokémon\n"
+	.string "sur pied.$"
 
 IsaacRoom_Text_DuelistDone:
 	.string "Un duel mémorable. Bonne route !$"

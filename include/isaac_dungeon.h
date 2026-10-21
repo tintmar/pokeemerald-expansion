@@ -52,7 +52,6 @@ void IsaacPrepareDuel(void);
 void IsaacDuelCheckMon(void);
 void IsaacDuelSetUpParty(void);
 void IsaacDuelRestoreParty(void);
-void IsaacPickDuelReward(void);
 void IsaacOpenSecretRoom(void);
 void IsaacPrepareRockSmash(void);
 const u8 *IsaacGetWallInteractScript(s16 x, s16 y);
