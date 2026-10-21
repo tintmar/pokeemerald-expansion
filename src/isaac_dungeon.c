@@ -1560,7 +1560,7 @@ static void SetUpCaptureMons(s32 x, s32 y)
 // Kecleon tient la boutique de l'étage (menu Acheter / Quitter, CreateIsaacMartMenu). Ses articles possibles :
 //  - une Master Ball, une Guérison, un Rappel, un Rappel Max ;
 //  - deux objets de combat de sShopBattleItems et deux CT de sShopTMs (tirés pour la salle), un objet spécial
-//    de sShopSpecialItems.
+//    (IsaacPickSpecialItem).
 // Chacun n'est vraiment en vente qu'avec SHOP_SLOT_PRESENT_PCT % de chances (tiré pour l'étage,
 // IsShopSlotPresent), en un seul exemplaire.
 // Les prix se comptent en « gains d'un dresseur » de l'étage (ISAAC_TRAINER_MONEY_PER_FLOOR x étage, voir
@@ -1637,7 +1637,6 @@ static const u16 sShopTMs[] =
     ITEM_TM_ROOST,
 };
 
-static const u16 sShopSpecialItems[] = { ITEM_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER };
 
 // Prix en dixièmes des gains d'un dresseur de l'étage
 struct IsaacShopPrice
@@ -1691,7 +1690,7 @@ static u16 GetShopSlotItem(u32 slot)
             return sShopTMs[first];
         return sShopTMs[(first + 1 + (roll >> 8) % (ARRAY_COUNT(sShopTMs) - 1)) % ARRAY_COUNT(sShopTMs)];
     default:
-        return sShopSpecialItems[RoomRandom(x, y, 0x5495) % ARRAY_COUNT(sShopSpecialItems)];
+        return IsaacPickSpecialItem(RoomRandom(x, y, 0x5495));
     }
 }
 
@@ -1781,7 +1780,7 @@ void IsaacKecleonGreeting(void)
 //    salles visitées (environ deux étages, IsaacTickEggs) ;
 //  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de même catégorie (au sens du
 //    biome de chacun) et de même palier de set, de n'importe quel biome ; un légendaire contre un légendaire ;
-//  - ROOM_CONTENT_DEVIL : pacte du diable, un objet rare (sDevilPactRewards) contre le sacrifice définitif d'un
+//  - ROOM_CONTENT_DEVIL : pacte du diable, un objet rare (IsaacPrepareDevilPact) contre le sacrifice définitif d'un
 //    Pokémon de l'équipe (pas le dernier en état de se battre, pas un Œuf) ;
 //  - ROOM_CONTENT_TUTOR : maître des capacités, propose 3 attaques fortes (sTutorMoves) que le Pokémon choisi peut
 //    apprendre et ne connaît pas ; il en apprend une (en oubliant une autre s'il en connaît déjà 4) ;
@@ -2063,14 +2062,18 @@ void IsaacDoTrade(void)
 
 // Pacte du diable : objet proposé (toujours le même pour la salle) dans VAR_0x8006 et gStringVar2. VAR_RESULT = FALSE
 // si l'équipe n'a pas au moins deux Pokémon (hors Œufs) : on ne peut pas sacrifier le dernier.
-static const u16 sDevilPactRewards[] = { ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_MASTER_BALL, ITEM_EVOLUTION_STONE };
+
+#define DEVIL_PACT_MASTER_BALL_ODDS  5
 
 void IsaacPrepareDevilPact(void)
 {
     s32 x, y;
+    u32 roll;
 
     GetCurrentCell(&x, &y);
-    gSpecialVar_0x8006 = sDevilPactRewards[RoomRandom(x, y, 0xD3E1) % ARRAY_COUNT(sDevilPactRewards)];
+    roll = RoomRandom(x, y, 0xD3E1);
+    // une fois sur DEVIL_PACT_MASTER_BALL_ODDS une Master Ball, sinon un objet spécial
+    gSpecialVar_0x8006 = (roll % DEVIL_PACT_MASTER_BALL_ODDS == 0) ? ITEM_MASTER_BALL : IsaacPickSpecialItem(roll >> 4);
     CopyItemName(gSpecialVar_0x8006, gStringVar2);
     gSpecialVar_Result = CountPartyFighters() >= 2;
 }
@@ -2295,8 +2298,21 @@ const u8 *IsaacGetWallInteractScript(s16 x, s16 y)
     return IsaacRoom_EventScript_SecretWall;
 }
 
-// Au chargement de la salle : Pokémon sauvages (salle de capture), Pierre Évolution (salle trésor, tant qu'elle
-// n'est pas ramassée), boss
+// Objet de la salle trésor (dans VAR_0x8004) : un seul objet spécial au hasard ; toujours une Pierre Évolution au
+// premier étage
+void IsaacPickTreasureItem(void)
+{
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    if (VarGet(VAR_ISAAC_FLOOR) == 1)
+        gSpecialVar_0x8004 = ITEM_EVOLUTION_STONE;
+    else
+        gSpecialVar_0x8004 = IsaacPickSpecialItem(RoomRandom(x, y, 0x7EA5));
+}
+
+// Au chargement de la salle : Pokémon sauvages (salle de capture), objet de la salle trésor (tant qu'il n'est pas
+// ramassé), boss, personnages
 static void SetUpRoomObjects(s32 x, s32 y)
 {
     u8 room = GetRoom(x, y);

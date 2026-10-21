@@ -1137,6 +1137,24 @@ void ItemUseOutOfBattle_IsaacAbilityTrainer(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_IsaacSuperEvolutionStone(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacSuperEvolutionStone;
+    SetUpItemUseCallback(taskId);
+}
+
+void ItemUseOutOfBattle_IsaacStatBoost(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacStatBoost;
+    SetUpItemUseCallback(taskId);
+}
+
+void ItemUseOutOfBattle_IsaacBrilliantStone(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacBrilliantStone;
+    SetUpItemUseCallback(taskId);
+}
+
 static u32 GetBallThrowableState(void)
 {
     if (IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))

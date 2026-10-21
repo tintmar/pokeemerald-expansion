@@ -1417,7 +1417,7 @@ void CalculateMonStatsCont(struct Pokemon *mon, bool32 updateSpeedStat)
         n = ModifyStatByNature(nature, n, i);
         if (B_FRIENDSHIP_BOOST == TRUE)
             n = n + ((n * 10 * friendship) / (MAX_FRIENDSHIP * 100));
-        n = IsaacApplyOmniboost(mon, n);
+        n = IsaacApplyStatBoosts(mon, i, n);
         SetMonData(mon, MON_DATA_MAX_HP + i, &n);
     }
 
@@ -1434,7 +1434,7 @@ void CalculateMonStatsCont(struct Pokemon *mon, bool32 updateSpeedStat)
     {
         s32 n = 2 * GetSpeciesBaseHP(species) + iv[STAT_HP];
         newMaxHP = (((n + ev[STAT_HP] / 4) * level) / 100) + level + 10;
-        newMaxHP = IsaacApplyOmniboost(mon, newMaxHP);
+        newMaxHP = IsaacApplyStatBoosts(mon, STAT_HP, newMaxHP);
     }
 
     gBattleScripting.levelUpHP = newMaxHP - oldMaxHP;

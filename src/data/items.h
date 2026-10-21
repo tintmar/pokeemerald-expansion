@@ -4316,6 +4316,150 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_AbilityPatch,
     },
 
+    // Donjon : fait évoluer jusqu'au stade final (voir ItemUseCB_IsaacSuperEvolutionStone)
+    [ITEM_SUPER_EVOLUTION_STONE] =
+    {
+        .name = ITEM_NAME("Super Evo Stone"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Makes a Pokémon\n"
+            "evolve to its\n"
+            "final stage."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_EVOLUTION_STONE,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacSuperEvolutionStone,
+        .flingPower = 30,
+        .iconPic = gItemIcon_DuskStone,
+        .iconPalette = gItemIconPalette_DuskStone,
+    },
+
+    // Donjon : +25 % à une stat, une fois par stat (voir IsaacAddStatBoost)
+    [ITEM_BOOST_HP] =
+    {
+        .name = ITEM_NAME("HP Boost"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Raises the HP\n"
+            "of a Pokémon by\n"
+            "25% for good."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacStatBoost,
+        .flingPower = 30,
+        .iconPic = gItemIcon_HPUp,
+        .iconPalette = gItemIconPalette_HPUp,
+    },
+
+    // Donjon : +25 % à une stat, une fois par stat (voir IsaacAddStatBoost)
+    [ITEM_BOOST_ATK] =
+    {
+        .name = ITEM_NAME("Attack Boost"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Raises the Attack\n"
+            "of a Pokémon by\n"
+            "25% for good."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacStatBoost,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Vitamin,
+        .iconPalette = gItemIconPalette_Protein,
+    },
+
+    // Donjon : +25 % à une stat, une fois par stat (voir IsaacAddStatBoost)
+    [ITEM_BOOST_DEF] =
+    {
+        .name = ITEM_NAME("Defense Boost"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Raises the Defense\n"
+            "of a Pokémon by\n"
+            "25% for good."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacStatBoost,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Vitamin,
+        .iconPalette = gItemIconPalette_Iron,
+    },
+
+    // Donjon : +25 % à une stat, une fois par stat (voir IsaacAddStatBoost)
+    [ITEM_BOOST_SPEED] =
+    {
+        .name = ITEM_NAME("Speed Boost"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Raises the Speed\n"
+            "of a Pokémon by\n"
+            "25% for good."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacStatBoost,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Vitamin,
+        .iconPalette = gItemIconPalette_Carbos,
+    },
+
+    // Donjon : +25 % à une stat, une fois par stat (voir IsaacAddStatBoost)
+    [ITEM_BOOST_SPATK] =
+    {
+        .name = ITEM_NAME("Sp. Atk Boost"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Raises the Sp. Atk\n"
+            "of a Pokémon by\n"
+            "25% for good."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacStatBoost,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Vitamin,
+        .iconPalette = gItemIconPalette_Calcium,
+    },
+
+    // Donjon : +25 % à une stat, une fois par stat (voir IsaacAddStatBoost)
+    [ITEM_BOOST_SPDEF] =
+    {
+        .name = ITEM_NAME("Sp. Def Boost"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Raises the Sp. Def\n"
+            "of a Pokémon by\n"
+            "25% for good."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacStatBoost,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Vitamin,
+        .iconPalette = gItemIconPalette_Zinc,
+    },
+
+    // Donjon : rend le Pokémon chromatique et augmente sa meilleure stat de 20 % (voir IsaacUseBrilliantStone)
+    [ITEM_BRILLIANT_STONE] =
+    {
+        .name = ITEM_NAME("Brilliant Stone"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Makes a Pokémon\n"
+            "shiny and raises\n"
+            "its best stat."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_EVOLUTION_STONE,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacBrilliantStone,
+        .flingPower = 30,
+        .iconPic = gItemIcon_ShinyStone,
+        .iconPalette = gItemIconPalette_ShinyStone,
+    },
+
     [ITEM_DAWN_STONE] =
     {
         .name = ITEM_NAME("Dawn Stone"),

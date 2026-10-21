@@ -1051,9 +1051,18 @@ enum __attribute__((packed)) Item
     ITEM_BAXCALIBRITE = 871,
     ITEM_TATSUGIRINITE = 872,
     ITEM_GLIMMORANITE = 873,
-    ITEM_EVOLUTION_STONE = 874,
-    ITEM_OMNIBOOST = 875,
-    ITEM_ABILITY_TRAINER = 876,  // Donjon : le Pokémon passe au set suivant (1 -> 2 -> 3)  // Donjon : +10 % à toutes les stats d'un Pokémon, pour toujours (cumulable)  // Donjon : fait évoluer d'un stade, avec le set équivalent (salle trésor)
+    // Donjon : objets spéciaux (voir IsaacPickSpecialItem)
+    ITEM_EVOLUTION_STONE = 874,        // fait évoluer d'un stade
+    ITEM_OMNIBOOST = 875,              // +10 % à toutes les stats, pour toujours (cumulable)
+    ITEM_ABILITY_TRAINER = 876,        // le Pokémon passe au set suivant (1 -> 2 -> 3)
+    ITEM_SUPER_EVOLUTION_STONE = 877,  // fait évoluer jusqu'au stade final
+    ITEM_BOOST_HP = 878,               // +25 % à une stat, une fois par stat (ITEM_BOOST_HP + STAT_*)
+    ITEM_BOOST_ATK = 879,
+    ITEM_BOOST_DEF = 880,
+    ITEM_BOOST_SPEED = 881,
+    ITEM_BOOST_SPATK = 882,
+    ITEM_BOOST_SPDEF = 883,
+    ITEM_BRILLIANT_STONE = 884,        // rend chromatique et +20 % à la meilleure stat
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

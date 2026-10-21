@@ -85,12 +85,11 @@ IsaacRoom_EventScript_WildMon:
 	release
 	end
 
-@ Salle trésor : pour l'instant (tests), les trois objets spéciaux
+@ Salle trésor : un objet spécial au hasard (une Pierre Évolution au premier étage, voir IsaacPickTreasureItem)
 IsaacRoom_EventScript_Treasure::
 	lock
-	giveitem ITEM_EVOLUTION_STONE
-	giveitem ITEM_OMNIBOOST
-	giveitem ITEM_ABILITY_TRAINER
+	special IsaacPickTreasureItem
+	giveitem VAR_0x8004
 	special IsaacSetRoomCleared
 	removeobject LOCALID_ISAAC_ROOM_ITEM
 	release

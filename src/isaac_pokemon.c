@@ -73,6 +73,37 @@ static u32 GetEvolutions(enum Species species, u16 *targets, u32 max)
     return count;
 }
 
+// Stade final d'une espèce (Super Pierre Évolution), en tirant au hasard aux embranchements ; SPECIES_NONE si elle
+// n'évolue pas
+enum Species IsaacGetFinalEvolution(enum Species species, u32 roll)
+{
+    enum Species next = IsaacGetEvolution(species, roll), final = SPECIES_NONE;
+
+    while (next != SPECIES_NONE)
+    {
+        final = next;
+        roll = roll * 1103515245 + 12345;
+        next = IsaacGetEvolution(final, roll >> 8);
+    }
+    return final;
+}
+
+// Objet spécial tiré au hasard (salle trésor, boutique, pacte du diable) : chaque entrée a la même chance ; les
+// 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants
+u16 IsaacPickSpecialItem(u32 roll)
+{
+    static const u16 sSpecialItems[] =
+    {
+        ITEM_EVOLUTION_STONE, ITEM_SUPER_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_BOOST_HP,
+        ITEM_BRILLIANT_STONE,
+    };
+    u16 item = sSpecialItems[roll % ARRAY_COUNT(sSpecialItems)];
+
+    if (item == ITEM_BOOST_HP)
+        item = ITEM_BOOST_HP + (roll >> 8) % NUM_STATS;
+    return item;
+}
+
 // Évolution suivante d'une espèce (choice départage Évoli, Têtarte...), SPECIES_NONE s'il n'y en a pas
 enum Species IsaacGetEvolution(enum Species species, u32 choice)
 {
@@ -201,10 +232,55 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 #define ISAAC_TIER_DATA       MON_DATA_BEAUTY
 #define ISAAC_VARIANT_DATA    MON_DATA_CUTE
 
-// Stat (PV compris) avec les Omniboosts du Pokémon : +10 % chacun
-s32 IsaacApplyOmniboost(struct Pokemon *mon, s32 stat)
+// Boosts de stat reçus (+25 %, un par stat) : un bit par stat (1 << STAT_*), dans la stat de concours Intelligence
+#define ISAAC_STAT_BOOST_DATA  MON_DATA_SMART
+#define ISAAC_STAT_BOOST_PCT   25
+// Pierre brillante : stat boostée + 1 (0 : pas encore utilisée), dans la stat de concours Robustesse
+#define ISAAC_BRILLIANT_DATA   MON_DATA_TOUGH
+#define ISAAC_BRILLIANT_PCT    20
+
+// Valeur d'une stat (STAT_*, PV compris) avec les bonus du donjon : Omniboosts (+10 % chacun), boost de cette stat,
+// Pierre brillante
+s32 IsaacApplyStatBoosts(struct Pokemon *mon, u32 stat, s32 value)
 {
-    return stat * (10 + GetMonData(mon, ISAAC_OMNIBOOST_DATA)) / 10;
+    value = value * (10 + GetMonData(mon, ISAAC_OMNIBOOST_DATA)) / 10;
+    if (GetMonData(mon, ISAAC_STAT_BOOST_DATA) & (1 << stat))
+        value = value * (100 + ISAAC_STAT_BOOST_PCT) / 100;
+    if (GetMonData(mon, ISAAC_BRILLIANT_DATA) == stat + 1)
+        value = value * (100 + ISAAC_BRILLIANT_PCT) / 100;
+    return value;
+}
+
+// Boost de la stat (STAT_*) : FALSE si le Pokémon l'a déjà reçu ; les stats sont recalculées
+bool8 IsaacAddStatBoost(struct Pokemon *mon, u32 stat)
+{
+    u32 boosts = GetMonData(mon, ISAAC_STAT_BOOST_DATA);
+
+    if (boosts & (1 << stat))
+        return FALSE;
+    boosts |= 1 << stat;
+    SetMonData(mon, ISAAC_STAT_BOOST_DATA, &boosts);
+    CalculateMonStats(mon);
+    return TRUE;
+}
+
+// Pierre brillante : le Pokémon devient chromatique et sa meilleure stat actuelle (PV compris) monte de 20 %. FALSE
+// s'il en a déjà reçu une ; *stat = la stat boostée.
+bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat)
+{
+    u32 best = STAT_HP, i, value = TRUE;
+
+    if (GetMonData(mon, ISAAC_BRILLIANT_DATA) != 0)
+        return FALSE;
+    for (i = STAT_HP + 1; i < NUM_STATS; i++)
+        if (GetMonData(mon, MON_DATA_MAX_HP + i) > GetMonData(mon, MON_DATA_MAX_HP + best))
+            best = i;
+    SetMonData(mon, MON_DATA_IS_SHINY, &value);
+    value = best + 1;
+    SetMonData(mon, ISAAC_BRILLIANT_DATA, &value);
+    CalculateMonStats(mon);
+    *stat = best;
+    return TRUE;
 }
 
 // Un Omniboost de plus (FALSE s'il en a déjà le maximum) ; les stats sont recalculées
@@ -295,8 +371,8 @@ u32 IsaacGetMonSetVariant(struct Pokemon *mon)
     return FindMonSetByMoves(mon, &tier, &variant) ? variant : 0;
 }
 
-// Remplace le Pokémon par un set de l'espèce donnée. Il garde son pourcentage de PV, son statut et ses
-// Omniboosts.
+// Remplace le Pokémon par un set de l'espèce donnée. Il garde son pourcentage de PV, son statut, ses
+// Omniboosts, boosts de stat et Pierre brillante (et son chromatisme).
 static void ReplaceWithSet(struct Pokemon *mon, enum Species species, u32 tier, u32 variant)
 {
     struct Pokemon replacement;
@@ -304,10 +380,16 @@ static void ReplaceWithSet(struct Pokemon *mon, enum Species species, u32 tier, 
     u32 maxHP = GetMonData(mon, MON_DATA_MAX_HP);
     u32 status = GetMonData(mon, MON_DATA_STATUS);
     u32 omniboosts = GetMonData(mon, ISAAC_OMNIBOOST_DATA);
+    u32 statBoosts = GetMonData(mon, ISAAC_STAT_BOOST_DATA);
+    u32 brilliant = GetMonData(mon, ISAAC_BRILLIANT_DATA);
+    u32 shiny = GetMonData(mon, MON_DATA_IS_SHINY);
     u32 newHP;
 
     IsaacCreateMonFromSet(&replacement, species, tier, variant, Random32());
     SetMonData(&replacement, ISAAC_OMNIBOOST_DATA, &omniboosts);
+    SetMonData(&replacement, ISAAC_STAT_BOOST_DATA, &statBoosts);
+    SetMonData(&replacement, ISAAC_BRILLIANT_DATA, &brilliant);
+    SetMonData(&replacement, MON_DATA_IS_SHINY, &shiny);
     CalculateMonStats(&replacement);
     newHP = GetMonData(&replacement, MON_DATA_MAX_HP);
     if (maxHP != 0 && hp < maxHP)

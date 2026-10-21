@@ -6364,14 +6364,20 @@ static void CB2_AfterIsaacEvolution(void)
     SetMainCallback2(sIsaacEvolutionExitCallback);
 }
 
-void ItemUseCB_IsaacEvolutionStone(u8 taskId, TaskFunc task)
+// Pierre Évolution (un stade) ou Super Pierre Évolution (stade final)
+static void UseIsaacEvolutionStone(u8 taskId, TaskFunc task, bool32 toFinalStage)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
     enum Species target = SPECIES_NONE;
 
     PlaySE(SE_SELECT);
     if (!GetMonData(mon, MON_DATA_IS_EGG))
-        target = IsaacGetEvolution(GetMonData(mon, MON_DATA_SPECIES), Random());
+    {
+        if (toFinalStage)
+            target = IsaacGetFinalEvolution(GetMonData(mon, MON_DATA_SPECIES), Random32());
+        else
+            target = IsaacGetEvolution(GetMonData(mon, MON_DATA_SPECIES), Random());
+    }
     if (target == SPECIES_NONE)
     {
         gPartyMenuUseExitCallback = FALSE;
@@ -6386,6 +6392,80 @@ void ItemUseCB_IsaacEvolutionStone(u8 taskId, TaskFunc task)
     RemoveBagItem(gSpecialVar_ItemId, 1);
     BeginEvolutionScene(mon, target, FALSE, gPartyMenu.slotId);
     FreePartyPointers();
+}
+
+void ItemUseCB_IsaacEvolutionStone(u8 taskId, TaskFunc task)
+{
+    UseIsaacEvolutionStone(taskId, task, FALSE);
+}
+
+// Donjon : Super Pierre Évolution, directement au stade final
+void ItemUseCB_IsaacSuperEvolutionStone(u8 taskId, TaskFunc task)
+{
+    UseIsaacEvolutionStone(taskId, task, TRUE);
+}
+
+static const u8 *const sIsaacStatNames[NUM_STATS] =
+{
+    [STAT_HP] = COMPOUND_STRING("HP"),
+    [STAT_ATK] = COMPOUND_STRING("Attack"),
+    [STAT_DEF] = COMPOUND_STRING("Defense"),
+    [STAT_SPEED] = COMPOUND_STRING("Speed"),
+    [STAT_SPATK] = COMPOUND_STRING("Sp. Atk"),
+    [STAT_SPDEF] = COMPOUND_STRING("Sp. Def"),
+};
+
+static void IsaacItemWontHaveEffect(u8 taskId, TaskFunc task)
+{
+    gPartyMenuUseExitCallback = FALSE;
+    PlaySE(SE_SELECT);
+    DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = task;
+}
+
+static void IsaacItemUsed(u8 taskId, TaskFunc task, const u8 *message)
+{
+    gPartyMenuUseExitCallback = TRUE;
+    PlaySE(SE_USE_ITEM);
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    DisplayPartyPokemonData(gPartyMenu.slotId);
+    StringExpandPlaceholders(gStringVar4, message);
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = task;
+}
+
+// Donjon : boost de stat (ITEM_BOOST_HP + STAT_*), +25 % à cette stat, une fois par stat
+void ItemUseCB_IsaacStatBoost(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    u32 stat = gSpecialVar_ItemId - ITEM_BOOST_HP;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacAddStatBoost(mon, stat))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, sIsaacStatNames[stat]);
+    IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1}'s {STR_VAR_2}\nrose by 25%!{PAUSE_UNTIL_PRESS}"));
+}
+
+// Donjon : Pierre brillante, chromatique et +20 % à la meilleure stat, une fois par Pokémon
+void ItemUseCB_IsaacBrilliantStone(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    u32 stat;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacUseBrilliantStone(mon, &stat))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, sIsaacStatNames[stat]);
+    IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} is shining!\nIts {STR_VAR_2} rose by 20%!{PAUSE_UNTIL_PRESS}"));
 }
 
 // Donjon : Omniboost, +10 % à toutes les stats du Pokémon (cumulable)

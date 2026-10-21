@@ -77,7 +77,11 @@ u32 IsaacGetMonSetVariant(struct Pokemon *mon);
 void IsaacPrepareEvolutionMoves(struct Pokemon *mon, enum Species target);
 u16 IsaacTryLearningEvolutionMove(struct Pokemon *mon, bool8 firstMove);
 void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index);
-s32 IsaacApplyOmniboost(struct Pokemon *mon, s32 stat);
+s32 IsaacApplyStatBoosts(struct Pokemon *mon, u32 stat, s32 value);
+bool8 IsaacAddStatBoost(struct Pokemon *mon, u32 stat);
+bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat);
+enum Species IsaacGetFinalEvolution(enum Species species, u32 roll);
+u16 IsaacPickSpecialItem(u32 roll);
 bool8 IsaacAddOmniboost(struct Pokemon *mon);
 bool8 IsaacUpgradeSet(struct Pokemon *mon);
 
