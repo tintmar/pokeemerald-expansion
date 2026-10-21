@@ -319,6 +319,10 @@ static const u8 *GetInteractionScript(struct MapPosition *position, u8 metatileB
     if (script != NULL)
         return script;
 
+    script = IsaacGetWallInteractScript(position->x, position->y);  // donjon : roche de la salle secrète
+    if (script != NULL)
+        return script;
+
     script = GetInteractedMetatileScript(position, metatileBehavior, direction);
     if (script != NULL)
         return script;

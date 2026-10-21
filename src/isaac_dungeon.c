@@ -65,7 +65,8 @@
  *      S'il manque des culs-de-sac ou des salles, on recommence avec une autre graine ;
  *   3. la SALLE SECRÈTE (à partir de ISAAC_SECRET_MIN_FLOOR) : la case vide qui touche le plus de salles
  *      (au moins 2, jamais le boss). Les portes qui y mènent sont fermées par de la roche tant que le passage
- *      n'est pas ouvert (FLAG_ISAAC_SECRET_OPEN, par le voyant).
+ *      n'est pas ouvert (FLAG_ISAAC_SECRET_OPEN) : par le voyant, ou avec Éclate-Roc en parlant à l'une de ces
+ *      roches (IsaacGetWallInteractScript).
  *
  * BIOMES : une descente traverse les ISAAC_BIOME_COUNT biomes (data/isaac_biomes.h), un étage chacun, dans un
  * ordre tiré au début de la descente (VAR_ISAAC_BIOME_ORDER) ; après le boss du dernier, la salle de la victoire.
@@ -125,6 +126,8 @@ STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 < FLAG_UNUSED_
 
 // Passage vers la salle secrète de l'étage ouvert (sinon ses portes sont fermées par de la roche)
 #define FLAG_ISAAC_SECRET_OPEN  FLAG_UNUSED_0x020
+// Personne dans l'équipe ne connaissait Éclate-Roc au début de l'étage : l'entraîneur d'Éclate-Roc peut y apparaître
+#define FLAG_ISAAC_ROCK_SMASH_TEACHER  FLAG_UNUSED_0x021
 
 #define ISAAC_START_X  (ISAAC_GRID_W / 2)
 #define ISAAC_START_Y  (ISAAC_GRID_H / 2)
@@ -291,6 +294,7 @@ STATIC_ASSERT(ARRAY_COUNT(sVisitedVars) * 16 >= ISAAC_GRID_W * ISAAC_GRID_H, Eno
 
 extern const u8 Isaac_EventScript_Exit[];
 extern const u8 Hub_EventScript_NeedPokemon[];
+extern const u8 IsaacRoom_EventScript_SecretWall[];
 extern const u8 Isaac_EventScript_Minimap[];
 
 static EWRAM_DATA u32 sSeed = 0;
@@ -1772,7 +1776,9 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_DUELIST : le duelliste annonce son Pokémon (plus fort que ceux de l'étage, voir GetIsaacTrainer),
 //    puis combat en 1 contre 1 contre le Pokémon choisi par le joueur. Perdre ne renvoie pas au hub ; gagner rapporte
 //    un objet de qualité intermédiaire (IsaacPickDuelReward). On peut le redéfier tant qu'on ne l'a pas battu ;
-//  - ROOM_CONTENT_SEER : le voyant ouvre le passage vers la salle secrète de l'étage (seulement s'il y en a une).
+//  - ROOM_CONTENT_SEER : le voyant ouvre le passage vers la salle secrète de l'étage (seulement s'il y en a une) ;
+//  - ROOM_CONTENT_ROCK_SMASH : un entraîneur apprend Éclate-Roc au Pokémon choisi, qui pourra briser les roches qui
+//    ferment la salle secrète (seulement s'il y en a une, et si personne ne connaissait Éclate-Roc en début d'étage).
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
 
 #define ISAAC_EGG_HATCH_ROOMS  20
@@ -1802,9 +1808,21 @@ static bool8 IsRoomContentAvailable(u32 content)
         return VarGet(VAR_ISAAC_FLOOR) == GetEggFloor();
     case ROOM_CONTENT_SEER:
         return FloorHasSecretRoom();
+    case ROOM_CONTENT_ROCK_SMASH:
+        return FloorHasSecretRoom() && FlagGet(FLAG_ISAAC_ROCK_SMASH_TEACHER);
     default:
         return TRUE;
     }
+}
+
+static bool8 PartyKnowsMove(u16 move)
+{
+    u32 i;
+
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG) && MonKnowsMove(&gParties[B_TRAINER_PLAYER][i], move))
+            return TRUE;
+    return FALSE;
 }
 
 static bool8 IsEmptyRoom(s32 x, s32 y)
@@ -1856,6 +1874,7 @@ static void SetUpRoomContent(s32 x, s32 y)
         [ROOM_CONTENT_TUTOR]  = { OBJ_EVENT_GFX_EXPERT_M,   OBJ_EVENT_GFX_SWIMMER_M },
         [ROOM_CONTENT_DUELIST] = { OBJ_EVENT_GFX_BLACK_BELT, OBJ_EVENT_GFX_SWIMMER_M },
         [ROOM_CONTENT_SEER]   = { OBJ_EVENT_GFX_PSYCHIC_M,  OBJ_EVENT_GFX_SWIMMER_M },
+        [ROOM_CONTENT_ROCK_SMASH] = { OBJ_EVENT_GFX_HIKER, OBJ_EVENT_GFX_SWIMMER_M },
     };
     u32 content = GetRoomContent(x, y);
 
@@ -2213,6 +2232,37 @@ void IsaacOpenSecretRoom(void)
     DrawWholeMapView();
 }
 
+// Entraîneur d'Éclate-Roc, Pokémon n° VAR_0x8004 : VAR_RESULT = 0 s'il ne peut pas l'apprendre (ou Œuf, ou s'il la
+// connaît déjà), 1 s'il l'apprend tout de suite (place libre), 2 s'il doit oublier une attaque
+// (IsaacTutorChooseMoveToForget puis IsaacTutorReplaceMove). gStringVar1 = le Pokémon, gStringVar2 = l'attaque.
+void IsaacPrepareRockSmash(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+
+    sTutorMove = MOVE_ROCK_SMASH;
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, GetMoveName(MOVE_ROCK_SMASH));
+    if (GetMonData(mon, MON_DATA_IS_EGG) || MonKnowsMove(mon, MOVE_ROCK_SMASH)
+     || !CanLearnTutorMove(GetMonData(mon, MON_DATA_SPECIES), MOVE_ROCK_SMASH))
+        gSpecialVar_Result = 0;
+    else if (GiveMoveToMon(mon, MOVE_ROCK_SMASH) == MOVE_ROCK_SMASH)
+        gSpecialVar_Result = 1;
+    else
+        gSpecialVar_Result = 2;
+}
+
+// Bouton A face à une case : si c'est une roche qui ferme la salle secrète et qu'un Pokémon de l'équipe connaît
+// Éclate-Roc, script pour la briser (ailleurs, rien : les autres murs ne trahissent pas la salle secrète)
+const u8 *IsaacGetWallInteractScript(s16 x, s16 y)
+{
+    x -= MAP_OFFSET;
+    y -= MAP_OFFSET;
+    if (!IsInRoomMap() || !InPaintArea(x, y) || sCell[y - PAINT_MIN][x - PAINT_MIN] != CELL_HIDDEN
+     || FlagGet(FLAG_ISAAC_SECRET_OPEN) || !PartyKnowsMove(MOVE_ROCK_SMASH))
+        return NULL;
+    return IsaacRoom_EventScript_SecretWall;
+}
+
 // Au chargement de la salle : Pokémon sauvages (salle de capture), Pierre Évolution (salle trésor, tant qu'elle
 // n'est pas ramassée), boss
 static void SetUpRoomObjects(s32 x, s32 y)
@@ -2286,6 +2336,10 @@ static void WarpToNewFloor(u32 floor)
     for (u32 i = 0; i < SHOP_LIMITED_SLOTS; i++)
         FlagClear(FLAG_ISAAC_SHOP_SOLD_FIRST + i);
     FlagClear(FLAG_ISAAC_SECRET_OPEN);
+    if (PartyKnowsMove(MOVE_ROCK_SMASH))
+        FlagClear(FLAG_ISAAC_ROCK_SMASH_TEACHER);
+    else
+        FlagSet(FLAG_ISAAC_ROCK_SMASH_TEACHER);
     SetCurrentCell(ISAAC_START_X, ISAAC_START_Y);
     sArrivalFacing = DIR_SOUTH;
     WarpToRoom(ROOM_MID_X, ROOM_MID_Y);

@@ -246,6 +246,7 @@ IsaacRoom_EventScript_Content::
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_TUTOR, IsaacRoom_EventScript_Tutor
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_DUELIST, IsaacRoom_EventScript_Duelist
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_SEER, IsaacRoom_EventScript_Seer
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_ROCK_SMASH, IsaacRoom_EventScript_RockSmashTeacher
 	release
 	end
 
@@ -637,4 +638,75 @@ IsaacRoom_Text_SeerOpened:
 IsaacRoom_Text_SeerAlreadyOpen:
 	.string "Mais… tu as déjà trouvé le passage.\n"
 	.string "Impressionnant.$"
+
+@ Entraîneur d'Éclate-Roc : apprend Éclate-Roc au Pokémon choisi
+IsaacRoom_EventScript_RockSmashTeacher::
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_RockSmashTeacherDone
+	msgbox IsaacRoom_Text_RockSmashIntro, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_TutorDeclined
+	special IsaacPrepareRockSmash
+	goto_if_eq VAR_RESULT, 0, IsaacRoom_EventScript_RockSmashCant
+	goto_if_eq VAR_RESULT, 1, IsaacRoom_EventScript_RockSmashLearned
+	msgbox IsaacRoom_Text_TutorForget, MSGBOX_DEFAULT
+	fadescreen FADE_TO_BLACK
+	special IsaacTutorChooseMoveToForget
+	fadescreen FADE_FROM_BLACK
+	goto_if_eq VAR_0x8005, MAX_MON_MOVES, IsaacRoom_EventScript_TutorDeclined
+	special IsaacTutorReplaceMove
+IsaacRoom_EventScript_RockSmashLearned::
+	playfanfare MUS_LEVEL_UP
+	message IsaacRoom_Text_TutorLearned
+	waitfanfare
+	waitmessage
+	special IsaacSetRoomCleared
+	msgbox IsaacRoom_Text_RockSmashHint, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_RockSmashTeacherDone::
+	msgbox IsaacRoom_Text_RockSmashHint, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_RockSmashCant::
+	msgbox IsaacRoom_Text_RockSmashCant, MSGBOX_DEFAULT
+	release
+	end
+
+@ Roche qui ferme la salle secrète, avec un Pokémon qui connaît Éclate-Roc (voir IsaacGetWallInteractScript)
+IsaacRoom_EventScript_SecretWall::
+	lockall
+	checkfieldmove FIELD_MOVE_ROCK_SMASH
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	msgbox IsaacRoom_Text_SecretWallAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_SecretWallEnd
+	msgbox IsaacRoom_Text_SecretWallSmash, MSGBOX_DEFAULT
+	playse SE_M_ROCK_THROW
+	special IsaacOpenSecretRoom
+	waitse
+IsaacRoom_EventScript_SecretWallEnd::
+	releaseall
+	end
+
+IsaacRoom_Text_RockSmashIntro:
+	.string "Certaines roches de ce donjon sonnent\n"
+	.string "creux… Il y a des salles cachées derrière.\p"
+	.string "Je peux apprendre Éclate-Roc à l'un\n"
+	.string "de tes Pokémon. Lequel ?$"
+
+IsaacRoom_Text_RockSmashHint:
+	.string "Parle aux roches qui ferment les salles :\n"
+	.string "si l'une sonne creux, brise-la !$"
+
+IsaacRoom_Text_RockSmashCant:
+	.string "Ce Pokémon ne peut pas apprendre\n"
+	.string "Éclate-Roc…$"
+
+IsaacRoom_Text_SecretWallAsk:
+	.string "Cette roche sonne creux…\n"
+	.string "{STR_VAR_1} utilise Éclate-Roc ?$"
+
+IsaacRoom_Text_SecretWallSmash:
+	.string "{STR_VAR_1} utilise Éclate-Roc !$"
 

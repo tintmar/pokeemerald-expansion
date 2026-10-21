@@ -672,5 +672,6 @@ gSpecials::
 	def_special IsaacDuelRestoreParty
 	def_special IsaacPickDuelReward
 	def_special IsaacOpenSecretRoom
+	def_special IsaacPrepareRockSmash
 	def_special IsaacBufferBossName
 	def_special IsaacCaptureMonDone

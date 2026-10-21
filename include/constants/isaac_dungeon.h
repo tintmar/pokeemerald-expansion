@@ -9,6 +9,7 @@
 #define ROOM_CONTENT_TUTOR   4  // maître des capacités
 #define ROOM_CONTENT_DUELIST 5  // duelliste
 #define ROOM_CONTENT_SEER    6  // voyant
-#define ROOM_CONTENT_COUNT   7
+#define ROOM_CONTENT_ROCK_SMASH 7  // entraîneur qui apprend Éclate-Roc
+#define ROOM_CONTENT_COUNT   8
 
 #endif // GUARD_CONSTANTS_ISAAC_DUNGEON_H
