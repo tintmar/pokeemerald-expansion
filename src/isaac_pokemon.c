@@ -256,5 +256,5 @@ void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
             sStarterSpecies[i] = candidates[i];
         }
     }
-    IsaacCreateMonFromSet(mon, sStarterSpecies[index], Random() % 2, Random32());
+    IsaacCreateMonFromSet(mon, sStarterSpecies[index], 1, Random32());  // set 2 garanti
 }
