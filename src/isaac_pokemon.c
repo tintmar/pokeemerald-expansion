@@ -471,7 +471,21 @@ bool8 IsaacUpgradeSet(struct Pokemon *mon)
 }
 
 // Choix du Montagnard du hub : le Pokémon proposé n° index (0 à ISAAC_STARTER_CHOICES - 1), une espèce
-// différente de catégorie 1 pour chacun, avec le set 2 (variante au hasard). Les espèces sont tirées à l'index 0.
+// différente de catégorie 1 pour chacun, sans type en commun entre eux, avec le set 2 (variante au hasard). Les
+// espèces sont tirées à l'index 0.
+// L'espèce a-t-elle un type en commun avec une des count espèces données ?
+static bool32 SharesTypeWithStarters(u16 species, const u16 *starters, u32 count)
+{
+    u32 i, a, b;
+
+    for (i = 0; i < count; i++)
+        for (a = 0; a < 2; a++)
+            for (b = 0; b < 2; b++)
+                if (GetSpeciesType(species, a) == GetSpeciesType(starters[i], b))
+                    return TRUE;
+    return FALSE;
+}
+
 void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
 {
     static EWRAM_DATA u16 sStarterSpecies[ISAAC_STARTER_CHOICES] = {0};
@@ -482,14 +496,18 @@ void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
         return;
     if (index == 0)
     {
+        u32 chosen = 0;
+
         for (i = 1; i <= SPECIES_DEOXYS; i++)
             if (IsaacGetSpeciesCategory(i) == ISAAC_CATEGORY_1)
                 candidates[count++] = i;
-        for (i = 0; i < ISAAC_STARTER_CHOICES; i++)
+        // tirage dans un ordre au hasard, en gardant seulement les espèces sans type commun avec celles déjà prises
+        for (i = 0; i < count && chosen < ISAAC_STARTER_CHOICES; i++)
         {
             j = i + Random() % (count - i);
             SWAP(candidates[i], candidates[j], tmp);
-            sStarterSpecies[i] = candidates[i];
+            if (!SharesTypeWithStarters(candidates[i], sStarterSpecies, chosen))
+                sStarterSpecies[chosen++] = candidates[i];
         }
     }
     IsaacCreateMonFromSet(mon, sStarterSpecies[index], 1, Random() % ISAAC_SET_VARIANTS, Random32());  // set 2
