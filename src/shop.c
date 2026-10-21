@@ -1045,7 +1045,7 @@ static void Task_BuyMenu(u8 taskId)
                 if (sMartInfo.martType == MART_TYPE_NORMAL)
                 {
                     CopyItemName(itemId, gStringVar1);
-                    if (GetItemImportance(itemId))
+                    if (GetItemImportance(itemId) || sIsaacMart)  // donjon : articles uniques, pas de quantité
                     {
                         ConvertIntToDecimalStringN(gStringVar2, sShopData->totalCost, STR_CONV_MODE_LEFT_ALIGN, 6);
                         StringExpandPlaceholders(gStringVar4, gText_YouWantedVar1ThatllBeVar2);
@@ -1247,11 +1247,44 @@ static void Task_ReturnToItemListAfterDecorationPurchase(u8 taskId)
     }
 }
 
+// Donjon : retire de la liste les articles épuisés (achetés) et refait le menu, le curseur au même endroit si
+// possible. La liste est la copie allouée à l'ouverture du menu (TryBuildDynamicShopItemList), modifiée sur place.
+static void IsaacMartRemoveSoldItems(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+    u16 *list = (u16 *)sMartInfo.itemList;
+    u16 scrollOffset, selectedRow, count = 0, i;
+
+    for (i = 0; i < sMartInfo.itemCount; i++)
+        if (IsaacGetShopStock(list[i]) != 0)
+            list[count++] = list[i];
+    if (count == sMartInfo.itemCount)
+        return;
+    list[count] = ITEM_NONE;
+    sMartInfo.itemCount = count;
+
+    DestroyListMenuTask(tListTaskId, &scrollOffset, &selectedRow);
+    BuyMenuRemoveScrollIndicatorArrows();
+    BuyMenuRemoveItemIcon(ITEM_NONE, 0);
+    BuyMenuRemoveItemIcon(ITEM_NONE, 1);
+    Free(sListMenuItems);
+    Free(sItemNames);
+    BuyMenuBuildListMenuTemplate();
+    if (scrollOffset + gMultiuseListMenuTemplate.maxShowed > gMultiuseListMenuTemplate.totalItems)
+        scrollOffset = gMultiuseListMenuTemplate.totalItems - gMultiuseListMenuTemplate.maxShowed;
+    if (scrollOffset + selectedRow >= gMultiuseListMenuTemplate.totalItems)
+        selectedRow = gMultiuseListMenuTemplate.totalItems - 1 - scrollOffset;
+    sShopData->scrollOffset = scrollOffset;
+    tListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, scrollOffset, selectedRow);
+}
+
 static void BuyMenuReturnToItemList(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
 
     ClearDialogWindowAndFrameToTransparent(WIN_MESSAGE, FALSE);
+    if (sIsaacMart)
+        IsaacMartRemoveSoldItems(taskId);
     RedrawListMenu(tListTaskId);
     BuyMenuPrintCursor(tListTaskId, COLORID_ITEM_LIST);
     PutWindowTilemap(WIN_ITEM_LIST);
