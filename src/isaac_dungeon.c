@@ -1557,11 +1557,12 @@ static void SetUpCaptureMons(s32 x, s32 y)
 // ---------------------------------------------------------------------------
 // Boutique de Kecleon
 // ---------------------------------------------------------------------------
-// Kecleon tient la boutique de l'étage (menu Acheter / Quitter, CreateIsaacMartMenu). Il vend toujours :
+// Kecleon tient la boutique de l'étage (menu Acheter / Quitter, CreateIsaacMartMenu). Ses articles possibles :
 //  - une Master Ball, une Guérison, un Rappel, un Rappel Max ;
 //  - deux objets de combat de sShopBattleItems et deux CT de sShopTMs (tirés pour la salle), un objet spécial
 //    de sShopSpecialItems.
-// Chaque article est en un seul exemplaire.
+// Chacun n'est vraiment en vente qu'avec SHOP_SLOT_PRESENT_PCT % de chances (tiré pour l'étage,
+// IsShopSlotPresent), en un seul exemplaire.
 // Les prix se comptent en « gains d'un dresseur » de l'étage (ISAAC_TRAINER_MONEY_PER_FLOOR x étage, voir
 // sShopPrices) : un étage rapporte de l'ordre de 5 (étage 2) à 11 (étages profonds) de ces gains, on ne peut
 // donc pas tout acheter et il faut choisir.
@@ -1740,13 +1741,24 @@ void IsaacOnShopPurchase(u16 item, u16 count)
         FlagSet(FLAG_ISAAC_SHOP_SOLD_FIRST + slot);
 }
 
-// Ouvre la boutique (suivre de `waitstate`) : les articles déjà vendus n'y sont plus
+#define SHOP_SLOT_PRESENT_PCT  60
+
+// L'article n° slot est-il en vente à cet étage ? (toujours la même réponse pour la salle)
+static bool8 IsShopSlotPresent(u32 slot)
+{
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    return RoomRandom(x, y, 0x5A70 + slot) % 100 < SHOP_SLOT_PRESENT_PCT;
+}
+
+// Ouvre la boutique (suivre de `waitstate`) : seulement les articles en vente à cet étage et pas encore vendus
 void IsaacOpenShop(void)
 {
     u32 n = 0, i;
 
     for (i = 0; i < SHOP_LIMITED_SLOTS; i++)
-        if (!FlagGet(FLAG_ISAAC_SHOP_SOLD_FIRST + i))
+        if (IsShopSlotPresent(i) && !FlagGet(FLAG_ISAAC_SHOP_SOLD_FIRST + i))
             sShopItems[n++] = GetShopSlotItem(i);
     sShopItems[n] = ITEM_NONE;  // fin de la liste pour shop.c
     CreateIsaacMartMenu(sShopItems);
