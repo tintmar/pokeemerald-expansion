@@ -25,7 +25,13 @@ enum IsaacCategory
 
 enum IsaacBiomeId
 {
-    ISAAC_BIOME_CAVE,
+    ISAAC_BIOME_CAVE,        // Route Victoire
+    ISAAC_BIOME_DARK,        // Route Victoire dans le noir
+    ISAAC_BIOME_FIRE,        // Chemin Ardent
+    // ISAAC_BIOME_MYSTIC (Chutes Météore) : mis de côté, décor à retravailler (voir isaac_biomes.h)
+    ISAAC_BIOME_ICE,         // Grotte Tréfonds gelée
+    ISAAC_BIOME_POISON,      // Tunnel Mérazon
+    ISAAC_BIOME_UNDERWATER,  // fonds marins
     ISAAC_BIOME_COUNT,
 };
 
@@ -49,6 +55,11 @@ struct IsaacBiome
     u8 trainerCount;
     const struct IsaacTrainerType *boss;  // champion de la salle du boss
     const u8 *bossName;
+    u16 layoutId;     // disposition de la salle (même map, tileset du décor)
+    u16 music;
+    u8 weather;
+    bool8 dark;       // dans le noir, comme la Grotte Granite sans Flash
+    bool8 underwater; // le joueur plonge
 };
 
 extern const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT];

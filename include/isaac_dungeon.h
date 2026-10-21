@@ -7,7 +7,12 @@
 #define ISAAC_ROOM_W  15  // taille de la map IsaacRoom (cases)
 #define ISAAC_ROOM_H  11
 
+struct MapHeader;
+
 void IsaacPaintRoom(void);
+u32 IsaacGetCurrentBiome(void);
+bool8 IsaacApplyBiomeToMapHeader(struct MapHeader *header, u16 *layoutId);
+u16 IsaacGetBiomeMusic(void);
 void IsaacFaceArrivalDirection(void);
 void IsaacTakeExit(void);
 bool8 TryStartIsaacStepScript(s16 x, s16 y);
@@ -15,6 +20,7 @@ void IsaacShowMinimap(void);
 void IsaacSetRoomCleared(void);
 void IsaacPrepareTrainerReturn(void);
 void IsaacOpenBossExit(void);
+void IsaacBufferBossName(void);
 void IsaacPickTrainerLoot(void);
 
 extern u8 gIsaacTrainerReturnMovement[];

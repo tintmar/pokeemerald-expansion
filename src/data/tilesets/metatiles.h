@@ -412,3 +412,13 @@ const u16 gMetatileAttributes_HallOfFame[] = INCBIN_U16("data/tilesets/secondary
 // Donjon (tools/isaac/build_tileset.py)
 const u16 gMetatiles_IsaacCave[] = INCBIN_U16("data/tilesets/secondary/isaac_cave/metatiles.bin");
 const u16 gMetatileAttributes_IsaacCave[] = INCBIN_U16("data/tilesets/secondary/isaac_cave/metatile_attributes.bin");
+const u16 gMetatiles_IsaacFire[] = INCBIN_U16("data/tilesets/secondary/isaac_fire/metatiles.bin");
+const u16 gMetatileAttributes_IsaacFire[] = INCBIN_U16("data/tilesets/secondary/isaac_fire/metatile_attributes.bin");
+const u16 gMetatiles_IsaacMystic[] = INCBIN_U16("data/tilesets/secondary/isaac_mystic/metatiles.bin");
+const u16 gMetatileAttributes_IsaacMystic[] = INCBIN_U16("data/tilesets/secondary/isaac_mystic/metatile_attributes.bin");
+const u16 gMetatiles_IsaacIce[] = INCBIN_U16("data/tilesets/secondary/isaac_ice/metatiles.bin");
+const u16 gMetatileAttributes_IsaacIce[] = INCBIN_U16("data/tilesets/secondary/isaac_ice/metatile_attributes.bin");
+const u16 gMetatiles_IsaacPoison[] = INCBIN_U16("data/tilesets/secondary/isaac_poison/metatiles.bin");
+const u16 gMetatileAttributes_IsaacPoison[] = INCBIN_U16("data/tilesets/secondary/isaac_poison/metatile_attributes.bin");
+const u16 gMetatiles_IsaacUnderwater[] = INCBIN_U16("data/tilesets/secondary/isaac_underwater/metatiles.bin");
+const u16 gMetatileAttributes_IsaacUnderwater[] = INCBIN_U16("data/tilesets/secondary/isaac_underwater/metatile_attributes.bin");

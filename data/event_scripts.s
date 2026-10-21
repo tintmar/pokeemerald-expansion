@@ -1741,3 +1741,4 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 
 	.include "data/maps/Hub/scripts.inc"
 	.include "data/maps/IsaacRoom/scripts.inc"
+	.include "data/maps/IsaacWin/scripts.inc"

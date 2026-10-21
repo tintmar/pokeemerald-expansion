@@ -30,6 +30,7 @@
 #include "gpu_regs.h"
 #include "heal_location.h"
 #include "io_reg.h"
+#include "isaac_dungeon.h"
 #include "item.h"
 #include "item_icon.h"
 #include "line_break.h"
@@ -665,18 +666,32 @@ struct MapHeader const *const GetDestinationWarpMapHeader(void)
     return Overworld_GetMapHeaderByGroupAndId(sWarpDestination.mapGroup, sWarpDestination.mapNum);
 }
 
+// Donjon : la salle prend le décor (tileset, obscurité, plongée, météo) du biome de l'étage
+static void ApplyIsaacBiome(void)
+{
+    u16 layoutId;
+
+    if (IsaacApplyBiomeToMapHeader(&gMapHeader, &layoutId))
+    {
+        gSaveBlock1Ptr->mapLayoutId = layoutId;
+        gMapHeader.mapLayout = GetMapLayout(layoutId);
+    }
+}
+
 static void LoadCurrentMapData(void)
 {
     sLastMapSectionId = gMapHeader.regionMapSectionId;
     gMapHeader = *Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
     gSaveBlock1Ptr->mapLayoutId = gMapHeader.mapLayoutId;
     gMapHeader.mapLayout = GetMapLayout(gMapHeader.mapLayoutId);
+    ApplyIsaacBiome();
 }
 
 static void LoadSaveblockMapHeader(void)
 {
     gMapHeader = *Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
     gMapHeader.mapLayout = GetMapLayout(gSaveBlock1Ptr->mapLayoutId);
+    ApplyIsaacBiome();
 }
 
 static void SetPlayerCoordsFromWarp(void)
@@ -1231,6 +1246,9 @@ u16 GetLocationMusic(struct WarpData *warp)
         return MUS_ENCOUNTER_MAGMA;
     else if (IsInfiltratedWeatherInstitute(warp) == TRUE)
         return MUS_MT_CHIMNEY;
+
+    if (warp->mapGroup == MAP_GROUP(MAP_ISAAC_ROOM) && warp->mapNum == MAP_NUM(MAP_ISAAC_ROOM))
+        return IsaacGetBiomeMusic();  // donjon : musique du biome de l'étage
 
     const struct MapHeader *mapHeader = Overworld_GetMapHeaderByGroupAndId(warp->mapGroup, warp->mapNum);
     if (mapHeader->nightMusic != MUS_NONE && GetTimeOfDay() == TIME_NIGHT)

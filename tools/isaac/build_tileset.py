@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-Génère le tileset secondaire du donjon, data/tilesets/secondary/isaac_cave/ :
-  - les metatiles 0x200 à 0x23F du tileset Cave (Route Victoire), aux mêmes numéros : sol, falaises,
-    rochers, échelle... (le reste de Cave n'est pas repris, ça libère de la place) ;
-  - à partir de 0x240 (ISAAC_MAT_FIRST), les paillassons posés devant les portes des salles spéciales :
-    tapis rouge et or avec la tête du Pokémon de la mini-carte (Mewtwo boss, Pikachu trésor, Kecleon
-    boutique) ou une Poké Ball (capture). Les têtes sont découpées dans les sprites de face du jeu.
+Génère les tilesets secondaires du donjon (un par décor de biome), dans data/tilesets/secondary/isaac_*/.
+
+Tous ont la même numérotation de metatiles, pour que isaac_dungeon.c dessine les salles de la même façon :
+  - 0x200 à 0x20F : les rôles de ROLES (sol, rochers, bords et coins de falaise), pris dans le tileset
+    d'origine du décor (correspondances de BIOME_TILESETS, vérifiées sur des salles rendues) ;
+  - 0x210 : un panneau posé sur le sol (salle de la victoire) ;
+  - à partir de 0x240 (ISAAC_MAT_FIRST) : les paillassons devant les portes des salles spéciales : tapis rouge
+    et or avec la tête du Pokémon de la mini-carte (Mewtwo boss, Pikachu trésor, Kecleon boutique) ou une Poké
+    Ball (capture), découpées dans les sprites de face du jeu.
 
 Chaque paillasson existe en 3 orientations (la tête regarde vers la porte) :
   - HORIZONTAL (3 x 2 metatiles) : portes nord et sud, tête à l'endroit ;
@@ -14,7 +17,8 @@ Chaque paillasson existe en 3 orientations (la tête regarde vers la porte) :
 Metatile du paillasson n° s (0 boss, 1 trésor, 2 boutique, 3 capture), orientation o (0, 1, 2),
 case i (de gauche à droite puis de haut en bas) : ISAAC_MAT_FIRST + (s * 3 + o) * 6 + i.
 
-Chaque motif a sa palette : couleurs 1 à 4 = tapis (communes), 5 à 15 = tête.
+Palettes : celles du décor (renumérotées à partir de 6), puis une par motif de paillasson : couleurs 1 à 4 =
+tapis (communes), 5 à 15 = tête. Le sol n'a pas le comportement d'origine (pas de glace qui glisse).
 
 Usage : python3 tools/isaac/build_tileset.py
 """
@@ -22,22 +26,45 @@ import os, struct
 from PIL import Image, ImageDraw
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
-CAVE = os.path.join(ROOT, 'data/tilesets/secondary/cave')
-OUT = os.path.join(ROOT, 'data/tilesets/secondary/isaac_cave')
+SECONDARY = os.path.join(ROOT, 'data/tilesets/secondary')
+PRIMARY = os.path.join(ROOT, 'data/tilesets/primary/general')
 
-KEEP_METATILES = 0x40           # metatiles de Cave repris (0x200 à 0x23F)
+# Rôles des metatiles 0x200 à 0x20F (même ordre que les TILE_* de isaac_dungeon.c)
+ROLES = ['FLOOR', 'ROCK_1', 'ROCK_2', 'TL', 'T', 'TR', 'L', 'C', 'R', 'BL', 'B', 'BR', 'IN_SE', 'IN_SW', 'IN_NE', 'IN_NW']
+SIGN_METATILE = 0x210
+MAT_FIRST = 0x240
+PRIMARY_SIGN = 0x003  # panneau du tileset General
+
+# Décors : (tileset produit, tileset d'origine, metatile d'origine pour chaque rôle)
+BIOME_TILESETS = [
+    ('isaac_cave', 'cave', dict(  # Route Victoire (grotte standard et grotte obscure)
+        FLOOR=0x201, ROCK_1=0x202, ROCK_2=0x203, TL=0x208, T=0x209, TR=0x20A, L=0x210, C=0x211, R=0x212,
+        BL=0x218, B=0x219, BR=0x21A, IN_SE=0x21B, IN_SW=0x21C, IN_NE=0x223, IN_NW=0x224)),
+    ('isaac_fire', 'lavaridge', dict(  # Chemin Ardent
+        FLOOR=0x308, ROCK_1=0x271, ROCK_2=0x271, TL=0x30A, T=0x30C, TR=0x30B, L=0x306, C=0x271, R=0x307,
+        BL=0x30E, B=0x274, BR=0x30F, IN_SE=0x27B, IN_SW=0x27C, IN_NE=0x27F, IN_NW=0x27E)),
+    ('isaac_mystic', 'meteor_falls', dict(  # Chutes Météore : terrasses lavande, faces de falaise sombres
+        FLOOR=0x201, ROCK_1=0x231, ROCK_2=0x231, TL=0x286, T=0x286, TR=0x286, L=0x228, C=0x201, R=0x212,
+        BL=0x231, B=0x231, BR=0x231, IN_SE=0x213, IN_SW=0x214, IN_NE=0x286, IN_NW=0x286)),
+    ('isaac_ice', 'cave', dict(  # Grotte Tréfonds, salle gelée (glace rayée, qui ne glisse pas ici)
+        FLOOR=0x38D, ROCK_1=0x381, ROCK_2=0x381, TL=0x378, T=0x379, TR=0x37A, L=0x380, C=0x381, R=0x382,
+        BL=0x388, B=0x389, BR=0x38A, IN_SE=0x37B, IN_SW=0x37C, IN_NE=0x383, IN_NW=0x384)),
+    ('isaac_poison', 'rusturf_tunnel', dict(  # Tunnel Mérazon (moussu)
+        FLOOR=0x201, ROCK_1=0x211, ROCK_2=0x211, TL=0x208, T=0x209, TR=0x20A, L=0x210, C=0x211, R=0x212,
+        BL=0x218, B=0x219, BR=0x21A, IN_SE=0x21B, IN_SW=0x21C, IN_NE=0x223, IN_NW=0x224)),
+    ('isaac_underwater', 'underwater', dict(  # fonds marins (sable et crêtes rocheuses)
+        FLOOR=0x216, ROCK_1=0x213, ROCK_2=0x213, TL=0x20A, T=0x20B, TR=0x20C, L=0x210, C=0x213, R=0x211,
+        BL=0x21A, B=0x21B, BR=0x219, IN_SE=0x206, IN_SW=0x207, IN_NE=0x223, IN_NW=0x222)),
+]
 NUM_PRIMARY_TILES = 512
 NUM_SECONDARY_TILES = 512
 NUM_SECONDARY_METATILES = 512
 FLOOR_ATTRIBUTES = 0x0008       # comme le sol de la grotte (0x201)
 
-# Motifs : espèce (sprite de face) ou Poké Ball, palette secondaire libre dans les metatiles repris
-MATS = [
-    ('mewtwo', 7),
-    ('pikachu', 8),
-    ('kecleon', 9),
-    ('pokeball', 11),
-]
+# Motifs des paillassons : espèce (sprite de face) ou Poké Ball
+MATS = ['mewtwo', 'pikachu', 'kecleon', 'pokeball']
+FIRST_SECONDARY_PALETTE = 6
+NUM_PALETTES = 13  # 0 à 5 : General, 6 à 12 : tileset secondaire
 # Tête dans le sprite de face 64 x 64 (x0, y0, x1, y1), et zones à effacer (x0, y0) : tout ce qui est à
 # droite de x0 et sous y0 (queue de Pikachu)
 HEADS = {'pikachu': (16, 10, 47, 33), 'mewtwo': (25, 1, 45, 21), 'kecleon': (18, 10, 46, 34)}
@@ -133,13 +160,21 @@ def tiles_of(im):
     return out
 
 
-def main():
-    os.makedirs(os.path.join(OUT, 'palettes'), exist_ok=True)
-    cave_tiles = Image.open(os.path.join(CAVE, 'tiles.png'))
-    cave_meta = struct.unpack('<%dH' % (os.path.getsize(os.path.join(CAVE, 'metatiles.bin')) // 2),
-                              open(os.path.join(CAVE, 'metatiles.bin'), 'rb').read())
-    cave_attr = struct.unpack('<%dH' % (os.path.getsize(os.path.join(CAVE, 'metatile_attributes.bin')) // 2),
-                              open(os.path.join(CAVE, 'metatile_attributes.bin'), 'rb').read())
+def read_u16(path):
+    data = open(path, 'rb').read()
+    return list(struct.unpack('<%dH' % (len(data) // 2), data))
+
+
+def build(out_name, source_name, mapping, mats):
+    """Un tileset du donjon à partir d'un tileset d'origine ; mats : paillassons déjà dessinés"""
+    src = os.path.join(SECONDARY, source_name)
+    out = os.path.join(SECONDARY, out_name)
+    os.makedirs(os.path.join(out, 'palettes'), exist_ok=True)
+    src_tiles = Image.open(os.path.join(src, 'tiles.png'))
+    src_meta = read_u16(os.path.join(src, 'metatiles.bin'))
+    src_attr = read_u16(os.path.join(src, 'metatile_attributes.bin'))
+    src_pals = [read_pal(os.path.join(src, 'palettes', '%02d.pal' % i)) for i in range(16)]
+    primary_meta = read_u16(os.path.join(PRIMARY, 'metatiles.bin'))
 
     tiles = [tuple([0] * 64)]  # tuile 0 vide
     tile_index = {tiles[0]: 0}
@@ -150,29 +185,56 @@ def main():
             tiles.append(pixels)
         return tile_index[pixels]
 
-    # 1. Metatiles repris de Cave (mêmes numéros), tuiles secondaires renumérotées
-    cave_w = cave_tiles.width // 8
-    remap = {}
-    metatiles, attributes = [], []
-    for m in range(KEEP_METATILES):
-        for e in cave_meta[m * 8: m * 8 + 8]:
-            t = e & 0x3FF
-            if t >= NUM_PRIMARY_TILES:
-                if t not in remap:
-                    s = t - NUM_PRIMARY_TILES
-                    box = ((s % cave_w) * 8, (s // cave_w) * 8)
-                    pixels = tuple(cave_tiles.getpixel((box[0] + x, box[1] + y)) for y in range(8) for x in range(8))
-                    remap[t] = NUM_PRIMARY_TILES + add_tile(pixels)
-                e = (e & ~0x3FF) | remap[t]
-            metatiles.append(e)
-        attributes.append(cave_attr[m])
+    # Palettes du décor utilisées par les rôles : renumérotées à partir de 6
+    pal_remap = {}
+    for role in ROLES:
+        m = mapping[role] - NUM_PRIMARY_TILES
+        for e in src_meta[m * 8: m * 8 + 8]:
+            pal = e >> 12
+            if pal >= FIRST_SECONDARY_PALETTE and pal not in pal_remap:
+                pal_remap[pal] = FIRST_SECONDARY_PALETTE + len(pal_remap)
+    assert FIRST_SECONDARY_PALETTE + len(pal_remap) + len(mats) <= NUM_PALETTES, f'{out_name} : trop de palettes'
 
-    # 2. Paillassons
-    palettes = [read_pal(os.path.join(CAVE, 'palettes', '%02d.pal' % i)) for i in range(16)]
-    for name, pal_num in MATS:
-        horizontal, colors = mat_with_head(name)
+    src_w = src_tiles.width // 8
+    tile_remap = {}
+
+    def convert(e):
+        t, pal = e & 0x3FF, e >> 12
+        if t >= NUM_PRIMARY_TILES:
+            if t not in tile_remap:
+                s = t - NUM_PRIMARY_TILES
+                box = ((s % src_w) * 8, (s // src_w) * 8)
+                pixels = tuple(src_tiles.getpixel((box[0] + x, box[1] + y)) for y in range(8) for x in range(8))
+                tile_remap[t] = NUM_PRIMARY_TILES + add_tile(pixels)
+            t = tile_remap[t]
+        pal = pal_remap.get(pal, pal)
+        return (e & 0x0C00) | (pal << 12) | t  # garde les retournements
+
+    # 1. Rôles (0x200 à 0x20F)
+    metatiles, attributes = [], []
+    for role in ROLES:
+        m = mapping[role] - NUM_PRIMARY_TILES
+        metatiles.extend(convert(e) for e in src_meta[m * 8: m * 8 + 8])
+        attributes.append(FLOOR_ATTRIBUTES if role == 'FLOOR' else src_attr[m])
+
+    # 2. Panneau sur le sol (0x210) : sol dessous, panneau de General dessus
+    floor = metatiles[0:4]
+    metatiles.extend(floor + primary_meta[PRIMARY_SIGN * 8: PRIMARY_SIGN * 8 + 4])
+    attributes.append(0x1000)  # calque du dessus derrière le joueur, comme les rochers
+
+    # 3. Rien jusqu'aux paillassons
+    while len(attributes) < MAT_FIRST - NUM_PRIMARY_TILES:
+        metatiles.extend([0] * 8)
+        attributes.append(0)
+
+    # 4. Paillassons : une palette par motif après celles du décor
+    palettes = [[(0, 0, 0)] * 16 for _ in range(16)]
+    for old, new in pal_remap.items():
+        palettes[new] = src_pals[old]
+    for k, (images, colors) in enumerate(mats):
+        pal_num = FIRST_SECONDARY_PALETTE + len(pal_remap) + k
         palettes[pal_num] = [(0, 0, 0)] + colors
-        for im in (horizontal, horizontal.rotate(90, expand=True), horizontal.rotate(-90, expand=True)):
+        for im in images:
             w, h = im.width // 16, im.height // 16
             for my in range(h):
                 for mx in range(w):
@@ -182,22 +244,31 @@ def main():
                     metatiles.extend([0, 0, 0, 0])  # calque du dessus vide
                     attributes.append(FLOOR_ATTRIBUTES)
 
-    assert len(tiles) <= NUM_SECONDARY_TILES, f'{len(tiles)} tuiles'
-    assert len(attributes) <= NUM_SECONDARY_METATILES, f'{len(attributes)} metatiles'
+    assert len(tiles) <= NUM_SECONDARY_TILES, f'{out_name} : {len(tiles)} tuiles'
+    assert len(attributes) <= NUM_SECONDARY_METATILES, f'{out_name} : {len(attributes)} metatiles'
 
-    # tiles.png : 16 tuiles par ligne, palette en niveaux de gris (seuls les indices comptent)
+    # tiles.png : 16 tuiles par ligne (seuls les indices comptent)
     rows = (len(tiles) + 15) // 16
     sheet = Image.new('P', (128, rows * 8), 0)
-    sheet.putpalette(cave_tiles.getpalette())
+    sheet.putpalette(src_tiles.getpalette())
     for i, t in enumerate(tiles):
         for p, v in enumerate(t):
             sheet.putpixel(((i % 16) * 8 + p % 8, (i // 16) * 8 + p // 8), v)
-    sheet.save(os.path.join(OUT, 'tiles.png'))
-    open(os.path.join(OUT, 'metatiles.bin'), 'wb').write(struct.pack('<%dH' % len(metatiles), *metatiles))
-    open(os.path.join(OUT, 'metatile_attributes.bin'), 'wb').write(struct.pack('<%dH' % len(attributes), *attributes))
+    sheet.save(os.path.join(out, 'tiles.png'))
+    open(os.path.join(out, 'metatiles.bin'), 'wb').write(struct.pack('<%dH' % len(metatiles), *metatiles))
+    open(os.path.join(out, 'metatile_attributes.bin'), 'wb').write(struct.pack('<%dH' % len(attributes), *attributes))
     for i, pal in enumerate(palettes):
-        write_pal(os.path.join(OUT, 'palettes', '%02d.pal' % i), pal)
-    print(f'{len(tiles)} tuiles, {len(attributes)} metatiles')
+        write_pal(os.path.join(out, 'palettes', '%02d.pal' % i), pal)
+    print(f'{out_name} : {len(tiles)} tuiles, {len(attributes)} metatiles, {len(pal_remap)} + {len(mats)} palettes')
+
+
+def main():
+    mats = []
+    for name in MATS:
+        horizontal, colors = mat_with_head(name)
+        mats.append(((horizontal, horizontal.rotate(90, expand=True), horizontal.rotate(-90, expand=True)), colors))
+    for out_name, source_name, mapping in BIOME_TILESETS:
+        build(out_name, source_name, mapping, mats)
 
 
 if __name__ == '__main__':

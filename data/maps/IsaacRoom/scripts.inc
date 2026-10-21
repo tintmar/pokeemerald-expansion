@@ -87,6 +87,7 @@ IsaacRoom_EventScript_Treasure::
 @ Salle du boss : le champion du biome (placé par isaac_dungeon.c). Il faut lui parler pour combattre ; vaincu,
 @ un passage vers l'étage suivant s'ouvre dans le mur d'en face de la porte.
 IsaacRoom_EventScript_Boss::
+	special IsaacBufferBossName
 	trainerbattle_single TRAINER_ISAAC_BOSS, IsaacRoom_Text_BossIntro, IsaacRoom_Text_BossDefeat, IsaacRoom_EventScript_BossDefeated
 	msgbox IsaacRoom_Text_BossPostBattle, MSGBOX_AUTOCLOSE
 	end
@@ -100,10 +101,10 @@ IsaacRoom_EventScript_BossDefeated::
 	end
 
 IsaacRoom_Text_BossIntro:
-	.string "Je suis PIERRE, le gardien\n"
-	.string "de cet étage.\p"
-	.string "Ma défense de roc est solide.\n"
-	.string "Voyons si tu peux la briser !$"
+	.string "Je suis {STR_VAR_1}, et je garde\n"
+	.string "cet étage.\p"
+	.string "Personne ne descend plus bas\n"
+	.string "sans me battre !$"
 
 IsaacRoom_Text_BossDefeat:
 	.string "Ta force est impressionnante…$"

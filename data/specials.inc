@@ -648,3 +648,4 @@ gSpecials::
 	def_special IsaacPrepareWildBattle
 	def_special IsaacOpenBossExit
 	def_special IsaacPickTrainerLoot
+	def_special IsaacBufferBossName

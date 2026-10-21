@@ -2495,8 +2495,19 @@ static const struct SpriteFrameImage sPicTable_MomFrlg[] = {
 
 #endif // IS_FRLG
 
-// Donjon : Pierre (boss de la grotte) dans la version Émeraude aussi
+// Donjon : Pierre et Erika (boss) dans la version Émeraude aussi
 #if !IS_FRLG
+static const struct SpriteFrameImage sPicTable_Erika[] = {
+    overworld_frame(gObjectEventPic_Erika, 2, 4, 0),
+    overworld_frame(gObjectEventPic_Erika, 2, 4, 1),
+    overworld_frame(gObjectEventPic_Erika, 2, 4, 2),
+    overworld_frame(gObjectEventPic_Erika, 2, 4, 0),
+    overworld_frame(gObjectEventPic_Erika, 2, 4, 0),
+    overworld_frame(gObjectEventPic_Erika, 2, 4, 1),
+    overworld_frame(gObjectEventPic_Erika, 2, 4, 1),
+    overworld_frame(gObjectEventPic_Erika, 2, 4, 2),
+    overworld_frame(gObjectEventPic_Erika, 2, 4, 2),
+};
 static const struct SpriteFrameImage sPicTable_Brock[] = {
     overworld_frame(gObjectEventPic_Brock, 2, 4, 0),
     overworld_frame(gObjectEventPic_Brock, 2, 4, 1),

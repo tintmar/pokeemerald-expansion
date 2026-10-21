@@ -1553,3 +1553,59 @@ const struct Tileset gTileset_IsaacCave =
     .metatileAttributes = gMetatileAttributes_IsaacCave,
     .callback = NULL,
 };
+
+// Donjon : décors des biomes (même numérotation que IsaacCave, tools/isaac/build_tileset.py)
+const struct Tileset gTileset_IsaacFire =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_IsaacFire,
+    .palettes = gTilesetPalettes_IsaacFire,
+    .metatiles = gMetatiles_IsaacFire,
+    .metatileAttributes = gMetatileAttributes_IsaacFire,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_IsaacMystic =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_IsaacMystic,
+    .palettes = gTilesetPalettes_IsaacMystic,
+    .metatiles = gMetatiles_IsaacMystic,
+    .metatileAttributes = gMetatileAttributes_IsaacMystic,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_IsaacIce =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_IsaacIce,
+    .palettes = gTilesetPalettes_IsaacIce,
+    .metatiles = gMetatiles_IsaacIce,
+    .metatileAttributes = gMetatileAttributes_IsaacIce,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_IsaacPoison =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_IsaacPoison,
+    .palettes = gTilesetPalettes_IsaacPoison,
+    .metatiles = gMetatiles_IsaacPoison,
+    .metatileAttributes = gMetatileAttributes_IsaacPoison,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_IsaacUnderwater =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_IsaacUnderwater,
+    .palettes = gTilesetPalettes_IsaacUnderwater,
+    .metatiles = gMetatiles_IsaacUnderwater,
+    .metatileAttributes = gMetatileAttributes_IsaacUnderwater,
+    .callback = NULL,
+};

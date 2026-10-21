@@ -9345,6 +9345,72 @@
       "border_filepath": "data/layouts/IsaacRoom/border.bin",
       "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_ISAAC_ROOM_FIRE",
+      "name": "IsaacRoomFire_Layout",
+      "width": 15,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_IsaacFire",
+      "border_filepath": "data/layouts/IsaacRoom/border.bin",
+      "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_ISAAC_ROOM_MYSTIC",
+      "name": "IsaacRoomMystic_Layout",
+      "width": 15,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_IsaacMystic",
+      "border_filepath": "data/layouts/IsaacRoom/border.bin",
+      "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_ISAAC_ROOM_ICE",
+      "name": "IsaacRoomIce_Layout",
+      "width": 15,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_IsaacIce",
+      "border_filepath": "data/layouts/IsaacRoom/border.bin",
+      "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_ISAAC_ROOM_POISON",
+      "name": "IsaacRoomPoison_Layout",
+      "width": 15,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_IsaacPoison",
+      "border_filepath": "data/layouts/IsaacRoom/border.bin",
+      "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_ISAAC_ROOM_UNDERWATER",
+      "name": "IsaacRoomUnderwater_Layout",
+      "width": 15,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_IsaacUnderwater",
+      "border_filepath": "data/layouts/IsaacRoom/border.bin",
+      "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_ISAAC_WIN",
+      "name": "IsaacWin_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_IsaacCave",
+      "border_filepath": "data/layouts/IsaacWin/border.bin",
+      "blockdata_filepath": "data/layouts/IsaacWin/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

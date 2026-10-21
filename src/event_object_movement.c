@@ -550,6 +550,7 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
 #endif // IS_FRLG
 #if !IS_FRLG
     {gObjectEventPal_NpcGreen,              OBJ_EVENT_PAL_TAG_NPC_GREEN},  // Donjon : Pierre (boss de la grotte)
+    {gObjectEventPal_NpcBlue,               OBJ_EVENT_PAL_TAG_NPC_BLUE},   // Donjon : Erika (boss de la grotte poison)
 #endif
 #if OW_FOLLOWERS_POKEBALLS
     {gObjectEventPal_MasterBall,            OBJ_EVENT_PAL_TAG_BALL_MASTER},

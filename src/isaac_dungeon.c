@@ -30,6 +30,8 @@
 #include "constants/map_event_ids.h"
 #include "constants/opponents.h"
 #include "constants/trainers.h"
+#include "constants/characters.h"
+#include "constants/map_types.h"
 #include "constants/maps.h"
 #include "constants/species.h"
 #include "constants/songs.h"
@@ -55,6 +57,11 @@
  *      (au moins 2, jamais le boss). Les portes qui y mènent ressemblent à de la roche mais on peut
  *      passer à travers.
  *
+ * BIOMES : une descente traverse les ISAAC_BIOME_COUNT biomes (data/isaac_biomes.h), un étage chacun, dans un
+ * ordre tiré au début de la descente (VAR_ISAAC_BIOME_ORDER) ; après le boss du dernier, la salle de la victoire.
+ * La map IsaacRoom prend le décor du biome de l'étage quand elle est chargée (IsaacApplyBiomeToMapHeader) :
+ * tileset (tous ont la même numérotation), musique, météo, obscurité, plongée.
+ *
  * Tout ne dépend que de VAR_ISAAC_SEED et VAR_ISAAC_FLOOR : l'étage est régénéré à l'identique à chaque
  * chargement (retour de combat, de menu...). VAR_ISAAC_ROOM est la cellule où se trouve le joueur,
  * VAR_ISAAC_VISITED_0 à 4 les salles déjà visitées (un bit par cellule).
@@ -79,7 +86,10 @@
 
 #define ISAAC_TRAINER_PCT    75  // % de salles normales avec un dresseur
 #define ISAAC_TRAINER_MONEY_PER_FLOOR  1000  // argent gagné contre un dresseur (ou le boss) : x profondeur
-#define ISAAC_BIOME          ISAAC_BIOME_CAVE  // un seul biome pour l'instant
+#define ISAAC_BIOME          IsaacGetCurrentBiome()
+#define ISAAC_FLOOR_COUNT    ISAAC_BIOME_COUNT  // un étage par biome, puis la salle de la victoire
+#define WIN_ROOM_X  5  // arrivée dans la salle de la victoire (IsaacWin)
+#define WIN_ROOM_Y  6
 
 // Salles nettoyées (dresseur vaincu) : un drapeau par cellule, dans des drapeaux inutilisés du jeu
 #define FLAG_ISAAC_CLEARED_FIRST  FLAG_UNUSED_0x264
@@ -96,23 +106,24 @@ STATIC_ASSERT(FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H - 1 <= FLAG
 #define ROOM_MID_X  (ISAAC_ROOM_W / 2)
 #define ROOM_MID_Y  ((ROOM_MIN_Y + ROOM_MAX_Y) / 2)
 
-// Metatiles (0x200 et plus : tileset secondaire Cave)
-#define TILE_FLOOR       0x201
-#define TILE_ROCK_1      0x202
-#define TILE_ROCK_2      0x203
-#define TILE_CLIFF_TL    0x208
-#define TILE_CLIFF_T     0x209
-#define TILE_CLIFF_TR    0x20A
-#define TILE_CLIFF_L     0x210
-#define TILE_CLIFF_C     0x211
-#define TILE_CLIFF_R     0x212
-#define TILE_CLIFF_BL    0x218
-#define TILE_CLIFF_B     0x219
-#define TILE_CLIFF_BR    0x21A
-#define TILE_CLIFF_IN_SE 0x21B  // coins rentrants : sol en diagonale
-#define TILE_CLIFF_IN_SW 0x21C
-#define TILE_CLIFF_IN_NE 0x223
-#define TILE_CLIFF_IN_NW 0x224
+// Metatiles : tous les tilesets du donjon (un par décor de biome, tools/isaac/build_tileset.py) ont la même
+// numérotation, dans l'ordre de ROLES
+#define TILE_FLOOR       0x200
+#define TILE_ROCK_1      0x201
+#define TILE_ROCK_2      0x202
+#define TILE_CLIFF_TL    0x203
+#define TILE_CLIFF_T     0x204
+#define TILE_CLIFF_TR    0x205
+#define TILE_CLIFF_L     0x206
+#define TILE_CLIFF_C     0x207
+#define TILE_CLIFF_R     0x208
+#define TILE_CLIFF_BL    0x209
+#define TILE_CLIFF_B     0x20A
+#define TILE_CLIFF_BR    0x20B
+#define TILE_CLIFF_IN_SE 0x20C  // coins rentrants : sol en diagonale
+#define TILE_CLIFF_IN_SW 0x20D
+#define TILE_CLIFF_IN_NE 0x20E
+#define TILE_CLIFF_IN_NW 0x20F
 
 // Paillassons devant les portes des salles spéciales (tileset IsaacCave, tools/isaac/build_tileset.py) :
 // motif (MAT_BOSS...), orientation (MAT_HORIZONTAL...), case du paillasson (ligne par ligne)
@@ -274,6 +285,56 @@ static bool8 IsInHub(void)
 {
     return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_HUB)
         && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_HUB);
+}
+
+// ---------------------------------------------------------------------------
+// Biomes
+// ---------------------------------------------------------------------------
+
+// Biome de l'étage n° floor (1 à ISAAC_FLOOR_COUNT) : ordre mélangé à partir de VAR_ISAAC_BIOME_ORDER
+static u32 GetBiomeOfFloor(u32 floor)
+{
+    u8 order[ISAAC_BIOME_COUNT];
+    u32 state = VarGet(VAR_ISAAC_BIOME_ORDER) * 2654435761u + 1;
+    u32 i, j, tmp;
+
+    for (i = 0; i < ISAAC_BIOME_COUNT; i++)
+        order[i] = i;
+    for (i = ISAAC_BIOME_COUNT - 1; i > 0; i--)
+    {
+        state = state * 1103515245 + 12345;
+        j = (state >> 16) % (i + 1);
+        SWAP(order[i], order[j], tmp);
+    }
+    floor = min(max(floor, 1u), (u32)ISAAC_FLOOR_COUNT);
+    return order[floor - 1];
+}
+
+u32 IsaacGetCurrentBiome(void)
+{
+    return GetBiomeOfFloor(VarGet(VAR_ISAAC_FLOOR));
+}
+
+// Chargement de l'en-tête d'une map : si c'est la salle du donjon, décor du biome de l'étage (le tileset vient
+// de *layoutId). FALSE pour les autres maps.
+bool8 IsaacApplyBiomeToMapHeader(struct MapHeader *header, u16 *layoutId)
+{
+    const struct IsaacBiome *biome;
+
+    if (!IsInRoomMap())
+        return FALSE;
+    biome = &gIsaacBiomes[IsaacGetCurrentBiome()];
+    *layoutId = biome->layoutId;
+    header->cave = biome->dark;
+    header->mapType = biome->underwater ? MAP_TYPE_UNDERWATER : MAP_TYPE_UNDERGROUND;
+    header->weather = biome->weather;
+    return TRUE;
+}
+
+// Musique de la salle du donjon
+u16 IsaacGetBiomeMusic(void)
+{
+    return gIsaacBiomes[IsaacGetCurrentBiome()].music;
 }
 
 // ---------------------------------------------------------------------------
@@ -1009,6 +1070,12 @@ static void SetUpBoss(s32 x, s32 y, bool8 cleared)
         FlagClear(TRAINER_FLAGS_START + TRAINER_ISAAC_BOSS);
 }
 
+// Avant le combat contre le boss : son nom dans gStringVar1 (texte d'introduction)
+void IsaacBufferBossName(void)
+{
+    StringCopy(gStringVar1, gIsaacBiomes[ISAAC_BIOME].bossName);
+}
+
 // Boss vaincu : la salle est nettoyée et le passage vers l'étage suivant s'ouvre (la salle est redessinée)
 void IsaacOpenBossExit(void)
 {
@@ -1063,6 +1130,8 @@ static void WarpToRoom(s32 x, s32 y)
 // Nouvel étage (nouvelle graine) : arrivée au centre de la salle de départ
 static void WarpToNewFloor(u32 floor)
 {
+    if (floor == 1)  // nouvelle descente : nouvel ordre des biomes
+        VarSet(VAR_ISAAC_BIOME_ORDER, Random());
     VarSet(VAR_ISAAC_FLOOR, floor);
     VarSet(VAR_ISAAC_SEED, Random());
     ClearVisited();
@@ -1153,7 +1222,7 @@ static u8 CreateMinimapBallIcon(s32 x, s32 y)
 // d'icônes de Pokémon ; *ballSpriteId : icône de la salle de capture (MAX_SPRITES si elle n'est pas visible)
 static u32 DrawMinimap(u8 windowId, u8 *iconSpriteIds, u16 *iconSpecies, u8 *ballSpriteId)
 {
-    u8 title[16];
+    u8 title[16], *end;
     s32 x, y, curX, curY, minX = ISAAC_GRID_W, maxX = -1, minY = ISAAC_GRID_H, maxY = -1;
     u32 roomW, roomH, cols, rows, left, top, px, py;
     u32 iconCount = 0;
@@ -1161,8 +1230,10 @@ static u32 DrawMinimap(u8 windowId, u8 *iconSpriteIds, u16 *iconSpecies, u8 *bal
 
     *ballSpriteId = MAX_SPRITES;
     FillWindowPixelBuffer(windowId, PIXEL_FILL(MINIMAP_COLOR_BG));
-    ConvertIntToDecimalStringN(StringCopy(title, COMPOUND_STRING("ÉTAGE ")), VarGet(VAR_ISAAC_FLOOR),
-                               STR_CONV_MODE_LEFT_ALIGN, 3);
+    end = ConvertIntToDecimalStringN(StringCopy(title, COMPOUND_STRING("ÉTAGE ")), VarGet(VAR_ISAAC_FLOOR),
+                                     STR_CONV_MODE_LEFT_ALIGN, 3);
+    *end++ = CHAR_SLASH;
+    ConvertIntToDecimalStringN(end, ISAAC_FLOOR_COUNT, STR_CONV_MODE_LEFT_ALIGN, 3);
     AddTextPrinterParameterized(windowId, FONT_NORMAL, title,
                                 GetStringCenterAlignXOffset(FONT_NORMAL, title, MINIMAP_AREA_W), 0, TEXT_SKIP_DRAW, NULL);
 
@@ -1383,7 +1454,16 @@ void IsaacTakeExit(void)
         GoThroughDoor(sPendingDoor);
         break;
     case EXIT_NEXT_FLOOR:
-        WarpToNewFloor(VarGet(VAR_ISAAC_FLOOR) + 1);
+        if (VarGet(VAR_ISAAC_FLOOR) >= ISAAC_FLOOR_COUNT)
+        {
+            SetWarpDestination(MAP_GROUP(MAP_ISAAC_WIN), MAP_NUM(MAP_ISAAC_WIN), WARP_ID_NONE, WIN_ROOM_X, WIN_ROOM_Y);
+            DoWarp();
+            ResetInitialPlayerAvatarState();
+        }
+        else
+        {
+            WarpToNewFloor(VarGet(VAR_ISAAC_FLOOR) + 1);
+        }
         break;
     case EXIT_HUB_ENTRANCE:
         WarpToNewFloor(1);

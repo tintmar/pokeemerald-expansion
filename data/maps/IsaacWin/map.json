@@ -1,0 +1,30 @@
+{
+  "id": "MAP_ISAAC_WIN",
+  "name": "IsaacWin",
+  "layout": "LAYOUT_ISAAC_WIN",
+  "music": "MUS_HALL_OF_FAME_ROOM",
+  "region": "REGION_HOENN",
+  "region_map_section": "MAPSEC_VICTORY_ROAD",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_UNDERGROUND",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [],
+  "warp_events": [],
+  "coord_events": [],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 5,
+      "y": 3,
+      "elevation": 3,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "IsaacWin_EventScript_Sign"
+    }
+  ]
+}
