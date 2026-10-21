@@ -38,10 +38,10 @@ SPREADS = {
     'HP_ATK':    (252, 252, 0, 4, 0, 0),    # = PHYS_BULK, Vitesse plutôt que Défense
 }
 TIER_IVS = (15, 20, 31)
-# Set 2 : léger nerf des attaques. Seule la plus puissante des attaques offensives au-dessus de TIER2_MAX_POWER est
-# remplacée (les autres restent) par la meilleure que l'espèce peut apprendre, de même type et de même catégorie, de
-# puissance TIER2_MIN_POWER à TIER2_MAX_POWER et de précision >= TIER2_MIN_ACCURACY (voir nerf_moves).
-TIER2_MAX_POWER = 100
+# Set 2 : attaques offensives plafonnées en puissance (les plus fortes sont réservées au set 3). Chaque attaque plus
+# puissante que TIER2_MAX_POWER est remplacée par la meilleure que l'espèce peut apprendre, de même type et de même
+# catégorie, de puissance TIER2_MIN_POWER à TIER2_MAX_POWER et de précision >= TIER2_MIN_ACCURACY (voir nerf_moves).
+TIER2_MAX_POWER = 80
 TIER2_MIN_POWER = 40
 TIER2_MIN_ACCURACY = 85
 # Attaques jamais choisies en remplacement (effet trop particulier)
@@ -85,13 +85,12 @@ def error(name, tier, msg):
 
 
 def nerf_moves(name, moves):
-    """Set 2 : remplace la plus puissante des attaques au-dessus de TIER2_MAX_POWER ; renvoie les attaques et le
-    remplacement"""
+    """Set 2 : remplace les attaques plus puissantes que TIER2_MAX_POWER ; renvoie les attaques et les remplacements"""
     learn = g.learnset(name)
     out, changes = list(moves), []
     strong = [(g.MOVES[mv].power, i) for i, mv in enumerate(moves)
               if mv in g.MOVES and g.MOVES[mv].cat != 'STATUS' and g.MOVES[mv].power > TIER2_MAX_POWER]
-    for _, i in sorted(strong, reverse=True)[:1]:
+    for _, i in sorted(strong, reverse=True):
         mv = moves[i]
         info = g.MOVES[mv]
         best = None
