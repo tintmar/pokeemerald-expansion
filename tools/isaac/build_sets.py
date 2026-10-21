@@ -10,11 +10,11 @@ physique / spécial, offensif / soutien, autre objet...).
 Un set s'écrit sur une ligne : 'TALENT / OBJET / NATURE / RÉPARTITION / ATTAQUE1 ATTAQUE2 ATTAQUE3 ATTAQUE4'
   - OBJET : '-' pour aucun objet ;
   - NATURE : '-' pour le set 1 (nature neutre, Hardi) ;
-  - RÉPARTITION : une clé de SPREADS (EVs du set 3, réduits aux 2/3 pour le set 2 et au tiers pour le set 1).
+  - RÉPARTITION : une clé de SPREADS (EVs du set 3, réduits de moitié pour le set 2 et au tiers pour le set 1).
 
 Paliers :
   1. attaques de base, petite baie, nature neutre, EVs au tiers, IVs 15 ;
-  2. bonnes attaques, objet correct (Baie Sitrus, objet de type, Restes...), EVs aux 2/3, IVs 24 ;
+  2. bonnes attaques, objet correct (Baie Sitrus, objet de type, Restes...), EVs à moitié, IVs 20 ;
   3. set compétitif (Orbe Vie, Choix, Restes...), EVs complets, IVs 31. Pas d'Évoluroc.
 
 Usage : python3 tools/isaac/build_sets.py [--check]   (--check : vérifie sans écrire le header)
@@ -37,8 +37,18 @@ SPREADS = {
     'HP_SPE':    (252, 0, 4, 252, 0, 0),    # soutien rapide
     'HP_ATK':    (252, 252, 0, 4, 0, 0),    # = PHYS_BULK, Vitesse plutôt que Défense
 }
-TIER_IVS = (15, 24, 31)
-TIER_EV_FRACTION = ((1, 3), (2, 3), (1, 1))
+TIER_IVS = (15, 20, 31)
+# Set 2 : léger nerf des attaques. Seule la plus puissante des attaques offensives au-dessus de TIER2_MAX_POWER est
+# remplacée (les autres restent) par la meilleure que l'espèce peut apprendre, de même type et de même catégorie, de
+# puissance TIER2_MIN_POWER à TIER2_MAX_POWER et de précision >= TIER2_MIN_ACCURACY (voir nerf_moves).
+TIER2_MAX_POWER = 100
+TIER2_MIN_POWER = 40
+TIER2_MIN_ACCURACY = 85
+# Attaques jamais choisies en remplacement (effet trop particulier)
+NERF_EXCLUDED = {'DREAM_EATER', 'SNORE', 'SPIT_UP', 'NATURAL_GIFT', 'SYNCHRONOISE', 'BELCH', 'STEEL_ROLLER',
+                 'LAST_RESORT', 'FUTURE_SIGHT', 'DOOM_DESIRE', 'SKY_DROP', 'BIDE', 'COUNTER', 'MIRROR_COAT',
+                 'METAL_BURST', 'ROLLOUT', 'ICE_BALL', 'UPROAR', 'THRASH', 'OUTRAGE', 'PETAL_DANCE', 'RAGE'}
+TIER_EV_FRACTION = ((1, 3), (1, 2), (1, 1))  # set 2 nettement en dessous du set 3
 
 # Objets réservés aux sets les plus forts
 TOP_ITEMS = {'LIFE_ORB', 'CHOICE_BAND', 'CHOICE_SPECS', 'CHOICE_SCARF', 'ASSAULT_VEST', 'FOCUS_SASH',
@@ -72,6 +82,35 @@ variant_letter = 'A'
 
 def error(name, tier, msg):
     errors.append(f'{name} (set {tier + 1}{variant_letter}) : {msg}')
+
+
+def nerf_moves(name, moves):
+    """Set 2 : remplace la plus puissante des attaques au-dessus de TIER2_MAX_POWER ; renvoie les attaques et le
+    remplacement"""
+    learn = g.learnset(name)
+    out, changes = list(moves), []
+    strong = [(g.MOVES[mv].power, i) for i, mv in enumerate(moves)
+              if mv in g.MOVES and g.MOVES[mv].cat != 'STATUS' and g.MOVES[mv].power > TIER2_MAX_POWER]
+    for _, i in sorted(strong, reverse=True)[:1]:
+        mv = moves[i]
+        info = g.MOVES[mv]
+        best = None
+        for cand in learn:
+            c = g.MOVES.get(cand)
+            if (c is None or cand in out or cand in NERF_EXCLUDED or c.type != info.type or c.cat != info.cat
+                    or not TIER2_MIN_POWER <= c.power <= TIER2_MAX_POWER
+                    or (c.acc != 0 and c.acc < TIER2_MIN_ACCURACY)):
+                continue
+            key = (c.power, c.acc if c.acc else 101, cand)
+            if best is None or key > best[0]:
+                best = (key, cand)
+        if best:
+            out[i] = best[1]
+            changes.append((mv, best[1]))
+    return out, changes
+
+
+nerf_log = []
 
 
 def parse_set(name, tier, line):
@@ -112,6 +151,10 @@ def parse_set(name, tier, line):
             error(name, tier, f'attaque {mv} inconnue')
         elif mv not in learn and name != 'SMEARGLE':  # Queulorior : attaques obtenues par Gribouille
             error(name, tier, f'{mv} non apprenable')
+
+    if tier == 1:
+        moves, changes = nerf_moves(name, moves)
+        nerf_log.extend((name, variant_letter, a, b) for a, b in changes)
 
     num, den = TIER_EV_FRACTION[tier]
     evs = [v * num // den // 4 * 4 for v in SPREADS[spread]]
@@ -206,6 +249,10 @@ def main():
     for e in errors:
         print(e)
     print(f'{len(sets)} espèces, {len(missing)} sans sets, {count_b} avec une variante B, {len(errors)} erreurs')
+    print(f'set 2 : {len(nerf_log)} attaques remplacées (puissance > {TIER2_MAX_POWER})')
+    if '--nerf-log' in sys.argv:
+        for name, letter, old, new in nerf_log:
+            print(f'  {name} (2{letter}) : {old} -> {new}')
     if '--check' not in sys.argv and not errors:
         write_header(sets)
         print('src/data/isaac_sets.h écrit')
