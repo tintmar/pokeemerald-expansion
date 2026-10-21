@@ -330,7 +330,7 @@
 #define B_ABILITY_WEATHER               GEN_LATEST // In Gen6+, Ability-induced weather lasts 5 turns. In Gen5 and earlier, it lasted until the battle ended or until it was changed by another weather condition.
 #define B_SANDSTORM_SPDEF_BOOST         GEN_LATEST // In Gen4+, sandstorm increases the Sp. Def of Rock-type Pokémon by 1.5x.
 #define B_SANDSTORM_SOLAR_BEAM          GEN_LATEST // In Gen3+, sandstorm decreases the power of Solar Beam.
-#define B_OVERWORLD_FOG                 GEN_LATEST // In Gen8+, overworld fog summons Misty Terrain in battle. In Gen4 only, overworld fog summons the unique fog weather condition in battle.
+#define B_OVERWORLD_FOG                 GEN_3      // Donjon : le brouillard de la carte n'a aucun effet en combat. In Gen8+, overworld fog summons Misty Terrain in battle. In Gen4 only, overworld fog summons the unique fog weather condition in battle.
 #define B_OVERWORLD_SNOW                GEN_LATEST // In Gen9+, overworld snow will summon snow instead of hail in battle.
 #define B_SNOW_WARNING                  GEN_LATEST // In Gen9+, Snow Warning will summon snow instead of hail.
 #define B_PREFERRED_ICE_WEATHER         B_ICE_WEATHER_BOTH // Toggles hail move effects to snow and vice versa.
