@@ -159,6 +159,8 @@ STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 < FLAG_UNUSED_
 #define TILE_CLIFF_IN_NE 0x20E
 #define TILE_CLIFF_IN_NW 0x20F
 #define TILE_SANDBAR     0x211  // banc de sable d'une case dans l'eau (océan)
+#define TILE_DECO_1      0x212  // décorations des coins de salle (rochers, glace...), voir PaintCornerDecorations
+#define TILE_DECO_2      0x213
 
 // Paillassons devant les portes des salles spéciales (tileset IsaacCave, tools/isaac/build_tileset.py) :
 // motif (MAT_BOSS...), orientation (MAT_HORIZONTAL...), case du paillasson (ligne par ligne)
@@ -846,6 +848,40 @@ static void PaintDoorMats(s32 cellX, s32 cellY)
     }
 }
 
+// Décorations des coins de la salle, semi-aléatoires (toujours les mêmes pour une salle) : dans chaque coin, rien
+// (DECO_EMPTY_PCT %) ou une des deux décorations du décor, parfois doublée d'une seconde le long du mur
+// (DECO_PAIR_PCT %). Elles sont infranchissables ; elles ne vont que sur du sol, loin des portes et du centre.
+#define DECO_EMPTY_PCT  30
+#define DECO_PAIR_PCT   40
+
+static u32 RoomRandom(s32 x, s32 y, u32 salt);
+
+static void PaintCornerDecorations(s32 cellX, s32 cellY)
+{
+    static const s8 sCornerX[] = { ROOM_MIN_X, ROOM_MAX_X, ROOM_MIN_X, ROOM_MAX_X };
+    static const s8 sCornerY[] = { ROOM_MIN_Y, ROOM_MIN_Y, ROOM_MAX_Y, ROOM_MAX_Y };
+    static const s8 sAlongWallDx[] = { 1, -1, 1, -1 };
+    u32 corner, roll, i, count;
+    s32 x, y;
+
+    for (corner = 0; corner < ARRAY_COUNT(sCornerX); corner++)
+    {
+        roll = RoomRandom(cellX, cellY, 0xDEC0 + corner);
+        if (roll % 100 < DECO_EMPTY_PCT)
+            continue;
+        count = ((roll >> 8) % 100 < DECO_PAIR_PCT) ? 2 : 1;
+        for (i = 0; i < count; i++)
+        {
+            x = sCornerX[corner] + i * sAlongWallDx[corner];
+            y = sCornerY[corner];
+            if (IsWallAt(x, y))
+                continue;
+            SetTile(x, y, (((roll >> (16 + i)) & 1) ? TILE_DECO_2 : TILE_DECO_1)
+                          | MAPGRID_IMPASSABLE | PACK_ELEVATION(FLOOR_ELEVATION));
+        }
+    }
+}
+
 static void PaintRoom(void)
 {
     s32 x, y, cellX, cellY;
@@ -871,6 +907,7 @@ static void PaintRoom(void)
     }
 
     GetCurrentCell(&cellX, &cellY);
+    PaintCornerDecorations(cellX, cellY);
     PaintDoorMats(cellX, cellY);
     // Océan : Kecleon (boutique) se tient sur un banc de sable, on lui parle sans quitter l'eau
     if (gIsaacBiomes[ISAAC_BIOME].ocean && GetRoom(cellX, cellY) == ROOM_SHOP)

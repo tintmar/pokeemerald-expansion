@@ -8,6 +8,7 @@ Tous ont la même numérotation de metatiles, pour que isaac_dungeon.c dessine l
     d'origine en dessous de 0x200 est pris tel quel dans le tileset primaire General ;
   - 0x210 : un panneau posé sur le sol (salle de la victoire) ;
   - 0x211 : un banc de sable d'une case dans l'eau (boutique de l'océan) ;
+  - 0x212, 0x213 : deux décorations d'une case du décor (rochers, glace...), posées dans les coins des salles ;
   - à partir de 0x240 (ISAAC_MAT_FIRST) : les paillassons devant les portes des salles spéciales : tapis rouge
     et or avec la tête du Pokémon de la mini-carte (Mewtwo boss, Pikachu trésor, Kecleon boutique) ou une Poké
     Ball (capture), découpées dans les sprites de face du jeu.
@@ -32,6 +33,8 @@ SECONDARY = os.path.join(ROOT, 'data/tilesets/secondary')
 PRIMARY = os.path.join(ROOT, 'data/tilesets/primary/general')
 
 # Rôles des metatiles 0x200 à 0x20F (même ordre que les TILE_* de isaac_dungeon.c)
+DECOS = ['DECO_1', 'DECO_2']  # décorations des coins de salle, à partir de DECO_FIRST
+DECO_FIRST = 0x212
 ROLES = ['FLOOR', 'ROCK_1', 'ROCK_2', 'TL', 'T', 'TR', 'L', 'C', 'R', 'BL', 'B', 'BR', 'IN_SE', 'IN_SW', 'IN_NE', 'IN_NW']
 SIGN_METATILE = 0x210
 MAT_FIRST = 0x240
@@ -43,19 +46,19 @@ SANDBAR_TOP = [0x59D6, 0x55D0, 0x51D6, 0x5DD0]  # coins de rive (tuiles 0x1D6 et
 BIOME_TILESETS = [
     ('isaac_cave', 'cave', dict(  # Route Victoire (grotte standard et grotte obscure)
         FLOOR=0x201, ROCK_1=0x202, ROCK_2=0x203, TL=0x208, T=0x209, TR=0x20A, L=0x210, C=0x211, R=0x212,
-        BL=0x218, B=0x219, BR=0x21A, IN_SE=0x21B, IN_SW=0x21C, IN_NE=0x223, IN_NW=0x224)),
+        BL=0x218, B=0x219, BR=0x21A, IN_SE=0x21B, IN_SW=0x21C, IN_NE=0x223, IN_NW=0x224, DECO_1=0x202, DECO_2=0x203)),
     ('isaac_fire', 'lavaridge', dict(  # Chemin Ardent
         FLOOR=0x308, ROCK_1=0x271, ROCK_2=0x271, TL=0x30A, T=0x30C, TR=0x30B, L=0x306, C=0x271, R=0x307,
-        BL=0x30E, B=0x274, BR=0x30F, IN_SE=0x27B, IN_SW=0x27C, IN_NE=0x27F, IN_NW=0x27E)),
+        BL=0x30E, B=0x274, BR=0x30F, IN_SE=0x27B, IN_SW=0x27C, IN_NE=0x27F, IN_NW=0x27E, DECO_1=0x2C4, DECO_2=0x300)),
     ('isaac_mystic', 'meteor_falls', dict(  # Chutes Météore : terrasses lavande, faces de falaise sombres
         FLOOR=0x201, ROCK_1=0x231, ROCK_2=0x231, TL=0x286, T=0x286, TR=0x286, L=0x228, C=0x201, R=0x212,
-        BL=0x231, B=0x231, BR=0x231, IN_SE=0x213, IN_SW=0x214, IN_NE=0x286, IN_NW=0x286)),
+        BL=0x231, B=0x231, BR=0x231, IN_SE=0x213, IN_SW=0x214, IN_NE=0x286, IN_NW=0x286, DECO_1=0x231, DECO_2=0x231)),
     ('isaac_ice', 'cave', dict(  # Grotte Tréfonds, salle gelée (sol de glace pointillée, qui ne glisse pas)
         FLOOR=0x385, ROCK_1=0x381, ROCK_2=0x381, TL=0x378, T=0x379, TR=0x37A, L=0x380, C=0x381, R=0x382,
-        BL=0x388, B=0x389, BR=0x38A, IN_SE=0x37B, IN_SW=0x37C, IN_NE=0x383, IN_NW=0x384)),
+        BL=0x388, B=0x389, BR=0x38A, IN_SE=0x37B, IN_SW=0x37C, IN_NE=0x383, IN_NW=0x384, DECO_1=0x37D, DECO_2=0x278)),
     ('isaac_poison', 'rusturf_tunnel', dict(  # Tunnel Mérazon (moussu)
         FLOOR=0x201, ROCK_1=0x211, ROCK_2=0x211, TL=0x208, T=0x209, TR=0x20A, L=0x210, C=0x211, R=0x212,
-        BL=0x218, B=0x219, BR=0x21A, IN_SE=0x21B, IN_SW=0x21C, IN_NE=0x223, IN_NW=0x224)),
+        BL=0x218, B=0x219, BR=0x21A, IN_SE=0x21B, IN_SW=0x21C, IN_NE=0x223, IN_NW=0x224, DECO_1=0x203, DECO_2=0x206)),
     # Océan de Hoenn (Routes 105, 134) : eau animée, murs en crêtes rocheuses de la mer, rocher immergé pour les
     # bouts de mur isolés ; tout dans le tileset primaire General (le tileset d'origine ne sert pas). Tous les rôles
     # ont le comportement de l'eau : le joueur surfe partout, même à travers les rochers des portes secrètes (les
@@ -63,7 +66,7 @@ BIOME_TILESETS = [
     # sud-est 0x074) : les deux autres prennent le centre de la roche.
     ('isaac_ocean', 'pacifidlog', dict(
         FLOOR=0x170, ROCK_1=0x0BD, ROCK_2=0x0BD, TL=0x172, T=0x17B, TR=0x174, L=0x17A, C=0x071, R=0x17C,
-        BL=0x182, B=0x079, BR=0x184, IN_SE=0x074, IN_SW=0x071, IN_NE=0x071, IN_NW=0x0B4)),
+        BL=0x182, B=0x079, BR=0x184, IN_SE=0x074, IN_SW=0x071, IN_NE=0x071, IN_NW=0x0B4, DECO_1=0x0BD, DECO_2=0x0BD)),
 ]
 SURF_TILESETS = {'isaac_ocean'}  # décors où le joueur surfe : tous les rôles ont le comportement du sol (eau)
 NUM_PRIMARY_TILES = 512
@@ -198,7 +201,7 @@ def build(out_name, source_name, mapping, mats):
 
     # Palettes du décor utilisées par les rôles : renumérotées à partir de 6
     pal_remap = {}
-    for role in ROLES:
+    for role in ROLES + DECOS:
         if mapping[role] < NUM_PRIMARY_TILES:
             continue  # metatile de General : palettes de General
         m = mapping[role] - NUM_PRIMARY_TILES
@@ -249,6 +252,18 @@ def build(out_name, source_name, mapping, mats):
     # de rive des îlots de sable de General dans chaque quart dessus
     metatiles.extend(primary_meta[SANDBAR_WATER * 8: SANDBAR_WATER * 8 + 4] + SANDBAR_TOP)
     attributes.append(0x1000 | floor_behavior)
+
+    # 2 ter. Décorations des coins de salle (DECO_FIRST et suivants), comme les rôles
+    assert len(attributes) == DECO_FIRST - NUM_PRIMARY_TILES
+    for role in DECOS:
+        m = mapping[role]
+        if m < NUM_PRIMARY_TILES:
+            metatiles.extend(primary_meta[m * 8: m * 8 + 8])
+            attributes.append((primary_attr[m] & 0xF000) | floor_behavior)
+        else:
+            m -= NUM_PRIMARY_TILES
+            metatiles.extend(convert(e) for e in src_meta[m * 8: m * 8 + 8])
+            attributes.append((src_attr[m] & 0xF000) | floor_behavior)
 
     # 3. Rien jusqu'aux paillassons
     while len(attributes) < MAT_FIRST - NUM_PRIMARY_TILES:
