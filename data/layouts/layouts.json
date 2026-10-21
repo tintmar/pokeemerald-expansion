@@ -9341,7 +9341,7 @@
       "width": 15,
       "height": 11,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Cave",
+      "secondary_tileset": "gTileset_IsaacCave",
       "border_filepath": "data/layouts/IsaacRoom/border.bin",
       "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
       "layout_version": "emerald"

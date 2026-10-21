@@ -408,3 +408,7 @@ const u16 gMetatiles_HallOfFame[] = INCBIN_U16("data/tilesets/secondary/hall_of_
 const u16 gMetatileAttributes_HallOfFame[] = INCBIN_U16("data/tilesets/secondary/hall_of_fame_frlg/metatile_attributes.bin");
 
 #endif // IS_FRLG
+
+// Donjon (tools/isaac/build_tileset.py)
+const u16 gMetatiles_IsaacCave[] = INCBIN_U16("data/tilesets/secondary/isaac_cave/metatiles.bin");
+const u16 gMetatileAttributes_IsaacCave[] = INCBIN_U16("data/tilesets/secondary/isaac_cave/metatile_attributes.bin");

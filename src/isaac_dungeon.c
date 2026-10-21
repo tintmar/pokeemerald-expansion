@@ -6,6 +6,7 @@
 #include "fieldmap.h"
 #include "international_string_util.h"
 #include "isaac_dungeon.h"
+#include "item_icon.h"
 #include "menu.h"
 #include "pokemon_icon.h"
 #include "overworld.h"
@@ -16,6 +17,7 @@
 #include "task.h"
 #include "text.h"
 #include "window.h"
+#include "constants/items.h"
 #include "constants/maps.h"
 #include "constants/species.h"
 #include "constants/songs.h"
@@ -34,7 +36,8 @@
  *      déjà assez de salles, ou une fois sur deux au hasard. Sinon elle devient une salle et entre dans
  *      la file. Le nombre de salles visé grandit avec la profondeur (GetTargetRoomCount) ;
  *   2. les SALLES SPÉCIALES sur les culs-de-sac (salles à un seul voisin, hors départ) : le boss sur le
- *      plus éloigné du départ, puis le trésor, puis la boutique (à partir de ISAAC_SHOP_MIN_FLOOR).
+ *      plus éloigné du départ, puis le trésor, la salle de capture (une par étage), et la boutique (à
+ *      partir de ISAAC_SHOP_MIN_FLOOR).
  *      S'il manque des culs-de-sac ou des salles, on recommence avec une autre graine ;
  *   3. la SALLE SECRÈTE (à partir de ISAAC_SECRET_MIN_FLOOR) : la case vide qui touche le plus de salles
  *      (au moins 2, jamais le boss). Les portes qui y mènent ressemblent à de la roche mais on peut
@@ -83,6 +86,11 @@
 #define TILE_CLIFF_IN_NE 0x223
 #define TILE_CLIFF_IN_NW 0x224
 
+// Paillassons devant les portes des salles spéciales (tileset IsaacCave, tools/isaac/build_tileset.py) :
+// motif (MAT_BOSS...), orientation (MAT_HORIZONTAL...), case du paillasson (ligne par ligne)
+#define TILE_MAT_FIRST   0x240
+#define MAT_TILE(mat, orientation, i)  (TILE_MAT_FIRST + ((mat) * MAT_ORIENTATION_COUNT + (orientation)) * 6 + (i))
+
 #define FLOOR_ELEVATION  3
 
 // Zone peinte : la map et sa marge (MAP_OFFSET cases tout autour, voir InitMapLayoutData)
@@ -99,6 +107,24 @@ enum
     ROOM_TREASURE,
     ROOM_SHOP,
     ROOM_SECRET,
+    ROOM_CAPTURE,
+};
+
+enum
+{
+    MAT_BOSS,
+    MAT_TREASURE,
+    MAT_SHOP,
+    MAT_CAPTURE,
+    MAT_NONE,
+};
+
+enum
+{
+    MAT_HORIZONTAL,  // portes nord et sud : 3 x 2, tête à l'endroit
+    MAT_WEST,        // porte ouest : 2 x 3, tête tournée vers la porte
+    MAT_EAST,        // porte est : 2 x 3, tête tournée vers la porte
+    MAT_ORIENTATION_COUNT,
 };
 
 enum
@@ -154,7 +180,9 @@ struct IsaacFloor
 #define MINIMAP_TITLE_H       16
 #define MINIMAP_WIDTH         24  // fenêtre (tuiles de 8 pixels), sous les tuiles de la boîte de dialogue
 #define MINIMAP_HEIGHT        16
-#define MINIMAP_MAX_ICONS     4   // boss, trésor, boutique, secrète
+#define MINIMAP_MAX_ICONS     4   // icônes de Pokémon : boss, trésor, boutique, secrète
+#define MINIMAP_BALL_TAG      0x7A00  // icône de Poké Ball de la salle de capture (tuiles et palette)
+#define MINIMAP_ITEM_ICON_OFFSET  ((32 - 24) / 2)
 
 #define MINIMAP_COLOR_BG       TEXT_COLOR_WHITE
 #define MINIMAP_COLOR_SEEN     TEXT_COLOR_LIGHT_GRAY
@@ -382,13 +410,24 @@ static void PlaceSecretRoom(void)
     }
 }
 
+// Salle spéciale sur un cul-de-sac pas encore pris, au hasard (le premier, le plus éloigné, est au boss)
+static void PlaceOnFreeDeadEnd(const u8 *deadX, const u8 *deadY, u32 deadCount, u8 room)
+{
+    u32 i;
+
+    do
+        i = 1 + IsaacRandom() % (deadCount - 1);
+    while (sFloor.room[deadY[i]][deadX[i]] != ROOM_NORMAL);
+    sFloor.room[deadY[i]][deadX[i]] = room;
+}
+
 static bool8 TryBuildFloor(u32 floor)
 {
     u8 deadX[ISAAC_GRID_W * ISAAC_GRID_H];
     u8 deadY[ISAAC_GRID_W * ISAAC_GRID_H];
     u32 target = GetTargetRoomCount(floor);
-    u32 needed = (floor >= ISAAC_SHOP_MIN_FLOOR) ? 3 : 2;
-    u32 deadCount, i;
+    u32 needed = (floor >= ISAAC_SHOP_MIN_FLOOR) ? 4 : 3;  // boss, trésor, capture (+ boutique)
+    u32 deadCount;
 
     GrowFloor(target);
     if (sFloor.roomCount < target)
@@ -399,21 +438,16 @@ static bool8 TryBuildFloor(u32 floor)
 
     // Boss sur le cul-de-sac le plus éloigné, les autres spéciales au hasard parmi le reste
     sFloor.room[deadY[0]][deadX[0]] = ROOM_BOSS;
-    i = 1 + IsaacRandom() % (deadCount - 1);
-    sFloor.room[deadY[i]][deadX[i]] = ROOM_TREASURE;
+    PlaceOnFreeDeadEnd(deadX, deadY, deadCount, ROOM_TREASURE);
+    PlaceOnFreeDeadEnd(deadX, deadY, deadCount, ROOM_CAPTURE);
     if (floor >= ISAAC_SHOP_MIN_FLOOR)
-    {
-        do
-            i = 1 + IsaacRandom() % (deadCount - 1);
-        while (sFloor.room[deadY[i]][deadX[i]] != ROOM_NORMAL);
-        sFloor.room[deadY[i]][deadX[i]] = ROOM_SHOP;
-    }
+        PlaceOnFreeDeadEnd(deadX, deadY, deadCount, ROOM_SHOP);
     if (floor >= ISAAC_SECRET_MIN_FLOOR)
         PlaceSecretRoom();
     return TRUE;
 }
 
-// Repli si aucune graine ne marche (ne devrait pas arriver) : départ, une salle, boss, trésor en ligne
+// Repli si aucune graine ne marche (ne devrait pas arriver) : départ, une salle, boss, trésor, capture
 static void BuildFallbackFloor(void)
 {
     memset(&sFloor, 0, sizeof(sFloor));
@@ -421,7 +455,8 @@ static void BuildFallbackFloor(void)
     sFloor.room[ISAAC_START_Y][ISAAC_START_X + 1] = ROOM_NORMAL;
     sFloor.room[ISAAC_START_Y][ISAAC_START_X + 2] = ROOM_BOSS;
     sFloor.room[ISAAC_START_Y][ISAAC_START_X - 1] = ROOM_TREASURE;
-    sFloor.roomCount = 4;
+    sFloor.room[ISAAC_START_Y - 1][ISAAC_START_X] = ROOM_CAPTURE;
+    sFloor.roomCount = 5;
 }
 
 static void BuildFloorPlan(void)
@@ -610,6 +645,48 @@ static u16 GetCliffTile(s32 x, s32 y)
     return TILE_CLIFF_C;
 }
 
+static u8 GetDoorMat(u8 room)
+{
+    switch (room)
+    {
+    case ROOM_BOSS:
+        return MAT_BOSS;
+    case ROOM_TREASURE:
+        return MAT_TREASURE;
+    case ROOM_SHOP:
+        return MAT_SHOP;
+    case ROOM_CAPTURE:
+        return MAT_CAPTURE;
+    default:  // pas la salle secrète : elle doit le rester
+        return MAT_NONE;
+    }
+}
+
+// Paillasson devant chaque porte qui mène à une salle spéciale, avec le symbole de la mini-carte
+static void PaintDoorMats(s32 cellX, s32 cellY)
+{
+    // Coin haut gauche du paillasson et taille (en cases), par porte
+    static const s8 sMatX[ISAAC_DIR_COUNT] = { [ISAAC_DIR_NORTH] = ROOM_MID_X - 1, [ISAAC_DIR_SOUTH] = ROOM_MID_X - 1,
+                                               [ISAAC_DIR_WEST] = ROOM_MIN_X, [ISAAC_DIR_EAST] = ROOM_MAX_X - 1 };
+    static const s8 sMatY[ISAAC_DIR_COUNT] = { [ISAAC_DIR_NORTH] = ROOM_MIN_Y, [ISAAC_DIR_SOUTH] = ROOM_MAX_Y - 1,
+                                               [ISAAC_DIR_WEST] = ROOM_MID_Y - 1, [ISAAC_DIR_EAST] = ROOM_MID_Y - 1 };
+    static const u8 sMatOrientation[ISAAC_DIR_COUNT] = { [ISAAC_DIR_NORTH] = MAT_HORIZONTAL, [ISAAC_DIR_SOUTH] = MAT_HORIZONTAL,
+                                                         [ISAAC_DIR_WEST] = MAT_WEST, [ISAAC_DIR_EAST] = MAT_EAST };
+    u32 dir, i, w;
+    u8 mat;
+
+    for (dir = 0; dir < ISAAC_DIR_COUNT; dir++)
+    {
+        mat = GetDoorMat(GetRoom(cellX + sDirDx[dir], cellY + sDirDy[dir]));
+        if (mat == MAT_NONE)
+            continue;
+        w = (sMatOrientation[dir] == MAT_HORIZONTAL) ? 3 : 2;
+        for (i = 0; i < 6; i++)
+            SetTile(sMatX[dir] + i % w, sMatY[dir] + i / w,
+                    MAT_TILE(mat, sMatOrientation[dir], i) | PACK_ELEVATION(FLOOR_ELEVATION));
+    }
+}
+
 static void PaintRoom(void)
 {
     s32 x, y, cellX, cellY;
@@ -637,6 +714,7 @@ static void PaintRoom(void)
     GetCurrentCell(&cellX, &cellY);
     if (GetRoom(cellX, cellY) == ROOM_BOSS)
         SetTile(ROOM_MID_X, ROOM_MID_Y, TILE_LADDER | PACK_ELEVATION(FLOOR_ELEVATION));
+    PaintDoorMats(cellX, cellY);
 }
 
 // ---------------------------------------------------------------------------
@@ -723,8 +801,24 @@ static u8 CreateMinimapIcon(enum Species species, s32 x, s32 y)
     return spriteId;
 }
 
-// Dessine la carte dans la fenêtre et crée les icônes (sprites) des salles spéciales : renvoie leur nombre
-static u32 DrawMinimap(u8 windowId, u8 *iconSpriteIds, u16 *iconSpecies)
+// Icône de Poké Ball centrée sur la salle de capture (x, y : centre de la salle, en pixels de l'écran)
+static u8 CreateMinimapBallIcon(s32 x, s32 y)
+{
+    u8 spriteId = AddItemIconSprite(MINIMAP_BALL_TAG, MINIMAP_BALL_TAG, ITEM_POKE_BALL);
+
+    // L'icône d'objet (24 x 24) est dans le coin haut gauche d'un sprite de 32 x 32 : on la recentre
+    if (spriteId != MAX_SPRITES)
+    {
+        gSprites[spriteId].x = x + MINIMAP_ITEM_ICON_OFFSET;
+        gSprites[spriteId].y = y + MINIMAP_ITEM_ICON_OFFSET;
+        gSprites[spriteId].oam.priority = 0;  // devant la fenêtre
+    }
+    return spriteId;
+}
+
+// Dessine la carte dans la fenêtre et crée les icônes (sprites) des salles spéciales : renvoie le nombre
+// d'icônes de Pokémon ; *ballSpriteId : icône de la salle de capture (MAX_SPRITES si elle n'est pas visible)
+static u32 DrawMinimap(u8 windowId, u8 *iconSpriteIds, u16 *iconSpecies, u8 *ballSpriteId)
 {
     u8 title[16];
     s32 x, y, curX, curY, minX = ISAAC_GRID_W, maxX = -1, minY = ISAAC_GRID_H, maxY = -1;
@@ -732,6 +826,7 @@ static u32 DrawMinimap(u8 windowId, u8 *iconSpriteIds, u16 *iconSpecies)
     u32 iconCount = 0;
     enum Species species;
 
+    *ballSpriteId = MAX_SPRITES;
     FillWindowPixelBuffer(windowId, PIXEL_FILL(MINIMAP_COLOR_BG));
     ConvertIntToDecimalStringN(StringCopy(title, COMPOUND_STRING("ÉTAGE ")), VarGet(VAR_ISAAC_FLOOR),
                                STR_CONV_MODE_LEFT_ALIGN, 3);
@@ -781,6 +876,12 @@ static u32 DrawMinimap(u8 windowId, u8 *iconSpriteIds, u16 *iconSpecies)
             FillWindowPixelRect(windowId, PIXEL_FILL(IsVisited(x, y) ? MINIMAP_COLOR_VISITED : MINIMAP_COLOR_SEEN),
                                 px, py, roomW, roomH);
 
+            if (GetRoom(x, y) == ROOM_CAPTURE)
+            {
+                *ballSpriteId = CreateMinimapBallIcon(sMinimapWindowTemplate.tilemapLeft * 8 + px + roomW / 2,
+                                                      sMinimapWindowTemplate.tilemapTop * 8 + py + roomH / 2);
+                continue;
+            }
             species = GetMinimapIconSpecies(GetRoom(x, y));
             if (species == SPECIES_NONE || iconCount >= MINIMAP_MAX_ICONS)
                 continue;
@@ -797,8 +898,9 @@ static u32 DrawMinimap(u8 windowId, u8 *iconSpriteIds, u16 *iconSpecies)
 #define tIconCount  data[2]
 #define tIconSprite(i)   data[3 + (i)]
 #define tIconSpecies(i)  data[3 + MINIMAP_MAX_ICONS + (i)]
+#define tBallSprite      data[3 + 2 * MINIMAP_MAX_ICONS]
 
-STATIC_ASSERT(3 + 2 * MINIMAP_MAX_ICONS <= NUM_TASK_DATA, MinimapTaskDataFits);
+STATIC_ASSERT(4 + 2 * MINIMAP_MAX_ICONS <= NUM_TASK_DATA, MinimapTaskDataFits);
 
 // Ferme la mini-carte avec A, B ou R (pas à la première image : l'appui sur R qui l'a ouverte compte encore)
 static void Task_Minimap(u8 taskId)
@@ -821,6 +923,12 @@ static void Task_Minimap(u8 taskId)
     }
     for (i = 0; i < tIconCount; i++)
         FreeMonIconPalette(tIconSpecies(i));
+    if (tBallSprite != MAX_SPRITES)
+    {
+        FreeSpriteTilesByTag(MINIMAP_BALL_TAG);
+        FreeSpritePaletteByTag(MINIMAP_BALL_TAG);
+        DestroySprite(&gSprites[tBallSprite]);
+    }
     ClearStdWindowAndFrameToTransparent(tWindowId, TRUE);
     RemoveWindow(tWindowId);
     DestroyTask(taskId);
@@ -850,11 +958,13 @@ void IsaacShowMinimap(void)
     s16 *data = gTasks[taskId].data;
     u8 iconSpriteIds[MINIMAP_MAX_ICONS];
     u16 iconSpecies[MINIMAP_MAX_ICONS];
+    u8 ballSpriteId;
     u32 i;
 
     tWindowId = AddWindow(&sMinimapWindowTemplate);
     SetStandardWindowBorderStyle(tWindowId, FALSE);
-    tIconCount = DrawMinimap(tWindowId, iconSpriteIds, iconSpecies);
+    tIconCount = DrawMinimap(tWindowId, iconSpriteIds, iconSpecies, &ballSpriteId);
+    tBallSprite = ballSpriteId;
     for (i = 0; i < tIconCount; i++)
     {
         tIconSprite(i) = iconSpriteIds[i];
@@ -869,6 +979,7 @@ void IsaacShowMinimap(void)
 #undef tIconCount
 #undef tIconSprite
 #undef tIconSpecies
+#undef tBallSprite
 
 bool8 TryOpenIsaacMinimap(void)
 {

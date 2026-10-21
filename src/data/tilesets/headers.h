@@ -1541,3 +1541,15 @@ const struct Tileset gTileset_HallOfFame =
 };
 
 #endif // IS_FRLG
+
+// Donjon : sol et falaises de la grotte + paillassons des salles spéciales (tools/isaac/build_tileset.py)
+const struct Tileset gTileset_IsaacCave =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_IsaacCave,
+    .palettes = gTilesetPalettes_IsaacCave,
+    .metatiles = gMetatiles_IsaacCave,
+    .metatileAttributes = gMetatileAttributes_IsaacCave,
+    .callback = NULL,
+};
