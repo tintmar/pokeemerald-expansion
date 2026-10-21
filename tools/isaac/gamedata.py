@@ -11,9 +11,30 @@ def read(path):
     return open(os.path.join(ROOT, path), encoding='utf-8').read()
 
 
+GEN_LATEST = 9  # include/config/general.h : les réglages *_UPDATED_* valent GEN_LATEST (= GEN_9)
+_GEN_VALUES = {'LATEST': GEN_LATEST, 'CHAMPIONS': GEN_LATEST + 1}
+
+
+_COMPARISON = r'[A-Z][A-Z0-9_]*\s*(?:>=|<=|==|!=|>|<)\s*GEN_\w+'
+
+
+def _compare(m):
+    op, gen = m.group(1), m.group(2)
+    n = _GEN_VALUES.get(gen, int(gen) if gen.isdigit() else GEN_LATEST)
+    return str({'>=': GEN_LATEST >= n, '>': GEN_LATEST > n, '<=': GEN_LATEST <= n, '<': GEN_LATEST < n,
+                '==': GEN_LATEST == n, '!=': GEN_LATEST != n}[op])
+
+
 def resolve_ternaries(text):
-    # « P_UPDATED_X >= GEN_6 ? a : b » : le jeu est configuré sur la dernière génération -> a
-    return re.sub(r'[A-Z][A-Z0-9_]*\s*>=\s*GEN_\d+\s*\?\s*([\w]+)\s*:\s*([\w]+)', r'\1', text)
+    # « P_UPDATED_X >= GEN_6 ? a : b », « B_UPDATED_X == GEN_CHAMPIONS ? a : b », « X >= GEN_6 || X == GEN_1 ? a : b » :
+    # le jeu est configuré sur la dernière génération (GEN_LATEST)
+    def choose(m):
+        cond = re.sub(r'[A-Z][A-Z0-9_]*\s*(>=|<=|==|!=|>|<)\s*GEN_(\w+)', _compare, m.group(1))
+        ok = eval(cond.replace('||', ' or ').replace('&&', ' and '))
+        return m.group(2) if ok else m.group(3)
+    # la condition peut être entre parenthèses : « (X >= GEN_9) ? a : b »
+    pattern = r'\(?(%s(?:\s*(?:\|\||&&)\s*%s)*)\)?\s*\?\s*(\w+)\s*:\s*(\w+)' % (_COMPARISON, _COMPARISON)
+    return re.sub(pattern, choose, text)
 
 
 class Record:
