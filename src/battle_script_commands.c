@@ -8342,24 +8342,20 @@ static void Cmd_givecaughtmon(void)
             }
             else
             {
-                //Before sending to PC, we revert battle form
-                TryRevertPartyMonFormChange(gSelectedMonPartyId);
-                // Mon chosen, try to put it in the PC
-                if (CopyMonToPC(&gParties[B_TRAINER_PLAYER][gSelectedMonPartyId]) == MON_GIVEN_TO_PC)
-                {
-                    GetMonNickname(&gParties[B_TRAINER_PLAYER][gSelectedMonPartyId], gStringVar2);
-                    StringCopy(gStringVar1, GetBoxNamePtr(GetPCBoxToSendMon()));
-                    ZeroMonData(&gParties[B_TRAINER_PLAYER][gSelectedMonPartyId]);
-                    gBattleStruct->itemLost[B_TRAINER_PLAYER][gSelectedMonPartyId].originalItem = ITEM_NONE;
-                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWAPPED_INTO_PARTY;
-                    gSelectedMonPartyId = PARTY_SIZE;
-                    gBattleCommunication[MULTIUSE_STATE] = GIVECAUGHTMON_GIVE_AND_SHOW_MSG;
-                }
-                else
-                {
-                    gSelectedMonPartyId = PARTY_SIZE;
-                    gBattleCommunication[MULTIUSE_STATE] = GIVECAUGHTMON_GIVE_AND_SHOW_MSG;
-                }
+                // Donjon : pas de PC, le Pokémon choisi est relâché (son objet revient dans le Sac) pour faire place
+                // au Pokémon capturé
+                struct Pokemon *released = &gParties[B_TRAINER_PLAYER][gSelectedMonPartyId];
+                enum Item heldItem = GetMonData(released, MON_DATA_HELD_ITEM);
+
+                if (heldItem != ITEM_NONE)
+                    AddBagItem(heldItem, 1);
+                GetMonNickname(released, gStringVar2);
+                GetMonNickname(GetBattlerMon(GetCatchingBattler()), gStringVar1);
+                ZeroMonData(released);
+                gBattleStruct->itemLost[B_TRAINER_PLAYER][gSelectedMonPartyId].originalItem = ITEM_NONE;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWAPPED_INTO_PARTY;
+                gSelectedMonPartyId = PARTY_SIZE;
+                gBattleCommunication[MULTIUSE_STATE] = GIVECAUGHTMON_GIVE_AND_SHOW_MSG;
             }
         }
         break;
@@ -8380,7 +8376,13 @@ static void Cmd_givecaughtmon(void)
                 break;
         }
 
-        if (GiveCapturedMonToPlayer(caughtMon) != MON_GIVEN_TO_PARTY
+        if (CalculatePlayerPartyCount() == PARTY_SIZE)
+        {
+            // Donjon : pas de PC ; l'équipe est pleine et le joueur n'a pas fait d'échange, le Pokémon capturé est relâché
+            GetMonData(caughtMon, MON_DATA_NICKNAME, gStringVar2);
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_RELEASED_AFTER_CATCH;
+        }
+        else if (GiveCapturedMonToPlayer(caughtMon) != MON_GIVEN_TO_PARTY
          && gBattleCommunication[MULTISTRING_CHOOSER] != B_MSG_SWAPPED_INTO_PARTY)
         {
             if (!ShouldShowBoxWasFullMessage())

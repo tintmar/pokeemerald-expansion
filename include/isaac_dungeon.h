@@ -38,6 +38,7 @@ void IsaacOpenShop(void);
 void IsaacKecleonGreeting(void);
 void IsaacGetRoomContent(void);
 void IsaacGiveEgg(void);
+void IsaacReleasePartyMon(void);
 void IsaacPrepareTrade(void);
 void IsaacDoTrade(void);
 void IsaacPrepareDevilPact(void);

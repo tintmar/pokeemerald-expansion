@@ -1936,6 +1936,36 @@ void IsaacGiveEgg(void)
     gSpecialVar_Result = TRUE;
 }
 
+// Pokémon de l'équipe en état de se battre un jour (hors Œufs)
+static u32 CountPartyFighters(void)
+{
+    u32 count = 0, i;
+
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+            count++;
+    return count;
+}
+
+// Équipe pleine quand on obtient un Pokémon (pas de PC) : le Pokémon n° VAR_0x8004 est relâché pour faire de la
+// place (son objet revient dans le Sac). VAR_RESULT = FALSE si c'est le dernier en état de se battre ; gStringVar1 =
+// son nom.
+void IsaacReleasePartyMon(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u16 heldItem = GetMonData(mon, MON_DATA_HELD_ITEM);
+
+    GetMonNickname(mon, gStringVar1);
+    gSpecialVar_Result = GetMonData(mon, MON_DATA_IS_EGG) || CountPartyFighters() >= 2;
+    if (!gSpecialVar_Result)
+        return;
+    if (heldItem != ITEM_NONE)
+        AddBagItem(heldItem, 1);
+    ZeroMonData(mon);
+    CompactPartySlots();
+    CalculatePlayerPartyCount();
+}
+
 // Nouvelle salle visitée : les Œufs de l'équipe se rapprochent de l'éclosion
 static void IsaacTickEggs(void)
 {
@@ -2022,16 +2052,6 @@ void IsaacDoTrade(void)
 // Pacte du diable : objet proposé (toujours le même pour la salle) dans VAR_0x8006 et gStringVar2. VAR_RESULT = FALSE
 // si l'équipe n'a pas au moins deux Pokémon (hors Œufs) : on ne peut pas sacrifier le dernier.
 static const u16 sDevilPactRewards[] = { ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_MASTER_BALL, ITEM_EVOLUTION_STONE };
-
-static u32 CountPartyFighters(void)
-{
-    u32 count = 0, i;
-
-    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
-        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
-            count++;
-    return count;
-}
 
 void IsaacPrepareDevilPact(void)
 {

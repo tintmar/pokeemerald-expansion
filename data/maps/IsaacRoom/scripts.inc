@@ -257,6 +257,7 @@ IsaacRoom_EventScript_EggGiver::
 	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_EggGiverDeclined
 	special IsaacGiveEgg
 	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_EggGiverPartyFull
+IsaacRoom_EventScript_EggGiverReceived::
 	playfanfare MUS_OBTAIN_ITEM
 	message IsaacRoom_Text_EggReceived
 	waitfanfare
@@ -276,8 +277,20 @@ IsaacRoom_EventScript_EggGiverDeclined::
 	release
 	end
 
+@ Équipe pleine (pas de PC) : relâcher un Pokémon pour faire de la place
 IsaacRoom_EventScript_EggGiverPartyFull::
-	msgbox IsaacRoom_Text_EggPartyFull, MSGBOX_DEFAULT
+	msgbox IsaacRoom_Text_EggPartyFull, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_EggGiverDeclined
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_EggGiverDeclined
+	special IsaacReleasePartyMon
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_EggGiverLastMon
+	msgbox IsaacRoom_Text_MonReleased, MSGBOX_DEFAULT
+	special IsaacGiveEgg
+	goto IsaacRoom_EventScript_EggGiverReceived
+
+IsaacRoom_EventScript_EggGiverLastMon::
+	msgbox IsaacRoom_Text_CantReleaseLastMon, MSGBOX_DEFAULT
 	release
 	end
 
@@ -335,8 +348,16 @@ IsaacRoom_Text_EggDeclined:
 	.string "Dommage… Repasse si tu changes d'avis.$"
 
 IsaacRoom_Text_EggPartyFull:
-	.string "Ton équipe est pleine… Reviens avec\n"
-	.string "une place libre !$"
+	.string "Ton équipe est pleine…\n"
+	.string "Relâcher un Pokémon pour prendre l'Œuf ?$"
+
+IsaacRoom_Text_MonReleased:
+	.string "{STR_VAR_1} a été relâché.\n"
+	.string "Au revoir, {STR_VAR_1} !$"
+
+IsaacRoom_Text_CantReleaseLastMon:
+	.string "Tu ne peux pas relâcher ton dernier\n"
+	.string "Pokémon !$"
 
 IsaacRoom_Text_TraderIntro:
 	.string "Je collectionne les Pokémon de tous\n"

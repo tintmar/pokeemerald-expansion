@@ -725,6 +725,8 @@ enum StringID
     STRINGID_S,
     STRINGID_LOSTSOMEOFITSHP,
     STRINGID_BELCHCANTUSE,
+    STRINGID_ISAAC_CAUGHTMONRELEASED,   // donjon : équipe pleine, le Pokémon capturé est relâché
+    STRINGID_ISAAC_SWAPPEDMONRELEASED,  // donjon : un Pokémon de l'équipe est relâché pour lui faire place
     STRINGID_COUNT
 };
 
@@ -955,6 +957,7 @@ enum CaughtMonStringID
     B_MSG_SOMEONES_BOX_FULL,
     B_MSG_LANETTES_BOX_FULL,
     B_MSG_SWAPPED_INTO_PARTY,
+    B_MSG_RELEASED_AFTER_CATCH,  // donjon : pas de PC, le Pokémon capturé est relâché
 };
 
 // gPrimalWeatherBlocksStringIds

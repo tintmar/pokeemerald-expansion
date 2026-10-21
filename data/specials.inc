@@ -657,6 +657,7 @@ gSpecials::
 	def_special IsaacKecleonGreeting
 	def_special IsaacGetRoomContent
 	def_special IsaacGiveEgg
+	def_special IsaacReleasePartyMon
 	def_special IsaacPrepareTrade
 	def_special IsaacDoTrade
 	def_special IsaacPrepareDevilPact
