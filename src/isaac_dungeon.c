@@ -1759,11 +1759,13 @@ static bool8 IsEmptyRoom(s32 x, s32 y)
     return GetRoom(x, y) == ROOM_NORMAL && !RoomHasTrainer(x, y);
 }
 
-// Contenu de la salle (ROOM_CONTENT_*) : chaque contenu disponible à l'étage va dans une salle vide différente
+// Contenu de la salle (ROOM_CONTENT_*) : les contenus disponibles à l'étage sont pris dans un ordre tiré au hasard
+// (s'il y a moins de salles vides que de contenus, ce ne sont pas toujours les mêmes qui manquent), chacun dans une
+// salle vide différente
 static u32 GetRoomContent(s32 x, s32 y)
 {
-    u8 rooms[ISAAC_GRID_W * ISAAC_GRID_H];
-    u32 count = 0, content, pick;
+    u8 rooms[ISAAC_GRID_W * ISAAC_GRID_H], contents[ROOM_CONTENT_COUNT];
+    u32 roomCount = 0, contentCount = 0, i, pick, tmp;
     s32 cx, cy;
 
     if (!IsEmptyRoom(x, y))
@@ -1771,15 +1773,21 @@ static u32 GetRoomContent(s32 x, s32 y)
     for (cy = 0; cy < ISAAC_GRID_H; cy++)
         for (cx = 0; cx < ISAAC_GRID_W; cx++)
             if (IsEmptyRoom(cx, cy))
-                rooms[count++] = cy * ISAAC_GRID_W + cx;
-    for (content = ROOM_CONTENT_NONE + 1; content < ROOM_CONTENT_COUNT && count != 0; content++)
+                rooms[roomCount++] = cy * ISAAC_GRID_W + cx;
+    for (i = ROOM_CONTENT_NONE + 1; i < ROOM_CONTENT_COUNT; i++)
+        if (IsRoomContentAvailable(i))
+            contents[contentCount++] = i;
+    for (i = 0; i < contentCount; i++)  // ordre des contenus tiré pour l'étage
     {
-        if (!IsRoomContentAvailable(content))
-            continue;
-        pick = RoomRandom(content, 0, 0xC047) % count;
+        pick = i + RoomRandom(i, 1, 0xC0DE) % (contentCount - i);
+        SWAP(contents[i], contents[pick], tmp);
+    }
+    for (i = 0; i < contentCount && roomCount != 0; i++)
+    {
+        pick = RoomRandom(contents[i], 0, 0xC047) % roomCount;
         if (rooms[pick] == y * ISAAC_GRID_W + x)
-            return content;
-        rooms[pick] = rooms[--count];  // cette salle est prise
+            return contents[i];
+        rooms[pick] = rooms[--roomCount];  // cette salle est prise
     }
     return ROOM_CONTENT_NONE;
 }
