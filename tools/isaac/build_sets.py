@@ -40,14 +40,20 @@ SPREADS = {
 TIER_IVS = (15, 20, 31)
 # Set 2 : attaques offensives plafonnées en puissance (les plus fortes sont réservées au set 3). Chaque attaque plus
 # puissante que TIER2_MAX_POWER est remplacée par la meilleure que l'espèce peut apprendre, de même type et de même
-# catégorie, de puissance TIER2_MIN_POWER à TIER2_MAX_POWER et de précision >= TIER2_MIN_ACCURACY (voir nerf_moves).
+# catégorie, de puissance TIER2_MIN_POWER à TIER2_MAX_POWER et de précision >= TIER2_MIN_ACCURACY (voir nerf_moves),
+# avec une exception pour les sets aux autres attaques faibles.
 TIER2_MAX_POWER = 80
+# Exception : la plus forte attaque du set peut aller jusqu'à TIER2_EXCEPTION_POWER si toutes les autres attaques
+# offensives du set (après remplacement) ont au plus TIER2_WEAK_POWER de puissance
+TIER2_EXCEPTION_POWER = 100
+TIER2_WEAK_POWER = 65
 TIER2_MIN_POWER = 40
 TIER2_MIN_ACCURACY = 85
 # Attaques jamais choisies en remplacement (effet trop particulier)
 NERF_EXCLUDED = {'DREAM_EATER', 'SNORE', 'SPIT_UP', 'NATURAL_GIFT', 'SYNCHRONOISE', 'BELCH', 'STEEL_ROLLER',
                  'LAST_RESORT', 'FUTURE_SIGHT', 'DOOM_DESIRE', 'SKY_DROP', 'BIDE', 'COUNTER', 'MIRROR_COAT',
-                 'METAL_BURST', 'ROLLOUT', 'ICE_BALL', 'UPROAR', 'THRASH', 'OUTRAGE', 'PETAL_DANCE', 'RAGE'}
+                 'METAL_BURST', 'ROLLOUT', 'ICE_BALL', 'UPROAR', 'THRASH', 'OUTRAGE', 'PETAL_DANCE', 'RAGE',
+                 'RAZOR_WIND', 'SKULL_BASH', 'SKY_ATTACK', 'SOLAR_BEAM', 'SOLAR_BLADE', 'METEOR_BEAM', 'GEOMANCY'}
 TIER_EV_FRACTION = ((1, 3), (1, 2), (1, 1))  # set 2 nettement en dessous du set 3
 
 # Objets réservés aux sets les plus forts
@@ -84,19 +90,16 @@ def error(name, tier, msg):
     errors.append(f'{name} (set {tier + 1}{variant_letter}) : {msg}')
 
 
-def nerf_moves(name, moves):
-    """Set 2 : remplace les attaques plus puissantes que TIER2_MAX_POWER ; renvoie les attaques et les remplacements"""
-    learn = g.learnset(name)
-    out, changes = list(moves), []
-    strong = [(g.MOVES[mv].power, i) for i, mv in enumerate(moves)
-              if mv in g.MOVES and g.MOVES[mv].cat != 'STATUS' and g.MOVES[mv].power > TIER2_MAX_POWER]
-    for _, i in sorted(strong, reverse=True):
-        mv = moves[i]
-        info = g.MOVES[mv]
+def best_replacement(name, move, taken):
+    """Meilleure attaque apprenable de puissance TIER2_MIN_POWER à TIER2_MAX_POWER : de même type et catégorie, sinon
+    de même type, sinon de même catégorie (autre type)"""
+    info = g.MOVES[move]
+    for same_type, same_cat in ((True, True), (True, False), (False, True)):
         best = None
-        for cand in learn:
+        for cand in g.learnset(name):
             c = g.MOVES.get(cand)
-            if (c is None or cand in out or cand in NERF_EXCLUDED or c.type != info.type or c.cat != info.cat
+            if (c is None or cand in taken or cand in NERF_EXCLUDED or c.cat == 'STATUS'
+                    or (same_type and c.type != info.type) or (same_cat and c.cat != info.cat)
                     or not TIER2_MIN_POWER <= c.power <= TIER2_MAX_POWER
                     or (c.acc != 0 and c.acc < TIER2_MIN_ACCURACY)):
                 continue
@@ -104,9 +107,26 @@ def nerf_moves(name, moves):
             if best is None or key > best[0]:
                 best = (key, cand)
         if best:
-            out[i] = best[1]
-            changes.append((mv, best[1]))
-    return out, changes
+            return best[1]
+    return None
+
+
+def nerf_moves(name, moves):
+    """Set 2 : remplace les attaques plus puissantes que TIER2_MAX_POWER, sauf l'exception (TIER2_EXCEPTION_POWER) ;
+    renvoie les attaques et les remplacements"""
+    power = lambda mv: g.MOVES[mv].power if mv in g.MOVES and g.MOVES[mv].cat != 'STATUS' else 0
+    strong = sorted((i for i, mv in enumerate(moves) if power(mv) > TIER2_MAX_POWER), key=lambda i: -power(moves[i]))
+    out = list(moves)
+    for i in strong:
+        new = best_replacement(name, moves[i], out)
+        if new:
+            out[i] = new
+    # exception : on garde la plus forte (si <= TIER2_EXCEPTION_POWER) quand le reste du set est faible
+    if strong and power(moves[strong[0]]) <= TIER2_EXCEPTION_POWER:
+        others = [power(mv) for k, mv in enumerate(out) if k != strong[0]]
+        if max(others, default=0) <= TIER2_WEAK_POWER and moves[strong[0]] not in out:
+            out[strong[0]] = moves[strong[0]]
+    return out, [(a, b) for a, b in zip(moves, out) if a != b]
 
 
 nerf_log = []
