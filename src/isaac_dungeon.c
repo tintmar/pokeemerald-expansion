@@ -1155,6 +1155,8 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     type = GetRoomTrainerType(x, y);
     names = (type->gender == TRAINER_GENDER_FEMALE) ? sFemaleTrainerNames : sMaleTrainerNames;
     InitTrainer(&sRoomTrainer, type, names[RoomRandom(x, y, 0x4A3) % ARRAY_COUNT(sMaleTrainerNames)], sRoomTrainerMons);
+    if (VarGet(VAR_ISAAC_FLOOR) == 1)
+        sRoomTrainer.aiFlags = AI_FLAG_CHECK_BAD_MOVE;  // premier étage : attaques au hasard, sauf les inutiles
     party = &sRoomTrainerParties[min(VarGet(VAR_ISAAC_FLOOR), ARRAY_COUNT(sRoomTrainerParties)) - 1];
     for (i = 0; i < party->count; i++)
     {
