@@ -1353,7 +1353,7 @@ void IsaacOpenBossExit(void)
 // Infirmière de la salle du boss
 // ---------------------------------------------------------------------------
 // Le boss vaincu, elle arrive par le passage qui vient de s'ouvrir et se poste juste à côté (le passage reste
-// libre). Elle rend les PP gratuitement puis propose, contre ISAAC_NURSE_PRICE_PER_FLOOR x étage (un peu moins que
+// libre). Elle propose, contre ISAAC_NURSE_PRICE_PER_FLOOR x étage (un peu moins que
 // ce que rapporte un dresseur de l'étage), un soin partiel : PV et statut au complet pour les Pokémon debout,
 // moitié des PV pour les K.O.
 
@@ -1434,14 +1434,6 @@ void IsaacSettleNurse(void)
 
     GetCurrentCell(&x, &y);
     PlaceNurse(x, y, FALSE);
-}
-
-void IsaacNurseRestorePP(void)
-{
-    u32 i;
-
-    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
-        MonRestorePP(&gParties[B_TRAINER_PLAYER][i]);
 }
 
 static u32 GetNursePrice(void)

@@ -651,7 +651,6 @@ gSpecials::
 	def_special IsaacPickBossReward
 	def_special IsaacPrepareNurseArrival
 	def_special IsaacSettleNurse
-	def_special IsaacNurseRestorePP
 	def_special IsaacNurseGetPrice
 	def_special IsaacNurseTryHeal
 	def_special IsaacOpenShop

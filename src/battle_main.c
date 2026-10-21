@@ -5417,6 +5417,9 @@ static void ReturnFromBattleToOverworld(void)
         CalculatePlayerPartyCount();
         RandomlyGivePartyPokerus();
         PartySpreadPokerus();
+        // Donjon : les PP de l'équipe reviennent au complet après chaque combat
+        for (u32 i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+            MonRestorePP(&gParties[B_TRAINER_PLAYER][i]);
     }
 
     if (gBattleTypeFlags & BATTLE_TYPE_LINK && gReceivedRemoteLinkPlayers)

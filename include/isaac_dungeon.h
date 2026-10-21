@@ -29,7 +29,6 @@ void IsaacPickTrainerLoot(void);
 void IsaacPickBossReward(void);
 void IsaacPrepareNurseArrival(void);
 void IsaacSettleNurse(void);
-void IsaacNurseRestorePP(void);
 void IsaacNurseGetPrice(void);
 void IsaacNurseTryHeal(void);
 u32 IsaacGetShopPrice(u16 item);

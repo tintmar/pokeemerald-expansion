@@ -120,13 +120,10 @@ IsaacRoom_EventScript_BossDefeated::
 	release
 	end
 
-@ Infirmière (arrivée par le passage une fois le boss vaincu) : PP rendus gratuitement, puis soin partiel payant
-@ (voir IsaacNurseTryHeal)
+@ Infirmière (arrivée par le passage une fois le boss vaincu) : soin partiel payant (voir IsaacNurseTryHeal)
 IsaacRoom_EventScript_Nurse::
 	lock
 	faceplayer
-	special IsaacNurseRestorePP
-	msgbox IsaacRoom_Text_NursePP, MSGBOX_DEFAULT
 	special IsaacNurseGetPrice
 	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_NurseNoNeed
 	showmoneybox 0, 0
@@ -161,12 +158,8 @@ IsaacRoom_EventScript_NurseNoMoney::
 	release
 	end
 
-IsaacRoom_Text_NursePP:
-	.string "Bravo pour ta victoire !\n"
-	.string "Je t'ai rendu tous tes PP, c'est\l"
-	.string "offert.$"
-
 IsaacRoom_Text_NurseOffer:
+	.string "Bravo pour ta victoire !\p"
 	.string "Pour {STR_VAR_1}¥, je soigne ton équipe :\n"
 	.string "PV au complet pour ceux qui tiennent\l"
 	.string "debout, moitié des PV pour les K.O.\p"
