@@ -7,6 +7,7 @@
 #include "fieldmap.h"
 #include "data.h"
 #include "international_string_util.h"
+#include "item.h"
 #include "isaac_dungeon.h"
 #include "isaac_pokemon.h"
 #include "item_icon.h"
@@ -18,6 +19,7 @@
 #include "random.h"
 #include "script_pokemon_util.h"
 #include "script.h"
+#include "shop.h"
 #include "sound.h"
 #include "string_util.h"
 #include "task.h"
@@ -105,6 +107,13 @@ STATIC_ASSERT(FLAG_ISAAC_MASTER_BALL_DROPPED <= FLAG_UNUSED_0x2BB, IsaacMasterBa
 #define CAPTURE_MAX_MONS                4
 #define FLAG_ISAAC_CAPTURE_DONE_FIRST   (FLAG_ISAAC_MASTER_BALL_DROPPED + 1)
 STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSED_0x2BB, IsaacCaptureFlagsAreUnused);
+
+// Kecleon (boutique) déjà rencontré : pour toute la partie, il ne fait sa blague qu'une fois
+#define FLAG_ISAAC_KECLEON_MET  (FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS)
+// Articles en un seul exemplaire de la boutique de l'étage déjà vendus (voir SHOP_SLOT_*)
+#define FLAG_ISAAC_SHOP_SOLD_FIRST  (FLAG_ISAAC_KECLEON_MET + 1)
+#define SHOP_LIMITED_SLOTS  6
+STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED_0x2BB, IsaacShopFlagsAreUnused);
 
 #define ISAAC_START_X  (ISAAC_GRID_W / 2)
 #define ISAAC_START_Y  (ISAAC_GRID_H / 2)
@@ -326,6 +335,13 @@ u32 IsaacGetCurrentBiome(void)
     return GetBiomeOfFloor(VarGet(VAR_ISAAC_FLOOR));
 }
 
+// Type de la salle du donjon selon le biome : sous l'eau (le joueur chevauche son Pokémon) ou souterrain. Sert
+// aussi à GetMapTypeByGroupAndId, qui lit sinon le type d'origine de la map
+enum MapType IsaacGetRoomMapType(void)
+{
+    return gIsaacBiomes[IsaacGetCurrentBiome()].underwater ? MAP_TYPE_UNDERWATER : MAP_TYPE_UNDERGROUND;
+}
+
 // Chargement de l'en-tête d'une map : si c'est la salle du donjon, décor du biome de l'étage (le tileset vient
 // de *layoutId). FALSE pour les autres maps.
 bool8 IsaacApplyBiomeToMapHeader(struct MapHeader *header, u16 *layoutId)
@@ -337,7 +353,7 @@ bool8 IsaacApplyBiomeToMapHeader(struct MapHeader *header, u16 *layoutId)
     biome = &gIsaacBiomes[IsaacGetCurrentBiome()];
     *layoutId = biome->layoutId;
     header->cave = biome->dark;
-    header->mapType = biome->underwater ? MAP_TYPE_UNDERWATER : MAP_TYPE_UNDERGROUND;
+    header->mapType = IsaacGetRoomMapType();
     header->weather = biome->weather;
     return TRUE;
 }
@@ -985,7 +1001,7 @@ static void AddTrainerMon(struct Trainer *trainer, struct TrainerMon *party, con
             if (party[i].species == species)
                 taken = TRUE;
     }
-    party[trainer->partySize] = *IsaacGetSet(species, tier);
+    party[trainer->partySize] = *IsaacGetSet(species, tier, (seed >> 24) % ISAAC_SET_VARIANTS);  // variante 50/50
     party[trainer->partySize].lvl = ISAAC_MON_LEVEL;
     trainer->partySize++;
 }
@@ -1495,6 +1511,206 @@ static void SetUpCaptureMons(s32 x, s32 y)
     }
 }
 
+// ---------------------------------------------------------------------------
+// Boutique de Kecleon
+// ---------------------------------------------------------------------------
+// Kecleon tient la boutique de l'étage (menu Acheter / Quitter, CreateIsaacMartMenu). Il vend toujours :
+//  - une Master Ball, deux objets de combat de sShopBattleItems et deux CT de sShopTMs (tirés pour la salle),
+//    un objet spécial de sShopSpecialItems, tous en un seul exemplaire ;
+//  - des soins à volonté : Guérison, Rappel, Rappel Max.
+// Les prix se comptent en « gains d'un dresseur » de l'étage (ISAAC_TRAINER_MONEY_PER_FLOOR x étage, voir
+// sShopPrices) : un étage rapporte de l'ordre de 5 (étage 2) à 11 (étages profonds) de ces gains, on ne peut
+// donc pas tout acheter et il faut choisir.
+
+enum
+{
+    SHOP_SLOT_MASTER_BALL,
+    SHOP_SLOT_ITEM_1,
+    SHOP_SLOT_ITEM_2,
+    SHOP_SLOT_TM_1,
+    SHOP_SLOT_TM_2,
+    SHOP_SLOT_SPECIAL,
+};
+STATIC_ASSERT(SHOP_SLOT_SPECIAL + 1 == SHOP_LIMITED_SLOTS, IsaacShopSlotCount);
+
+// Très bons objets de combat
+static const u16 sShopBattleItems[] =
+{
+    ITEM_CHOICE_BAND,
+    ITEM_CHOICE_SPECS,
+    ITEM_CHOICE_SCARF,
+    ITEM_LIFE_ORB,
+    ITEM_LEFTOVERS,
+    ITEM_ASSAULT_VEST,
+    ITEM_FOCUS_SASH,
+    ITEM_WEAKNESS_POLICY,
+    ITEM_ROCKY_HELMET,
+    ITEM_EXPERT_BELT,
+    ITEM_HEAVY_DUTY_BOOTS,
+    ITEM_LUM_BERRY,
+};
+
+// Très bonnes CT (les CT51 et après viennent des générations suivantes, voir include/constants/tms_hms.h)
+static const u16 sShopTMs[] =
+{
+    ITEM_TM_EARTHQUAKE,
+    ITEM_TM_ICE_BEAM,
+    ITEM_TM_THUNDERBOLT,
+    ITEM_TM_FLAMETHROWER,
+    ITEM_TM_PSYCHIC,
+    ITEM_TM_SHADOW_BALL,
+    ITEM_TM_SLUDGE_BOMB,
+    ITEM_TM_CALM_MIND,
+    ITEM_TM_BULK_UP,
+    ITEM_TM_CLOSE_COMBAT,
+    ITEM_TM_KNOCK_OFF,
+    ITEM_TM_U_TURN,
+    ITEM_TM_STONE_EDGE,
+    ITEM_TM_SCALD,
+    ITEM_TM_VOLT_SWITCH,
+    ITEM_TM_DAZZLING_GLEAM,
+    ITEM_TM_SWORDS_DANCE,
+    ITEM_TM_NASTY_PLOT,
+    ITEM_TM_DRAGON_DANCE,
+    ITEM_TM_FLARE_BLITZ,
+    ITEM_TM_PLAY_ROUGH,
+    ITEM_TM_ENERGY_BALL,
+    ITEM_TM_FOCUS_BLAST,
+    ITEM_TM_FLASH_CANNON,
+    ITEM_TM_EARTH_POWER,
+    ITEM_TM_HURRICANE,
+    ITEM_TM_DRAGON_PULSE,
+    ITEM_TM_POISON_JAB,
+    ITEM_TM_X_SCISSOR,
+    ITEM_TM_IRON_HEAD,
+    ITEM_TM_LIQUIDATION,
+    ITEM_TM_BUG_BUZZ,
+    ITEM_TM_DARK_PULSE,
+    ITEM_TM_ROOST,
+};
+
+static const u16 sShopSpecialItems[] = { ITEM_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER };
+
+// Prix en dixièmes des gains d'un dresseur de l'étage
+struct IsaacShopPrice
+{
+    u16 item;
+    u16 tenths;
+};
+
+static const struct IsaacShopPrice sShopPrices[] =
+{
+    { ITEM_REVIVE,        4 },
+    { ITEM_FULL_RESTORE,  6 },
+    { ITEM_MAX_REVIVE,   10 },
+    { ITEM_MASTER_BALL,  40 },
+};
+#define SHOP_TM_PRICE_TENTHS       20
+#define SHOP_ITEM_PRICE_TENTHS     25
+#define SHOP_SPECIAL_PRICE_TENTHS  60  // objet spécial : très cher
+
+static EWRAM_DATA u16 sShopItems[SHOP_LIMITED_SLOTS + 4] = {0};
+
+// Article n° slot (SHOP_SLOT_*) de la boutique de la salle courante
+static u16 GetShopSlotItem(u32 slot)
+{
+    s32 x, y;
+    u32 roll, first;
+
+    GetCurrentCell(&x, &y);
+    roll = RoomRandom(x, y, 0x5409);
+    switch (slot)
+    {
+    case SHOP_SLOT_MASTER_BALL:
+        return ITEM_MASTER_BALL;
+    case SHOP_SLOT_ITEM_1:
+    case SHOP_SLOT_ITEM_2:  // deux objets différents
+        first = roll % ARRAY_COUNT(sShopBattleItems);
+        if (slot == SHOP_SLOT_ITEM_1)
+            return sShopBattleItems[first];
+        return sShopBattleItems[(first + 1 + (roll >> 8) % (ARRAY_COUNT(sShopBattleItems) - 1)) % ARRAY_COUNT(sShopBattleItems)];
+    case SHOP_SLOT_TM_1:
+    case SHOP_SLOT_TM_2:  // deux CT différentes
+        roll = RoomRandom(x, y, 0x5470);
+        first = roll % ARRAY_COUNT(sShopTMs);
+        if (slot == SHOP_SLOT_TM_1)
+            return sShopTMs[first];
+        return sShopTMs[(first + 1 + (roll >> 8) % (ARRAY_COUNT(sShopTMs) - 1)) % ARRAY_COUNT(sShopTMs)];
+    default:
+        return sShopSpecialItems[RoomRandom(x, y, 0x5495) % ARRAY_COUNT(sShopSpecialItems)];
+    }
+}
+
+// SHOP_LIMITED_SLOTS si l'objet n'est pas un article en un seul exemplaire de la boutique
+static u32 GetShopSlot(u16 item)
+{
+    u32 slot;
+
+    for (slot = 0; slot < SHOP_LIMITED_SLOTS && GetShopSlotItem(slot) != item; slot++)
+        ;
+    return slot;
+}
+
+// Prix d'un article de la boutique (shop.c)
+u32 IsaacGetShopPrice(u16 item)
+{
+    u32 unit = ISAAC_TRAINER_MONEY_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
+    u32 slot = GetShopSlot(item), i;
+
+    for (i = 0; i < ARRAY_COUNT(sShopPrices); i++)
+        if (sShopPrices[i].item == item)
+            return unit * sShopPrices[i].tenths / 10;
+    if (slot == SHOP_SLOT_TM_1 || slot == SHOP_SLOT_TM_2)
+        return unit * SHOP_TM_PRICE_TENTHS / 10;
+    if (slot == SHOP_SLOT_ITEM_1 || slot == SHOP_SLOT_ITEM_2)
+        return unit * SHOP_ITEM_PRICE_TENTHS / 10;
+    if (slot == SHOP_SLOT_SPECIAL)
+        return unit * SHOP_SPECIAL_PRICE_TENTHS / 10;
+    return GetItemPrice(item);
+}
+
+// Exemplaires encore en vente (0xFFFF : à volonté)
+u16 IsaacGetShopStock(u16 item)
+{
+    u32 slot = GetShopSlot(item);
+
+    if (slot == SHOP_LIMITED_SLOTS)
+        return 0xFFFF;
+    return FlagGet(FLAG_ISAAC_SHOP_SOLD_FIRST + slot) ? 0 : 1;
+}
+
+void IsaacOnShopPurchase(u16 item, u16 count)
+{
+    u32 slot = GetShopSlot(item);
+
+    if (slot != SHOP_LIMITED_SLOTS && count != 0)
+        FlagSet(FLAG_ISAAC_SHOP_SOLD_FIRST + slot);
+}
+
+// Ouvre la boutique (suivre de `waitstate`) : les articles uniques déjà vendus n'y sont plus
+void IsaacOpenShop(void)
+{
+    static const u16 sHeals[] = { ITEM_FULL_RESTORE, ITEM_REVIVE, ITEM_MAX_REVIVE };
+    u32 n = 0, i;
+
+    if (!FlagGet(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_SLOT_MASTER_BALL))
+        sShopItems[n++] = ITEM_MASTER_BALL;
+    for (i = 0; i < ARRAY_COUNT(sHeals); i++)
+        sShopItems[n++] = sHeals[i];
+    for (i = SHOP_SLOT_ITEM_1; i < SHOP_LIMITED_SLOTS; i++)
+        if (!FlagGet(FLAG_ISAAC_SHOP_SOLD_FIRST + i))
+            sShopItems[n++] = GetShopSlotItem(i);
+    sShopItems[n] = ITEM_LIST_END;
+    CreateIsaacMartMenu(sShopItems);
+}
+
+// VAR_RESULT : TRUE la toute première fois qu'on parle à Kecleon (dans la partie)
+void IsaacKecleonGreeting(void)
+{
+    gSpecialVar_Result = !FlagGet(FLAG_ISAAC_KECLEON_MET);
+    FlagSet(FLAG_ISAAC_KECLEON_MET);
+}
+
 // Au chargement de la salle : Pokémon sauvages (salle de capture), Pierre Évolution (salle trésor, tant qu'elle
 // n'est pas ramassée), boss
 static void SetUpRoomObjects(s32 x, s32 y)
@@ -1505,6 +1721,8 @@ static void SetUpRoomObjects(s32 x, s32 y)
     PlaceRoomObject(LOCALID_ISAAC_ROOM_ITEM, room == ROOM_TREASURE && !cleared);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_BOSS, room == ROOM_BOSS);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_NURSE, FALSE);
+    PlaceRoomObject(LOCALID_ISAAC_ROOM_SHOPKEEPER, room == ROOM_SHOP);
+    VarSet(VAR_OBJ_GFX_ID_6, OBJ_EVENT_MON + SPECIES_KECLEON);
     if (room == ROOM_BOSS && cleared)
         PlaceNurse(x, y, FALSE);
     SetUpCaptureMons(x, y);
@@ -1523,7 +1741,7 @@ void IsaacPrepareWildBattle(void)
     GetCaptureSpecies(x, y, species);
     CreateScriptedWildMon(species[sCaptureSlot], ISAAC_MON_LEVEL, ITEM_NONE);
     IsaacCreateMonFromSet(&gParties[B_TRAINER_OPPONENT_A][0], species[sCaptureSlot], GetCaptureSetTier(),
-                          RoomRandom(x, y, 0x5EED + sCaptureSlot));
+                          RoomRandom(x, y, 0x5EEE + sCaptureSlot) % ISAAC_SET_VARIANTS, RoomRandom(x, y, 0x5EED + sCaptureSlot));
 }
 
 // Après le combat (capturé, vaincu ou fui) : le Pokémon disparaît pour de bon
@@ -1561,6 +1779,8 @@ static void WarpToNewFloor(u32 floor)
     FlagClear(FLAG_ISAAC_MASTER_BALL_DROPPED);
     for (u32 i = 0; i < CAPTURE_MAX_MONS; i++)
         FlagClear(FLAG_ISAAC_CAPTURE_DONE_FIRST + i);
+    for (u32 i = 0; i < SHOP_LIMITED_SLOTS; i++)
+        FlagClear(FLAG_ISAAC_SHOP_SOLD_FIRST + i);
     SetCurrentCell(ISAAC_START_X, ISAAC_START_Y);
     sArrivalFacing = DIR_SOUTH;
     WarpToRoom(ROOM_MID_X, ROOM_MID_Y);

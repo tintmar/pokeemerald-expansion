@@ -51,7 +51,33 @@
     F(STEEL_WING) \
     F(SKILL_SWAP) \
     F(SNATCH) \
-    F(OVERHEAT)
+    F(OVERHEAT) \
+    /* Donjon : CT des générations suivantes (TM51 et après), vendues par Kecleon (voir isaac_dungeon.c) */ \
+    F(CLOSE_COMBAT) \
+    F(KNOCK_OFF) \
+    F(U_TURN) \
+    F(STONE_EDGE) \
+    F(SCALD) \
+    F(VOLT_SWITCH) \
+    F(DAZZLING_GLEAM) \
+    F(SWORDS_DANCE) \
+    F(NASTY_PLOT) \
+    F(DRAGON_DANCE) \
+    F(FLARE_BLITZ) \
+    F(PLAY_ROUGH) \
+    F(ENERGY_BALL) \
+    F(FOCUS_BLAST) \
+    F(FLASH_CANNON) \
+    F(EARTH_POWER) \
+    F(HURRICANE) \
+    F(DRAGON_PULSE) \
+    F(POISON_JAB) \
+    F(X_SCISSOR) \
+    F(IRON_HEAD) \
+    F(LIQUIDATION) \
+    F(BUG_BUZZ) \
+    F(DARK_PULSE) \
+    F(ROOST)
 
 #define FOREACH_HM(F) \
     F(CUT) \

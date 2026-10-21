@@ -6270,14 +6270,12 @@ void ItemUseCB_EvolutionStone(u8 taskId, TaskFunc task)
 }
 
 // Donjon : Pierre Évolution. Scène d'évolution normale vers l'évolution suivante (au hasard s'il y en a
-// plusieurs), puis le Pokémon reçoit le set de même palier de sa nouvelle espèce (CB2_AfterIsaacEvolution).
+// plusieurs). Le Pokémon garde ses attaques et son objet, sauf exceptions qui apprennent pendant la scène
+// les attaques de leur set évolué (voir IsaacPrepareEvolutionMoves).
 static EWRAM_DATA void (*sIsaacEvolutionExitCallback)(void) = NULL;
-static EWRAM_DATA u8 sIsaacEvolutionSlot = 0;
-static EWRAM_DATA u8 sIsaacEvolutionTier = 0;
 
 static void CB2_AfterIsaacEvolution(void)
 {
-    IsaacApplyEvolvedSet(&gParties[B_TRAINER_PLAYER][sIsaacEvolutionSlot], sIsaacEvolutionTier);
     SetMainCallback2(sIsaacEvolutionExitCallback);
 }
 
@@ -6298,8 +6296,7 @@ void ItemUseCB_IsaacEvolutionStone(u8 taskId, TaskFunc task)
         return;
     }
     sIsaacEvolutionExitCallback = gPartyMenu.exitCallback;
-    sIsaacEvolutionSlot = gPartyMenu.slotId;
-    sIsaacEvolutionTier = IsaacGetMonSetTier(mon);
+    IsaacPrepareEvolutionMoves(mon, target);
     gCB2_AfterEvolution = CB2_AfterIsaacEvolution;
     RemoveBagItem(gSpecialVar_ItemId, 1);
     BeginEvolutionScene(mon, target, FALSE, gPartyMenu.slotId);

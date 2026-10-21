@@ -6,9 +6,10 @@
 struct Pokemon;
 
 #define ISAAC_MON_LEVEL  50  // niveau de tous les Pokémon du jeu
-#define ISAAC_SET_TIERS  3
+#define ISAAC_SET_TIERS     3  // paliers de sets par Pokémon, du plus faible (0) au plus fort (ISAAC_SET_TIERS - 1)
+#define ISAAC_SET_VARIANTS  2  // variantes de chaque palier (A, B) : même force, rôles différents
 #define ISAAC_STARTER_CHOICES  6  // Pokémon proposés par le Montagnard du hub (écran de l'Usine de Combat)
-#define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux  // sets par Pokémon, du plus faible (0) au plus fort (ISAAC_SET_TIERS - 1)
+#define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux
 
 // Catégorie d'un Pokémon selon son BST (tools/isaac/build_categories.py) : quartiles des non légendaires,
 // légendaires à part
@@ -64,13 +65,15 @@ struct IsaacBiome
 
 extern const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT];
 
-const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier);
+const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier, u32 variant);
 enum IsaacCategory IsaacGetSpeciesCategory(enum Species species);
 enum Species IsaacGetEvolution(enum Species species, u32 choice);
 enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 roll);
-void IsaacCreateMonFromSet(struct Pokemon *mon, enum Species species, u32 tier, u32 seed);
+void IsaacCreateMonFromSet(struct Pokemon *mon, enum Species species, u32 tier, u32 variant, u32 seed);
 u32 IsaacGetMonSetTier(struct Pokemon *mon);
-void IsaacApplyEvolvedSet(struct Pokemon *mon, u32 tier);
+u32 IsaacGetMonSetVariant(struct Pokemon *mon);
+void IsaacPrepareEvolutionMoves(struct Pokemon *mon, enum Species target);
+u16 IsaacTryLearningEvolutionMove(struct Pokemon *mon, bool8 firstMove);
 void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index);
 s32 IsaacApplyOmniboost(struct Pokemon *mon, s32 stat);
 bool8 IsaacAddOmniboost(struct Pokemon *mon);

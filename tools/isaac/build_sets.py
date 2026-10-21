@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """
-Vérifie les sets écrits à la main (tools/isaac/sets_gen1.py, sets_gen2.py, sets_gen3.py) et génère
-src/data/isaac_sets.h : 3 sets par Pokémon (1 à 386), du plus faible au plus fort.
+Vérifie les sets écrits à la main et génère src/data/isaac_sets.h : pour chaque Pokémon (1 à 386), 3 paliers
+du plus faible au plus fort, et deux variantes A et B de chaque palier (même force, rôles différents :
+physique / spécial, offensif / soutien, autre objet...).
+  - variante A : tools/isaac/sets_gen1.py, sets_gen2.py, sets_gen3.py (dictionnaire SETS) ;
+  - variante B : tools/isaac/sets_gen1b.py, sets_gen2b.py, sets_gen3b.py (dictionnaire SETS, même format).
+    Tant qu'une espèce n'a pas de variante B, sa variante B reprend la A.
 
 Un set s'écrit sur une ligne : 'TALENT / OBJET / NATURE / RÉPARTITION / ATTAQUE1 ATTAQUE2 ATTAQUE3 ATTAQUE4'
   - OBJET : '-' pour aucun objet ;
@@ -58,12 +62,16 @@ MID_ITEMS = {'LEFTOVERS', 'SITRUS_BERRY', 'LUM_BERRY', 'BLACK_SLUDGE', 'FLAME_OR
 FORBIDDEN_ITEMS = {'EVIOLITE'}
 
 SET_FILES = ['sets_gen1', 'sets_gen2', 'sets_gen3']
+SET_FILES_B = ['sets_gen1b', 'sets_gen2b', 'sets_gen3b']
 
 errors = []
 
 
+variant_letter = 'A'
+
+
 def error(name, tier, msg):
-    errors.append(f'{name} (set {tier + 1}) : {msg}')
+    errors.append(f'{name} (set {tier + 1}{variant_letter}) : {msg}')
 
 
 def parse_set(name, tier, line):
@@ -111,9 +119,9 @@ def parse_set(name, tier, line):
             'iv': TIER_IVS[tier], 'moves': moves + ['NONE'] * (4 - len(moves))}
 
 
-def load_sets():
+def load_sets(files):
     sets = {}
-    for module in SET_FILES:
+    for module in files:
         try:
             mod = __import__(module)
         except ModuleNotFoundError:
@@ -133,10 +141,27 @@ def load_sets():
     return sets
 
 
+def load_all_sets():
+    global variant_letter
+    variant_letter = 'A'
+    sets_a = load_sets(SET_FILES)
+    variant_letter = 'B'
+    sets_b = load_sets(SET_FILES_B)
+    for name, parsed in sets_b.items():
+        if name not in sets_a:
+            errors.append(f'{name} : variante B sans variante A')
+            continue
+        for tier, (a, b) in enumerate(zip(sets_a[name], parsed)):
+            if a and b and a['moves'] == b['moves'] and a['item'] == b['item'] and name != 'UNOWN':
+                errors.append(f'{name} (set {tier + 1}) : variantes A et B identiques (attaques et objet)')
+    return {name: [[a, sets_b.get(name, parsed)[tier]] for tier, a in enumerate(parsed)]
+            for name, parsed in sets_a.items()}, len(sets_b)
+
+
 def write_header(sets):
     out = ['// Fichier généré par tools/isaac/build_sets.py à partir de tools/isaac/sets_gen*.py :',
            '// ne pas modifier à la main.',
-           '// 3 sets par Pokémon (1 à 386), du plus faible (0) au plus fort (2).',
+           '// Par Pokémon (1 à 386) : 3 paliers, du plus faible (0) au plus fort (2), en deux variantes (A, B).',
            '',
            '// ISAAC_SET(espèce, talent, objet, nature, IVs, EVs PV / Att / Déf / Vit / AttSp / DéfSp, 4 attaques)',
            '#define ISAAC_SET(sp, ab, it, nat, ivs, hp, at, df, spe, sa, sd, m1, m2, m3, m4)  \\',
@@ -153,17 +178,20 @@ def write_header(sets):
            '        .dynamaxLevel = MAX_DYNAMAX_LEVEL,                                    \\',
            '    }',
            '',
-           'static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS] =',
+           'static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][ISAAC_SET_VARIANTS] =',
            '{']
     for name in g.ORDER:
         if name not in sets:
             continue
         out.append(f'    [SPECIES_{name}] =')
         out.append('    {')
-        for s in sets[name]:
-            evs = ', '.join(map(str, s['evs']))
-            moves = ', '.join(s['moves'])
-            out.append(f"        ISAAC_SET({name}, {s['ability']}, {s['item']}, {s['nature']}, {s['iv']}, {evs}, {moves}),")
+        for variants in sets[name]:
+            out.append('        {')
+            for s in variants:
+                evs = ', '.join(map(str, s['evs']))
+                moves = ', '.join(s['moves'])
+                out.append(f"            ISAAC_SET({name}, {s['ability']}, {s['item']}, {s['nature']}, {s['iv']}, {evs}, {moves}),")
+            out.append('        },')
         out.append('    },')
     out.append('};')
     out.append('')
@@ -173,11 +201,11 @@ def write_header(sets):
 
 
 def main():
-    sets = load_sets()
+    sets, count_b = load_all_sets()
     missing = [n for n in g.ORDER if n not in sets]
     for e in errors:
         print(e)
-    print(f'{len(sets)} espèces, {len(missing)} sans sets, {len(errors)} erreurs')
+    print(f'{len(sets)} espèces, {len(missing)} sans sets, {count_b} avec une variante B, {len(errors)} erreurs')
     if '--check' not in sys.argv and not errors:
         write_header(sets)
         print('src/data/isaac_sets.h écrit')

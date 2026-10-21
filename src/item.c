@@ -1,5 +1,6 @@
 #include "global.h"
 #include "item.h"
+#include "move.h"
 #include "berry.h"
 #include "pokeball.h"
 #include "string_util.h"
@@ -863,7 +864,11 @@ u32 GetItemHoldEffectParam(enum Item itemId)
 
 const u8 *GetItemDescription(enum Item itemId)
 {
-    return gItemsInfo[SanitizeItemId(itemId)].description;
+    itemId = SanitizeItemId(itemId);
+    // Donjon : les CT ajoutées (CT51 et après) n'ont pas de description, on prend celle de leur attaque
+    if (itemId >= ITEM_TM51 && itemId <= ITEM_TM100 && ItemIdToBattleMoveId(itemId) != MOVE_NONE)
+        return GetMoveDescription(ItemIdToBattleMoveId(itemId));
+    return gItemsInfo[itemId].description;
 }
 
 u8 GetItemImportance(enum Item itemId)

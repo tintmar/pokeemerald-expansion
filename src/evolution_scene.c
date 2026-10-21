@@ -1,4 +1,5 @@
 #include "global.h"
+#include "isaac_pokemon.h"
 #include "malloc.h"
 #include "battle.h"
 #include "battle_message.h"
@@ -796,9 +797,9 @@ static void Task_EvolutionScene(u8 taskId)
     case EVOSTATE_TRY_LEARN_MOVE:
         if (!IsTextPrinterActiveOnWindow(0))
         {
-            // Donjon : pas d'attaque apprise en évoluant, le Pokémon reçoit ensuite le set de son évolution
-            // (voir IsaacEvolveMonWithStone)
-            var = MOVE_NONE;
+            // Donjon : pas d'attaque de niveau apprise en évoluant ; seules quelques espèces apprennent les
+            // attaques de leur set évolué (voir IsaacPrepareEvolutionMoves)
+            var = IsaacTryLearningEvolutionMove(mon, gTasks[taskId].tLearnsFirstMove);
             if (var != MOVE_NONE && !gTasks[taskId].tEvoWasStopped)
             {
                 u8 nickname[POKEMON_NAME_BUFFER_SIZE];

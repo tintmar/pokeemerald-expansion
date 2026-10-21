@@ -654,5 +654,7 @@ gSpecials::
 	def_special IsaacNurseRestorePP
 	def_special IsaacNurseGetPrice
 	def_special IsaacNurseTryHeal
+	def_special IsaacOpenShop
+	def_special IsaacKecleonGreeting
 	def_special IsaacBufferBossName
 	def_special IsaacCaptureMonDone

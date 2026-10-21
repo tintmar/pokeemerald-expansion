@@ -205,3 +205,40 @@ IsaacRoom_Text_BossReward:
 IsaacRoom_Text_BossPostBattle:
 	.string "Le passage vers l'étage suivant\n"
 	.string "est ouvert. Descends !$"
+
+@ Boutique : Kecleon, qui parle comme un humain (blague la toute première fois). Menu Acheter / Quitter
+@ (voir IsaacOpenShop)
+IsaacRoom_EventScript_Shopkeeper::
+	lock
+	faceplayer
+	special IsaacKecleonGreeting
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_ShopkeeperHello
+	msgbox IsaacRoom_Text_KecleonFirstTime, MSGBOX_DEFAULT
+	goto IsaacRoom_EventScript_ShopkeeperOpen
+
+IsaacRoom_EventScript_ShopkeeperHello::
+	msgbox IsaacRoom_Text_KecleonHello, MSGBOX_DEFAULT
+IsaacRoom_EventScript_ShopkeeperOpen::
+	special IsaacOpenShop
+	waitstate
+	msgbox IsaacRoom_Text_KecleonBye, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_Text_KecleonFirstTime:
+	.string "Bienvenue, bienvenue !\p"
+	.string "… Pourquoi cette tête ? Tu n'as\n"
+	.string "jamais vu un Kecleon qui parle ?\p"
+	.string "À force de me camoufler derrière\n"
+	.string "les comptoirs des humains, j'ai\l"
+	.string "appris leur langue…\p"
+	.string "… et surtout leurs prix ! Kehehe !$"
+
+IsaacRoom_Text_KecleonHello:
+	.string "Bienvenue ! Regarde un peu\n"
+	.string "ce que j'ai aujourd'hui !$"
+
+IsaacRoom_Text_KecleonBye:
+	.string "Reviens quand tu veux !\n"
+	.string "Enfin, si tu me trouves… Kehehe !$"
+

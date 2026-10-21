@@ -215,7 +215,9 @@ def build(out_name, source_name, mapping, mats):
     for role in ROLES:
         m = mapping[role] - NUM_PRIMARY_TILES
         metatiles.extend(convert(e) for e in src_meta[m * 8: m * 8 + 8])
-        attributes.append(FLOOR_ATTRIBUTES if role == 'FLOOR' else src_attr[m])
+        # Sol : comportement du sol de la grotte, mais type de calque de la source (le sable sous-marin a aussi
+        # un calque du dessus, qui doit rester derrière les sprites)
+        attributes.append((FLOOR_ATTRIBUTES | (src_attr[m] & 0xF000)) if role == 'FLOOR' else src_attr[m])
 
     # 2. Panneau sur le sol (0x210) : sol dessous, panneau de General dessus
     floor = metatiles[0:4]
