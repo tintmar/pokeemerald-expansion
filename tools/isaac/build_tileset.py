@@ -50,8 +50,8 @@ BIOME_TILESETS = [
     ('isaac_mystic', 'meteor_falls', dict(  # Chutes Météore : terrasses lavande, faces de falaise sombres
         FLOOR=0x201, ROCK_1=0x231, ROCK_2=0x231, TL=0x286, T=0x286, TR=0x286, L=0x228, C=0x201, R=0x212,
         BL=0x231, B=0x231, BR=0x231, IN_SE=0x213, IN_SW=0x214, IN_NE=0x286, IN_NW=0x286)),
-    ('isaac_ice', 'cave', dict(  # Grotte Tréfonds, salle gelée (glace rayée, qui ne glisse pas ici)
-        FLOOR=0x38D, ROCK_1=0x381, ROCK_2=0x381, TL=0x378, T=0x379, TR=0x37A, L=0x380, C=0x381, R=0x382,
+    ('isaac_ice', 'cave', dict(  # Grotte Tréfonds, salle gelée (sol de glace pointillée, qui ne glisse pas)
+        FLOOR=0x385, ROCK_1=0x381, ROCK_2=0x381, TL=0x378, T=0x379, TR=0x37A, L=0x380, C=0x381, R=0x382,
         BL=0x388, B=0x389, BR=0x38A, IN_SE=0x37B, IN_SW=0x37C, IN_NE=0x383, IN_NW=0x384)),
     ('isaac_poison', 'rusturf_tunnel', dict(  # Tunnel Mérazon (moussu)
         FLOOR=0x201, ROCK_1=0x211, ROCK_2=0x211, TL=0x208, T=0x209, TR=0x20A, L=0x210, C=0x211, R=0x212,
