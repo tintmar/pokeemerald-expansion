@@ -44,8 +44,6 @@ struct IsaacTrainerType
     u16 objEventGfx;
     u8 gender;          // TRAINER_GENDER_MALE / FEMALE
     u8 encounterMusic;  // TRAINER_ENCOUNTER_MUSIC_*
-    const u16 *lines;
-    u8 lineCount;
 };
 
 struct IsaacBiome

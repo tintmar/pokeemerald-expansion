@@ -72,7 +72,8 @@
  * DRESSEURS : une salle normale a ISAAC_TRAINER_PCT % de chances d'avoir un dresseur du biome, au centre. Il
  * regarde la porte par laquelle le joueur arrive : le moteur le fait réagir, s'approcher et lancer le combat
  * dès l'arrivée. Vaincu, il retourne au centre et la salle est « nettoyée » (FLAG_ISAAC_CLEARED_FIRST + cellule).
- * Pour l'instant : 2 Pokémon de catégorie 1 de ses lignées, set 1. Vaincu, il donne ISAAC_TRAINER_MONEY_PER_FLOOR x
+ * Ses Pokémon (nombre, catégorie, set selon l'étage : sRoomTrainerParties) sont tirés au hasard dans toutes
+ * les lignées du biome, sans doublon (AddTrainerMon). Vaincu, il donne ISAAC_TRAINER_MONEY_PER_FLOOR x
  * la profondeur, et un objet de son butin (IsaacPickTrainerLoot) : à partir de l'étage 2, l'un des dresseurs de
  * l'étage donne une Master Ball à la place, à coup sûr si on les bat tous.
  *
@@ -974,50 +975,15 @@ static const struct IsaacTrainerType *GetRoomTrainerType(s32 x, s32 y)
     return &biome->trainers[RoomRandom(x, y, 0x7E3) % biome->trainerCount];
 }
 
-// Espèce de la catégorie voulue dans les lignées du dresseur (sinon dans celles du biome)
-static u16 PickTrainerSpecies(const struct IsaacTrainerType *type, enum IsaacCategory category, u32 roll)
-{
-    const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
-    u16 species;
-
-    // Les légendaires ne sont dans aucune lignée : on prend un de ceux du biome (sBossLegendaries)
-    if (category >= ISAAC_CATEGORY_LEGENDARY_SMALL)
-        return sBossLegendaries[ISAAC_BIOME][roll % ARRAY_COUNT(sBossLegendaries[0])];
-    species = IsaacPickLineSpecies(type->lines, type->lineCount, category, roll);
-    if (species == SPECIES_NONE)
-        species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, roll);
-    return species != SPECIES_NONE ? species : biome->lines[0];
-}
-
-// Ajoute à l'équipe un Pokémon de la catégorie et du set voulus, d'une espèce pas encore dans l'équipe si possible
-static void AddTrainerMon(struct Trainer *trainer, struct TrainerMon *party, const struct IsaacTrainerType *type,
-                          enum IsaacCategory category, u32 tier, u32 seed)
-{
-    u16 species = SPECIES_NONE;
-    u32 try, i;
-    bool8 taken = TRUE;
-
-    for (try = 0; try < 8 && taken; try++)
-    {
-        species = PickTrainerSpecies(type, category, seed + try * 0x9E3779B9);
-        taken = FALSE;
-        for (i = 0; i < trainer->partySize; i++)
-            if (party[i].species == species)
-                taken = TRUE;
-    }
-    party[trainer->partySize] = *IsaacGetSet(species, tier, (seed >> 24) % ISAAC_SET_VARIANTS);  // variante 50/50
-    party[trainer->partySize].lvl = ISAAC_MON_LEVEL;
-    trainer->partySize++;
-}
-
-// Pokémon du boss : une espèce de la catégorie voulue parmi ses lignées et toutes celles du biome, jamais
-// une espèce déjà dans son équipe. S'il n'en reste aucune de cette catégorie, la plus proche (en dessous
-// d'abord). Le petit légendaire de l'as vient de sBossLegendaries.
-static void AddBossMon(enum IsaacCategory category, u32 tier, u32 seed)
+// Ajoute un Pokémon à l'équipe du dresseur ou du boss : quel que soit le type de dresseur, une espèce au hasard
+// parmi toutes les lignées du biome, de la catégorie voulue, jamais une espèce déjà dans l'équipe (s'il n'en reste
+// aucune de cette catégorie, la plus proche, en dessous d'abord), avec le set voulu (variante 50/50). Le petit
+// légendaire de l'as du boss vient de sBossLegendaries.
+static void AddTrainerMon(enum IsaacCategory category, u32 tier, u32 seed)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
     u16 candidates[96];
-    u32 count = 0, kept, i, j, delta;
+    u32 count, kept, i, j, k, delta;
     s32 cat;
     u16 species = SPECIES_NONE;
 
@@ -1034,13 +1000,10 @@ static void AddBossMon(enum IsaacCategory category, u32 tier, u32 seed)
                 cat = (s32)category + (i == 0 ? -(s32)delta : (s32)delta);
                 if (cat < ISAAC_CATEGORY_1 || cat > ISAAC_CATEGORY_4 || (i == 1 && delta == 0))
                     continue;
-                count = IsaacAddLinesSpeciesOfCategory(biome->boss->lines, biome->boss->lineCount, cat, candidates, 0, ARRAY_COUNT(candidates));
-                count = IsaacAddLinesSpeciesOfCategory(biome->lines, biome->lineCount, cat, candidates, count, ARRAY_COUNT(candidates));
+                count = IsaacAddLinesSpeciesOfCategory(biome->lines, biome->lineCount, cat, candidates, 0, ARRAY_COUNT(candidates));
                 // sans les espèces déjà dans l'équipe
                 for (kept = 0, j = 0; j < count; j++)
                 {
-                    u32 k;
-
                     for (k = 0; k < sRoomTrainer.partySize && sRoomTrainerMons[k].species != candidates[j]; k++)
                         ;
                     if (k == sRoomTrainer.partySize)
@@ -1103,10 +1066,10 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
             u32 category = boss->minCategory + (roll >> 8) % (boss->maxCategory - boss->minCategory + 1);
             u32 tier = boss->minTier + (roll >> 16) % (boss->maxTier - boss->minTier + 1);
 
-            AddBossMon(category, tier, roll);
+            AddTrainerMon(category, tier, roll);
         }
         // L'as, envoyé en dernier
-        AddBossMon(boss->aceCategory, boss->aceTier, RoomRandom(x, y, 0xB0A5));
+        AddTrainerMon(boss->aceCategory, boss->aceTier, RoomRandom(x, y, 0xB0A5));
         return &sRoomTrainer;
     }
 
@@ -1120,7 +1083,7 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
         u32 category = party->minCategory + (roll >> 8) % (party->maxCategory - party->minCategory + 1);
         u32 tier = party->minTier + (roll >> 16) % (party->maxTier - party->minTier + 1);
 
-        AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, type, category, tier, roll);
+        AddTrainerMon(category, tier, roll);
     }
     return &sRoomTrainer;
 }
