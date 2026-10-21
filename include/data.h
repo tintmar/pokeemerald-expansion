@@ -281,6 +281,7 @@ static inline u16 GetPartnerIdFromTrainerId(u16 trainerId)
 // Donjon : dresseur de la salle courante et boss de l'étage (voir isaac_dungeon.c)
 bool8 IsIsaacTrainer(u16 trainerId);
 const struct Trainer *GetIsaacTrainer(u16 trainerId);
+u32 IsaacGetTrainerMoney(void);
 
 static inline const struct Trainer *GetTrainerStructFromId(u16 trainerId)
 {

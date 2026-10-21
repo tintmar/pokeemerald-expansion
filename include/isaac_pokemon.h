@@ -61,5 +61,8 @@ void IsaacCreateMonFromSet(struct Pokemon *mon, enum Species species, u32 tier, 
 u32 IsaacGetMonSetTier(struct Pokemon *mon);
 void IsaacApplyEvolvedSet(struct Pokemon *mon, u32 tier);
 void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index);
+s32 IsaacApplyOmniboost(struct Pokemon *mon, s32 stat);
+bool8 IsaacAddOmniboost(struct Pokemon *mon);
+bool8 IsaacUpgradeSet(struct Pokemon *mon);
 
 #endif // GUARD_ISAAC_POKEMON_H

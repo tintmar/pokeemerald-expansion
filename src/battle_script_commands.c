@@ -4018,6 +4018,8 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
     u32 moneyReward;
     u8 trainerMoney = 0;
 
+    if (IsIsaacTrainer(trainerId))  // donjon : somme fixe selon la profondeur
+        return IsaacGetTrainerMoney();
     if (trainerId == TRAINER_SECRET_BASE)
     {
         moneyReward = 20 * gBattleResources->secretBase->party.levels[0] * gBattleStruct->moneyMultiplier;

@@ -34,7 +34,7 @@ Isaac_EventScript_Minimap::
 	end
 
 @ Dresseur d'une salle normale (placé par isaac_dungeon.c) : il regarde la porte par laquelle on arrive,
-@ s'approche et lance le combat ; vaincu, il retourne au centre de la salle
+@ s'approche et lance le combat ; vaincu, il donne un objet de son butin et retourne au centre de la salle
 IsaacRoom_EventScript_Trainer::
 	trainerbattle_single TRAINER_ISAAC_ROOM, IsaacRoom_Text_TrainerIntro, IsaacRoom_Text_TrainerDefeat, IsaacRoom_EventScript_TrainerDefeated
 	msgbox IsaacRoom_Text_TrainerPostBattle, MSGBOX_AUTOCLOSE
@@ -42,6 +42,8 @@ IsaacRoom_EventScript_Trainer::
 
 IsaacRoom_EventScript_TrainerDefeated::
 	special IsaacSetRoomCleared
+	special IsaacPickTrainerLoot
+	giveitem VAR_0x8004
 	special IsaacPrepareTrainerReturn
 	applymovement LOCALID_ISAAC_ROOM_TRAINER, gIsaacTrainerReturnMovement
 	waitmovement 0
@@ -71,10 +73,12 @@ IsaacRoom_EventScript_WildMon::
 	release
 	end
 
-@ Salle trésor : une Pierre Évolution
+@ Salle trésor : pour l'instant (tests), les trois objets spéciaux
 IsaacRoom_EventScript_Treasure::
 	lock
 	giveitem ITEM_EVOLUTION_STONE
+	giveitem ITEM_OMNIBOOST
+	giveitem ITEM_ABILITY_TRAINER
 	special IsaacSetRoomCleared
 	removeobject LOCALID_ISAAC_ROOM_ITEM
 	release

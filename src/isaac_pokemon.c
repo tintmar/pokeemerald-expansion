@@ -112,6 +112,36 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 }
 
 // ---------------------------------------------------------------------------
+// Omniboost
+// ---------------------------------------------------------------------------
+
+// Nombre d'Omniboosts reçus : rangé dans la stat de concours Sang-froid (pas de concours dans le jeu)
+#define ISAAC_OMNIBOOST_DATA  MON_DATA_COOL
+#define ISAAC_OMNIBOOST_MAX   10  // +100 % au plus
+
+// Palier du set du Pokémon + 1 (0 : inconnu) : rangé dans la stat de concours Beauté
+#define ISAAC_TIER_DATA       MON_DATA_BEAUTY
+
+// Stat (PV compris) avec les Omniboosts du Pokémon : +10 % chacun
+s32 IsaacApplyOmniboost(struct Pokemon *mon, s32 stat)
+{
+    return stat * (10 + GetMonData(mon, ISAAC_OMNIBOOST_DATA)) / 10;
+}
+
+// Un Omniboost de plus (FALSE s'il en a déjà le maximum) ; les stats sont recalculées
+bool8 IsaacAddOmniboost(struct Pokemon *mon)
+{
+    u32 count = GetMonData(mon, ISAAC_OMNIBOOST_DATA);
+
+    if (count >= ISAAC_OMNIBOOST_MAX)
+        return FALSE;
+    count++;
+    SetMonData(mon, ISAAC_OMNIBOOST_DATA, &count);
+    CalculateMonStats(mon);
+    return TRUE;
+}
+
+// ---------------------------------------------------------------------------
 // Pokémon du joueur et sauvages
 // ---------------------------------------------------------------------------
 
@@ -133,15 +163,21 @@ void IsaacCreateMonFromSet(struct Pokemon *mon, enum Species species, u32 tier, 
     SetMonData(mon, MON_DATA_FRIENDSHIP, &value);
     value = 0;
     SetMonData(mon, MON_DATA_DYNAMAX_LEVEL, &value);
+    value = tier + 1;
+    SetMonData(mon, ISAAC_TIER_DATA, &value);
 }
 
-// Palier du set d'un Pokémon, reconnu à ses attaques (0 si aucun set ne correspond)
+// Palier du set d'un Pokémon (0 à ISAAC_SET_TIERS - 1) : celui enregistré sur le Pokémon, sinon reconnu à ses
+// attaques (0 si aucun set ne correspond)
 u32 IsaacGetMonSetTier(struct Pokemon *mon)
 {
     enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    u32 stored = GetMonData(mon, ISAAC_TIER_DATA);
     const struct TrainerMon *set;
     u32 tier, i;
 
+    if (stored >= 1 && stored <= ISAAC_SET_TIERS)
+        return stored - 1;
     for (tier = 0; tier < ISAAC_SET_TIERS; tier++)
     {
         set = IsaacGetSet(species, tier);
@@ -155,27 +191,48 @@ u32 IsaacGetMonSetTier(struct Pokemon *mon)
     return 0;
 }
 
-// Après l'évolution par la Pierre Évolution : le Pokémon (déjà évolué) reçoit le set de même palier de sa
-// nouvelle espèce. Il garde son pourcentage de PV et son statut.
-void IsaacApplyEvolvedSet(struct Pokemon *mon, u32 tier)
+// Remplace le Pokémon par le set n° tier de l'espèce donnée. Il garde son pourcentage de PV, son statut et ses
+// Omniboosts.
+static void ReplaceWithSet(struct Pokemon *mon, enum Species species, u32 tier)
 {
-    struct Pokemon evolved;
+    struct Pokemon replacement;
     u32 hp = GetMonData(mon, MON_DATA_HP);
     u32 maxHP = GetMonData(mon, MON_DATA_MAX_HP);
     u32 status = GetMonData(mon, MON_DATA_STATUS);
+    u32 omniboosts = GetMonData(mon, ISAAC_OMNIBOOST_DATA);
     u32 newHP;
 
-    IsaacCreateMonFromSet(&evolved, GetMonData(mon, MON_DATA_SPECIES), tier, Random32());
-    newHP = GetMonData(&evolved, MON_DATA_MAX_HP);
+    IsaacCreateMonFromSet(&replacement, species, tier, Random32());
+    SetMonData(&replacement, ISAAC_OMNIBOOST_DATA, &omniboosts);
+    CalculateMonStats(&replacement);
+    newHP = GetMonData(&replacement, MON_DATA_MAX_HP);
     if (maxHP != 0 && hp < maxHP)
         newHP = max(newHP * hp / maxHP, hp != 0 ? 1u : 0u);
-    SetMonData(&evolved, MON_DATA_HP, &newHP);
-    SetMonData(&evolved, MON_DATA_STATUS, &status);
-    *mon = evolved;
+    SetMonData(&replacement, MON_DATA_HP, &newHP);
+    SetMonData(&replacement, MON_DATA_STATUS, &status);
+    *mon = replacement;
+}
+
+// Après l'évolution par la Pierre Évolution : le Pokémon (déjà évolué) reçoit le set de même palier de sa
+// nouvelle espèce
+void IsaacApplyEvolvedSet(struct Pokemon *mon, u32 tier)
+{
+    ReplaceWithSet(mon, GetMonData(mon, MON_DATA_SPECIES), tier);
+}
+
+// Ability Trainer : le Pokémon passe au set suivant de son espèce (FALSE s'il a déjà le meilleur)
+bool8 IsaacUpgradeSet(struct Pokemon *mon)
+{
+    u32 tier = IsaacGetMonSetTier(mon);
+
+    if (tier + 1 >= ISAAC_SET_TIERS)
+        return FALSE;
+    ReplaceWithSet(mon, GetMonData(mon, MON_DATA_SPECIES), tier + 1);
+    return TRUE;
 }
 
 // Choix du Montagnard du hub : le Pokémon proposé n° index (0 à ISAAC_STARTER_CHOICES - 1), une espèce
-// différente de catégorie 1 pour chacun, avec un set au hasard (1, 2 ou 3). Les espèces sont tirées à l'index 0.
+// différente de catégorie 1 pour chacun, avec un set au hasard (1 ou 2). Les espèces sont tirées à l'index 0.
 void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
 {
     static EWRAM_DATA u16 sStarterSpecies[ISAAC_STARTER_CHOICES] = {0};
@@ -196,5 +253,5 @@ void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
             sStarterSpecies[i] = candidates[i];
         }
     }
-    IsaacCreateMonFromSet(mon, sStarterSpecies[index], Random() % ISAAC_SET_TIERS, Random32());
+    IsaacCreateMonFromSet(mon, sStarterSpecies[index], Random() % 2, Random32());
 }

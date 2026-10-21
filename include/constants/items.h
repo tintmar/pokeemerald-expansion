@@ -1051,7 +1051,9 @@ enum __attribute__((packed)) Item
     ITEM_BAXCALIBRITE = 871,
     ITEM_TATSUGIRINITE = 872,
     ITEM_GLIMMORANITE = 873,
-    ITEM_EVOLUTION_STONE = 874,  // Donjon : fait évoluer d'un stade, avec le set équivalent (salle trésor)
+    ITEM_EVOLUTION_STONE = 874,
+    ITEM_OMNIBOOST = 875,
+    ITEM_ABILITY_TRAINER = 876,  // Donjon : le Pokémon passe au set suivant (1 -> 2 -> 3)  // Donjon : +10 % à toutes les stats d'un Pokémon, pour toujours (cumulable)  // Donjon : fait évoluer d'un stade, avec le set équivalent (salle trésor)
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

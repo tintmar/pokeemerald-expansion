@@ -15,6 +15,7 @@ void IsaacShowMinimap(void);
 void IsaacSetRoomCleared(void);
 void IsaacPrepareTrainerReturn(void);
 void IsaacRevealLadder(void);
+void IsaacPickTrainerLoot(void);
 
 extern u8 gIsaacTrainerReturnMovement[];
 bool8 TryOpenIsaacMinimap(void);

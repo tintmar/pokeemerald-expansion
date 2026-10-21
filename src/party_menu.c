@@ -6306,6 +6306,56 @@ void ItemUseCB_IsaacEvolutionStone(u8 taskId, TaskFunc task)
     FreePartyPointers();
 }
 
+// Donjon : Omniboost, +10 % à toutes les stats du Pokémon (cumulable)
+void ItemUseCB_IsaacOmniboost(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacAddOmniboost(mon))
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+    gPartyMenuUseExitCallback = TRUE;
+    PlaySE(SE_USE_ITEM);
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    DisplayPartyPokemonData(gPartyMenu.slotId);
+    GetMonNickname(mon, gStringVar1);
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1}'s stats rose\nby 10%!{PAUSE_UNTIL_PRESS}"));
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = task;
+}
+
+// Donjon : Ability Trainer, le Pokémon passe au set suivant de son espèce
+void ItemUseCB_IsaacAbilityTrainer(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacUpgradeSet(mon))
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+    gPartyMenuUseExitCallback = TRUE;
+    PlaySE(SE_USE_ITEM);
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    DisplayPartyPokemonData(gPartyMenu.slotId);
+    GetMonNickname(mon, gStringVar1);
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} reached its next\nlevel of mastery!{PAUSE_UNTIL_PRESS}"));
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = task;
+}
+
 #define FUSE_MON        1
 #define UNFUSE_MON      2
 #define SECOND_FUSE_MON 3

@@ -4280,6 +4280,42 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_DawnStone,
     },
 
+    // Donjon : +10 % à toutes les stats, cumulable, conservé par la Pierre Évolution (voir IsaacAddOmniboost)
+    [ITEM_OMNIBOOST] =
+    {
+        .name = ITEM_NAME("Omniboost"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Raises all the\n"
+            "stats of a Pokémon\n"
+            "by 10% for good."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacOmniboost,
+        .flingPower = 30,
+        .iconPic = gItemIcon_RareCandy,
+        .iconPalette = gItemIconPalette_RareCandy,
+    },
+
+    // Donjon : le Pokémon passe au set suivant de son espèce (voir IsaacUpgradeSet)
+    [ITEM_ABILITY_TRAINER] =
+    {
+        .name = ITEM_NAME("Ability Trainer"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Trains a Pokémon\n"
+            "to reach its next\n"
+            "level of mastery."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacAbilityTrainer,
+        .flingPower = 30,
+        .iconPic = gItemIcon_AbilityPatch,
+        .iconPalette = gItemIconPalette_AbilityPatch,
+    },
+
     [ITEM_DAWN_STONE] =
     {
         .name = ITEM_NAME("Dawn Stone"),

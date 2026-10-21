@@ -62,7 +62,8 @@
  * DRESSEURS : une salle normale a ISAAC_TRAINER_PCT % de chances d'avoir un dresseur du biome, au centre. Il
  * regarde la porte par laquelle le joueur arrive : le moteur le fait réagir, s'approcher et lancer le combat
  * dès l'arrivée. Vaincu, il retourne au centre et la salle est « nettoyée » (FLAG_ISAAC_CLEARED_FIRST + cellule).
- * Pour l'instant : un seul Pokémon, d'une lignée du biome de catégorie 1, set 1.
+ * Pour l'instant : 2 Pokémon de catégorie 1 de ses lignées, set 1. Vaincu, il donne ISAAC_TRAINER_MONEY_PER_FLOOR x
+ * la profondeur, et un objet de son butin (IsaacPickTrainerLoot).
  *
  * SALLE DE CAPTURE : un Pokémon sauvage du biome (catégorie 2, set 1 ou 2) se promène ; lui parler lance le
  * combat, après quoi il disparaît. SALLE TRÉSOR : une Pierre Évolution au sol.
@@ -77,6 +78,7 @@
 #define ISAAC_MAX_TRIES        200  // graines essayées pour un étage valide
 
 #define ISAAC_TRAINER_PCT    75  // % de salles normales avec un dresseur
+#define ISAAC_TRAINER_MONEY_PER_FLOOR  1000  // argent gagné contre un dresseur (ou le boss) : x profondeur
 #define ISAAC_BIOME          ISAAC_BIOME_CAVE  // un seul biome pour l'instant
 
 // Salles nettoyées (dresseur vaincu) : un drapeau par cellule, dans des drapeaux inutilisés du jeu
@@ -879,6 +881,23 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, type, ISAAC_CATEGORY_1, 0, RoomRandom(x, y, 0x5EC));
     AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, type, ISAAC_CATEGORY_1, 0, RoomRandom(x, y, 0x5ED));
     return &sRoomTrainer;
+}
+
+// Argent gagné contre un dresseur ou le boss du donjon
+u32 IsaacGetTrainerMoney(void)
+{
+    return ISAAC_TRAINER_MONEY_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
+}
+
+// Butin d'un dresseur vaincu (toujours le même pour une salle) : Guérison ou Rappel, moitié-moitié.
+// VAR_0x8004 = l'objet, pour `giveitem VAR_0x8004`.
+void IsaacPickTrainerLoot(void)
+{
+    static const u16 sLoot[] = { ITEM_FULL_RESTORE, ITEM_REVIVE };
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    gSpecialVar_0x8004 = sLoot[RoomRandom(x, y, 0x1007) % ARRAY_COUNT(sLoot)];
 }
 
 static struct ObjectEventTemplate *GetObjectTemplate(u8 localId)
