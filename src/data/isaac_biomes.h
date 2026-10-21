@@ -43,6 +43,10 @@ static const struct IsaacTrainerType sCaveTrainers[] =
     ISAAC_TRAINER(DRAGON_TAMER, DRAGON_TAMER, MAN_3,      MALE,   INTENSE,    sCaveDragonTamerLines),
 };
 
+// Boss : Pierre et ses Pokémon Roche
+static const u16 sCaveBossLines[] = { SPECIES_GEODUDE, SPECIES_ONIX, SPECIES_RHYHORN, SPECIES_LARVITAR, SPECIES_ARON };
+static const struct IsaacTrainerType sCaveBoss = ISAAC_TRAINER(LEADER, LEADER_BROCK_FRLG, BROCK, MALE, INTENSE, sCaveBossLines);
+
 #undef ISAAC_TRAINER
 
 const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT] =
@@ -53,5 +57,7 @@ const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT] =
         .lineCount = ARRAY_COUNT(sCaveLines),
         .trainers = sCaveTrainers,
         .trainerCount = ARRAY_COUNT(sCaveTrainers),
+        .boss = &sCaveBoss,
+        .bossName = COMPOUND_STRING("BROCK"),
     },
 };

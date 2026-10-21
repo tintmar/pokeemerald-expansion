@@ -28,6 +28,48 @@
       "trainer_sight_or_berry_tree_id": "7",
       "script": "IsaacRoom_EventScript_Trainer",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_ISAAC_ROOM_WILD",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_1",
+      "x": 7,
+      "y": 5,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
+      "movement_range_x": 3,
+      "movement_range_y": 2,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "IsaacRoom_EventScript_WildMon",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_ISAAC_ROOM_ITEM",
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 7,
+      "y": 5,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "IsaacRoom_EventScript_Treasure",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_ISAAC_ROOM_BOSS",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_2",
+      "x": 7,
+      "y": 4,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "IsaacRoom_EventScript_Boss",
+      "flag": "0"
     }
   ],
   "warp_events": [],

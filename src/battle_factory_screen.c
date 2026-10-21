@@ -31,6 +31,7 @@
 #include "constants/battle_tent.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
+#include "isaac_pokemon.h"
 
 // Select_ refers to the first Pokémon selection screen where you choose your initial 3 rental Pokémon.
 // Swap_   refers to the subsequent selection screens where you can swap a Pokémon with one from the beaten trainer
@@ -43,6 +44,17 @@
 #define SWAP_ENEMY_SCREEN  1  // The screen where the player selects which new Pokémon from the defeated party to swap for
 
 #define SELECTABLE_MONS_COUNT 6
+
+// Mode donjon (DoIsaacStarterSelectScreen) : le Montagnard du hub propose ISAAC_STARTER_CHOICES Pokémon, on en
+// choisit ISAAC_STARTER_PICKS, donnés au joueur (équipe ou PC). Le reste est l'écran de l'Usine de Combat.
+static EWRAM_DATA bool8 sIsaacStarterMode = FALSE;
+STATIC_ASSERT(ISAAC_STARTER_CHOICES == SELECTABLE_MONS_COUNT, IsaacStarterChoicesFillTheScreen);
+STATIC_ASSERT(ISAAC_STARTER_PICKS <= FRONTIER_PARTY_SIZE, IsaacStarterPicksFitAFactoryParty);
+
+// Mode donjon : 2 cadres centrés pour les Pokémon choisis (au lieu de 3), colonne de leur bord gauche (tuiles)
+static const u8 sIsaacChosenMonBoxTileX[] = {6, 16};
+STATIC_ASSERT(ARRAY_COUNT(sIsaacChosenMonBoxTileX) == ISAAC_STARTER_PICKS, IsaacOneBoxPerPick);
+#define ISAAC_BOX_CENTER_X(i)  (sIsaacChosenMonBoxTileX[i] * 8 + 32)
 
 #define PALNUM_FADE_TEXT 14
 #define PALNUM_TEXT      15
@@ -1081,8 +1093,54 @@ static void VBlankCB_SelectScreen(void)
 
 void DoBattleFactorySelectScreen(void)
 {
+    sIsaacStarterMode = FALSE;
     sFactorySelectScreen = NULL;
     SetMainCallback2(CB2_InitSelectScreen);
+}
+
+// Montagnard du hub : choix de ISAAC_STARTER_PICKS Pokémon parmi ISAAC_STARTER_CHOICES (special, suivi de waitstate)
+void DoIsaacStarterSelectScreen(void)
+{
+    sIsaacStarterMode = TRUE;
+    sFactorySelectScreen = NULL;
+    SetMainCallback2(CB2_InitSelectScreen);
+}
+
+// Nombre de Pokémon à choisir
+static u32 Select_GetPickCount(void)
+{
+    return sIsaacStarterMode ? ISAAC_STARTER_PICKS : FRONTIER_PARTY_SIZE;
+}
+
+static void CreateIsaacStarterSelectableMons(void)
+{
+    u32 i;
+
+    for (i = 0; i < ISAAC_STARTER_CHOICES; i++)
+    {
+        sFactorySelectScreen->mons[i].monId = i;
+        IsaacCreateStarterChoice(&sFactorySelectScreen->mons[i].monData, i);
+    }
+}
+
+// Les Pokémon choisis rejoignent l'équipe (ou le PC), dans l'ordre du choix
+static void Select_GiveIsaacStarters(void)
+{
+    u32 pick, i;
+    struct Pokemon *mon;
+
+    for (pick = 1; pick <= ISAAC_STARTER_PICKS; pick++)
+    {
+        for (i = 0; i < ISAAC_STARTER_CHOICES; i++)
+        {
+            if (sFactorySelectScreen->mons[i].selectedId != pick)
+                continue;
+            mon = &sFactorySelectScreen->mons[i].monData;
+            HandleSetPokedexFlagFromMon(mon, FLAG_SET_SEEN);
+            HandleSetPokedexFlagFromMon(mon, FLAG_SET_CAUGHT);
+            GiveCapturedMonToPlayer(mon);
+        }
+    }
 }
 
 // Main select states
@@ -1175,9 +1233,17 @@ static void CB2_InitSelectScreen(void)
         break;
     case 3:
         SetBgTilemapBuffer(3, sSelectMonPicBgTilemapBuffer);
-        CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap, 11, 4, 8, 8);
-        CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap,  2, 4, 8, 8);
-        CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap, 20, 4, 8, 8);
+        if (sIsaacStarterMode)
+        {
+            CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap, sIsaacChosenMonBoxTileX[0], 4, 8, 8);
+            CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap, sIsaacChosenMonBoxTileX[1], 4, 8, 8);
+        }
+        else
+        {
+            CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap, 11, 4, 8, 8);
+            CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap,  2, 4, 8, 8);
+            CopyToBgTilemapBufferRect(3, sMonPicBg_Tilemap, 20, 4, 8, 8);
+        }
         CopyBgTilemapBufferToVram(3);
         gMain.state++;
         break;
@@ -1274,7 +1340,9 @@ static void Select_InitMonsData(void)
     for (i = 0; i < SELECTABLE_MONS_COUNT; i++)
         sFactorySelectScreen->mons[i].selectedId = 0;
 
-    if (gSaveBlock2Ptr->frontier.lvlMode != FRONTIER_LVL_TENT)
+    if (sIsaacStarterMode)
+        CreateIsaacStarterSelectableMons();
+    else if (gSaveBlock2Ptr->frontier.lvlMode != FRONTIER_LVL_TENT)
         CreateFrontierFactorySelectableMons(0);
     else
         CreateSlateportTentSelectableMons(0);
@@ -1389,12 +1457,12 @@ static void Select_HandleMonSelectionChange(void)
     if (sFactorySelectScreen->mons[cursorPos].selectedId) // Deselect a mon.
     {
         paletteNum = IndexOfSpritePaletteTag(PALTAG_BALL_GRAY);
-        if (sFactorySelectScreen->selectingMonsState == FRONTIER_PARTY_SIZE
+        if (sFactorySelectScreen->selectingMonsState == Select_GetPickCount()
          && sFactorySelectScreen->mons[cursorPos].selectedId == 1)
         {
             for (i = 0; i < SELECTABLE_MONS_COUNT; i++)
             {
-                if (sFactorySelectScreen->mons[i].selectedId == FRONTIER_PARTY_SIZE - 1)
+                if (sFactorySelectScreen->mons[i].selectedId == Select_GetPickCount() - 1)
                     break;
             }
             if (i == SELECTABLE_MONS_COUNT)
@@ -1480,7 +1548,11 @@ static void Select_Task_Exit(u8 taskId)
     case 1:
         if (!UpdatePaletteFade())
         {
-            Select_CopyMonsToPlayerParty();
+            if (sIsaacStarterMode)
+                Select_GiveIsaacStarters();
+            else
+                Select_CopyMonsToPlayerParty();
+            sIsaacStarterMode = FALSE;
             DestroyTask(sFactorySelectScreen->fadeSpeciesNameTaskId);
             Select_DestroyAllSprites();
             FREE_AND_SET_NULL(sSelectMenuTilesetBuffer);
@@ -1825,7 +1897,8 @@ static void Select_ErasePopupMenu(u8 windowId)
 static void Select_PrintRentalPkmnString(void)
 {
     FillWindowPixelBuffer(SELECT_WIN_TITLE, PIXEL_FILL(0));
-    AddTextPrinterParameterized(SELECT_WIN_TITLE, FONT_NORMAL, gText_RentalPkmn2, 2, 1, 0, NULL);
+    AddTextPrinterParameterized(SELECT_WIN_TITLE, FONT_NORMAL,
+                                sIsaacStarterMode ? COMPOUND_STRING("NEW POKéMON") : gText_RentalPkmn2, 2, 1, 0, NULL);
     CopyWindowToVram(SELECT_WIN_TITLE, COPYWIN_FULL);
 }
 
@@ -1848,7 +1921,9 @@ static void Select_PrintSelectMonString(void)
     const u8 *str = NULL;
 
     FillWindowPixelBuffer(SELECT_WIN_INFO, PIXEL_FILL(0));
-    if (sFactorySelectScreen->selectingMonsState == 1)
+    if (sFactorySelectScreen->selectingMonsState > Select_GetPickCount())
+        str = sIsaacStarterMode ? COMPOUND_STRING("Are these two POKéMON OK?") : gText_TheseThreePkmnOkay;
+    else if (sFactorySelectScreen->selectingMonsState == 1)
         str = gText_SelectFirstPkmn;
     else if (sFactorySelectScreen->selectingMonsState == 2)
         str = gText_SelectSecondPkmn;
@@ -1878,7 +1953,8 @@ static void Select_PrintMenuOptions(void)
     if (selectedId != 0)
         AddTextPrinterParameterized3(SELECT_WIN_OPTIONS, FONT_NORMAL, 7, 17, sMenuOptionTextColors, 0, gText_Deselect);
     else
-        AddTextPrinterParameterized3(SELECT_WIN_OPTIONS, FONT_NORMAL, 7, 17, sMenuOptionTextColors, 0, gText_Rent);
+        AddTextPrinterParameterized3(SELECT_WIN_OPTIONS, FONT_NORMAL, 7, 17, sMenuOptionTextColors, 0,
+                                     sIsaacStarterMode ? COMPOUND_STRING("CHOOSE") : gText_Rent);
 
     AddTextPrinterParameterized3(SELECT_WIN_OPTIONS, FONT_NORMAL, 7, 33, sMenuOptionTextColors, 0, gText_Others2);
     CopyWindowToVram(SELECT_WIN_OPTIONS, COPYWIN_FULL);
@@ -1903,7 +1979,7 @@ static u8 Select_OptionRentDeselect(void)
 {
     u8 selectedId = sFactorySelectScreen->mons[sFactorySelectScreen->cursorPos].selectedId;
     u16 monId  = sFactorySelectScreen->mons[sFactorySelectScreen->cursorPos].monId;
-    if (selectedId == 0 && !Select_AreSpeciesValid(monId))
+    if (selectedId == 0 && !sIsaacStarterMode && !Select_AreSpeciesValid(monId))
     {
         Select_PrintCantSelectSameMon();
         Select_ErasePopupMenu(SELECT_WIN_OPTIONS);
@@ -1915,7 +1991,7 @@ static u8 Select_OptionRentDeselect(void)
         Select_HandleMonSelectionChange();
         Select_PrintSelectMonString();
         Select_ErasePopupMenu(SELECT_WIN_OPTIONS);
-        if (sFactorySelectScreen->selectingMonsState > FRONTIER_PARTY_SIZE)
+        if (sFactorySelectScreen->selectingMonsState > Select_GetPickCount())
             return SELECT_CONFIRM_MONS;
         else
             return SELECT_CONTINUE_CHOOSING;
@@ -1928,7 +2004,7 @@ static u8 Select_DeclineChosenMons(void)
     Select_HandleMonSelectionChange();
     Select_PrintSelectMonString();
     Select_ErasePopupMenu(SELECT_WIN_OPTIONS);
-    if (sFactorySelectScreen->selectingMonsState > FRONTIER_PARTY_SIZE)
+    if (sFactorySelectScreen->selectingMonsState > Select_GetPickCount())
         return 2;
     else
         return 1;
@@ -2021,7 +2097,9 @@ static void Select_CreateChosenMonsSprites(void)
                 u32 personality = GetMonData(mon, MON_DATA_PERSONALITY);
                 bool8 isShiny = GetMonData(mon, MON_DATA_IS_SHINY);
 
-                sFactorySelectScreen->monPics[i].monSpriteId = CreateMonPicSprite(species, isShiny, personality, TRUE, (i * 72) + 16, 32, i + 13, TAG_NONE);
+                s16 x = sIsaacStarterMode ? sIsaacChosenMonBoxTileX[i] * 8 : (i * 72) + 16;
+
+                sFactorySelectScreen->monPics[i].monSpriteId = CreateMonPicSprite(species, isShiny, personality, TRUE, x, 32, i + 13, TAG_NONE);
                 gSprites[sFactorySelectScreen->monPics[i].monSpriteId].centerToCornerVecX = 0;
                 gSprites[sFactorySelectScreen->monPics[i].monSpriteId].centerToCornerVecY = 0;
                 break;
@@ -2172,9 +2250,19 @@ static void Select_Task_CloseChosenMonPics(u8 taskId)
 
 static void Select_ShowChosenMons(void)
 {
-    sFactorySelectScreen->monPics[1].bgSpriteId = CreateSprite(&sSpriteTemplate_Select_MonPicBgAnim, 120, 64, 1);
-    sFactorySelectScreen->monPics[0].bgSpriteId = CreateSprite(&sSpriteTemplate_Select_MonPicBgAnim,  44, 64, 1);
-    sFactorySelectScreen->monPics[2].bgSpriteId = CreateSprite(&sSpriteTemplate_Select_MonPicBgAnim, 196, 64, 1);
+    if (sIsaacStarterMode)
+    {
+        // 2 cadres : le 3e sprite d'animation est posé sur le 1er (la suite du code les anime tous les trois)
+        sFactorySelectScreen->monPics[1].bgSpriteId = CreateSprite(&sSpriteTemplate_Select_MonPicBgAnim, ISAAC_BOX_CENTER_X(1), 64, 1);
+        sFactorySelectScreen->monPics[0].bgSpriteId = CreateSprite(&sSpriteTemplate_Select_MonPicBgAnim, ISAAC_BOX_CENTER_X(0), 64, 1);
+        sFactorySelectScreen->monPics[2].bgSpriteId = CreateSprite(&sSpriteTemplate_Select_MonPicBgAnim, ISAAC_BOX_CENTER_X(0), 64, 1);
+    }
+    else
+    {
+        sFactorySelectScreen->monPics[1].bgSpriteId = CreateSprite(&sSpriteTemplate_Select_MonPicBgAnim, 120, 64, 1);
+        sFactorySelectScreen->monPics[0].bgSpriteId = CreateSprite(&sSpriteTemplate_Select_MonPicBgAnim,  44, 64, 1);
+        sFactorySelectScreen->monPics[2].bgSpriteId = CreateSprite(&sSpriteTemplate_Select_MonPicBgAnim, 196, 64, 1);
+    }
 
     gSprites[sFactorySelectScreen->monPics[1].bgSpriteId].callback = SpriteCB_OpenChosenMonPics;
     gSprites[sFactorySelectScreen->monPics[0].bgSpriteId].callback = SpriteCallbackDummy;
@@ -2186,10 +2274,10 @@ static void Select_ShowChosenMons(void)
 static void Select_HideChosenMons(void)
 {
     u8 taskId;
+    u32 i;
 
-    FreeAndDestroyMonPicSprite(sFactorySelectScreen->monPics[0].monSpriteId);
-    FreeAndDestroyMonPicSprite(sFactorySelectScreen->monPics[1].monSpriteId);
-    FreeAndDestroyMonPicSprite(sFactorySelectScreen->monPics[2].monSpriteId);
+    for (i = 0; i < Select_GetPickCount(); i++)  // mode donjon : seulement 2 Pokémon choisis
+        FreeAndDestroyMonPicSprite(sFactorySelectScreen->monPics[i].monSpriteId);
 
     taskId = CreateTask(Select_Task_CloseChosenMonPics, 1);
     gTasks[taskId].func(taskId);

@@ -278,14 +278,14 @@ static inline u16 GetPartnerIdFromTrainerId(u16 trainerId)
     return (trainerId - TRAINER_PARTNER(PARTNER_NONE));
 }
 
-// Donjon : dresseur de la salle courante (voir isaac_dungeon.c)
-bool8 IsIsaacRoomTrainer(u16 trainerId);
-const struct Trainer *GetIsaacRoomTrainer(void);
+// Donjon : dresseur de la salle courante et boss de l'étage (voir isaac_dungeon.c)
+bool8 IsIsaacTrainer(u16 trainerId);
+const struct Trainer *GetIsaacTrainer(u16 trainerId);
 
 static inline const struct Trainer *GetTrainerStructFromId(u16 trainerId)
 {
     if (gIsDebugBattle) return GetDebugAiTrainer();
-    if (IsIsaacRoomTrainer(trainerId)) return GetIsaacRoomTrainer();
+    if (IsIsaacTrainer(trainerId)) return GetIsaacTrainer(trainerId);
     enum DifficultyLevel difficulty;
 
     if (IsPartnerTrainerId(trainerId))

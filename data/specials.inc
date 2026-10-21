@@ -644,3 +644,6 @@ gSpecials::
 	def_special IsaacShowMinimap
 	def_special IsaacSetRoomCleared
 	def_special IsaacPrepareTrainerReturn
+	def_special DoIsaacStarterSelectScreen
+	def_special IsaacPrepareWildBattle
+	def_special IsaacRevealLadder

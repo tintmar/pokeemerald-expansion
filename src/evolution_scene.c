@@ -796,7 +796,9 @@ static void Task_EvolutionScene(u8 taskId)
     case EVOSTATE_TRY_LEARN_MOVE:
         if (!IsTextPrinterActiveOnWindow(0))
         {
-            var = MonTryLearningNewMoveEvolution(mon, gTasks[taskId].tLearnsFirstMove);
+            // Donjon : pas d'attaque apprise en évoluant, le Pokémon reçoit ensuite le set de son évolution
+            // (voir IsaacEvolveMonWithStone)
+            var = MOVE_NONE;
             if (var != MOVE_NONE && !gTasks[taskId].tEvoWasStopped)
             {
                 u8 nickname[POKEMON_NAME_BUFFER_SIZE];

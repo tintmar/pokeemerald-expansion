@@ -16,6 +16,8 @@
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "evolution_scene.h"
+#include "isaac_pokemon.h"
+#include "random.h"
 #include "field_control_avatar.h"
 #include "field_effect.h"
 #include "field_move.h"
@@ -6265,6 +6267,43 @@ void ItemUseCB_EvolutionStone(u8 taskId, TaskFunc task)
             RemoveBagItem(gSpecialVar_ItemId, 1);
         FreePartyPointers();
     }
+}
+
+// Donjon : Pierre Évolution. Scène d'évolution normale vers l'évolution suivante (au hasard s'il y en a
+// plusieurs), puis le Pokémon reçoit le set de même palier de sa nouvelle espèce (CB2_AfterIsaacEvolution).
+static EWRAM_DATA void (*sIsaacEvolutionExitCallback)(void) = NULL;
+static EWRAM_DATA u8 sIsaacEvolutionSlot = 0;
+static EWRAM_DATA u8 sIsaacEvolutionTier = 0;
+
+static void CB2_AfterIsaacEvolution(void)
+{
+    IsaacApplyEvolvedSet(&gParties[B_TRAINER_PLAYER][sIsaacEvolutionSlot], sIsaacEvolutionTier);
+    SetMainCallback2(sIsaacEvolutionExitCallback);
+}
+
+void ItemUseCB_IsaacEvolutionStone(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    enum Species target = SPECIES_NONE;
+
+    PlaySE(SE_SELECT);
+    if (!GetMonData(mon, MON_DATA_IS_EGG))
+        target = IsaacGetEvolution(GetMonData(mon, MON_DATA_SPECIES), Random());
+    if (target == SPECIES_NONE)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+    sIsaacEvolutionExitCallback = gPartyMenu.exitCallback;
+    sIsaacEvolutionSlot = gPartyMenu.slotId;
+    sIsaacEvolutionTier = IsaacGetMonSetTier(mon);
+    gCB2_AfterEvolution = CB2_AfterIsaacEvolution;
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    BeginEvolutionScene(mon, target, FALSE, gPartyMenu.slotId);
+    FreePartyPointers();
 }
 
 #define FUSE_MON        1

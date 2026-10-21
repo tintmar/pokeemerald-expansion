@@ -4261,6 +4261,25 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_DuskStone,
     },
 
+    // Donjon : fait évoluer n'importe quel Pokémon d'un stade ; il reçoit le set de même palier de son
+    // évolution (voir ItemUseCB_IsaacEvolutionStone)
+    [ITEM_EVOLUTION_STONE] =
+    {
+        .name = ITEM_NAME("Evolution Stone"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Makes any Pokémon\n"
+            "evolve to its\n"
+            "next stage."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_EVOLUTION_STONE,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacEvolutionStone,
+        .flingPower = 30,
+        .iconPic = gItemIcon_DawnStone,
+        .iconPalette = gItemIconPalette_DawnStone,
+    },
+
     [ITEM_DAWN_STONE] =
     {
         .name = ITEM_NAME("Dawn Stone"),

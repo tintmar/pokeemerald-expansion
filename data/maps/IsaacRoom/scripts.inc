@@ -58,3 +58,52 @@ IsaacRoom_Text_TrainerDefeat:
 IsaacRoom_Text_TrainerPostBattle:
 	.string "La salle est à toi.\n"
 	.string "Continue ta descente !$"
+
+@ Salle de capture : un Pokémon sauvage du biome (placé par isaac_dungeon.c). Après le combat (capturé, vaincu
+@ ou fui), il disparaît.
+IsaacRoom_EventScript_WildMon::
+	lock
+	faceplayer
+	special IsaacPrepareWildBattle
+	dowildbattle
+	special IsaacSetRoomCleared
+	removeobject LOCALID_ISAAC_ROOM_WILD
+	release
+	end
+
+@ Salle trésor : une Pierre Évolution
+IsaacRoom_EventScript_Treasure::
+	lock
+	giveitem ITEM_EVOLUTION_STONE
+	special IsaacSetRoomCleared
+	removeobject LOCALID_ISAAC_ROOM_ITEM
+	release
+	end
+
+@ Salle du boss : le champion du biome (placé par isaac_dungeon.c). Il faut lui parler pour combattre ; vaincu,
+@ l'échelle de l'étage suivant apparaît au centre de la salle.
+IsaacRoom_EventScript_Boss::
+	trainerbattle_single TRAINER_ISAAC_BOSS, IsaacRoom_Text_BossIntro, IsaacRoom_Text_BossDefeat, IsaacRoom_EventScript_BossDefeated
+	msgbox IsaacRoom_Text_BossPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+IsaacRoom_EventScript_BossDefeated::
+	playse SE_M_STRENGTH
+	special IsaacRevealLadder
+	waitse
+	msgbox IsaacRoom_Text_BossPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_Text_BossIntro:
+	.string "Je suis PIERRE, le gardien\n"
+	.string "de cet étage.\p"
+	.string "Ma défense de roc est solide.\n"
+	.string "Voyons si tu peux la briser !$"
+
+IsaacRoom_Text_BossDefeat:
+	.string "Ta force est impressionnante…$"
+
+IsaacRoom_Text_BossPostBattle:
+	.string "Le passage vers l'étage suivant\n"
+	.string "est ouvert. Descends !$"

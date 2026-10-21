@@ -3,8 +3,12 @@
 
 #include "data.h"
 
+struct Pokemon;
+
 #define ISAAC_MON_LEVEL  50  // niveau de tous les Pokémon du jeu
-#define ISAAC_SET_TIERS  3  // sets par Pokémon, du plus faible (0) au plus fort (ISAAC_SET_TIERS - 1)
+#define ISAAC_SET_TIERS  3
+#define ISAAC_STARTER_CHOICES  6  // Pokémon proposés par le Montagnard du hub (écran de l'Usine de Combat)
+#define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux  // sets par Pokémon, du plus faible (0) au plus fort (ISAAC_SET_TIERS - 1)
 
 // Catégorie d'un Pokémon selon son BST (tools/isaac/build_categories.py) : quartiles des non légendaires,
 // légendaires à part
@@ -43,11 +47,19 @@ struct IsaacBiome
     u8 lineCount;
     const struct IsaacTrainerType *trainers;
     u8 trainerCount;
+    const struct IsaacTrainerType *boss;  // champion de la salle du boss
+    const u8 *bossName;
 };
 
 extern const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT];
 
 const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier);
 enum IsaacCategory IsaacGetSpeciesCategory(enum Species species);
+enum Species IsaacGetEvolution(enum Species species, u32 choice);
+enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 roll);
+void IsaacCreateMonFromSet(struct Pokemon *mon, enum Species species, u32 tier, u32 seed);
+u32 IsaacGetMonSetTier(struct Pokemon *mon);
+void IsaacApplyEvolvedSet(struct Pokemon *mon, u32 tier);
+void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index);
 
 #endif // GUARD_ISAAC_POKEMON_H

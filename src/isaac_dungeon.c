@@ -3,6 +3,7 @@
 #include "event_object_movement.h"
 #include "field_player_avatar.h"
 #include "field_screen_effect.h"
+#include "field_camera.h"
 #include "fieldmap.h"
 #include "data.h"
 #include "international_string_util.h"
@@ -12,7 +13,9 @@
 #include "menu.h"
 #include "pokemon_icon.h"
 #include "overworld.h"
+#include "pokemon.h"
 #include "random.h"
+#include "script_pokemon_util.h"
 #include "script.h"
 #include "sound.h"
 #include "string_util.h"
@@ -21,6 +24,7 @@
 #include "window.h"
 #include "constants/battle_ai.h"
 #include "constants/event_object_movement.h"
+#include "constants/event_objects.h"
 #include "constants/flags.h"
 #include "constants/items.h"
 #include "constants/map_event_ids.h"
@@ -59,6 +63,9 @@
  * regarde la porte par laquelle le joueur arrive : le moteur le fait réagir, s'approcher et lancer le combat
  * dès l'arrivée. Vaincu, il retourne au centre et la salle est « nettoyée » (FLAG_ISAAC_CLEARED_FIRST + cellule).
  * Pour l'instant : un seul Pokémon, d'une lignée du biome de catégorie 1, set 1.
+ *
+ * SALLE DE CAPTURE : un Pokémon sauvage du biome (catégorie 2, set 1 ou 2) se promène ; lui parler lance le
+ * combat, après quoi il disparaît. SALLE TRÉSOR : une Pierre Évolution au sol.
  *
  * MINI-CARTE (bouton R dans une salle) : comme Isaac, on voit les salles visitées et celles qui les
  * touchent (pas la salle secrète tant qu'on n'y est pas entré), avec l'icône des salles spéciales.
@@ -239,6 +246,7 @@ static const u16 sVisitedVars[] =
 STATIC_ASSERT(ARRAY_COUNT(sVisitedVars) * 16 >= ISAAC_GRID_W * ISAAC_GRID_H, EnoughVisitedVars);
 
 extern const u8 Isaac_EventScript_Exit[];
+extern const u8 Hub_EventScript_NeedPokemon[];
 extern const u8 Isaac_EventScript_Minimap[];
 
 static EWRAM_DATA u32 sSeed = 0;
@@ -745,7 +753,7 @@ static void PaintRoom(void)
     }
 
     GetCurrentCell(&cellX, &cellY);
-    if (GetRoom(cellX, cellY) == ROOM_BOSS)
+    if (GetRoom(cellX, cellY) == ROOM_BOSS && IsCleared(cellX, cellY))  // échelle une fois le boss vaincu
         SetTile(ROOM_MID_X, ROOM_MID_Y, TILE_LADDER | PACK_ELEVATION(FLOOR_ELEVATION));
     PaintDoorMats(cellX, cellY);
 }
@@ -767,7 +775,7 @@ static const u8 *const sFemaleTrainerNames[] = {
 EWRAM_DATA u8 gIsaacTrainerReturnMovement[ISAAC_ROOM_W + 2] = {0};
 
 static EWRAM_DATA struct Trainer sRoomTrainer = {0};
-static EWRAM_DATA struct TrainerMon sRoomTrainerMons[1] = {0};
+static EWRAM_DATA struct TrainerMon sRoomTrainerMons[3] = {0};  // dresseur : 2, boss : 3
 
 // Hasard propre à une salle de l'étage (toujours le même pour une salle donnée)
 static u32 RoomRandom(s32 x, s32 y, u32 salt)
@@ -794,61 +802,82 @@ static const struct IsaacTrainerType *GetRoomTrainerType(s32 x, s32 y)
     return &biome->trainers[RoomRandom(x, y, 0x7E3) % biome->trainerCount];
 }
 
-// Pokémon du dresseur : une lignée de catégorie 1 parmi les siennes (sinon parmi celles du biome)
-static u16 GetRoomTrainerSpecies(s32 x, s32 y, const struct IsaacTrainerType *type)
+// Espèce de la catégorie voulue dans les lignées du dresseur (sinon dans celles du biome)
+static u16 PickTrainerSpecies(const struct IsaacTrainerType *type, enum IsaacCategory category, u32 roll)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
-    u16 candidates[ISAAC_GRID_W * ISAAC_GRID_H];
-    u32 count = 0, i;
+    u16 species = IsaacPickLineSpecies(type->lines, type->lineCount, category, roll);
 
-    for (i = 0; i < type->lineCount; i++)
-        if (IsaacGetSpeciesCategory(type->lines[i]) == ISAAC_CATEGORY_1)
-            candidates[count++] = type->lines[i];
-    if (count == 0)
+    if (species == SPECIES_NONE)
+        species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, roll);
+    return species != SPECIES_NONE ? species : biome->lines[0];
+}
+
+// Ajoute à l'équipe un Pokémon de la catégorie et du set voulus, d'une espèce pas encore dans l'équipe si possible
+static void AddTrainerMon(struct Trainer *trainer, struct TrainerMon *party, const struct IsaacTrainerType *type,
+                          enum IsaacCategory category, u32 tier, u32 seed)
+{
+    u16 species = SPECIES_NONE;
+    u32 try, i;
+    bool8 taken = TRUE;
+
+    for (try = 0; try < 8 && taken; try++)
     {
-        for (i = 0; i < biome->lineCount; i++)
-            if (IsaacGetSpeciesCategory(biome->lines[i]) == ISAAC_CATEGORY_1)
-                candidates[count++] = biome->lines[i];
+        species = PickTrainerSpecies(type, category, seed + try * 0x9E3779B9);
+        taken = FALSE;
+        for (i = 0; i < trainer->partySize; i++)
+            if (party[i].species == species)
+                taken = TRUE;
     }
-    if (count == 0)
-        return biome->lines[0];
-    return candidates[RoomRandom(x, y, 0x5EC) % count];
+    party[trainer->partySize] = *IsaacGetSet(species, tier);
+    party[trainer->partySize].lvl = ISAAC_MON_LEVEL;
+    trainer->partySize++;
 }
 
-bool8 IsIsaacRoomTrainer(u16 trainerId)
+static void InitTrainer(struct Trainer *trainer, const struct IsaacTrainerType *type, const u8 *name, struct TrainerMon *party)
 {
-    return trainerId == TRAINER_ISAAC_ROOM && IsInRoomMap();
+    memset(trainer, 0, sizeof(*trainer));
+    trainer->trainerClass = type->trainerClass;
+    trainer->trainerPic = type->trainerPic;
+    trainer->gender = type->gender;
+    trainer->encounterMusic = type->encounterMusic;
+    trainer->battleType = TRAINER_BATTLE_TYPE_SINGLES;
+    trainer->aiFlags = AI_FLAG_BASIC_TRAINER;
+    trainer->multiTeamSize = MULTI_TEAM_SIZE_FULL;
+    trainer->party = party;
+    StringCopy(trainer->trainerName, name);
 }
 
-// Dresseur de la salle courante : classe et nom selon son type, un Pokémon du biome
-const struct Trainer *GetIsaacRoomTrainer(void)
+bool8 IsIsaacTrainer(u16 trainerId)
 {
+    return (trainerId == TRAINER_ISAAC_ROOM || trainerId == TRAINER_ISAAC_BOSS) && IsInRoomMap();
+}
+
+// Dresseur de la salle courante (classe et nom selon son type, 2 Pokémon de catégorie 1, set 1) ou boss de
+// l'étage (champion du biome : 2 Pokémon de catégorie 1 et 1 de catégorie 2, set 2)
+const struct Trainer *GetIsaacTrainer(u16 trainerId)
+{
+    const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
     const struct IsaacTrainerType *type;
     const u8 *const *names;
-    const struct TrainerMon *set;
     s32 x, y;
-    u16 species;
 
     GetCurrentCell(&x, &y);
+    if (trainerId == TRAINER_ISAAC_BOSS)
+    {
+        InitTrainer(&sRoomTrainer, biome->boss, biome->bossName, sRoomTrainerMons);
+        sRoomTrainer.aiFlags = AI_FLAG_SMART_TRAINER;
+        AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, biome->boss, ISAAC_CATEGORY_1, 1, RoomRandom(x, y, 0xB051));
+        AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, biome->boss, ISAAC_CATEGORY_1, 1, RoomRandom(x, y, 0xB052));
+        AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, biome->boss, ISAAC_CATEGORY_2, 1, RoomRandom(x, y, 0xB053));
+        return &sRoomTrainer;
+    }
+
     type = GetRoomTrainerType(x, y);
-    species = GetRoomTrainerSpecies(x, y, type);
-    set = IsaacGetSet(species, 0);
-
-    memset(&sRoomTrainer, 0, sizeof(sRoomTrainer));
-    sRoomTrainer.trainerClass = type->trainerClass;
-    sRoomTrainer.trainerPic = type->trainerPic;
-    sRoomTrainer.gender = type->gender;
-    sRoomTrainer.encounterMusic = type->encounterMusic;
-    sRoomTrainer.battleType = TRAINER_BATTLE_TYPE_SINGLES;
-    sRoomTrainer.aiFlags = AI_FLAG_BASIC_TRAINER;
-    sRoomTrainer.multiTeamSize = MULTI_TEAM_SIZE_FULL;
     names = (type->gender == TRAINER_GENDER_FEMALE) ? sFemaleTrainerNames : sMaleTrainerNames;
-    StringCopy(sRoomTrainer.trainerName, names[RoomRandom(x, y, 0x4A3) % ARRAY_COUNT(sMaleTrainerNames)]);
-
-    sRoomTrainerMons[0] = *set;
-    sRoomTrainerMons[0].lvl = ISAAC_MON_LEVEL;
-    sRoomTrainer.party = sRoomTrainerMons;
-    sRoomTrainer.partySize = 1;
+    InitTrainer(&sRoomTrainer, type, names[RoomRandom(x, y, 0x4A3) % ARRAY_COUNT(sMaleTrainerNames)], sRoomTrainerMons);
+    AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, type, ISAAC_CATEGORY_1, 0, RoomRandom(x, y, 0x5EC));
+    AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, type, ISAAC_CATEGORY_1, 0, RoomRandom(x, y, 0x5ED));
     return &sRoomTrainer;
 }
 
@@ -908,6 +937,85 @@ static void SetUpRoomTrainer(s32 x, s32 y)
         template->movementType = MOVEMENT_TYPE_FACE_DOWN;
         break;
     }
+}
+
+// ---------------------------------------------------------------------------
+// Salles de capture et trésor
+// ---------------------------------------------------------------------------
+
+// Pokémon sauvage de la salle de capture : catégorie 2, des lignées du biome, set 1 ou 2
+static u16 GetCaptureSpecies(s32 x, s32 y)
+{
+    const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
+    u16 species = IsaacPickLineSpecies(biome->lines, biome->lineCount, ISAAC_CATEGORY_2, RoomRandom(x, y, 0xCA7));
+
+    return species != SPECIES_NONE ? species : biome->lines[0];
+}
+
+static u32 GetCaptureSetTier(s32 x, s32 y)
+{
+    return RoomRandom(x, y, 0x5E7) % 2;
+}
+
+// Place un objet au centre de la salle s'il y est (le boss juste au-dessus : l'échelle apparaîtra au centre),
+// sinon loin hors de la map (jamais affiché)
+static void PlaceRoomObject(u8 localId, bool8 present)
+{
+    struct ObjectEventTemplate *template = GetObjectTemplate(localId);
+
+    if (template == NULL)
+        return;
+    template->x = present ? ROOM_MID_X : -1000;
+    template->y = present ? ROOM_MID_Y - (localId == LOCALID_ISAAC_ROOM_BOSS) : -1000;
+}
+
+// Boss : apparence du champion du biome ; on lui parle pour combattre. Vaincu, il reste là (et ne recombat pas).
+static void SetUpBoss(s32 x, s32 y, bool8 cleared)
+{
+    VarSet(VAR_OBJ_GFX_ID_2, gIsaacBiomes[ISAAC_BIOME].boss->objEventGfx);
+    if (cleared)
+        FlagSet(TRAINER_FLAGS_START + TRAINER_ISAAC_BOSS);
+    else if (sArrivalFacing != DIR_NONE)  // pas au retour du combat (le drapeau y est déjà le bon)
+        FlagClear(TRAINER_FLAGS_START + TRAINER_ISAAC_BOSS);
+}
+
+// Boss vaincu : la salle est nettoyée et l'échelle apparaît au centre
+void IsaacRevealLadder(void)
+{
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    FlagSet(FLAG_ISAAC_CLEARED_FIRST + y * ISAAC_GRID_W + x);
+    SetTile(ROOM_MID_X, ROOM_MID_Y, TILE_LADDER | PACK_ELEVATION(FLOOR_ELEVATION));
+    CurrentMapDrawMetatileAt(ROOM_MID_X + MAP_OFFSET, ROOM_MID_Y + MAP_OFFSET);
+}
+
+// Au chargement de la salle : Pokémon sauvage (salle de capture) et Pierre Évolution (salle trésor), tant que la
+// salle n'est pas nettoyée
+static void SetUpRoomObjects(s32 x, s32 y)
+{
+    u8 room = GetRoom(x, y);
+    bool8 cleared = IsCleared(x, y);
+
+    PlaceRoomObject(LOCALID_ISAAC_ROOM_WILD, room == ROOM_CAPTURE && !cleared);
+    PlaceRoomObject(LOCALID_ISAAC_ROOM_ITEM, room == ROOM_TREASURE && !cleared);
+    PlaceRoomObject(LOCALID_ISAAC_ROOM_BOSS, room == ROOM_BOSS);
+    if (room == ROOM_CAPTURE)
+        VarSet(VAR_OBJ_GFX_ID_1, OBJ_EVENT_MON + GetCaptureSpecies(x, y));
+    if (room == ROOM_BOSS)
+        SetUpBoss(x, y, cleared);
+}
+
+// Avant le combat contre le Pokémon de la salle de capture. Suivre de `dowildbattle`.
+void IsaacPrepareWildBattle(void)
+{
+    s32 x, y;
+    u16 species;
+
+    GetCurrentCell(&x, &y);
+    species = GetCaptureSpecies(x, y);
+    CreateScriptedWildMon(species, ISAAC_MON_LEVEL, ITEM_NONE);
+    IsaacCreateMonFromSet(&gParties[B_TRAINER_OPPONENT_A][0], species, GetCaptureSetTier(x, y), RoomRandom(x, y, 0x5EED));
 }
 
 // ---------------------------------------------------------------------------
@@ -1144,15 +1252,19 @@ void IsaacPaintRoom(void)
     CarveRoom();
     PaintRoom();
     SetUpRoomTrainer(x, y);
+    SetUpRoomObjects(x, y);
 }
 
-// Dresseur vaincu : la salle est nettoyée
+// Dresseur vaincu, Pokémon de la salle de capture combattu, Pierre Évolution ramassée : la salle est nettoyée.
+// Le Pokémon et la Pierre sont aussi retirés de la map (sinon le jeu les refait apparaître au moindre
+// mouvement de caméra après le `removeobject`, leur objet étant toujours placé au centre).
 void IsaacSetRoomCleared(void)
 {
     s32 x, y;
 
     GetCurrentCell(&x, &y);
     FlagSet(FLAG_ISAAC_CLEARED_FIRST + y * ISAAC_GRID_W + x);
+    SetUpRoomObjects(x, y);
 }
 
 // Remplit gIsaacTrainerReturnMovement : le dresseur revient en ligne droite au centre de la salle (il s'en est
@@ -1261,7 +1373,14 @@ bool8 TryStartIsaacStepScript(s16 x, s16 y)
     if (IsInHub())
     {
         if (x == HUB_ENTRANCE_X && y == HUB_ENTRANCE_Y)
+        {
+            if (CalculatePlayerPartyCount() == 0)  // pas sans Pokémon : le Montagnard retient le joueur
+            {
+                ScriptContext_SetupScript(Hub_EventScript_NeedPokemon);
+                return TRUE;
+            }
             sPendingExit = EXIT_HUB_ENTRANCE;
+        }
     }
     else if (IsInRoomMap())
     {
@@ -1274,7 +1393,7 @@ bool8 TryStartIsaacStepScript(s16 x, s16 y)
                 sPendingDoor = dir;
             }
         }
-        if (GetRoom(cellX, cellY) == ROOM_BOSS && x == ROOM_MID_X && y == ROOM_MID_Y)
+        if (GetRoom(cellX, cellY) == ROOM_BOSS && IsCleared(cellX, cellY) && x == ROOM_MID_X && y == ROOM_MID_Y)
             sPendingExit = EXIT_LADDER;
     }
     if (sPendingExit == EXIT_NONE)
