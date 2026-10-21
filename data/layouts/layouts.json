@@ -9334,6 +9334,17 @@
       "border_filepath": "data/layouts/Hub/border.bin",
       "blockdata_filepath": "data/layouts/Hub/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_ISAAC_ROOM",
+      "name": "IsaacRoom_Layout",
+      "width": 15,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/IsaacRoom/border.bin",
+      "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

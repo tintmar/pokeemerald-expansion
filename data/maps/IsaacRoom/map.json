@@ -1,0 +1,21 @@
+{
+  "id": "MAP_ISAAC_ROOM",
+  "name": "IsaacRoom",
+  "layout": "LAYOUT_ISAAC_ROOM",
+  "music": "MUS_VICTORY_ROAD",
+  "region": "REGION_HOENN",
+  "region_map_section": "MAPSEC_VICTORY_ROAD",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_UNDERGROUND",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [],
+  "warp_events": [],
+  "coord_events": [],
+  "bg_events": []
+}

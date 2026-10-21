@@ -638,3 +638,7 @@ gSpecials::
 	def_special UpdateTrainerCardPhotoIcons
 	def_special StickerManGetBragFlags
 	def_special CheckAddCoins
+	def_special IsaacPaintRoom
+	def_special IsaacFaceArrivalDirection
+	def_special IsaacTakeExit
+	def_special IsaacShowMinimap

@@ -21,6 +21,7 @@
 #include "field_specials.h"
 #include "fldeff_misc.h"
 #include "follower_npc.h"
+#include "isaac_dungeon.h"
 #include "item_menu.h"
 #include "link.h"
 #include "match_call.h"
@@ -235,6 +236,9 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         return TRUE;
 
     if (input->pressedSelectButton && UseRegisteredKeyItemOnField() == TRUE)
+        return TRUE;
+
+    if (input->pressedRButton && TryOpenIsaacMinimap())
         return TRUE;
 
     if (input->pressedRButton && TryStartDexNavSearch())
@@ -686,6 +690,8 @@ static bool32 TrySetupDiveEmergeScript(void)
 
 bool8 TryStartStepBasedScript(struct MapPosition *position, u16 metatileBehavior, enum Direction direction)
 {
+    if (TryStartIsaacStepScript(position->x, position->y) == TRUE)
+        return TRUE;
     if (TryStartCoordEventScript(position) == TRUE)
         return TRUE;
     if (TryStartWarpEventScript(position, metatileBehavior) == TRUE)
