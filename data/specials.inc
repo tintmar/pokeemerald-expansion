@@ -662,5 +662,9 @@ gSpecials::
 	def_special IsaacPrepareDevilPact
 	def_special IsaacCheckDevilSacrifice
 	def_special IsaacDoDevilPact
+	def_special IsaacPrepareTutor
+	def_special IsaacTutorChooseMove
+	def_special IsaacTutorChooseMoveToForget
+	def_special IsaacTutorReplaceMove
 	def_special IsaacBufferBossName
 	def_special IsaacCaptureMonDone

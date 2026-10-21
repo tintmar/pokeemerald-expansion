@@ -13,11 +13,13 @@
 #include "item_icon.h"
 #include "menu.h"
 #include "money.h"
+#include "move.h"
 #include "pokemon_icon.h"
 #include "overworld.h"
 #include "party_menu.h"
 #include "pokedex.h"
 #include "pokemon.h"
+#include "pokemon_summary_screen.h"
 #include "pokemon_storage_system.h"
 #include "random.h"
 #include "script_pokemon_util.h"
@@ -1732,7 +1734,9 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de même catégorie (au sens du
 //    biome de chacun) et de même palier de set, de n'importe quel biome ; un légendaire contre un légendaire ;
 //  - ROOM_CONTENT_DEVIL : pacte du diable, un objet rare (sDevilPactRewards) contre le sacrifice définitif d'un
-//    Pokémon de l'équipe (pas le dernier en état de se battre, pas un Œuf).
+//    Pokémon de l'équipe (pas le dernier en état de se battre, pas un Œuf) ;
+//  - ROOM_CONTENT_TUTOR : maître des capacités, propose 3 attaques fortes (sTutorMoves) que le Pokémon choisi peut
+//    apprendre et ne connaît pas ; il en apprend une (en oubliant une autre s'il en connaît déjà 4).
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
 
 #define ISAAC_EGG_HATCH_ROOMS  20
@@ -1796,6 +1800,7 @@ static void SetUpRoomContent(s32 x, s32 y)
         [ROOM_CONTENT_EGG]    = { OBJ_EVENT_GFX_OLD_WOMAN, OBJ_EVENT_GFX_SWIMMER_F },
         [ROOM_CONTENT_TRADER] = { OBJ_EVENT_GFX_GENTLEMAN, OBJ_EVENT_GFX_SWIMMER_M },
         [ROOM_CONTENT_DEVIL]  = { OBJ_EVENT_GFX_HEX_MANIAC, OBJ_EVENT_GFX_SWIMMER_F },
+        [ROOM_CONTENT_TUTOR]  = { OBJ_EVENT_GFX_EXPERT_M,   OBJ_EVENT_GFX_SWIMMER_M },
     };
     u32 content = GetRoomContent(x, y);
 
@@ -1984,6 +1989,93 @@ void IsaacDoDevilPact(void)
     ZeroMonData(mon);
     CompactPartySlots();
     CalculatePlayerPartyCount();
+}
+
+// Maître des capacités : attaques fortes qu'il peut enseigner (si le Pokémon peut les apprendre, par CT, tuteur ou
+// niveau)
+static const u16 sTutorMoves[] =
+{
+    MOVE_EARTHQUAKE, MOVE_ICE_BEAM, MOVE_THUNDERBOLT, MOVE_FLAMETHROWER, MOVE_PSYCHIC, MOVE_SHADOW_BALL,
+    MOVE_SLUDGE_BOMB, MOVE_ENERGY_BALL, MOVE_FOCUS_BLAST, MOVE_FLASH_CANNON, MOVE_EARTH_POWER, MOVE_DRAGON_PULSE,
+    MOVE_DARK_PULSE, MOVE_DAZZLING_GLEAM, MOVE_MOONBLAST, MOVE_HURRICANE, MOVE_BUG_BUZZ, MOVE_SCALD, MOVE_SURF,
+    MOVE_HYDRO_PUMP, MOVE_FIRE_BLAST, MOVE_THUNDER, MOVE_BLIZZARD, MOVE_GIGA_DRAIN, MOVE_HYPER_VOICE, MOVE_AURA_SPHERE,
+    MOVE_CLOSE_COMBAT, MOVE_KNOCK_OFF, MOVE_U_TURN, MOVE_STONE_EDGE, MOVE_FLARE_BLITZ, MOVE_PLAY_ROUGH,
+    MOVE_POISON_JAB, MOVE_X_SCISSOR, MOVE_IRON_HEAD, MOVE_LIQUIDATION, MOVE_WATERFALL, MOVE_DRAIN_PUNCH,
+    MOVE_CRUNCH, MOVE_BRAVE_BIRD, MOVE_OUTRAGE, MOVE_SEED_BOMB, MOVE_SHADOW_CLAW, MOVE_GUNK_SHOT, MOVE_SUPERPOWER,
+    MOVE_DOUBLE_EDGE, MOVE_BODY_SLAM, MOVE_VOLT_SWITCH, MOVE_SWORDS_DANCE, MOVE_NASTY_PLOT, MOVE_DRAGON_DANCE,
+    MOVE_CALM_MIND, MOVE_BULK_UP, MOVE_ROOST, MOVE_RECOVER, MOVE_WILL_O_WISP, MOVE_THUNDER_WAVE, MOVE_STEALTH_ROCK,
+};
+#define TUTOR_CHOICES  3
+
+static EWRAM_DATA u16 sTutorChoices[TUTOR_CHOICES] = {0};
+static EWRAM_DATA u16 sTutorMove = MOVE_NONE;
+
+static bool8 CanLearnTutorMove(enum Species species, u16 move)
+{
+    const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
+    u32 i;
+
+    if (CanLearnTeachableMove(species, move))
+        return TRUE;
+    for (i = 0; learnset[i].move != LEVEL_UP_MOVE_END; i++)
+        if (learnset[i].move == move)
+            return TRUE;
+    return FALSE;
+}
+
+// Pokémon n° VAR_0x8004 : VAR_RESULT = nombre d'attaques proposées (0 pour un Œuf ou s'il n'y a rien à lui
+// apprendre), leurs noms dans gStringVar1 à 3. Toujours les mêmes pour ce Pokémon dans cette salle.
+void IsaacPrepareTutor(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES), candidates[ARRAY_COUNT(sTutorMoves)], tmp;
+    u8 *const names[TUTOR_CHOICES] = { gStringVar1, gStringVar2, gStringVar3 };
+    u32 count = 0, i, pick;
+    s32 x, y;
+
+    gSpecialVar_Result = 0;
+    if (GetMonData(mon, MON_DATA_IS_EGG))
+        return;
+    for (i = 0; i < ARRAY_COUNT(sTutorMoves); i++)
+        if (CanLearnTutorMove(species, sTutorMoves[i]) && !MonKnowsMove(mon, sTutorMoves[i]))
+            candidates[count++] = sTutorMoves[i];
+    GetCurrentCell(&x, &y);
+    for (i = 0; i < TUTOR_CHOICES && i < count; i++)
+    {
+        pick = i + RoomRandom(x, y, 0x7070 + species * TUTOR_CHOICES + i) % (count - i);
+        SWAP(candidates[i], candidates[pick], tmp);
+        sTutorChoices[i] = candidates[i];
+        StringCopy(names[i], GetMoveName(candidates[i]));
+    }
+    gSpecialVar_Result = i;
+}
+
+// Attaque n° VAR_0x8006 choisie : gStringVar1 = le Pokémon, gStringVar2 = l'attaque. Apprise tout de suite s'il a une
+// place libre (VAR_RESULT = TRUE), sinon il faudra en oublier une (IsaacTutorChooseMoveToForget).
+void IsaacTutorChooseMove(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+
+    sTutorMove = sTutorChoices[min(gSpecialVar_0x8006, TUTOR_CHOICES - 1)];
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, GetMoveName(sTutorMove));
+    gSpecialVar_Result = (GiveMoveToMon(mon, sTutorMove) == sTutorMove);
+}
+
+// Écran du Pokémon pour choisir l'attaque à oublier (VAR_0x8005 : sa place, MAX_MON_MOVES si on renonce). Entre deux
+// `fadescreen`, comme chez l'Effaceur de capacités.
+void IsaacTutorChooseMoveToForget(void)
+{
+    ShowSelectMovePokemonSummaryScreen(gParties[B_TRAINER_PLAYER], gSpecialVar_0x8004, CB2_ReturnToField, sTutorMove);
+    gFieldCallback = FieldCB_ContinueScriptHandleMusic;
+}
+
+void IsaacTutorReplaceMove(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+
+    RemoveMonPPBonus(mon, gSpecialVar_0x8005);
+    SetMonMoveSlot(mon, sTutorMove, gSpecialVar_0x8005);
 }
 
 // Au chargement de la salle : Pokémon sauvages (salle de capture), Pierre Évolution (salle trésor, tant qu'elle

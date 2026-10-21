@@ -243,6 +243,7 @@ IsaacRoom_EventScript_Content::
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_EGG, IsaacRoom_EventScript_EggGiver
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_TRADER, IsaacRoom_EventScript_Trader
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_DEVIL, IsaacRoom_EventScript_Devil
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_TUTOR, IsaacRoom_EventScript_Tutor
 	release
 	end
 
@@ -432,4 +433,91 @@ IsaacRoom_Text_DevilDeclined:
 
 IsaacRoom_Text_DevilEgg:
 	.string "Un Œuf ? Ça ne vaut rien pour moi.$"
+
+@ Maître des capacités : 3 attaques fortes au choix pour le Pokémon choisi
+IsaacRoom_EventScript_Tutor::
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_TutorDone
+	msgbox IsaacRoom_Text_TutorIntro, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_TutorDeclined
+	special IsaacPrepareTutor
+	goto_if_eq VAR_RESULT, 0, IsaacRoom_EventScript_TutorNothing
+	message IsaacRoom_Text_TutorWhich
+	waitmessage
+	dynmultipush IsaacRoom_Text_StrVar1, 0
+	goto_if_lt VAR_RESULT, 2, IsaacRoom_EventScript_TutorMenu
+	dynmultipush IsaacRoom_Text_StrVar2, 1
+	goto_if_lt VAR_RESULT, 3, IsaacRoom_EventScript_TutorMenu
+	dynmultipush IsaacRoom_Text_StrVar3, 2
+IsaacRoom_EventScript_TutorMenu::
+	dynmultistack 0, 0, FALSE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	closemessage
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, IsaacRoom_EventScript_TutorDeclined
+	copyvar VAR_0x8006, VAR_RESULT
+	special IsaacTutorChooseMove
+	goto_if_eq VAR_RESULT, TRUE, IsaacRoom_EventScript_TutorLearned
+	msgbox IsaacRoom_Text_TutorForget, MSGBOX_DEFAULT
+	fadescreen FADE_TO_BLACK
+	special IsaacTutorChooseMoveToForget
+	fadescreen FADE_FROM_BLACK
+	goto_if_eq VAR_0x8005, MAX_MON_MOVES, IsaacRoom_EventScript_TutorDeclined
+	special IsaacTutorReplaceMove
+IsaacRoom_EventScript_TutorLearned::
+	playfanfare MUS_LEVEL_UP
+	message IsaacRoom_Text_TutorLearned
+	waitfanfare
+	waitmessage
+	special IsaacSetRoomCleared
+	msgbox IsaacRoom_Text_TutorDone, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_TutorDone::
+	msgbox IsaacRoom_Text_TutorDone, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_TutorDeclined::
+	msgbox IsaacRoom_Text_TutorDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_TutorNothing::
+	msgbox IsaacRoom_Text_TutorNothing, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_Text_StrVar1:
+	.string "{STR_VAR_1}$"
+
+IsaacRoom_Text_StrVar2:
+	.string "{STR_VAR_2}$"
+
+IsaacRoom_Text_StrVar3:
+	.string "{STR_VAR_3}$"
+
+IsaacRoom_Text_TutorIntro:
+	.string "Je suis maître des capacités.\n"
+	.string "J'enseigne une seule attaque par étage.\p"
+	.string "Quel Pokémon veux-tu entraîner ?$"
+
+IsaacRoom_Text_TutorWhich:
+	.string "Laquelle de ces attaques ?$"
+
+IsaacRoom_Text_TutorForget:
+	.string "{STR_VAR_1} connaît déjà 4 attaques.\n"
+	.string "Laquelle doit-il oublier pour\l"
+	.string "{STR_VAR_2} ?$"
+
+IsaacRoom_Text_TutorLearned:
+	.string "{STR_VAR_1} apprend {STR_VAR_2} !$"
+
+IsaacRoom_Text_TutorDone:
+	.string "Bien joué. Utilise-la avec sagesse.$"
+
+IsaacRoom_Text_TutorDeclined:
+	.string "Reviens quand tu veux.$"
+
+IsaacRoom_Text_TutorNothing:
+	.string "Je n'ai rien à lui apprendre…$"
 

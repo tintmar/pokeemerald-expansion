@@ -6,6 +6,7 @@
 #define ROOM_CONTENT_EGG     1  // Œuf confié
 #define ROOM_CONTENT_TRADER  2  // échangeur
 #define ROOM_CONTENT_DEVIL   3  // pacte du diable
-#define ROOM_CONTENT_COUNT   4
+#define ROOM_CONTENT_TUTOR   4  // maître des capacités
+#define ROOM_CONTENT_COUNT   5
 
 #endif // GUARD_CONSTANTS_ISAAC_DUNGEON_H
