@@ -70,7 +70,8 @@
  * regarde la porte par laquelle le joueur arrive : le moteur le fait réagir, s'approcher et lancer le combat
  * dès l'arrivée. Vaincu, il retourne au centre et la salle est « nettoyée » (FLAG_ISAAC_CLEARED_FIRST + cellule).
  * Pour l'instant : 2 Pokémon de catégorie 1 de ses lignées, set 1. Vaincu, il donne ISAAC_TRAINER_MONEY_PER_FLOOR x
- * la profondeur, et un objet de son butin (IsaacPickTrainerLoot).
+ * la profondeur, et un objet de son butin (IsaacPickTrainerLoot) : à partir de l'étage 2, l'un des dresseurs de
+ * l'étage donne une Master Ball à la place, à coup sûr si on les bat tous.
  *
  * SALLE DE CAPTURE : un Pokémon sauvage du biome (catégorie 2, set 2) se promène ; lui parler lance le
  * combat, après quoi il disparaît. SALLE TRÉSOR : une Pierre Évolution au sol.
@@ -94,6 +95,10 @@
 // Salles nettoyées (dresseur vaincu) : un drapeau par cellule, dans des drapeaux inutilisés du jeu
 #define FLAG_ISAAC_CLEARED_FIRST  FLAG_UNUSED_0x264
 STATIC_ASSERT(FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H - 1 <= FLAG_UNUSED_0x2BB, IsaacClearedFlagsAreUnused);
+// Master Ball déjà donnée par un dresseur de l'étage (juste après les drapeaux des salles)
+#define FLAG_ISAAC_MASTER_BALL_DROPPED  (FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H)
+STATIC_ASSERT(FLAG_ISAAC_MASTER_BALL_DROPPED <= FLAG_UNUSED_0x2BB, IsaacMasterBallFlagIsUnused);
+#define ISAAC_MASTER_BALL_MIN_FLOOR  2  // à partir de cet étage, un dresseur de l'étage donne une Master Ball
 
 #define ISAAC_START_X  (ISAAC_GRID_W / 2)
 #define ISAAC_START_Y  (ISAAC_GRID_H / 2)
@@ -960,15 +965,40 @@ u32 IsaacGetTrainerMoney(void)
     return ISAAC_TRAINER_MONEY_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
 }
 
-// Butin d'un dresseur vaincu (toujours le même pour une salle) : Guérison ou Rappel, moitié-moitié.
-// VAR_0x8004 = l'objet, pour `giveitem VAR_0x8004`.
+// Dresseurs de l'étage encore à battre, en comptant celui de la salle courante (déjà marquée nettoyée)
+static u32 CountTrainersLeftOnFloor(void)
+{
+    s32 x, y, curX, curY;
+    u32 left = 0;
+
+    GetCurrentCell(&curX, &curY);
+    for (y = 0; y < ISAAC_GRID_H; y++)
+        for (x = 0; x < ISAAC_GRID_W; x++)
+            if (RoomHasTrainer(x, y) && (!IsCleared(x, y) || (x == curX && y == curY)))
+                left++;
+    return left;
+}
+
+// Butin d'un dresseur vaincu : Guérison ou Rappel, moitié-moitié (toujours le même pour une salle). À partir de
+// ISAAC_MASTER_BALL_MIN_FLOOR, une Master Ball à la place, une seule par étage : tant qu'elle n'est pas tombée,
+// chaque dresseur la donne avec 1 chance sur le nombre de dresseurs encore à battre (1/8, 1/7... 1/1) ; battre
+// tous les dresseurs de l'étage la donne donc à coup sûr. VAR_0x8004 = l'objet, pour `giveitem VAR_0x8004`.
 void IsaacPickTrainerLoot(void)
 {
     static const u16 sLoot[] = { ITEM_FULL_RESTORE, ITEM_REVIVE };
     s32 x, y;
+    u32 left;
 
     GetCurrentCell(&x, &y);
     gSpecialVar_0x8004 = sLoot[RoomRandom(x, y, 0x1007) % ARRAY_COUNT(sLoot)];
+    if (VarGet(VAR_ISAAC_FLOOR) < ISAAC_MASTER_BALL_MIN_FLOOR || FlagGet(FLAG_ISAAC_MASTER_BALL_DROPPED))
+        return;
+    left = CountTrainersLeftOnFloor();
+    if (left != 0 && Random() % left == 0)
+    {
+        gSpecialVar_0x8004 = ITEM_MASTER_BALL;
+        FlagSet(FLAG_ISAAC_MASTER_BALL_DROPPED);
+    }
 }
 
 static struct ObjectEventTemplate *GetObjectTemplate(u8 localId)
@@ -1136,6 +1166,7 @@ static void WarpToNewFloor(u32 floor)
     VarSet(VAR_ISAAC_SEED, Random());
     ClearVisited();
     ClearClearedRooms();
+    FlagClear(FLAG_ISAAC_MASTER_BALL_DROPPED);
     SetCurrentCell(ISAAC_START_X, ISAAC_START_Y);
     sArrivalFacing = DIR_SOUTH;
     WarpToRoom(ROOM_MID_X, ROOM_MID_Y);
