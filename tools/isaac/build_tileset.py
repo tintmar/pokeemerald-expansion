@@ -4,8 +4,10 @@ Génère les tilesets secondaires du donjon (un par décor de biome), dans data/
 
 Tous ont la même numérotation de metatiles, pour que isaac_dungeon.c dessine les salles de la même façon :
   - 0x200 à 0x20F : les rôles de ROLES (sol, rochers, bords et coins de falaise), pris dans le tileset
-    d'origine du décor (correspondances de BIOME_TILESETS, vérifiées sur des salles rendues) ;
+    d'origine du décor (correspondances de BIOME_TILESETS, vérifiées sur des salles rendues) ; un metatile
+    d'origine en dessous de 0x200 est pris tel quel dans le tileset primaire General ;
   - 0x210 : un panneau posé sur le sol (salle de la victoire) ;
+  - 0x211 : un banc de sable d'une case dans l'eau (boutique de l'océan) ;
   - à partir de 0x240 (ISAAC_MAT_FIRST) : les paillassons devant les portes des salles spéciales : tapis rouge
     et or avec la tête du Pokémon de la mini-carte (Mewtwo boss, Pikachu trésor, Kecleon boutique) ou une Poké
     Ball (capture), découpées dans les sprites de face du jeu.
@@ -34,6 +36,8 @@ ROLES = ['FLOOR', 'ROCK_1', 'ROCK_2', 'TL', 'T', 'TR', 'L', 'C', 'R', 'BL', 'B',
 SIGN_METATILE = 0x210
 MAT_FIRST = 0x240
 PRIMARY_SIGN = 0x003  # panneau du tileset General
+SANDBAR_WATER = 0x170  # eau de General
+SANDBAR_TOP = [0x59D6, 0x55D0, 0x51D6, 0x5DD0]  # coins de rive (tuiles 0x1D6 et 0x1D0 de General retournées)
 
 # Décors : (tileset produit, tileset d'origine, metatile d'origine pour chaque rôle)
 BIOME_TILESETS = [
@@ -52,10 +56,16 @@ BIOME_TILESETS = [
     ('isaac_poison', 'rusturf_tunnel', dict(  # Tunnel Mérazon (moussu)
         FLOOR=0x201, ROCK_1=0x211, ROCK_2=0x211, TL=0x208, T=0x209, TR=0x20A, L=0x210, C=0x211, R=0x212,
         BL=0x218, B=0x219, BR=0x21A, IN_SE=0x21B, IN_SW=0x21C, IN_NE=0x223, IN_NW=0x224)),
-    ('isaac_underwater', 'underwater', dict(  # fonds marins (sable et crêtes rocheuses)
-        FLOOR=0x216, ROCK_1=0x213, ROCK_2=0x213, TL=0x20A, T=0x20B, TR=0x20C, L=0x210, C=0x213, R=0x211,
-        BL=0x21A, B=0x21B, BR=0x219, IN_SE=0x206, IN_SW=0x207, IN_NE=0x223, IN_NW=0x222)),
+    # Océan de Hoenn (Routes 105, 134) : eau animée, murs en crêtes rocheuses de la mer, rocher immergé pour les
+    # bouts de mur isolés ; tout dans le tileset primaire General (le tileset d'origine ne sert pas). Tous les rôles
+    # ont le comportement de l'eau : le joueur surfe partout, même à travers les rochers des portes secrètes (les
+    # murs sont bloqués par leur collision). Les crêtes n'ont que deux coins rentrants (sol au nord-ouest 0x0B4, au
+    # sud-est 0x074) : les deux autres prennent le centre de la roche.
+    ('isaac_ocean', 'pacifidlog', dict(
+        FLOOR=0x170, ROCK_1=0x0BD, ROCK_2=0x0BD, TL=0x172, T=0x17B, TR=0x174, L=0x17A, C=0x071, R=0x17C,
+        BL=0x182, B=0x079, BR=0x184, IN_SE=0x074, IN_SW=0x071, IN_NE=0x071, IN_NW=0x0B4)),
 ]
+SURF_TILESETS = {'isaac_ocean'}  # décors où le joueur surfe : tous les rôles ont le comportement du sol (eau)
 NUM_PRIMARY_TILES = 512
 NUM_SECONDARY_TILES = 512
 NUM_SECONDARY_METATILES = 512
@@ -175,6 +185,7 @@ def build(out_name, source_name, mapping, mats):
     src_attr = read_u16(os.path.join(src, 'metatile_attributes.bin'))
     src_pals = [read_pal(os.path.join(src, 'palettes', '%02d.pal' % i)) for i in range(16)]
     primary_meta = read_u16(os.path.join(PRIMARY, 'metatiles.bin'))
+    primary_attr = read_u16(os.path.join(PRIMARY, 'metatile_attributes.bin'))
 
     tiles = [tuple([0] * 64)]  # tuile 0 vide
     tile_index = {tiles[0]: 0}
@@ -188,6 +199,8 @@ def build(out_name, source_name, mapping, mats):
     # Palettes du décor utilisées par les rôles : renumérotées à partir de 6
     pal_remap = {}
     for role in ROLES:
+        if mapping[role] < NUM_PRIMARY_TILES:
+            continue  # metatile de General : palettes de General
         m = mapping[role] - NUM_PRIMARY_TILES
         for e in src_meta[m * 8: m * 8 + 8]:
             pal = e >> 12
@@ -213,16 +226,29 @@ def build(out_name, source_name, mapping, mats):
     # 1. Rôles (0x200 à 0x20F)
     metatiles, attributes = [], []
     for role in ROLES:
+        if mapping[role] < NUM_PRIMARY_TILES:  # metatile de General, tel quel (comportement compris)
+            m = mapping[role]
+            metatiles.extend(primary_meta[m * 8: m * 8 + 8])
+            attributes.append(primary_attr[m])
+            continue
         m = mapping[role] - NUM_PRIMARY_TILES
         metatiles.extend(convert(e) for e in src_meta[m * 8: m * 8 + 8])
-        # Sol : comportement du sol de la grotte, mais type de calque de la source (le sable sous-marin a aussi
-        # un calque du dessus, qui doit rester derrière les sprites)
+        # Sol : comportement du sol de la grotte, mais type de calque de la source (un sol qui a aussi un calque
+        # du dessus doit le garder derrière les sprites)
         attributes.append((FLOOR_ATTRIBUTES | (src_attr[m] & 0xF000)) if role == 'FLOOR' else src_attr[m])
+    floor_behavior = attributes[0] & 0x0FFF  # paillassons : même comportement que le sol (eau : on y surfe)
+    if out_name in SURF_TILESETS:  # tout est de l'eau (voir BIOME_TILESETS)
+        attributes = [(a & 0xF000) | floor_behavior for a in attributes]
 
     # 2. Panneau sur le sol (0x210) : sol dessous, panneau de General dessus
     floor = metatiles[0:4]
     metatiles.extend(floor + primary_meta[PRIMARY_SIGN * 8: PRIMARY_SIGN * 8 + 4])
     attributes.append(0x1000)  # calque du dessus derrière le joueur, comme les rochers
+
+    # 2 bis. Banc de sable d'une case dans l'eau (0x211, sous Kecleon dans l'océan) : eau de General dessous, un coin
+    # de rive des îlots de sable de General dans chaque quart dessus
+    metatiles.extend(primary_meta[SANDBAR_WATER * 8: SANDBAR_WATER * 8 + 4] + SANDBAR_TOP)
+    attributes.append(0x1000 | floor_behavior)
 
     # 3. Rien jusqu'aux paillassons
     while len(attributes) < MAT_FIRST - NUM_PRIMARY_TILES:
@@ -244,7 +270,7 @@ def build(out_name, source_name, mapping, mats):
                     for t in tiles_of(block):
                         metatiles.append((pal_num << 12) | (NUM_PRIMARY_TILES + add_tile(t)))
                     metatiles.extend([0, 0, 0, 0])  # calque du dessus vide
-                    attributes.append(FLOOR_ATTRIBUTES)
+                    attributes.append(floor_behavior)
 
     assert len(tiles) <= NUM_SECONDARY_TILES, f'{out_name} : {len(tiles)} tuiles'
     assert len(attributes) <= NUM_SECONDARY_METATILES, f'{out_name} : {len(attributes)} metatiles'

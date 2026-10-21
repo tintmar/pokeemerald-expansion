@@ -1545,7 +1545,7 @@ static void ChooseAmbientCrySpecies(void)
 
 enum MapType GetMapTypeByGroupAndId(s8 mapGroup, s8 mapNum)
 {
-    // Donjon : le type de la salle dépend du biome (sous l'eau : le joueur chevauche son Pokémon partout)
+    // Donjon : le type de la salle dépend du biome (océan : le joueur surfe)
     if (mapGroup == MAP_GROUP(MAP_ISAAC_ROOM) && mapNum == MAP_NUM(MAP_ISAAC_ROOM))
         return IsaacGetRoomMapType();
     return Overworld_GetMapHeaderByGroupAndId(mapGroup, mapNum)->mapType;

@@ -1599,13 +1599,13 @@ const struct Tileset gTileset_IsaacPoison =
     .callback = NULL,
 };
 
-const struct Tileset gTileset_IsaacUnderwater =
+const struct Tileset gTileset_IsaacOcean =
 {
     .isCompressed = TRUE,
     .isSecondary = TRUE,
-    .tiles = gTilesetTiles_IsaacUnderwater,
-    .palettes = gTilesetPalettes_IsaacUnderwater,
-    .metatiles = gMetatiles_IsaacUnderwater,
-    .metatileAttributes = gMetatileAttributes_IsaacUnderwater,
+    .tiles = gTilesetTiles_IsaacOcean,
+    .palettes = gTilesetPalettes_IsaacOcean,
+    .metatiles = gMetatiles_IsaacOcean,
+    .metatileAttributes = gMetatileAttributes_IsaacOcean,
     .callback = NULL,
 };

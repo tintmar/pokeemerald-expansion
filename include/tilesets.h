@@ -65,6 +65,6 @@ extern const struct Tileset gTileset_IsaacFire;
 extern const struct Tileset gTileset_IsaacMystic;
 extern const struct Tileset gTileset_IsaacIce;
 extern const struct Tileset gTileset_IsaacPoison;
-extern const struct Tileset gTileset_IsaacUnderwater;
+extern const struct Tileset gTileset_IsaacOcean;
 
 #endif //GUARD_tilesets_H

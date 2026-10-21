@@ -148,7 +148,7 @@ static const u16 sPoisonBossLines[] = { SPECIES_ODDISH, SPECIES_BELLSPROUT, SPEC
 static const struct IsaacTrainerType sPoisonBoss = ISAAC_TRAINER(LEADER, LEADER_ERIKA_FRLG, ERIKA, FEMALE, FEMALE, sPoisonBossLines);
 
 // --- Grotte sous-marine (fonds marins d'Émeraude) : Eau, fossiles marins ---------------------------------
-static const u16 sUnderwaterLines[] =
+static const u16 sOceanLines[] =
 {
     SPECIES_TENTACOOL, SPECIES_HORSEA, SPECIES_GOLDEEN, SPECIES_MAGIKARP, SPECIES_CHINCHOU, SPECIES_QWILFISH,
     SPECIES_REMORAID, SPECIES_MANTINE, SPECIES_CARVANHA, SPECIES_WAILMER, SPECIES_CORSOLA, SPECIES_RELICANTH,
@@ -156,27 +156,22 @@ static const u16 sUnderwaterLines[] =
     SPECIES_BARBOACH, SPECIES_CORPHISH, SPECIES_FEEBAS, SPECIES_CLAMPERL, SPECIES_KRABBY, SPECIES_AZURILL,
     SPECIES_MUDKIP, SPECIES_SQUIRTLE, SPECIES_LOTAD, SPECIES_SURSKIT, SPECIES_WINGULL, SPECIES_TOTODILE,
 };
-static const u16 sUnderwaterSwimmerMLines[] = { SPECIES_TENTACOOL, SPECIES_HORSEA, SPECIES_GOLDEEN, SPECIES_TOTODILE, SPECIES_SQUIRTLE, SPECIES_MUDKIP };
-static const u16 sUnderwaterSwimmerFLines[] = { SPECIES_GOLDEEN, SPECIES_LUVDISC, SPECIES_CORSOLA, SPECIES_CHINCHOU, SPECIES_HORSEA, SPECIES_AZURILL, SPECIES_STARYU, SPECIES_LOTAD, SPECIES_SURSKIT };
-static const u16 sUnderwaterFishermanLines[] = { SPECIES_MAGIKARP, SPECIES_GOLDEEN, SPECIES_REMORAID, SPECIES_QWILFISH, SPECIES_BARBOACH, SPECIES_CORPHISH, SPECIES_FEEBAS, SPECIES_KRABBY };
-static const u16 sUnderwaterSailorLines[] = { SPECIES_TENTACOOL, SPECIES_WAILMER, SPECIES_MANTINE, SPECIES_MAGIKARP, SPECIES_REMORAID, SPECIES_WINGULL, SPECIES_KRABBY };
-static const u16 sUnderwaterAquaMLines[] = { SPECIES_CARVANHA, SPECIES_WAILMER, SPECIES_QWILFISH, SPECIES_CORPHISH, SPECIES_CLAMPERL, SPECIES_RELICANTH };
-static const u16 sUnderwaterAquaFLines[] = { SPECIES_CARVANHA, SPECIES_CHINCHOU, SPECIES_OMANYTE, SPECIES_KABUTO, SPECIES_ANORITH, SPECIES_LILEEP, SPECIES_CLAMPERL, SPECIES_HORSEA, SPECIES_BARBOACH };
-static const struct IsaacTrainerType sUnderwaterTrainers[] =
+// Que des nageurs dans l'océan (le joueur surfe) ; leurs lignées reprennent celles des pêcheurs, marins et Team
+// Aqua d'avant
+static const u16 sOceanSwimmerMLines[] = { SPECIES_TENTACOOL, SPECIES_HORSEA, SPECIES_GOLDEEN, SPECIES_TOTODILE, SPECIES_SQUIRTLE, SPECIES_MUDKIP, SPECIES_MAGIKARP, SPECIES_REMORAID, SPECIES_QWILFISH, SPECIES_BARBOACH, SPECIES_CORPHISH, SPECIES_FEEBAS, SPECIES_KRABBY, SPECIES_CARVANHA, SPECIES_WAILMER, SPECIES_CLAMPERL, SPECIES_RELICANTH };
+static const u16 sOceanSwimmerFLines[] = { SPECIES_GOLDEEN, SPECIES_LUVDISC, SPECIES_CORSOLA, SPECIES_CHINCHOU, SPECIES_HORSEA, SPECIES_AZURILL, SPECIES_STARYU, SPECIES_LOTAD, SPECIES_SURSKIT, SPECIES_TENTACOOL, SPECIES_WAILMER, SPECIES_MANTINE, SPECIES_MAGIKARP, SPECIES_REMORAID, SPECIES_WINGULL, SPECIES_KRABBY, SPECIES_CARVANHA, SPECIES_OMANYTE, SPECIES_KABUTO, SPECIES_ANORITH, SPECIES_LILEEP, SPECIES_CLAMPERL, SPECIES_BARBOACH };
+static const struct IsaacTrainerType sOceanTrainers[] =
 {
-    ISAAC_TRAINER(SWIMMER_M, SWIMMER_M,    SWIMMER_M,     MALE,   SWIMMER, sUnderwaterSwimmerMLines),
-    ISAAC_TRAINER(SWIMMER_F, SWIMMER_F,    SWIMMER_F,     FEMALE, SWIMMER, sUnderwaterSwimmerFLines),
-    ISAAC_TRAINER(FISHERMAN, FISHERMAN,    FISHERMAN,     MALE,   HIKER,   sUnderwaterFishermanLines),
-    ISAAC_TRAINER(SAILOR,    SAILOR,       SAILOR,        MALE,   MALE,    sUnderwaterSailorLines),
-    ISAAC_TRAINER(TEAM_AQUA, AQUA_GRUNT_M, AQUA_MEMBER_M, MALE,   AQUA,    sUnderwaterAquaMLines),
-    ISAAC_TRAINER(TEAM_AQUA, AQUA_GRUNT_F, AQUA_MEMBER_F, FEMALE, AQUA,    sUnderwaterAquaFLines),
+    ISAAC_TRAINER(SWIMMER_M, SWIMMER_M, SWIMMER_M, MALE,   SWIMMER, sOceanSwimmerMLines),
+    ISAAC_TRAINER(SWIMMER_F, SWIMMER_F, SWIMMER_F, FEMALE, SWIMMER, sOceanSwimmerFLines),
 };
-static const u16 sUnderwaterBossLines[] = { SPECIES_HORSEA, SPECIES_CHINCHOU, SPECIES_WAILMER, SPECIES_LUVDISC, SPECIES_BARBOACH, SPECIES_CORPHISH, SPECIES_LOTAD };
-static const struct IsaacTrainerType sUnderwaterBoss = ISAAC_TRAINER(LEADER, LEADER_JUAN, JUAN, MALE, MALE, sUnderwaterBossLines);
+// Boss : Ondine (image de combat de RFVF), en nageuse sur la carte
+static const u16 sOceanBossLines[] = { SPECIES_STARYU, SPECIES_HORSEA, SPECIES_GOLDEEN, SPECIES_TENTACOOL, SPECIES_MAGIKARP, SPECIES_KRABBY, SPECIES_OMANYTE };
+static const struct IsaacTrainerType sOceanBoss = ISAAC_TRAINER(LEADER, LEADER_MISTY_FRLG, SWIMMER_F, FEMALE, FEMALE, sOceanBossLines);
 
 #undef ISAAC_TRAINER
 
-#define ISAAC_BIOME(prefix, layout, mus, wea, isDark, isUnderwater, name) \
+#define ISAAC_BIOME(prefix, layout, mus, wea, isDark, isOcean, name) \
     {                                                                     \
         .lines = s##prefix##Lines,                                        \
         .lineCount = ARRAY_COUNT(s##prefix##Lines),                       \
@@ -188,7 +183,7 @@ static const struct IsaacTrainerType sUnderwaterBoss = ISAAC_TRAINER(LEADER, LEA
         .music = MUS_##mus,                                               \
         .weather = WEATHER_##wea,                                         \
         .dark = isDark,                                                   \
-        .underwater = isUnderwater,                                       \
+        .ocean = isOcean,                                            \
     }
 
 const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT] =
@@ -198,7 +193,7 @@ const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT] =
     [ISAAC_BIOME_FIRE]       = ISAAC_BIOME(Fire,       ISAAC_ROOM_FIRE,       MT_CHIMNEY,      NONE,               FALSE, FALSE, "FLANNERY"),
     [ISAAC_BIOME_ICE]        = ISAAC_BIOME(Ice,        ISAAC_ROOM_ICE,        SEALED_CHAMBER,  NONE,               FALSE, FALSE, "GLACIA"),
     [ISAAC_BIOME_POISON]     = ISAAC_BIOME(Poison,     ISAAC_ROOM_POISON,     PETALBURG_WOODS, FOG_HORIZONTAL,     FALSE, FALSE, "ERIKA"),
-    [ISAAC_BIOME_UNDERWATER] = ISAAC_BIOME(Underwater, ISAAC_ROOM_UNDERWATER, UNDERWATER,      UNDERWATER_BUBBLES, FALSE, TRUE,  "JUAN"),
+    [ISAAC_BIOME_OCEAN]      = ISAAC_BIOME(Ocean,      ISAAC_ROOM_OCEAN,      SURF,            NONE,               FALSE, TRUE,  "MISTY"),
 };
 
 #undef ISAAC_BIOME

@@ -32,7 +32,7 @@ enum IsaacBiomeId
     // ISAAC_BIOME_MYSTIC (Chutes Météore) : mis de côté, décor à retravailler (voir isaac_biomes.h)
     ISAAC_BIOME_ICE,         // Grotte Tréfonds gelée
     ISAAC_BIOME_POISON,      // Tunnel Mérazon
-    ISAAC_BIOME_UNDERWATER,  // fonds marins
+    ISAAC_BIOME_OCEAN,       // océan de Hoenn (le joueur surfe)
     ISAAC_BIOME_COUNT,
 };
 
@@ -60,7 +60,7 @@ struct IsaacBiome
     u16 music;
     u8 weather;
     bool8 dark;       // dans le noir, comme la Grotte Granite sans Flash
-    bool8 underwater; // le joueur plonge
+    bool8 ocean;      // le joueur surfe sur toute la salle
 };
 
 extern const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT];

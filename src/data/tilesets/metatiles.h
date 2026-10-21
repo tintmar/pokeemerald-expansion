@@ -420,5 +420,5 @@ const u16 gMetatiles_IsaacIce[] = INCBIN_U16("data/tilesets/secondary/isaac_ice/
 const u16 gMetatileAttributes_IsaacIce[] = INCBIN_U16("data/tilesets/secondary/isaac_ice/metatile_attributes.bin");
 const u16 gMetatiles_IsaacPoison[] = INCBIN_U16("data/tilesets/secondary/isaac_poison/metatiles.bin");
 const u16 gMetatileAttributes_IsaacPoison[] = INCBIN_U16("data/tilesets/secondary/isaac_poison/metatile_attributes.bin");
-const u16 gMetatiles_IsaacUnderwater[] = INCBIN_U16("data/tilesets/secondary/isaac_underwater/metatiles.bin");
-const u16 gMetatileAttributes_IsaacUnderwater[] = INCBIN_U16("data/tilesets/secondary/isaac_underwater/metatile_attributes.bin");
+const u16 gMetatiles_IsaacOcean[] = INCBIN_U16("data/tilesets/secondary/isaac_ocean/metatiles.bin");
+const u16 gMetatileAttributes_IsaacOcean[] = INCBIN_U16("data/tilesets/secondary/isaac_ocean/metatile_attributes.bin");

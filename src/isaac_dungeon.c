@@ -144,6 +144,7 @@ STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED
 #define TILE_CLIFF_IN_SW 0x20D
 #define TILE_CLIFF_IN_NE 0x20E
 #define TILE_CLIFF_IN_NW 0x20F
+#define TILE_SANDBAR     0x211  // banc de sable d'une case dans l'eau (océan)
 
 // Paillassons devant les portes des salles spéciales (tileset IsaacCave, tools/isaac/build_tileset.py) :
 // motif (MAT_BOSS...), orientation (MAT_HORIZONTAL...), case du paillasson (ligne par ligne)
@@ -335,11 +336,11 @@ u32 IsaacGetCurrentBiome(void)
     return GetBiomeOfFloor(VarGet(VAR_ISAAC_FLOOR));
 }
 
-// Type de la salle du donjon selon le biome : sous l'eau (le joueur chevauche son Pokémon) ou souterrain. Sert
+// Type de la salle du donjon selon le biome : route marine (le joueur surfe) ou souterrain. Sert
 // aussi à GetMapTypeByGroupAndId, qui lit sinon le type d'origine de la map
 enum MapType IsaacGetRoomMapType(void)
 {
-    return gIsaacBiomes[IsaacGetCurrentBiome()].underwater ? MAP_TYPE_UNDERWATER : MAP_TYPE_UNDERGROUND;
+    return gIsaacBiomes[IsaacGetCurrentBiome()].ocean ? MAP_TYPE_OCEAN_ROUTE : MAP_TYPE_UNDERGROUND;
 }
 
 // Chargement de l'en-tête d'une map : si c'est la salle du donjon, décor du biome de l'étage (le tileset vient
@@ -856,6 +857,9 @@ static void PaintRoom(void)
 
     GetCurrentCell(&cellX, &cellY);
     PaintDoorMats(cellX, cellY);
+    // Océan : Kecleon (boutique) se tient sur un banc de sable, on lui parle sans quitter l'eau
+    if (gIsaacBiomes[ISAAC_BIOME].ocean && GetRoom(cellX, cellY) == ROOM_SHOP)
+        SetTile(ROOM_MID_X, ROOM_MID_Y, TILE_SANDBAR | MAPGRID_IMPASSABLE | PACK_ELEVATION(FLOOR_ELEVATION));
 }
 
 // ---------------------------------------------------------------------------
@@ -934,7 +938,7 @@ static const u16 sBossLegendaries[ISAAC_BIOME_COUNT][3] =
     [ISAAC_BIOME_FIRE]       = { SPECIES_MOLTRES,  SPECIES_ENTEI,     SPECIES_MOLTRES },   // Adriane (feu)
     [ISAAC_BIOME_ICE]        = { SPECIES_ARTICUNO, SPECIES_REGICE,    SPECIES_ARTICUNO },  // Glacia (glace)
     [ISAAC_BIOME_POISON]     = { SPECIES_CELEBI,   SPECIES_MEW,       SPECIES_CELEBI },    // Erika (plante, forêt)
-    [ISAAC_BIOME_UNDERWATER] = { SPECIES_SUICUNE,  SPECIES_SUICUNE,   SPECIES_SUICUNE },   // Marc (eau)
+    [ISAAC_BIOME_OCEAN]      = { SPECIES_SUICUNE,  SPECIES_SUICUNE,   SPECIES_SUICUNE },   // Ondine (eau)
 };
 
 #define ISAAC_BOSS_PREDICTION_FLOOR    4
@@ -1769,6 +1773,7 @@ static void SetUpRoomObjects(s32 x, s32 y)
     PlaceRoomObject(LOCALID_ISAAC_ROOM_NURSE, FALSE);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_SHOPKEEPER, room == ROOM_SHOP);
     VarSet(VAR_OBJ_GFX_ID_6, OBJ_EVENT_MON + SPECIES_KECLEON);
+    VarSet(VAR_OBJ_GFX_ID_7, gIsaacBiomes[ISAAC_BIOME].ocean ? OBJ_EVENT_GFX_SWIMMER_F : OBJ_EVENT_GFX_NURSE);  // océan : nageuse
     if (room == ROOM_BOSS && cleared)
         PlaceNurse(x, y, FALSE);
     SetUpCaptureMons(x, y);
