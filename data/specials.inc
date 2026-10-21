@@ -646,5 +646,5 @@ gSpecials::
 	def_special IsaacPrepareTrainerReturn
 	def_special DoIsaacStarterSelectScreen
 	def_special IsaacPrepareWildBattle
-	def_special IsaacRevealLadder
+	def_special IsaacOpenBossExit
 	def_special IsaacPickTrainerLoot

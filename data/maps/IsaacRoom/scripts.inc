@@ -16,7 +16,7 @@ IsaacRoom_EventScript_FaceArrival:
 	special IsaacFaceArrivalDirection
 	end
 
-@ Entrée du hub, portes et échelle des salles (déclenchées par isaac_dungeon.c)
+@ Entrée du hub, portes des salles et passage ouvert par le boss (déclenchées par isaac_dungeon.c)
 Isaac_EventScript_Exit::
 	lockall
 	special IsaacTakeExit
@@ -85,7 +85,7 @@ IsaacRoom_EventScript_Treasure::
 	end
 
 @ Salle du boss : le champion du biome (placé par isaac_dungeon.c). Il faut lui parler pour combattre ; vaincu,
-@ l'échelle de l'étage suivant apparaît au centre de la salle.
+@ un passage vers l'étage suivant s'ouvre dans le mur d'en face de la porte.
 IsaacRoom_EventScript_Boss::
 	trainerbattle_single TRAINER_ISAAC_BOSS, IsaacRoom_Text_BossIntro, IsaacRoom_Text_BossDefeat, IsaacRoom_EventScript_BossDefeated
 	msgbox IsaacRoom_Text_BossPostBattle, MSGBOX_AUTOCLOSE
@@ -93,7 +93,7 @@ IsaacRoom_EventScript_Boss::
 
 IsaacRoom_EventScript_BossDefeated::
 	playse SE_M_STRENGTH
-	special IsaacRevealLadder
+	special IsaacOpenBossExit
 	waitse
 	msgbox IsaacRoom_Text_BossPostBattle, MSGBOX_DEFAULT
 	release

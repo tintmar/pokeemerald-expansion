@@ -70,6 +70,10 @@ bool32 CanTerastallize(enum BattlerId battler)
 {
     enum HoldEffect holdEffect = GetBattlerHoldEffectIgnoreNegation(battler);
 
+    // Donjon : pas de Téracristallisation dans le jeu, ni pour le joueur ni pour les dresseurs
+    if (!TESTING)
+        return FALSE;
+
     if (gBattleMons[battler].volatiles.transformed && GET_BASE_SPECIES_ID(gBattleMons[battler].species) == SPECIES_TERAPAGOS)
         return FALSE;
 

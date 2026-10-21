@@ -65,7 +65,7 @@
  * Pour l'instant : 2 Pokémon de catégorie 1 de ses lignées, set 1. Vaincu, il donne ISAAC_TRAINER_MONEY_PER_FLOOR x
  * la profondeur, et un objet de son butin (IsaacPickTrainerLoot).
  *
- * SALLE DE CAPTURE : un Pokémon sauvage du biome (catégorie 2, set 1 ou 2) se promène ; lui parler lance le
+ * SALLE DE CAPTURE : un Pokémon sauvage du biome (catégorie 2, set 2) se promène ; lui parler lance le
  * combat, après quoi il disparaît. SALLE TRÉSOR : une Pierre Évolution au sol.
  *
  * MINI-CARTE (bouton R dans une salle) : comme Isaac, on voit les salles visitées et celles qui les
@@ -100,7 +100,6 @@ STATIC_ASSERT(FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H - 1 <= FLAG
 #define TILE_FLOOR       0x201
 #define TILE_ROCK_1      0x202
 #define TILE_ROCK_2      0x203
-#define TILE_LADDER      0x23D
 #define TILE_CLIFF_TL    0x208
 #define TILE_CLIFF_T     0x209
 #define TILE_CLIFF_TR    0x20A
@@ -169,7 +168,7 @@ enum
 {
     EXIT_NONE,
     EXIT_DOOR,
-    EXIT_LADDER,
+    EXIT_NEXT_FLOOR,
     EXIT_HUB_ENTRANCE,
 };
 
@@ -601,6 +600,17 @@ static void CarveDoor(u32 dir, u8 cell)
     }
 }
 
+// Salle du boss (un cul-de-sac) : le passage vers l'étage suivant s'ouvre dans le mur d'en face de sa porte
+static u32 GetBossExitDir(s32 x, s32 y)
+{
+    u32 dir;
+
+    for (dir = 0; dir < ISAAC_DIR_COUNT; dir++)
+        if (GetRoom(x + sDirDx[dir], y + sDirDy[dir]) != ROOM_NONE)
+            return (dir + 2) % ISAAC_DIR_COUNT;
+    return ISAAC_DIR_SOUTH;
+}
+
 static void CarveRoom(void)
 {
     s32 x, y;
@@ -621,6 +631,8 @@ static void CarveRoom(void)
         else
             CarveDoor(dir, CELL_FLOOR);
     }
+    if (here == ROOM_BOSS && IsCleared(x, y))  // boss vaincu : passage vers l'étage suivant
+        CarveDoor(GetBossExitDir(x, y), CELL_FLOOR);
 }
 
 static void SetTile(s32 x, s32 y, u16 entry)
@@ -755,8 +767,6 @@ static void PaintRoom(void)
     }
 
     GetCurrentCell(&cellX, &cellY);
-    if (GetRoom(cellX, cellY) == ROOM_BOSS && IsCleared(cellX, cellY))  // échelle une fois le boss vaincu
-        SetTile(ROOM_MID_X, ROOM_MID_Y, TILE_LADDER | PACK_ELEVATION(FLOOR_ELEVATION));
     PaintDoorMats(cellX, cellY);
 }
 
@@ -962,7 +972,7 @@ static void SetUpRoomTrainer(s32 x, s32 y)
 // Salles de capture et trésor
 // ---------------------------------------------------------------------------
 
-// Pokémon sauvage de la salle de capture : catégorie 2, des lignées du biome, set 1 ou 2
+// Pokémon sauvage de la salle de capture : catégorie 2, des lignées du biome, set 2
 static u16 GetCaptureSpecies(s32 x, s32 y)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
@@ -971,12 +981,13 @@ static u16 GetCaptureSpecies(s32 x, s32 y)
     return species != SPECIES_NONE ? species : biome->lines[0];
 }
 
+// Pour l'instant, toujours le set 2
 static u32 GetCaptureSetTier(s32 x, s32 y)
 {
-    return RoomRandom(x, y, 0x5E7) % 2;
+    return 1;
 }
 
-// Place un objet au centre de la salle s'il y est (le boss juste au-dessus : l'échelle apparaîtra au centre),
+// Place un objet au centre de la salle s'il y est (le boss juste au-dessus du centre),
 // sinon loin hors de la map (jamais affiché)
 static void PlaceRoomObject(u8 localId, bool8 present)
 {
@@ -998,15 +1009,16 @@ static void SetUpBoss(s32 x, s32 y, bool8 cleared)
         FlagClear(TRAINER_FLAGS_START + TRAINER_ISAAC_BOSS);
 }
 
-// Boss vaincu : la salle est nettoyée et l'échelle apparaît au centre
-void IsaacRevealLadder(void)
+// Boss vaincu : la salle est nettoyée et le passage vers l'étage suivant s'ouvre (la salle est redessinée)
+void IsaacOpenBossExit(void)
 {
     s32 x, y;
 
     GetCurrentCell(&x, &y);
     FlagSet(FLAG_ISAAC_CLEARED_FIRST + y * ISAAC_GRID_W + x);
-    SetTile(ROOM_MID_X, ROOM_MID_Y, TILE_LADDER | PACK_ELEVATION(FLOOR_ELEVATION));
-    CurrentMapDrawMetatileAt(ROOM_MID_X + MAP_OFFSET, ROOM_MID_Y + MAP_OFFSET);
+    CarveRoom();
+    PaintRoom();
+    DrawWholeMapView();
 }
 
 // Au chargement de la salle : Pokémon sauvage (salle de capture) et Pierre Évolution (salle trésor), tant que la
@@ -1370,7 +1382,7 @@ void IsaacTakeExit(void)
     case EXIT_DOOR:
         GoThroughDoor(sPendingDoor);
         break;
-    case EXIT_LADDER:
+    case EXIT_NEXT_FLOOR:
         WarpToNewFloor(VarGet(VAR_ISAAC_FLOOR) + 1);
         break;
     case EXIT_HUB_ENTRANCE:
@@ -1380,7 +1392,7 @@ void IsaacTakeExit(void)
     sPendingExit = EXIT_NONE;
 }
 
-// Appelé à chaque pas du joueur : entrée du donjon dans le hub, portes et échelle des salles
+// Appelé à chaque pas du joueur : entrée du donjon dans le hub, portes des salles, passage du boss
 bool8 TryStartIsaacStepScript(s16 x, s16 y)
 {
     s32 cellX, cellY;
@@ -1406,14 +1418,18 @@ bool8 TryStartIsaacStepScript(s16 x, s16 y)
         GetCurrentCell(&cellX, &cellY);
         for (dir = 0; dir < ISAAC_DIR_COUNT; dir++)
         {
-            if (x == sDoorX[dir] && y == sDoorY[dir])
+            if (x != sDoorX[dir] || y != sDoorY[dir])
+                continue;
+            if (GetRoom(cellX, cellY) == ROOM_BOSS && IsCleared(cellX, cellY) && dir == GetBossExitDir(cellX, cellY))
+            {
+                sPendingExit = EXIT_NEXT_FLOOR;  // passage ouvert par la victoire contre le boss : étage suivant
+            }
+            else
             {
                 sPendingExit = EXIT_DOOR;
                 sPendingDoor = dir;
             }
         }
-        if (GetRoom(cellX, cellY) == ROOM_BOSS && IsCleared(cellX, cellY) && x == ROOM_MID_X && y == ROOM_MID_Y)
-            sPendingExit = EXIT_LADDER;
     }
     if (sPendingExit == EXIT_NONE)
         return FALSE;

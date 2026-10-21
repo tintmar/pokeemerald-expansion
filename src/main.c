@@ -105,6 +105,7 @@ void AgbMain(void)
     CheckForFlashMemory();
     InitMainCallbacks();
     InitMapMusic();
+    StartTimer1();  // donjon : compteur lancé dès l'allumage, il sert de graine au choix NEW GAME / CONTINUE
 #ifdef BUGFIX
     SeedRngWithRtc(); // see comment at SeedRngWithRtc definition below
 #endif

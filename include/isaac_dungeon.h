@@ -14,7 +14,7 @@ bool8 TryStartIsaacStepScript(s16 x, s16 y);
 void IsaacShowMinimap(void);
 void IsaacSetRoomCleared(void);
 void IsaacPrepareTrainerReturn(void);
-void IsaacRevealLadder(void);
+void IsaacOpenBossExit(void);
 void IsaacPickTrainerLoot(void);
 
 extern u8 gIsaacTrainerReturnMovement[];

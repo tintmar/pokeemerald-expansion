@@ -1076,6 +1076,10 @@ static void Task_HandleMainMenuAPressed(u8 taskId)
         }
         ChangeBgY(0, 0, BG_COORD_SET);
         ChangeBgY(1, 0, BG_COORD_SET);
+        // Donjon : sans le discours du professeur (où l'écran du nom le faisait), on initialise ici le
+        // générateur aléatoire avec le compteur lancé à l'allumage (instant de l'appui, au cycle près)
+        if (action == ACTION_NEW_GAME || action == ACTION_CONTINUE)
+            SeedRngAndSetTrainerId();
         switch (action)
         {
         case ACTION_NEW_GAME:
