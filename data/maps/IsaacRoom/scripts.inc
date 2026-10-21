@@ -108,6 +108,9 @@ IsaacRoom_EventScript_BossDefeated::
 	playse SE_M_STRENGTH
 	special IsaacOpenBossExit
 	waitse
+	msgbox IsaacRoom_Text_BossReward, MSGBOX_DEFAULT
+	special IsaacPickBossReward
+	giveitem VAR_0x8004
 	msgbox IsaacRoom_Text_BossPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -120,6 +123,9 @@ IsaacRoom_Text_BossIntro:
 
 IsaacRoom_Text_BossDefeat:
 	.string "Ta force est impressionnante…$"
+
+IsaacRoom_Text_BossReward:
+	.string "Tu as mérité ceci.$"
 
 IsaacRoom_Text_BossPostBattle:
 	.string "Le passage vers l'étage suivant\n"

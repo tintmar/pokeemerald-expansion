@@ -648,5 +648,6 @@ gSpecials::
 	def_special IsaacPrepareWildBattle
 	def_special IsaacOpenBossExit
 	def_special IsaacPickTrainerLoot
+	def_special IsaacPickBossReward
 	def_special IsaacBufferBossName
 	def_special IsaacCaptureMonDone

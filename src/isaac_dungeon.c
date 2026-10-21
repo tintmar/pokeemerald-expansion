@@ -858,7 +858,75 @@ static const u8 *const sFemaleTrainerNames[] = {
 EWRAM_DATA u8 gIsaacTrainerReturnMovement[ISAAC_ROOM_W + 2] = {0};
 
 static EWRAM_DATA struct Trainer sRoomTrainer = {0};
-static EWRAM_DATA struct TrainerMon sRoomTrainerMons[3] = {0};  // dresseur : 2, boss : 3
+static EWRAM_DATA struct TrainerMon sRoomTrainerMons[PARTY_SIZE] = {0};
+
+// Équipe des dresseurs de salle selon l'étage : chaque Pokémon tire sa catégorie
+// et son set au hasard entre les deux bornes (au-delà du dernier étage, on garde la dernière ligne)
+struct IsaacTrainerParty
+{
+    u8 count;
+    u8 minCategory, maxCategory;
+    u8 minTier, maxTier;  // 0 = set 1
+};
+
+static const struct IsaacTrainerParty sRoomTrainerParties[] =
+{
+    { 2, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 0 },
+    { 2, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 0, 1 },
+    { 3, ISAAC_CATEGORY_2, ISAAC_CATEGORY_2, 1, 1 },
+    { 3, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 2 },
+    { 4, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 2 },
+    { 4, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 2, 2 },
+};
+
+// Équipe du boss selon l'étage. Principe : le boss garde toujours un cran d'avance sur les dresseurs
+// de son étage (un Pokémon de plus, catégorie et set au moins égaux), et son dernier Pokémon est un
+// « as » d'une catégorie au-dessus du reste, pour finir le combat sur une vraie menace.
+// En plus du tableau (voir IsaacBoostTrainerParty et GetIsaacTrainer) :
+//  - à partir de l'étage 3, toute l'équipe a (étage - 2) Omniboosts (+10 % de stats chacun), pour que
+//    le boss reste dangereux face à une équipe que le joueur a renforcée en chemin ;
+//  - l'as a en plus aceBoosts Omniboosts (étages 5 et 6), et c'est un petit légendaire au dernier étage,
+//    choisi selon le thème du boss (sBossLegendaries) ;
+//  - l'IA est « Smart » dès l'étage 1 et prédit les changements et les attaques du joueur à partir
+//    de ISAAC_BOSS_PREDICTION_FLOOR ;
+//  - une fois vaincu, le boss donne un objet rare (IsaacPickBossReward).
+struct IsaacBossParty
+{
+    u8 count;  // as compris
+    u8 minCategory, maxCategory;
+    u8 minTier, maxTier;  // 0 = set 1
+    u8 aceCategory, aceTier, aceBoosts;
+};
+
+static const struct IsaacBossParty sBossParties[] =
+{
+    { 3, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 1, 1, ISAAC_CATEGORY_2,               1, 0 },
+    { 4, ISAAC_CATEGORY_2, ISAAC_CATEGORY_2, 1, 1, ISAAC_CATEGORY_3,               1, 0 },
+    { 4, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 2, ISAAC_CATEGORY_3,               2, 0 },
+    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 2, 2, ISAAC_CATEGORY_4,               2, 0 },
+    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 2, 2, ISAAC_CATEGORY_4,               2, 2 },
+    { 6, ISAAC_CATEGORY_4, ISAAC_CATEGORY_4, 2, 2, ISAAC_CATEGORY_LEGENDARY_SMALL, 2, 3 },
+};
+
+// Petit légendaire de l'as du dernier étage, au thème du biome et de son boss
+// (une case vide reprend le premier, pour tirer à égalité entre ceux qui sont listés)
+static const u16 sBossLegendaries[ISAAC_BIOME_COUNT][3] =
+{
+    [ISAAC_BIOME_CAVE]       = { SPECIES_REGIROCK, SPECIES_REGISTEEL, SPECIES_REGIROCK },  // Pierre (roche)
+    [ISAAC_BIOME_DARK]       = { SPECIES_DEOXYS,   SPECIES_LATIAS,    SPECIES_LATIOS },    // Spectra (mystère, psy)
+    [ISAAC_BIOME_FIRE]       = { SPECIES_MOLTRES,  SPECIES_ENTEI,     SPECIES_MOLTRES },   // Adriane (feu)
+    [ISAAC_BIOME_ICE]        = { SPECIES_ARTICUNO, SPECIES_REGICE,    SPECIES_ARTICUNO },  // Glacia (glace)
+    [ISAAC_BIOME_POISON]     = { SPECIES_CELEBI,   SPECIES_MEW,       SPECIES_CELEBI },    // Erika (plante, forêt)
+    [ISAAC_BIOME_UNDERWATER] = { SPECIES_SUICUNE,  SPECIES_SUICUNE,   SPECIES_SUICUNE },   // Marc (eau)
+};
+
+#define ISAAC_BOSS_PREDICTION_FLOOR    4
+#define ISAAC_BOSS_TEAM_BOOST_FLOOR    3  // premier étage où toute l'équipe du boss a des Omniboosts
+
+static const struct IsaacBossParty *GetBossParty(void)
+{
+    return &sBossParties[min(VarGet(VAR_ISAAC_FLOOR), ARRAY_COUNT(sBossParties)) - 1];
+}
 
 // Hasard propre à une salle de l'étage (toujours le même pour une salle donnée)
 static u32 RoomRandom(s32 x, s32 y, u32 salt)
@@ -889,8 +957,12 @@ static const struct IsaacTrainerType *GetRoomTrainerType(s32 x, s32 y)
 static u16 PickTrainerSpecies(const struct IsaacTrainerType *type, enum IsaacCategory category, u32 roll)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
-    u16 species = IsaacPickLineSpecies(type->lines, type->lineCount, category, roll);
+    u16 species;
 
+    // Les légendaires ne sont dans aucune lignée : on prend un de ceux du biome (sBossLegendaries)
+    if (category >= ISAAC_CATEGORY_LEGENDARY_SMALL)
+        return sBossLegendaries[ISAAC_BIOME][roll % ARRAY_COUNT(sBossLegendaries[0])];
+    species = IsaacPickLineSpecies(type->lines, type->lineCount, category, roll);
     if (species == SPECIES_NONE)
         species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, roll);
     return species != SPECIES_NONE ? species : biome->lines[0];
@@ -942,25 +1014,45 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
     const struct IsaacTrainerType *type;
+    const struct IsaacTrainerParty *party;
     const u8 *const *names;
     s32 x, y;
+    u32 i;
 
     GetCurrentCell(&x, &y);
     if (trainerId == TRAINER_ISAAC_BOSS)
     {
+        const struct IsaacBossParty *boss = GetBossParty();
+
         InitTrainer(&sRoomTrainer, biome->boss, biome->bossName, sRoomTrainerMons);
         sRoomTrainer.aiFlags = AI_FLAG_SMART_TRAINER;
-        AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, biome->boss, ISAAC_CATEGORY_1, 1, RoomRandom(x, y, 0xB051));
-        AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, biome->boss, ISAAC_CATEGORY_1, 1, RoomRandom(x, y, 0xB052));
-        AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, biome->boss, ISAAC_CATEGORY_2, 1, RoomRandom(x, y, 0xB053));
+        if (VarGet(VAR_ISAAC_FLOOR) >= ISAAC_BOSS_PREDICTION_FLOOR)
+            sRoomTrainer.aiFlags |= AI_FLAG_PREDICTION;
+        for (i = 0; i < boss->count - 1; i++)
+        {
+            u32 roll = RoomRandom(x, y, 0xB051 + i);
+            u32 category = boss->minCategory + (roll >> 8) % (boss->maxCategory - boss->minCategory + 1);
+            u32 tier = boss->minTier + (roll >> 16) % (boss->maxTier - boss->minTier + 1);
+
+            AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, biome->boss, category, tier, roll);
+        }
+        // L'as, envoyé en dernier
+        AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, biome->boss, boss->aceCategory, boss->aceTier, RoomRandom(x, y, 0xB0A5));
         return &sRoomTrainer;
     }
 
     type = GetRoomTrainerType(x, y);
     names = (type->gender == TRAINER_GENDER_FEMALE) ? sFemaleTrainerNames : sMaleTrainerNames;
     InitTrainer(&sRoomTrainer, type, names[RoomRandom(x, y, 0x4A3) % ARRAY_COUNT(sMaleTrainerNames)], sRoomTrainerMons);
-    AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, type, ISAAC_CATEGORY_1, 0, RoomRandom(x, y, 0x5EC));
-    AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, type, ISAAC_CATEGORY_1, 0, RoomRandom(x, y, 0x5ED));
+    party = &sRoomTrainerParties[min(VarGet(VAR_ISAAC_FLOOR), ARRAY_COUNT(sRoomTrainerParties)) - 1];
+    for (i = 0; i < party->count; i++)
+    {
+        u32 roll = RoomRandom(x, y, 0x5EC + i);
+        u32 category = party->minCategory + (roll >> 8) % (party->maxCategory - party->minCategory + 1);
+        u32 tier = party->minTier + (roll >> 16) % (party->maxTier - party->minTier + 1);
+
+        AddTrainerMon(&sRoomTrainer, sRoomTrainerMons, type, category, tier, roll);
+    }
     return &sRoomTrainer;
 }
 
@@ -1003,6 +1095,34 @@ void IsaacPickTrainerLoot(void)
     {
         gSpecialVar_0x8004 = ITEM_MASTER_BALL;
         FlagSet(FLAG_ISAAC_MASTER_BALL_DROPPED);
+    }
+}
+
+// Objet rare donné par le boss vaincu (dans VAR_0x8004)
+void IsaacPickBossReward(void)
+{
+    static const u16 sRewards[] = { ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER };
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    gSpecialVar_0x8004 = sRewards[RoomRandom(x, y, 0xB0B0) % ARRAY_COUNT(sRewards)];
+}
+
+// Omniboosts du boss (voir sBossParties), une fois son équipe créée pour le combat
+void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party)
+{
+    const struct IsaacBossParty *boss = GetBossParty();
+    u32 floor = VarGet(VAR_ISAAC_FLOOR);
+    u32 teamBoosts = floor >= ISAAC_BOSS_TEAM_BOOST_FLOOR ? floor - ISAAC_BOSS_TEAM_BOOST_FLOOR + 1 : 0;
+    u32 i, n;
+
+    if (trainerId != TRAINER_ISAAC_BOSS || !IsIsaacTrainer(trainerId))
+        return;
+    for (i = 0; i < sRoomTrainer.partySize; i++)
+    {
+        n = teamBoosts + (i == sRoomTrainer.partySize - 1u ? boss->aceBoosts : 0);
+        while (n-- != 0)
+            IsaacAddOmniboost(&party[i]);
     }
 }
 

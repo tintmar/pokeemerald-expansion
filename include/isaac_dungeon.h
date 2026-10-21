@@ -8,6 +8,7 @@
 #define ISAAC_ROOM_H  11
 
 struct MapHeader;
+struct Pokemon;
 
 void IsaacPaintRoom(void);
 u32 IsaacGetCurrentBiome(void);
@@ -24,6 +25,8 @@ void IsaacBufferBossName(void);
 void IsaacPrepareWildBattle(void);
 void IsaacCaptureMonDone(void);
 void IsaacPickTrainerLoot(void);
+void IsaacPickBossReward(void);
+void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party);
 
 extern u8 gIsaacTrainerReturnMovement[];
 bool8 TryOpenIsaacMinimap(void);
