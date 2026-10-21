@@ -110,9 +110,9 @@ STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSE
 
 // Kecleon (boutique) déjà rencontré : pour toute la partie, il ne fait sa blague qu'une fois
 #define FLAG_ISAAC_KECLEON_MET  (FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS)
-// Articles en un seul exemplaire de la boutique de l'étage déjà vendus (voir SHOP_SLOT_*)
+// Articles de la boutique de l'étage déjà vendus, chacun en un seul exemplaire (voir SHOP_SLOT_*)
 #define FLAG_ISAAC_SHOP_SOLD_FIRST  (FLAG_ISAAC_KECLEON_MET + 1)
-#define SHOP_LIMITED_SLOTS  6
+#define SHOP_LIMITED_SLOTS  9
 STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED_0x2BB, IsaacShopFlagsAreUnused);
 
 #define ISAAC_START_X  (ISAAC_GRID_W / 2)
@@ -1386,11 +1386,11 @@ void IsaacOpenBossExit(void)
 // Infirmière de la salle du boss
 // ---------------------------------------------------------------------------
 // Le boss vaincu, elle arrive par le passage qui vient de s'ouvrir et se poste juste à côté (le passage reste
-// libre). Elle rend les PP gratuitement puis propose, contre ISAAC_NURSE_PRICE_PCT % de l'argent que l'étage
-// peut rapporter (tous ses dresseurs et le boss), un soin partiel : PV et statut au complet pour les Pokémon
-// debout, moitié des PV pour les K.O.
+// libre). Elle rend les PP gratuitement puis propose, contre ISAAC_NURSE_PRICE_PER_FLOOR x étage (un peu moins que
+// ce que rapporte un dresseur de l'étage), un soin partiel : PV et statut au complet pour les Pokémon debout,
+// moitié des PV pour les K.O.
 
-#define ISAAC_NURSE_PRICE_PCT  25
+#define ISAAC_NURSE_PRICE_PER_FLOOR  800
 
 EWRAM_DATA u8 gIsaacNurseArrivalMovement[ISAAC_ROOM_H] = {0};
 
@@ -1479,14 +1479,7 @@ void IsaacNurseRestorePP(void)
 
 static u32 GetNursePrice(void)
 {
-    s32 x, y;
-    u32 fights = 1;  // le boss
-
-    for (y = 0; y < ISAAC_GRID_H; y++)
-        for (x = 0; x < ISAAC_GRID_W; x++)
-            if (RoomHasTrainer(x, y))
-                fights++;
-    return fights * ISAAC_TRAINER_MONEY_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR) * ISAAC_NURSE_PRICE_PCT / 100 / 100 * 100;
+    return ISAAC_NURSE_PRICE_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
 }
 
 static bool8 MonNeedsHealing(struct Pokemon *mon)
@@ -1563,9 +1556,10 @@ static void SetUpCaptureMons(s32 x, s32 y)
 // Boutique de Kecleon
 // ---------------------------------------------------------------------------
 // Kecleon tient la boutique de l'étage (menu Acheter / Quitter, CreateIsaacMartMenu). Il vend toujours :
-//  - une Master Ball, deux objets de combat de sShopBattleItems et deux CT de sShopTMs (tirés pour la salle),
-//    un objet spécial de sShopSpecialItems, tous en un seul exemplaire ;
-//  - des soins à volonté : Guérison, Rappel, Rappel Max.
+//  - une Master Ball, une Guérison, un Rappel, un Rappel Max ;
+//  - deux objets de combat de sShopBattleItems et deux CT de sShopTMs (tirés pour la salle), un objet spécial
+//    de sShopSpecialItems.
+// Chaque article est en un seul exemplaire.
 // Les prix se comptent en « gains d'un dresseur » de l'étage (ISAAC_TRAINER_MONEY_PER_FLOOR x étage, voir
 // sShopPrices) : un étage rapporte de l'ordre de 5 (étage 2) à 11 (étages profonds) de ces gains, on ne peut
 // donc pas tout acheter et il faut choisir.
@@ -1573,6 +1567,9 @@ static void SetUpCaptureMons(s32 x, s32 y)
 enum
 {
     SHOP_SLOT_MASTER_BALL,
+    SHOP_SLOT_FULL_RESTORE,
+    SHOP_SLOT_REVIVE,
+    SHOP_SLOT_MAX_REVIVE,
     SHOP_SLOT_ITEM_1,
     SHOP_SLOT_ITEM_2,
     SHOP_SLOT_TM_1,
@@ -1657,7 +1654,7 @@ static const struct IsaacShopPrice sShopPrices[] =
 #define SHOP_ITEM_PRICE_TENTHS     25
 #define SHOP_SPECIAL_PRICE_TENTHS  60  // objet spécial : très cher
 
-static EWRAM_DATA u16 sShopItems[SHOP_LIMITED_SLOTS + 4] = {0};
+static EWRAM_DATA u16 sShopItems[SHOP_LIMITED_SLOTS + 1] = {0};
 
 // Article n° slot (SHOP_SLOT_*) de la boutique de la salle courante
 static u16 GetShopSlotItem(u32 slot)
@@ -1671,6 +1668,12 @@ static u16 GetShopSlotItem(u32 slot)
     {
     case SHOP_SLOT_MASTER_BALL:
         return ITEM_MASTER_BALL;
+    case SHOP_SLOT_FULL_RESTORE:
+        return ITEM_FULL_RESTORE;
+    case SHOP_SLOT_REVIVE:
+        return ITEM_REVIVE;
+    case SHOP_SLOT_MAX_REVIVE:
+        return ITEM_MAX_REVIVE;
     case SHOP_SLOT_ITEM_1:
     case SHOP_SLOT_ITEM_2:  // deux objets différents
         first = roll % ARRAY_COUNT(sShopBattleItems);
@@ -1689,7 +1692,7 @@ static u16 GetShopSlotItem(u32 slot)
     }
 }
 
-// SHOP_LIMITED_SLOTS si l'objet n'est pas un article en un seul exemplaire de la boutique
+// SHOP_LIMITED_SLOTS si l'objet n'est pas un article de la boutique
 static u32 GetShopSlot(u16 item)
 {
     u32 slot;
@@ -1717,7 +1720,7 @@ u32 IsaacGetShopPrice(u16 item)
     return GetItemPrice(item);
 }
 
-// Exemplaires encore en vente (0xFFFF : à volonté)
+// Exemplaires encore en vente (0 ou 1 ; 0xFFFF pour un objet qui n'est pas de la boutique)
 u16 IsaacGetShopStock(u16 item)
 {
     u32 slot = GetShopSlot(item);
@@ -1735,20 +1738,15 @@ void IsaacOnShopPurchase(u16 item, u16 count)
         FlagSet(FLAG_ISAAC_SHOP_SOLD_FIRST + slot);
 }
 
-// Ouvre la boutique (suivre de `waitstate`) : les articles uniques déjà vendus n'y sont plus
+// Ouvre la boutique (suivre de `waitstate`) : les articles déjà vendus n'y sont plus
 void IsaacOpenShop(void)
 {
-    static const u16 sHeals[] = { ITEM_FULL_RESTORE, ITEM_REVIVE, ITEM_MAX_REVIVE };
     u32 n = 0, i;
 
-    if (!FlagGet(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_SLOT_MASTER_BALL))
-        sShopItems[n++] = ITEM_MASTER_BALL;
-    for (i = 0; i < ARRAY_COUNT(sHeals); i++)
-        sShopItems[n++] = sHeals[i];
-    for (i = SHOP_SLOT_ITEM_1; i < SHOP_LIMITED_SLOTS; i++)
+    for (i = 0; i < SHOP_LIMITED_SLOTS; i++)
         if (!FlagGet(FLAG_ISAAC_SHOP_SOLD_FIRST + i))
             sShopItems[n++] = GetShopSlotItem(i);
-    sShopItems[n] = ITEM_LIST_END;
+    sShopItems[n] = ITEM_NONE;  // fin de la liste pour shop.c
     CreateIsaacMartMenu(sShopItems);
 }
 

@@ -194,7 +194,7 @@ static const struct IsaacTrainerType sUnderwaterBoss = ISAAC_TRAINER(LEADER, LEA
 const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT] =
 {
     [ISAAC_BIOME_CAVE]       = ISAAC_BIOME(Cave,       ISAAC_ROOM,            VICTORY_ROAD,    NONE,               FALSE, FALSE, "BROCK"),
-    [ISAAC_BIOME_DARK]       = ISAAC_BIOME(Dark,       ISAAC_ROOM,            MT_PYRE,         NONE,               TRUE,  FALSE, "PHOEBE"),
+    [ISAAC_BIOME_DARK]       = ISAAC_BIOME(Dark,       ISAAC_ROOM,            MT_PYRE,         FOG_DIAGONAL,       FALSE, FALSE, "PHOEBE"),
     [ISAAC_BIOME_FIRE]       = ISAAC_BIOME(Fire,       ISAAC_ROOM_FIRE,       MT_CHIMNEY,      NONE,               FALSE, FALSE, "FLANNERY"),
     [ISAAC_BIOME_ICE]        = ISAAC_BIOME(Ice,        ISAAC_ROOM_ICE,        SEALED_CHAMBER,  NONE,               FALSE, FALSE, "GLACIA"),
     [ISAAC_BIOME_POISON]     = ISAAC_BIOME(Poison,     ISAAC_ROOM_POISON,     PETALBURG_WOODS, FOG_HORIZONTAL,     FALSE, FALSE, "ERIKA"),
