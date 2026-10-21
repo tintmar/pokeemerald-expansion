@@ -924,8 +924,7 @@ static const struct IsaacTrainerParty sRoomTrainerParties[] =
 //  - l'as a en plus aceBoosts Omniboosts (étages 5 et 6), et c'est un petit légendaire au dernier étage,
 //    choisi selon le thème du boss (sBossLegendaries) ;
 //  - l'IA est « Smart » dès l'étage 1 et prédit les changements et les attaques du joueur à partir
-//    de ISAAC_BOSS_PREDICTION_FLOOR ;
-//  - une fois vaincu, le boss donne un objet rare (IsaacPickBossReward).
+//    de ISAAC_BOSS_PREDICTION_FLOOR.
 struct IsaacBossParty
 {
     u8 count;  // as compris
@@ -1171,16 +1170,6 @@ void IsaacPickTrainerLoot(void)
         gSpecialVar_0x8004 = ITEM_MASTER_BALL;
         FlagSet(FLAG_ISAAC_MASTER_BALL_DROPPED);
     }
-}
-
-// Objet rare donné par le boss vaincu (dans VAR_0x8004)
-void IsaacPickBossReward(void)
-{
-    static const u16 sRewards[] = { ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER };
-    s32 x, y;
-
-    GetCurrentCell(&x, &y);
-    gSpecialVar_0x8004 = sRewards[RoomRandom(x, y, 0xB0B0) % ARRAY_COUNT(sRewards)];
 }
 
 // Omniboosts du boss (voir sBossParties), une fois son équipe créée pour le combat
