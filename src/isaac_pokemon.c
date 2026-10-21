@@ -106,18 +106,53 @@ static u32 GetLinesSpecies(const u16 *lines, u32 lineCount, u16 *out, u32 max)
     return count;
 }
 
-// Espèces des lignées données de la catégorie voulue (sans doublon avec celles déjà dans out) ; renvoie le
-// nouveau nombre d'espèces dans out
+static u32 GetSpeciesBST(enum Species species)
+{
+    const struct SpeciesInfo *info = &gSpeciesInfo[species];
+
+    return info->baseHP + info->baseAttack + info->baseDefense + info->baseSpeed + info->baseSpAttack + info->baseSpDefense;
+}
+
+// Espèces des lignées données de la catégorie voulue (1 à 4), catégories recalculées sur ces lignées seules : leurs
+// espèces triées par BST sont réparties en 4 quarts égaux (catégorie 1 : le quart le plus faible). Deux espèces de
+// même BST ont la même catégorie. Renvoie le nombre d'espèces écrites dans out.
+static u32 GetLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum IsaacCategory category, u16 *out)
+{
+    u16 species[ISAAC_MAX_LINE_SPECIES], bst[ISAAC_MAX_LINE_SPECIES];
+    u32 n = GetLinesSpecies(lines, lineCount, species, ARRAY_COUNT(species));
+    u32 count = 0, i, j, first;
+    u16 tmpSpecies, tmpBst;
+
+    for (i = 0; i < n; i++)
+        bst[i] = GetSpeciesBST(species[i]);
+    for (i = 1; i < n; i++)  // tri par insertion, du BST le plus faible au plus fort
+    {
+        for (j = i; j > 0 && bst[j - 1] > bst[j]; j--)
+        {
+            SWAP(bst[j - 1], bst[j], tmpBst);
+            SWAP(species[j - 1], species[j], tmpSpecies);
+        }
+    }
+    for (i = 0; i < n; i++)
+    {
+        for (first = i; first > 0 && bst[first - 1] == bst[i]; first--)
+            ;
+        if (ISAAC_CATEGORY_1 + first * 4 / n == category)
+            out[count++] = species[i];
+    }
+    return count;
+}
+
+// Espèces des lignées données de la catégorie voulue, au sens de ces lignées (voir GetLinesSpeciesOfCategory), sans
+// doublon avec celles déjà dans out ; renvoie le nouveau nombre d'espèces dans out
 u32 IsaacAddLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum IsaacCategory category, u16 *out, u32 count, u32 max)
 {
     u16 species[ISAAC_MAX_LINE_SPECIES];
-    u32 n = GetLinesSpecies(lines, lineCount, species, ARRAY_COUNT(species));
+    u32 n = GetLinesSpeciesOfCategory(lines, lineCount, category, species);
     u32 i, j;
 
     for (i = 0; i < n && count < max; i++)
     {
-        if (IsaacGetSpeciesCategory(species[i]) != category)
-            continue;
         for (j = 0; j < count && out[j] != species[i]; j++)
             ;
         if (j == count)
@@ -126,16 +161,13 @@ u32 IsaacAddLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum IsaacCa
     return count;
 }
 
-// Une espèce des lignées données de la catégorie voulue, SPECIES_NONE s'il n'y en a pas
+// Une espèce des lignées données de la catégorie voulue, au sens de ces lignées (voir GetLinesSpeciesOfCategory),
+// SPECIES_NONE s'il n'y en a pas
 enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 roll)
 {
-    u16 species[ISAAC_MAX_LINE_SPECIES], candidates[ISAAC_MAX_LINE_SPECIES];
-    u32 count = GetLinesSpecies(lines, lineCount, species, ARRAY_COUNT(species));
-    u32 n = 0, i;
+    u16 candidates[ISAAC_MAX_LINE_SPECIES];
+    u32 n = GetLinesSpeciesOfCategory(lines, lineCount, category, candidates);
 
-    for (i = 0; i < count; i++)
-        if (IsaacGetSpeciesCategory(species[i]) == category)
-            candidates[n++] = species[i];
     return n ? candidates[roll % n] : SPECIES_NONE;
 }
 
