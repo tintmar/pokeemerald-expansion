@@ -93,7 +93,7 @@
 #define ISAAC_SECRET_MIN_FLOOR 3
 #define ISAAC_MAX_TRIES        200  // graines essayées pour un étage valide
 
-#define ISAAC_TRAINER_PCT    75  // % de salles normales avec un dresseur
+#define ISAAC_TRAINER_PCT    66  // % de salles normales avec un dresseur
 #define ISAAC_TRAINER_MONEY_PER_FLOOR  1000  // argent gagné contre un dresseur (ou le boss) : x profondeur
 #define ISAAC_BIOME          IsaacGetCurrentBiome()
 #define ISAAC_FLOOR_COUNT    ISAAC_BIOME_COUNT  // un étage par biome, puis la salle de la victoire
