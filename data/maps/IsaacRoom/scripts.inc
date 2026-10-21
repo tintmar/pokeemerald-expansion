@@ -235,13 +235,13 @@ IsaacRoom_Text_KecleonBye:
 	.string "Reviens quand tu veux !\n"
 	.string "Enfin, si tu me trouves… Kehehe !$"
 
-@ Contenus des salles vides (voir GetRoomContent) : VAR_RESULT = 1 Œuf confié, 2 échangeur
+@ Contenus des salles vides (voir GetRoomContent, ROOM_CONTENT_* dans include/constants/isaac_dungeon.h)
 IsaacRoom_EventScript_Content::
 	lock
 	faceplayer
 	special IsaacGetRoomContent
-	goto_if_eq VAR_RESULT, 1, IsaacRoom_EventScript_EggGiver
-	goto_if_eq VAR_RESULT, 2, IsaacRoom_EventScript_Trader
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_EGG, IsaacRoom_EventScript_EggGiver
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_TRADER, IsaacRoom_EventScript_Trader
 	release
 	end
 

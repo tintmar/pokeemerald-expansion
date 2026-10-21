@@ -32,6 +32,7 @@
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
 #include "constants/flags.h"
+#include "constants/isaac_dungeon.h"
 #include "constants/items.h"
 #include "constants/map_event_ids.h"
 #include "constants/opponents.h"
@@ -1730,14 +1731,6 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de même catégorie (au sens du
 //    biome de chacun) et de même palier de set, de n'importe quel biome ; un légendaire contre un légendaire.
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
-
-enum
-{
-    ROOM_CONTENT_NONE,
-    ROOM_CONTENT_EGG,
-    ROOM_CONTENT_TRADER,
-    ROOM_CONTENT_COUNT,
-};
 
 #define ISAAC_EGG_HATCH_ROOMS  20
 
