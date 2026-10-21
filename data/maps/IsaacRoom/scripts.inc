@@ -245,6 +245,7 @@ IsaacRoom_EventScript_Content::
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_DEVIL, IsaacRoom_EventScript_Devil
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_TUTOR, IsaacRoom_EventScript_Tutor
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_DUELIST, IsaacRoom_EventScript_Duelist
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_SEER, IsaacRoom_EventScript_Seer
 	release
 	end
 
@@ -600,4 +601,40 @@ IsaacRoom_Text_DuelistDeclined:
 
 IsaacRoom_Text_DuelistCantFight:
 	.string "Ce Pokémon ne peut pas se battre !$"
+
+@ Voyant : ouvre le passage vers la salle secrète de l'étage
+IsaacRoom_EventScript_Seer::
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_SeerDone
+	msgbox IsaacRoom_Text_SeerVision, MSGBOX_DEFAULT
+	special IsaacOpenSecretRoom
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_SeerAlreadyOpen
+	playse SE_M_PSYBEAM
+	waitse
+	special IsaacSetRoomCleared
+	msgbox IsaacRoom_Text_SeerOpened, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_SeerAlreadyOpen::
+	special IsaacSetRoomCleared
+	msgbox IsaacRoom_Text_SeerAlreadyOpen, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_SeerDone::
+	msgbox IsaacRoom_Text_SeerOpened, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_Text_SeerVision:
+	.string "Hmm… Je vois une salle cachée à cet\n"
+	.string "étage, derrière la roche…$"
+
+IsaacRoom_Text_SeerOpened:
+	.string "Le passage est ouvert. Regarde ta\n"
+	.string "carte : la salle secrète t'attend.$"
+
+IsaacRoom_Text_SeerAlreadyOpen:
+	.string "Mais… tu as déjà trouvé le passage.\n"
+	.string "Impressionnant.$"
 

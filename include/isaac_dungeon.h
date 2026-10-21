@@ -52,6 +52,7 @@ void IsaacDuelCheckMon(void);
 void IsaacDuelSetUpParty(void);
 void IsaacDuelRestoreParty(void);
 void IsaacPickDuelReward(void);
+void IsaacOpenSecretRoom(void);
 void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party);
 
 extern u8 gIsaacTrainerReturnMovement[];

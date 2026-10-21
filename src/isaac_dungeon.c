@@ -64,8 +64,8 @@
  *      partir de ISAAC_SHOP_MIN_FLOOR).
  *      S'il manque des culs-de-sac ou des salles, on recommence avec une autre graine ;
  *   3. la SALLE SECRÈTE (à partir de ISAAC_SECRET_MIN_FLOOR) : la case vide qui touche le plus de salles
- *      (au moins 2, jamais le boss). Les portes qui y mènent ressemblent à de la roche mais on peut
- *      passer à travers.
+ *      (au moins 2, jamais le boss). Les portes qui y mènent sont fermées par de la roche tant que le passage
+ *      n'est pas ouvert (FLAG_ISAAC_SECRET_OPEN, par le voyant).
  *
  * BIOMES : une descente traverse les ISAAC_BIOME_COUNT biomes (data/isaac_biomes.h), un étage chacun, dans un
  * ordre tiré au début de la descente (VAR_ISAAC_BIOME_ORDER) ; après le boss du dernier, la salle de la victoire.
@@ -122,6 +122,9 @@ STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSE
 #define FLAG_ISAAC_SHOP_SOLD_FIRST  (FLAG_ISAAC_KECLEON_MET + 1)
 #define SHOP_LIMITED_SLOTS  9
 STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 < FLAG_UNUSED_0x2BB, IsaacShopFlagsAreUnused);  // 0x2BB : B_FLAG_NO_WHITEOUT
+
+// Passage vers la salle secrète de l'étage ouvert (sinon ses portes sont fermées par de la roche)
+#define FLAG_ISAAC_SECRET_OPEN  FLAG_UNUSED_0x020
 
 #define ISAAC_START_X  (ISAAC_GRID_W / 2)
 #define ISAAC_START_Y  (ISAAC_GRID_H / 2)
@@ -216,7 +219,7 @@ enum
 {
     CELL_WALL,
     CELL_FLOOR,
-    CELL_HIDDEN,  // porte de la salle secrète : roche, mais on passe
+    CELL_HIDDEN,  // porte de la salle secrète fermée : roche infranchissable
 };
 
 static const s8 sDirDx[ISAAC_DIR_COUNT] = { [ISAAC_DIR_NORTH] = 0, [ISAAC_DIR_EAST] = 1, [ISAAC_DIR_SOUTH] = 0, [ISAAC_DIR_WEST] = -1 };
@@ -723,7 +726,7 @@ static void CarveRoom(void)
         there = GetRoom(x + sDirDx[dir], y + sDirDy[dir]);
         if (there == ROOM_NONE)
             continue;
-        if (there == ROOM_SECRET && here != ROOM_SECRET)
+        if (there == ROOM_SECRET && here != ROOM_SECRET && !FlagGet(FLAG_ISAAC_SECRET_OPEN))
             CarveDoor(dir, CELL_HIDDEN);
         else
             CarveDoor(dir, CELL_FLOOR);
@@ -856,7 +859,7 @@ static void PaintRoom(void)
             else
                 tile = TILE_FLOOR;
 
-            if (sCell[y - PAINT_MIN][x - PAINT_MIN] == CELL_WALL)
+            if (sCell[y - PAINT_MIN][x - PAINT_MIN] != CELL_FLOOR)
                 SetTile(x, y, tile | MAPGRID_IMPASSABLE);
             else
                 SetTile(x, y, tile | PACK_ELEVATION(FLOOR_ELEVATION));
@@ -1768,7 +1771,8 @@ void IsaacKecleonGreeting(void)
 //    apprendre et ne connaît pas ; il en apprend une (en oubliant une autre s'il en connaît déjà 4) ;
 //  - ROOM_CONTENT_DUELIST : le duelliste annonce son Pokémon (plus fort que ceux de l'étage, voir GetIsaacTrainer),
 //    puis combat en 1 contre 1 contre le Pokémon choisi par le joueur. Perdre ne renvoie pas au hub ; gagner rapporte
-//    un objet de qualité intermédiaire (IsaacPickDuelReward). On peut le redéfier tant qu'on ne l'a pas battu.
+//    un objet de qualité intermédiaire (IsaacPickDuelReward). On peut le redéfier tant qu'on ne l'a pas battu ;
+//  - ROOM_CONTENT_SEER : le voyant ouvre le passage vers la salle secrète de l'étage (seulement s'il y en a une).
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
 
 #define ISAAC_EGG_HATCH_ROOMS  20
@@ -1779,11 +1783,28 @@ static u32 GetEggFloor(void)
     return 1 + ((VarGet(VAR_ISAAC_BIOME_ORDER) * 2654435761u) >> 31);
 }
 
+static bool8 FloorHasSecretRoom(void)
+{
+    s32 x, y;
+
+    for (y = 0; y < ISAAC_GRID_H; y++)
+        for (x = 0; x < ISAAC_GRID_W; x++)
+            if (GetRoom(x, y) == ROOM_SECRET)
+                return TRUE;
+    return FALSE;
+}
+
 static bool8 IsRoomContentAvailable(u32 content)
 {
-    if (content == ROOM_CONTENT_EGG)
+    switch (content)
+    {
+    case ROOM_CONTENT_EGG:
         return VarGet(VAR_ISAAC_FLOOR) == GetEggFloor();
-    return TRUE;
+    case ROOM_CONTENT_SEER:
+        return FloorHasSecretRoom();
+    default:
+        return TRUE;
+    }
 }
 
 static bool8 IsEmptyRoom(s32 x, s32 y)
@@ -1834,6 +1855,7 @@ static void SetUpRoomContent(s32 x, s32 y)
         [ROOM_CONTENT_DEVIL]  = { OBJ_EVENT_GFX_HEX_MANIAC, OBJ_EVENT_GFX_SWIMMER_F },
         [ROOM_CONTENT_TUTOR]  = { OBJ_EVENT_GFX_EXPERT_M,   OBJ_EVENT_GFX_SWIMMER_M },
         [ROOM_CONTENT_DUELIST] = { OBJ_EVENT_GFX_BLACK_BELT, OBJ_EVENT_GFX_SWIMMER_M },
+        [ROOM_CONTENT_SEER]   = { OBJ_EVENT_GFX_PSYCHIC_M,  OBJ_EVENT_GFX_SWIMMER_M },
     };
     u32 content = GetRoomContent(x, y);
 
@@ -2180,6 +2202,17 @@ void IsaacDuelRestoreParty(void)
     FlagClear(B_FLAG_NO_WHITEOUT);
 }
 
+// Ouvre le passage vers la salle secrète de l'étage (voyant) : VAR_RESULT = FALSE s'il l'était déjà. Si la salle
+// courante y mène, elle est redessinée tout de suite.
+void IsaacOpenSecretRoom(void)
+{
+    gSpecialVar_Result = !FlagGet(FLAG_ISAAC_SECRET_OPEN);
+    FlagSet(FLAG_ISAAC_SECRET_OPEN);
+    CarveRoom();
+    PaintRoom();
+    DrawWholeMapView();
+}
+
 // Au chargement de la salle : Pokémon sauvages (salle de capture), Pierre Évolution (salle trésor, tant qu'elle
 // n'est pas ramassée), boss
 static void SetUpRoomObjects(s32 x, s32 y)
@@ -2252,6 +2285,7 @@ static void WarpToNewFloor(u32 floor)
         FlagClear(FLAG_ISAAC_CAPTURE_DONE_FIRST + i);
     for (u32 i = 0; i < SHOP_LIMITED_SLOTS; i++)
         FlagClear(FLAG_ISAAC_SHOP_SOLD_FIRST + i);
+    FlagClear(FLAG_ISAAC_SECRET_OPEN);
     SetCurrentCell(ISAAC_START_X, ISAAC_START_Y);
     sArrivalFacing = DIR_SOUTH;
     WarpToRoom(ROOM_MID_X, ROOM_MID_Y);
@@ -2273,7 +2307,7 @@ static void GoThroughDoor(u32 dir)
 // Mini-carte
 // ---------------------------------------------------------------------------
 
-// Visible : visitée, ou voisine d'une salle visitée (sauf la salle secrète, qu'il faut avoir visitée)
+// Visible : visitée, ou voisine d'une salle visitée (sauf la salle secrète tant que son passage est fermé)
 static bool8 IsRoomShownOnMinimap(s32 x, s32 y)
 {
     u32 dir;
@@ -2282,7 +2316,7 @@ static bool8 IsRoomShownOnMinimap(s32 x, s32 y)
         return FALSE;
     if (IsVisited(x, y))
         return TRUE;
-    if (GetRoom(x, y) == ROOM_SECRET)
+    if (GetRoom(x, y) == ROOM_SECRET && !FlagGet(FLAG_ISAAC_SECRET_OPEN))
         return FALSE;
     for (dir = 0; dir < ISAAC_DIR_COUNT; dir++)
         if (IsVisited(x + sDirDx[dir], y + sDirDy[dir]))

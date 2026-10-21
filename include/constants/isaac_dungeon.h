@@ -8,6 +8,7 @@
 #define ROOM_CONTENT_DEVIL   3  // pacte du diable
 #define ROOM_CONTENT_TUTOR   4  // maître des capacités
 #define ROOM_CONTENT_DUELIST 5  // duelliste
-#define ROOM_CONTENT_COUNT   6
+#define ROOM_CONTENT_SEER    6  // voyant
+#define ROOM_CONTENT_COUNT   7
 
 #endif // GUARD_CONSTANTS_ISAAC_DUNGEON_H
