@@ -61,15 +61,27 @@ IsaacRoom_Text_TrainerPostBattle:
 	.string "La salle est à toi.\n"
 	.string "Continue ta descente !$"
 
-@ Salle de capture : un Pokémon sauvage du biome (placé par isaac_dungeon.c). Après le combat (capturé, vaincu
-@ ou fui), il disparaît.
-IsaacRoom_EventScript_WildMon::
+@ Salle de capture : des Pokémon sauvages du biome (placés par isaac_dungeon.c, CAPTURE_MAX_MONS au plus). Après
+@ le combat (capturé, vaincu ou fui), le Pokémon disparaît.
+IsaacRoom_EventScript_WildMon1::
+	setvar VAR_0x8004, 0
+	goto IsaacRoom_EventScript_WildMon
+IsaacRoom_EventScript_WildMon2::
+	setvar VAR_0x8004, 1
+	goto IsaacRoom_EventScript_WildMon
+IsaacRoom_EventScript_WildMon3::
+	setvar VAR_0x8004, 2
+	goto IsaacRoom_EventScript_WildMon
+IsaacRoom_EventScript_WildMon4::
+	setvar VAR_0x8004, 3
+	goto IsaacRoom_EventScript_WildMon
+
+IsaacRoom_EventScript_WildMon:
 	lock
 	faceplayer
 	special IsaacPrepareWildBattle
 	dowildbattle
-	special IsaacSetRoomCleared
-	removeobject LOCALID_ISAAC_ROOM_WILD
+	special IsaacCaptureMonDone
 	release
 	end
 

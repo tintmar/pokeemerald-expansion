@@ -73,8 +73,9 @@
  * la profondeur, et un objet de son butin (IsaacPickTrainerLoot) : à partir de l'étage 2, l'un des dresseurs de
  * l'étage donne une Master Ball à la place, à coup sûr si on les bat tous.
  *
- * SALLE DE CAPTURE : un Pokémon sauvage du biome (catégorie 2, set 2) se promène ; lui parler lance le
- * combat, après quoi il disparaît. SALLE TRÉSOR : une Pierre Évolution au sol.
+ * SALLE DE CAPTURE : des Pokémon sauvages différents du biome se promènent (2 aux étages 1-2, 3 aux étages
+ * 3-4, 4 aux étages 5-6), de catégorie de plus en plus haute avec la profondeur (RollCaptureCategory), au set 2
+ * jusqu'à l'étage 3 puis au set 3. Leur parler lance le combat, après quoi ils disparaissent. SALLE TRÉSOR : une Pierre Évolution au sol.
  *
  * MINI-CARTE (bouton R dans une salle) : comme Isaac, on voit les salles visitées et celles qui les
  * touchent (pas la salle secrète tant qu'on n'y est pas entré), avec l'icône des salles spéciales.
@@ -99,6 +100,10 @@ STATIC_ASSERT(FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H - 1 <= FLAG
 #define FLAG_ISAAC_MASTER_BALL_DROPPED  (FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H)
 STATIC_ASSERT(FLAG_ISAAC_MASTER_BALL_DROPPED <= FLAG_UNUSED_0x2BB, IsaacMasterBallFlagIsUnused);
 #define ISAAC_MASTER_BALL_MIN_FLOOR  2  // à partir de cet étage, un dresseur de l'étage donne une Master Ball
+// Pokémon de la salle de capture déjà combattus (un drapeau par emplacement, juste après)
+#define CAPTURE_MAX_MONS                4
+#define FLAG_ISAAC_CAPTURE_DONE_FIRST   (FLAG_ISAAC_MASTER_BALL_DROPPED + 1)
+STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSED_0x2BB, IsaacCaptureFlagsAreUnused);
 
 #define ISAAC_START_X  (ISAAC_GRID_W / 2)
 #define ISAAC_START_Y  (ISAAC_GRID_H / 2)
@@ -1063,19 +1068,93 @@ static void SetUpRoomTrainer(s32 x, s32 y)
 // Salles de capture et trésor
 // ---------------------------------------------------------------------------
 
-// Pokémon sauvage de la salle de capture : catégorie 2, des lignées du biome, set 2
-static u16 GetCaptureSpecies(s32 x, s32 y)
+// Salle de capture : emplacement, objet et apparence de chaque Pokémon
+static const u8 sCaptureLocalIds[CAPTURE_MAX_MONS] = { LOCALID_ISAAC_ROOM_WILD, LOCALID_ISAAC_ROOM_WILD_2, LOCALID_ISAAC_ROOM_WILD_3, LOCALID_ISAAC_ROOM_WILD_4 };
+static const u16 sCaptureGfxVars[CAPTURE_MAX_MONS] = { VAR_OBJ_GFX_ID_1, VAR_OBJ_GFX_ID_3, VAR_OBJ_GFX_ID_4, VAR_OBJ_GFX_ID_5 };
+static const s8 sCaptureX[CAPTURE_MAX_MONS] = { ROOM_MID_X - 2, ROOM_MID_X + 2, ROOM_MID_X - 2, ROOM_MID_X + 2 };
+static const s8 sCaptureY[CAPTURE_MAX_MONS] = { ROOM_MID_Y - 1, ROOM_MID_Y - 1, ROOM_MID_Y + 1, ROOM_MID_Y + 1 };
+
+static EWRAM_DATA u8 sCaptureSlot = 0;  // Pokémon combattu (IsaacPrepareWildBattle -> IsaacCaptureMonDone)
+
+// Nombre de Pokémon de la salle de capture : 2 aux étages 1-2, 3 aux étages 3-4, 4 aux étages 5-6
+static u32 GetCaptureMonCount(void)
+{
+    u32 floor = max(VarGet(VAR_ISAAC_FLOOR), 1u);
+
+    return min(2 + (floor - 1) / 2, (u32)CAPTURE_MAX_MONS);
+}
+
+// Catégorie du Pokémon n° slot : étage 1 catégorie 2, 2 catégorie 2 ou 3, 3 catégorie 3, 4 catégorie 3 ou 4,
+// 5 catégorie 4, 6 et plus catégorie 4 (75 %) ou légendaire (25 %)
+static enum IsaacCategory RollCaptureCategory(s32 x, s32 y, u32 slot)
+{
+    u32 roll = RoomRandom(x, y, 0xCA70 + slot) % 100;
+
+    switch (VarGet(VAR_ISAAC_FLOOR))
+    {
+    case 1:
+        return ISAAC_CATEGORY_2;
+    case 2:
+        return roll < 50 ? ISAAC_CATEGORY_2 : ISAAC_CATEGORY_3;
+    case 3:
+        return ISAAC_CATEGORY_3;
+    case 4:
+        return roll < 50 ? ISAAC_CATEGORY_3 : ISAAC_CATEGORY_4;
+    case 5:
+        return ISAAC_CATEGORY_4;
+    default:
+        return roll < 75 ? ISAAC_CATEGORY_4 : ISAAC_CATEGORY_LEGENDARY_SMALL;  // légendaire : petit ou grand
+    }
+}
+
+// Une espèce de la catégorie voulue : des lignées du biome, ou n'importe quel légendaire des 386
+static u16 PickCaptureSpecies(enum IsaacCategory category, u32 roll)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
-    u16 species = IsaacPickLineSpecies(biome->lines, biome->lineCount, ISAAC_CATEGORY_2, RoomRandom(x, y, 0xCA7));
+    u16 legendaries[32];
+    u32 count = 0, i;
+    u16 species;
 
+    if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
+    {
+        for (i = 1; i <= SPECIES_DEOXYS && count < ARRAY_COUNT(legendaries); i++)
+        {
+            category = IsaacGetSpeciesCategory(i);
+            if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
+                legendaries[count++] = i;
+        }
+        return legendaries[roll % count];
+    }
+    species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, roll);
     return species != SPECIES_NONE ? species : biome->lines[0];
 }
 
-// Pour l'instant, toujours le set 2
-static u32 GetCaptureSetTier(s32 x, s32 y)
+// Espèces des Pokémon de la salle de capture, toutes différentes (toujours les mêmes pour une salle)
+static void GetCaptureSpecies(s32 x, s32 y, u16 *species)
 {
-    return 1;
+    u32 slot, prev, try;
+    bool8 taken;
+
+    for (slot = 0; slot < GetCaptureMonCount(); slot++)
+    {
+        enum IsaacCategory category = RollCaptureCategory(x, y, slot);
+
+        taken = TRUE;
+        for (try = 0; try < 16 && taken; try++)
+        {
+            species[slot] = PickCaptureSpecies(category, RoomRandom(x, y, 0xC5EC + slot * 32 + try));
+            taken = FALSE;
+            for (prev = 0; prev < slot; prev++)
+                if (species[prev] == species[slot])
+                    taken = TRUE;
+        }
+    }
+}
+
+// Set des Pokémon de la salle de capture : set 2 jusqu'à l'étage 3, puis set 3
+static u32 GetCaptureSetTier(void)
+{
+    return VarGet(VAR_ISAAC_FLOOR) <= 3 ? 1 : 2;
 }
 
 // Place un objet au centre de la salle s'il y est (le boss juste au-dessus du centre),
@@ -1118,32 +1197,74 @@ void IsaacOpenBossExit(void)
     DrawWholeMapView();
 }
 
-// Au chargement de la salle : Pokémon sauvage (salle de capture) et Pierre Évolution (salle trésor), tant que la
-// salle n'est pas nettoyée
+// Pokémon de la salle de capture pas encore combattus : à leur place, avec leur apparence ; les autres (et ceux
+// des autres salles) loin hors de la map
+static void SetUpCaptureMons(s32 x, s32 y)
+{
+    u16 species[CAPTURE_MAX_MONS];
+    struct ObjectEventTemplate *template;
+    bool8 capture = (GetRoom(x, y) == ROOM_CAPTURE);
+    u32 slot;
+
+    if (capture)
+        GetCaptureSpecies(x, y, species);
+    for (slot = 0; slot < CAPTURE_MAX_MONS; slot++)
+    {
+        template = GetObjectTemplate(sCaptureLocalIds[slot]);
+        if (template == NULL)
+            continue;
+        if (capture && slot < GetCaptureMonCount() && !FlagGet(FLAG_ISAAC_CAPTURE_DONE_FIRST + slot))
+        {
+            template->x = sCaptureX[slot];
+            template->y = sCaptureY[slot];
+            VarSet(sCaptureGfxVars[slot], OBJ_EVENT_MON + species[slot]);
+        }
+        else
+        {
+            template->x = -1000;
+            template->y = -1000;
+        }
+    }
+}
+
+// Au chargement de la salle : Pokémon sauvages (salle de capture), Pierre Évolution (salle trésor, tant qu'elle
+// n'est pas ramassée), boss
 static void SetUpRoomObjects(s32 x, s32 y)
 {
     u8 room = GetRoom(x, y);
     bool8 cleared = IsCleared(x, y);
 
-    PlaceRoomObject(LOCALID_ISAAC_ROOM_WILD, room == ROOM_CAPTURE && !cleared);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_ITEM, room == ROOM_TREASURE && !cleared);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_BOSS, room == ROOM_BOSS);
-    if (room == ROOM_CAPTURE)
-        VarSet(VAR_OBJ_GFX_ID_1, OBJ_EVENT_MON + GetCaptureSpecies(x, y));
+    SetUpCaptureMons(x, y);
     if (room == ROOM_BOSS)
         SetUpBoss(x, y, cleared);
 }
 
-// Avant le combat contre le Pokémon de la salle de capture. Suivre de `dowildbattle`.
+// Avant le combat contre le Pokémon n° VAR_0x8004 de la salle de capture. Suivre de `dowildbattle`.
 void IsaacPrepareWildBattle(void)
 {
+    u16 species[CAPTURE_MAX_MONS];
     s32 x, y;
-    u16 species;
 
     GetCurrentCell(&x, &y);
-    species = GetCaptureSpecies(x, y);
-    CreateScriptedWildMon(species, ISAAC_MON_LEVEL, ITEM_NONE);
-    IsaacCreateMonFromSet(&gParties[B_TRAINER_OPPONENT_A][0], species, GetCaptureSetTier(x, y), RoomRandom(x, y, 0x5EED));
+    sCaptureSlot = min(gSpecialVar_0x8004, CAPTURE_MAX_MONS - 1);
+    GetCaptureSpecies(x, y, species);
+    CreateScriptedWildMon(species[sCaptureSlot], ISAAC_MON_LEVEL, ITEM_NONE);
+    IsaacCreateMonFromSet(&gParties[B_TRAINER_OPPONENT_A][0], species[sCaptureSlot], GetCaptureSetTier(),
+                          RoomRandom(x, y, 0x5EED + sCaptureSlot));
+}
+
+// Après le combat (capturé, vaincu ou fui) : le Pokémon disparaît pour de bon
+void IsaacCaptureMonDone(void)
+{
+    s32 x, y;
+
+    FlagSet(FLAG_ISAAC_CAPTURE_DONE_FIRST + sCaptureSlot);
+    GetCurrentCell(&x, &y);
+    SetUpCaptureMons(x, y);
+    RemoveObjectEventByLocalIdAndMap(sCaptureLocalIds[sCaptureSlot], gSaveBlock1Ptr->location.mapNum,
+                                     gSaveBlock1Ptr->location.mapGroup);
 }
 
 // ---------------------------------------------------------------------------
@@ -1167,6 +1288,8 @@ static void WarpToNewFloor(u32 floor)
     ClearVisited();
     ClearClearedRooms();
     FlagClear(FLAG_ISAAC_MASTER_BALL_DROPPED);
+    for (u32 i = 0; i < CAPTURE_MAX_MONS; i++)
+        FlagClear(FLAG_ISAAC_CAPTURE_DONE_FIRST + i);
     SetCurrentCell(ISAAC_START_X, ISAAC_START_Y);
     sArrivalFacing = DIR_SOUTH;
     WarpToRoom(ROOM_MID_X, ROOM_MID_Y);

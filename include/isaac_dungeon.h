@@ -21,6 +21,8 @@ void IsaacSetRoomCleared(void);
 void IsaacPrepareTrainerReturn(void);
 void IsaacOpenBossExit(void);
 void IsaacBufferBossName(void);
+void IsaacPrepareWildBattle(void);
+void IsaacCaptureMonDone(void);
 void IsaacPickTrainerLoot(void);
 
 extern u8 gIsaacTrainerReturnMovement[];

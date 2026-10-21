@@ -36,11 +36,11 @@
       "y": 5,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
-      "movement_range_x": 3,
-      "movement_range_y": 2,
+      "movement_range_x": 1,
+      "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "IsaacRoom_EventScript_WildMon",
+      "script": "IsaacRoom_EventScript_WildMon1",
       "flag": "0"
     },
     {
@@ -69,6 +69,48 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "IsaacRoom_EventScript_Boss",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_ISAAC_ROOM_WILD_2",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_3",
+      "x": 7,
+      "y": 5,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "IsaacRoom_EventScript_WildMon2",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_ISAAC_ROOM_WILD_3",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_4",
+      "x": 7,
+      "y": 5,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "IsaacRoom_EventScript_WildMon3",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_ISAAC_ROOM_WILD_4",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_5",
+      "x": 7,
+      "y": 5,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "IsaacRoom_EventScript_WildMon4",
       "flag": "0"
     }
   ],
