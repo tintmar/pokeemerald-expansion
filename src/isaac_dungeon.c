@@ -15,6 +15,8 @@
 #include "money.h"
 #include "pokemon_icon.h"
 #include "overworld.h"
+#include "party_menu.h"
+#include "pokedex.h"
 #include "pokemon.h"
 #include "random.h"
 #include "script_pokemon_util.h"
@@ -22,6 +24,7 @@
 #include "shop.h"
 #include "sound.h"
 #include "string_util.h"
+#include "strings.h"
 #include "task.h"
 #include "text.h"
 #include "window.h"
@@ -1716,6 +1719,222 @@ void IsaacKecleonGreeting(void)
     FlagSet(FLAG_ISAAC_KECLEON_MET);
 }
 
+// ---------------------------------------------------------------------------
+// Contenus des salles vides
+// ---------------------------------------------------------------------------
+// Les salles normales sans dresseur peuvent accueillir un contenu (un personnage au centre), chacun au plus une
+// fois par étage, dans des salles différentes tirées pour l'étage (GetRoomContent) :
+//  - ROOM_CONTENT_EGG : à l'étage 1 ou 2 (un seul des deux par descente, GetEggFloor), quelqu'un confie un Œuf
+//    d'un Pokémon de catégorie 4 de n'importe quel biome (set 2), qui éclot après ISAAC_EGG_HATCH_ROOMS nouvelles
+//    salles visitées (environ deux étages, IsaacTickEggs) ;
+//  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de même catégorie (au sens du
+//    biome de chacun) et de même palier de set, de n'importe quel biome ; un légendaire contre un légendaire.
+// Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
+
+enum
+{
+    ROOM_CONTENT_NONE,
+    ROOM_CONTENT_EGG,
+    ROOM_CONTENT_TRADER,
+    ROOM_CONTENT_COUNT,
+};
+
+#define ISAAC_EGG_HATCH_ROOMS  20
+
+// Étage de l'Œuf de la descente : 1 ou 2, tiré avec l'ordre des biomes
+static u32 GetEggFloor(void)
+{
+    return 1 + ((VarGet(VAR_ISAAC_BIOME_ORDER) * 2654435761u) >> 31);
+}
+
+static bool8 IsRoomContentAvailable(u32 content)
+{
+    if (content == ROOM_CONTENT_EGG)
+        return VarGet(VAR_ISAAC_FLOOR) == GetEggFloor();
+    return TRUE;
+}
+
+static bool8 IsEmptyRoom(s32 x, s32 y)
+{
+    return GetRoom(x, y) == ROOM_NORMAL && !RoomHasTrainer(x, y);
+}
+
+// Contenu de la salle (ROOM_CONTENT_*) : chaque contenu disponible à l'étage va dans une salle vide différente
+static u32 GetRoomContent(s32 x, s32 y)
+{
+    u8 rooms[ISAAC_GRID_W * ISAAC_GRID_H];
+    u32 count = 0, content, pick;
+    s32 cx, cy;
+
+    if (!IsEmptyRoom(x, y))
+        return ROOM_CONTENT_NONE;
+    for (cy = 0; cy < ISAAC_GRID_H; cy++)
+        for (cx = 0; cx < ISAAC_GRID_W; cx++)
+            if (IsEmptyRoom(cx, cy))
+                rooms[count++] = cy * ISAAC_GRID_W + cx;
+    for (content = ROOM_CONTENT_NONE + 1; content < ROOM_CONTENT_COUNT && count != 0; content++)
+    {
+        if (!IsRoomContentAvailable(content))
+            continue;
+        pick = RoomRandom(content, 0, 0xC047) % count;
+        if (rooms[pick] == y * ISAAC_GRID_W + x)
+            return content;
+        rooms[pick] = rooms[--count];  // cette salle est prise
+    }
+    return ROOM_CONTENT_NONE;
+}
+
+// Personnage du contenu, au centre de la salle (dans l'océan : un nageur)
+static void SetUpRoomContent(s32 x, s32 y)
+{
+    static const u16 sContentGfx[ROOM_CONTENT_COUNT][2] =
+    {
+        [ROOM_CONTENT_EGG]    = { OBJ_EVENT_GFX_OLD_WOMAN, OBJ_EVENT_GFX_SWIMMER_F },
+        [ROOM_CONTENT_TRADER] = { OBJ_EVENT_GFX_GENTLEMAN, OBJ_EVENT_GFX_SWIMMER_M },
+    };
+    u32 content = GetRoomContent(x, y);
+
+    PlaceRoomObject(LOCALID_ISAAC_ROOM_CONTENT, content != ROOM_CONTENT_NONE);
+    if (content != ROOM_CONTENT_NONE)
+        VarSet(VAR_OBJ_GFX_ID_8, sContentGfx[content][gIsaacBiomes[ISAAC_BIOME].ocean]);
+}
+
+// Avant de parler au personnage : VAR_RESULT = contenu de la salle, VAR_0x8005 = TRUE s'il a déjà servi
+void IsaacGetRoomContent(void)
+{
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    gSpecialVar_Result = GetRoomContent(x, y);
+    gSpecialVar_0x8005 = IsCleared(x, y);
+}
+
+// Une espèce de la catégorie voulue (1 à 4, au sens de son biome) dans un biome tiré au hasard ; autre que exclude
+static u16 PickSpeciesOfAnyBiome(enum IsaacCategory category, u16 exclude, u32 seed)
+{
+    const struct IsaacBiome *biome;
+    u32 try;
+    u16 species = SPECIES_NONE;
+
+    for (try = 0; try < 16; try++)
+    {
+        biome = &gIsaacBiomes[(seed >> 8) % ISAAC_BIOME_COUNT];
+        species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, seed);
+        if (species != SPECIES_NONE && species != exclude)
+            return species;
+        seed = seed * 1103515245 + 12345;
+    }
+    return species;
+}
+
+// Œuf confié : VAR_RESULT = FALSE si l'équipe est pleine
+void IsaacGiveEgg(void)
+{
+    struct Pokemon *mon;
+    s32 x, y;
+    u32 seed, value;
+    u16 species;
+
+    gSpecialVar_Result = FALSE;
+    if (gPartiesCount[B_TRAINER_PLAYER] >= PARTY_SIZE)
+        return;
+    GetCurrentCell(&x, &y);
+    seed = RoomRandom(x, y, 0xE66);
+    species = PickSpeciesOfAnyBiome(ISAAC_CATEGORY_4, SPECIES_NONE, seed);
+    mon = &gParties[B_TRAINER_PLAYER][gPartiesCount[B_TRAINER_PLAYER]];
+    IsaacCreateMonFromSet(mon, species, 1, (seed >> 16) % ISAAC_SET_VARIANTS, seed);
+    value = TRUE;
+    SetMonData(mon, MON_DATA_IS_EGG, &value);
+    value = ISAAC_EGG_HATCH_ROOMS;  // compteur de salles avant l'éclosion (voir TryToHatchEgg dans daycare.c)
+    SetMonData(mon, MON_DATA_FRIENDSHIP, &value);
+    SetMonData(mon, MON_DATA_NICKNAME, gText_EggNickname);
+    CalculatePlayerPartyCount();
+    gSpecialVar_Result = TRUE;
+}
+
+// Nouvelle salle visitée : les Œufs de l'équipe se rapprochent de l'éclosion
+static void IsaacTickEggs(void)
+{
+    u32 i, rooms;
+
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+    {
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+            continue;
+        rooms = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_FRIENDSHIP);
+        if (rooms != 0)
+        {
+            rooms--;
+            SetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_FRIENDSHIP, &rooms);
+        }
+    }
+}
+
+static EWRAM_DATA u16 sTradeSpecies = SPECIES_NONE;
+
+// Échange avec le Pokémon n° VAR_0x8004 de l'équipe : VAR_RESULT = FALSE pour un Œuf. Sinon, l'offre est fixée
+// (toujours la même pour ce Pokémon dans cette salle) : gStringVar1 = le Pokémon du joueur, gStringVar2 = l'offre.
+void IsaacPrepareTrade(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    enum IsaacCategory category = IsaacGetSpeciesCategory(species), legendary;
+    u16 candidates[32];
+    u32 count = 0, seed, i;
+    s32 x, y;
+
+    gSpecialVar_Result = FALSE;
+    if (GetMonData(mon, MON_DATA_IS_EGG))
+        return;
+    GetCurrentCell(&x, &y);
+    seed = RoomRandom(x, y, 0x7AD0 + species);
+    if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
+    {
+        for (i = 1; i <= SPECIES_DEOXYS && count < ARRAY_COUNT(candidates); i++)
+        {
+            legendary = IsaacGetSpeciesCategory(i);
+            if (legendary == category && i != species)
+                candidates[count++] = i;
+        }
+        sTradeSpecies = count ? candidates[seed % count] : species;
+    }
+    else
+    {
+        // catégorie au sens du biome de sa lignée
+        for (i = 0; i < ISAAC_BIOME_COUNT; i++)
+        {
+            category = IsaacGetLinesCategory(gIsaacBiomes[i].lines, gIsaacBiomes[i].lineCount, species);
+            if (category != ISAAC_CATEGORY_NONE)
+                break;
+        }
+        if (category == ISAAC_CATEGORY_NONE)
+            category = IsaacGetSpeciesCategory(species);
+        sTradeSpecies = PickSpeciesOfAnyBiome(category, species, seed);
+    }
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, GetSpeciesName(sTradeSpecies));
+    gSpecialVar_Result = TRUE;
+}
+
+// Échange conclu : le Pokémon n° VAR_0x8004 devient l'offre (même palier de set, variante au hasard) ; l'objet qu'il
+// tenait revient dans le Sac
+void IsaacDoTrade(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u32 tier = IsaacGetMonSetTier(mon);
+    u16 heldItem = GetMonData(mon, MON_DATA_HELD_ITEM);
+    s32 x, y;
+    u32 seed;
+
+    if (heldItem != ITEM_NONE)
+        AddBagItem(heldItem, 1);
+    GetCurrentCell(&x, &y);
+    seed = RoomRandom(x, y, 0x7AD5 + sTradeSpecies);
+    IsaacCreateMonFromSet(mon, sTradeSpecies, tier, seed % ISAAC_SET_VARIANTS, seed);
+    GetSetPokedexFlag(SpeciesToNationalPokedexNum(sTradeSpecies), FLAG_SET_SEEN);
+    GetSetPokedexFlag(SpeciesToNationalPokedexNum(sTradeSpecies), FLAG_SET_CAUGHT);
+}
+
 // Au chargement de la salle : Pokémon sauvages (salle de capture), Pierre Évolution (salle trésor, tant qu'elle
 // n'est pas ramassée), boss
 static void SetUpRoomObjects(s32 x, s32 y)
@@ -1732,6 +1951,7 @@ static void SetUpRoomObjects(s32 x, s32 y)
     if (room == ROOM_BOSS && cleared)
         PlaceNurse(x, y, FALSE);
     SetUpCaptureMons(x, y);
+    SetUpRoomContent(x, y);
     if (room == ROOM_BOSS)
         SetUpBoss(x, y, cleared);
 }
@@ -2001,6 +2221,8 @@ void IsaacPaintRoom(void)
 
     BuildFloorPlan();
     GetCurrentCell(&x, &y);
+    if (!IsVisited(x, y))
+        IsaacTickEggs();
     SetVisited(x, y);
     CarveRoom();
     PaintRoom();

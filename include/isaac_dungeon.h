@@ -36,6 +36,10 @@ u16 IsaacGetShopStock(u16 item);
 void IsaacOnShopPurchase(u16 item, u16 count);
 void IsaacOpenShop(void);
 void IsaacKecleonGreeting(void);
+void IsaacGetRoomContent(void);
+void IsaacGiveEgg(void);
+void IsaacPrepareTrade(void);
+void IsaacDoTrade(void);
 void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party);
 
 extern u8 gIsaacTrainerReturnMovement[];

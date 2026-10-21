@@ -235,3 +235,128 @@ IsaacRoom_Text_KecleonBye:
 	.string "Reviens quand tu veux !\n"
 	.string "Enfin, si tu me trouves… Kehehe !$"
 
+@ Contenus des salles vides (voir GetRoomContent) : VAR_RESULT = 1 Œuf confié, 2 échangeur
+IsaacRoom_EventScript_Content::
+	lock
+	faceplayer
+	special IsaacGetRoomContent
+	goto_if_eq VAR_RESULT, 1, IsaacRoom_EventScript_EggGiver
+	goto_if_eq VAR_RESULT, 2, IsaacRoom_EventScript_Trader
+	release
+	end
+
+@ Œuf confié (étage 1 ou 2)
+IsaacRoom_EventScript_EggGiver::
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_EggGiverDone
+	msgbox IsaacRoom_Text_EggOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_EggGiverDeclined
+	special IsaacGiveEgg
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_EggGiverPartyFull
+	playfanfare MUS_OBTAIN_ITEM
+	message IsaacRoom_Text_EggReceived
+	waitfanfare
+	waitmessage
+	special IsaacSetRoomCleared
+	msgbox IsaacRoom_Text_EggAdvice, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_EggGiverDone::
+	msgbox IsaacRoom_Text_EggAdvice, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_EggGiverDeclined::
+	msgbox IsaacRoom_Text_EggDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_EggGiverPartyFull::
+	msgbox IsaacRoom_Text_EggPartyFull, MSGBOX_DEFAULT
+	release
+	end
+
+@ Échangeur : un Pokémon contre un autre de même catégorie et même palier de set, de n'importe quel biome
+IsaacRoom_EventScript_Trader::
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_TraderDone
+	msgbox IsaacRoom_Text_TraderIntro, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_TraderDeclined
+	special IsaacPrepareTrade
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_TraderEgg
+	msgbox IsaacRoom_Text_TraderOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_TraderDeclined
+	special IsaacDoTrade
+	playfanfare MUS_OBTAIN_ITEM
+	message IsaacRoom_Text_TraderTraded
+	waitfanfare
+	waitmessage
+	special IsaacSetRoomCleared
+	msgbox IsaacRoom_Text_TraderDone, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_TraderDone::
+	msgbox IsaacRoom_Text_TraderDone, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_TraderDeclined::
+	msgbox IsaacRoom_Text_TraderDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_TraderEgg::
+	msgbox IsaacRoom_Text_TraderEgg, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_Text_EggOffer:
+	.string "Oh, un dresseur ! J'ai trouvé cet Œuf\n"
+	.string "au fond du donjon…\p"
+	.string "Je ne peux pas m'en occuper ici.\n"
+	.string "Tu veux bien le prendre ?$"
+
+IsaacRoom_Text_EggReceived:
+	.string "{PLAYER} reçoit un Œuf !$"
+
+IsaacRoom_Text_EggAdvice:
+	.string "Garde-le dans ton équipe : il devrait\n"
+	.string "éclore d'ici deux étages environ.\p"
+	.string "Ça m'a l'air d'être un Pokémon très\n"
+	.string "puissant !$"
+
+IsaacRoom_Text_EggDeclined:
+	.string "Dommage… Repasse si tu changes d'avis.$"
+
+IsaacRoom_Text_EggPartyFull:
+	.string "Ton équipe est pleine… Reviens avec\n"
+	.string "une place libre !$"
+
+IsaacRoom_Text_TraderIntro:
+	.string "Je collectionne les Pokémon de tous\n"
+	.string "les biomes.\p"
+	.string "Je t'échange un des tiens contre un\n"
+	.string "des miens, d'une force équivalente.\p"
+	.string "Lequel me proposes-tu ?$"
+
+IsaacRoom_Text_TraderOffer:
+	.string "Ton {STR_VAR_1} contre mon\n"
+	.string "{STR_VAR_2} ? Marché conclu ?$"
+
+IsaacRoom_Text_TraderTraded:
+	.string "{PLAYER} échange {STR_VAR_1}\n"
+	.string "contre {STR_VAR_2} !$"
+
+IsaacRoom_Text_TraderDone:
+	.string "Merci pour l'échange !\n"
+	.string "Prends-en bien soin.$"
+
+IsaacRoom_Text_TraderDeclined:
+	.string "Comme tu veux. Ma proposition tient\n"
+	.string "toujours.$"
+
+IsaacRoom_Text_TraderEgg:
+	.string "Un Œuf ? Non merci, je ne prends\n"
+	.string "que des Pokémon éclos.$"
+

@@ -1129,6 +1129,20 @@ static u32 GetEggCyclesToSubtract(void)
 
 static bool32 TryToHatchEgg(struct DayCare *daycare)
 {
+    // Donjon : les pas ne comptent pas ; un œuf éclot dès que son compteur de salles (rangé dans l'amitié, décompté
+    // par IsaacTickEggs) tombe à 0. La suite de la fonction (cycles d'éclosion par pas) ne sert plus.
+    for (u32 i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+    {
+        if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG)
+         && !GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SANITY_IS_BAD_EGG)
+         && GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_FRIENDSHIP) == 0)
+        {
+            gSpecialVar_0x8004 = i;
+            return TRUE;
+        }
+    }
+    return FALSE;
+
     daycare->stepCounter++;
     if (daycare->stepCounter < GetEggCycleLength())
         return FALSE;

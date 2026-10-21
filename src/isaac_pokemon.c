@@ -143,6 +143,23 @@ static u32 GetLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum Isaac
     return count;
 }
 
+// Catégorie (1 à 4) d'une espèce au sens des lignées données (voir GetLinesSpeciesOfCategory), ISAAC_CATEGORY_NONE si
+// elle n'en fait pas partie
+enum IsaacCategory IsaacGetLinesCategory(const u16 *lines, u32 lineCount, enum Species species)
+{
+    u16 candidates[ISAAC_MAX_LINE_SPECIES];
+    u32 category, n, i;
+
+    for (category = ISAAC_CATEGORY_1; category <= ISAAC_CATEGORY_4; category++)
+    {
+        n = GetLinesSpeciesOfCategory(lines, lineCount, category, candidates);
+        for (i = 0; i < n; i++)
+            if (candidates[i] == species)
+                return category;
+    }
+    return ISAAC_CATEGORY_NONE;
+}
+
 // Espèces des lignées données de la catégorie voulue, au sens de ces lignées (voir GetLinesSpeciesOfCategory), sans
 // doublon avec celles déjà dans out ; renvoie le nouveau nombre d'espèces dans out
 u32 IsaacAddLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum IsaacCategory category, u16 *out, u32 count, u32 max)
