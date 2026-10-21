@@ -112,6 +112,7 @@ enum {
     MENU_CATALOG_MOWER,
     MENU_CHANGE_FORM,
     MENU_CHANGE_ABILITY,
+    MENU_RELEASE,  // donjon : relâcher le Pokémon (même un Œuf)
     MENU_FIELD_MOVES
 };
 
@@ -133,6 +134,7 @@ enum {
     ACTIONS_TAKEITEM_TOSS,
     ACTIONS_ROTOM_CATALOG,
     ACTIONS_ZYGARDE_CUBE,
+    ACTIONS_SWITCH_RELEASE,  // donjon : Œuf dans le menu de l'équipe sur la carte
 };
 
 enum {
@@ -484,6 +486,7 @@ static void CursorCb_CatalogFan(u8);
 static void CursorCb_CatalogMower(u8);
 static void CursorCb_ChangeForm(u8);
 static void CursorCb_ChangeAbility(u8);
+static void CursorCb_Release(u8);
 void TryItemHoldFormChange(struct Pokemon *mon, s8 slotId, enum BattleTrainer trainer);
 static void ShowMoveSelectWindow(u8 slot);
 static void Task_HandleWhichMoveInput(u8 taskId);
@@ -2981,6 +2984,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
         else
             AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_ITEM);
     }
+    AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_RELEASE);
     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_CANCEL1);
 }
 
@@ -2991,8 +2995,10 @@ static u8 GetPartyMenuActionsType(struct Pokemon *mon)
     switch (gPartyMenu.menuType)
     {
     case PARTY_MENU_TYPE_FIELD:
-        if (InMultiPartnerRoom() == TRUE || GetMonData(mon, MON_DATA_IS_EGG))
+        if (InMultiPartnerRoom() == TRUE)
             actionType = ACTIONS_SWITCH;
+        else if (GetMonData(mon, MON_DATA_IS_EGG))
+            actionType = ACTIONS_SWITCH_RELEASE;
         else
             actionType = ACTIONS_NONE; // actions populated by SetPartyMonFieldSelectionActions
         break;
@@ -3749,6 +3755,85 @@ static void Task_TossHeldItem(u8 taskId)
         DisplayPartyPokemonDescriptionText(PARTYBOX_DESC_DONT_HAVE, &sPartyMenuBoxes[gPartyMenu.slotId], 1);
         gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
     }
+}
+
+// Donjon : relâcher le Pokémon choisi (même un Œuf), après confirmation ; pas le dernier en état de se battre. L'objet
+// qu'il tenait revient dans le Sac, puis le menu de l'équipe est rouvert.
+static void Task_HandleReleaseMonYesNoInput(u8 taskId);
+static void Task_ReleaseMon(u8 taskId);
+
+static void CB2_ReopenPartyMenuAfterRelease(void)
+{
+    InitPartyMenu(PARTY_MENU_TYPE_FIELD, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_MON, FALSE, PARTY_MSG_CHOOSE_MON,
+                  Task_HandleChooseMonInput, gPartyMenu.exitCallback);
+}
+
+static void Task_ReleaseMonYesNo(u8 taskId)
+{
+    if (IsPartyMenuTextPrinterActive() != TRUE)
+    {
+        PartyMenuDisplayYesNoMenu();
+        gTasks[taskId].func = Task_HandleReleaseMonYesNoInput;
+    }
+}
+
+static void CursorCb_Release(u8 taskId)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    u32 fighters = 0, i;
+
+    PlaySE(SE_SELECT);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+            fighters++;
+    GetMonNickname(mon, gStringVar1);
+    if (!GetMonData(mon, MON_DATA_IS_EGG) && fighters <= 1)
+    {
+        DisplayPartyMenuMessage(COMPOUND_STRING("Tu ne peux pas relâcher ton\ndernier Pokémon !"), TRUE);
+        gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+        return;
+    }
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("Relâcher {STR_VAR_1} ?\nIl ne reviendra pas."));
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    gTasks[taskId].func = Task_ReleaseMonYesNo;
+}
+
+static void Task_HandleReleaseMonYesNoInput(u8 taskId)
+{
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case 0:
+        StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} a été relâché.\nAu revoir, {STR_VAR_1} !"));
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        gTasks[taskId].func = Task_ReleaseMon;
+        break;
+    case MENU_B_PRESSED:
+        PlaySE(SE_SELECT);
+        // fallthrough
+    case 1:
+        gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+        break;
+    }
+}
+
+static void Task_ReleaseMon(u8 taskId)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    enum Item item;
+
+    if (IsPartyMenuTextPrinterActive() == TRUE || !(JOY_NEW(A_BUTTON | B_BUTTON)))
+        return;
+    item = GetMonData(mon, MON_DATA_HELD_ITEM);
+    if (item != ITEM_NONE)
+        AddBagItem(item, 1);
+    ZeroMonData(mon);
+    CompactPartySlots();
+    CalculatePlayerPartyCount();
+    gPartyMenu.slotId = 0;
+    sPartyMenuInternal->exitCallback = CB2_ReopenPartyMenuAfterRelease;
+    Task_ClosePartyMenu(taskId);
 }
 
 static void CursorCb_Mail(u8 taskId)
