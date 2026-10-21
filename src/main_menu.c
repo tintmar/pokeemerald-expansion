@@ -191,7 +191,10 @@ static void HighlightSelectedMainMenuItem(enum PartyMenuType, u8, s16);
 static void Task_HandleMainMenuInput(u8);
 static void Task_HandleMainMenuAPressed(u8);
 static void Task_HandleMainMenuBPressed(u8);
-static void Task_NewGameBirchSpeech_Init(u8);
+static void UNUSED Task_NewGameBirchSpeech_Init(u8);
+static void Task_NewGameSkipBirchSpeech(u8);
+
+static const u8 sText_DefaultPlayerName[] = _("YOU");
 static void Task_DisplayMainMenuInvalidActionError(u8);
 static void AddBirchSpeechObjects(u8);
 static void Task_NewGameBirchSpeech_WaitToShowBirch(u8);
@@ -1091,7 +1094,11 @@ static void Task_HandleMainMenuAPressed(u8 taskId)
 
             gPlttBufferUnfaded[0] = RGB_BLACK;
             gPlttBufferFaded[0] = RGB_BLACK;
-            gTasks[taskId].func = Task_NewGameBirchSpeech_Init;
+            // Pas de discours du professeur : joueur « YOU », on entre directement dans le hub
+            gSaveBlock2Ptr->playerGender = MALE;
+            StringCopy(gSaveBlock2Ptr->playerName, sText_DefaultPlayerName);
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+            gTasks[taskId].func = Task_NewGameSkipBirchSpeech;
             break;
         case ACTION_CONTINUE:
             gPlttBufferUnfaded[0] = RGB_BLACK;
@@ -1294,7 +1301,7 @@ static void HighlightSelectedMainMenuItem(enum PartyMenuType menuType, u8 select
 #define tBrendanSpriteId data[10]
 #define tMaySpriteId data[11]
 
-static void Task_NewGameBirchSpeech_Init(u8 taskId)
+static void UNUSED Task_NewGameBirchSpeech_Init(u8 taskId)  // discours du professeur, désactivé
 {
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
@@ -1804,6 +1811,17 @@ static void Task_NewGameBirchSpeech_FadePlayerToWhite(u8 taskId)
         SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
         BeginNormalPaletteFade(PALETTES_OBJECTS, 0, 0, 16, RGB_WHITEALPHA);
         gTasks[taskId].func = Task_NewGameBirchSpeech_Cleanup;
+    }
+}
+
+// Nouvelle partie sans discours : une fois le fondu au noir terminé, on lance le jeu
+static void Task_NewGameSkipBirchSpeech(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        FreeAllWindowBuffers();
+        SetMainCallback2(CB2_NewGame);
+        DestroyTask(taskId);
     }
 }
 

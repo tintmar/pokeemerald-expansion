@@ -1938,10 +1938,8 @@ void CB2_NewGame(void)
     PlayTimeCounter_Start();
     ScriptContext_Init();
     UnlockPlayerFieldControls();
-    if (IS_FRLG)
-        gFieldCallback = FieldCB_WarpExitFadeFromBlack;
-    else
-        gFieldCallback = ExecuteTruckSequence;
+    // Pas de séquence du camion : simple fondu depuis le noir à l'arrivée dans le hub
+    gFieldCallback = FieldCB_WarpExitFadeFromBlack;
     gFieldCallback2 = NULL;
     DoMapLoadLoop(&gMain.state);
     SetFieldVBlankCallback();
