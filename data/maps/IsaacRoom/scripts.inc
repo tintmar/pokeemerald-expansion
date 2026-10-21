@@ -160,7 +160,7 @@ IsaacRoom_EventScript_NurseNoMoney::
 
 IsaacRoom_Text_NurseOffer:
 	.string "Bravo pour ta victoire !\p"
-	.string "Pour {STR_VAR_1}¥, je soigne ton équipe :\n"
+	.string "Pour {STR_VAR_2}¥, je soigne ton équipe :\n"
 	.string "PV au complet pour ceux qui tiennent\l"
 	.string "debout, moitié des PV pour les K.O.\p"
 	.string "Ça te va ?$"

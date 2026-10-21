@@ -1353,11 +1353,11 @@ void IsaacOpenBossExit(void)
 // Infirmière de la salle du boss
 // ---------------------------------------------------------------------------
 // Le boss vaincu, elle arrive par le passage qui vient de s'ouvrir et se poste juste à côté (le passage reste
-// libre). Elle propose, contre ISAAC_NURSE_PRICE_PER_FLOOR x étage (un peu moins que
-// ce que rapporte un dresseur de l'étage), un soin partiel : PV et statut au complet pour les Pokémon debout,
+// libre). Elle propose, contre ISAAC_NURSE_PRICE_PER_FLOOR x étage (deux fois ce que rapporte un dresseur de
+// l'étage), un soin partiel : PV et statut au complet pour les Pokémon debout,
 // moitié des PV pour les K.O.
 
-#define ISAAC_NURSE_PRICE_PER_FLOOR  800
+#define ISAAC_NURSE_PRICE_PER_FLOOR  2000
 
 EWRAM_DATA u8 gIsaacNurseArrivalMovement[ISAAC_ROOM_H] = {0};
 
@@ -1446,12 +1446,12 @@ static bool8 MonNeedsHealing(struct Pokemon *mon)
     return GetMonData(mon, MON_DATA_HP) < GetMonData(mon, MON_DATA_MAX_HP) || GetMonData(mon, MON_DATA_STATUS) != 0;
 }
 
-// Prix du soin dans gStringVar1 ; VAR_RESULT : TRUE si un Pokémon de l'équipe en a besoin
+// Prix du soin dans gStringVar2 (gStringVar1 sert à la boîte d'argent) ; VAR_RESULT : TRUE si un Pokémon de l'équipe en a besoin
 void IsaacNurseGetPrice(void)
 {
     u32 i;
 
-    ConvertIntToDecimalStringN(gStringVar1, GetNursePrice(), STR_CONV_MODE_LEFT_ALIGN, 6);
+    ConvertIntToDecimalStringN(gStringVar2, GetNursePrice(), STR_CONV_MODE_LEFT_ALIGN, 6);
     gSpecialVar_Result = FALSE;
     for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
         if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG) && MonNeedsHealing(&gParties[B_TRAINER_PLAYER][i]))
