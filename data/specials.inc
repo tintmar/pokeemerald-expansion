@@ -666,5 +666,10 @@ gSpecials::
 	def_special IsaacTutorChooseMove
 	def_special IsaacTutorChooseMoveToForget
 	def_special IsaacTutorReplaceMove
+	def_special IsaacPrepareDuel
+	def_special IsaacDuelCheckMon
+	def_special IsaacDuelSetUpParty
+	def_special IsaacDuelRestoreParty
+	def_special IsaacPickDuelReward
 	def_special IsaacBufferBossName
 	def_special IsaacCaptureMonDone

@@ -865,6 +865,8 @@
 #define TRAINER_ISAAC_ROOM                  TRAINER_SAWYER_1
 // Boss de l'étage (champion du biome) : TRAINER_SAWYER_2, de la même façon
 #define TRAINER_ISAAC_BOSS                  TRAINER_SAWYER_2
+// Duelliste (contenu de salle, combat en 1 contre 1) : TRAINER_SAWYER_3
+#define TRAINER_ISAAC_DUELIST               TRAINER_SAWYER_3
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled

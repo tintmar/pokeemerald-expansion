@@ -244,6 +244,7 @@ IsaacRoom_EventScript_Content::
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_TRADER, IsaacRoom_EventScript_Trader
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_DEVIL, IsaacRoom_EventScript_Devil
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_TUTOR, IsaacRoom_EventScript_Tutor
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_DUELIST, IsaacRoom_EventScript_Duelist
 	release
 	end
 
@@ -520,4 +521,83 @@ IsaacRoom_Text_TutorDeclined:
 
 IsaacRoom_Text_TutorNothing:
 	.string "Je n'ai rien à lui apprendre…$"
+
+@ Duelliste : il annonce son Pokémon, puis combat en 1 contre 1 contre le Pokémon choisi (perdre ne renvoie pas au
+@ hub, on peut le redéfier) ; gagner rapporte un objet de qualité intermédiaire
+IsaacRoom_EventScript_Duelist::
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_DuelistDone
+	special IsaacPrepareDuel
+	msgbox IsaacRoom_Text_DuelistOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_DuelistDeclined
+	msgbox IsaacRoom_Text_DuelistChoose, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_DuelistDeclined
+	special IsaacDuelCheckMon
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_DuelistCantFight
+	special IsaacDuelSetUpParty
+	trainerbattle_single TRAINER_ISAAC_DUELIST, IsaacRoom_Text_DuelistIntro, IsaacRoom_Text_DuelistDefeat, IsaacRoom_EventScript_DuelistAfter
+	end
+
+IsaacRoom_EventScript_DuelistAfter::
+	copyvar VAR_0x8006, VAR_RESULT
+	special IsaacDuelRestoreParty
+	goto_if_ne VAR_0x8006, B_OUTCOME_WON, IsaacRoom_EventScript_DuelistLost
+	msgbox IsaacRoom_Text_DuelistWon, MSGBOX_DEFAULT
+	special IsaacPickDuelReward
+	giveitem VAR_0x8004
+	special IsaacSetRoomCleared
+	release
+	end
+
+IsaacRoom_EventScript_DuelistLost::
+	msgbox IsaacRoom_Text_DuelistLost, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_DuelistDone::
+	msgbox IsaacRoom_Text_DuelistDone, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_DuelistDeclined::
+	msgbox IsaacRoom_Text_DuelistDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_DuelistCantFight::
+	msgbox IsaacRoom_Text_DuelistCantFight, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_Text_DuelistOffer:
+	.string "Un duel, un seul Pokémon chacun !\p"
+	.string "Mon {STR_VAR_1} attend un adversaire\n"
+	.string "digne de lui.\p"
+	.string "Tu relèves le défi ?$"
+
+IsaacRoom_Text_DuelistChoose:
+	.string "Choisis ton champion !$"
+
+IsaacRoom_Text_DuelistIntro:
+	.string "En garde !$"
+
+IsaacRoom_Text_DuelistDefeat:
+	.string "Quel duel ! Tu as gagné.$"
+
+IsaacRoom_Text_DuelistWon:
+	.string "Je n'ai qu'une parole : voici ta\n"
+	.string "récompense.$"
+
+IsaacRoom_Text_DuelistLost:
+	.string "Ha ! Reviens quand tu veux ta\n"
+	.string "revanche.$"
+
+IsaacRoom_Text_DuelistDone:
+	.string "Un duel mémorable. Bonne route !$"
+
+IsaacRoom_Text_DuelistDeclined:
+	.string "Dommage… Mon {STR_VAR_1} t'attendra.$"
+
+IsaacRoom_Text_DuelistCantFight:
+	.string "Ce Pokémon ne peut pas se battre !$"
 

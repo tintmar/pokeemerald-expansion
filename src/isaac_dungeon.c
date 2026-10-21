@@ -121,7 +121,7 @@ STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSE
 // Articles de la boutique de l'étage déjà vendus, chacun en un seul exemplaire (voir SHOP_SLOT_*)
 #define FLAG_ISAAC_SHOP_SOLD_FIRST  (FLAG_ISAAC_KECLEON_MET + 1)
 #define SHOP_LIMITED_SLOTS  9
-STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED_0x2BB, IsaacShopFlagsAreUnused);
+STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 < FLAG_UNUSED_0x2BB, IsaacShopFlagsAreUnused);  // 0x2BB : B_FLAG_NO_WHITEOUT
 
 #define ISAAC_START_X  (ISAAC_GRID_W / 2)
 #define ISAAC_START_Y  (ISAAC_GRID_H / 2)
@@ -1042,9 +1042,31 @@ static void InitTrainer(struct Trainer *trainer, const struct IsaacTrainerType *
     StringCopy(trainer->trainerName, name);
 }
 
+// Duelliste : un seul Pokémon, d'une catégorie et d'un palier de set au-dessus des meilleurs des dresseurs de l'étage
+static const struct IsaacTrainerType sDuelistType =
+    { TRAINER_CLASS_BLACK_BELT, TRAINER_PIC_BLACK_BELT, OBJ_EVENT_GFX_BLACK_BELT, TRAINER_GENDER_MALE, TRAINER_ENCOUNTER_MUSIC_INTENSE };
+static const struct IsaacTrainerType sDuelistOceanType =
+    { TRAINER_CLASS_SWIMMER_M, TRAINER_PIC_SWIMMER_M, OBJ_EVENT_GFX_SWIMMER_M, TRAINER_GENDER_MALE, TRAINER_ENCOUNTER_MUSIC_SWIMMER };
+
+static const struct IsaacTrainerType *GetDuelistType(void)
+{
+    return gIsaacBiomes[ISAAC_BIOME].ocean ? &sDuelistOceanType : &sDuelistType;
+}
+
+static u32 GetDuelistCategory(void)
+{
+    return min(sRoomTrainerParties[min(VarGet(VAR_ISAAC_FLOOR), ARRAY_COUNT(sRoomTrainerParties)) - 1].maxCategory + 1, ISAAC_CATEGORY_4);
+}
+
+static u32 GetDuelistTier(void)
+{
+    return min(sRoomTrainerParties[min(VarGet(VAR_ISAAC_FLOOR), ARRAY_COUNT(sRoomTrainerParties)) - 1].maxTier + 1, ISAAC_SET_TIERS - 1);
+}
+
 bool8 IsIsaacTrainer(u16 trainerId)
 {
-    return (trainerId == TRAINER_ISAAC_ROOM || trainerId == TRAINER_ISAAC_BOSS) && IsInRoomMap();
+    return (trainerId == TRAINER_ISAAC_ROOM || trainerId == TRAINER_ISAAC_BOSS || trainerId == TRAINER_ISAAC_DUELIST)
+        && IsInRoomMap();
 }
 
 // Dresseur de la salle courante (classe et nom selon son type, 2 Pokémon de catégorie 1, set 1) ou boss de
@@ -1059,6 +1081,13 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     u32 i;
 
     GetCurrentCell(&x, &y);
+    if (trainerId == TRAINER_ISAAC_DUELIST)
+    {
+        InitTrainer(&sRoomTrainer, GetDuelistType(), COMPOUND_STRING("DUELLISTE"), sRoomTrainerMons);
+        sRoomTrainer.aiFlags = AI_FLAG_SMART_TRAINER;
+        AddTrainerMon(GetDuelistCategory(), GetDuelistTier(), RoomRandom(x, y, 0xD0E1));
+        return &sRoomTrainer;
+    }
     if (trainerId == TRAINER_ISAAC_BOSS)
     {
         const struct IsaacBossParty *boss = GetBossParty();
@@ -1736,7 +1765,10 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_DEVIL : pacte du diable, un objet rare (sDevilPactRewards) contre le sacrifice définitif d'un
 //    Pokémon de l'équipe (pas le dernier en état de se battre, pas un Œuf) ;
 //  - ROOM_CONTENT_TUTOR : maître des capacités, propose 3 attaques fortes (sTutorMoves) que le Pokémon choisi peut
-//    apprendre et ne connaît pas ; il en apprend une (en oubliant une autre s'il en connaît déjà 4).
+//    apprendre et ne connaît pas ; il en apprend une (en oubliant une autre s'il en connaît déjà 4) ;
+//  - ROOM_CONTENT_DUELIST : le duelliste annonce son Pokémon (plus fort que ceux de l'étage, voir GetIsaacTrainer),
+//    puis combat en 1 contre 1 contre le Pokémon choisi par le joueur. Perdre ne renvoie pas au hub ; gagner rapporte
+//    un objet de qualité intermédiaire (IsaacPickDuelReward). On peut le redéfier tant qu'on ne l'a pas battu.
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
 
 #define ISAAC_EGG_HATCH_ROOMS  20
@@ -1801,6 +1833,7 @@ static void SetUpRoomContent(s32 x, s32 y)
         [ROOM_CONTENT_TRADER] = { OBJ_EVENT_GFX_GENTLEMAN, OBJ_EVENT_GFX_SWIMMER_M },
         [ROOM_CONTENT_DEVIL]  = { OBJ_EVENT_GFX_HEX_MANIAC, OBJ_EVENT_GFX_SWIMMER_F },
         [ROOM_CONTENT_TUTOR]  = { OBJ_EVENT_GFX_EXPERT_M,   OBJ_EVENT_GFX_SWIMMER_M },
+        [ROOM_CONTENT_DUELIST] = { OBJ_EVENT_GFX_BLACK_BELT, OBJ_EVENT_GFX_SWIMMER_M },
     };
     u32 content = GetRoomContent(x, y);
 
@@ -2076,6 +2109,75 @@ void IsaacTutorReplaceMove(void)
 
     RemoveMonPPBonus(mon, gSpecialVar_0x8005);
     SetMonMoveSlot(mon, sTutorMove, gSpecialVar_0x8005);
+}
+
+// Duel : le Pokémon du duelliste dans gStringVar1
+void IsaacPrepareDuel(void)
+{
+    const struct Trainer *duelist = GetIsaacTrainer(TRAINER_ISAAC_DUELIST);
+
+    StringCopy(gStringVar1, GetSpeciesName(duelist->party[0].species));
+}
+
+// Pokémon n° VAR_0x8004 choisi pour le duel : VAR_RESULT = FALSE pour un Œuf ou un Pokémon K.O.
+void IsaacDuelCheckMon(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+
+    gSpecialVar_Result = !GetMonData(mon, MON_DATA_IS_EGG) && GetMonData(mon, MON_DATA_HP) != 0;
+}
+
+// Récompense du duel (dans VAR_0x8004) : une bonne CT ou un bon objet de combat (listes de la boutique), ou un Rappel
+// Max ; toujours la même pour la salle
+void IsaacPickDuelReward(void)
+{
+    s32 x, y;
+    u32 roll;
+
+    GetCurrentCell(&x, &y);
+    roll = RoomRandom(x, y, 0xD0E2);
+    switch (roll % 3)
+    {
+    case 0:
+        gSpecialVar_0x8004 = sShopTMs[(roll >> 8) % ARRAY_COUNT(sShopTMs)];
+        break;
+    case 1:
+        gSpecialVar_0x8004 = sShopBattleItems[(roll >> 8) % ARRAY_COUNT(sShopBattleItems)];
+        break;
+    default:
+        gSpecialVar_0x8004 = ITEM_MAX_REVIVE;
+        break;
+    }
+}
+
+// Le duel se joue en 1 contre 1 : l'équipe est mise de côté, il ne reste que le Pokémon choisi ; perdre ne renvoie
+// pas au hub (B_FLAG_NO_WHITEOUT). IsaacDuelRestoreParty remet tout en place après le combat.
+static EWRAM_DATA struct Pokemon sDuelSavedParty[PARTY_SIZE] = {0};
+static EWRAM_DATA u8 sDuelSavedCount = 0;
+static EWRAM_DATA u8 sDuelSlot = 0;
+
+void IsaacDuelSetUpParty(void)
+{
+    u32 i;
+
+    sDuelSlot = gSpecialVar_0x8004;
+    sDuelSavedCount = gPartiesCount[B_TRAINER_PLAYER];
+    memcpy(sDuelSavedParty, gParties[B_TRAINER_PLAYER], sizeof(sDuelSavedParty));
+    gParties[B_TRAINER_PLAYER][0] = sDuelSavedParty[sDuelSlot];
+    for (i = 1; i < PARTY_SIZE; i++)
+        ZeroMonData(&gParties[B_TRAINER_PLAYER][i]);
+    CalculatePlayerPartyCount();
+    FlagSet(B_FLAG_NO_WHITEOUT);
+    FlagClear(TRAINER_FLAGS_START + TRAINER_ISAAC_DUELIST);  // on peut le redéfier après une défaite
+}
+
+void IsaacDuelRestoreParty(void)
+{
+    sDuelSavedParty[sDuelSlot] = gParties[B_TRAINER_PLAYER][0];
+    memcpy(gParties[B_TRAINER_PLAYER], sDuelSavedParty, sizeof(sDuelSavedParty));
+    gPartiesCount[B_TRAINER_PLAYER] = sDuelSavedCount;
+    CalculatePlayerPartyCount();
+    FlagClear(B_FLAG_NO_WHITEOUT);
 }
 
 // Au chargement de la salle : Pokémon sauvages (salle de capture), Pierre Évolution (salle trésor, tant qu'elle
