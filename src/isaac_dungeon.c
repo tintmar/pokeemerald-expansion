@@ -18,6 +18,7 @@
 #include "party_menu.h"
 #include "pokedex.h"
 #include "pokemon.h"
+#include "pokemon_storage_system.h"
 #include "random.h"
 #include "script_pokemon_util.h"
 #include "script.h"
@@ -1729,7 +1730,9 @@ void IsaacKecleonGreeting(void)
 //    d'un Pokémon de catégorie 4 de n'importe quel biome (set 2), qui éclot après ISAAC_EGG_HATCH_ROOMS nouvelles
 //    salles visitées (environ deux étages, IsaacTickEggs) ;
 //  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de même catégorie (au sens du
-//    biome de chacun) et de même palier de set, de n'importe quel biome ; un légendaire contre un légendaire.
+//    biome de chacun) et de même palier de set, de n'importe quel biome ; un légendaire contre un légendaire ;
+//  - ROOM_CONTENT_DEVIL : pacte du diable, un objet rare (sDevilPactRewards) contre le sacrifice définitif d'un
+//    Pokémon de l'équipe (pas le dernier en état de se battre, pas un Œuf).
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
 
 #define ISAAC_EGG_HATCH_ROOMS  20
@@ -1792,6 +1795,7 @@ static void SetUpRoomContent(s32 x, s32 y)
     {
         [ROOM_CONTENT_EGG]    = { OBJ_EVENT_GFX_OLD_WOMAN, OBJ_EVENT_GFX_SWIMMER_F },
         [ROOM_CONTENT_TRADER] = { OBJ_EVENT_GFX_GENTLEMAN, OBJ_EVENT_GFX_SWIMMER_M },
+        [ROOM_CONTENT_DEVIL]  = { OBJ_EVENT_GFX_HEX_MANIAC, OBJ_EVENT_GFX_SWIMMER_F },
     };
     u32 content = GetRoomContent(x, y);
 
@@ -1934,6 +1938,52 @@ void IsaacDoTrade(void)
     IsaacCreateMonFromSet(mon, sTradeSpecies, tier, seed % ISAAC_SET_VARIANTS, seed);
     GetSetPokedexFlag(SpeciesToNationalPokedexNum(sTradeSpecies), FLAG_SET_SEEN);
     GetSetPokedexFlag(SpeciesToNationalPokedexNum(sTradeSpecies), FLAG_SET_CAUGHT);
+}
+
+// Pacte du diable : objet proposé (toujours le même pour la salle) dans VAR_0x8006 et gStringVar2. VAR_RESULT = FALSE
+// si l'équipe n'a pas au moins deux Pokémon (hors Œufs) : on ne peut pas sacrifier le dernier.
+static const u16 sDevilPactRewards[] = { ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_MASTER_BALL, ITEM_EVOLUTION_STONE };
+
+static u32 CountPartyFighters(void)
+{
+    u32 count = 0, i;
+
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+            count++;
+    return count;
+}
+
+void IsaacPrepareDevilPact(void)
+{
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    gSpecialVar_0x8006 = sDevilPactRewards[RoomRandom(x, y, 0xD3E1) % ARRAY_COUNT(sDevilPactRewards)];
+    CopyItemName(gSpecialVar_0x8006, gStringVar2);
+    gSpecialVar_Result = CountPartyFighters() >= 2;
+}
+
+// Pokémon n° VAR_0x8004 proposé en sacrifice : VAR_RESULT = FALSE pour un Œuf ; gStringVar1 = son nom
+void IsaacCheckDevilSacrifice(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+
+    gSpecialVar_Result = !GetMonData(mon, MON_DATA_IS_EGG);
+    GetMonNickname(mon, gStringVar1);
+}
+
+// Sacrifice : le Pokémon n° VAR_0x8004 quitte l'équipe pour de bon (l'objet qu'il tenait revient dans le Sac)
+void IsaacDoDevilPact(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u16 heldItem = GetMonData(mon, MON_DATA_HELD_ITEM);
+
+    if (heldItem != ITEM_NONE)
+        AddBagItem(heldItem, 1);
+    ZeroMonData(mon);
+    CompactPartySlots();
+    CalculatePlayerPartyCount();
 }
 
 // Au chargement de la salle : Pokémon sauvages (salle de capture), Pierre Évolution (salle trésor, tant qu'elle

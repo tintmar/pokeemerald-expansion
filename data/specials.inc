@@ -659,5 +659,8 @@ gSpecials::
 	def_special IsaacGiveEgg
 	def_special IsaacPrepareTrade
 	def_special IsaacDoTrade
+	def_special IsaacPrepareDevilPact
+	def_special IsaacCheckDevilSacrifice
+	def_special IsaacDoDevilPact
 	def_special IsaacBufferBossName
 	def_special IsaacCaptureMonDone

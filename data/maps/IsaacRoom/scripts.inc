@@ -242,6 +242,7 @@ IsaacRoom_EventScript_Content::
 	special IsaacGetRoomContent
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_EGG, IsaacRoom_EventScript_EggGiver
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_TRADER, IsaacRoom_EventScript_Trader
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_DEVIL, IsaacRoom_EventScript_Devil
 	release
 	end
 
@@ -359,4 +360,76 @@ IsaacRoom_Text_TraderDeclined:
 IsaacRoom_Text_TraderEgg:
 	.string "Un Œuf ? Non merci, je ne prends\n"
 	.string "que des Pokémon éclos.$"
+
+@ Pacte du diable : un objet rare contre le sacrifice définitif d'un Pokémon
+IsaacRoom_EventScript_Devil::
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_DevilDone
+	special IsaacPrepareDevilPact
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_DevilTooFew
+	msgbox IsaacRoom_Text_DevilOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_DevilDeclined
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_DevilDeclined
+	special IsaacCheckDevilSacrifice
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_DevilEgg
+	msgbox IsaacRoom_Text_DevilConfirm, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_DevilDeclined
+	special IsaacDoDevilPact
+	playse SE_M_NIGHTMARE
+	waitse
+	msgbox IsaacRoom_Text_DevilSealed, MSGBOX_DEFAULT
+	giveitem VAR_0x8006
+	special IsaacSetRoomCleared
+	release
+	end
+
+IsaacRoom_EventScript_DevilDone::
+	msgbox IsaacRoom_Text_DevilDone, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_DevilTooFew::
+	msgbox IsaacRoom_Text_DevilTooFew, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_DevilDeclined::
+	msgbox IsaacRoom_Text_DevilDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_DevilEgg::
+	msgbox IsaacRoom_Text_DevilEgg, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_Text_DevilOffer:
+	.string "Héhéhé… Tu veux du pouvoir ?\p"
+	.string "Cet objet est à toi :\n"
+	.string "{STR_VAR_2}.\p"
+	.string "En échange, l'un de tes Pokémon\n"
+	.string "restera ici… pour toujours.\p"
+	.string "Marché conclu ?$"
+
+IsaacRoom_Text_DevilConfirm:
+	.string "Tu abandonnes {STR_VAR_1} ?\n"
+	.string "Il n'y aura pas de retour…$"
+
+IsaacRoom_Text_DevilSealed:
+	.string "{STR_VAR_1} disparaît dans l'ombre…\p"
+	.string "Le pacte est scellé. Héhéhé…$"
+
+IsaacRoom_Text_DevilDone:
+	.string "Le pacte est scellé.\n"
+	.string "Je n'ai plus rien à t'offrir…$"
+
+IsaacRoom_Text_DevilTooFew:
+	.string "Héhéhé… Tu n'as qu'un seul Pokémon.\n"
+	.string "Reviens quand tu auras de quoi payer.$"
+
+IsaacRoom_Text_DevilDeclined:
+	.string "Héhéhé… L'offre tient toujours.$"
+
+IsaacRoom_Text_DevilEgg:
+	.string "Un Œuf ? Ça ne vaut rien pour moi.$"
 

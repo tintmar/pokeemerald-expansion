@@ -40,6 +40,9 @@ void IsaacGetRoomContent(void);
 void IsaacGiveEgg(void);
 void IsaacPrepareTrade(void);
 void IsaacDoTrade(void);
+void IsaacPrepareDevilPact(void);
+void IsaacCheckDevilSacrifice(void);
+void IsaacDoDevilPact(void);
 void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party);
 
 extern u8 gIsaacTrainerReturnMovement[];
