@@ -6424,14 +6424,17 @@ static void IsaacItemWontHaveEffect(u8 taskId, TaskFunc task)
     gTasks[taskId].func = task;
 }
 
+// Message composé avant de redessiner la case du Pokémon : DisplayPartyPokemonData se sert de gStringVar1 et 2 (PV)
+static EWRAM_DATA u8 sIsaacItemMessage[100] = {0};
+
 static void IsaacItemUsed(u8 taskId, TaskFunc task, const u8 *message)
 {
     gPartyMenuUseExitCallback = TRUE;
     PlaySE(SE_USE_ITEM);
     RemoveBagItem(gSpecialVar_ItemId, 1);
+    StringExpandPlaceholders(sIsaacItemMessage, message);
     DisplayPartyPokemonData(gPartyMenu.slotId);
-    StringExpandPlaceholders(gStringVar4, message);
-    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    DisplayPartyMenuMessage(sIsaacItemMessage, TRUE);
     ScheduleBgCopyTilemapToVram(2);
     gTasks[taskId].func = task;
 }
