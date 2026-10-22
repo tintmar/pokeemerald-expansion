@@ -1937,7 +1937,7 @@ static bool8 IsRoomContentAvailable(u32 content)
     case ROOM_CONTENT_DEVIL:
         return VarGet(VAR_ISAAC_FLOOR) >= DEVIL_PACT_MIN_FLOOR;
     case ROOM_CONTENT_SEER:
-        return FloorHasSecretRoom();
+        return SEER_ENABLED && FloorHasSecretRoom();
     case ROOM_CONTENT_ROCK_SMASH:
         return FloorHasSecretRoom() && FlagGet(FLAG_ISAAC_ROCK_SMASH_TEACHER);
     default:
