@@ -1609,3 +1609,36 @@ const struct Tileset gTileset_IsaacOcean =
     .metatileAttributes = gMetatileAttributes_IsaacOcean,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_IsaacDesert =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_IsaacDesert,
+    .palettes = gTilesetPalettes_IsaacDesert,
+    .metatiles = gMetatiles_IsaacDesert,
+    .metatileAttributes = gMetatileAttributes_IsaacDesert,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_IsaacCliff =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_IsaacCliff,
+    .palettes = gTilesetPalettes_IsaacCliff,
+    .metatiles = gMetatiles_IsaacCliff,
+    .metatileAttributes = gMetatileAttributes_IsaacCliff,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_IsaacForest =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_IsaacForest,
+    .palettes = gTilesetPalettes_IsaacForest,
+    .metatiles = gMetatiles_IsaacForest,
+    .metatileAttributes = gMetatileAttributes_IsaacForest,
+    .callback = NULL,
+};

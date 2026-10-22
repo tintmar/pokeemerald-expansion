@@ -38,6 +38,9 @@ enum IsaacBiomeId
     ISAAC_BIOME_ICE,         // Grotte Tréfonds gelée
     ISAAC_BIOME_POISON,      // Tunnel Mérazon
     ISAAC_BIOME_OCEAN,       // océan de Hoenn (le joueur surfe)
+    ISAAC_BIOME_DESERT,      // désert de la Route 111
+    ISAAC_BIOME_CLIFF,       // sommet de falaise (la salle surplombe la plaine)
+    ISAAC_BIOME_FOREST,      // forêt enchantée (Bois Clémentines)
     ISAAC_BIOME_COUNT,
 };
 
@@ -64,6 +67,7 @@ struct IsaacBiome
     u8 weather;
     bool8 dark;       // dans le noir, comme la Grotte Granite sans Flash
     bool8 ocean;      // le joueur surfe sur toute la salle
+    bool8 trees;      // murs en arbres de 2 x 2 (demi-arbres TILE_TREE_*) au lieu des rôles de falaise
 };
 
 extern const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT];

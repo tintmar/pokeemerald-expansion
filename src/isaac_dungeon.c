@@ -68,8 +68,8 @@
  *      n'est pas ouvert (FLAG_ISAAC_SECRET_OPEN) : avec Éclate-Roc en parlant à l'une de ces
  *      roches (IsaacGetWallInteractScript).
  *
- * BIOMES : une descente traverse les ISAAC_BIOME_COUNT biomes (data/isaac_biomes.h), un étage chacun, dans un
- * ordre tiré au début de la descente (VAR_ISAAC_BIOME_ORDER) ; après le boss du dernier, la salle de la victoire.
+ * BIOMES : une descente traverse ISAAC_FLOOR_COUNT des ISAAC_BIOME_COUNT biomes (data/isaac_biomes.h), un étage
+ * chacun, tirés au début de la descente (VAR_ISAAC_BIOME_ORDER) ; après le boss du dernier, la salle de la victoire.
  * La map IsaacRoom prend le décor du biome de l'étage quand elle est chargée (IsaacApplyBiomeToMapHeader) :
  * tileset (tous ont la même numérotation), musique, météo, obscurité, plongée.
  *
@@ -103,7 +103,7 @@
 #define ISAAC_TRAINER_PCT    60  // % de salles normales avec un dresseur
 #define ISAAC_TRAINER_MONEY_PER_FLOOR  1200  // argent gagné contre un dresseur (ou le boss) : x profondeur
 #define ISAAC_BIOME          IsaacGetCurrentBiome()
-#define ISAAC_FLOOR_COUNT    ISAAC_BIOME_COUNT  // un étage par biome, puis la salle de la victoire
+#define ISAAC_FLOOR_COUNT    6  // étages d'une descente (un biome chacun, tous différents), puis la salle de la victoire
 #define WIN_ROOM_X  5  // arrivée dans la salle de la victoire (IsaacWin)
 #define WIN_ROOM_Y  6
 
@@ -166,6 +166,10 @@ STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED
 #define TILE_SANDBAR     0x211  // banc de sable d'une case dans l'eau (océan)
 #define TILE_DECO_1      0x212  // décorations des coins de salle (rochers, glace...), voir PaintCornerDecorations
 #define TILE_DECO_2      0x213
+// Demi-arbres des biomes en forêt (arbres de 2 x 2), dans l'ordre : haut, bas, bas avec le tronc ; + 1 à droite
+#define TILE_TREE_TOP    0x214
+#define TILE_TREE_BOTTOM 0x216
+#define TILE_TREE_TRUNK  0x218
 
 // Paillassons devant les portes des salles spéciales (tileset IsaacCave, tools/isaac/build_tileset.py) :
 // motif (MAT_BOSS...), orientation (MAT_HORIZONTAL...), case du paillasson (ligne par ligne)
@@ -334,7 +338,8 @@ static bool8 IsInHub(void)
 // Biomes
 // ---------------------------------------------------------------------------
 
-// Biome de l'étage n° floor (1 à ISAAC_FLOOR_COUNT) : ordre mélangé à partir de VAR_ISAAC_BIOME_ORDER
+// Biome de l'étage n° floor (1 à ISAAC_FLOOR_COUNT) : les ISAAC_FLOOR_COUNT premiers biomes d'un mélange tiré à
+// partir de VAR_ISAAC_BIOME_ORDER
 static u32 GetBiomeOfFloor(u32 floor)
 {
     u8 order[ISAAC_BIOME_COUNT];
@@ -821,6 +826,56 @@ static u16 GetCliffTile(s32 x, s32 y)
     return TILE_CLIFF_C;
 }
 
+// Nombre de cases jusqu'au sol le plus proche dans la direction (dx, dy), ou TREE_FAR s'il est trop loin
+#define TREE_FAR  99
+
+static s32 DistanceToFloor(s32 x, s32 y, s32 dx, s32 dy)
+{
+    s32 d;
+
+    for (d = 1; d < 9; d++)
+        if (!IsWallAt(x + dx * d, y + dy * d))
+            return d;
+    return TREE_FAR;
+}
+
+// Case de mur d'une forêt : quel demi-arbre, pour que les arbres de 2 x 2 soient entiers contre le sol le plus proche
+// (le tronc juste au-dessus du sol, le côté de l'arbre contre le sol à gauche ou à droite). Sans sol dans la ligne ou
+// la colonne, les arbres sont calés sur le mur de la salle le plus proche (la salle fait un nombre impair de cases :
+// les deux moitiés se rejoignent au milieu par un arbre en partie caché).
+static u16 GetTreeTile(s32 x, s32 y)
+{
+    s32 down = DistanceToFloor(x, y, 0, 1), up = DistanceToFloor(x, y, 0, -1);
+    s32 right = DistanceToFloor(x, y, 1, 0), left = DistanceToFloor(x, y, -1, 0);
+    u16 tile;
+    bool32 rightHalf;
+
+    if (down == TREE_FAR && up == TREE_FAR)
+    {
+        if (y <= ROOM_MID_Y)
+            down = ROOM_MIN_Y - y;
+        else
+            up = y - ROOM_MAX_Y;
+    }
+    if (down <= up)
+        tile = (down == 1) ? TILE_TREE_TRUNK : ((down & 1) ? TILE_TREE_BOTTOM : TILE_TREE_TOP);
+    else
+        tile = (up & 1) ? TILE_TREE_TOP : TILE_TREE_BOTTOM;
+
+    if (right == TREE_FAR && left == TREE_FAR)
+    {
+        if (x <= ROOM_MID_X)
+            right = ROOM_MIN_X - x;
+        else
+            left = x - ROOM_MAX_X;
+    }
+    if (right <= left)
+        rightHalf = right & 1;
+    else
+        rightHalf = !(left & 1);
+    return tile + rightHalf;
+}
+
 static u8 GetDoorMat(u8 room)
 {
     switch (room)
@@ -907,7 +962,9 @@ static void PaintRoom(void)
     {
         for (x = PAINT_MIN; x < PAINT_MIN + PAINT_W; x++)
         {
-            if (IsBigRockAt(x, y))
+            if (gIsaacBiomes[ISAAC_BIOME].trees && IsWallAt(x, y))
+                tile = GetTreeTile(x, y);
+            else if (IsBigRockAt(x, y))
                 tile = GetCliffTile(x, y);
             else if (IsWallAt(x, y))  // bout de mur trop fin pour une falaise : rocher isolé
                 tile = (IsaacRandom() & 1) ? TILE_ROCK_1 : TILE_ROCK_2;
@@ -1001,12 +1058,15 @@ static const struct IsaacBossParty sBossParties[] =
 // (une case vide reprend le premier, pour tirer à égalité entre ceux qui sont listés)
 static const u16 sBossLegendaries[ISAAC_BIOME_COUNT][3] =
 {
-    [ISAAC_BIOME_CAVE]       = { SPECIES_REGIROCK, SPECIES_REGISTEEL, SPECIES_REGIROCK },  // Pierre (roche)
-    [ISAAC_BIOME_DARK]       = { SPECIES_DEOXYS,   SPECIES_LATIAS,    SPECIES_LATIOS },    // Spectra (mystère, psy)
-    [ISAAC_BIOME_FIRE]       = { SPECIES_MOLTRES,  SPECIES_ENTEI,     SPECIES_MOLTRES },   // Adriane (feu)
-    [ISAAC_BIOME_ICE]        = { SPECIES_ARTICUNO, SPECIES_REGICE,    SPECIES_ARTICUNO },  // Glacia (glace)
-    [ISAAC_BIOME_POISON]     = { SPECIES_CELEBI,   SPECIES_MEW,       SPECIES_CELEBI },    // Erika (plante, forêt)
-    [ISAAC_BIOME_OCEAN]      = { SPECIES_SUICUNE,  SPECIES_SUICUNE,   SPECIES_SUICUNE },   // Ondine (eau)
+    [ISAAC_BIOME_CAVE]   = { SPECIES_REGIROCK, SPECIES_REGIROCK,  SPECIES_REGIROCK },  // Pierre (roche)
+    [ISAAC_BIOME_DARK]   = { SPECIES_DEOXYS,   SPECIES_MEW,       SPECIES_DEOXYS },    // Spectra (mystère)
+    [ISAAC_BIOME_FIRE]   = { SPECIES_MOLTRES,  SPECIES_ENTEI,     SPECIES_RAIKOU },    // Adriane (feu, électrik)
+    [ISAAC_BIOME_ICE]    = { SPECIES_ARTICUNO, SPECIES_REGICE,    SPECIES_REGISTEEL }, // Glacia (glace, acier)
+    [ISAAC_BIOME_POISON] = { SPECIES_MEW,      SPECIES_MEW,       SPECIES_MEW },       // Koga (poison)
+    [ISAAC_BIOME_OCEAN]  = { SPECIES_SUICUNE,  SPECIES_SUICUNE,   SPECIES_SUICUNE },   // Ondine (eau)
+    [ISAAC_BIOME_DESERT] = { SPECIES_JIRACHI,  SPECIES_DEOXYS,    SPECIES_JIRACHI },   // Giovanni (sol, psy)
+    [ISAAC_BIOME_CLIFF]  = { SPECIES_LATIAS,   SPECIES_LATIOS,    SPECIES_ZAPDOS },    // Alizée (vol, dragon)
+    [ISAAC_BIOME_FOREST] = { SPECIES_CELEBI,   SPECIES_CELEBI,    SPECIES_CELEBI },    // Erika (plante)
 };
 
 #define ISAAC_BOSS_PREDICTION_FLOOR    4
@@ -2744,12 +2804,15 @@ void IsaacBufferFirstBiome(void)
 {
     static const u8 *const sBiomeHints[ISAAC_BIOME_COUNT] =
     {
-        [ISAAC_BIOME_CAVE]   = COMPOUND_STRING("une grotte rocheuse, pleine de\nPokémon Roche, Sol et Combat"),
-        [ISAAC_BIOME_DARK]   = COMPOUND_STRING("une grotte hantée par des\nPokémon Spectre, Ténèbres et Psy"),
+        [ISAAC_BIOME_CAVE]   = COMPOUND_STRING("une grotte rocheuse, pleine de\nPokémon Roche et Combat"),
+        [ISAAC_BIOME_DARK]   = COMPOUND_STRING("une grotte hantée par des\nPokémon Spectre et Ténèbres"),
         [ISAAC_BIOME_FIRE]   = COMPOUND_STRING("un chemin brûlant, avec des\nPokémon Feu et Électrik"),
-        [ISAAC_BIOME_ICE]    = COMPOUND_STRING("une grotte gelée, avec des\nPokémon Glace et Eau"),
-        [ISAAC_BIOME_POISON] = COMPOUND_STRING("un tunnel moussu, plein de\nPokémon Poison, Plante et Insecte"),
+        [ISAAC_BIOME_ICE]    = COMPOUND_STRING("une grotte gelée, avec des\nPokémon Glace et Acier"),
+        [ISAAC_BIOME_POISON] = COMPOUND_STRING("un tunnel moussu, plein de\nPokémon Poison et Insecte"),
         [ISAAC_BIOME_OCEAN]  = COMPOUND_STRING("l'océan, plein de\nPokémon Eau"),
+        [ISAAC_BIOME_DESERT] = COMPOUND_STRING("un désert brûlant, avec des\nPokémon Sol et Psy"),
+        [ISAAC_BIOME_CLIFF]  = COMPOUND_STRING("le haut des falaises, avec des\nPokémon Vol et Dragon"),
+        [ISAAC_BIOME_FOREST] = COMPOUND_STRING("une forêt enchantée, pleine de\nPokémon Plante et Fée"),
     };
 
     PrepareRunBiomeOrder();

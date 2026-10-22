@@ -9402,6 +9402,39 @@
       "layout_version": "emerald"
     },
     {
+      "id": "LAYOUT_ISAAC_ROOM_DESERT",
+      "name": "IsaacRoomDesert_Layout",
+      "width": 15,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_IsaacDesert",
+      "border_filepath": "data/layouts/IsaacRoom/border.bin",
+      "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_ISAAC_ROOM_CLIFF",
+      "name": "IsaacRoomCliff_Layout",
+      "width": 15,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_IsaacCliff",
+      "border_filepath": "data/layouts/IsaacRoom/border.bin",
+      "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_ISAAC_ROOM_FOREST",
+      "name": "IsaacRoomForest_Layout",
+      "width": 15,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_IsaacForest",
+      "border_filepath": "data/layouts/IsaacRoom/border.bin",
+      "blockdata_filepath": "data/layouts/IsaacRoom/map.bin",
+      "layout_version": "emerald"
+    },
+    {
       "id": "LAYOUT_ISAAC_WIN",
       "name": "IsaacWin_Layout",
       "width": 11,

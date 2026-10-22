@@ -9,6 +9,8 @@ Tous ont la même numérotation de metatiles, pour que isaac_dungeon.c dessine l
   - 0x210 : un panneau posé sur le sol (salle de la victoire) ;
   - 0x211 : un banc de sable d'une case dans l'eau (boutique de l'océan) ;
   - 0x212, 0x213 : deux décorations d'une case du décor (rochers, glace...), posées dans les coins des salles ;
+  - 0x214 à 0x219 : les demi-arbres des décors en forêt (arbres de 2 x 2 : haut, bas, bas avec le tronc ; gauche
+    et droite), dans l'ordre de TREES ; les autres décors y mettent le centre de leurs murs (rôle C) ;
   - à partir de 0x240 (ISAAC_MAT_FIRST) : les paillassons devant les portes des salles spéciales : tapis rouge
     et or avec la tête du Pokémon de la mini-carte (Mewtwo boss, Pikachu trésor, Kecleon boutique) ou une Poké
     Ball (capture), découpées dans les sprites de face du jeu.
@@ -35,6 +37,8 @@ PRIMARY = os.path.join(ROOT, 'data/tilesets/primary/general')
 # Rôles des metatiles 0x200 à 0x20F (même ordre que les TILE_* de isaac_dungeon.c)
 DECOS = ['DECO_1', 'DECO_2']  # décorations des coins de salle, à partir de DECO_FIRST
 DECO_FIRST = 0x212
+TREES = ['TREE_TOP_L', 'TREE_TOP_R', 'TREE_BOT_L', 'TREE_BOT_R', 'TREE_TRUNK_L', 'TREE_TRUNK_R']
+TREE_FIRST = 0x214
 ROLES = ['FLOOR', 'ROCK_1', 'ROCK_2', 'TL', 'T', 'TR', 'L', 'C', 'R', 'BL', 'B', 'BR', 'IN_SE', 'IN_SW', 'IN_NE', 'IN_NW']
 SIGN_METATILE = 0x210
 MAT_FIRST = 0x240
@@ -67,6 +71,21 @@ BIOME_TILESETS = [
     ('isaac_ocean', 'pacifidlog', dict(
         FLOOR=0x170, ROCK_1=0x0BD, ROCK_2=0x0BD, TL=0x172, T=0x17B, TR=0x174, L=0x17A, C=0x071, R=0x17C,
         BL=0x182, B=0x079, BR=0x184, IN_SE=0x074, IN_SW=0x071, IN_NE=0x071, IN_NW=0x0B4, DECO_1=0x0BD, DECO_2=0x0BD)),
+    # Désert (Route 111) : sable ondulé, montagnes rouges de General avec leurs bords sur le sable
+    ('isaac_desert', 'mauville', dict(
+        FLOOR=0x251, ROCK_1=0x0E1, ROCK_2=0x0E1, TL=0x080, T=0x081, TR=0x082, L=0x088, C=0x071, R=0x08A,
+        BL=0x090, B=0x091, BR=0x092, IN_SE=0x074, IN_SW=0x089, IN_NE=0x0BF, IN_NW=0x0BE, DECO_1=0x0E0, DECO_2=0x0E2)),
+    # Falaise : la salle est le dessus d'une montagne de General, les murs sont l'herbe tout en bas. Les rôles
+    # sont inversés : chaque case de mur montre le bord de la montagne vu de l'extérieur (paroi au sud, crête
+    # au nord, flancs à l'ouest et à l'est ; coins de la salle = coins rentrants de la montagne et inversement).
+    ('isaac_cliff', 'fortree', dict(
+        FLOOR=0x071, ROCK_1=0x0E1, ROCK_2=0x0E1, TL=0x089, T=0x079, TR=0x07B, L=0x070, C=0x001, R=0x072,
+        BL=0x0BE, B=0x069, BR=0x0BF, IN_SE=0x068, IN_SW=0x06A, IN_NE=0x078, IN_NW=0x07A, DECO_1=0x0E0, DECO_2=0x0E2)),
+    # Forêt (Bois Clémentines) : herbe, murs en arbres de 2 x 2 de General (voir TREES), arbustes d'une case
+    ('isaac_forest', 'rustboro', dict(
+        FLOOR=0x001, ROCK_1=0x0C6, ROCK_2=0x0CE, TL=0x1D4, T=0x1D4, TR=0x1D4, L=0x1D4, C=0x1D4, R=0x1D4,
+        BL=0x1D4, B=0x1D4, BR=0x1D4, IN_SE=0x1D4, IN_SW=0x1D4, IN_NE=0x1D4, IN_NW=0x1D4, DECO_1=0x0C6, DECO_2=0x0CE,
+        TREE_TOP_L=0x1D4, TREE_TOP_R=0x1D5, TREE_BOT_L=0x1DC, TREE_BOT_R=0x1DD, TREE_TRUNK_L=0x1E4, TREE_TRUNK_R=0x1E5)),
 ]
 SURF_TILESETS = {'isaac_ocean'}  # décors où le joueur surfe : tous les rôles ont le comportement du sol (eau)
 NUM_PRIMARY_TILES = 512
@@ -200,8 +219,11 @@ def build(out_name, source_name, mapping, mats):
         return tile_index[pixels]
 
     # Palettes du décor utilisées par les rôles : renumérotées à partir de 6
+    mapping = dict(mapping)
+    for role in TREES:
+        mapping.setdefault(role, mapping['C'])
     pal_remap = {}
-    for role in ROLES + DECOS:
+    for role in ROLES + DECOS + TREES:
         if mapping[role] < NUM_PRIMARY_TILES:
             continue  # metatile de General : palettes de General
         m = mapping[role] - NUM_PRIMARY_TILES
@@ -264,6 +286,21 @@ def build(out_name, source_name, mapping, mats):
             m -= NUM_PRIMARY_TILES
             metatiles.extend(convert(e) for e in src_meta[m * 8: m * 8 + 8])
             attributes.append((src_attr[m] & 0xF000) | floor_behavior)
+
+    # 2 quater. Demi-arbres (TREE_FIRST et suivants), tels quels comme les murs
+    assert len(attributes) == TREE_FIRST - NUM_PRIMARY_TILES
+    for role in TREES:
+        m = mapping[role]
+        if m < NUM_PRIMARY_TILES:
+            metatiles.extend(primary_meta[m * 8: m * 8 + 8])
+            attributes.append(primary_attr[m])
+        else:
+            m -= NUM_PRIMARY_TILES
+            metatiles.extend(convert(e) for e in src_meta[m * 8: m * 8 + 8])
+            attributes.append(src_attr[m])
+    if out_name in SURF_TILESETS:
+        attributes[TREE_FIRST - NUM_PRIMARY_TILES:] = [(a & 0xF000) | floor_behavior
+                                                       for a in attributes[TREE_FIRST - NUM_PRIMARY_TILES:]]
 
     # 3. Rien jusqu'aux paillassons
     while len(attributes) < MAT_FIRST - NUM_PRIMARY_TILES:
