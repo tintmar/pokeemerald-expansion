@@ -1081,6 +1081,7 @@ enum __attribute__((packed)) Item
     ITEM_ISAAC_GEM_DRAGON = 900,
     ITEM_ISAAC_GEM_DARK = 901,
     ITEM_ISAAC_GEM_FAIRY = 902,
+    ITEM_GOLDEN_HEART = 903,           // +10 % à toutes les stats de l'équipe contre le prochain boss
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

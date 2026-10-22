@@ -2,6 +2,7 @@
 #include "battle.h"
 #include "data.h"
 #include "event_data.h"
+#include "item.h"
 #include "isaac_pokemon.h"
 #include "party_menu.h"
 #include "pokemon.h"
@@ -93,16 +94,17 @@ enum Species IsaacGetFinalEvolution(enum Species species, u32 roll)
 // SPECIAL_ITEM_WEIGHT, sauf l'Omniboost (OMNIBOOST_WEIGHT, deux fois plus rare) et les deux Pierres Évolution, plus
 // rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6).
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, de
-// même que les Gemmes de Type (puis le type est tiré).
+// même que les Gemmes de Type (puis le type est tiré). Le Cœur Doré n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
 #define SPECIAL_ITEM_WEIGHT  4
 #define OMNIBOOST_WEIGHT     2
+#define GOLDEN_HEART_MIN_FLOOR  4
 
 u16 IsaacPickSpecialItem(u32 roll)
 {
     static const u16 sSpecialItems[] =
     {
         ITEM_EVOLUTION_STONE, ITEM_SUPER_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_BOOST_HP,
-        ITEM_BRILLIANT_STONE, ITEM_ISAAC_GEM_FIRST,
+        ITEM_BRILLIANT_STONE, ITEM_ISAAC_GEM_FIRST, ITEM_GOLDEN_HEART,
     };
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
     u32 floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvolutionStoneWeights));
@@ -115,6 +117,8 @@ u16 IsaacPickSpecialItem(u32 roll)
             weights[i] = sEvolutionStoneWeights[floor - 1];
         else if (sSpecialItems[i] == ITEM_OMNIBOOST)
             weights[i] = OMNIBOOST_WEIGHT;
+        else if (sSpecialItems[i] == ITEM_GOLDEN_HEART)
+            weights[i] = VarGet(VAR_ISAAC_FLOOR) >= GOLDEN_HEART_MIN_FLOOR ? SPECIAL_ITEM_WEIGHT : 0;
         else
             weights[i] = SPECIAL_ITEM_WEIGHT;
         total += weights[i];
@@ -283,16 +287,23 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 // Gemme de Type : type donné (enum Type), 0 si aucun, dans la stat de concours Lustre
 #define ISAAC_GEM_TYPE_DATA    MON_DATA_SHEEN
 
+// Cœur Doré en cours d'utilisation (combat contre le boss) : un Omniboost de plus pour toute l'équipe du joueur
+#define FLAG_ISAAC_GOLDEN_HEART_ACTIVE  FLAG_UNUSED_0x024
+
 static bool32 IsPlayerPartyMon(struct Pokemon *mon)
 {
     return mon >= &gParties[B_TRAINER_PLAYER][0] && mon < &gParties[B_TRAINER_PLAYER][PARTY_SIZE];
 }
 
-// Valeur d'une stat (STAT_*, PV compris) avec les bonus du donjon : Omniboosts (+10 % chacun), boost de cette stat,
-// Pierre brillante
+// Valeur d'une stat (STAT_*, PV compris) avec les bonus du donjon : Omniboosts (+10 % chacun, un de plus avec le Cœur
+// Doré), boost de cette stat, Pierre brillante
 s32 IsaacApplyStatBoosts(struct Pokemon *mon, u32 stat, s32 value)
 {
-    value = value * (10 + GetMonData(mon, ISAAC_OMNIBOOST_DATA)) / 10;
+    u32 omniboosts = GetMonData(mon, ISAAC_OMNIBOOST_DATA);
+
+    if (FlagGet(FLAG_ISAAC_GOLDEN_HEART_ACTIVE) && IsPlayerPartyMon(mon))
+        omniboosts++;
+    value = value * (10 + omniboosts) / 10;
     if (GetMonData(mon, ISAAC_STAT_BOOST_DATA) & (1 << stat))
         value = value * (100 + ISAAC_STAT_BOOST_PCT) / 100;
     if (GetMonData(mon, ISAAC_BRILLIANT_DATA) == stat + 1)
@@ -343,6 +354,34 @@ bool8 IsaacAddOmniboost(struct Pokemon *mon)
     SetMonData(mon, ISAAC_OMNIBOOST_DATA, &count);
     CalculateMonStats(mon);
     return TRUE;
+}
+
+static void RecalculatePlayerPartyStats(void)
+{
+    u32 i;
+
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+        CalculateMonStats(&gParties[B_TRAINER_PLAYER][i]);
+}
+
+// Début du combat contre le boss : un Cœur Doré du sac est consommé et donne un Omniboost de plus à toute l'équipe,
+// jusqu'à la fin du combat (IsaacGoldenHeartEnd)
+void IsaacGoldenHeartStart(void)
+{
+    if (!CheckBagHasItem(ITEM_GOLDEN_HEART, 1))
+        return;
+    RemoveBagItem(ITEM_GOLDEN_HEART, 1);
+    FlagSet(FLAG_ISAAC_GOLDEN_HEART_ACTIVE);
+    RecalculatePlayerPartyStats();
+}
+
+// Fin de n'importe quel combat : l'effet du Cœur Doré s'arrête
+void IsaacGoldenHeartEnd(void)
+{
+    if (!FlagGet(FLAG_ISAAC_GOLDEN_HEART_ACTIVE))
+        return;
+    FlagClear(FLAG_ISAAC_GOLDEN_HEART_ACTIVE);
+    RecalculatePlayerPartyStats();
 }
 
 // ---------------------------------------------------------------------------

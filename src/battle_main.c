@@ -5422,6 +5422,7 @@ static void ReturnFromBattleToOverworld(void)
         // Donjon : les PP de l'équipe reviennent au complet après chaque combat
         for (u32 i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
             MonRestorePP(&gParties[B_TRAINER_PLAYER][i]);
+        IsaacGoldenHeartEnd();
     }
 
     if (gBattleTypeFlags & BATTLE_TYPE_LINK && gReceivedRemoteLinkPlayers)

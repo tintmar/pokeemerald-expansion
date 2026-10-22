@@ -4802,6 +4802,25 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_FairyGem,
     },
 
+    // Donjon : utilisé tout seul au combat contre le boss, +10 % à toutes les stats de l'équipe pour ce combat (voir
+    // IsaacGoldenHeartStart)
+    [ITEM_GOLDEN_HEART] =
+    {
+        .name = ITEM_NAME("Golden Heart"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Raises the team's\n"
+            "stats by 10% in\n"
+            "the next boss fight."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 30,
+        .iconPic = gItemIcon_HeartScale,
+        .iconPalette = gItemIconPalette_HeartScale,
+    },
+
     [ITEM_DAWN_STONE] =
     {
         .name = ITEM_NAME("Dawn Stone"),
