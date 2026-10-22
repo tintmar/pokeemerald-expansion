@@ -13,7 +13,7 @@ Un set s'écrit sur une ligne : 'TALENT / OBJET / NATURE / RÉPARTITION / ATTAQU
   - RÉPARTITION : une clé de SPREADS (EVs du set 3, réduits de moitié pour le set 2 et au tiers pour le set 1).
 
 Paliers :
-  1. attaques de base, petite baie, nature neutre, EVs au tiers, IVs 15 ;
+  1. attaques de base, sans objet (celui écrit dans le set est ignoré), nature neutre, EVs au tiers, IVs 15 ;
   2. bonnes attaques, objet correct (Baie Sitrus, objet de type, Restes...), EVs à moitié, IVs 20 ;
   3. set compétitif (Orbe Vie, Choix, Restes...), EVs complets, IVs 31. Pas d'Évoluroc.
 
@@ -132,7 +132,68 @@ def nerf_moves(name, moves):
     return out, [(a, b) for a, b in zip(moves, out) if a != b]
 
 
+# Set 1 : léger coup de pouce (voir buff_tier1) : une attaque STAB garantie, une attaque de statut trop faible en
+# moins ; attaques ajoutées de puissance TIER1_MIN_POWER à TIER1_MAX_POWER
+TIER1_MIN_POWER = 35
+TIER1_MAX_POWER = 60
+WEAK_STATUS = {'GROWL', 'TAIL_WHIP', 'LEER', 'SAND_ATTACK', 'SMOKESCREEN', 'STRING_SHOT', 'HARDEN', 'DEFENSE_CURL',
+               'WITHDRAW', 'SPLASH', 'ODOR_SLEUTH', 'FORESIGHT', 'FOCUS_ENERGY', 'SHARPEN', 'MIST', 'KINESIS',
+               'FLASH', 'SWEET_SCENT', 'CHARM', 'TICKLE', 'MUD_SPORT', 'WATER_SPORT', 'BABY_DOLL_EYES', 'TEETER_DANCE',
+               'GROWTH', 'MEDITATE', 'DOUBLE_TEAM', 'MINIMIZE', 'LOCK_ON', 'MIND_READER', 'CONVERSION'}
+PHYS_SPREADS = {'PHYS', 'PHYS_BULK', 'HP_ATK'}
+SPEC_SPREADS = {'SPEC', 'SPEC_BULK'}
+
+
+def best_tier1_move(name, taken, types, category):
+    """Meilleure attaque offensive apprenable de puissance TIER1_MIN_POWER à TIER1_MAX_POWER, d'un des types donnés
+    (None : n'importe lequel, de préférence un type que le set n'a pas), de la catégorie donnée (None : les deux)"""
+    used = {g.MOVES[mv].type for mv in taken if mv in g.MOVES and g.MOVES[mv].cat != 'STATUS'}
+    best = None
+    for cand in g.learnset(name):
+        c = g.MOVES.get(cand)
+        if (c is None or cand in taken or cand in NERF_EXCLUDED or c.cat == 'STATUS'
+                or cand in ('SELF_DESTRUCT', 'EXPLOSION') or (types and c.type not in types)
+                or (category and c.cat != category)
+                or not TIER1_MIN_POWER <= c.power <= TIER1_MAX_POWER or (c.acc != 0 and c.acc < 85)):
+            continue
+        key = (c.type not in used, c.power, c.acc if c.acc else 101, cand)
+        if best is None or key > best[0]:
+            best = (key, cand)
+    return best[1] if best else None
+
+
+def buff_tier1(name, moves, spread):
+    """Set 1 : ajoute une attaque STAB s'il n'en a pas, remplace une attaque de statut trop faible"""
+    out = list(moves)
+    types = set(g.MONS[name].types)
+    category = 'PHYSICAL' if spread in PHYS_SPREADS else ('SPECIAL' if spread in SPEC_SPREADS else None)
+    damaging = lambda mv: mv in g.MOVES and g.MOVES[mv].cat != 'STATUS'
+
+    def slot_to_replace(prefer_weak_damaging):
+        weak = [i for i, mv in enumerate(out) if mv in WEAK_STATUS]
+        if weak:
+            return weak[0]
+        if prefer_weak_damaging:
+            dmg = [i for i, mv in enumerate(out) if damaging(mv) and g.MOVES[mv].type not in types]
+            if dmg:
+                return min(dmg, key=lambda i: g.MOVES[out[i]].power)
+        return len(out) if len(out) < 4 else None
+
+    if not any(damaging(mv) and g.MOVES[mv].type in types for mv in out):
+        new = best_tier1_move(name, out, types, category) or best_tier1_move(name, out, types, None)
+        i = slot_to_replace(True)
+        if new and i is not None:
+            out[i:i + 1] = [new]
+    if any(mv in WEAK_STATUS for mv in out):  # de préférence une attaque du type du Pokémon
+        new = best_tier1_move(name, out, types, category) or best_tier1_move(name, out, None, category)
+        i = slot_to_replace(False)
+        if new and i is not None and i < len(out):
+            out[i] = new
+    return out, [(a, b) for a, b in zip(moves + ['-'] * (len(out) - len(moves)), out) if a != b]
+
+
 nerf_log = []
+buff_log = []
 
 
 def parse_set(name, tier, line):
@@ -177,9 +238,14 @@ def parse_set(name, tier, line):
     if tier == 1:
         moves, changes = nerf_moves(name, moves)
         nerf_log.extend((name, variant_letter, a, b) for a, b in changes)
+    if tier == 0 and name not in ('DITTO', 'SMEARGLE', 'UNOWN', 'WOBBUFFET', 'WYNAUT'):
+        moves, changes = buff_tier1(name, moves, spread)
+        buff_log.extend((name, variant_letter, a, b) for a, b in changes)
 
     num, den = TIER_EV_FRACTION[tier]
     evs = [v * num // den // 4 * 4 for v in SPREADS[spread]]
+    if tier == 0:  # set 1 : faible, sans objet
+        item = '-'
     return {'ability': ability, 'item': item if item != '-' else 'NONE', 'nature': nature, 'evs': evs,
             'iv': TIER_IVS[tier], 'moves': moves + ['NONE'] * (4 - len(moves))}
 
@@ -217,7 +283,8 @@ def load_all_sets():
             errors.append(f'{name} : variante B sans variante A')
             continue
         for tier, (a, b) in enumerate(zip(sets_a[name], parsed)):
-            if a and b and a['moves'] == b['moves'] and a['item'] == b['item'] and name != 'UNOWN':
+            # set 1 : sans objet, A et B peuvent être identiques pour un Pokémon qui n'a presque pas d'attaques
+            if tier > 0 and a and b and a['moves'] == b['moves'] and a['item'] == b['item'] and name != 'UNOWN':
                 errors.append(f'{name} (set {tier + 1}) : variantes A et B identiques (attaques et objet)')
     return {name: [[a, sets_b.get(name, parsed)[tier]] for tier, a in enumerate(parsed)]
             for name, parsed in sets_a.items()}, len(sets_b)
@@ -272,6 +339,10 @@ def main():
         print(e)
     print(f'{len(sets)} espèces, {len(missing)} sans sets, {count_b} avec une variante B, {len(errors)} erreurs')
     print(f'set 2 : {len(nerf_log)} attaques remplacées (puissance > {TIER2_MAX_POWER})')
+    print(f'set 1 : {len(buff_log)} attaques remplacées ou ajoutées (STAB, statut trop faible)')
+    if '--buff-log' in sys.argv:
+        for name, letter, old, new in buff_log:
+            print(f'  {name} (1{letter}) : {old} -> {new}')
     if '--nerf-log' in sys.argv:
         for name, letter, old, new in nerf_log:
             print(f'  {name} (2{letter}) : {old} -> {new}')
