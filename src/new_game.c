@@ -238,13 +238,14 @@ void NewGameInitData(void)
     gSaveBlock1Ptr->lastHealLocation = (struct WarpData) {MAP_GROUP(MAP_HUB), MAP_NUM(MAP_HUB), WARP_ID_NONE, 22, 29};
 }
 
-// Les 8 badges dès le départ
+// Les 8 badges et les Chaussures de Course dès le départ
 static void GiveAllBadges(void)
 {
     u32 flag;
 
     for (flag = FLAG_BADGE01_GET; flag <= FLAG_BADGE08_GET; flag++)
         FlagSet(flag);
+    FlagSet(FLAG_SYS_B_DASH);
 }
 
 static void ResetMiniGamesRecords(void)
