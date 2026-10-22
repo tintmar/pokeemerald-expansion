@@ -2,7 +2,7 @@ Hub_MapScripts::
 	.byte 0
 
 @ Montagnard devant l'entrée du donjon : sans Pokémon, il en fait choisir ISAAC_STARTER_PICKS parmi
-@ ISAAC_STARTER_CHOICES (écran de l'Usine de Combat) et donne une Master Ball
+@ ISAAC_STARTER_CHOICES (écran de l'Usine de Combat) et donne une Master Ball, 2 Super Potions et 2 Rappels
 Hub_EventScript_Hiker::
 	lock
 	faceplayer
@@ -21,6 +21,9 @@ Hub_EventScript_Hiker::
 	setflag FLAG_SYS_POKEMON_GET
 	msgbox Hub_Text_HikerMasterBall, MSGBOX_DEFAULT
 	giveitem ITEM_MASTER_BALL
+	msgbox Hub_Text_HikerSupplies, MSGBOX_DEFAULT
+	giveitem ITEM_SUPER_POTION, 2
+	giveitem ITEM_REVIVE, 2
 	msgbox Hub_Text_HikerGoodLuck, MSGBOX_DEFAULT
 	release
 	end
@@ -61,6 +64,9 @@ Hub_Text_HikerCancel:
 Hub_Text_HikerMasterBall:
 	.string "Et prends ça : une MASTER BALL.\n"
 	.string "Garde-la pour un Pokémon d'exception.$"
+
+Hub_Text_HikerSupplies:
+	.string "Et quelques soins pour la route.$"
 
 Hub_Text_HikerFirstBiome:
 	.string "Je suis descendu jeter un œil :\n"
