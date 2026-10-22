@@ -1241,7 +1241,7 @@ static u32 CountTrainersLeftOnFloor(void)
     GetCurrentCell(&curX, &curY);
     for (y = 0; y < ISAAC_GRID_H; y++)
         for (x = 0; x < ISAAC_GRID_W; x++)
-            if (RoomHasTrainer(x, y) && (!IsCleared(x, y) || (x == curX && y == curY)))
+            if (RoomHasTrainer(x, y) && GetRoom(x, y) != ROOM_SECRET && (!IsCleared(x, y) || (x == curX && y == curY)))
                 left++;
     return left;
 }
@@ -1252,8 +1252,9 @@ static u32 CountTrainersLeftOnFloor(void)
 //  - à partir de l'étage TRAINER_LOOT_BOTH_FLOOR : une Guérison et un Rappel.
 // À partir de ISAAC_MASTER_BALL_MIN_FLOOR, une Master Ball, une seule par étage : tant qu'elle n'est pas tombée, chaque
 // dresseur la donne avec 1 chance sur le nombre de dresseurs encore à battre (1/8, 1/7... 1/1) ; battre tous les
-// dresseurs de l'étage la donne donc à coup sûr. Elle remplace le soin, sauf à partir de TRAINER_LOOT_BOTH_FLOOR où
-// elle s'y ajoute.
+// dresseurs de l'étage la donne donc à coup sûr. Le dresseur de la salle secrète, qu'on ne peut pas toujours atteindre,
+// n'en fait pas partie (ni pour la donner, ni dans le compte). Elle remplace le soin, sauf à partir de
+// TRAINER_LOOT_BOTH_FLOOR où elle s'y ajoute.
 // En plus, TRAINER_LOOT_TM_PCT % des dresseurs donnent une très bonne CT (sShopTMs, toujours la même pour une salle).
 #define TRAINER_LOOT_FULL_RESTORE_PCT  66
 #define TRAINER_LOOT_BOTH_FLOOR        4
@@ -1283,7 +1284,8 @@ void IsaacPickTrainerLoot(void)
     }
     if (RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_TM_PCT)
         sLoot[sLootCount++] = PickGoodTM(RoomRandom(x, y, 0x7E58));
-    if (VarGet(VAR_ISAAC_FLOOR) < ISAAC_MASTER_BALL_MIN_FLOOR || FlagGet(FLAG_ISAAC_MASTER_BALL_DROPPED))
+    if (VarGet(VAR_ISAAC_FLOOR) < ISAAC_MASTER_BALL_MIN_FLOOR || FlagGet(FLAG_ISAAC_MASTER_BALL_DROPPED)
+     || GetRoom(x, y) == ROOM_SECRET)
         return;
     left = CountTrainersLeftOnFloor();
     if (left != 0 && Random() % left == 0)
