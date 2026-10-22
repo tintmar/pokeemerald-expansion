@@ -1515,8 +1515,8 @@ void IsaacBufferBossName(void)
     StringCopy(gStringVar1, gIsaacBiomes[ISAAC_BIOME].bossName);
 }
 
-// Voyant : le boss dans gStringVar1, ses Pokémon (sauf l'as) dans gStringVar2, deux par ligne, et son as dans
-// gStringVar3
+// Voyant : le boss dans gStringVar1, toute son équipe dans gStringVar2 (dans l'ordre d'envoi, deux par ligne), et son
+// as (le dernier) dans gStringVar3
 void IsaacBufferBossTeam(void)
 {
     const struct Trainer *boss = GetIsaacTrainer(TRAINER_ISAAC_BOSS);
@@ -1525,7 +1525,7 @@ void IsaacBufferBossTeam(void)
 
     StringCopy(gStringVar1, gIsaacBiomes[ISAAC_BIOME].bossName);
     *end = EOS;
-    for (i = 0; i + 1 < boss->partySize; i++)
+    for (i = 0; i < boss->partySize; i++)
     {
         if (i != 0)
             end = StringAppend(end, (i % 2 == 0) ? COMPOUND_STRING(",\l") : COMPOUND_STRING(", "));

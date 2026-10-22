@@ -667,9 +667,9 @@ IsaacRoom_EventScript_SeerAgain::
 IsaacRoom_Text_SeerVision:
 	.string "Hmm… Je vois {STR_VAR_1}, qui t'attend\n"
 	.string "au bout de cet étage…\p"
-	.string "Ses Pokémon :\n"
-	.string "{STR_VAR_2}…\p"
-	.string "Et son as, gardé pour la fin :\n"
+	.string "Son équipe :\n"
+	.string "{STR_VAR_2}.\p"
+	.string "Son as, gardé pour la fin :\n"
 	.string "{STR_VAR_3} !$"
 
 IsaacRoom_Text_SeerAgain:
