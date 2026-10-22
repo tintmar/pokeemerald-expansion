@@ -1038,11 +1038,19 @@ static u32 GetSecretRoomContent(s32 x, s32 y)
     return SECRET_TRAINER;
 }
 
+static s32 GetForcedRockSmashRoom(void);
+
+// Dresseur d'une salle normale, avant l'éventuelle salle libérée pour l'entraîneur d'Éclate-Roc
+static bool8 NormalRoomRollsTrainer(s32 x, s32 y)
+{
+    return GetRoom(x, y) == ROOM_NORMAL && RoomRandom(x, y, 0x7A1) % 100 < ISAAC_TRAINER_PCT;
+}
+
 static bool8 RoomHasTrainer(s32 x, s32 y)
 {
     if (GetRoom(x, y) == ROOM_SECRET)
         return GetSecretRoomContent(x, y) == SECRET_TRAINER;
-    return GetRoom(x, y) == ROOM_NORMAL && RoomRandom(x, y, 0x7A1) % 100 < ISAAC_TRAINER_PCT;
+    return NormalRoomRollsTrainer(x, y) && y * ISAAC_GRID_W + x != GetForcedRockSmashRoom();
 }
 
 static const struct IsaacTrainerType *GetRoomTrainerType(s32 x, s32 y)
@@ -1947,6 +1955,38 @@ static bool8 PartyKnowsMove(u16 move)
     return FALSE;
 }
 
+// L'entraîneur d'Éclate-Roc est assuré à l'étage ROCK_SMASH_SURE_FLOOR (premier étage avec une salle secrète) quand
+// personne ne connaît Éclate-Roc : il passe avant les autres contenus (GetRoomContent), et s'il n'y a aucune salle
+// vide, une salle normale tirée pour l'étage perd son dresseur pour l'accueillir (cellule renvoyée ici, -1 sinon)
+#define ROCK_SMASH_SURE_FLOOR  ISAAC_SECRET_MIN_FLOOR
+
+static bool8 IsRockSmashTeacherSure(void)
+{
+    return VarGet(VAR_ISAAC_FLOOR) == ROCK_SMASH_SURE_FLOOR && IsRoomContentAvailable(ROOM_CONTENT_ROCK_SMASH);
+}
+
+static s32 GetForcedRockSmashRoom(void)
+{
+    u8 rooms[ISAAC_GRID_W * ISAAC_GRID_H];
+    u32 count = 0;
+    s32 x, y;
+
+    if (!IsRockSmashTeacherSure())
+        return -1;
+    for (y = 0; y < ISAAC_GRID_H; y++)
+    {
+        for (x = 0; x < ISAAC_GRID_W; x++)
+        {
+            if (GetRoom(x, y) != ROOM_NORMAL)
+                continue;
+            if (!NormalRoomRollsTrainer(x, y))
+                return -1;  // il y a déjà une salle vide
+            rooms[count++] = y * ISAAC_GRID_W + x;
+        }
+    }
+    return count ? rooms[RoomRandom(0, 0, 0x5A5A) % count] : -1;
+}
+
 static bool8 IsEmptyRoom(s32 x, s32 y)
 {
     return GetRoom(x, y) == ROOM_NORMAL && !RoomHasTrainer(x, y);
@@ -1974,6 +2014,12 @@ static u32 GetRoomContent(s32 x, s32 y)
     {
         pick = i + RoomRandom(i, 1, 0xC0DE) % (contentCount - i);
         SWAP(contents[i], contents[pick], tmp);
+    }
+    if (IsRockSmashTeacherSure())  // l'entraîneur d'Éclate-Roc passe en premier
+    {
+        for (i = 0; contents[i] != ROOM_CONTENT_ROCK_SMASH; i++)
+            ;
+        SWAP(contents[0], contents[i], tmp);
     }
     for (i = 0; i < contentCount && roomCount != 0; i++)
     {
