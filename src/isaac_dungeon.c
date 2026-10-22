@@ -1885,8 +1885,8 @@ void IsaacKecleonGreeting(void)
 //    salles visitées (environ deux étages, IsaacTickEggs) ;
 //  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de même catégorie (au sens du
 //    biome de chacun) et de même palier de set, de n'importe quel biome ; un légendaire contre un légendaire ;
-//  - ROOM_CONTENT_DEVIL : pacte du diable, un objet rare (IsaacPrepareDevilPact) contre le sacrifice définitif d'un
-//    Pokémon de l'équipe (pas le dernier en état de se battre, pas un Œuf) ;
+//  - ROOM_CONTENT_DEVIL : à partir de DEVIL_PACT_MIN_FLOOR, pacte du diable, un objet rare (IsaacPrepareDevilPact)
+//    contre le sacrifice définitif d'un Pokémon de l'équipe (pas le dernier en état de se battre, pas un Œuf) ;
 //  - ROOM_CONTENT_TUTOR : maître des capacités, propose 3 attaques fortes (sTutorMoves) que le Pokémon choisi peut
 //    apprendre et ne connaît pas ; il en apprend une (en oubliant une autre s'il en connaît déjà 4) ;
 //  - ROOM_CONTENT_DUELIST : le duelliste annonce son Pokémon (plus fort que ceux de l'étage, voir GetIsaacTrainer),
@@ -1916,12 +1916,18 @@ static bool8 FloorHasSecretRoom(void)
     return FALSE;
 }
 
+#define DEVIL_PACT_MIN_FLOOR  3  // le pacte du diable n'apparaît qu'à partir de cet étage
+
+#define SEER_ENABLED  FALSE  // voyant retiré pour l'instant (son code reste, voir IsaacOpenSecretRoom)
+
 static bool8 IsRoomContentAvailable(u32 content)
 {
     switch (content)
     {
     case ROOM_CONTENT_EGG:
         return VarGet(VAR_ISAAC_FLOOR) == GetEggFloor();
+    case ROOM_CONTENT_DEVIL:
+        return VarGet(VAR_ISAAC_FLOOR) >= DEVIL_PACT_MIN_FLOOR;
     case ROOM_CONTENT_SEER:
         return FloorHasSecretRoom();
     case ROOM_CONTENT_ROCK_SMASH:
