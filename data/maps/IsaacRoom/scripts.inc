@@ -80,6 +80,9 @@ IsaacRoom_EventScript_WildMon3::
 IsaacRoom_EventScript_WildMon4::
 	setvar VAR_0x8004, 3
 	goto IsaacRoom_EventScript_WildMon
+IsaacRoom_EventScript_WildMon5::
+	setvar VAR_0x8004, 4
+	goto IsaacRoom_EventScript_WildMon
 
 IsaacRoom_EventScript_WildMon:
 	lock

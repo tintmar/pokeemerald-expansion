@@ -85,8 +85,8 @@
  * la profondeur, et un objet de son butin (IsaacPickTrainerLoot) : à partir de l'étage 2, l'un des dresseurs de
  * l'étage donne une Master Ball à la place, à coup sûr si on les bat tous.
  *
- * SALLE DE CAPTURE : des Pokémon sauvages différents du biome se promènent (2 aux étages 1-2, 3 aux étages
- * 3-4, 4 aux étages 5-6), de catégorie de plus en plus haute avec la profondeur (RollCaptureCategory), au set 2
+ * SALLE DE CAPTURE : des Pokémon sauvages différents du biome se promènent (3 aux étages 1-2, 4 aux étages
+ * 3-4, 5 aux étages 5-6), de catégorie de plus en plus haute avec la profondeur (RollCaptureCategory), au set 2
  * jusqu'à l'étage 3 puis au set 3. Leur parler lance le combat, après quoi ils disparaissent. SALLE TRÉSOR : une Pierre Évolution au sol.
  *
  * MINI-CARTE (bouton R dans une salle) : comme Isaac, on voit les salles visitées et celles qui les
@@ -113,14 +113,14 @@ STATIC_ASSERT(FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H - 1 <= FLAG
 STATIC_ASSERT(FLAG_ISAAC_MASTER_BALL_DROPPED <= FLAG_UNUSED_0x2BB, IsaacMasterBallFlagIsUnused);
 #define ISAAC_MASTER_BALL_MIN_FLOOR  2  // à partir de cet étage, un dresseur de l'étage donne une Master Ball
 // Pokémon de la salle de capture déjà combattus (un drapeau par emplacement, juste après)
-#define CAPTURE_MAX_MONS                4
+#define CAPTURE_MAX_MONS                5
 #define FLAG_ISAAC_CAPTURE_DONE_FIRST   (FLAG_ISAAC_MASTER_BALL_DROPPED + 1)
 STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSED_0x2BB, IsaacCaptureFlagsAreUnused);
 
 // Kecleon (boutique) déjà rencontré : pour toute la partie, il ne fait sa blague qu'une fois
-#define FLAG_ISAAC_KECLEON_MET  (FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS)
+#define FLAG_ISAAC_KECLEON_MET  FLAG_UNUSED_0x023
 // Articles de la boutique de l'étage déjà vendus, chacun en un seul exemplaire (voir SHOP_SLOT_*)
-#define FLAG_ISAAC_SHOP_SOLD_FIRST  (FLAG_ISAAC_KECLEON_MET + 1)
+#define FLAG_ISAAC_SHOP_SOLD_FIRST  (FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS)
 #define SHOP_LIMITED_SLOTS  9
 STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 < FLAG_UNUSED_0x2BB, IsaacShopFlagsAreUnused);  // 0x2BB : B_FLAG_NO_WHITEOUT
 
@@ -1355,19 +1355,19 @@ static void SetUpRoomTrainer(s32 x, s32 y)
 // ---------------------------------------------------------------------------
 
 // Salle de capture : emplacement, objet et apparence de chaque Pokémon
-static const u8 sCaptureLocalIds[CAPTURE_MAX_MONS] = { LOCALID_ISAAC_ROOM_WILD, LOCALID_ISAAC_ROOM_WILD_2, LOCALID_ISAAC_ROOM_WILD_3, LOCALID_ISAAC_ROOM_WILD_4 };
-static const u16 sCaptureGfxVars[CAPTURE_MAX_MONS] = { VAR_OBJ_GFX_ID_1, VAR_OBJ_GFX_ID_3, VAR_OBJ_GFX_ID_4, VAR_OBJ_GFX_ID_5 };
-static const s8 sCaptureX[CAPTURE_MAX_MONS] = { ROOM_MID_X - 2, ROOM_MID_X + 2, ROOM_MID_X - 2, ROOM_MID_X + 2 };
-static const s8 sCaptureY[CAPTURE_MAX_MONS] = { ROOM_MID_Y - 1, ROOM_MID_Y - 1, ROOM_MID_Y + 1, ROOM_MID_Y + 1 };
+static const u8 sCaptureLocalIds[CAPTURE_MAX_MONS] = { LOCALID_ISAAC_ROOM_WILD, LOCALID_ISAAC_ROOM_WILD_2, LOCALID_ISAAC_ROOM_WILD_3, LOCALID_ISAAC_ROOM_WILD_4, LOCALID_ISAAC_ROOM_WILD_5 };
+static const u16 sCaptureGfxVars[CAPTURE_MAX_MONS] = { VAR_OBJ_GFX_ID_1, VAR_OBJ_GFX_ID_3, VAR_OBJ_GFX_ID_4, VAR_OBJ_GFX_ID_5, VAR_OBJ_GFX_ID_9 };
+static const s8 sCaptureX[CAPTURE_MAX_MONS] = { ROOM_MID_X - 2, ROOM_MID_X + 2, ROOM_MID_X - 2, ROOM_MID_X + 2, ROOM_MID_X };
+static const s8 sCaptureY[CAPTURE_MAX_MONS] = { ROOM_MID_Y - 1, ROOM_MID_Y - 1, ROOM_MID_Y + 1, ROOM_MID_Y + 1, ROOM_MID_Y };
 
 static EWRAM_DATA u8 sCaptureSlot = 0;  // Pokémon combattu (IsaacPrepareWildBattle -> IsaacCaptureMonDone)
 
-// Nombre de Pokémon de la salle de capture : 2 aux étages 1-2, 3 aux étages 3-4, 4 aux étages 5-6
+// Nombre de Pokémon de la salle de capture : 3 aux étages 1-2, 4 aux étages 3-4, 5 aux étages 5-6
 static u32 GetCaptureMonCount(void)
 {
     u32 floor = max(VarGet(VAR_ISAAC_FLOOR), 1u);
 
-    return min(2 + (floor - 1) / 2, (u32)CAPTURE_MAX_MONS);
+    return min(3 + (floor - 1) / 2, (u32)CAPTURE_MAX_MONS);
 }
 
 // Catégorie du Pokémon n° slot : étage 1 catégorie 2, 2 catégorie 2 ou 3, 3 catégorie 3, 4 catégorie 3 ou 4,
