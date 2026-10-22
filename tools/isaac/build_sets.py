@@ -5,7 +5,8 @@ du plus faible au plus fort, et deux variantes A et B de chaque palier (même fo
 physique / spécial, offensif / soutien, autre objet...).
   - variante A : tools/isaac/sets_gen1.py, sets_gen2.py, sets_gen3.py, puis les espèces ajoutées au roster par
     biome (sets_cave.py, sets_dark.py...) (dictionnaire SETS) ;
-  - variante B : tools/isaac/sets_gen1b.py, sets_gen2b.py, sets_gen3b.py (dictionnaire SETS, même format).
+  - variante B : tools/isaac/sets_gen1b.py, sets_gen2b.py, sets_gen3b.py, sets_caveb.py... (dictionnaire SETS, même
+    format).
     Tant qu'une espèce n'a pas de variante B, sa variante B reprend la A.
 
 Un set s'écrit sur une ligne : 'TALENT / OBJET / NATURE / RÉPARTITION / ATTAQUE1 ATTAQUE2 ATTAQUE3 ATTAQUE4'
@@ -81,7 +82,8 @@ FORBIDDEN_ITEMS = {'EVIOLITE'}
 
 SET_FILES = ['sets_gen1', 'sets_gen2', 'sets_gen3', 'sets_cave', 'sets_dark', 'sets_fire', 'sets_ice', 'sets_poison',
              'sets_ocean', 'sets_desert', 'sets_cliff', 'sets_forest']
-SET_FILES_B = ['sets_gen1b', 'sets_gen2b', 'sets_gen3b']
+SET_FILES_B = ['sets_gen1b', 'sets_gen2b', 'sets_gen3b', 'sets_caveb', 'sets_darkb', 'sets_fireb', 'sets_iceb',
+               'sets_poisonb', 'sets_oceanb', 'sets_desertb', 'sets_cliffb', 'sets_forestb']
 
 errors = []
 

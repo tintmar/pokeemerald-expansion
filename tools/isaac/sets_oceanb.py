@@ -1,0 +1,15 @@
+# Variantes B des sets de l'Océan (voir build_sets.py pour le format) : même force que la variante A
+# (sets_ocean.py), mais un autre rôle.
+
+SETS = {
+    'MANTYKE': [
+        'WATER_VEIL / PECHA_BERRY / - / SPEC / BUBBLE AIR_CUTTER SUPERSONIC WATER_SPORT',
+        'SWIFT_SWIM / MYSTIC_WATER / MODEST / SPEC / BUBBLE_BEAM AIR_SLASH ICE_BEAM AGILITY',
+        'SWIFT_SWIM / FOCUS_SASH / MODEST / SPEC / HYDRO_PUMP AIR_SLASH ICE_BEAM HAZE',
+    ],
+    'TAUROS_PALDEA_AQUA': [
+        'ANGER_POINT / PECHA_BERRY / - / PHYS / TACKLE AQUA_JET SCARY_FACE HEADBUTT',
+        'CUD_CHEW / SITRUS_BERRY / ADAMANT / PHYS / AQUA_JET BODY_PRESS IRON_HEAD BULK_UP',
+        'INTIMIDATE / CHOICE_BAND / ADAMANT / PHYS / WAVE_CRASH CLOSE_COMBAT RAGING_BULL STONE_EDGE',
+    ],
+}
