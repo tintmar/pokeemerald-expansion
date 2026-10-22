@@ -4874,6 +4874,77 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_SpellTag,
     },
 
+    // Donjon : argent des dresseurs doublé jusqu'à la fin de la descente (voir IsaacGetTrainerMoney)
+    [ITEM_LUCKY_COIN] =
+    {
+        .name = ITEM_NAME("Lucky Coin"),
+        .price = 0,
+        .importance = 1,
+        .description = COMPOUND_STRING(
+            "Trainers give\n"
+            "double money\n"
+            "for this descent."),
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_LuckyCoin,
+        .iconPic = gItemIcon_AmuletCoin,
+        .iconPalette = gItemIconPalette_AmuletCoin,
+    },
+
+    // Donjon : soin complet de toute l'équipe (PV, statut, PP), K.O. compris
+    [ITEM_FIRST_AID_KIT] =
+    {
+        .name = ITEM_NAME("First Aid Kit"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Fully heals the\n"
+            "whole team, even\n"
+            "fainted Pokémon."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_HEALTH_RECOVERY,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_FirstAidKit,
+        .flingPower = 30,
+        .iconPic = gItemIcon_MaxRevive,
+        .iconPalette = gItemIconPalette_Revive,
+    },
+
+    // Donjon : nouveau second type pour un Pokémon, au choix parmi trois (comme une Gemme de Type)
+    [ITEM_PRISM_STONE] =
+    {
+        .name = ITEM_NAME("Prism Stone"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Changes a Pokémon's\n"
+            "second type: pick\n"
+            "one of three."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacPrismStone,
+        .flingPower = 30,
+        .iconPic = gItemIcon_PrismScale,
+        .iconPalette = gItemIconPalette_PrismScale,
+    },
+
+    // Donjon : apprend le Z-move du premier type du Pokémon (1 PP, très puissant ; voir CalcMoveBasePower)
+    [ITEM_Z_TM] =
+    {
+        .name = ITEM_NAME("Z-Move TM"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Teaches the Z-Move\n"
+            "of its type: huge\n"
+            "power, 1 PP."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacZTM,
+        .flingPower = 30,
+        .iconPic = gItemIcon_NormaliumZ,
+        .iconPalette = gItemIconPalette_NormaliumZ,
+    },
+
     [ITEM_DAWN_STONE] =
     {
         .name = ITEM_NAME("Dawn Stone"),

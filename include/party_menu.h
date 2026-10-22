@@ -112,6 +112,8 @@ void ItemUseCB_IsaacBrilliantStone(u8 taskId, TaskFunc task);
 void ItemUseCB_IsaacTypeGem(u8 taskId, TaskFunc task);
 void ItemUseCB_IsaacBloodPact(u8 taskId, TaskFunc task);
 void ItemUseCB_IsaacCursedDie(u8 taskId, TaskFunc task);
+void ItemUseCB_IsaacPrismStone(u8 taskId, TaskFunc task);
+void ItemUseCB_IsaacZTM(u8 taskId, TaskFunc task);
 void ItemUseCB_IsaacAbilityTrainer(u8 taskId, TaskFunc task);
 void ItemUseCB_FormChange(u8 taskId, TaskFunc task);
 void ItemUseCB_FormChange_ConsumedOnUse(u8 taskId, TaskFunc task);

@@ -38,6 +38,7 @@
 #include "pokeblock.h"
 #include "pokemon.h"
 #include "script.h"
+#include "script_pokemon_util.h"
 #include "sound.h"
 #include "strings.h"
 #include "string_util.h"
@@ -84,6 +85,8 @@ static void ItemUseOnFieldCB_Honey(u8 taskId);
 static bool32 IsValidLocationForVsSeeker(void);
 
 static const u8 sText_CantDismountBike[] = _("You can't dismount your BIKE here.{PAUSE_UNTIL_PRESS}");
+static const u8 sText_LuckyCoinPassive[] = _("Trainers give double money\nfor the rest of this descent.{PAUSE_UNTIL_PRESS}");
+static const u8 sText_FirstAidKitUsed[] = _("The whole team was\nfully healed!{PAUSE_UNTIL_PRESS}");
 static const u8 sText_DiscountCardPassive[] = _("It works by itself\nat Kecleon's shop.{PAUSE_UNTIL_PRESS}");
 static const u8 sText_GoldenHeartReady[] = _("The Golden Heart glows!\nYour team will be stronger\lagainst the next boss.{PAUSE_UNTIL_PRESS}");
 static const u8 sText_GoldenHeartAlreadyReady[] = _("A Golden Heart is already\nwaiting for the next boss.{PAUSE_UNTIL_PRESS}");
@@ -1524,6 +1527,31 @@ void ItemUseOutOfBattle_IsaacGoldenHeart(u8 taskId)
         message = sText_GoldenHeartReady;
     }
     DisplayCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem, message);
+}
+
+void ItemUseOutOfBattle_LuckyCoin(u8 taskId)
+{
+    DisplayCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem, sText_LuckyCoinPassive);
+}
+
+void ItemUseOutOfBattle_FirstAidKit(u8 taskId)
+{
+    HealPlayerParty();
+    RemoveUsedItem();
+    PlaySE(SE_USE_ITEM);
+    DisplayCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem, sText_FirstAidKitUsed);
+}
+
+void ItemUseOutOfBattle_IsaacPrismStone(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacPrismStone;
+    SetUpItemUseCallback(taskId);
+}
+
+void ItemUseOutOfBattle_IsaacZTM(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacZTM;
+    SetUpItemUseCallback(taskId);
 }
 
 static bool32 IsValidLocationForVsSeeker(void)

@@ -1292,10 +1292,12 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     return &sRoomTrainer;
 }
 
-// Argent gagné contre un dresseur ou le boss du donjon
+// Argent gagné contre un dresseur ou le boss du donjon (doublé avec la Pièce Porte-Bonheur)
 u32 IsaacGetTrainerMoney(void)
 {
-    return ISAAC_TRAINER_MONEY_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
+    u32 money = ISAAC_TRAINER_MONEY_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
+
+    return CheckBagHasItem(ITEM_LUCKY_COIN, 1) ? money * 2 : money;
 }
 
 // Dresseurs de l'étage encore à battre, en comptant celui de la salle courante (déjà marquée nettoyée)
@@ -2825,6 +2827,7 @@ static void WarpToNewFloor(u32 floor)
         PrepareRunBiomeOrder();
         FlagClear(FLAG_ISAAC_RUN_PREPARED);  // la descente suivante aura un nouvel ordre
         RemoveBagItem(ITEM_DISCOUNT_CARD, 1);  // la Carte de Réduction ne vaut que pour une descente
+        RemoveBagItem(ITEM_LUCKY_COIN, 1);     // la Pièce Porte-Bonheur aussi
         IsaacGoldenHeartReset();
     }
     VarSet(VAR_ISAAC_FLOOR, floor);

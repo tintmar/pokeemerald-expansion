@@ -6208,6 +6208,8 @@ static inline u32 CalcMoveBasePower(struct DamageContext *ctx)
     default:
         break;
     }
+    if (IsZMove(move))  // donjon : Z-move appris par la CT Z, lancé comme une attaque normale (1 PP)
+        return ISAAC_Z_MOVE_POWER;
 
     switch (moveEffect)
     {
@@ -9086,6 +9088,11 @@ enum DamageCategory GetBattleMoveCategory(enum Move move)
 
     if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
         return DAMAGE_CATEGORY_STATUS;
+
+    // Donjon : Z-move de la CT Z lancé hors Capacité Z, physique ou spécial selon la meilleure attaque du lanceur
+    if (inBattle && IsZMove(move) && GetActiveGimmick(gBattlerAttacker) != GIMMICK_Z_MOVE)
+        return gBattleMons[gBattlerAttacker].attack >= gBattleMons[gBattlerAttacker].spAttack
+             ? DAMAGE_CATEGORY_PHYSICAL : DAMAGE_CATEGORY_SPECIAL;
 
     if (B_PHYSICAL_SPECIAL_SPLIT < GEN_4)
     {

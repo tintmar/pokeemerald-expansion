@@ -6560,6 +6560,125 @@ void ItemUseCB_IsaacTypeGem(u8 taskId, TaskFunc task)
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
 }
 
+// Donjon : Pierre Prisme, nouveau second type au choix parmi trois tirés au hasard (pas ceux du Pokémon) : « Rendre X
+// de type Y ? », Non passe au suivant, B garde la pierre
+#define ISAAC_PRISM_CHOICES  3
+
+static EWRAM_DATA u8 sIsaacPrismTypes[ISAAC_PRISM_CHOICES] = {0};
+static EWRAM_DATA u8 sIsaacPrismChoice = 0;
+static EWRAM_DATA TaskFunc sIsaacPrismTask = NULL;
+
+static void Task_HandleIsaacPrismChoiceInput(u8 taskId);
+
+static void Task_AskIsaacPrismChoice(u8 taskId)
+{
+    if (IsPartyMenuTextPrinterActive() != TRUE)
+    {
+        PartyMenuDisplayYesNoMenu();
+        gTasks[taskId].func = Task_HandleIsaacPrismChoiceInput;
+    }
+}
+
+static void AskIsaacPrismChoice(u8 taskId)
+{
+    GetMonNickname(&gParties[B_TRAINER_PLAYER][gPartyMenu.slotId], gStringVar1);
+    StringCopy(gStringVar2, gTypesInfo[sIsaacPrismTypes[sIsaacPrismChoice]].name);
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("Make {STR_VAR_1}\npart {STR_VAR_2} type?"));
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = Task_AskIsaacPrismChoice;
+}
+
+static void Task_HandleIsaacPrismChoiceInput(u8 taskId)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case 0:
+        IsaacUseTypeGem(mon, sIsaacPrismTypes[sIsaacPrismChoice]);
+        GetMonNickname(mon, gStringVar1);
+        StringCopy(gStringVar2, gTypesInfo[sIsaacPrismTypes[sIsaacPrismChoice]].name);
+        IsaacItemUsed(taskId, sIsaacPrismTask, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
+        break;
+    case 1:
+        PlaySE(SE_SELECT);
+        sIsaacPrismChoice = (sIsaacPrismChoice + 1) % ISAAC_PRISM_CHOICES;
+        AskIsaacPrismChoice(taskId);
+        break;
+    case MENU_B_PRESSED:
+        PlaySE(SE_SELECT);
+        gPartyMenuUseExitCallback = FALSE;
+        DisplayPartyMenuMessage(COMPOUND_STRING("The stone was kept."), TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = sIsaacPrismTask;
+        break;
+    }
+}
+
+void ItemUseCB_IsaacPrismStone(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    u8 candidates[NUMBER_OF_MON_TYPES];
+    enum Type types[2];
+    u32 count = 0, i, j, tmp;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    PlaySE(SE_SELECT);
+    IsaacGetMonTypes(mon, types);
+    for (i = TYPE_NORMAL; i < NUMBER_OF_MON_TYPES; i++)
+        if (i != TYPE_MYSTERY && i != TYPE_STELLAR && i != types[0] && i != types[1])
+            candidates[count++] = i;
+    for (i = 0; i < ISAAC_PRISM_CHOICES; i++)  // les trois premiers d'un mélange
+    {
+        j = i + Random() % (count - i);
+        SWAP(candidates[i], candidates[j], tmp);
+        sIsaacPrismTypes[i] = candidates[i];
+    }
+    sIsaacPrismTask = task;
+    sIsaacPrismChoice = 0;
+    AskIsaacPrismChoice(taskId);
+}
+
+// Donjon : CT Z, apprend le Z-move du premier type du Pokémon (comme une CT : il peut remplacer une attaque)
+void ItemUseCB_IsaacZTM(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    enum Type types[2];
+    enum Move move;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    IsaacGetMonTypes(mon, types);
+    move = gTypesInfo[types[0]].zMove;
+    gPartyMenu.data1 = move;
+    gPartyMenu.learnMoveState = 0;
+    PlaySE(SE_SELECT);
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, GetMoveName(move));
+    if (MonKnowsMove(mon, move))
+    {
+        DisplayLearnMoveMessageAndClose(taskId, gText_PkmnAlreadyKnows);
+        return;
+    }
+    if (GiveMoveToMon(mon, move) != MON_HAS_MAX_MOVES)
+    {
+        gTasks[taskId].func = Task_LearnedMove;
+    }
+    else
+    {
+        DisplayLearnMoveMessage(gText_PkmnNeedsToReplaceMove);
+        gTasks[taskId].func = Task_ReplaceMoveYesNo;
+    }
+}
+
 // Donjon : Dé Maudit, le Pokémon prend un set au hasard, un palier plus bas, le même ou un plus haut
 void ItemUseCB_IsaacCursedDie(u8 taskId, TaskFunc task)
 {

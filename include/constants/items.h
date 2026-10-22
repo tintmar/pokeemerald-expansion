@@ -1085,6 +1085,10 @@ enum __attribute__((packed)) Item
     ITEM_DISCOUNT_CARD = 904,          // -30 % chez Kecleon pour le reste de la descente
     ITEM_CURSED_DIE = 905,             // relance le set d'un Pokémon (palier -1 / = / +1, variante au hasard)
     ITEM_BLOOD_PACT = 906,             // +2 Omniboosts mais -25 % de PV max, pour toujours (une fois par Pokémon)
+    ITEM_LUCKY_COIN = 907,             // argent des dresseurs doublé pour le reste de la descente
+    ITEM_FIRST_AID_KIT = 908,          // soin complet de toute l'équipe, K.O. compris
+    ITEM_PRISM_STONE = 909,            // nouveau second type pour un Pokémon, au choix parmi trois
+    ITEM_Z_TM = 910,                   // apprend le Z-move du type du Pokémon (1 PP, très puissant)
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

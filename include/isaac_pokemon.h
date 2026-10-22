@@ -29,6 +29,9 @@ enum IsaacCategory
     ISAAC_CATEGORY_LEGENDARY_BIG,    // légendaires de BST >= 620 (Mewtwo, Lugia, Rayquaza...)
 };
 
+// Puissance des Z-moves appris par la CT Z, lancés comme des attaques normales (voir CalcMoveBasePower)
+#define ISAAC_Z_MOVE_POWER  160
+
 enum IsaacBiomeId
 {
     ISAAC_BIOME_CAVE,        // Route Victoire
