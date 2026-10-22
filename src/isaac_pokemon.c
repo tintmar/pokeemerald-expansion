@@ -663,31 +663,16 @@ bool8 IsaacUpgradeSet(struct Pokemon *mon)
     return SetMovesFromSet(mon, tier + 1, IsaacGetMonSetVariant(mon));
 }
 
-// Dé Maudit : chaque Pokémon de l'équipe (hors Œufs) prend les attaques d'un set tiré au hasard, un palier plus bas,
-// le même ou un plus haut (dans les limites), en variante A ou B. *up / *down = nombre de Pokémon qui ont monté /
-// descendu d'un palier.
-void IsaacRollCursedDie(u32 *up, u32 *down)
+// Dé Maudit : le Pokémon prend les attaques d'un set tiré au hasard, un palier plus bas, le même ou un plus haut (dans
+// les limites), en variante A ou B. Renvoie le palier gagné (-1, 0 ou 1) ; FALSE dans *ok si l'espèce n'a pas le set.
+s32 IsaacRollCursedDie(struct Pokemon *mon, bool8 *ok)
 {
-    struct Pokemon *mon;
-    u32 i, tier, newTier, roll;
+    u32 roll = Random(), tier = IsaacGetMonSetTier(mon), newTier;
 
-    *up = *down = 0;
-    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
-    {
-        mon = &gParties[B_TRAINER_PLAYER][i];
-        if (GetMonData(mon, MON_DATA_IS_EGG))
-            continue;
-        roll = Random();
-        tier = IsaacGetMonSetTier(mon);
-        newTier = tier + roll % 3;  // tier - 1, tier ou tier + 1, décalé d'un
-        newTier = (newTier == 0) ? 0 : min(newTier - 1, (u32)ISAAC_SET_TIERS - 1);
-        if (!SetMovesFromSet(mon, newTier, (roll >> 8) % ISAAC_SET_VARIANTS))
-            continue;
-        if (newTier > tier)
-            (*up)++;
-        else if (newTier < tier)
-            (*down)++;
-    }
+    newTier = tier + roll % 3;  // tier - 1, tier ou tier + 1, décalé d'un
+    newTier = (newTier == 0) ? 0 : min(newTier - 1, (u32)ISAAC_SET_TIERS - 1);
+    *ok = SetMovesFromSet(mon, newTier, (roll >> 8) % ISAAC_SET_VARIANTS);
+    return (s32)newTier - (s32)tier;
 }
 
 // Choix du Montagnard du hub : le Pokémon proposé n° index (0 à ISAAC_STARTER_CHOICES - 1), une espèce

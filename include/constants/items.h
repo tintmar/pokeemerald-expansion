@@ -1083,7 +1083,7 @@ enum __attribute__((packed)) Item
     ITEM_ISAAC_GEM_FAIRY = 902,
     ITEM_GOLDEN_HEART = 903,           // +10 % à toutes les stats de l'équipe contre le prochain boss
     ITEM_DISCOUNT_CARD = 904,          // -30 % chez Kecleon pour le reste de la descente
-    ITEM_CURSED_DIE = 905,             // relance le set de toute l'équipe (palier -1 / = / +1, variante au hasard)
+    ITEM_CURSED_DIE = 905,             // relance le set d'un Pokémon (palier -1 / = / +1, variante au hasard)
     ITEM_BLOOD_PACT = 906,             // +2 Omniboosts mais -25 % de PV max, pour toujours (une fois par Pokémon)
 
     ITEMS_COUNT,

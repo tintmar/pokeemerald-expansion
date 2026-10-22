@@ -6486,6 +6486,34 @@ void ItemUseCB_IsaacTypeGem(u8 taskId, TaskFunc task)
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
 }
 
+// Donjon : Dé Maudit, le Pokémon prend un set au hasard, un palier plus bas, le même ou un plus haut
+void ItemUseCB_IsaacCursedDie(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    s32 change;
+    bool8 ok;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    change = IsaacRollCursedDie(mon, &ok);
+    if (!ok)
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    GetMonNickname(mon, gStringVar1);
+    if (change > 0)
+        StringCopy(gStringVar2, COMPOUND_STRING("They got better!"));
+    else if (change < 0)
+        StringCopy(gStringVar2, COMPOUND_STRING("They got worse…"));
+    else
+        StringCopy(gStringVar2, COMPOUND_STRING("Same tier as before."));
+    IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1}'s moves changed!\n{STR_VAR_2}{PAUSE_UNTIL_PRESS}"));
+}
+
 // Donjon : Pacte de Sang, +20 % à toutes les stats mais -25 % de PV max, une fois par Pokémon
 void ItemUseCB_IsaacBloodPact(u8 taskId, TaskFunc task)
 {

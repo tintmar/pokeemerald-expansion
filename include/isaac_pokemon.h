@@ -87,7 +87,7 @@ u16 IsaacPickSpecialItem(u32 roll);
 bool8 IsaacAddOmniboost(struct Pokemon *mon);
 bool8 IsaacUpgradeSet(struct Pokemon *mon);
 bool8 IsaacUseBloodPact(struct Pokemon *mon);
-void IsaacRollCursedDie(u32 *up, u32 *down);
+s32 IsaacRollCursedDie(struct Pokemon *mon, bool8 *ok);
 void IsaacGoldenHeartStart(void);
 void IsaacGoldenHeartEnd(void);
 enum Type IsaacGetMonGemType(struct Pokemon *mon);
