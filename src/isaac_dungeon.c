@@ -124,7 +124,7 @@ STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSE
 // Articles de la boutique de l'étage déjà vendus, chacun en un seul exemplaire (voir SHOP_SLOT_*), dans des drapeaux
 // inutilisés du jeu
 #define FLAG_ISAAC_SHOP_SOLD_FIRST  FLAG_UNUSED_0x030
-#define SHOP_LIMITED_SLOTS  12
+#define SHOP_LIMITED_SLOTS  13
 STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED_0x047, IsaacShopFlagsAreUnused);
 
 // Passage vers la salle secrète de l'étage ouvert (sinon ses portes sont fermées par de la roche)
@@ -1686,6 +1686,8 @@ static void SetUpCaptureMons(s32 x, s32 y)
 // ---------------------------------------------------------------------------
 // Kecleon tient la boutique de l'étage (menu Acheter / Quitter, CreateIsaacMartMenu). Ses articles possibles :
 //  - une Master Ball, une Guérison, un Rappel, un Rappel Max, une Super Potion, une Hyper Potion, un Total Soin ;
+//  - jusqu'à l'étage SHOP_DISCOUNT_CARD_MAX_FLOOR, la Carte de Réduction (si on ne l'a pas déjà) : -SHOP_DISCOUNT_PCT %
+//    sur tous les autres articles jusqu'à la fin de la descente ;
 //  - deux objets de combat de sShopBattleItems et deux CT de sShopTMs (tirés pour la salle), un objet spécial
 //    (IsaacPickSpecialItem).
 // Chacun n'est vraiment en vente qu'avec SHOP_SLOT_PRESENT_PCT % de chances (tiré pour l'étage,
@@ -1708,8 +1710,9 @@ enum
     SHOP_SLOT_TM_1,
     SHOP_SLOT_TM_2,
     SHOP_SLOT_SPECIAL,
+    SHOP_SLOT_DISCOUNT_CARD,
 };
-STATIC_ASSERT(SHOP_SLOT_SPECIAL + 1 == SHOP_LIMITED_SLOTS, IsaacShopSlotCount);
+STATIC_ASSERT(SHOP_SLOT_DISCOUNT_CARD + 1 == SHOP_LIMITED_SLOTS, IsaacShopSlotCount);
 
 // Très bons objets de combat
 static const u16 sShopBattleItems[] =
@@ -1788,7 +1791,10 @@ static const struct IsaacShopPrice sShopPrices[] =
     { ITEM_FULL_RESTORE,  6 },
     { ITEM_MAX_REVIVE,   10 },
     { ITEM_MASTER_BALL,  30 },
+    { ITEM_DISCOUNT_CARD, 20 },
 };
+#define SHOP_DISCOUNT_CARD_MAX_FLOOR  4
+#define SHOP_DISCOUNT_PCT            30
 #define SHOP_TM_PRICE_TENTHS       12
 #define SHOP_ITEM_PRICE_TENTHS     15
 #define SHOP_SPECIAL_PRICE_TENTHS  50  // objet spécial : très cher
@@ -1832,6 +1838,8 @@ static u16 GetShopSlotItem(u32 slot)
         if (slot == SHOP_SLOT_TM_1)
             return sShopTMs[first];
         return sShopTMs[(first + 1 + (roll >> 8) % (ARRAY_COUNT(sShopTMs) - 1)) % ARRAY_COUNT(sShopTMs)];
+    case SHOP_SLOT_DISCOUNT_CARD:
+        return ITEM_DISCOUNT_CARD;
     default:
         return IsaacPickSpecialItem(RoomRandom(x, y, 0x5495));
     }
@@ -1852,6 +1860,9 @@ u32 IsaacGetShopPrice(u16 item)
 {
     u32 unit = SHOP_PRICE_UNIT_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
     u32 slot = GetShopSlot(item), i;
+
+    if (item != ITEM_DISCOUNT_CARD && CheckBagHasItem(ITEM_DISCOUNT_CARD, 1))
+        unit = unit * (100 - SHOP_DISCOUNT_PCT) / 100;
 
     for (i = 0; i < ARRAY_COUNT(sShopPrices); i++)
         if (sShopPrices[i].item == item)
@@ -1900,8 +1911,13 @@ void IsaacOpenShop(void)
     u32 n = 0, i;
 
     for (i = 0; i < SHOP_LIMITED_SLOTS; i++)
+    {
+        if (i == SHOP_SLOT_DISCOUNT_CARD
+         && (VarGet(VAR_ISAAC_FLOOR) > SHOP_DISCOUNT_CARD_MAX_FLOOR || CheckBagHasItem(ITEM_DISCOUNT_CARD, 1)))
+            continue;
         if (IsShopSlotPresent(i) && !FlagGet(FLAG_ISAAC_SHOP_SOLD_FIRST + i))
             sShopItems[n++] = GetShopSlotItem(i);
+    }
     sShopItems[n] = ITEM_NONE;  // fin de la liste pour shop.c
     CreateIsaacMartMenu(sShopItems);
 }
@@ -2660,6 +2676,7 @@ static void WarpToNewFloor(u32 floor)
     {
         PrepareRunBiomeOrder();
         FlagClear(FLAG_ISAAC_RUN_PREPARED);  // la descente suivante aura un nouvel ordre
+        RemoveBagItem(ITEM_DISCOUNT_CARD, 1);  // la Carte de Réduction ne vaut que pour une descente
     }
     VarSet(VAR_ISAAC_FLOOR, floor);
     VarSet(VAR_ISAAC_SEED, Random());

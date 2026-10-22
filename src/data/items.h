@@ -4821,6 +4821,23 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_HeartScale,
     },
 
+    // Donjon : -30 % sur les autres articles de Kecleon jusqu'à la fin de la descente (voir IsaacGetShopPrice)
+    [ITEM_DISCOUNT_CARD] =
+    {
+        .name = ITEM_NAME("Discount Card"),
+        .price = 0,
+        .importance = 1,
+        .description = COMPOUND_STRING(
+            "Kecleon's prices\n"
+            "are 30% lower\n"
+            "for this descent."),
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_ContestPass,
+        .iconPalette = gItemIconPalette_ContestPass,
+    },
+
     [ITEM_DAWN_STONE] =
     {
         .name = ITEM_NAME("Dawn Stone"),
