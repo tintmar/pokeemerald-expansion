@@ -12,9 +12,11 @@ struct Pokemon;
 #define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux
 
 // Catégorie d'un Pokémon selon son BST (tools/isaac/build_categories.py) : quartiles des non légendaires des 386,
-// légendaires à part (IsaacGetSpeciesCategory, utilisée pour le Montagnard et les légendaires). Dans le donjon, les
-// dresseurs, boss et Pokémon de la salle de capture utilisent les catégories 1 à 4 recalculées sur les seules
-// espèces du biome (quartiles de BST du biome, voir IsaacPickLineSpecies) : les bornes ci-dessous n'y valent pas.
+// légendaires à part (IsaacGetSpeciesCategory).
+// ISAAC_CATEGORIES_PER_BIOME : si TRUE, les dresseurs, boss et Pokémon de la salle de capture utilisent à la place des
+// catégories 1 à 4 recalculées sur les seules espèces du biome (quartiles de BST du biome, voir IsaacPickLineSpecies),
+// où les bornes ci-dessous ne valent plus. Si FALSE, les catégories sont les mêmes partout.
+#define ISAAC_CATEGORIES_PER_BIOME  FALSE
 enum IsaacCategory
 {
     ISAAC_CATEGORY_NONE,

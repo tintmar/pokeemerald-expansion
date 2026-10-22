@@ -144,15 +144,24 @@ static u32 GetSpeciesBST(enum Species species)
     return info->baseHP + info->baseAttack + info->baseDefense + info->baseSpeed + info->baseSpAttack + info->baseSpDefense;
 }
 
-// Espèces des lignées données de la catégorie voulue (1 à 4), catégories recalculées sur ces lignées seules : leurs
-// espèces triées par BST sont réparties en 4 quarts égaux (catégorie 1 : le quart le plus faible). Deux espèces de
-// même BST ont la même catégorie. Renvoie le nombre d'espèces écrites dans out.
+// Espèces des lignées données de la catégorie voulue (1 à 4). Avec ISAAC_CATEGORIES_PER_BIOME, catégories
+// recalculées sur ces lignées seules : leurs espèces triées par BST sont réparties en 4 quarts égaux (catégorie 1 : le
+// quart le plus faible ; deux espèces de même BST ont la même catégorie). Sinon, catégories globales
+// (IsaacGetSpeciesCategory). Renvoie le nombre d'espèces écrites dans out.
 static u32 GetLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum IsaacCategory category, u16 *out)
 {
     u16 species[ISAAC_MAX_LINE_SPECIES], bst[ISAAC_MAX_LINE_SPECIES];
     u32 n = GetLinesSpecies(lines, lineCount, species, ARRAY_COUNT(species));
     u32 count = 0, i, j, first;
     u16 tmpSpecies, tmpBst;
+
+    if (!ISAAC_CATEGORIES_PER_BIOME)
+    {
+        for (i = 0; i < n; i++)
+            if (IsaacGetSpeciesCategory(species[i]) == category)
+                out[count++] = species[i];
+        return count;
+    }
 
     for (i = 0; i < n; i++)
         bst[i] = GetSpeciesBST(species[i]);
