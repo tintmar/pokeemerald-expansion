@@ -2926,7 +2926,8 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                 }
                 break;
             case WEATHER_SANDSTORM:
-                if (!(gBattleWeather & B_WEATHER_SANDSTORM))
+                // donjon : la tempête de sable du Désert reste un décor, sans effet en combat
+                if (!(gBattleWeather & B_WEATHER_SANDSTORM) && VarGet(VAR_ISAAC_FLOOR) == 0)
                 {
                     gBattleWeather = B_WEATHER_SANDSTORM;
                     gBattleScripting.animArg1 = B_ANIM_SANDSTORM_CONTINUES;
