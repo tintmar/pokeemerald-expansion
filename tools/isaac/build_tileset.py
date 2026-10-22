@@ -87,7 +87,10 @@ BIOME_TILESETS = [
         BL=0x1D4, B=0x1D4, BR=0x1D4, IN_SE=0x1D4, IN_SW=0x1D4, IN_NE=0x1D4, IN_NW=0x1D4, DECO_1=0x0C6, DECO_2=0x0CE,
         TREE_TOP_L=0x1D4, TREE_TOP_R=0x1D5, TREE_BOT_L=0x1DC, TREE_BOT_R=0x1DD, TREE_TRUNK_L=0x1E4, TREE_TRUNK_R=0x1E5)),
 ]
-SURF_TILESETS = {'isaac_ocean'}  # décors où le joueur surfe : tous les rôles ont le comportement du sol (eau)
+SURF_TILESETS = {'isaac_ocean'}
+# Décors dont les décorations (rochers de General à deux calques) sont posées sur le sol du décor : on garde seulement
+# leur calque du dessus (le rocher) sur le calque du dessous du sol, au lieu de l'herbe ou du sable d'origine
+DECO_ON_FLOOR = {'isaac_desert', 'isaac_cliff'}  # décors où le joueur surfe : tous les rôles ont le comportement du sol (eau)
 NUM_PRIMARY_TILES = 512
 NUM_SECONDARY_TILES = 512
 NUM_SECONDARY_METATILES = 512
@@ -279,7 +282,10 @@ def build(out_name, source_name, mapping, mats):
     assert len(attributes) == DECO_FIRST - NUM_PRIMARY_TILES
     for role in DECOS:
         m = mapping[role]
-        if m < NUM_PRIMARY_TILES:
+        if m < NUM_PRIMARY_TILES and out_name in DECO_ON_FLOOR:
+            metatiles.extend(floor + primary_meta[m * 8 + 4: m * 8 + 8])
+            attributes.append((primary_attr[m] & 0xF000) | floor_behavior)
+        elif m < NUM_PRIMARY_TILES:
             metatiles.extend(primary_meta[m * 8: m * 8 + 8])
             attributes.append((primary_attr[m] & 0xF000) | floor_behavior)
         else:
