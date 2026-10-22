@@ -651,39 +651,29 @@ IsaacRoom_Text_DuelistCantFight:
 
 @ Voyant : ouvre le passage vers la salle secrète de l'étage
 IsaacRoom_EventScript_Seer::
-	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_SeerDone
+	special IsaacBufferBossTeam
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_SeerAgain
 	msgbox IsaacRoom_Text_SeerVision, MSGBOX_DEFAULT
-	special IsaacOpenSecretRoom
-	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_SeerAlreadyOpen
-	playse SE_M_PSYBEAM
-	waitse
 	special IsaacSetRoomCleared
-	msgbox IsaacRoom_Text_SeerOpened, MSGBOX_DEFAULT
 	release
 	end
 
-IsaacRoom_EventScript_SeerAlreadyOpen::
-	special IsaacSetRoomCleared
-	msgbox IsaacRoom_Text_SeerAlreadyOpen, MSGBOX_DEFAULT
-	release
-	end
-
-IsaacRoom_EventScript_SeerDone::
-	msgbox IsaacRoom_Text_SeerOpened, MSGBOX_DEFAULT
+IsaacRoom_EventScript_SeerAgain::
+	msgbox IsaacRoom_Text_SeerAgain, MSGBOX_DEFAULT
 	release
 	end
 
 IsaacRoom_Text_SeerVision:
-	.string "Hmm… Je vois une salle cachée à cet\n"
-	.string "étage, derrière la roche…$"
+	.string "Hmm… Je vois {STR_VAR_1}, qui t'attend\n"
+	.string "au bout de cet étage…\p"
+	.string "Ses Pokémon :\n"
+	.string "{STR_VAR_2}…\p"
+	.string "Et son as, gardé pour la fin :\n"
+	.string "{STR_VAR_3} !$"
 
-IsaacRoom_Text_SeerOpened:
-	.string "Le passage est ouvert. Regarde ta\n"
-	.string "carte : la salle secrète t'attend.$"
-
-IsaacRoom_Text_SeerAlreadyOpen:
-	.string "Mais… tu as déjà trouvé le passage.\n"
-	.string "Impressionnant.$"
+IsaacRoom_Text_SeerAgain:
+	.string "Méfie-toi de l'as de {STR_VAR_1} :\n"
+	.string "{STR_VAR_3} !$"
 
 @ Entraîneur d'Éclate-Roc : apprend Éclate-Roc au Pokémon choisi
 IsaacRoom_EventScript_RockSmashTeacher::

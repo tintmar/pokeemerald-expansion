@@ -65,7 +65,7 @@
  *      S'il manque des culs-de-sac ou des salles, on recommence avec une autre graine ;
  *   3. la SALLE SECRÈTE (à partir de ISAAC_SECRET_MIN_FLOOR) : la case vide qui touche le plus de salles
  *      (au moins 2, jamais le boss). Les portes qui y mènent sont fermées par de la roche tant que le passage
- *      n'est pas ouvert (FLAG_ISAAC_SECRET_OPEN) : par le voyant, ou avec Éclate-Roc en parlant à l'une de ces
+ *      n'est pas ouvert (FLAG_ISAAC_SECRET_OPEN) : avec Éclate-Roc en parlant à l'une de ces
  *      roches (IsaacGetWallInteractScript).
  *
  * BIOMES : une descente traverse les ISAAC_BIOME_COUNT biomes (data/isaac_biomes.h), un étage chacun, dans un
@@ -1010,6 +1010,25 @@ static const struct IsaacBossParty *GetBossParty(void)
     return &sBossParties[min(VarGet(VAR_ISAAC_FLOOR), ARRAY_COUNT(sBossParties)) - 1];
 }
 
+// Cellule de la salle du boss de l'étage
+static void GetBossCell(s32 *outX, s32 *outY)
+{
+    s32 x, y;
+
+    *outX = *outY = 0;
+    for (y = 0; y < ISAAC_GRID_H; y++)
+    {
+        for (x = 0; x < ISAAC_GRID_W; x++)
+        {
+            if (GetRoom(x, y) == ROOM_BOSS)
+            {
+                *outX = x;
+                *outY = y;
+            }
+        }
+    }
+}
+
 // Hasard propre à une salle de l'étage (toujours le même pour une salle donnée)
 static u32 RoomRandom(s32 x, s32 y, u32 salt)
 {
@@ -1177,6 +1196,7 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     {
         const struct IsaacBossParty *boss = GetBossParty();
 
+        GetBossCell(&x, &y);  // la même équipe vue d'ailleurs (voyant)
         InitTrainer(&sRoomTrainer, biome->boss, biome->bossName, sRoomTrainerMons);
         sRoomTrainer.aiFlags = AI_FLAG_SMART_TRAINER;
         if (VarGet(VAR_ISAAC_FLOOR) >= ISAAC_BOSS_PREDICTION_FLOOR)
@@ -1491,6 +1511,25 @@ static void SetUpBoss(s32 x, s32 y, bool8 cleared)
 void IsaacBufferBossName(void)
 {
     StringCopy(gStringVar1, gIsaacBiomes[ISAAC_BIOME].bossName);
+}
+
+// Voyant : le boss dans gStringVar1, ses Pokémon (sauf l'as) dans gStringVar2, deux par ligne, et son as dans
+// gStringVar3
+void IsaacBufferBossTeam(void)
+{
+    const struct Trainer *boss = GetIsaacTrainer(TRAINER_ISAAC_BOSS);
+    u8 *end = gStringVar2;
+    u32 i;
+
+    StringCopy(gStringVar1, gIsaacBiomes[ISAAC_BIOME].bossName);
+    *end = EOS;
+    for (i = 0; i + 1 < boss->partySize; i++)
+    {
+        if (i != 0)
+            end = StringAppend(end, (i % 2 == 0) ? COMPOUND_STRING(",\l") : COMPOUND_STRING(", "));
+        end = StringAppend(end, GetSpeciesName(boss->party[i].species));
+    }
+    StringCopy(gStringVar3, GetSpeciesName(boss->party[boss->partySize - 1].species));
 }
 
 // Boss vaincu : la salle est nettoyée et le passage vers l'étage suivant s'ouvre (la salle est redessinée)
@@ -1947,7 +1986,7 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_DUELIST : le duelliste annonce son Pokémon (plus fort que ceux de l'étage, voir GetIsaacTrainer),
 //    puis combat en 1 contre 1 contre le Pokémon choisi par le joueur. Perdre ne renvoie pas au hub. Un seul duel :
 //    gagné, il donne une Guérison et un Ability Trainer ; perdu, un Rappel pour relever le Pokémon K.O. ;
-//  - ROOM_CONTENT_SEER : le voyant ouvre le passage vers la salle secrète de l'étage (seulement s'il y en a une) ;
+//  - ROOM_CONTENT_SEER : le voyant annonce l'équipe du boss de l'étage (IsaacBufferBossTeam) ;
 //  - ROOM_CONTENT_ROCK_SMASH : un entraîneur apprend Éclate-Roc au Pokémon choisi, qui pourra briser les roches qui
 //    ferment la salle secrète (seulement s'il y en a une, et si personne ne connaissait Éclate-Roc en début d'étage) ;
 //  - ROOM_CONTENT_HEALER : une vieille dame et son Leveinard soignent complètement un Pokémon (même K.O.), une fois ;
@@ -1976,8 +2015,6 @@ static bool8 FloorHasSecretRoom(void)
 
 #define DEVIL_PACT_MIN_FLOOR  3  // le pacte du diable n'apparaît qu'à partir de cet étage
 
-#define SEER_ENABLED  FALSE  // voyant retiré pour l'instant (son code reste, voir IsaacOpenSecretRoom)
-
 static bool8 IsRoomContentAvailable(u32 content)
 {
     switch (content)
@@ -1986,8 +2023,6 @@ static bool8 IsRoomContentAvailable(u32 content)
         return VarGet(VAR_ISAAC_FLOOR) == GetEggFloor();
     case ROOM_CONTENT_DEVIL:
         return VarGet(VAR_ISAAC_FLOOR) >= DEVIL_PACT_MIN_FLOOR;
-    case ROOM_CONTENT_SEER:
-        return SEER_ENABLED && FloorHasSecretRoom();
     case ROOM_CONTENT_ROCK_SMASH:
         return FloorHasSecretRoom() && FlagGet(FLAG_ISAAC_ROCK_SMASH_TEACHER);
     default:
