@@ -65,6 +65,32 @@ for _m in re.finditer(r'\[SPECIES_(\w+)\]\s*=\s*\{', _info):
     _end = _info.find('\n    [SPECIES_', _m.end())
     _blocks[_m.group(1)] = _info[_m.end(): _end if _end > 0 else len(_info)]
 
+# Macros à paramètres (Flabébé et ses évolutions décrivent leurs stats dans des macros, une par couleur) : développées
+# dans les blocs qui n'ont pas leurs stats en clair
+_MACROS = {}
+for _m in re.finditer(r'#define\s+(\w+)\(([^)]*)\)((?:[^\n]*\\\n)*[^\n]*)', _info):
+    _MACROS[_m.group(1)] = ([p.strip() for p in _m.group(2).split(',')], _m.group(3).replace('\\\n', '\n'))
+
+
+def _expand_macros(block):
+    for _ in range(4):
+        def sub(m):
+            params, body = _MACROS[m.group(1)]
+            args = [a.strip() for a in m.group(2).split(',')]
+            for p, a in zip(params, args):
+                body = re.sub(r'\b%s\b' % re.escape(p), a, body)
+            return re.sub(r'\s*##\s*', '', body)
+        new = re.sub(r'\b(%s)\(([^()]*)\)' % '|'.join(map(re.escape, _MACROS)), sub, block)
+        if new == block:
+            break
+        block = new
+    return block
+
+
+for _name, _b in list(_blocks.items()):
+    if '.baseHP' not in _b and _MACROS:
+        _blocks[_name] = _expand_macros(_b)
+
 _DEFINES = {}
 for _name, _value in re.findall(r'#define\s+(\w+)\s+([^\n]+)', _info):
     _DEFINES.setdefault(_name, _value.strip())
@@ -143,8 +169,19 @@ for _m in re.finditer(r'\[MOVE_(\w+)\]\s*=\s*\{', _moves_h):
 _learn = json.loads(read('src/data/pokemon/all_learnables.json'))
 
 
+# Alias des espèces (SPECIES_FLABEBE = SPECIES_FLABEBE_RED) : all_learnables.json les range parfois sous l'alias
+_ALIASES = {}
+for _alias, _target in re.findall(r'SPECIES_(\w+)\s*=\s*SPECIES_(\w+),', _species_h):
+    _ALIASES.setdefault(_target, []).append(_alias)
+
+
 def learnset(name):
-    return {m[5:] for m in _learn.get(LEARN_NAMES.get(name, name), [])} | set(_roster.EXTRA_LEARNABLE.get(name, []))
+    key = LEARN_NAMES.get(name, name)
+    for alias in [key] + _ALIASES.get(key, []):
+        if alias in _learn:
+            key = alias
+            break
+    return {m[5:] for m in _learn.get(key, [])} | set(_roster.EXTRA_LEARNABLE.get(name, []))
 
 
 ITEMS = {i[5:] for i in re.findall(r'\bITEM_[A-Z0-9_]+', read('include/constants/items.h'))}

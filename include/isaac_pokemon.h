@@ -75,6 +75,8 @@ extern const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT];
 const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier, u32 variant);
 enum IsaacCategory IsaacGetSpeciesCategory(enum Species species);
 u32 IsaacGetRosterCount(void);
+enum Species IsaacGetSharedFormBase(enum Species species);
+enum Species IsaacRollSharedForm(enum Species species, u32 roll);
 enum Species IsaacGetRosterSpecies(u32 index);
 enum Species IsaacGetEvolution(enum Species species, u32 choice);
 enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 roll);

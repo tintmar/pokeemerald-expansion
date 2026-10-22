@@ -62,9 +62,51 @@ enum Species IsaacGetRosterSpecies(u32 index)
 // Lignées et évolutions
 // ---------------------------------------------------------------------------
 
-// Évolutions d'une espèce dans le roster (ni « clone » comme Munja, ni forme régionale) ; renvoie leur nombre
-static u32 GetEvolutions(enum Species species, u16 *targets, u32 max)
+// Forme régionale du roster (data/isaac_categories.h) ? *sharedWith : l'espèce d'origine si c'est une forme à poids
+// partagé, SPECIES_NONE si c'est une lignée à part
+static bool32 IsRegionalForm(enum Species species, u16 *sharedWith)
 {
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sIsaacRegionalForms); i++)
+    {
+        if (sIsaacRegionalForms[i][0] == species)
+        {
+            *sharedWith = sIsaacRegionalForms[i][1];
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+// Espèce d'origine d'une forme à poids partagé (Rattata pour Rattata d'Alola), l'espèce elle-même sinon
+enum Species IsaacGetSharedFormBase(enum Species species)
+{
+    u16 base;
+
+    return (IsRegionalForm(species, &base) && base != SPECIES_NONE) ? base : species;
+}
+
+// L'espèce ou une de ses formes à poids partagé, au hasard à parts égales
+enum Species IsaacRollSharedForm(enum Species species, u32 roll)
+{
+    u16 choices[4];
+    u32 count = 0, i;
+
+    choices[count++] = species;
+    for (i = 0; i < ARRAY_COUNT(sIsaacRegionalForms) && count < ARRAY_COUNT(choices); i++)
+        if (sIsaacRegionalForms[i][1] == species)
+            choices[count++] = sIsaacRegionalForms[i][0];
+    return choices[roll % count];
+}
+
+// Évolutions d'une espèce dans le roster (ni « clone » comme Munja) ; renvoie leur nombre. Avec sameRegion, une
+// espèce qui n'est pas une forme régionale ne passe pas à une forme régionale (Osselait -> Ossatueur seulement) : les
+// formes régionales sont tirées à part (lignée à elles, ou poids partagé avec IsaacRollSharedForm).
+static u32 GetEvolutions(enum Species species, u16 *targets, u32 max, bool32 sameRegion)
+{
+    u16 base;
+    bool32 fromForm = IsRegionalForm(species, &base);
     const struct Evolution *evolutions = GetSpeciesEvolutions(species);
     u32 i, j, count = 0;
 
@@ -75,7 +117,8 @@ static u32 GetEvolutions(enum Species species, u16 *targets, u32 max)
         enum Species target = SanitizeSpeciesId(evolutions[i].targetSpecies);
 
         if (target == SPECIES_NONE || IsaacGetSpeciesCategory(target) == ISAAC_CATEGORY_NONE
-         || evolutions[i].method == EVO_NONE || evolutions[i].method == EVO_SPLIT_FROM_EVO)
+         || evolutions[i].method == EVO_NONE || evolutions[i].method == EVO_SPLIT_FROM_EVO
+         || (sameRegion && !fromForm && IsRegionalForm(target, &base)))
             continue;
         for (j = 0; j < count && targets[j] != target; j++)
             ;
@@ -90,7 +133,7 @@ static u32 GetEvolutions(enum Species species, u16 *targets, u32 max)
 u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out, u32 max)
 {
     u16 targets[8], finals[ISAAC_MAX_EVOLUTION_CHOICES];
-    u32 count = GetEvolutions(species, targets, ARRAY_COUNT(targets)), n = 0, i, j, k, finalCount;
+    u32 count = GetEvolutions(species, targets, ARRAY_COUNT(targets), FALSE), n = 0, i, j, k, finalCount;
 
     if (!toFinalStage)
     {
@@ -213,12 +256,12 @@ u16 IsaacPickSpecialItem(u32 roll)
 enum Species IsaacGetEvolution(enum Species species, u32 choice)
 {
     u16 targets[8];
-    u32 count = GetEvolutions(species, targets, ARRAY_COUNT(targets));
+    u32 count = GetEvolutions(species, targets, ARRAY_COUNT(targets), TRUE);
 
     return count ? targets[choice % count] : SPECIES_NONE;
 }
 
-#define ISAAC_MAX_LINE_SPECIES  128  // espèces d'un biome entier (une trentaine de lignées et leurs évolutions)
+#define ISAAC_MAX_LINE_SPECIES  160  // espèces d'un biome entier (une trentaine de lignées et leurs évolutions)
 
 // Toutes les espèces des lignées données (espèces de base et leurs évolutions) ; renvoie leur nombre
 static u32 GetLinesSpecies(const u16 *lines, u32 lineCount, u16 *out, u32 max)
@@ -230,7 +273,7 @@ static u32 GetLinesSpecies(const u16 *lines, u32 lineCount, u16 *out, u32 max)
         out[count++] = lines[i];
     for (i = 0; i < count; i++)  // la liste s'allonge pendant le parcours
     {
-        n = GetEvolutions(out[i], targets, ARRAY_COUNT(targets));
+        n = GetEvolutions(out[i], targets, ARRAY_COUNT(targets), TRUE);
         for (j = 0; j < n && count < max; j++)
         {
             for (k = 0; k < count && out[k] != targets[j]; k++)
@@ -289,12 +332,13 @@ static u32 GetLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum Isaac
 }
 
 // Catégorie (1 à 4) d'une espèce au sens des lignées données (voir GetLinesSpeciesOfCategory), ISAAC_CATEGORY_NONE si
-// elle n'en fait pas partie
+// elle n'en fait pas partie ; une forme à poids partagé a celle de son espèce d'origine
 enum IsaacCategory IsaacGetLinesCategory(const u16 *lines, u32 lineCount, enum Species species)
 {
     u16 candidates[ISAAC_MAX_LINE_SPECIES];
     u32 category, n, i;
 
+    species = IsaacGetSharedFormBase(species);
     for (category = ISAAC_CATEGORY_1; category <= ISAAC_CATEGORY_4; category++)
     {
         n = GetLinesSpeciesOfCategory(lines, lineCount, category, candidates);
@@ -323,14 +367,14 @@ u32 IsaacAddLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum IsaacCa
     return count;
 }
 
-// Une espèce des lignées données de la catégorie voulue, au sens de ces lignées (voir GetLinesSpeciesOfCategory),
-// SPECIES_NONE s'il n'y en a pas
+// Une espèce des lignées données de la catégorie voulue, au sens de ces lignées (voir GetLinesSpeciesOfCategory), ou
+// une de ses formes à poids partagé ; SPECIES_NONE s'il n'y en a pas
 enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 roll)
 {
     u16 candidates[ISAAC_MAX_LINE_SPECIES];
     u32 n = GetLinesSpeciesOfCategory(lines, lineCount, category, candidates);
 
-    return n ? candidates[roll % n] : SPECIES_NONE;
+    return n ? IsaacRollSharedForm(candidates[roll % n], (roll / n) >> 3) : SPECIES_NONE;
 }
 
 // ---------------------------------------------------------------------------

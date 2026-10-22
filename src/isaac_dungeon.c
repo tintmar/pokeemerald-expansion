@@ -1058,13 +1058,13 @@ static const struct IsaacBossParty sBossParties[] =
 // (une case vide reprend le premier, pour tirer à égalité entre ceux qui sont listés)
 static const u16 sBossLegendaries[ISAAC_BIOME_COUNT][3] =
 {
-    [ISAAC_BIOME_CAVE]   = { SPECIES_REGIROCK, SPECIES_REGIROCK,  SPECIES_REGIROCK },  // Pierre (roche)
-    [ISAAC_BIOME_DARK]   = { SPECIES_DEOXYS,   SPECIES_MEW,       SPECIES_DEOXYS },    // Spectra (mystère)
+    [ISAAC_BIOME_CAVE]   = { SPECIES_REGIROCK, SPECIES_ZAPDOS_GALAR, SPECIES_REGIROCK }, // Pierre (roche, combat)
+    [ISAAC_BIOME_DARK]   = { SPECIES_DEOXYS,   SPECIES_MOLTRES_GALAR, SPECIES_DEOXYS },  // Spectra (ténèbres)
     [ISAAC_BIOME_FIRE]   = { SPECIES_MOLTRES,  SPECIES_ENTEI,     SPECIES_RAIKOU },    // Adriane (feu, électrik)
     [ISAAC_BIOME_ICE]    = { SPECIES_ARTICUNO, SPECIES_REGICE,    SPECIES_REGISTEEL }, // Glacia (glace, acier)
     [ISAAC_BIOME_POISON] = { SPECIES_MEW,      SPECIES_MEW,       SPECIES_MEW },       // Koga (poison)
     [ISAAC_BIOME_OCEAN]  = { SPECIES_SUICUNE,  SPECIES_SUICUNE,   SPECIES_SUICUNE },   // Ondine (eau)
-    [ISAAC_BIOME_DESERT] = { SPECIES_JIRACHI,  SPECIES_DEOXYS,    SPECIES_JIRACHI },   // Giovanni (sol, psy)
+    [ISAAC_BIOME_DESERT] = { SPECIES_JIRACHI,  SPECIES_ARTICUNO_GALAR, SPECIES_DEOXYS }, // Giovanni (sol, psy)
     [ISAAC_BIOME_CLIFF]  = { SPECIES_LATIAS,   SPECIES_LATIOS,    SPECIES_ZAPDOS },    // Alizée (vol, dragon)
     [ISAAC_BIOME_FOREST] = { SPECIES_CELEBI,   SPECIES_CELEBI,    SPECIES_CELEBI },    // Erika (plante)
 };
@@ -1173,13 +1173,13 @@ static void AddTrainerMon(enum IsaacCategory category, u32 tier, u32 seed)
                 // sans les espèces déjà dans l'équipe
                 for (kept = 0, j = 0; j < count; j++)
                 {
-                    for (k = 0; k < sRoomTrainer.partySize && sRoomTrainerMons[k].species != candidates[j]; k++)
+                    for (k = 0; k < sRoomTrainer.partySize && IsaacGetSharedFormBase(sRoomTrainerMons[k].species) != candidates[j]; k++)
                         ;
                     if (k == sRoomTrainer.partySize)
                         candidates[kept++] = candidates[j];
                 }
                 if (kept != 0)
-                    species = candidates[seed % kept];
+                    species = IsaacRollSharedForm(candidates[seed % kept], seed >> 12);
             }
         }
         if (species == SPECIES_NONE)

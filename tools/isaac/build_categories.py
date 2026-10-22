@@ -9,14 +9,15 @@ Génère src/data/isaac_categories.h : la catégorie de chaque Pokémon du roste
 
 Usage : python3 tools/isaac/build_categories.py
 """
-import os, statistics, sys
+import os, re, statistics, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gamedata as g
+import roster
 
 LEGENDARIES = {'ARTICUNO', 'ZAPDOS', 'MOLTRES', 'MEWTWO', 'MEW', 'RAIKOU', 'ENTEI', 'SUICUNE', 'LUGIA', 'HO_OH',
                'CELEBI', 'REGIROCK', 'REGICE', 'REGISTEEL', 'LATIAS', 'LATIOS', 'KYOGRE', 'GROUDON', 'RAYQUAZA',
-               'JIRACHI', 'DEOXYS'}
+               'JIRACHI', 'DEOXYS'} | set(roster.EXTRA_LEGENDARIES)
 BIG_LEGENDARY_BST = 620
 
 
@@ -50,6 +51,15 @@ def main():
     out.append('static const u16 sIsaacRoster[] =')
     out.append('{')
     out.extend(f'    SPECIES_{name},' for name in g.ORDER)
+    out.append('};')
+    out.append('')
+    out.append('// Formes régionales du roster : { forme, espèce d\'origine si son poids est partagé avec elle (SPECIES_NONE :')
+    out.append('// lignée à part) }')
+    out.append('static const u16 sIsaacRegionalForms[][2] =')
+    out.append('{')
+    for name in g.ORDER:
+        if re.search(r'_(ALOLA|GALAR|HISUI|PALDEA)(_|$)', name):
+            out.append(f'    {{ SPECIES_{name}, SPECIES_{roster.SHARED_FORMS.get(name, "NONE")} }},')
     out.append('};')
     path = os.path.join(g.ROOT, 'src', 'data', 'isaac_categories.h')
     open(path, 'w', encoding='utf-8').write('\n'.join(out) + '\n')

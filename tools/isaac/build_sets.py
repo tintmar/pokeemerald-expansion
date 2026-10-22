@@ -3,7 +3,8 @@
 Vérifie les sets écrits à la main et génère src/data/isaac_sets.h : pour chaque Pokémon du roster (roster.py), 3 paliers
 du plus faible au plus fort, et deux variantes A et B de chaque palier (même force, rôles différents :
 physique / spécial, offensif / soutien, autre objet...).
-  - variante A : tools/isaac/sets_gen1.py, sets_gen2.py, sets_gen3.py (dictionnaire SETS) ;
+  - variante A : tools/isaac/sets_gen1.py, sets_gen2.py, sets_gen3.py, puis les espèces ajoutées au roster par
+    biome (sets_cave.py, sets_dark.py...) (dictionnaire SETS) ;
   - variante B : tools/isaac/sets_gen1b.py, sets_gen2b.py, sets_gen3b.py (dictionnaire SETS, même format).
     Tant qu'une espèce n'a pas de variante B, sa variante B reprend la A.
 
@@ -78,7 +79,8 @@ MID_ITEMS = {'LEFTOVERS', 'SITRUS_BERRY', 'LUM_BERRY', 'BLACK_SLUDGE', 'FLAME_OR
 # Objets interdits : l'Évoluroc ne sert plus à rien dès que le Pokémon évolue
 FORBIDDEN_ITEMS = {'EVIOLITE'}
 
-SET_FILES = ['sets_gen1', 'sets_gen2', 'sets_gen3']
+SET_FILES = ['sets_gen1', 'sets_gen2', 'sets_gen3', 'sets_cave', 'sets_dark', 'sets_fire', 'sets_ice', 'sets_poison',
+             'sets_ocean', 'sets_desert', 'sets_cliff', 'sets_forest']
 SET_FILES_B = ['sets_gen1b', 'sets_gen2b', 'sets_gen3b']
 
 errors = []
