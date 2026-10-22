@@ -1235,10 +1235,14 @@ static u32 CountTrainersLeftOnFloor(void)
 // dresseur la donne avec 1 chance sur le nombre de dresseurs encore à battre (1/8, 1/7... 1/1) ; battre tous les
 // dresseurs de l'étage la donne donc à coup sûr. Elle remplace le soin, sauf à partir de TRAINER_LOOT_BOTH_FLOOR où
 // elle s'y ajoute.
+// En plus, TRAINER_LOOT_TM_PCT % des dresseurs donnent une très bonne CT (sShopTMs, toujours la même pour une salle).
 #define TRAINER_LOOT_FULL_RESTORE_PCT  66
 #define TRAINER_LOOT_BOTH_FLOOR        4
+#define TRAINER_LOOT_TM_PCT            10
 
-static EWRAM_DATA u16 sTrainerLoot[3] = {0};
+static u16 PickGoodTM(u32 roll);
+
+static EWRAM_DATA u16 sTrainerLoot[4] = {0};
 static EWRAM_DATA u8 sTrainerLootCount = 0;
 
 void IsaacPickTrainerLoot(void)
@@ -1258,6 +1262,8 @@ void IsaacPickTrainerLoot(void)
     {
         sTrainerLoot[sTrainerLootCount++] = (RoomRandom(x, y, 0x1007) % 100 < TRAINER_LOOT_FULL_RESTORE_PCT) ? ITEM_FULL_RESTORE : ITEM_REVIVE;
     }
+    if (RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_TM_PCT)
+        sTrainerLoot[sTrainerLootCount++] = PickGoodTM(RoomRandom(x, y, 0x7E58));
     if (VarGet(VAR_ISAAC_FLOOR) < ISAAC_MASTER_BALL_MIN_FLOOR || FlagGet(FLAG_ISAAC_MASTER_BALL_DROPPED))
         return;
     left = CountTrainersLeftOnFloor();
@@ -1750,6 +1756,10 @@ static const u16 sShopTMs[] =
     ITEM_TM_ROOST,
 };
 
+static u16 PickGoodTM(u32 roll)
+{
+    return sShopTMs[roll % ARRAY_COUNT(sShopTMs)];
+}
 
 // Prix en dixièmes des gains d'un dresseur de l'étage
 struct IsaacShopPrice
