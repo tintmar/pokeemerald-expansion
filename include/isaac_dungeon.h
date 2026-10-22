@@ -40,6 +40,7 @@ void IsaacBufferFirstBiome(void);
 void IsaacGetRoomContent(void);
 void IsaacGiveEgg(void);
 void IsaacPickTreasureItem(void);
+void IsaacPickBossReward(void);
 void IsaacReleasePartyMon(void);
 void IsaacPrepareTrade(void);
 void IsaacDoTrade(void);

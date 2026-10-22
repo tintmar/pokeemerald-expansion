@@ -659,6 +659,7 @@ gSpecials::
 	def_special IsaacGetRoomContent
 	def_special IsaacGiveEgg
 	def_special IsaacPickTreasureItem
+	def_special IsaacPickBossReward
 	def_special IsaacReleasePartyMon
 	def_special IsaacPrepareTrade
 	def_special IsaacDoTrade

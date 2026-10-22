@@ -2366,6 +2366,18 @@ const u8 *IsaacGetWallInteractScript(s16 x, s16 y)
     return IsaacRoom_EventScript_SecretWall;
 }
 
+// Récompense du boss vaincu (dans VAR_0x8004, toujours la même pour l'étage) : un objet spécial ou une Master Ball,
+// une fois sur deux chacun
+void IsaacPickBossReward(void)
+{
+    s32 x, y;
+    u32 roll;
+
+    GetCurrentCell(&x, &y);
+    roll = RoomRandom(x, y, 0xB0B0);
+    gSpecialVar_0x8004 = (roll & 1) ? IsaacPickSpecialItem(roll >> 1) : ITEM_MASTER_BALL;
+}
+
 // Objet de la salle trésor ou de la salle secrète (dans VAR_0x8004) : un objet spécial au hasard (toujours une Pierre
 // Évolution au premier étage), ou un bon objet de combat ou une bonne CT dans une salle secrète qui en contient
 void IsaacPickTreasureItem(void)
