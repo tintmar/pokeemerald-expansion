@@ -144,7 +144,7 @@ _learn = json.loads(read('src/data/pokemon/all_learnables.json'))
 
 
 def learnset(name):
-    return {m[5:] for m in _learn.get(LEARN_NAMES.get(name, name), [])}
+    return {m[5:] for m in _learn.get(LEARN_NAMES.get(name, name), [])} | set(_roster.EXTRA_LEARNABLE.get(name, []))
 
 
 ITEMS = {i[5:] for i in re.findall(r'\bITEM_[A-Z0-9_]+', read('include/constants/items.h'))}
