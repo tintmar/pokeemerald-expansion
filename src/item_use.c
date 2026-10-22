@@ -83,6 +83,7 @@ static void ItemUseOnFieldCB_Honey(u8 taskId);
 static bool32 IsValidLocationForVsSeeker(void);
 
 static const u8 sText_CantDismountBike[] = _("You can't dismount your BIKE here.{PAUSE_UNTIL_PRESS}");
+static const u8 sText_IsaacItemCannotUse[] = _("This item can only be used\nin the Isaac dungeon.{PAUSE_UNTIL_PRESS}");
 static const u8 sText_ItemFinderNearby[] = _("Huh?\nThe ITEMFINDER's responding!\pThere's an item buried around here!{PAUSE_UNTIL_PRESS}");
 static const u8 sText_ItemFinderOnTop[] = _("Oh!\nThe ITEMFINDER's shaking wildly!{PAUSE_UNTIL_PRESS}");
 static const u8 sText_ItemFinderNothing[] = _("… … … …Nope!\nThere's no response.{PAUSE_UNTIL_PRESS}");
@@ -210,6 +211,11 @@ void DisplayDadsAdviceCannotUseItemMessage(u8 taskId, bool8 isUsingRegisteredKey
 static void DisplayCannotDismountBikeMessage(u8 taskId, bool8 isUsingRegisteredKeyItemOnField)
 {
     DisplayCannotUseItemMessage(taskId, isUsingRegisteredKeyItemOnField, sText_CantDismountBike);
+}
+
+static void DisplayIsaacItemCannotUseMessage(u8 taskId, bool8 isUsingRegisteredKeyItemOnField)
+{
+    DisplayCannotUseItemMessage(taskId, isUsingRegisteredKeyItemOnField, sText_IsaacItemCannotUse);
 }
 
 static void Task_CloseCantUseKeyItemMessage(u8 taskId)
@@ -1502,6 +1508,11 @@ void ItemUseOutOfBattle_Honey(u8 taskId)
 void ItemUseOutOfBattle_CannotUse(u8 taskId)
 {
     DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
+}
+
+void ItemUseOutOfBattle_IsaacCannotUse(u8 taskId)
+{
+    DisplayIsaacItemCannotUseMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
 }
 
 static bool32 IsValidLocationForVsSeeker(void)
