@@ -1162,6 +1162,12 @@ void ItemUseOutOfBattle_IsaacTypeGem(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_IsaacBloodPact(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacBloodPact;
+    SetUpItemUseCallback(taskId);
+}
+
 // Donjon : Dé Maudit, utilisé depuis le Sac sur toute l'équipe (voir IsaacRollCursedDie)
 void ItemUseOutOfBattle_IsaacCursedDie(u8 taskId)
 {

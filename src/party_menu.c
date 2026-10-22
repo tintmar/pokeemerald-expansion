@@ -6486,6 +6486,20 @@ void ItemUseCB_IsaacTypeGem(u8 taskId, TaskFunc task)
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
 }
 
+// Donjon : Pacte de Sang, +20 % à toutes les stats mais -25 % de PV max, une fois par Pokémon
+void ItemUseCB_IsaacBloodPact(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacUseBloodPact(mon))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    GetMonNickname(mon, gStringVar1);
+    IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} sealed a blood pact!\nIt's stronger, but frailer…{PAUSE_UNTIL_PRESS}"));
+}
+
 // Donjon : Omniboost, +10 % à toutes les stats du Pokémon (cumulable)
 void ItemUseCB_IsaacOmniboost(u8 taskId, TaskFunc task)
 {

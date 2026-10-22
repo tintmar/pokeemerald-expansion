@@ -4857,6 +4857,24 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_LoadedDice,
     },
 
+    // Donjon : deux Omniboosts contre un quart des PV max, pour toujours, une fois par Pokémon (voir IsaacUseBloodPact)
+    [ITEM_BLOOD_PACT] =
+    {
+        .name = ITEM_NAME("Blood Pact"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "All stats +20%,\n"
+            "but max HP -25%,\n"
+            "for good."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacBloodPact,
+        .flingPower = 30,
+        .iconPic = gItemIcon_SpellTag,
+        .iconPalette = gItemIconPalette_SpellTag,
+    },
+
     [ITEM_DAWN_STONE] =
     {
         .name = ITEM_NAME("Dawn Stone"),

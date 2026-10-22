@@ -319,9 +319,13 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 #define ISAAC_TIER_DATA       MON_DATA_BEAUTY
 #define ISAAC_VARIANT_DATA    MON_DATA_CUTE
 
-// Boosts de stat reçus (+25 %, un par stat) : un bit par stat (1 << STAT_*), dans la stat de concours Intelligence
+// Boosts de stat reçus (+25 %, un par stat) : un bit par stat (1 << STAT_*), dans la stat de concours Intelligence ;
+// le bit ISAAC_BLOOD_PACT_BIT dit si le Pokémon a reçu un Pacte de Sang (PV max -ISAAC_BLOOD_PACT_HP_MALUS_PCT %)
 #define ISAAC_STAT_BOOST_DATA  MON_DATA_SMART
 #define ISAAC_STAT_BOOST_PCT   25
+#define ISAAC_BLOOD_PACT_BIT   (1 << 7)
+#define ISAAC_BLOOD_PACT_OMNIBOOSTS     2
+#define ISAAC_BLOOD_PACT_HP_MALUS_PCT  25
 // Pierre brillante : stat boostée + 1 (0 : pas encore utilisée), dans la stat de concours Robustesse
 #define ISAAC_BRILLIANT_DATA   MON_DATA_TOUGH
 #define ISAAC_BRILLIANT_PCT    20
@@ -350,6 +354,8 @@ s32 IsaacApplyStatBoosts(struct Pokemon *mon, u32 stat, s32 value)
         value = value * (100 + ISAAC_STAT_BOOST_PCT) / 100;
     if (GetMonData(mon, ISAAC_BRILLIANT_DATA) == stat + 1)
         value = value * (100 + ISAAC_BRILLIANT_PCT) / 100;
+    if (stat == STAT_HP && (GetMonData(mon, ISAAC_STAT_BOOST_DATA) & ISAAC_BLOOD_PACT_BIT))
+        value = max(value * (100 - ISAAC_BLOOD_PACT_HP_MALUS_PCT) / 100, 1);
     return value;
 }
 
@@ -393,6 +399,23 @@ bool8 IsaacAddOmniboost(struct Pokemon *mon)
     if (count >= ISAAC_OMNIBOOST_MAX)
         return FALSE;
     count++;
+    SetMonData(mon, ISAAC_OMNIBOOST_DATA, &count);
+    CalculateMonStats(mon);
+    return TRUE;
+}
+
+// Pacte de Sang : deux Omniboosts de plus (dans la limite) et un quart des PV max en moins, pour toujours. FALSE si le
+// Pokémon en a déjà reçu un ou a déjà le maximum d'Omniboosts.
+bool8 IsaacUseBloodPact(struct Pokemon *mon)
+{
+    u32 boosts = GetMonData(mon, ISAAC_STAT_BOOST_DATA);
+    u32 count = GetMonData(mon, ISAAC_OMNIBOOST_DATA);
+
+    if ((boosts & ISAAC_BLOOD_PACT_BIT) || count >= ISAAC_OMNIBOOST_MAX)
+        return FALSE;
+    boosts |= ISAAC_BLOOD_PACT_BIT;
+    SetMonData(mon, ISAAC_STAT_BOOST_DATA, &boosts);
+    count = min(count + ISAAC_BLOOD_PACT_OMNIBOOSTS, (u32)ISAAC_OMNIBOOST_MAX);
     SetMonData(mon, ISAAC_OMNIBOOST_DATA, &count);
     CalculateMonStats(mon);
     return TRUE;
