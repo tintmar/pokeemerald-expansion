@@ -101,7 +101,7 @@
 #define ISAAC_MAX_TRIES        200  // graines essayées pour un étage valide
 
 #define ISAAC_TRAINER_PCT    60  // % de salles normales avec un dresseur
-#define ISAAC_TRAINER_MONEY_PER_FLOOR  1000  // argent gagné contre un dresseur (ou le boss) : x profondeur
+#define ISAAC_TRAINER_MONEY_PER_FLOOR  1200  // argent gagné contre un dresseur (ou le boss) : x profondeur
 #define ISAAC_BIOME          IsaacGetCurrentBiome()
 #define ISAAC_FLOOR_COUNT    ISAAC_BIOME_COUNT  // un étage par biome, puis la salle de la victoire
 #define WIN_ROOM_X  5  // arrivée dans la salle de la victoire (IsaacWin)
@@ -1688,9 +1688,9 @@ static void SetUpCaptureMons(s32 x, s32 y)
 //    (IsaacPickSpecialItem).
 // Chacun n'est vraiment en vente qu'avec SHOP_SLOT_PRESENT_PCT % de chances (tiré pour l'étage,
 // IsShopSlotPresent), en un seul exemplaire.
-// Les prix se comptent en « gains d'un dresseur » de l'étage (ISAAC_TRAINER_MONEY_PER_FLOOR x étage, voir
-// sShopPrices) : un étage rapporte de l'ordre de 5 (étage 2) à 11 (étages profonds) de ces gains, on ne peut
-// donc pas tout acheter et il faut choisir.
+// Les prix se comptent en dixièmes de SHOP_PRICE_UNIT_PER_FLOOR x étage (voir sShopPrices) : un étage rapporte de
+// l'ordre de 6 (étage 2) à 13 (étages profonds) de ces unités, on ne peut donc pas tout acheter et il faut choisir.
+#define SHOP_PRICE_UNIT_PER_FLOOR  1000  // les gains d'un dresseur valaient 1000 x étage quand les prix ont été fixés
 
 enum
 {
@@ -1836,7 +1836,7 @@ static u32 GetShopSlot(u16 item)
 // Prix d'un article de la boutique (shop.c)
 u32 IsaacGetShopPrice(u16 item)
 {
-    u32 unit = ISAAC_TRAINER_MONEY_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
+    u32 unit = SHOP_PRICE_UNIT_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
     u32 slot = GetShopSlot(item), i;
 
     for (i = 0; i < ARRAY_COUNT(sShopPrices); i++)
