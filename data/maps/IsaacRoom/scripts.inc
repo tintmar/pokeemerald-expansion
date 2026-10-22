@@ -34,7 +34,8 @@ Isaac_EventScript_Minimap::
 	end
 
 @ Dresseur d'une salle normale (placé par isaac_dungeon.c) : il regarde la porte par laquelle on arrive,
-@ s'approche et lance le combat ; vaincu, il donne un objet de son butin et retourne au centre de la salle
+@ s'approche et lance le combat ; vaincu, il donne un objet de son butin et retourne au centre de la salle. Dans une
+@ salle secrète, la récompense de la salle apparaît en plus au sol.
 IsaacRoom_EventScript_Trainer::
 	trainerbattle_single TRAINER_ISAAC_ROOM, IsaacRoom_Text_TrainerIntro, IsaacRoom_Text_TrainerDefeat, IsaacRoom_EventScript_TrainerDefeated
 	msgbox IsaacRoom_Text_TrainerPostBattle, MSGBOX_AUTOCLOSE
@@ -49,6 +50,10 @@ IsaacRoom_EventScript_TrainerLoot::
 	giveitem VAR_0x8004
 	goto IsaacRoom_EventScript_TrainerLoot
 IsaacRoom_EventScript_TrainerReturn::
+	special IsaacCheckSecretReward
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_TrainerWalkBack
+	addobject LOCALID_ISAAC_ROOM_ITEM
+IsaacRoom_EventScript_TrainerWalkBack::
 	special IsaacPrepareTrainerReturn
 	applymovement LOCALID_ISAAC_ROOM_TRAINER, gIsaacTrainerReturnMovement
 	waitmovement 0

@@ -129,6 +129,8 @@ STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED
 
 // Passage vers la salle secrète de l'étage ouvert (sinon ses portes sont fermées par de la roche)
 #define FLAG_ISAAC_SECRET_OPEN  FLAG_UNUSED_0x020
+// Récompense de la salle secrète à dresseur ramassée (elle apparaît au sol une fois le dresseur vaincu)
+#define FLAG_ISAAC_SECRET_LOOT_TAKEN  FLAG_UNUSED_0x026
 // Personne dans l'équipe ne connaissait Éclate-Roc au début de l'étage : l'entraîneur d'Éclate-Roc peut y apparaître
 #define FLAG_ISAAC_ROCK_SMASH_TEACHER  FLAG_UNUSED_0x021
 // Ordre des biomes de la prochaine descente déjà tiré (par le Montagnard du hub, qui annonce le premier biome)
@@ -2729,6 +2731,23 @@ void IsaacMaxEvsIvs(void)
     gSpecialVar_Result = changed;
 }
 
+// Salle secrète à dresseur : une fois le dresseur vaincu, la récompense de la salle (sa table de butin, comme une salle
+// secrète sans dresseur) est au sol jusqu'à ce qu'on la ramasse
+static bool8 IsSecretRewardOnFloor(s32 x, s32 y)
+{
+    return GetRoom(x, y) == ROOM_SECRET && RoomHasTrainer(x, y) && IsCleared(x, y)
+        && !FlagGet(FLAG_ISAAC_SECRET_LOOT_TAKEN);
+}
+
+// Après la victoire contre le dresseur : VAR_RESULT = TRUE si une récompense vient d'apparaître au sol (salle secrète)
+void IsaacCheckSecretReward(void)
+{
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    gSpecialVar_Result = IsSecretRewardOnFloor(x, y);
+}
+
 // Au chargement de la salle : Pokémon sauvages (salle de capture), objet des salles trésor et secrète (tant qu'il n'est
 // pas ramassé), boss, personnages
 static void SetUpRoomObjects(s32 x, s32 y)
@@ -2737,6 +2756,16 @@ static void SetUpRoomObjects(s32 x, s32 y)
     bool8 cleared = IsCleared(x, y);
 
     PlaceRoomObject(LOCALID_ISAAC_ROOM_ITEM, (room == ROOM_TREASURE || (room == ROOM_SECRET && !RoomHasTrainer(x, y))) && !cleared);
+    if (IsSecretRewardOnFloor(x, y))  // salle secrète à dresseur : la récompense, à l'écart du chemin du dresseur
+    {
+        struct ObjectEventTemplate *template = GetObjectTemplate(LOCALID_ISAAC_ROOM_ITEM);
+
+        if (template != NULL)
+        {
+            template->x = ROOM_MID_X - 2;
+            template->y = ROOM_MID_Y + 2;
+        }
+    }
     PlaceRoomObject(LOCALID_ISAAC_ROOM_BOSS, room == ROOM_BOSS);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_NURSE, FALSE);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_SHOPKEEPER, room == ROOM_SHOP);
@@ -2840,6 +2869,7 @@ static void WarpToNewFloor(u32 floor)
     for (u32 i = 0; i < SHOP_LIMITED_SLOTS; i++)
         FlagClear(FLAG_ISAAC_SHOP_SOLD_FIRST + i);
     FlagClear(FLAG_ISAAC_SECRET_OPEN);
+    FlagClear(FLAG_ISAAC_SECRET_LOOT_TAKEN);
     if (PartyKnowsMove(MOVE_ROCK_SMASH))
         FlagClear(FLAG_ISAAC_ROCK_SMASH_TEACHER);
     else
@@ -3075,7 +3105,10 @@ void IsaacSetRoomCleared(void)
     s32 x, y;
 
     GetCurrentCell(&x, &y);
-    FlagSet(FLAG_ISAAC_CLEARED_FIRST + y * ISAAC_GRID_W + x);
+    if (IsSecretRewardOnFloor(x, y))  // la récompense de la salle secrète à dresseur est ramassée
+        FlagSet(FLAG_ISAAC_SECRET_LOOT_TAKEN);
+    else
+        FlagSet(FLAG_ISAAC_CLEARED_FIRST + y * ISAAC_GRID_W + x);
     SetUpRoomObjects(x, y);
 }
 
