@@ -380,34 +380,6 @@ u32 IsaacGetMonSetVariant(struct Pokemon *mon)
     return FindMonSetByMoves(mon, &tier, &variant) ? variant : 0;
 }
 
-// Remplace le Pokémon par un set de l'espèce donnée. Il garde son pourcentage de PV, son statut, ses
-// Omniboosts, boosts de stat et Pierre brillante (et son chromatisme).
-static void ReplaceWithSet(struct Pokemon *mon, enum Species species, u32 tier, u32 variant)
-{
-    struct Pokemon replacement;
-    u32 hp = GetMonData(mon, MON_DATA_HP);
-    u32 maxHP = GetMonData(mon, MON_DATA_MAX_HP);
-    u32 status = GetMonData(mon, MON_DATA_STATUS);
-    u32 omniboosts = GetMonData(mon, ISAAC_OMNIBOOST_DATA);
-    u32 statBoosts = GetMonData(mon, ISAAC_STAT_BOOST_DATA);
-    u32 brilliant = GetMonData(mon, ISAAC_BRILLIANT_DATA);
-    u32 shiny = GetMonData(mon, MON_DATA_IS_SHINY);
-    u32 newHP;
-
-    IsaacCreateMonFromSet(&replacement, species, tier, variant, Random32());
-    SetMonData(&replacement, ISAAC_OMNIBOOST_DATA, &omniboosts);
-    SetMonData(&replacement, ISAAC_STAT_BOOST_DATA, &statBoosts);
-    SetMonData(&replacement, ISAAC_BRILLIANT_DATA, &brilliant);
-    SetMonData(&replacement, MON_DATA_IS_SHINY, &shiny);
-    CalculateMonStats(&replacement);
-    newHP = GetMonData(&replacement, MON_DATA_MAX_HP);
-    if (maxHP != 0 && hp < maxHP)
-        newHP = max(newHP * hp / maxHP, hp != 0 ? 1u : 0u);
-    SetMonData(&replacement, MON_DATA_HP, &newHP);
-    SetMonData(&replacement, MON_DATA_STATUS, &status);
-    *mon = replacement;
-}
-
 // ---------------------------------------------------------------------------
 // Pierre Évolution
 // ---------------------------------------------------------------------------
@@ -465,17 +437,26 @@ u16 IsaacTryLearningEvolutionMove(struct Pokemon *mon, bool8 firstMove)
     return MOVE_NONE;
 }
 
-// Ability Trainer : le Pokémon passe au palier suivant de son espèce, même variante (FALSE s'il a déjà le
-// meilleur). Il garde l'objet qu'il tient (souvent acheté ou donné par le joueur), pas celui du set.
+// Ability Trainer : le Pokémon prend les attaques du palier suivant de son espèce, même variante (FALSE s'il a déjà
+// le meilleur). Seul le moveset change : IVs, EVs, nature, talent et objet tenu restent les mêmes.
 bool8 IsaacUpgradeSet(struct Pokemon *mon)
 {
+    const struct TrainerMon *set;
     u32 tier = IsaacGetMonSetTier(mon);
-    u32 heldItem = GetMonData(mon, MON_DATA_HELD_ITEM);
+    u32 i, value;
 
     if (tier + 1 >= ISAAC_SET_TIERS)
         return FALSE;
-    ReplaceWithSet(mon, GetMonData(mon, MON_DATA_SPECIES), tier + 1, IsaacGetMonSetVariant(mon));
-    SetMonData(mon, MON_DATA_HELD_ITEM, &heldItem);
+    set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), tier + 1, IsaacGetMonSetVariant(mon));
+    if (set == NULL)
+        return FALSE;
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        RemoveMonPPBonus(mon, i);
+        SetMonMoveSlot(mon, set->moves[i], i);  // PP au complet (MOVE_NONE : place vide)
+    }
+    value = tier + 2;  // palier suivant + 1
+    SetMonData(mon, ISAAC_TIER_DATA, &value);
     return TRUE;
 }
 
