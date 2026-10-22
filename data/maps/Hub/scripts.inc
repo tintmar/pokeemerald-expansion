@@ -15,10 +15,18 @@ Hub_EventScript_Hiker::
 	closemessage
 	special DoIsaacStarterSelectScreen
 	waitstate
+	@ écran quitté avec B : rien n'a été donné
+	specialvar VAR_RESULT, CalculatePlayerPartyCount
+	goto_if_eq VAR_RESULT, 0, Hub_EventScript_HikerCancel
 	setflag FLAG_SYS_POKEMON_GET
 	msgbox Hub_Text_HikerMasterBall, MSGBOX_DEFAULT
 	giveitem ITEM_MASTER_BALL
 	msgbox Hub_Text_HikerGoodLuck, MSGBOX_DEFAULT
+	release
+	end
+
+Hub_EventScript_HikerCancel::
+	msgbox Hub_Text_HikerCancel, MSGBOX_DEFAULT
 	release
 	end
 
@@ -45,6 +53,10 @@ Hub_Text_HikerOffer:
 
 Hub_Text_HikerChoose:
 	.string "Choisis-en deux parmi ceux-là.$"
+
+Hub_Text_HikerCancel:
+	.string "Tu hésites ? Reviens me voir\n"
+	.string "quand tu seras décidé.$"
 
 Hub_Text_HikerMasterBall:
 	.string "Et prends ça : une MASTER BALL.\n"

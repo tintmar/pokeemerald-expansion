@@ -48,6 +48,8 @@
 // Mode donjon (DoIsaacStarterSelectScreen) : le Montagnard du hub propose ISAAC_STARTER_CHOICES Pokémon, on en
 // choisit ISAAC_STARTER_PICKS, donnés au joueur (équipe ou PC). Le reste est l'écran de l'Usine de Combat.
 static EWRAM_DATA bool8 sIsaacStarterMode = FALSE;
+// Mode donjon : B sur l'écran de choix le quitte sans rien donner
+static EWRAM_DATA bool8 sIsaacStarterCancelled = FALSE;
 STATIC_ASSERT(ISAAC_STARTER_CHOICES == SELECTABLE_MONS_COUNT, IsaacStarterChoicesFillTheScreen);
 STATIC_ASSERT(ISAAC_STARTER_PICKS <= FRONTIER_PARTY_SIZE, IsaacStarterPicksFitAFactoryParty);
 
@@ -1102,6 +1104,7 @@ void DoBattleFactorySelectScreen(void)
 void DoIsaacStarterSelectScreen(void)
 {
     sIsaacStarterMode = TRUE;
+    sIsaacStarterCancelled = FALSE;
     sFactorySelectScreen = NULL;
     SetMainCallback2(CB2_InitSelectScreen);
 }
@@ -1549,7 +1552,10 @@ static void Select_Task_Exit(u8 taskId)
         if (!UpdatePaletteFade())
         {
             if (sIsaacStarterMode)
-                Select_GiveIsaacStarters();
+            {
+                if (!sIsaacStarterCancelled)
+                    Select_GiveIsaacStarters();
+            }
             else
                 Select_CopyMonsToPlayerParty();
             sIsaacStarterMode = FALSE;
@@ -1735,6 +1741,14 @@ static void Select_Task_HandleChooseMons(u8 taskId)
             sFactorySelectScreen->fadeSpeciesNameActive = FALSE;
             gTasks[taskId].tState = STATE_MENU_INIT;
             gTasks[taskId].func = Select_Task_HandleMenu;
+        }
+        else if (JOY_NEW(B_BUTTON) && sIsaacStarterMode)
+        {
+            PlaySE(SE_SELECT);
+            sFactorySelectScreen->fadeSpeciesNameActive = FALSE;
+            sIsaacStarterCancelled = TRUE;
+            gTasks[taskId].tState = 0;
+            gTasks[taskId].func = Select_Task_Exit;
         }
         else if (JOY_REPEAT(DPAD_LEFT))
         {
