@@ -936,18 +936,20 @@ static EWRAM_DATA struct Trainer sRoomTrainer = {0};
 static EWRAM_DATA struct TrainerMon sRoomTrainerMons[PARTY_SIZE] = {0};
 
 // Équipe des dresseurs de salle selon l'étage : chaque Pokémon tire sa catégorie
-// et son set au hasard entre les deux bornes (au-delà du dernier étage, on garde la dernière ligne)
+// et son set au hasard entre les deux bornes (au-delà du dernier étage, on garde la dernière ligne).
+// tierByCategory : le set n'est pas tiré mais suit la catégorie à l'envers (catégorie la plus faible -> meilleur set)
 struct IsaacTrainerParty
 {
     u8 count;
     u8 minCategory, maxCategory;
     u8 minTier, maxTier;  // 0 = set 1
+    bool8 tierByCategory;
 };
 
 static const struct IsaacTrainerParty sRoomTrainerParties[] =
 {
     { 2, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 0 },
-    { 2, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 0, 1 },
+    { 2, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 0, 1, TRUE },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
     { 3, ISAAC_CATEGORY_2, ISAAC_CATEGORY_2, 1, 1 },
     { 3, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 2 },
     { 4, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 2 },
@@ -1190,6 +1192,8 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
         u32 category = party->minCategory + (roll >> 8) % (party->maxCategory - party->minCategory + 1);
         u32 tier = party->minTier + (roll >> 16) % (party->maxTier - party->minTier + 1);
 
+        if (party->tierByCategory)
+            tier = max((s32)party->maxTier - (s32)(category - party->minCategory), (s32)party->minTier);
         AddTrainerMon(category, tier, roll);
     }
     return &sRoomTrainer;
