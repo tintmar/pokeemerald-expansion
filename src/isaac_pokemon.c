@@ -352,6 +352,8 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 
 // Cœur Doré en cours d'utilisation (combat contre le boss) : un Omniboost de plus pour toute l'équipe du joueur
 #define FLAG_ISAAC_GOLDEN_HEART_ACTIVE  FLAG_UNUSED_0x024
+// Cœur Doré utilisé depuis le sac, en attente du prochain combat contre le boss
+#define FLAG_ISAAC_GOLDEN_HEART_READY   FLAG_UNUSED_0x025
 
 static bool32 IsPlayerPartyMon(struct Pokemon *mon)
 {
@@ -446,13 +448,28 @@ static void RecalculatePlayerPartyStats(void)
         CalculateMonStats(&gParties[B_TRAINER_PLAYER][i]);
 }
 
-// Début du combat contre le boss : un Cœur Doré du sac est consommé et donne un Omniboost de plus à toute l'équipe,
-// jusqu'à la fin du combat (IsaacGoldenHeartEnd)
+// Cœur Doré utilisé depuis le sac : il agira au prochain combat contre le boss. FALSE si un autre attend déjà.
+bool8 IsaacUseGoldenHeart(void)
+{
+    if (FlagGet(FLAG_ISAAC_GOLDEN_HEART_READY))
+        return FALSE;
+    FlagSet(FLAG_ISAAC_GOLDEN_HEART_READY);
+    return TRUE;
+}
+
+// Nouvelle descente : un Cœur Doré utilisé mais pas encore déclenché est perdu
+void IsaacGoldenHeartReset(void)
+{
+    FlagClear(FLAG_ISAAC_GOLDEN_HEART_READY);
+}
+
+// Début du combat contre le boss : le Cœur Doré utilisé donne un Omniboost de plus à toute l'équipe, jusqu'à la fin
+// du combat (IsaacGoldenHeartEnd)
 void IsaacGoldenHeartStart(void)
 {
-    if (!CheckBagHasItem(ITEM_GOLDEN_HEART, 1))
+    if (!FlagGet(FLAG_ISAAC_GOLDEN_HEART_READY))
         return;
-    RemoveBagItem(ITEM_GOLDEN_HEART, 1);
+    FlagClear(FLAG_ISAAC_GOLDEN_HEART_READY);
     FlagSet(FLAG_ISAAC_GOLDEN_HEART_ACTIVE);
     RecalculatePlayerPartyStats();
 }

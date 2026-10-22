@@ -4809,13 +4809,13 @@ const struct ItemInfo gItemsInfo[] =
         .name = ITEM_NAME("Golden Heart"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "Raises the team's\n"
-            "stats by 10% in\n"
-            "the next boss fight."),
+            "Use it: the team's\n"
+            "stats +10% in the\n"
+            "next boss fight."),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
         .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_IsaacCannotUse,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacGoldenHeart,
         .flingPower = 30,
         .iconPic = gItemIcon_HeartScale,
         .iconPalette = gItemIconPalette_HeartScale,
@@ -4833,7 +4833,7 @@ const struct ItemInfo gItemsInfo[] =
             "for this descent."),
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_IsaacCannotUse,
+        .fieldUseFunc = ItemUseOutOfBattle_DiscountCard,
         .iconPic = gItemIcon_ContestPass,
         .iconPalette = gItemIconPalette_ContestPass,
     },
