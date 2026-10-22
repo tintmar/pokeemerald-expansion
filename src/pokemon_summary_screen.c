@@ -1,4 +1,5 @@
 #include "global.h"
+#include "isaac_pokemon.h"
 #include "main.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -4344,10 +4345,13 @@ static void SetMonTypeIcons(void)
     }
     else
     {
-        SetTypeSpritePosAndPal(GetSpeciesType(summary->species, 0), 120, 48, SPRITE_ARR_ID_TYPE);
-        if (GetSpeciesType(summary->species, 0) != GetSpeciesType(summary->species, 1))
+        enum Type types[2];
+
+        IsaacGetMonTypes(&sMonSummaryScreen->currentMon, types);  // Donjon : avec la Gemme de Type
+        SetTypeSpritePosAndPal(types[0], 120, 48, SPRITE_ARR_ID_TYPE);
+        if (types[0] != types[1])
         {
-            SetTypeSpritePosAndPal(GetSpeciesType(summary->species, 1), 160, 48, SPRITE_ARR_ID_TYPE + 1);
+            SetTypeSpritePosAndPal(types[1], 160, 48, SPRITE_ARR_ID_TYPE + 1);
             SetSpriteInvisibility(SPRITE_ARR_ID_TYPE + 1, FALSE);
         }
         else

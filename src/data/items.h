@@ -4460,6 +4460,348 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_ShinyStone,
     },
 
+    // Donjon : le Pokémon prend le type Normal en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_NORMAL] =
+    {
+        .name = ITEM_NAME("Normal Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Normal type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_NORMAL,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_NormalGem,
+    },
+
+    // Donjon : le Pokémon prend le type Fighting en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_FIGHTING] =
+    {
+        .name = ITEM_NAME("Fighting Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Fighting type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_FIGHTING,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_FightingGem,
+    },
+
+    // Donjon : le Pokémon prend le type Flying en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_FLYING] =
+    {
+        .name = ITEM_NAME("Flying Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Flying type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_FLYING,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_FlyingGem,
+    },
+
+    // Donjon : le Pokémon prend le type Poison en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_POISON] =
+    {
+        .name = ITEM_NAME("Poison Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Poison type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_POISON,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_PoisonGem,
+    },
+
+    // Donjon : le Pokémon prend le type Ground en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_GROUND] =
+    {
+        .name = ITEM_NAME("Ground Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Ground type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_GROUND,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_GroundGem,
+    },
+
+    // Donjon : le Pokémon prend le type Rock en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_ROCK] =
+    {
+        .name = ITEM_NAME("Rock Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Rock type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_ROCK,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_RockGem,
+    },
+
+    // Donjon : le Pokémon prend le type Bug en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_BUG] =
+    {
+        .name = ITEM_NAME("Bug Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Bug type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_BUG,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_BugGem,
+    },
+
+    // Donjon : le Pokémon prend le type Ghost en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_GHOST] =
+    {
+        .name = ITEM_NAME("Ghost Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Ghost type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_GHOST,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_GhostGem,
+    },
+
+    // Donjon : le Pokémon prend le type Steel en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_STEEL] =
+    {
+        .name = ITEM_NAME("Steel Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Steel type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_STEEL,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_SteelGem,
+    },
+
+    // Donjon : le Pokémon prend le type Fire en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_FIRE] =
+    {
+        .name = ITEM_NAME("Fire Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Fire type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_FIRE,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_FireGem,
+    },
+
+    // Donjon : le Pokémon prend le type Water en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_WATER] =
+    {
+        .name = ITEM_NAME("Water Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Water type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_WATER,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_WaterGem,
+    },
+
+    // Donjon : le Pokémon prend le type Grass en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_GRASS] =
+    {
+        .name = ITEM_NAME("Grass Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Grass type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_GRASS,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_GrassGem,
+    },
+
+    // Donjon : le Pokémon prend le type Electric en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_ELECTRIC] =
+    {
+        .name = ITEM_NAME("Electric Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Electric type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_ELECTRIC,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_ElectricGem,
+    },
+
+    // Donjon : le Pokémon prend le type Psychic en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_PSYCHIC] =
+    {
+        .name = ITEM_NAME("Psychic Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Psychic type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_PSYCHIC,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_PsychicGem,
+    },
+
+    // Donjon : le Pokémon prend le type Ice en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_ICE] =
+    {
+        .name = ITEM_NAME("Ice Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Ice type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_ICE,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_IceGem,
+    },
+
+    // Donjon : le Pokémon prend le type Dragon en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_DRAGON] =
+    {
+        .name = ITEM_NAME("Dragon Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Dragon type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_DRAGON,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_DragonGem,
+    },
+
+    // Donjon : le Pokémon prend le type Dark en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_DARK] =
+    {
+        .name = ITEM_NAME("Dark Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Dark type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_DARK,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_DarkGem,
+    },
+
+    // Donjon : le Pokémon prend le type Fairy en second type, pour toujours (voir IsaacUseTypeGem)
+    [ITEM_ISAAC_GEM_FAIRY] =
+    {
+        .name = ITEM_NAME("Fairy Type Gem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Gives a Pokémon\n"
+            "the Fairy type as\n"
+            "its second type."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_GEM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTypeGem,
+        .secondaryId = TYPE_FAIRY,
+        .flingPower = 30,
+        .iconPic = gItemIcon_TypeGem,
+        .iconPalette = gItemIconPalette_FairyGem,
+    },
+
     [ITEM_DAWN_STONE] =
     {
         .name = ITEM_NAME("Dawn Stone"),

@@ -1063,10 +1063,31 @@ enum __attribute__((packed)) Item
     ITEM_BOOST_SPATK = 882,
     ITEM_BOOST_SPDEF = 883,
     ITEM_BRILLIANT_STONE = 884,        // rend chromatique et +20 % à la meilleure stat
+    ITEM_ISAAC_GEM_NORMAL = 885,  // le Pokémon prend ce type en second type (un par type, ITEM_ISAAC_GEM_FIRST à ITEM_ISAAC_GEM_LAST)
+    ITEM_ISAAC_GEM_FIGHTING = 886,
+    ITEM_ISAAC_GEM_FLYING = 887,
+    ITEM_ISAAC_GEM_POISON = 888,
+    ITEM_ISAAC_GEM_GROUND = 889,
+    ITEM_ISAAC_GEM_ROCK = 890,
+    ITEM_ISAAC_GEM_BUG = 891,
+    ITEM_ISAAC_GEM_GHOST = 892,
+    ITEM_ISAAC_GEM_STEEL = 893,
+    ITEM_ISAAC_GEM_FIRE = 894,
+    ITEM_ISAAC_GEM_WATER = 895,
+    ITEM_ISAAC_GEM_GRASS = 896,
+    ITEM_ISAAC_GEM_ELECTRIC = 897,
+    ITEM_ISAAC_GEM_PSYCHIC = 898,
+    ITEM_ISAAC_GEM_ICE = 899,
+    ITEM_ISAAC_GEM_DRAGON = 900,
+    ITEM_ISAAC_GEM_DARK = 901,
+    ITEM_ISAAC_GEM_FAIRY = 902,
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,
 };
+
+#define ITEM_ISAAC_GEM_FIRST  ITEM_ISAAC_GEM_NORMAL
+#define ITEM_ISAAC_GEM_LAST   ITEM_ISAAC_GEM_FAIRY
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
 // Its icon is defined at ITEMS_COUNT as the "return to field" arrow

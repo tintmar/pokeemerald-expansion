@@ -1155,6 +1155,12 @@ void ItemUseOutOfBattle_IsaacBrilliantStone(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_IsaacTypeGem(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacTypeGem;
+    SetUpItemUseCallback(taskId);
+}
+
 static u32 GetBallThrowableState(void)
 {
     if (IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))

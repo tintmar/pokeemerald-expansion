@@ -6470,6 +6470,22 @@ void ItemUseCB_IsaacBrilliantStone(u8 taskId, TaskFunc task)
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} is shining!\nIts {STR_VAR_2} rose by 20%!{PAUSE_UNTIL_PRESS}"));
 }
 
+// Donjon : Gemme de Type, le Pokémon prend ce type en second type
+void ItemUseCB_IsaacTypeGem(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    enum Type type = GetItemSecondaryId(gSpecialVar_ItemId);
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacUseTypeGem(mon, type))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, gTypesInfo[type].name);
+    IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
+}
+
 // Donjon : Omniboost, +10 % à toutes les stats du Pokémon (cumulable)
 void ItemUseCB_IsaacOmniboost(u8 taskId, TaskFunc task)
 {

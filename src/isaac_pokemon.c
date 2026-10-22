@@ -92,7 +92,8 @@ enum Species IsaacGetFinalEvolution(enum Species species, u32 roll)
 // Objet spécial tiré au hasard (salle trésor, salle secrète, boutique, boss, pacte du diable). Chaque entrée a un poids :
 // SPECIAL_ITEM_WEIGHT, sauf l'Omniboost (OMNIBOOST_WEIGHT, deux fois plus rare) et les deux Pierres Évolution, plus
 // rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6).
-// Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants.
+// Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, de
+// même que les Gemmes de Type (puis le type est tiré).
 #define SPECIAL_ITEM_WEIGHT  4
 #define OMNIBOOST_WEIGHT     2
 
@@ -101,7 +102,7 @@ u16 IsaacPickSpecialItem(u32 roll)
     static const u16 sSpecialItems[] =
     {
         ITEM_EVOLUTION_STONE, ITEM_SUPER_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_BOOST_HP,
-        ITEM_BRILLIANT_STONE,
+        ITEM_BRILLIANT_STONE, ITEM_ISAAC_GEM_FIRST,
     };
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
     u32 floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvolutionStoneWeights));
@@ -130,6 +131,8 @@ u16 IsaacPickSpecialItem(u32 roll)
     }
     if (item == ITEM_BOOST_HP)
         item = ITEM_BOOST_HP + (roll >> 8) % NUM_STATS;
+    else if (item == ITEM_ISAAC_GEM_FIRST)
+        item = ITEM_ISAAC_GEM_FIRST + (roll >> 8) % (ITEM_ISAAC_GEM_LAST - ITEM_ISAAC_GEM_FIRST + 1);
     return item;
 }
 
@@ -277,6 +280,14 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 #define ISAAC_BRILLIANT_DATA   MON_DATA_TOUGH
 #define ISAAC_BRILLIANT_PCT    20
 
+// Gemme de Type : type donné (enum Type), 0 si aucun, dans la stat de concours Lustre
+#define ISAAC_GEM_TYPE_DATA    MON_DATA_SHEEN
+
+static bool32 IsPlayerPartyMon(struct Pokemon *mon)
+{
+    return mon >= &gParties[B_TRAINER_PLAYER][0] && mon < &gParties[B_TRAINER_PLAYER][PARTY_SIZE];
+}
+
 // Valeur d'une stat (STAT_*, PV compris) avec les bonus du donjon : Omniboosts (+10 % chacun), boost de cette stat,
 // Pierre brillante
 s32 IsaacApplyStatBoosts(struct Pokemon *mon, u32 stat, s32 value)
@@ -332,6 +343,56 @@ bool8 IsaacAddOmniboost(struct Pokemon *mon)
     SetMonData(mon, ISAAC_OMNIBOOST_DATA, &count);
     CalculateMonStats(mon);
     return TRUE;
+}
+
+// ---------------------------------------------------------------------------
+// Gemmes de Type
+// ---------------------------------------------------------------------------
+
+// Type donné par une Gemme de Type au Pokémon (TYPE_NONE s'il n'en a pas reçu)
+enum Type IsaacGetMonGemType(struct Pokemon *mon)
+{
+    return GetMonData(mon, ISAAC_GEM_TYPE_DATA);
+}
+
+// Types du Pokémon avec sa Gemme de Type : elle remplace le second type (s'ajoute à un type simple). Si son espèce a
+// déjà ce type (après une évolution), il redevient simple.
+void IsaacGetMonTypes(struct Pokemon *mon, enum Type *types)
+{
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    enum Type gem = IsaacGetMonGemType(mon);
+
+    types[0] = GetSpeciesType(species, 0);
+    types[1] = GetSpeciesType(species, 1);
+    if (gem != TYPE_NONE)
+        types[1] = gem;
+}
+
+// Gemme de Type : FALSE si le Pokémon a déjà ce type
+bool8 IsaacUseTypeGem(struct Pokemon *mon, enum Type type)
+{
+    enum Type types[2];
+    u32 value = type;
+
+    IsaacGetMonTypes(mon, types);
+    if (types[0] == type || types[1] == type)
+        return FALSE;
+    SetMonData(mon, ISAAC_GEM_TYPE_DATA, &value);
+    return TRUE;
+}
+
+// En combat, après que le jeu a remis les types de l'espèce (entrée en combat, Méga-Évolution...) : le second type
+// redevient celui de la Gemme de Type
+void IsaacApplyBattlerGemType(enum BattlerId battler)
+{
+    struct Pokemon *mon = GetBattlerMon(battler);
+    enum Type gem;
+
+    if (mon == NULL || !IsPlayerPartyMon(mon))
+        return;
+    gem = IsaacGetMonGemType(mon);
+    if (gem != TYPE_NONE)
+        gBattleMons[battler].types[1] = gem;
 }
 
 // ---------------------------------------------------------------------------

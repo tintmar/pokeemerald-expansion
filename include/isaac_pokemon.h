@@ -86,5 +86,9 @@ enum Species IsaacGetFinalEvolution(enum Species species, u32 roll);
 u16 IsaacPickSpecialItem(u32 roll);
 bool8 IsaacAddOmniboost(struct Pokemon *mon);
 bool8 IsaacUpgradeSet(struct Pokemon *mon);
+enum Type IsaacGetMonGemType(struct Pokemon *mon);
+void IsaacGetMonTypes(struct Pokemon *mon, enum Type *types);
+bool8 IsaacUseTypeGem(struct Pokemon *mon, enum Type type);
+void IsaacApplyBattlerGemType(enum BattlerId battler);
 
 #endif // GUARD_ISAAC_POKEMON_H
