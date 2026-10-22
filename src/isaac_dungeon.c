@@ -121,10 +121,11 @@ STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSE
 
 // Kecleon (boutique) déjà rencontré : pour toute la partie, il ne fait sa blague qu'une fois
 #define FLAG_ISAAC_KECLEON_MET  FLAG_UNUSED_0x023
-// Articles de la boutique de l'étage déjà vendus, chacun en un seul exemplaire (voir SHOP_SLOT_*)
-#define FLAG_ISAAC_SHOP_SOLD_FIRST  (FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS)
-#define SHOP_LIMITED_SLOTS  9
-STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 < FLAG_UNUSED_0x2BB, IsaacShopFlagsAreUnused);  // 0x2BB : B_FLAG_NO_WHITEOUT
+// Articles de la boutique de l'étage déjà vendus, chacun en un seul exemplaire (voir SHOP_SLOT_*), dans des drapeaux
+// inutilisés du jeu
+#define FLAG_ISAAC_SHOP_SOLD_FIRST  FLAG_UNUSED_0x030
+#define SHOP_LIMITED_SLOTS  12
+STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED_0x047, IsaacShopFlagsAreUnused);
 
 // Passage vers la salle secrète de l'étage ouvert (sinon ses portes sont fermées par de la roche)
 #define FLAG_ISAAC_SECRET_OPEN  FLAG_UNUSED_0x020
@@ -1683,7 +1684,7 @@ static void SetUpCaptureMons(s32 x, s32 y)
 // Boutique de Kecleon
 // ---------------------------------------------------------------------------
 // Kecleon tient la boutique de l'étage (menu Acheter / Quitter, CreateIsaacMartMenu). Ses articles possibles :
-//  - une Master Ball, une Guérison, un Rappel, un Rappel Max ;
+//  - une Master Ball, une Guérison, un Rappel, un Rappel Max, une Super Potion, une Hyper Potion, un Total Soin ;
 //  - deux objets de combat de sShopBattleItems et deux CT de sShopTMs (tirés pour la salle), un objet spécial
 //    (IsaacPickSpecialItem).
 // Chacun n'est vraiment en vente qu'avec SHOP_SLOT_PRESENT_PCT % de chances (tiré pour l'étage,
@@ -1698,6 +1699,9 @@ enum
     SHOP_SLOT_FULL_RESTORE,
     SHOP_SLOT_REVIVE,
     SHOP_SLOT_MAX_REVIVE,
+    SHOP_SLOT_SUPER_POTION,
+    SHOP_SLOT_HYPER_POTION,
+    SHOP_SLOT_FULL_HEAL,
     SHOP_SLOT_ITEM_1,
     SHOP_SLOT_ITEM_2,
     SHOP_SLOT_TM_1,
@@ -1776,6 +1780,9 @@ struct IsaacShopPrice
 
 static const struct IsaacShopPrice sShopPrices[] =
 {
+    { ITEM_SUPER_POTION,  1 },
+    { ITEM_HYPER_POTION,  2 },
+    { ITEM_FULL_HEAL,     1 },
     { ITEM_REVIVE,        4 },
     { ITEM_FULL_RESTORE,  6 },
     { ITEM_MAX_REVIVE,   10 },
@@ -1805,6 +1812,12 @@ static u16 GetShopSlotItem(u32 slot)
         return ITEM_REVIVE;
     case SHOP_SLOT_MAX_REVIVE:
         return ITEM_MAX_REVIVE;
+    case SHOP_SLOT_SUPER_POTION:
+        return ITEM_SUPER_POTION;
+    case SHOP_SLOT_HYPER_POTION:
+        return ITEM_HYPER_POTION;
+    case SHOP_SLOT_FULL_HEAL:
+        return ITEM_FULL_HEAL;
     case SHOP_SLOT_ITEM_1:
     case SHOP_SLOT_ITEM_2:  // deux objets différents
         first = roll % ARRAY_COUNT(sShopBattleItems);
