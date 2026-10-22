@@ -2662,8 +2662,7 @@ static void PickSecretRoomLoot(s32 x, s32 y)
 }
 
 // Objet(s) de la salle trésor ou de la salle secrète, à donner un par un (IsaacNextLootItem) : un objet spécial au
-// hasard dans une salle trésor (toujours une Pierre Évolution au premier étage), le butin de la table de la salle
-// secrète (PickSecretRoomLoot)
+// hasard dans une salle trésor, le butin de la table de la salle secrète (PickSecretRoomLoot)
 void IsaacPickTreasureItem(void)
 {
     s32 x, y;
@@ -2672,8 +2671,6 @@ void IsaacPickTreasureItem(void)
     sLootCount = 0;
     if (GetRoom(x, y) == ROOM_SECRET)
         PickSecretRoomLoot(x, y);
-    else if (VarGet(VAR_ISAAC_FLOOR) == 1)
-        sLoot[sLootCount++] = ITEM_EVOLUTION_STONE;
     else
         sLoot[sLootCount++] = IsaacPickSpecialItem(RoomRandom(x, y, 0x7EA5));
 }

@@ -162,7 +162,9 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 
 // Objet spécial tiré au hasard (salle trésor, salle secrète, boutique, boss, pacte du diable). Chaque entrée a un poids :
 // SPECIAL_ITEM_WEIGHT, sauf l'Omniboost (OMNIBOOST_WEIGHT, deux fois plus rare) et les deux Pierres Évolution, plus
-// rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6).
+// rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6),
+// et le Dresseur de Talent, de plus en plus rare (sAbilityTrainerWeights), absent à partir de l'étage 4. Le Cœur Doré
+// est peu courant (GOLDEN_HEART_WEIGHT).
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, de
 // même que les Gemmes de Type (puis le type est tiré ; retirées pour l'instant : TYPE_GEM_WEIGHT à 0). Le Cœur Doré
 // n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
@@ -171,6 +173,7 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 #define SPECIAL_ITEM_WEIGHT  4
 #define OMNIBOOST_WEIGHT     2
 #define TYPE_GEM_WEIGHT      0
+#define GOLDEN_HEART_WEIGHT  2
 #define GOLDEN_HEART_MIN_FLOOR  4
 
 #define ISAAC_MAX_MEGA_STONES  (PARTY_SIZE * 2)  // Dracaufeu et Mewtwo ont deux Méga-Évolutions
@@ -215,6 +218,7 @@ u16 IsaacPickSpecialItem(u32 roll)
         ITEM_BRILLIANT_STONE, ITEM_ISAAC_GEM_FIRST, ITEM_GOLDEN_HEART, ITEM_MEGA_RING,
     };
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
+    static const u8 sAbilityTrainerWeights[] = { 4, 3, 2, 0, 0, 0 };
     u32 floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvolutionStoneWeights));
     u32 weights[ARRAY_COUNT(sSpecialItems)], total = 0, pick, i;
     u16 item = sSpecialItems[0];
@@ -225,12 +229,14 @@ u16 IsaacPickSpecialItem(u32 roll)
     {
         if (sSpecialItems[i] == ITEM_EVOLUTION_STONE || sSpecialItems[i] == ITEM_SUPER_EVOLUTION_STONE)
             weights[i] = sEvolutionStoneWeights[floor - 1];
+        else if (sSpecialItems[i] == ITEM_ABILITY_TRAINER)
+            weights[i] = sAbilityTrainerWeights[floor - 1];
         else if (sSpecialItems[i] == ITEM_OMNIBOOST)
             weights[i] = OMNIBOOST_WEIGHT;
         else if (sSpecialItems[i] == ITEM_ISAAC_GEM_FIRST)
             weights[i] = TYPE_GEM_WEIGHT;
         else if (sSpecialItems[i] == ITEM_GOLDEN_HEART)
-            weights[i] = VarGet(VAR_ISAAC_FLOOR) >= GOLDEN_HEART_MIN_FLOOR ? SPECIAL_ITEM_WEIGHT : 0;
+            weights[i] = VarGet(VAR_ISAAC_FLOOR) >= GOLDEN_HEART_MIN_FLOOR ? GOLDEN_HEART_WEIGHT : 0;
         else if (sSpecialItems[i] == ITEM_MEGA_RING)
             weights[i] = megaStoneCount != 0 ? SPECIAL_ITEM_WEIGHT : 0;
         else
@@ -466,6 +472,12 @@ bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat)
     CalculateMonStats(mon);
     *stat = best;
     return TRUE;
+}
+
+// Le Pokémon a-t-il déjà reçu un boost de stat (un seul par Pokémon) ?
+bool8 IsaacHasStatBoost(struct Pokemon *mon)
+{
+    return (GetMonData(mon, ISAAC_STAT_BOOST_DATA) & ((1 << NUM_STATS) - 1)) != 0;
 }
 
 // Un Omniboost de plus (FALSE s'il en a déjà le maximum) ; les stats sont recalculées

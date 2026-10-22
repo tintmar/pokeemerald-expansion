@@ -6500,17 +6500,29 @@ static void IsaacItemUsed(u8 taskId, TaskFunc task, const u8 *message)
     gTasks[taskId].func = task;
 }
 
-// Donjon : boost de stat (ITEM_BOOST_HP + STAT_*), +25 % à cette stat, une fois par stat
+// Donjon : boost de stat (ITEM_BOOST_HP + STAT_*), +25 % à cette stat ; un seul boost de stat par Pokémon
 void ItemUseCB_IsaacStatBoost(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
     u32 stat = gSpecialVar_ItemId - ITEM_BOOST_HP;
 
-    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacAddStatBoost(mon, stat))
+    if (GetMonData(mon, MON_DATA_IS_EGG))
     {
         IsaacItemWontHaveEffect(taskId, task);
         return;
     }
+    if (IsaacHasStatBoost(mon))  // un seul boost de stat par Pokémon
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        GetMonNickname(mon, gStringVar1);
+        StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} already has a stat boost.\nOnly one per Pokémon!{PAUSE_UNTIL_PRESS}"));
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+    IsaacAddStatBoost(mon, stat);
     GetMonNickname(mon, gStringVar1);
     StringCopy(gStringVar2, sIsaacStatNames[stat]);
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1}'s {STR_VAR_2}\nrose by 25%!{PAUSE_UNTIL_PRESS}"));

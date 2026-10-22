@@ -94,6 +94,7 @@ bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat);
 u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out, u32 max);
 u16 IsaacPickSpecialItem(u32 roll);
 bool8 IsaacAddOmniboost(struct Pokemon *mon);
+bool8 IsaacHasStatBoost(struct Pokemon *mon);
 bool8 IsaacUpgradeSet(struct Pokemon *mon);
 bool8 IsaacUseBloodPact(struct Pokemon *mon);
 s32 IsaacRollCursedDie(struct Pokemon *mon, bool8 *ok);
