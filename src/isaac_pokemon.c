@@ -95,21 +95,59 @@ enum Species IsaacGetFinalEvolution(enum Species species, u32 roll)
 // rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6).
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, de
 // même que les Gemmes de Type (puis le type est tiré). Le Cœur Doré n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
+// La Méga-Évolution (ITEM_MEGA_RING dans la liste) n'apparaît que si un Pokémon de l'équipe peut méga-évoluer avec
+// une Méga-Gemme qu'on n'a pas encore : on reçoit l'une d'elles au hasard (et l'Anneau Méga avec, voir AddBagItem).
 #define SPECIAL_ITEM_WEIGHT  4
 #define OMNIBOOST_WEIGHT     2
 #define GOLDEN_HEART_MIN_FLOOR  4
+
+#define ISAAC_MAX_MEGA_STONES  (PARTY_SIZE * 2)  // Dracaufeu et Mewtwo ont deux Méga-Évolutions
+
+// Méga-Gemmes des Pokémon de l'équipe qu'on n'a pas encore (ni dans le sac, ni tenues) ; renvoie leur nombre
+static u32 GetMissingPartyMegaStones(u16 *out)
+{
+    const struct FormChange *formChanges;
+    u32 count = 0, i, j, k;
+    u16 stone;
+
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+    {
+        if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+            continue;
+        formChanges = GetSpeciesFormChanges(GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES));
+        for (j = 0; formChanges != NULL && formChanges[j].method != FORM_CHANGE_TERMINATOR; j++)
+        {
+            if (formChanges[j].method != FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM || count == ISAAC_MAX_MEGA_STONES)
+                continue;
+            stone = formChanges[j].param1;
+            if (CheckBagHasItem(stone, 1))
+                continue;
+            for (k = 0; k < gPartiesCount[B_TRAINER_PLAYER] && GetMonData(&gParties[B_TRAINER_PLAYER][k], MON_DATA_HELD_ITEM) != stone; k++)
+                ;
+            if (k < gPartiesCount[B_TRAINER_PLAYER])
+                continue;
+            for (k = 0; k < count && out[k] != stone; k++)
+                ;
+            if (k == count)
+                out[count++] = stone;
+        }
+    }
+    return count;
+}
 
 u16 IsaacPickSpecialItem(u32 roll)
 {
     static const u16 sSpecialItems[] =
     {
         ITEM_EVOLUTION_STONE, ITEM_SUPER_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_BOOST_HP,
-        ITEM_BRILLIANT_STONE, ITEM_ISAAC_GEM_FIRST, ITEM_GOLDEN_HEART,
+        ITEM_BRILLIANT_STONE, ITEM_ISAAC_GEM_FIRST, ITEM_GOLDEN_HEART, ITEM_MEGA_RING,
     };
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
     u32 floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvolutionStoneWeights));
     u32 weights[ARRAY_COUNT(sSpecialItems)], total = 0, pick, i;
     u16 item = sSpecialItems[0];
+    u16 megaStones[ISAAC_MAX_MEGA_STONES];
+    u32 megaStoneCount = GetMissingPartyMegaStones(megaStones);
 
     for (i = 0; i < ARRAY_COUNT(sSpecialItems); i++)
     {
@@ -119,6 +157,8 @@ u16 IsaacPickSpecialItem(u32 roll)
             weights[i] = OMNIBOOST_WEIGHT;
         else if (sSpecialItems[i] == ITEM_GOLDEN_HEART)
             weights[i] = VarGet(VAR_ISAAC_FLOOR) >= GOLDEN_HEART_MIN_FLOOR ? SPECIAL_ITEM_WEIGHT : 0;
+        else if (sSpecialItems[i] == ITEM_MEGA_RING)
+            weights[i] = megaStoneCount != 0 ? SPECIAL_ITEM_WEIGHT : 0;
         else
             weights[i] = SPECIAL_ITEM_WEIGHT;
         total += weights[i];
@@ -137,6 +177,8 @@ u16 IsaacPickSpecialItem(u32 roll)
         item = ITEM_BOOST_HP + (roll >> 8) % NUM_STATS;
     else if (item == ITEM_ISAAC_GEM_FIRST)
         item = ITEM_ISAAC_GEM_FIRST + (roll >> 8) % (ITEM_ISAAC_GEM_LAST - ITEM_ISAAC_GEM_FIRST + 1);
+    else if (item == ITEM_MEGA_RING)
+        item = megaStones[(roll >> 8) % megaStoneCount];
     return item;
 }
 

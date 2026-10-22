@@ -357,7 +357,12 @@ bool32 AddBagItem(enum Item itemId, u16 count)
     if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || FlagGet(FLAG_STORING_ITEMS_IN_PYRAMID_BAG) == TRUE)
         return AddPyramidBagItem(itemId, count);
 
-    return BagPocket_AddItem(&gBagPockets[GetItemPocket(itemId)], itemId, count);
+    if (!BagPocket_AddItem(&gBagPockets[GetItemPocket(itemId)], itemId, count))
+        return FALSE;
+    // Donjon : la première Méga-Gemme reçue vient avec l'Anneau Méga
+    if (GetItemHoldEffect(itemId) == HOLD_EFFECT_MEGA_STONE && !CheckBagHasItem(ITEM_MEGA_RING, 1))
+        AddBagItem(ITEM_MEGA_RING, 1);
+    return TRUE;
 }
 
 static bool32 NONNULL BagPocket_RemoveItem(struct BagPocket *pocket, enum Item itemId, u16 count)
