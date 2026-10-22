@@ -44,7 +44,7 @@ IsaacRoom_EventScript_TrainerDefeated::
 	special IsaacSetRoomCleared
 	special IsaacPickTrainerLoot
 IsaacRoom_EventScript_TrainerLoot::
-	special IsaacNextTrainerLoot
+	special IsaacNextLootItem
 	goto_if_eq VAR_0x8004, ITEM_NONE, IsaacRoom_EventScript_TrainerReturn
 	giveitem VAR_0x8004
 	goto IsaacRoom_EventScript_TrainerLoot
@@ -93,11 +93,17 @@ IsaacRoom_EventScript_WildMon:
 	release
 	end
 
-@ Salles trésor et secrète : un objet spécial ou, dans une salle secrète, un bon objet (voir IsaacPickTreasureItem)
+@ Salles trésor et secrète : un objet spécial ou, dans une salle secrète, le butin de sa table (voir
+@ IsaacPickTreasureItem), donné objet par objet
 IsaacRoom_EventScript_Treasure::
 	lock
 	special IsaacPickTreasureItem
+IsaacRoom_EventScript_TreasureLoot::
+	special IsaacNextLootItem
+	goto_if_eq VAR_0x8004, ITEM_NONE, IsaacRoom_EventScript_TreasureTaken
 	giveitem VAR_0x8004
+	goto IsaacRoom_EventScript_TreasureLoot
+IsaacRoom_EventScript_TreasureTaken::
 	special IsaacSetRoomCleared
 	removeobject LOCALID_ISAAC_ROOM_ITEM
 	release

@@ -1042,26 +1042,18 @@ static u32 RoomRandom(s32 x, s32 y, u32 salt)
     return r;
 }
 
-// Contenu de la salle secrète, tiré pour la salle : un objet spécial (SECRET_SPECIAL_PCT %), un bon objet de combat
-// ou une bonne CT (SECRET_GOOD_ITEM_PCT %), sinon un dresseur du biome avec l'équipe de l'étage suivant
+// Contenu de la salle secrète, tiré pour la salle : un dresseur du biome avec l'équipe de l'étage suivant
+// (SECRET_TRAINER_PCT %), sinon un butin de sa table (IsaacPickTreasureItem)
 enum
 {
-    SECRET_SPECIAL_ITEM,
-    SECRET_GOOD_ITEM,
+    SECRET_LOOT,
     SECRET_TRAINER,
 };
-#define SECRET_SPECIAL_PCT    20
-#define SECRET_GOOD_ITEM_PCT  50
+#define SECRET_TRAINER_PCT  50
 
 static u32 GetSecretRoomContent(s32 x, s32 y)
 {
-    u32 roll = RoomRandom(x, y, 0x5EC7) % 100;
-
-    if (roll < SECRET_SPECIAL_PCT)
-        return SECRET_SPECIAL_ITEM;
-    if (roll < SECRET_SPECIAL_PCT + SECRET_GOOD_ITEM_PCT)
-        return SECRET_GOOD_ITEM;
-    return SECRET_TRAINER;
+    return RoomRandom(x, y, 0x5EC7) % 100 < SECRET_TRAINER_PCT ? SECRET_TRAINER : SECRET_LOOT;
 }
 
 static s32 GetForcedRockSmashRoom(void);
@@ -1254,7 +1246,7 @@ static u32 CountTrainersLeftOnFloor(void)
     return left;
 }
 
-// Butin d'un dresseur vaincu, donné objet par objet (IsaacNextTrainerLoot) :
+// Butin d'un dresseur vaincu, donné objet par objet (IsaacNextLootItem) :
 //  - jusqu'à l'étage TRAINER_LOOT_BOTH_FLOOR - 1 : une Guérison (TRAINER_LOOT_FULL_RESTORE_PCT %) ou un Rappel (toujours
 //    le même pour une salle) ;
 //  - à partir de l'étage TRAINER_LOOT_BOTH_FLOOR : une Guérison et un Rappel.
@@ -1269,8 +1261,8 @@ static u32 CountTrainersLeftOnFloor(void)
 
 static u16 PickGoodTM(u32 roll);
 
-static EWRAM_DATA u16 sTrainerLoot[4] = {0};
-static EWRAM_DATA u8 sTrainerLootCount = 0;
+static EWRAM_DATA u16 sLoot[4] = {0};
+static EWRAM_DATA u8 sLootCount = 0;
 
 void IsaacPickTrainerLoot(void)
 {
@@ -1279,42 +1271,44 @@ void IsaacPickTrainerLoot(void)
     bool32 both = VarGet(VAR_ISAAC_FLOOR) >= TRAINER_LOOT_BOTH_FLOOR;
 
     GetCurrentCell(&x, &y);
-    sTrainerLootCount = 0;
+    sLootCount = 0;
     if (both)
     {
-        sTrainerLoot[sTrainerLootCount++] = ITEM_FULL_RESTORE;
-        sTrainerLoot[sTrainerLootCount++] = ITEM_REVIVE;
+        sLoot[sLootCount++] = ITEM_FULL_RESTORE;
+        sLoot[sLootCount++] = ITEM_REVIVE;
     }
     else
     {
-        sTrainerLoot[sTrainerLootCount++] = (RoomRandom(x, y, 0x1007) % 100 < TRAINER_LOOT_FULL_RESTORE_PCT) ? ITEM_FULL_RESTORE : ITEM_REVIVE;
+        sLoot[sLootCount++] = (RoomRandom(x, y, 0x1007) % 100 < TRAINER_LOOT_FULL_RESTORE_PCT) ? ITEM_FULL_RESTORE : ITEM_REVIVE;
     }
     if (RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_TM_PCT)
-        sTrainerLoot[sTrainerLootCount++] = PickGoodTM(RoomRandom(x, y, 0x7E58));
+        sLoot[sLootCount++] = PickGoodTM(RoomRandom(x, y, 0x7E58));
     if (VarGet(VAR_ISAAC_FLOOR) < ISAAC_MASTER_BALL_MIN_FLOOR || FlagGet(FLAG_ISAAC_MASTER_BALL_DROPPED))
         return;
     left = CountTrainersLeftOnFloor();
     if (left != 0 && Random() % left == 0)
     {
         if (!both)
-            sTrainerLootCount = 0;  // la Master Ball remplace le soin
-        sTrainerLoot[sTrainerLootCount++] = ITEM_MASTER_BALL;
+            sLoot[0] = ITEM_MASTER_BALL;  // la Master Ball remplace le soin
+        else
+            sLoot[sLootCount++] = ITEM_MASTER_BALL;
         FlagSet(FLAG_ISAAC_MASTER_BALL_DROPPED);
     }
 }
 
-// Objet suivant du butin dans VAR_0x8004 (ITEM_NONE quand il n'y en a plus), pour `giveitem VAR_0x8004`
-void IsaacNextTrainerLoot(void)
+// Objet suivant du butin (dresseur, salle trésor ou secrète) dans VAR_0x8004 (ITEM_NONE quand il n'y en a plus),
+// pour `giveitem VAR_0x8004`
+void IsaacNextLootItem(void)
 {
     u32 i;
 
     gSpecialVar_0x8004 = ITEM_NONE;
-    if (sTrainerLootCount == 0)
+    if (sLootCount == 0)
         return;
-    gSpecialVar_0x8004 = sTrainerLoot[0];
-    for (i = 1; i < sTrainerLootCount; i++)
-        sTrainerLoot[i - 1] = sTrainerLoot[i];
-    sTrainerLootCount--;
+    gSpecialVar_0x8004 = sLoot[0];
+    for (i = 1; i < sLootCount; i++)
+        sLoot[i - 1] = sLoot[i];
+    sLootCount--;
 }
 
 // Bonus de l'as du boss (voir sBossParties), une fois son équipe créée pour le combat
@@ -2498,8 +2492,8 @@ void IsaacDuelRestoreParty(void)
     FlagClear(B_FLAG_NO_WHITEOUT);
 }
 
-// Ouvre le passage vers la salle secrète de l'étage (voyant) : VAR_RESULT = FALSE s'il l'était déjà. Si la salle
-// courante y mène, elle est redessinée tout de suite.
+// Ouvre le passage vers la salle secrète de l'étage (roche brisée par Éclate-Roc) : VAR_RESULT = FALSE s'il l'était
+// déjà. Si la salle courante y mène, elle est redessinée tout de suite.
 void IsaacOpenSecretRoom(void)
 {
     gSpecialVar_Result = !FlagGet(FLAG_ISAAC_SECRET_OPEN);
@@ -2552,26 +2546,64 @@ void IsaacPickBossReward(void)
     gSpecialVar_0x8004 = (roll & 1) ? IsaacPickSpecialItem(roll >> 1) : ITEM_MASTER_BALL;
 }
 
-// Objet de la salle trésor ou de la salle secrète (dans VAR_0x8004) : un objet spécial au hasard (toujours une Pierre
-// Évolution au premier étage), ou un bon objet de combat ou une bonne CT dans une salle secrète qui en contient
+// Butin de la salle secrète, une entrée de la table tirée pour la salle (la Carte de Réduction, si on l'a déjà, est
+// remplacée par l'entrée suivante)
+enum
+{
+    SECRET_LOOT_ITEM_AND_TM,  // un très bon objet de combat et une très bonne CT
+    SECRET_LOOT_CURSED_DIE,
+    SECRET_LOOT_BLOOD_PACT,
+    SECRET_LOOT_DISCOUNT_CARD,
+    SECRET_LOOT_HEALS,        // une Guérison, un Rappel et un Total Soin
+    SECRET_LOOT_COUNT,
+};
+
+static void PickSecretRoomLoot(s32 x, s32 y)
+{
+    u32 roll = RoomRandom(x, y, 0x600D);
+    u32 entry = roll % SECRET_LOOT_COUNT;
+
+    if (entry == SECRET_LOOT_DISCOUNT_CARD && CheckBagHasItem(ITEM_DISCOUNT_CARD, 1))
+        entry++;
+    roll >>= 8;
+    switch (entry)
+    {
+    case SECRET_LOOT_ITEM_AND_TM:
+        sLoot[sLootCount++] = sShopBattleItems[roll % ARRAY_COUNT(sShopBattleItems)];
+        sLoot[sLootCount++] = PickGoodTM(roll >> 8);
+        break;
+    case SECRET_LOOT_CURSED_DIE:
+        sLoot[sLootCount++] = ITEM_CURSED_DIE;
+        break;
+    case SECRET_LOOT_BLOOD_PACT:
+        sLoot[sLootCount++] = ITEM_BLOOD_PACT;
+        break;
+    case SECRET_LOOT_DISCOUNT_CARD:
+        sLoot[sLootCount++] = ITEM_DISCOUNT_CARD;
+        break;
+    default:
+        sLoot[sLootCount++] = ITEM_FULL_RESTORE;
+        sLoot[sLootCount++] = ITEM_REVIVE;
+        sLoot[sLootCount++] = ITEM_FULL_HEAL;
+        break;
+    }
+}
+
+// Objet(s) de la salle trésor ou de la salle secrète, à donner un par un (IsaacNextLootItem) : un objet spécial au
+// hasard dans une salle trésor (toujours une Pierre Évolution au premier étage), le butin de la table de la salle
+// secrète (PickSecretRoomLoot)
 void IsaacPickTreasureItem(void)
 {
     s32 x, y;
-    u32 roll;
 
     GetCurrentCell(&x, &y);
-    if (GetRoom(x, y) == ROOM_SECRET && GetSecretRoomContent(x, y) == SECRET_GOOD_ITEM)
-    {
-        roll = RoomRandom(x, y, 0x600D);
-        if (roll & 1)
-            gSpecialVar_0x8004 = sShopBattleItems[(roll >> 1) % ARRAY_COUNT(sShopBattleItems)];
-        else
-            gSpecialVar_0x8004 = sShopTMs[(roll >> 1) % ARRAY_COUNT(sShopTMs)];
-    }
+    sLootCount = 0;
+    if (GetRoom(x, y) == ROOM_SECRET)
+        PickSecretRoomLoot(x, y);
     else if (VarGet(VAR_ISAAC_FLOOR) == 1)
-        gSpecialVar_0x8004 = ITEM_EVOLUTION_STONE;
+        sLoot[sLootCount++] = ITEM_EVOLUTION_STONE;
     else
-        gSpecialVar_0x8004 = IsaacPickSpecialItem(RoomRandom(x, y, 0x7EA5));
+        sLoot[sLootCount++] = IsaacPickSpecialItem(RoomRandom(x, y, 0x7EA5));
 }
 
 // Le Pokémon de la vieille dame dans gStringVar2 (Leveinard, Lokhlass dans l'océan)

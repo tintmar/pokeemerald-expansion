@@ -26,7 +26,7 @@ void IsaacBufferBossName(void);
 void IsaacPrepareWildBattle(void);
 void IsaacCaptureMonDone(void);
 void IsaacPickTrainerLoot(void);
-void IsaacNextTrainerLoot(void);
+void IsaacNextLootItem(void);
 void IsaacPrepareNurseArrival(void);
 void IsaacSettleNurse(void);
 void IsaacNurseGetPrice(void);
