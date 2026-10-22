@@ -2515,8 +2515,8 @@ void IsaacOpenSecretRoom(void)
     DrawWholeMapView();
 }
 
-// Entraîneur d'Éclate-Roc, Pokémon n° VAR_0x8004 : VAR_RESULT = 0 s'il ne peut pas l'apprendre (ou Œuf, ou s'il la
-// connaît déjà), 1 s'il l'apprend tout de suite (place libre), 2 s'il doit oublier une attaque
+// Entraîneur d'Éclate-Roc, Pokémon n° VAR_0x8004 (n'importe quelle espèce, comme les CT) : VAR_RESULT = 0 pour un Œuf
+// ou s'il la connaît déjà, 1 s'il l'apprend tout de suite (place libre), 2 s'il doit oublier une attaque
 // (IsaacTutorChooseMoveToForget puis IsaacTutorReplaceMove). gStringVar1 = le Pokémon, gStringVar2 = l'attaque.
 void IsaacPrepareRockSmash(void)
 {
@@ -2525,8 +2525,7 @@ void IsaacPrepareRockSmash(void)
     sTutorMove = MOVE_ROCK_SMASH;
     GetMonNickname(mon, gStringVar1);
     StringCopy(gStringVar2, GetMoveName(MOVE_ROCK_SMASH));
-    if (GetMonData(mon, MON_DATA_IS_EGG) || MonKnowsMove(mon, MOVE_ROCK_SMASH)
-     || !CanLearnTutorMove(GetMonData(mon, MON_DATA_SPECIES), MOVE_ROCK_SMASH))
+    if (GetMonData(mon, MON_DATA_IS_EGG) || MonKnowsMove(mon, MOVE_ROCK_SMASH))
         gSpecialVar_Result = 0;
     else if (GiveMoveToMon(mon, MOVE_ROCK_SMASH) == MOVE_ROCK_SMASH)
         gSpecialVar_Result = 1;

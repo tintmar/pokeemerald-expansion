@@ -737,8 +737,7 @@ IsaacRoom_Text_RockSmashHint:
 	.string "si l'une sonne creux, brise-la !$"
 
 IsaacRoom_Text_RockSmashCant:
-	.string "Ce Pokémon ne peut pas apprendre\n"
-	.string "Éclate-Roc…$"
+	.string "Je n'ai rien à lui apprendre…$"
 
 IsaacRoom_Text_SecretWallAsk:
 	.string "Cette roche sonne creux…\n"
