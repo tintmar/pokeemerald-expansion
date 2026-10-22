@@ -9,6 +9,9 @@ Hub_EventScript_Hiker::
 	specialvar VAR_RESULT, CalculatePlayerPartyCount
 	goto_if_ne VAR_RESULT, 0, Hub_EventScript_HikerGoodLuck
 	msgbox Hub_Text_HikerOffer, MSGBOX_DEFAULT
+	special IsaacBufferFirstBiome
+	msgbox Hub_Text_HikerFirstBiome, MSGBOX_DEFAULT
+	msgbox Hub_Text_HikerChoose, MSGBOX_DEFAULT
 	closemessage
 	special DoIsaacStarterSelectScreen
 	waitstate
@@ -20,6 +23,8 @@ Hub_EventScript_Hiker::
 	end
 
 Hub_EventScript_HikerGoodLuck::
+	special IsaacBufferFirstBiome
+	msgbox Hub_Text_HikerFirstBiome, MSGBOX_DEFAULT
 	msgbox Hub_Text_HikerGoodLuck, MSGBOX_DEFAULT
 	release
 	end
@@ -36,12 +41,20 @@ Hub_EventScript_NeedPokemon::
 
 Hub_Text_HikerOffer:
 	.string "Tu veux descendre dans la grotte ?\n"
-	.string "Pas sans Pokémon !\p"
+	.string "Pas sans Pokémon !$"
+
+Hub_Text_HikerChoose:
 	.string "Choisis-en deux parmi ceux-là.$"
 
 Hub_Text_HikerMasterBall:
 	.string "Et prends ça : une MASTER BALL.\n"
 	.string "Garde-la pour un Pokémon d'exception.$"
+
+Hub_Text_HikerFirstBiome:
+	.string "Je suis descendu jeter un œil :\n"
+	.string "en bas, ça commence par…\p"
+	.string "{STR_VAR_1} !\p"
+	.string "Prépare ton équipe en conséquence.$"
 
 Hub_Text_HikerGoodLuck:
 	.string "Bonne chance là-dessous !$"

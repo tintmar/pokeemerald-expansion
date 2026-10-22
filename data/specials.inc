@@ -654,6 +654,7 @@ gSpecials::
 	def_special IsaacNurseTryHeal
 	def_special IsaacOpenShop
 	def_special IsaacKecleonGreeting
+	def_special IsaacBufferFirstBiome
 	def_special IsaacGetRoomContent
 	def_special IsaacGiveEgg
 	def_special IsaacPickTreasureItem

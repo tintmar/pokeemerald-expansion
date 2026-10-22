@@ -128,6 +128,8 @@ STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 < FLAG_UNUSED_
 #define FLAG_ISAAC_SECRET_OPEN  FLAG_UNUSED_0x020
 // Personne dans l'équipe ne connaissait Éclate-Roc au début de l'étage : l'entraîneur d'Éclate-Roc peut y apparaître
 #define FLAG_ISAAC_ROCK_SMASH_TEACHER  FLAG_UNUSED_0x021
+// Ordre des biomes de la prochaine descente déjà tiré (par le Montagnard du hub, qui annonce le premier biome)
+#define FLAG_ISAAC_RUN_PREPARED  FLAG_UNUSED_0x022
 
 #define ISAAC_START_X  (ISAAC_GRID_W / 2)
 #define ISAAC_START_Y  (ISAAC_GRID_H / 2)
@@ -2412,11 +2414,40 @@ static void WarpToRoom(s32 x, s32 y)
     ResetInitialPlayerAvatarState();
 }
 
+// Ordre des biomes de la prochaine descente, tiré une seule fois (voir FLAG_ISAAC_RUN_PREPARED)
+static void PrepareRunBiomeOrder(void)
+{
+    if (FlagGet(FLAG_ISAAC_RUN_PREPARED))
+        return;
+    VarSet(VAR_ISAAC_BIOME_ORDER, Random());
+    FlagSet(FLAG_ISAAC_RUN_PREPARED);
+}
+
+// Montagnard du hub : description du premier biome de la prochaine descente dans gStringVar1
+void IsaacBufferFirstBiome(void)
+{
+    static const u8 *const sBiomeHints[ISAAC_BIOME_COUNT] =
+    {
+        [ISAAC_BIOME_CAVE]   = COMPOUND_STRING("une grotte rocheuse, pleine de\nPokémon Roche, Sol et Combat"),
+        [ISAAC_BIOME_DARK]   = COMPOUND_STRING("une grotte hantée par des\nPokémon Spectre, Ténèbres et Psy"),
+        [ISAAC_BIOME_FIRE]   = COMPOUND_STRING("un chemin brûlant, avec des\nPokémon Feu et Électrik"),
+        [ISAAC_BIOME_ICE]    = COMPOUND_STRING("une grotte gelée, avec des\nPokémon Glace et Eau"),
+        [ISAAC_BIOME_POISON] = COMPOUND_STRING("un tunnel moussu, plein de\nPokémon Poison, Plante et Insecte"),
+        [ISAAC_BIOME_OCEAN]  = COMPOUND_STRING("l'océan, plein de\nPokémon Eau"),
+    };
+
+    PrepareRunBiomeOrder();
+    StringCopy(gStringVar1, sBiomeHints[GetBiomeOfFloor(1)]);
+}
+
 // Nouvel étage (nouvelle graine) : arrivée au centre de la salle de départ
 static void WarpToNewFloor(u32 floor)
 {
-    if (floor == 1)  // nouvelle descente : nouvel ordre des biomes
-        VarSet(VAR_ISAAC_BIOME_ORDER, Random());
+    if (floor == 1)  // nouvelle descente : l'ordre des biomes annoncé par le Montagnard (sinon tiré maintenant)
+    {
+        PrepareRunBiomeOrder();
+        FlagClear(FLAG_ISAAC_RUN_PREPARED);  // la descente suivante aura un nouvel ordre
+    }
     VarSet(VAR_ISAAC_FLOOR, floor);
     VarSet(VAR_ISAAC_SEED, Random());
     ClearVisited();

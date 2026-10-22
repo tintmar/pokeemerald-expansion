@@ -35,6 +35,7 @@ u16 IsaacGetShopStock(u16 item);
 void IsaacOnShopPurchase(u16 item, u16 count);
 void IsaacOpenShop(void);
 void IsaacKecleonGreeting(void);
+void IsaacBufferFirstBiome(void);
 void IsaacGetRoomContent(void);
 void IsaacGiveEgg(void);
 void IsaacPickTreasureItem(void);
