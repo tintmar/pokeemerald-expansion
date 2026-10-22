@@ -2380,6 +2380,7 @@ static void SetUpRoomObjects(s32 x, s32 y)
 // Avant le combat contre le Pokémon n° VAR_0x8004 de la salle de capture. Suivre de `dowildbattle`.
 void IsaacPrepareWildBattle(void)
 {
+    u16 item = ITEM_NONE;
     u16 species[CAPTURE_MAX_MONS];
     s32 x, y;
 
@@ -2389,6 +2390,8 @@ void IsaacPrepareWildBattle(void)
     CreateScriptedWildMon(species[sCaptureSlot], ISAAC_MON_LEVEL, ITEM_NONE);
     IsaacCreateMonFromSet(&gParties[B_TRAINER_OPPONENT_A][0], species[sCaptureSlot], GetCaptureSetTier(),
                           RoomRandom(x, y, 0x5EEE + sCaptureSlot) % ISAAC_SET_VARIANTS, RoomRandom(x, y, 0x5EED + sCaptureSlot));
+    // un Pokémon sauvage ne tient pas d'objet
+    SetMonData(&gParties[B_TRAINER_OPPONENT_A][0], MON_DATA_HELD_ITEM, &item);
 }
 
 // Après le combat (capturé, vaincu ou fui) : le Pokémon disparaît pour de bon
