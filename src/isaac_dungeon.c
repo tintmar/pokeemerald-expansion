@@ -1216,29 +1216,64 @@ static u32 CountTrainersLeftOnFloor(void)
     return left;
 }
 
-// Butin d'un dresseur vaincu : Guérison ou Rappel, moitié-moitié (toujours le même pour une salle). À partir de
-// ISAAC_MASTER_BALL_MIN_FLOOR, une Master Ball à la place, une seule par étage : tant qu'elle n'est pas tombée,
-// chaque dresseur la donne avec 1 chance sur le nombre de dresseurs encore à battre (1/8, 1/7... 1/1) ; battre
-// tous les dresseurs de l'étage la donne donc à coup sûr. VAR_0x8004 = l'objet, pour `giveitem VAR_0x8004`.
+// Butin d'un dresseur vaincu, donné objet par objet (IsaacNextTrainerLoot) :
+//  - jusqu'à l'étage TRAINER_LOOT_BOTH_FLOOR - 1 : une Guérison (TRAINER_LOOT_FULL_RESTORE_PCT %) ou un Rappel (toujours
+//    le même pour une salle) ;
+//  - à partir de l'étage TRAINER_LOOT_BOTH_FLOOR : une Guérison et un Rappel.
+// À partir de ISAAC_MASTER_BALL_MIN_FLOOR, une Master Ball, une seule par étage : tant qu'elle n'est pas tombée, chaque
+// dresseur la donne avec 1 chance sur le nombre de dresseurs encore à battre (1/8, 1/7... 1/1) ; battre tous les
+// dresseurs de l'étage la donne donc à coup sûr. Elle remplace le soin, sauf à partir de TRAINER_LOOT_BOTH_FLOOR où
+// elle s'y ajoute.
+#define TRAINER_LOOT_FULL_RESTORE_PCT  66
+#define TRAINER_LOOT_BOTH_FLOOR        4
+
+static EWRAM_DATA u16 sTrainerLoot[3] = {0};
+static EWRAM_DATA u8 sTrainerLootCount = 0;
+
 void IsaacPickTrainerLoot(void)
 {
-    static const u16 sLoot[] = { ITEM_FULL_RESTORE, ITEM_REVIVE };
     s32 x, y;
     u32 left;
+    bool32 both = VarGet(VAR_ISAAC_FLOOR) >= TRAINER_LOOT_BOTH_FLOOR;
 
     GetCurrentCell(&x, &y);
-    gSpecialVar_0x8004 = sLoot[RoomRandom(x, y, 0x1007) % ARRAY_COUNT(sLoot)];
+    sTrainerLootCount = 0;
+    if (both)
+    {
+        sTrainerLoot[sTrainerLootCount++] = ITEM_FULL_RESTORE;
+        sTrainerLoot[sTrainerLootCount++] = ITEM_REVIVE;
+    }
+    else
+    {
+        sTrainerLoot[sTrainerLootCount++] = (RoomRandom(x, y, 0x1007) % 100 < TRAINER_LOOT_FULL_RESTORE_PCT) ? ITEM_FULL_RESTORE : ITEM_REVIVE;
+    }
     if (VarGet(VAR_ISAAC_FLOOR) < ISAAC_MASTER_BALL_MIN_FLOOR || FlagGet(FLAG_ISAAC_MASTER_BALL_DROPPED))
         return;
     left = CountTrainersLeftOnFloor();
     if (left != 0 && Random() % left == 0)
     {
-        gSpecialVar_0x8004 = ITEM_MASTER_BALL;
+        if (!both)
+            sTrainerLootCount = 0;  // la Master Ball remplace le soin
+        sTrainerLoot[sTrainerLootCount++] = ITEM_MASTER_BALL;
         FlagSet(FLAG_ISAAC_MASTER_BALL_DROPPED);
     }
 }
 
-// Omniboosts du boss (voir sBossParties), une fois son équipe créée pour le combat
+// Objet suivant du butin dans VAR_0x8004 (ITEM_NONE quand il n'y en a plus), pour `giveitem VAR_0x8004`
+void IsaacNextTrainerLoot(void)
+{
+    u32 i;
+
+    gSpecialVar_0x8004 = ITEM_NONE;
+    if (sTrainerLootCount == 0)
+        return;
+    gSpecialVar_0x8004 = sTrainerLoot[0];
+    for (i = 1; i < sTrainerLootCount; i++)
+        sTrainerLoot[i - 1] = sTrainerLoot[i];
+    sTrainerLootCount--;
+}
+
+// Bonus de l'as du boss (voir sBossParties), une fois son équipe créée pour le combat
 void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party)
 {
     const struct IsaacBossParty *boss = GetBossParty();

@@ -43,7 +43,12 @@ IsaacRoom_EventScript_Trainer::
 IsaacRoom_EventScript_TrainerDefeated::
 	special IsaacSetRoomCleared
 	special IsaacPickTrainerLoot
+IsaacRoom_EventScript_TrainerLoot::
+	special IsaacNextTrainerLoot
+	goto_if_eq VAR_0x8004, ITEM_NONE, IsaacRoom_EventScript_TrainerReturn
 	giveitem VAR_0x8004
+	goto IsaacRoom_EventScript_TrainerLoot
+IsaacRoom_EventScript_TrainerReturn::
 	special IsaacPrepareTrainerReturn
 	applymovement LOCALID_ISAAC_ROOM_TRAINER, gIsaacTrainerReturnMovement
 	waitmovement 0

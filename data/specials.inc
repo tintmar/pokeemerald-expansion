@@ -648,6 +648,7 @@ gSpecials::
 	def_special IsaacPrepareWildBattle
 	def_special IsaacOpenBossExit
 	def_special IsaacPickTrainerLoot
+	def_special IsaacNextTrainerLoot
 	def_special IsaacPrepareNurseArrival
 	def_special IsaacSettleNurse
 	def_special IsaacNurseGetPrice
