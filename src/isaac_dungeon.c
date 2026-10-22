@@ -1705,11 +1705,11 @@ static const struct IsaacShopPrice sShopPrices[] =
     { ITEM_REVIVE,        4 },
     { ITEM_FULL_RESTORE,  6 },
     { ITEM_MAX_REVIVE,   10 },
-    { ITEM_MASTER_BALL,  40 },
+    { ITEM_MASTER_BALL,  30 },
 };
-#define SHOP_TM_PRICE_TENTHS       20
-#define SHOP_ITEM_PRICE_TENTHS     25
-#define SHOP_SPECIAL_PRICE_TENTHS  60  // objet spécial : très cher
+#define SHOP_TM_PRICE_TENTHS       12
+#define SHOP_ITEM_PRICE_TENTHS     15
+#define SHOP_SPECIAL_PRICE_TENTHS  50  // objet spécial : très cher
 
 static EWRAM_DATA u16 sShopItems[SHOP_LIMITED_SLOTS + 1] = {0};
 
