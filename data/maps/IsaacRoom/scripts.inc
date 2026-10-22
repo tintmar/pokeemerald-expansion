@@ -132,19 +132,25 @@ IsaacRoom_EventScript_Nurse::
 	lock
 	faceplayer
 	special IsaacNurseGetPrice
-	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_NurseNoNeed
+	goto_if_eq VAR_RESULT, 0, IsaacRoom_EventScript_NurseNoNeed
 	showmoneybox 0, 0
 	msgbox IsaacRoom_Text_NurseOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_NurseDeclined
 	special IsaacNurseTryHeal
-	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_NurseNoMoney
+	goto_if_eq VAR_RESULT, 0, IsaacRoom_EventScript_NurseNoMoney
 	updatemoneybox
 	playse SE_SHOP
 	msgbox IsaacRoom_Text_NurseHealing, MSGBOX_DEFAULT
 	playfanfare MUS_HEAL
 	waitfanfare
 	hidemoneybox
+	goto_if_lt VAR_RESULT, VAR_0x8006, IsaacRoom_EventScript_NursePartial
 	msgbox IsaacRoom_Text_NurseHealed, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_NursePartial::
+	msgbox IsaacRoom_Text_NursePartial, MSGBOX_DEFAULT
 	release
 	end
 
@@ -167,9 +173,10 @@ IsaacRoom_EventScript_NurseNoMoney::
 
 IsaacRoom_Text_NurseOffer:
 	.string "Bravo pour ta victoire !\p"
-	.string "Pour {STR_VAR_2}¥, je soigne ton équipe :\n"
-	.string "PV au complet pour ceux qui tiennent\l"
-	.string "debout, moitié des PV pour les K.O.\p"
+	.string "Je soigne tes Pokémon : PV au complet\n"
+	.string "pour ceux qui tiennent debout, moitié\l"
+	.string "des PV pour les K.O.\p"
+	.string "{STR_VAR_3} Pokémon à soigner : {STR_VAR_2}¥.\n"
 	.string "Ça te va ?$"
 
 IsaacRoom_Text_NurseHealing:
@@ -185,6 +192,12 @@ IsaacRoom_Text_NurseNoNeed:
 IsaacRoom_Text_NurseDeclined:
 	.string "Comme tu veux. Reviens me voir\n"
 	.string "avant de descendre si tu changes d'avis.$"
+
+IsaacRoom_Text_NursePartial:
+	.string "Tu n'avais pas assez d'argent pour\n"
+	.string "tout le monde…\p"
+	.string "J'ai pu en soigner {STR_VAR_3}, dans l'ordre\n"
+	.string "de ton équipe. Bonne chance !$"
 
 IsaacRoom_Text_NurseNoMoney:
 	.string "Désolée, tu n'as pas assez\n"

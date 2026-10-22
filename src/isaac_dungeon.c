@@ -1487,11 +1487,11 @@ void IsaacOpenBossExit(void)
 // Infirmière de la salle du boss
 // ---------------------------------------------------------------------------
 // Le boss vaincu, elle arrive par le passage qui vient de s'ouvrir et se poste juste à côté (le passage reste
-// libre). Elle propose, contre ISAAC_NURSE_PRICE_PER_FLOOR x étage (deux fois ce que rapporte un dresseur de
-// l'étage), un soin partiel : PV et statut au complet pour les Pokémon debout,
-// moitié des PV pour les K.O.
+// libre). Elle propose un soin partiel : PV et statut au complet pour les Pokémon debout, moitié des PV pour les
+// K.O. Le prix dépend du nombre de Pokémon à soigner : ISAAC_NURSE_PRICE_PER_MON x étage chacun. Sans assez d'argent
+// pour tous, elle soigne dans l'ordre de l'équipe autant de Pokémon que le joueur peut en payer.
 
-#define ISAAC_NURSE_PRICE_PER_FLOOR  2000
+#define ISAAC_NURSE_PRICE_PER_MON  600
 
 EWRAM_DATA u8 gIsaacNurseArrivalMovement[ISAAC_ROOM_H] = {0};
 
@@ -1570,49 +1570,63 @@ void IsaacSettleNurse(void)
     PlaceNurse(x, y, FALSE);
 }
 
-static u32 GetNursePrice(void)
+static u32 GetNursePricePerMon(void)
 {
-    return ISAAC_NURSE_PRICE_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
+    return ISAAC_NURSE_PRICE_PER_MON * VarGet(VAR_ISAAC_FLOOR);
 }
 
 static bool8 MonNeedsHealing(struct Pokemon *mon)
 {
-    return GetMonData(mon, MON_DATA_HP) < GetMonData(mon, MON_DATA_MAX_HP) || GetMonData(mon, MON_DATA_STATUS) != 0;
+    return !GetMonData(mon, MON_DATA_IS_EGG)
+        && (GetMonData(mon, MON_DATA_HP) < GetMonData(mon, MON_DATA_MAX_HP) || GetMonData(mon, MON_DATA_STATUS) != 0);
 }
 
-// Prix du soin dans gStringVar2 (gStringVar1 sert à la boîte d'argent) ; VAR_RESULT : TRUE si un Pokémon de l'équipe en a besoin
+static u32 CountMonsNeedingHealing(void)
+{
+    u32 count = 0, i;
+
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+        if (MonNeedsHealing(&gParties[B_TRAINER_PLAYER][i]))
+            count++;
+    return count;
+}
+
+// Prix du soin de toute l'équipe dans gStringVar2 (gStringVar1 sert à la boîte d'argent), nombre de Pokémon à
+// soigner dans gStringVar3 ; VAR_RESULT : ce nombre (0 : personne à soigner)
 void IsaacNurseGetPrice(void)
 {
-    u32 i;
+    u32 count = CountMonsNeedingHealing();
 
-    ConvertIntToDecimalStringN(gStringVar2, GetNursePrice(), STR_CONV_MODE_LEFT_ALIGN, 6);
-    gSpecialVar_Result = FALSE;
-    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
-        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG) && MonNeedsHealing(&gParties[B_TRAINER_PLAYER][i]))
-            gSpecialVar_Result = TRUE;
+    ConvertIntToDecimalStringN(gStringVar2, count * GetNursePricePerMon(), STR_CONV_MODE_LEFT_ALIGN, 6);
+    ConvertIntToDecimalStringN(gStringVar3, count, STR_CONV_MODE_LEFT_ALIGN, 1);
+    gSpecialVar_Result = count;
 }
 
-// Soin payant ; VAR_RESULT : FALSE si le joueur n'a pas assez d'argent
+// Soin payant, Pokémon par Pokémon dans l'ordre de l'équipe tant que le joueur peut payer. VAR_RESULT = nombre de
+// Pokémon soignés, VAR_0x8006 = nombre de Pokémon qui en avaient besoin ; gStringVar3 = nombre soignés.
 void IsaacNurseTryHeal(void)
 {
-    u32 price = GetNursePrice(), i, hp, status = 0;
+    u32 price = GetNursePricePerMon(), healed = 0, i, hp, status = 0;
 
-    gSpecialVar_Result = IsEnoughMoney(&gSaveBlock1Ptr->money, price);
-    if (!gSpecialVar_Result)
-        return;
-    RemoveMoney(&gSaveBlock1Ptr->money, price);
+    gSpecialVar_0x8006 = CountMonsNeedingHealing();
     for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
     {
         struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][i];
 
-        if (GetMonData(mon, MON_DATA_IS_EGG))
+        if (!MonNeedsHealing(mon))
             continue;
+        if (!IsEnoughMoney(&gSaveBlock1Ptr->money, price))
+            break;
+        RemoveMoney(&gSaveBlock1Ptr->money, price);
         hp = GetMonData(mon, MON_DATA_MAX_HP);
         if (GetMonData(mon, MON_DATA_HP) == 0)
             hp = max(hp / 2, 1);
         SetMonData(mon, MON_DATA_HP, &hp);
         SetMonData(mon, MON_DATA_STATUS, &status);
+        healed++;
     }
+    ConvertIntToDecimalStringN(gStringVar3, healed, STR_CONV_MODE_LEFT_ALIGN, 1);
+    gSpecialVar_Result = healed;
 }
 
 // Pokémon de la salle de capture pas encore combattus : à leur place, avec leur apparence ; les autres (et ceux
