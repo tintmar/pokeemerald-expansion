@@ -85,7 +85,7 @@ IsaacRoom_EventScript_WildMon:
 	release
 	end
 
-@ Salle trésor : un objet spécial au hasard (une Pierre Évolution au premier étage, voir IsaacPickTreasureItem)
+@ Salles trésor et secrète : un objet spécial ou, dans une salle secrète, un bon objet (voir IsaacPickTreasureItem)
 IsaacRoom_EventScript_Treasure::
 	lock
 	special IsaacPickTreasureItem

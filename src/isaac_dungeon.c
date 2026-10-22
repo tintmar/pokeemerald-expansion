@@ -1013,8 +1013,32 @@ static u32 RoomRandom(s32 x, s32 y, u32 salt)
     return r;
 }
 
+// Contenu de la salle secrète, tiré pour la salle : un objet spécial (SECRET_SPECIAL_PCT %), un bon objet de combat
+// ou une bonne CT (SECRET_GOOD_ITEM_PCT %), sinon un dresseur du biome avec l'équipe de l'étage suivant
+enum
+{
+    SECRET_SPECIAL_ITEM,
+    SECRET_GOOD_ITEM,
+    SECRET_TRAINER,
+};
+#define SECRET_SPECIAL_PCT    20
+#define SECRET_GOOD_ITEM_PCT  50
+
+static u32 GetSecretRoomContent(s32 x, s32 y)
+{
+    u32 roll = RoomRandom(x, y, 0x5EC7) % 100;
+
+    if (roll < SECRET_SPECIAL_PCT)
+        return SECRET_SPECIAL_ITEM;
+    if (roll < SECRET_SPECIAL_PCT + SECRET_GOOD_ITEM_PCT)
+        return SECRET_GOOD_ITEM;
+    return SECRET_TRAINER;
+}
+
 static bool8 RoomHasTrainer(s32 x, s32 y)
 {
+    if (GetRoom(x, y) == ROOM_SECRET)
+        return GetSecretRoomContent(x, y) == SECRET_TRAINER;
     return GetRoom(x, y) == ROOM_NORMAL && RoomRandom(x, y, 0x7A1) % 100 < ISAAC_TRAINER_PCT;
 }
 
@@ -1157,7 +1181,8 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     InitTrainer(&sRoomTrainer, type, names[RoomRandom(x, y, 0x4A3) % ARRAY_COUNT(sMaleTrainerNames)], sRoomTrainerMons);
     if (VarGet(VAR_ISAAC_FLOOR) == 1)
         sRoomTrainer.aiFlags = AI_FLAG_CHECK_BAD_MOVE;  // premier étage : attaques au hasard, sauf les inutiles
-    party = &sRoomTrainerParties[min(VarGet(VAR_ISAAC_FLOOR), ARRAY_COUNT(sRoomTrainerParties)) - 1];
+    // dresseur de la salle secrète : l'équipe de l'étage suivant
+    party = &sRoomTrainerParties[min(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET), ARRAY_COUNT(sRoomTrainerParties)) - 1];
     for (i = 0; i < party->count; i++)
     {
         u32 roll = RoomRandom(x, y, 0x5EC + i);
@@ -2207,12 +2232,16 @@ void IsaacTutorChooseMoveToForget(void)
     gFieldCallback = FieldCB_ContinueScriptHandleMusic;
 }
 
+// Remplace l'attaque choisie à l'écran du Pokémon ; gStringVar1 = le Pokémon, gStringVar2 = l'attaque (à réécrire :
+// l'écran du Pokémon s'en est servi pour afficher ses stats)
 void IsaacTutorReplaceMove(void)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
 
     RemoveMonPPBonus(mon, gSpecialVar_0x8005);
     SetMonMoveSlot(mon, sTutorMove, gSpecialVar_0x8005);
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, GetMoveName(sTutorMove));
 }
 
 // Duel : le Pokémon du duelliste dans gStringVar1
@@ -2303,27 +2332,36 @@ const u8 *IsaacGetWallInteractScript(s16 x, s16 y)
     return IsaacRoom_EventScript_SecretWall;
 }
 
-// Objet de la salle trésor (dans VAR_0x8004) : un seul objet spécial au hasard ; toujours une Pierre Évolution au
-// premier étage
+// Objet de la salle trésor ou de la salle secrète (dans VAR_0x8004) : un objet spécial au hasard (toujours une Pierre
+// Évolution au premier étage), ou un bon objet de combat ou une bonne CT dans une salle secrète qui en contient
 void IsaacPickTreasureItem(void)
 {
     s32 x, y;
+    u32 roll;
 
     GetCurrentCell(&x, &y);
-    if (VarGet(VAR_ISAAC_FLOOR) == 1)
+    if (GetRoom(x, y) == ROOM_SECRET && GetSecretRoomContent(x, y) == SECRET_GOOD_ITEM)
+    {
+        roll = RoomRandom(x, y, 0x600D);
+        if (roll & 1)
+            gSpecialVar_0x8004 = sShopBattleItems[(roll >> 1) % ARRAY_COUNT(sShopBattleItems)];
+        else
+            gSpecialVar_0x8004 = sShopTMs[(roll >> 1) % ARRAY_COUNT(sShopTMs)];
+    }
+    else if (VarGet(VAR_ISAAC_FLOOR) == 1)
         gSpecialVar_0x8004 = ITEM_EVOLUTION_STONE;
     else
         gSpecialVar_0x8004 = IsaacPickSpecialItem(RoomRandom(x, y, 0x7EA5));
 }
 
-// Au chargement de la salle : Pokémon sauvages (salle de capture), objet de la salle trésor (tant qu'il n'est pas
-// ramassé), boss, personnages
+// Au chargement de la salle : Pokémon sauvages (salle de capture), objet des salles trésor et secrète (tant qu'il n'est
+// pas ramassé), boss, personnages
 static void SetUpRoomObjects(s32 x, s32 y)
 {
     u8 room = GetRoom(x, y);
     bool8 cleared = IsCleared(x, y);
 
-    PlaceRoomObject(LOCALID_ISAAC_ROOM_ITEM, room == ROOM_TREASURE && !cleared);
+    PlaceRoomObject(LOCALID_ISAAC_ROOM_ITEM, (room == ROOM_TREASURE || (room == ROOM_SECRET && !RoomHasTrainer(x, y))) && !cleared);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_BOSS, room == ROOM_BOSS);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_NURSE, FALSE);
     PlaceRoomObject(LOCALID_ISAAC_ROOM_SHOPKEEPER, room == ROOM_SHOP);
