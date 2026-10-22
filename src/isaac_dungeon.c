@@ -1902,7 +1902,10 @@ void IsaacKecleonGreeting(void)
 //    gagné, il donne une Guérison et un Ability Trainer ; perdu, un Rappel pour relever le Pokémon K.O. ;
 //  - ROOM_CONTENT_SEER : le voyant ouvre le passage vers la salle secrète de l'étage (seulement s'il y en a une) ;
 //  - ROOM_CONTENT_ROCK_SMASH : un entraîneur apprend Éclate-Roc au Pokémon choisi, qui pourra briser les roches qui
-//    ferment la salle secrète (seulement s'il y en a une, et si personne ne connaissait Éclate-Roc en début d'étage).
+//    ferment la salle secrète (seulement s'il y en a une, et si personne ne connaissait Éclate-Roc en début d'étage) ;
+//  - ROOM_CONTENT_HEALER : une vieille dame et son Leveinard soignent complètement un Pokémon (même K.O.), une fois ;
+//  - ROOM_CONTENT_EV_TRAINER : un entraîneur met au maximum les IVs (31) et EVs (répartition du set 3 de l'espèce)
+//    d'un Pokémon, une fois.
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
 
 #define ISAAC_EGG_HATCH_ROOMS  20
@@ -2043,12 +2046,23 @@ static void SetUpRoomContent(s32 x, s32 y)
         [ROOM_CONTENT_DUELIST] = { OBJ_EVENT_GFX_BLACK_BELT, OBJ_EVENT_GFX_SWIMMER_M },
         [ROOM_CONTENT_SEER]   = { OBJ_EVENT_GFX_PSYCHIC_M,  OBJ_EVENT_GFX_SWIMMER_M },
         [ROOM_CONTENT_ROCK_SMASH] = { OBJ_EVENT_GFX_HIKER, OBJ_EVENT_GFX_SWIMMER_M },
+        [ROOM_CONTENT_HEALER] = { OBJ_EVENT_GFX_OLD_WOMAN, OBJ_EVENT_GFX_SWIMMER_F },
+        [ROOM_CONTENT_EV_TRAINER] = { OBJ_EVENT_GFX_MAN_3, OBJ_EVENT_GFX_SWIMMER_M },
     };
     u32 content = GetRoomContent(x, y);
+    struct ObjectEventTemplate *chansey;
 
     PlaceRoomObject(LOCALID_ISAAC_ROOM_CONTENT, content != ROOM_CONTENT_NONE);
     if (content != ROOM_CONTENT_NONE)
         VarSet(VAR_OBJ_GFX_ID_8, sContentGfx[content][gIsaacBiomes[ISAAC_BIOME].ocean]);
+    // le Pokémon de la vieille dame, à côté d'elle : un Leveinard (un Lokhlass dans l'océan)
+    PlaceRoomObject(LOCALID_ISAAC_ROOM_CONTENT_2, content == ROOM_CONTENT_HEALER);
+    chansey = GetObjectTemplate(LOCALID_ISAAC_ROOM_CONTENT_2);
+    if (content == ROOM_CONTENT_HEALER && chansey != NULL)
+    {
+        chansey->x++;
+        VarSet(VAR_OBJ_GFX_ID_A, OBJ_EVENT_MON + (gIsaacBiomes[ISAAC_BIOME].ocean ? SPECIES_LAPRAS : SPECIES_CHANSEY));
+    }
 }
 
 // Avant de parler au personnage : VAR_RESULT = contenu de la salle, VAR_0x8005 = TRUE s'il a déjà servi
@@ -2468,6 +2482,58 @@ void IsaacPickTreasureItem(void)
         gSpecialVar_0x8004 = ITEM_EVOLUTION_STONE;
     else
         gSpecialVar_0x8004 = IsaacPickSpecialItem(RoomRandom(x, y, 0x7EA5));
+}
+
+// Le Pokémon de la vieille dame dans gStringVar2 (Leveinard, Lokhlass dans l'océan)
+void IsaacBufferHealerPokemon(void)
+{
+    StringCopy(gStringVar2, GetSpeciesName(gIsaacBiomes[ISAAC_BIOME].ocean ? SPECIES_LAPRAS : SPECIES_CHANSEY));
+}
+
+// Vieille dame et Leveinard : soin complet (PV, statut, PP) du Pokémon n° VAR_0x8004, même K.O. VAR_RESULT = FALSE pour
+// un Œuf ou un Pokémon déjà en pleine forme ; gStringVar1 = son nom
+void IsaacHealerHealMon(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+
+    GetMonNickname(mon, gStringVar1);
+    gSpecialVar_Result = MonNeedsHealing(mon);
+    if (gSpecialVar_Result)
+        HealPokemon(mon);
+}
+
+// Entraîneur : IVs à 31 et EVs de la répartition du set 3 de l'espèce (même variante) pour le Pokémon n° VAR_0x8004.
+// VAR_RESULT = FALSE pour un Œuf ou un Pokémon déjà au maximum ; gStringVar1 = son nom
+void IsaacMaxEvsIvs(void)
+{
+    // ordre des EVs dans les sets (TRAINER_PARTY_EVS) : PV, Att, Déf, AttSp, DéfSp, Vit
+    static const u8 sSetEvOrder[NUM_STATS] = { STAT_HP, STAT_ATK, STAT_DEF, STAT_SPATK, STAT_SPDEF, STAT_SPEED };
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    const struct TrainerMon *set;
+    u32 i, value;
+    bool32 changed = FALSE;
+
+    GetMonNickname(mon, gStringVar1);
+    gSpecialVar_Result = FALSE;
+    if (GetMonData(mon, MON_DATA_IS_EGG))
+        return;
+    set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
+    for (i = 0; i < NUM_STATS; i++)
+    {
+        value = MAX_PER_STAT_IVS;
+        if (GetMonData(mon, MON_DATA_HP_IV + i) != value)
+            changed = TRUE;
+        SetMonData(mon, MON_DATA_HP_IV + i, &value);
+        if (set != NULL && set->ev != NULL)
+        {
+            value = set->ev[i];
+            if (GetMonData(mon, MON_DATA_HP_EV + sSetEvOrder[i]) != value)
+                changed = TRUE;
+            SetMonData(mon, MON_DATA_HP_EV + sSetEvOrder[i], &value);
+        }
+    }
+    CalculateMonStats(mon);
+    gSpecialVar_Result = changed;
 }
 
 // Au chargement de la salle : Pokémon sauvages (salle de capture), objet des salles trésor et secrète (tant qu'il n'est

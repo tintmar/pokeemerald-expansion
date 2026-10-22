@@ -10,6 +10,8 @@
 #define ROOM_CONTENT_DUELIST 5  // duelliste
 #define ROOM_CONTENT_SEER    6  // voyant
 #define ROOM_CONTENT_ROCK_SMASH 7  // entraîneur qui apprend Éclate-Roc
-#define ROOM_CONTENT_COUNT   8
+#define ROOM_CONTENT_HEALER  8  // vieille dame et son Leveinard : soin complet d'un Pokémon
+#define ROOM_CONTENT_EV_TRAINER 9  // entraîneur : IVs et EVs au maximum pour un Pokémon
+#define ROOM_CONTENT_COUNT   10
 
 #endif // GUARD_CONSTANTS_ISAAC_DUNGEON_H

@@ -57,6 +57,9 @@ void IsaacDuelSetUpParty(void);
 void IsaacDuelRestoreParty(void);
 void IsaacOpenSecretRoom(void);
 void IsaacPrepareRockSmash(void);
+void IsaacHealerHealMon(void);
+void IsaacBufferHealerPokemon(void);
+void IsaacMaxEvsIvs(void);
 const u8 *IsaacGetWallInteractScript(s16 x, s16 y);
 void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party);
 

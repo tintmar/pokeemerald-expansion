@@ -267,6 +267,8 @@ IsaacRoom_EventScript_Content::
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_DUELIST, IsaacRoom_EventScript_Duelist
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_SEER, IsaacRoom_EventScript_Seer
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_ROCK_SMASH, IsaacRoom_EventScript_RockSmashTeacher
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_HEALER, IsaacRoom_EventScript_Healer
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_EV_TRAINER, IsaacRoom_EventScript_EvTrainer
 	release
 	end
 
@@ -753,4 +755,110 @@ IsaacRoom_Text_SecretWallAsk:
 
 IsaacRoom_Text_SecretWallSmash:
 	.string "{STR_VAR_1} utilise Éclate-Roc !$"
+
+@ Vieille dame et son Leveinard : soin complet d'un Pokémon (même K.O.), une fois
+IsaacRoom_EventScript_Healer::
+	special IsaacBufferHealerPokemon
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_HealerDone
+	msgbox IsaacRoom_Text_HealerIntro, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_HealerDeclined
+	special IsaacHealerHealMon
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_HealerNoNeed
+	playfanfare MUS_HEAL
+	message IsaacRoom_Text_HealerHealed
+	waitfanfare
+	waitmessage
+	special IsaacSetRoomCleared
+	special IsaacBufferHealerPokemon
+	msgbox IsaacRoom_Text_HealerDone, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_HealerDone::
+	msgbox IsaacRoom_Text_HealerDone, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_HealerDeclined::
+	msgbox IsaacRoom_Text_HealerDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_HealerNoNeed::
+	msgbox IsaacRoom_Text_HealerNoNeed, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_Chansey::
+	lock
+	faceplayer
+	special IsaacBufferHealerPokemon
+	msgbox IsaacRoom_Text_Chansey, MSGBOX_DEFAULT
+	release
+	end
+
+@ Entraîneur : IVs et EVs au maximum pour un Pokémon, une fois
+IsaacRoom_EventScript_EvTrainer::
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_EvTrainerDone
+	msgbox IsaacRoom_Text_EvTrainerIntro, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_TutorDeclined
+	special IsaacMaxEvsIvs
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_EvTrainerNoNeed
+	playfanfare MUS_LEVEL_UP
+	message IsaacRoom_Text_EvTrainerDone
+	waitfanfare
+	waitmessage
+	special IsaacSetRoomCleared
+	release
+	end
+
+IsaacRoom_EventScript_EvTrainerDone::
+	msgbox IsaacRoom_Text_EvTrainerAfter, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_EvTrainerNoNeed::
+	msgbox IsaacRoom_Text_EvTrainerNoNeed, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_Text_HealerIntro:
+	.string "Mon {STR_VAR_2} et moi soignons les\n"
+	.string "Pokémon en difficulté.\p"
+	.string "Lequel des tiens a besoin de nous ?$"
+
+IsaacRoom_Text_HealerHealed:
+	.string "{STR_VAR_1} est en pleine forme !$"
+
+IsaacRoom_Text_HealerDone:
+	.string "{STR_VAR_2} n'a plus d'énergie pour\n"
+	.string "aujourd'hui. Bonne route !$"
+
+IsaacRoom_Text_HealerDeclined:
+	.string "Reviens quand tu veux, mon petit.$"
+
+IsaacRoom_Text_HealerNoNeed:
+	.string "Celui-là est déjà en pleine forme !$"
+
+IsaacRoom_Text_Chansey:
+	.string "{STR_VAR_2} : Grrrou !$"
+
+IsaacRoom_Text_EvTrainerIntro:
+	.string "Je suis entraîneur personnel.\n"
+	.string "Une séance avec moi et ton Pokémon\l"
+	.string "atteint tout son potentiel.\p"
+	.string "Lequel veux-tu entraîner ?$"
+
+IsaacRoom_Text_EvTrainerDone:
+	.string "{STR_VAR_1} a atteint tout son\n"
+	.string "potentiel !$"
+
+IsaacRoom_Text_EvTrainerAfter:
+	.string "Une seule séance par client !\n"
+	.string "Bonne chance.$"
+
+IsaacRoom_Text_EvTrainerNoNeed:
+	.string "Celui-là est déjà au maximum !$"
 
