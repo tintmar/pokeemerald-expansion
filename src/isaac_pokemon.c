@@ -90,10 +90,11 @@ enum Species IsaacGetFinalEvolution(enum Species species, u32 roll)
 }
 
 // Objet spécial tiré au hasard (salle trésor, salle secrète, boutique, boss, pacte du diable). Chaque entrée a un poids :
-// SPECIAL_ITEM_WEIGHT, sauf les deux Pierres Évolution, plus rares en profondeur (sEvolutionStoneWeights : moitié à
-// l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6). Les 6 boosts de stat partagent une seule entrée (puis
-// la stat est tirée), pour ne pas être 6 fois plus courants.
+// SPECIAL_ITEM_WEIGHT, sauf l'Omniboost (OMNIBOOST_WEIGHT, deux fois plus rare) et les deux Pierres Évolution, plus
+// rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6).
+// Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants.
 #define SPECIAL_ITEM_WEIGHT  4
+#define OMNIBOOST_WEIGHT     2
 
 u16 IsaacPickSpecialItem(u32 roll)
 {
@@ -109,8 +110,12 @@ u16 IsaacPickSpecialItem(u32 roll)
 
     for (i = 0; i < ARRAY_COUNT(sSpecialItems); i++)
     {
-        weights[i] = (sSpecialItems[i] == ITEM_EVOLUTION_STONE || sSpecialItems[i] == ITEM_SUPER_EVOLUTION_STONE)
-                   ? sEvolutionStoneWeights[floor - 1] : SPECIAL_ITEM_WEIGHT;
+        if (sSpecialItems[i] == ITEM_EVOLUTION_STONE || sSpecialItems[i] == ITEM_SUPER_EVOLUTION_STONE)
+            weights[i] = sEvolutionStoneWeights[floor - 1];
+        else if (sSpecialItems[i] == ITEM_OMNIBOOST)
+            weights[i] = OMNIBOOST_WEIGHT;
+        else
+            weights[i] = SPECIAL_ITEM_WEIGHT;
         total += weights[i];
     }
     pick = roll % total;
