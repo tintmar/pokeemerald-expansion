@@ -1,6 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "data.h"
+#include "event_data.h"
 #include "isaac_pokemon.h"
 #include "party_menu.h"
 #include "pokemon.h"
@@ -88,8 +89,12 @@ enum Species IsaacGetFinalEvolution(enum Species species, u32 roll)
     return final;
 }
 
-// Objet spécial tiré au hasard (salle trésor, boutique, pacte du diable) : chaque entrée a la même chance ; les
-// 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants
+// Objet spécial tiré au hasard (salle trésor, salle secrète, boutique, boss, pacte du diable). Chaque entrée a un poids :
+// SPECIAL_ITEM_WEIGHT, sauf les deux Pierres Évolution, plus rares en profondeur (sEvolutionStoneWeights : moitié à
+// l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6). Les 6 boosts de stat partagent une seule entrée (puis
+// la stat est tirée), pour ne pas être 6 fois plus courants.
+#define SPECIAL_ITEM_WEIGHT  4
+
 u16 IsaacPickSpecialItem(u32 roll)
 {
     static const u16 sSpecialItems[] =
@@ -97,8 +102,27 @@ u16 IsaacPickSpecialItem(u32 roll)
         ITEM_EVOLUTION_STONE, ITEM_SUPER_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_BOOST_HP,
         ITEM_BRILLIANT_STONE,
     };
-    u16 item = sSpecialItems[roll % ARRAY_COUNT(sSpecialItems)];
+    static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
+    u32 floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvolutionStoneWeights));
+    u32 weights[ARRAY_COUNT(sSpecialItems)], total = 0, pick, i;
+    u16 item = sSpecialItems[0];
 
+    for (i = 0; i < ARRAY_COUNT(sSpecialItems); i++)
+    {
+        weights[i] = (sSpecialItems[i] == ITEM_EVOLUTION_STONE || sSpecialItems[i] == ITEM_SUPER_EVOLUTION_STONE)
+                   ? sEvolutionStoneWeights[floor - 1] : SPECIAL_ITEM_WEIGHT;
+        total += weights[i];
+    }
+    pick = roll % total;
+    for (i = 0; i < ARRAY_COUNT(sSpecialItems); i++)
+    {
+        if (pick < weights[i])
+        {
+            item = sSpecialItems[i];
+            break;
+        }
+        pick -= weights[i];
+    }
     if (item == ITEM_BOOST_HP)
         item = ITEM_BOOST_HP + (roll >> 8) % NUM_STATS;
     return item;
