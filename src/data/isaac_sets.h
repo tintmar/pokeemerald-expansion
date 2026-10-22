@@ -1,6 +1,7 @@
 // Fichier généré par tools/isaac/build_sets.py à partir de tools/isaac/sets_gen*.py :
 // ne pas modifier à la main.
-// Par Pokémon (1 à 386) : 3 paliers, du plus faible (0) au plus fort (2), en deux variantes (A, B).
+// Par Pokémon du roster : 3 paliers, du plus faible (0) au plus fort (2), en deux variantes (A, B).
+// sIsaacSetIndex : rang des sets de l'espèce dans sIsaacSets, plus 1 (0 : pas de sets).
 
 // ISAAC_SET(espèce, talent, objet, nature, IVs, EVs PV / Att / Déf / Vit / AttSp / DéfSp, 4 attaques)
 #define ISAAC_SET(sp, ab, it, nat, ivs, hp, at, df, spe, sa, sd, m1, m2, m3, m4)  \
@@ -17,9 +18,9 @@
         .dynamaxLevel = MAX_DYNAMAX_LEVEL,                                    \
     }
 
-static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][ISAAC_SET_VARIANTS] =
+static const struct TrainerMon sIsaacSets[][ISAAC_SET_TIERS][ISAAC_SET_VARIANTS] =
 {
-    [SPECIES_BULBASAUR] =
+    // BULBASAUR
     {
         {
             ISAAC_SET(BULBASAUR, OVERGROW, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, VINE_WHIP, TACKLE, ACID_SPRAY, LEECH_SEED),
@@ -34,7 +35,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BULBASAUR, CHLOROPHYLL, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, GROWTH, GIGA_DRAIN, SLUDGE_BOMB, WEATHER_BALL),
         },
     },
-    [SPECIES_IVYSAUR] =
+    // IVYSAUR
     {
         {
             ISAAC_SET(IVYSAUR, OVERGROW, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, RAZOR_LEAF, POISON_POWDER, LEECH_SEED, TAKE_DOWN),
@@ -49,7 +50,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(IVYSAUR, CHLOROPHYLL, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, GROWTH, GIGA_DRAIN, SLUDGE_BOMB, WEATHER_BALL),
         },
     },
-    [SPECIES_VENUSAUR] =
+    // VENUSAUR
     {
         {
             ISAAC_SET(VENUSAUR, OVERGROW, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, RAZOR_LEAF, SLUDGE, POISON_POWDER, TAKE_DOWN),
@@ -64,7 +65,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VENUSAUR, OVERGROW, BLACK_SLUDGE, CALM, 31, 252, 0, 4, 0, 0, 252, GIGA_DRAIN, SLUDGE_BOMB, LEECH_SEED, SYNTHESIS),
         },
     },
-    [SPECIES_CHARMANDER] =
+    // CHARMANDER
     {
         {
             ISAAC_SET(CHARMANDER, BLAZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, EMBER, SCRATCH, INCINERATE, DRAGON_BREATH),
@@ -79,7 +80,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CHARMANDER, BLAZE, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, FLARE_BLITZ, DRAGON_CLAW, THUNDER_PUNCH),
         },
     },
-    [SPECIES_CHARMELEON] =
+    // CHARMELEON
     {
         {
             ISAAC_SET(CHARMELEON, BLAZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, EMBER, SCRATCH, DRAGON_BREATH, INCINERATE),
@@ -94,7 +95,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CHARMELEON, BLAZE, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, FLARE_BLITZ, DRAGON_CLAW, THUNDER_PUNCH),
         },
     },
-    [SPECIES_CHARIZARD] =
+    // CHARIZARD
     {
         {
             ISAAC_SET(CHARIZARD, BLAZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, FLAME_BURST, WING_ATTACK, DRAGON_BREATH, SLASH),
@@ -109,7 +110,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CHARIZARD, BLAZE, HEAVY_DUTY_BOOTS, JOLLY, 31, 4, 252, 0, 252, 0, 0, DRAGON_DANCE, FLARE_BLITZ, EARTHQUAKE, ROOST),
         },
     },
-    [SPECIES_SQUIRTLE] =
+    // SQUIRTLE
     {
         {
             ISAAC_SET(SQUIRTLE, TORRENT, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, WATER_GUN, TACKLE, WATER_PULSE, BITE),
@@ -124,7 +125,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SQUIRTLE, TORRENT, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, SHELL_SMASH, HYDRO_PUMP, ICE_BEAM, AURA_SPHERE),
         },
     },
-    [SPECIES_WARTORTLE] =
+    // WARTORTLE
     {
         {
             ISAAC_SET(WARTORTLE, TORRENT, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, WATER_GUN, BITE, WATER_PULSE, RAPID_SPIN),
@@ -139,7 +140,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WARTORTLE, TORRENT, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, SHELL_SMASH, HYDRO_PUMP, ICE_BEAM, AURA_SPHERE),
         },
     },
-    [SPECIES_BLASTOISE] =
+    // BLASTOISE
     {
         {
             ISAAC_SET(BLASTOISE, TORRENT, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, WATER_PULSE, BITE, CHILLING_WATER, RAPID_SPIN),
@@ -154,7 +155,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BLASTOISE, RAIN_DISH, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, SCALD, RAPID_SPIN, TOXIC, PROTECT),
         },
     },
-    [SPECIES_CATERPIE] =
+    // CATERPIE
     {
         {
             ISAAC_SET(CATERPIE, SHIELD_DUST, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, TACKLE, ELECTROWEB, BUG_BITE, NONE),
@@ -169,7 +170,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CATERPIE, RUN_AWAY, FOCUS_SASH, JOLLY, 31, 252, 0, 4, 252, 0, 0, BUG_BITE, STRING_SHOT, ELECTROWEB, NONE),
         },
     },
-    [SPECIES_METAPOD] =
+    // METAPOD
     {
         {
             ISAAC_SET(METAPOD, SHED_SKIN, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, BUG_BITE, ELECTROWEB, NONE, NONE),
@@ -184,7 +185,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(METAPOD, SHED_SKIN, SITRUS_BERRY, IMPISH, 31, 252, 0, 252, 0, 0, 4, BUG_BITE, HARDEN, ELECTROWEB, STRING_SHOT),
         },
     },
-    [SPECIES_BUTTERFREE] =
+    // BUTTERFREE
     {
         {
             ISAAC_SET(BUTTERFREE, COMPOUND_EYES, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, GUST, POISON_POWDER, STUN_SPORE),
@@ -199,7 +200,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BUTTERFREE, COMPOUND_EYES, FOCUS_SASH, TIMID, 31, 4, 0, 0, 252, 252, 0, SLEEP_POWDER, BUG_BUZZ, HURRICANE, QUIVER_DANCE),
         },
     },
-    [SPECIES_WEEDLE] =
+    // WEEDLE
     {
         {
             ISAAC_SET(WEEDLE, SHIELD_DUST, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, POISON_STING, STRING_SHOT, BUG_BITE, NONE),
@@ -214,7 +215,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WEEDLE, RUN_AWAY, FOCUS_SASH, ADAMANT, 31, 4, 252, 0, 252, 0, 0, BUG_BITE, POISON_STING, STRING_SHOT, NONE),
         },
     },
-    [SPECIES_KAKUNA] =
+    // KAKUNA
     {
         {
             ISAAC_SET(KAKUNA, SHED_SKIN, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, POISON_STING, BUG_BITE, STRING_SHOT, NONE),
@@ -229,7 +230,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KAKUNA, SHED_SKIN, SITRUS_BERRY, IMPISH, 31, 252, 0, 252, 0, 0, 4, POISON_STING, HARDEN, STRING_SHOT, ELECTROWEB),
         },
     },
-    [SPECIES_BEEDRILL] =
+    // BEEDRILL
     {
         {
             ISAAC_SET(BEEDRILL, SWARM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, FURY_ATTACK, TWINEEDLE, BUG_BITE, RAGE),
@@ -244,7 +245,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BEEDRILL, SWARM, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, POISON_JAB, X_SCISSOR, DRILL_RUN),
         },
     },
-    [SPECIES_PIDGEY] =
+    // PIDGEY
     {
         {
             ISAAC_SET(PIDGEY, KEEN_EYE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, GUST, TACKLE, AERIAL_ACE, QUICK_ATTACK),
@@ -259,7 +260,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PIDGEY, KEEN_EYE, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, HURRICANE, HEAT_WAVE, ROOST, U_TURN),
         },
     },
-    [SPECIES_PIDGEOTTO] =
+    // PIDGEOTTO
     {
         {
             ISAAC_SET(PIDGEOTTO, KEEN_EYE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, GUST, QUICK_ATTACK, AERIAL_ACE, TWISTER),
@@ -274,7 +275,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PIDGEOTTO, KEEN_EYE, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, HURRICANE, HEAT_WAVE, ROOST, U_TURN),
         },
     },
-    [SPECIES_PIDGEOT] =
+    // PIDGEOT
     {
         {
             ISAAC_SET(PIDGEOT, KEEN_EYE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WING_ATTACK, QUICK_ATTACK, AERIAL_ACE, TWISTER),
@@ -289,7 +290,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PIDGEOT, BIG_PECKS, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, BRAVE_BIRD, DOUBLE_EDGE, U_TURN, QUICK_ATTACK),
         },
     },
-    [SPECIES_RATTATA] =
+    // RATTATA
     {
         {
             ISAAC_SET(RATTATA, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, QUICK_ATTACK, COVET, BITE),
@@ -304,7 +305,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(RATTATA, HUSTLE, FOCUS_SASH, JOLLY, 31, 4, 252, 0, 252, 0, 0, SUPER_FANG, DOUBLE_EDGE, SUCKER_PUNCH, U_TURN),
         },
     },
-    [SPECIES_RATICATE] =
+    // RATICATE
     {
         {
             ISAAC_SET(RATICATE, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, HYPER_FANG, QUICK_ATTACK, BITE, COVET),
@@ -319,7 +320,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(RATICATE, HUSTLE, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, DOUBLE_EDGE, SUCKER_PUNCH, U_TURN, CRUNCH),
         },
     },
-    [SPECIES_SPEAROW] =
+    // SPEAROW
     {
         {
             ISAAC_SET(SPEAROW, KEEN_EYE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, PECK, AERIAL_ACE, LEER, FURY_ATTACK),
@@ -334,7 +335,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SPEAROW, KEEN_EYE, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, DRILL_PECK, DOUBLE_EDGE, U_TURN, QUICK_ATTACK),
         },
     },
-    [SPECIES_FEAROW] =
+    // FEAROW
     {
         {
             ISAAC_SET(FEAROW, KEEN_EYE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, PECK, FURY_ATTACK, WING_ATTACK, AERIAL_ACE),
@@ -349,7 +350,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(FEAROW, SNIPER, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, DRILL_PECK, DRILL_RUN, DOUBLE_EDGE, U_TURN),
         },
     },
-    [SPECIES_EKANS] =
+    // EKANS
     {
         {
             ISAAC_SET(EKANS, INTIMIDATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WRAP, POISON_STING, BITE, POISON_TAIL),
@@ -364,7 +365,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(EKANS, SHED_SKIN, BLACK_SLUDGE, IMPISH, 31, 252, 0, 252, 0, 0, 4, COIL, GUNK_SHOT, REST, EARTHQUAKE),
         },
     },
-    [SPECIES_ARBOK] =
+    // ARBOK
     {
         {
             ISAAC_SET(ARBOK, INTIMIDATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, POISON_FANG, BITE, GLARE, WRAP),
@@ -379,7 +380,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ARBOK, INTIMIDATE, CHOICE_SCARF, JOLLY, 31, 4, 252, 0, 252, 0, 0, GUNK_SHOT, EARTHQUAKE, SUCKER_PUNCH, KNOCK_OFF),
         },
     },
-    [SPECIES_PIKACHU] =
+    // PIKACHU
     {
         {
             ISAAC_SET(PIKACHU, STATIC, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, THUNDER_SHOCK, QUICK_ATTACK, SHOCK_WAVE, NUZZLE),
@@ -394,7 +395,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PIKACHU, LIGHTNING_ROD, LIGHT_BALL, TIMID, 31, 4, 0, 0, 252, 252, 0, THUNDERBOLT, GRASS_KNOT, SURF, NASTY_PLOT),
         },
     },
-    [SPECIES_RAICHU] =
+    // RAICHU
     {
         {
             ISAAC_SET(RAICHU, STATIC, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, THUNDER_SHOCK, QUICK_ATTACK, SPARK, SHOCK_WAVE),
@@ -409,7 +410,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(RAICHU, LIGHTNING_ROD, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, VOLT_TACKLE, KNOCK_OFF, BRICK_BREAK, FAKE_OUT),
         },
     },
-    [SPECIES_SANDSHREW] =
+    // SANDSHREW
     {
         {
             ISAAC_SET(SANDSHREW, SAND_VEIL, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, SCRATCH, BULLDOZE, SAND_TOMB, ROLLOUT),
@@ -424,7 +425,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SANDSHREW, SAND_RUSH, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, EARTHQUAKE, STONE_EDGE, KNOCK_OFF),
         },
     },
-    [SPECIES_SANDSLASH] =
+    // SANDSLASH
     {
         {
             ISAAC_SET(SANDSLASH, SAND_VEIL, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, SLASH, BULLDOZE, ROLLOUT, SAND_TOMB),
@@ -439,7 +440,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SANDSLASH, SAND_RUSH, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, EARTHQUAKE, STONE_EDGE, KNOCK_OFF),
         },
     },
-    [SPECIES_NIDORAN_F] =
+    // NIDORAN_F
     {
         {
             ISAAC_SET(NIDORAN_F, POISON_POINT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, SCRATCH, POISON_STING, DOUBLE_KICK, POISON_TAIL),
@@ -454,7 +455,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NIDORAN_F, RIVALRY, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, SLUDGE_BOMB, ICE_BEAM, THUNDERBOLT, EARTH_POWER),
         },
     },
-    [SPECIES_NIDORINA] =
+    // NIDORINA
     {
         {
             ISAAC_SET(NIDORINA, POISON_POINT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, POISON_STING, DOUBLE_KICK, BITE, FURY_SWIPES),
@@ -469,7 +470,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NIDORINA, RIVALRY, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, SLUDGE_BOMB, ICE_BEAM, THUNDERBOLT, EARTH_POWER),
         },
     },
-    [SPECIES_NIDOQUEEN] =
+    // NIDOQUEEN
     {
         {
             ISAAC_SET(NIDOQUEEN, POISON_POINT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, POISON_STING, DOUBLE_KICK, BITE, BODY_SLAM),
@@ -484,7 +485,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NIDOQUEEN, POISON_POINT, BLACK_SLUDGE, CALM, 31, 252, 0, 4, 0, 0, 252, SLUDGE_BOMB, EARTH_POWER, STEALTH_ROCK, TOXIC_SPIKES),
         },
     },
-    [SPECIES_NIDORAN_M] =
+    // NIDORAN_M
     {
         {
             ISAAC_SET(NIDORAN_M, POISON_POINT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, PECK, POISON_STING, DOUBLE_KICK, POISON_TAIL),
@@ -499,7 +500,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NIDORAN_M, POISON_POINT, FOCUS_SASH, ADAMANT, 31, 4, 252, 0, 252, 0, 0, POISON_JAB, IRON_TAIL, DRILL_RUN, DOUBLE_KICK),
         },
     },
-    [SPECIES_NIDORINO] =
+    // NIDORINO
     {
         {
             ISAAC_SET(NIDORINO, POISON_POINT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, HORN_ATTACK, POISON_STING, DOUBLE_KICK, FURY_ATTACK),
@@ -514,7 +515,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NIDORINO, POISON_POINT, FOCUS_SASH, ADAMANT, 31, 4, 252, 0, 252, 0, 0, POISON_JAB, IRON_TAIL, DRILL_RUN, DOUBLE_KICK),
         },
     },
-    [SPECIES_NIDOKING] =
+    // NIDOKING
     {
         {
             ISAAC_SET(NIDOKING, POISON_POINT, NONE, HARDY, 15, 0, 40, 0, 84, 40, 0, POISON_STING, DOUBLE_KICK, HORN_ATTACK, THRASH),
@@ -529,7 +530,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NIDOKING, POISON_POINT, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, HONE_CLAWS, POISON_JAB, EARTHQUAKE, STONE_EDGE),
         },
     },
-    [SPECIES_CLEFAIRY] =
+    // CLEFAIRY
     {
         {
             ISAAC_SET(CLEFAIRY, CUTE_CHARM, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POUND, SING, DISARMING_VOICE, DRAINING_KISS),
@@ -544,7 +545,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CLEFAIRY, MAGIC_GUARD, LIFE_ORB, MODEST, 31, 252, 0, 0, 0, 252, 4, CALM_MIND, MOONBLAST, FLAMETHROWER, MOONLIGHT),
         },
     },
-    [SPECIES_CLEFABLE] =
+    // CLEFABLE
     {
         {
             ISAAC_SET(CLEFABLE, CUTE_CHARM, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, DISARMING_VOICE, SING, DOUBLE_SLAP, DRAINING_KISS),
@@ -559,7 +560,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CLEFABLE, MAGIC_GUARD, LIFE_ORB, BOLD, 31, 252, 0, 128, 0, 0, 128, MOONBLAST, KNOCK_OFF, STEALTH_ROCK, MOONLIGHT),
         },
     },
-    [SPECIES_VULPIX] =
+    // VULPIX
     {
         {
             ISAAC_SET(VULPIX, FLASH_FIRE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, EMBER, QUICK_ATTACK, INCINERATE, CONFUSE_RAY),
@@ -574,7 +575,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VULPIX, FLASH_FIRE, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, FIRE_BLAST, ENERGY_BALL, EXTRASENSORY, DARK_PULSE),
         },
     },
-    [SPECIES_NINETALES] =
+    // NINETALES
     {
         {
             ISAAC_SET(NINETALES, FLASH_FIRE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, INCINERATE, QUICK_ATTACK, CONFUSE_RAY, EXTRASENSORY),
@@ -589,7 +590,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NINETALES, DROUGHT, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, FIRE_BLAST, SOLAR_BEAM, EXTRASENSORY, DARK_PULSE),
         },
     },
-    [SPECIES_JIGGLYPUFF] =
+    // JIGGLYPUFF
     {
         {
             ISAAC_SET(JIGGLYPUFF, CUTE_CHARM, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POUND, SING, SWIFT, DISARMING_VOICE),
@@ -604,7 +605,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(JIGGLYPUFF, COMPETITIVE, CHOICE_SPECS, MODEST, 31, 252, 0, 0, 0, 252, 4, HYPER_VOICE, DAZZLING_GLEAM, FIRE_BLAST, ICE_BEAM),
         },
     },
-    [SPECIES_WIGGLYTUFF] =
+    // WIGGLYTUFF
     {
         {
             ISAAC_SET(WIGGLYTUFF, CUTE_CHARM, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, DOUBLE_SLAP, SING, DISARMING_VOICE, SWIFT),
@@ -619,7 +620,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WIGGLYTUFF, COMPETITIVE, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, DAZZLING_GLEAM, WISH, PROTECT, STEALTH_ROCK),
         },
     },
-    [SPECIES_ZUBAT] =
+    // ZUBAT
     {
         {
             ISAAC_SET(ZUBAT, INNER_FOCUS, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, LEECH_LIFE, SUPERSONIC, AERIAL_ACE, BITE),
@@ -634,7 +635,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ZUBAT, INFILTRATOR, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, SLUDGE_BOMB, AIR_SLASH, HEAT_WAVE, NASTY_PLOT),
         },
     },
-    [SPECIES_GOLBAT] =
+    // GOLBAT
     {
         {
             ISAAC_SET(GOLBAT, INNER_FOCUS, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WING_ATTACK, BITE, CONFUSE_RAY, SUPERSONIC),
@@ -649,7 +650,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GOLBAT, INNER_FOCUS, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, BRAVE_BIRD, CROSS_POISON, U_TURN, SUPER_FANG),
         },
     },
-    [SPECIES_ODDISH] =
+    // ODDISH
     {
         {
             ISAAC_SET(ODDISH, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, ABSORB, ACID, POISON_POWDER, STUN_SPORE),
@@ -664,7 +665,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ODDISH, CHLOROPHYLL, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, GROWTH, SOLAR_BEAM, SLUDGE_BOMB, MOONBLAST),
         },
     },
-    [SPECIES_GLOOM] =
+    // GLOOM
     {
         {
             ISAAC_SET(GLOOM, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, MEGA_DRAIN, ACID, POISON_POWDER, SLEEP_POWDER),
@@ -679,7 +680,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GLOOM, CHLOROPHYLL, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, GROWTH, SOLAR_BEAM, SLUDGE_BOMB, MOONBLAST),
         },
     },
-    [SPECIES_VILEPLUME] =
+    // VILEPLUME
     {
         {
             ISAAC_SET(VILEPLUME, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, MEGA_DRAIN, ACID, STUN_SPORE, PETAL_DANCE),
@@ -694,7 +695,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VILEPLUME, CHLOROPHYLL, LIFE_ORB, MODEST, 31, 252, 0, 0, 0, 252, 4, PETAL_DANCE, SLUDGE_BOMB, MOONBLAST, SLEEP_POWDER),
         },
     },
-    [SPECIES_PARAS] =
+    // PARAS
     {
         {
             ISAAC_SET(PARAS, EFFECT_SPORE, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, SCRATCH, STUN_SPORE, POISON_POWDER, ABSORB),
@@ -709,7 +710,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PARAS, EFFECT_SPORE, LEFTOVERS, CAREFUL, 31, 252, 0, 128, 0, 0, 128, SPORE, LEECH_LIFE, GIGA_DRAIN, AROMATHERAPY),
         },
     },
-    [SPECIES_PARASECT] =
+    // PARASECT
     {
         {
             ISAAC_SET(PARASECT, EFFECT_SPORE, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, FURY_CUTTER, STUN_SPORE, ABSORB, SLASH),
@@ -724,7 +725,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PARASECT, DRY_SKIN, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, SWORDS_DANCE, SEED_BOMB, LEECH_LIFE, X_SCISSOR),
         },
     },
-    [SPECIES_VENONAT] =
+    // VENONAT
     {
         {
             ISAAC_SET(VENONAT, COMPOUND_EYES, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, POISON_POWDER, SUPERSONIC, STRUGGLE_BUG),
@@ -739,7 +740,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VENONAT, COMPOUND_EYES, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, BUG_BUZZ, PSYCHIC, SLUDGE_BOMB, SLEEP_POWDER),
         },
     },
-    [SPECIES_VENOMOTH] =
+    // VENOMOTH
     {
         {
             ISAAC_SET(VENOMOTH, SHIELD_DUST, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, PSYBEAM, SILVER_WIND, POISON_POWDER, SUPERSONIC),
@@ -754,7 +755,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VENOMOTH, TINTED_LENS, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, QUIVER_DANCE, BUG_BUZZ, PSYCHIC, ENERGY_BALL),
         },
     },
-    [SPECIES_DIGLETT] =
+    // DIGLETT
     {
         {
             ISAAC_SET(DIGLETT, SAND_VEIL, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, MUD_SLAP, ASTONISH, MAGNITUDE),
@@ -769,7 +770,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DIGLETT, SAND_VEIL, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, EARTHQUAKE, STONE_EDGE, SUCKER_PUNCH, SHADOW_CLAW),
         },
     },
-    [SPECIES_DUGTRIO] =
+    // DUGTRIO
     {
         {
             ISAAC_SET(DUGTRIO, SAND_VEIL, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, MUD_SLAP, SCRATCH, BULLDOZE, MAGNITUDE),
@@ -784,7 +785,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DUGTRIO, ARENA_TRAP, FOCUS_SASH, JOLLY, 31, 4, 252, 0, 252, 0, 0, EARTHQUAKE, STONE_EDGE, STEALTH_ROCK, MEMENTO),
         },
     },
-    [SPECIES_MEOWTH] =
+    // MEOWTH
     {
         {
             ISAAC_SET(MEOWTH, PICKUP, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, BITE, FAKE_OUT, COVET),
@@ -799,7 +800,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MEOWTH, TECHNICIAN, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, FAKE_OUT, DOUBLE_EDGE, KNOCK_OFF, U_TURN),
         },
     },
-    [SPECIES_PERSIAN] =
+    // PERSIAN
     {
         {
             ISAAC_SET(PERSIAN, LIMBER, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, BITE, FAKE_OUT, SCREECH),
@@ -814,7 +815,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PERSIAN, TECHNICIAN, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, NASTY_PLOT, HYPER_VOICE, DARK_PULSE, THUNDERBOLT),
         },
     },
-    [SPECIES_PSYDUCK] =
+    // PSYDUCK
     {
         {
             ISAAC_SET(PSYDUCK, DAMP, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, CONFUSION, SCRATCH, WATER_PULSE),
@@ -829,7 +830,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PSYDUCK, CLOUD_NINE, CHOICE_SPECS, MODEST, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, ICE_BEAM, PSYCHIC, SCALD),
         },
     },
-    [SPECIES_GOLDUCK] =
+    // GOLDUCK
     {
         {
             ISAAC_SET(GOLDUCK, DAMP, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_PULSE, CONFUSION, FURY_SWIPES, SCREECH),
@@ -844,7 +845,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GOLDUCK, CLOUD_NINE, CHOICE_SPECS, MODEST, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, ICE_BEAM, PSYCHIC, FOCUS_BLAST),
         },
     },
-    [SPECIES_MANKEY] =
+    // MANKEY
     {
         {
             ISAAC_SET(MANKEY, VITAL_SPIRIT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, KARATE_CHOP, LOW_KICK, FURY_SWIPES, REVENGE),
@@ -859,7 +860,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MANKEY, VITAL_SPIRIT, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, CLOSE_COMBAT, U_TURN, STONE_EDGE, EARTHQUAKE),
         },
     },
-    [SPECIES_PRIMEAPE] =
+    // PRIMEAPE
     {
         {
             ISAAC_SET(PRIMEAPE, VITAL_SPIRIT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, KARATE_CHOP, LOW_KICK, FURY_SWIPES, THRASH),
@@ -874,7 +875,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PRIMEAPE, DEFIANT, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, BULK_UP, DRAIN_PUNCH, RAGE_FIST, ICE_PUNCH),
         },
     },
-    [SPECIES_GROWLITHE] =
+    // GROWLITHE
     {
         {
             ISAAC_SET(GROWLITHE, INTIMIDATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, EMBER, BITE, FLAME_WHEEL, TAKE_DOWN),
@@ -889,7 +890,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GROWLITHE, FLASH_FIRE, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, FLARE_BLITZ, CLOSE_COMBAT, WILD_CHARGE, CRUNCH),
         },
     },
-    [SPECIES_ARCANINE] =
+    // ARCANINE
     {
         {
             ISAAC_SET(ARCANINE, INTIMIDATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, FIRE_FANG, BITE, TAKE_DOWN, ROAR),
@@ -904,7 +905,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ARCANINE, FLASH_FIRE, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, FIRE_BLAST, DRAGON_PULSE, EXTREME_SPEED, WILL_O_WISP),
         },
     },
-    [SPECIES_POLIWAG] =
+    // POLIWAG
     {
         {
             ISAAC_SET(POLIWAG, WATER_ABSORB, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, HYPNOSIS, BUBBLE_BEAM, POUND),
@@ -919,7 +920,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(POLIWAG, SWIFT_SWIM, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, BELLY_DRUM, WATERFALL, BULLDOZE, BODY_SLAM),
         },
     },
-    [SPECIES_POLIWHIRL] =
+    // POLIWHIRL
     {
         {
             ISAAC_SET(POLIWHIRL, WATER_ABSORB, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, BUBBLE_BEAM, HYPNOSIS, DOUBLE_SLAP, BODY_SLAM),
@@ -934,7 +935,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(POLIWHIRL, SWIFT_SWIM, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, BELLY_DRUM, WATERFALL, ICE_PUNCH, BODY_SLAM),
         },
     },
-    [SPECIES_POLIWRATH] =
+    // POLIWRATH
     {
         {
             ISAAC_SET(POLIWRATH, WATER_ABSORB, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, BUBBLE_BEAM, SUBMISSION, HYPNOSIS, BODY_SLAM),
@@ -949,7 +950,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(POLIWRATH, SWIFT_SWIM, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, BELLY_DRUM, WATERFALL, CLOSE_COMBAT, ICE_PUNCH),
         },
     },
-    [SPECIES_ABRA] =
+    // ABRA
     {
         {
             ISAAC_SET(ABRA, SYNCHRONIZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, TELEPORT, CONFUSION, NONE, NONE),
@@ -964,7 +965,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ABRA, INNER_FOCUS, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, PSYSHOCK, DAZZLING_GLEAM, ENERGY_BALL, CALM_MIND),
         },
     },
-    [SPECIES_KADABRA] =
+    // KADABRA
     {
         {
             ISAAC_SET(KADABRA, SYNCHRONIZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, DISABLE, SWIFT, PSYBEAM),
@@ -979,7 +980,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KADABRA, MAGIC_GUARD, FOCUS_SASH, TIMID, 31, 4, 0, 0, 252, 252, 0, PSYSHOCK, DAZZLING_GLEAM, SHADOW_BALL, ENERGY_BALL),
         },
     },
-    [SPECIES_ALAKAZAM] =
+    // ALAKAZAM
     {
         {
             ISAAC_SET(ALAKAZAM, SYNCHRONIZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, PSYBEAM, CONFUSION, DISABLE, RECOVER),
@@ -994,7 +995,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ALAKAZAM, MAGIC_GUARD, FOCUS_SASH, TIMID, 31, 4, 0, 0, 252, 252, 0, PSYCHIC, SHADOW_BALL, FOCUS_BLAST, COUNTER),
         },
     },
-    [SPECIES_MACHOP] =
+    // MACHOP
     {
         {
             ISAAC_SET(MACHOP, GUTS, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, KARATE_CHOP, LOW_KICK, REVENGE, FOCUS_ENERGY),
@@ -1009,7 +1010,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MACHOP, NO_GUARD, CHOICE_BAND, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DYNAMIC_PUNCH, ROCK_SLIDE, KNOCK_OFF, ICE_PUNCH),
         },
     },
-    [SPECIES_MACHOKE] =
+    // MACHOKE
     {
         {
             ISAAC_SET(MACHOKE, GUTS, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, KARATE_CHOP, LOW_KICK, REVENGE, ROLLING_KICK),
@@ -1024,7 +1025,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MACHOKE, NO_GUARD, CHOICE_BAND, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DYNAMIC_PUNCH, ROCK_SLIDE, KNOCK_OFF, ICE_PUNCH),
         },
     },
-    [SPECIES_MACHAMP] =
+    // MACHAMP
     {
         {
             ISAAC_SET(MACHAMP, GUTS, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, KARATE_CHOP, REVENGE, LOW_KICK, SEISMIC_TOSS),
@@ -1039,7 +1040,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MACHAMP, GUTS, FLAME_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, CLOSE_COMBAT, FACADE, KNOCK_OFF, BULLET_PUNCH),
         },
     },
-    [SPECIES_BELLSPROUT] =
+    // BELLSPROUT
     {
         {
             ISAAC_SET(BELLSPROUT, CHLOROPHYLL, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, VINE_WHIP, WRAP, GRASSY_GLIDE, ACID),
@@ -1054,7 +1055,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BELLSPROUT, GLUTTONY, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, POWER_WHIP, POISON_JAB, KNOCK_OFF),
         },
     },
-    [SPECIES_WEEPINBELL] =
+    // WEEPINBELL
     {
         {
             ISAAC_SET(WEEPINBELL, CHLOROPHYLL, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, VINE_WHIP, ACID, WRAP, POISON_POWDER),
@@ -1069,7 +1070,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WEEPINBELL, GLUTTONY, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, POWER_WHIP, POISON_JAB, KNOCK_OFF),
         },
     },
-    [SPECIES_VICTREEBEL] =
+    // VICTREEBEL
     {
         {
             ISAAC_SET(VICTREEBEL, CHLOROPHYLL, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, RAZOR_LEAF, ACID, WRAP, STUN_SPORE),
@@ -1084,7 +1085,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VICTREEBEL, CHLOROPHYLL, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, GROWTH, SOLAR_BEAM, SLUDGE_BOMB, WEATHER_BALL),
         },
     },
-    [SPECIES_TENTACOOL] =
+    // TENTACOOL
     {
         {
             ISAAC_SET(TENTACOOL, CLEAR_BODY, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, ACID, WATER_GUN, WRAP, SUPERSONIC),
@@ -1099,7 +1100,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TENTACOOL, CLEAR_BODY, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, SLUDGE_BOMB, ICE_BEAM, GIGA_DRAIN),
         },
     },
-    [SPECIES_TENTACRUEL] =
+    // TENTACRUEL
     {
         {
             ISAAC_SET(TENTACRUEL, CLEAR_BODY, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, ACID, BUBBLE_BEAM, WRAP, SUPERSONIC),
@@ -1114,7 +1115,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TENTACRUEL, CLEAR_BODY, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, SLUDGE_BOMB, ICE_BEAM, GIGA_DRAIN),
         },
     },
-    [SPECIES_GEODUDE] =
+    // GEODUDE
     {
         {
             ISAAC_SET(GEODUDE, ROCK_HEAD, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, TACKLE, ROCK_THROW, BULLDOZE, MAGNITUDE),
@@ -1129,7 +1130,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GEODUDE, ROCK_HEAD, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, ROCK_POLISH, STONE_EDGE, EARTHQUAKE, EXPLOSION),
         },
     },
-    [SPECIES_GRAVELER] =
+    // GRAVELER
     {
         {
             ISAAC_SET(GRAVELER, ROCK_HEAD, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, ROCK_THROW, MAGNITUDE, BULLDOZE, ROLLOUT),
@@ -1144,7 +1145,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GRAVELER, ROCK_HEAD, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, ROCK_POLISH, STONE_EDGE, EARTHQUAKE, EXPLOSION),
         },
     },
-    [SPECIES_GOLEM] =
+    // GOLEM
     {
         {
             ISAAC_SET(GOLEM, ROCK_HEAD, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, ROCK_THROW, MAGNITUDE, ROLLOUT, BULLDOZE),
@@ -1159,7 +1160,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GOLEM, ROCK_HEAD, CHOICE_BAND, ADAMANT, 31, 252, 252, 4, 0, 0, 0, STONE_EDGE, EARTHQUAKE, EXPLOSION, SUCKER_PUNCH),
         },
     },
-    [SPECIES_PONYTA] =
+    // PONYTA
     {
         {
             ISAAC_SET(PONYTA, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, EMBER, TACKLE, FLAME_WHEEL, STOMP),
@@ -1174,7 +1175,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PONYTA, FLASH_FIRE, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, FLARE_BLITZ, WILD_CHARGE, HIGH_HORSEPOWER, LOW_KICK),
         },
     },
-    [SPECIES_RAPIDASH] =
+    // RAPIDASH
     {
         {
             ISAAC_SET(RAPIDASH, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, FLAME_WHEEL, STOMP, FLAME_CHARGE, AGILITY),
@@ -1189,7 +1190,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(RAPIDASH, FLASH_FIRE, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, FLARE_BLITZ, MEGAHORN, HIGH_HORSEPOWER, WILD_CHARGE),
         },
     },
-    [SPECIES_SLOWPOKE] =
+    // SLOWPOKE
     {
         {
             ISAAC_SET(SLOWPOKE, OBLIVIOUS, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, WATER_GUN, CONFUSION, TACKLE, YAWN),
@@ -1204,7 +1205,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SLOWPOKE, REGENERATOR, LIFE_ORB, QUIET, 31, 252, 0, 0, 0, 252, 4, TRICK_ROOM, SURF, PSYCHIC, FIRE_BLAST),
         },
     },
-    [SPECIES_SLOWBRO] =
+    // SLOWBRO
     {
         {
             ISAAC_SET(SLOWBRO, OBLIVIOUS, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, WATER_PULSE, CONFUSION, HEADBUTT, YAWN),
@@ -1219,7 +1220,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SLOWBRO, REGENERATOR, LIFE_ORB, QUIET, 31, 252, 0, 0, 0, 252, 4, TRICK_ROOM, SURF, PSYCHIC, FIRE_BLAST),
         },
     },
-    [SPECIES_MAGNEMITE] =
+    // MAGNEMITE
     {
         {
             ISAAC_SET(MAGNEMITE, MAGNET_PULL, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, THUNDER_SHOCK, TACKLE, SUPERSONIC, SONIC_BOOM),
@@ -1234,7 +1235,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MAGNEMITE, STURDY, CHOICE_SPECS, MODEST, 31, 4, 0, 0, 252, 252, 0, THUNDERBOLT, FLASH_CANNON, VOLT_SWITCH, SIGNAL_BEAM),
         },
     },
-    [SPECIES_MAGNETON] =
+    // MAGNETON
     {
         {
             ISAAC_SET(MAGNETON, MAGNET_PULL, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, THUNDER_SHOCK, SONIC_BOOM, SUPERSONIC, SPARK),
@@ -1249,7 +1250,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MAGNETON, MAGNET_PULL, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, THUNDERBOLT, FLASH_CANNON, VOLT_SWITCH, SIGNAL_BEAM),
         },
     },
-    [SPECIES_FARFETCHD] =
+    // FARFETCHD
     {
         {
             ISAAC_SET(FARFETCHD, KEEN_EYE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, PECK, FURY_CUTTER, COVET, LEER),
@@ -1264,7 +1265,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(FARFETCHD, INNER_FOCUS, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, BRAVE_BIRD, KNOCK_OFF, ROOST),
         },
     },
-    [SPECIES_DODUO] =
+    // DODUO
     {
         {
             ISAAC_SET(DODUO, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, PECK, QUICK_ATTACK, AERIAL_ACE, FURY_ATTACK),
@@ -1279,7 +1280,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DODUO, EARLY_BIRD, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, BRAVE_BIRD, DOUBLE_EDGE, KNOCK_OFF, QUICK_ATTACK),
         },
     },
-    [SPECIES_DODRIO] =
+    // DODRIO
     {
         {
             ISAAC_SET(DODRIO, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, PECK, TRI_ATTACK, FURY_ATTACK, AGILITY),
@@ -1294,7 +1295,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DODRIO, EARLY_BIRD, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, BRAVE_BIRD, DOUBLE_EDGE, KNOCK_OFF),
         },
     },
-    [SPECIES_SEEL] =
+    // SEEL
     {
         {
             ISAAC_SET(SEEL, THICK_FAT, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, HEADBUTT, ICY_WIND, WATER_GUN, WATER_PULSE),
@@ -1309,7 +1310,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SEEL, HYDRATION, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, AQUA_TAIL, TRIPLE_AXEL, ICE_SHARD, HORN_DRILL),
         },
     },
-    [SPECIES_DEWGONG] =
+    // DEWGONG
     {
         {
             ISAAC_SET(DEWGONG, THICK_FAT, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, AURORA_BEAM, HEADBUTT, WATER_GUN, REST),
@@ -1324,7 +1325,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DEWGONG, THICK_FAT, CHOICE_SPECS, MODEST, 31, 252, 0, 0, 0, 252, 4, ICE_BEAM, HYDRO_PUMP, FLIP_TURN, KNOCK_OFF),
         },
     },
-    [SPECIES_GRIMER] =
+    // GRIMER
     {
         {
             ISAAC_SET(GRIMER, STENCH, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, POUND, POISON_GAS, SLUDGE, SHADOW_PUNCH),
@@ -1339,7 +1340,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GRIMER, STICKY_HOLD, LEFTOVERS, CAREFUL, 31, 252, 0, 4, 0, 0, 252, GUNK_SHOT, DRAIN_PUNCH, PAIN_SPLIT, CURSE),
         },
     },
-    [SPECIES_MUK] =
+    // MUK
     {
         {
             ISAAC_SET(MUK, STENCH, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, SLUDGE, POUND, SHADOW_PUNCH, POISON_GAS),
@@ -1354,7 +1355,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MUK, STICKY_HOLD, BLACK_SLUDGE, CAREFUL, 31, 252, 0, 4, 0, 0, 252, GUNK_SHOT, KNOCK_OFF, PAIN_SPLIT, TOXIC_SPIKES),
         },
     },
-    [SPECIES_SHELLDER] =
+    // SHELLDER
     {
         {
             ISAAC_SET(SHELLDER, SHELL_ARMOR, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, CLAMP, ICICLE_SPEAR, WATER_GUN),
@@ -1369,7 +1370,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SHELLDER, SKILL_LINK, FOCUS_SASH, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SHELL_SMASH, ICICLE_SPEAR, ROCK_BLAST, RAZOR_SHELL),
         },
     },
-    [SPECIES_CLOYSTER] =
+    // CLOYSTER
     {
         {
             ISAAC_SET(CLOYSTER, SHELL_ARMOR, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, AURORA_BEAM, SPIKE_CANNON, WATER_PULSE, SUPERSONIC),
@@ -1384,7 +1385,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CLOYSTER, SKILL_LINK, KINGS_ROCK, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SHELL_SMASH, ICICLE_SPEAR, ROCK_BLAST, DRILL_RUN),
         },
     },
-    [SPECIES_GASTLY] =
+    // GASTLY
     {
         {
             ISAAC_SET(GASTLY, LEVITATE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, LICK, SPITE, NIGHT_SHADE, HYPNOSIS),
@@ -1399,7 +1400,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GASTLY, LEVITATE, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, NASTY_PLOT, SHADOW_BALL, SLUDGE_BOMB, DAZZLING_GLEAM),
         },
     },
-    [SPECIES_HAUNTER] =
+    // HAUNTER
     {
         {
             ISAAC_SET(HAUNTER, LEVITATE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, LICK, NIGHT_SHADE, HYPNOSIS, CONFUSE_RAY),
@@ -1414,7 +1415,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HAUNTER, LEVITATE, FOCUS_SASH, TIMID, 31, 4, 0, 0, 252, 252, 0, SHADOW_BALL, SLUDGE_BOMB, DESTINY_BOND, TAUNT),
         },
     },
-    [SPECIES_GENGAR] =
+    // GENGAR
     {
         {
             ISAAC_SET(GENGAR, CURSED_BODY, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, SHADOW_PUNCH, NIGHT_SHADE, HYPNOSIS, CONFUSE_RAY),
@@ -1429,7 +1430,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GENGAR, CURSED_BODY, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, SHADOW_BALL, SLUDGE_BOMB, FOCUS_BLAST, TRICK),
         },
     },
-    [SPECIES_ONIX] =
+    // ONIX
     {
         {
             ISAAC_SET(ONIX, ROCK_HEAD, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, ROCK_THROW, BIND, SCREECH, ROCK_TOMB),
@@ -1444,7 +1445,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ONIX, ROCK_HEAD, FOCUS_SASH, JOLLY, 31, 4, 252, 0, 252, 0, 0, STONE_EDGE, EARTHQUAKE, STEALTH_ROCK, EXPLOSION),
         },
     },
-    [SPECIES_DROWZEE] =
+    // DROWZEE
     {
         {
             ISAAC_SET(DROWZEE, INSOMNIA, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, CONFUSION, POUND, HYPNOSIS, DISABLE),
@@ -1459,7 +1460,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DROWZEE, FOREWARN, LIFE_ORB, MODEST, 31, 252, 0, 0, 0, 252, 4, NASTY_PLOT, PSYCHIC, SHADOW_BALL, FOCUS_BLAST),
         },
     },
-    [SPECIES_HYPNO] =
+    // HYPNO
     {
         {
             ISAAC_SET(HYPNO, INSOMNIA, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, CONFUSION, HEADBUTT, HYPNOSIS, DISABLE),
@@ -1474,7 +1475,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HYPNO, FOREWARN, LIFE_ORB, MODEST, 31, 252, 0, 0, 0, 252, 4, NASTY_PLOT, PSYCHIC, SHADOW_BALL, FOCUS_BLAST),
         },
     },
-    [SPECIES_KRABBY] =
+    // KRABBY
     {
         {
             ISAAC_SET(KRABBY, HYPER_CUTTER, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BUBBLE, METAL_CLAW, THIEF, HARDEN),
@@ -1489,7 +1490,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KRABBY, HYPER_CUTTER, CHOICE_BAND, ADAMANT, 31, 4, 252, 0, 252, 0, 0, CRABHAMMER, KNOCK_OFF, X_SCISSOR, SUPERPOWER),
         },
     },
-    [SPECIES_KINGLER] =
+    // KINGLER
     {
         {
             ISAAC_SET(KINGLER, HYPER_CUTTER, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BUBBLE_BEAM, METAL_CLAW, STOMP, THIEF),
@@ -1504,7 +1505,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KINGLER, HYPER_CUTTER, CHOICE_BAND, ADAMANT, 31, 4, 252, 0, 252, 0, 0, CRABHAMMER, KNOCK_OFF, X_SCISSOR, SUPERPOWER),
         },
     },
-    [SPECIES_VOLTORB] =
+    // VOLTORB
     {
         {
             ISAAC_SET(VOLTORB, SOUNDPROOF, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, TACKLE, SPARK, SONIC_BOOM, SCREECH),
@@ -1519,7 +1520,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VOLTORB, STATIC, FOCUS_SASH, TIMID, 31, 4, 0, 0, 252, 252, 0, THUNDERBOLT, VOLT_SWITCH, TAUNT, EXPLOSION),
         },
     },
-    [SPECIES_ELECTRODE] =
+    // ELECTRODE
     {
         {
             ISAAC_SET(ELECTRODE, SOUNDPROOF, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, SPARK, SONIC_BOOM, SCREECH, ROLLOUT),
@@ -1534,7 +1535,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ELECTRODE, STATIC, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, THUNDERBOLT, VOLT_SWITCH, SIGNAL_BEAM, EXPLOSION),
         },
     },
-    [SPECIES_EXEGGCUTE] =
+    // EXEGGCUTE
     {
         {
             ISAAC_SET(EXEGGCUTE, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, CONFUSION, BARRAGE, HYPNOSIS, BULLET_SEED),
@@ -1549,7 +1550,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(EXEGGCUTE, CHLOROPHYLL, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, SUNNY_DAY, SOLAR_BEAM, PSYCHIC, SLUDGE_BOMB),
         },
     },
-    [SPECIES_EXEGGUTOR] =
+    // EXEGGUTOR
     {
         {
             ISAAC_SET(EXEGGUTOR, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, CONFUSION, BULLET_SEED, HYPNOSIS, STOMP),
@@ -1564,7 +1565,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(EXEGGUTOR, CHLOROPHYLL, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, SUNNY_DAY, SOLAR_BEAM, PSYCHIC, SLUDGE_BOMB),
         },
     },
-    [SPECIES_CUBONE] =
+    // CUBONE
     {
         {
             ISAAC_SET(CUBONE, ROCK_HEAD, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, BONE_CLUB, HEADBUTT, BULLDOZE, BONEMERANG),
@@ -1579,7 +1580,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CUBONE, ROCK_HEAD, CHOICE_BAND, ADAMANT, 31, 252, 252, 4, 0, 0, 0, BONEMERANG, DOUBLE_EDGE, KNOCK_OFF, FIRE_PUNCH),
         },
     },
-    [SPECIES_MAROWAK] =
+    // MAROWAK
     {
         {
             ISAAC_SET(MAROWAK, ROCK_HEAD, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, BONE_CLUB, HEADBUTT, BONEMERANG, BULLDOZE),
@@ -1594,7 +1595,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MAROWAK, BATTLE_ARMOR, THICK_CLUB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, SWORDS_DANCE, BONEMERANG, STONE_EDGE, FIRE_PUNCH),
         },
     },
-    [SPECIES_HITMONLEE] =
+    // HITMONLEE
     {
         {
             ISAAC_SET(HITMONLEE, LIMBER, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, DOUBLE_KICK, LOW_KICK, REVENGE, ROLLING_KICK),
@@ -1609,7 +1610,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HITMONLEE, UNBURDEN, WHITE_HERB, JOLLY, 31, 4, 252, 0, 252, 0, 0, CLOSE_COMBAT, KNOCK_OFF, STONE_EDGE, MACH_PUNCH),
         },
     },
-    [SPECIES_HITMONCHAN] =
+    // HITMONCHAN
     {
         {
             ISAAC_SET(HITMONCHAN, KEEN_EYE, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, COMET_PUNCH, MACH_PUNCH, THUNDER_PUNCH, ICE_PUNCH),
@@ -1624,7 +1625,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HITMONCHAN, IRON_FIST, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, BULK_UP, DRAIN_PUNCH, ICE_PUNCH, MACH_PUNCH),
         },
     },
-    [SPECIES_LICKITUNG] =
+    // LICKITUNG
     {
         {
             ISAAC_SET(LICKITUNG, OWN_TEMPO, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, LICK, STOMP, WRAP, SUPERSONIC),
@@ -1639,7 +1640,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LICKITUNG, CLOUD_NINE, CHOICE_BAND, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DOUBLE_EDGE, EARTHQUAKE, KNOCK_OFF, POWER_WHIP),
         },
     },
-    [SPECIES_KOFFING] =
+    // KOFFING
     {
         {
             ISAAC_SET(KOFFING, LEVITATE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, TACKLE, SMOG, POISON_GAS, CLEAR_SMOG),
@@ -1654,7 +1655,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KOFFING, NEUTRALIZING_GAS, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, SLUDGE_BOMB, FIRE_BLAST, THUNDERBOLT, DESTINY_BOND),
         },
     },
-    [SPECIES_WEEZING] =
+    // WEEZING
     {
         {
             ISAAC_SET(WEEZING, LEVITATE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, SMOG, SLUDGE, CLEAR_SMOG, TACKLE),
@@ -1669,7 +1670,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WEEZING, LEVITATE, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, SLUDGE_BOMB, FIRE_BLAST, THUNDERBOLT, DESTINY_BOND),
         },
     },
-    [SPECIES_RHYHORN] =
+    // RHYHORN
     {
         {
             ISAAC_SET(RHYHORN, ROCK_HEAD, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, HORN_ATTACK, STOMP, BULLDOZE, ROCK_BLAST),
@@ -1684,7 +1685,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(RHYHORN, RECKLESS, CHOICE_BAND, ADAMANT, 31, 252, 252, 4, 0, 0, 0, STONE_EDGE, EARTHQUAKE, DOUBLE_EDGE, MEGAHORN),
         },
     },
-    [SPECIES_RHYDON] =
+    // RHYDON
     {
         {
             ISAAC_SET(RHYDON, ROCK_HEAD, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, HORN_ATTACK, STOMP, ROCK_BLAST, SCARY_FACE),
@@ -1699,7 +1700,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(RHYDON, RECKLESS, CHOICE_BAND, ADAMANT, 31, 252, 252, 4, 0, 0, 0, STONE_EDGE, EARTHQUAKE, DOUBLE_EDGE, MEGAHORN),
         },
     },
-    [SPECIES_CHANSEY] =
+    // CHANSEY
     {
         {
             ISAAC_SET(CHANSEY, NATURAL_CURE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POUND, SWIFT, DOUBLE_SLAP, SOFT_BOILED),
@@ -1714,7 +1715,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CHANSEY, NATURAL_CURE, ROCKY_HELMET, BOLD, 31, 252, 0, 252, 0, 0, 4, SEISMIC_TOSS, SOFT_BOILED, THUNDER_WAVE, HEAL_BELL),
         },
     },
-    [SPECIES_TANGELA] =
+    // TANGELA
     {
         {
             ISAAC_SET(TANGELA, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, VINE_WHIP, CONSTRICT, ABSORB, SLEEP_POWDER),
@@ -1729,7 +1730,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TANGELA, CHLOROPHYLL, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, SUNNY_DAY, SOLAR_BEAM, SLUDGE_BOMB, SLEEP_POWDER),
         },
     },
-    [SPECIES_KANGASKHAN] =
+    // KANGASKHAN
     {
         {
             ISAAC_SET(KANGASKHAN, EARLY_BIRD, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, COMET_PUNCH, BITE, COVET, FAKE_OUT),
@@ -1744,7 +1745,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KANGASKHAN, SCRAPPY, CHOICE_BAND, ADAMANT, 31, 4, 252, 0, 252, 0, 0, DOUBLE_EDGE, EARTHQUAKE, SUCKER_PUNCH, CRUNCH),
         },
     },
-    [SPECIES_HORSEA] =
+    // HORSEA
     {
         {
             ISAAC_SET(HORSEA, SWIFT_SWIM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, BUBBLE, WATER_PULSE, LEER, WATER_GUN),
@@ -1759,7 +1760,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HORSEA, SNIPER, SCOPE_LENS, TIMID, 31, 4, 0, 0, 252, 252, 0, FOCUS_ENERGY, HYDRO_PUMP, DRAGON_PULSE, ICE_BEAM),
         },
     },
-    [SPECIES_SEADRA] =
+    // SEADRA
     {
         {
             ISAAC_SET(SEADRA, POISON_POINT, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, TWISTER, WATER_PULSE, LEER),
@@ -1774,7 +1775,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SEADRA, SNIPER, SCOPE_LENS, TIMID, 31, 4, 0, 0, 252, 252, 0, FOCUS_ENERGY, HYDRO_PUMP, DRAGON_PULSE, ICE_BEAM),
         },
     },
-    [SPECIES_GOLDEEN] =
+    // GOLDEEN
     {
         {
             ISAAC_SET(GOLDEEN, SWIFT_SWIM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, PECK, HORN_ATTACK, SUPERSONIC, WATER_PULSE),
@@ -1789,7 +1790,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GOLDEEN, LIGHTNING_ROD, CHOICE_BAND, ADAMANT, 31, 4, 252, 0, 252, 0, 0, WATERFALL, MEGAHORN, DRILL_RUN, KNOCK_OFF),
         },
     },
-    [SPECIES_SEAKING] =
+    // SEAKING
     {
         {
             ISAAC_SET(SEAKING, SWIFT_SWIM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, HORN_ATTACK, WATER_PULSE, SUPERSONIC, FURY_ATTACK),
@@ -1804,7 +1805,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SEAKING, LIGHTNING_ROD, CHOICE_BAND, ADAMANT, 31, 4, 252, 0, 252, 0, 0, WATERFALL, MEGAHORN, DRILL_RUN, KNOCK_OFF),
         },
     },
-    [SPECIES_STARYU] =
+    // STARYU
     {
         {
             ISAAC_SET(STARYU, ILLUMINATE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, TACKLE, SWIFT, WATER_PULSE),
@@ -1819,7 +1820,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(STARYU, NATURAL_CURE, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, THUNDERBOLT, ICE_BEAM, PSYCHIC),
         },
     },
-    [SPECIES_STARMIE] =
+    // STARMIE
     {
         {
             ISAAC_SET(STARMIE, ILLUMINATE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_PULSE, SWIFT, CONFUSE_RAY, RAPID_SPIN),
@@ -1834,7 +1835,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(STARMIE, ANALYTIC, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, THUNDERBOLT, ICE_BEAM, PSYCHIC),
         },
     },
-    [SPECIES_MR_MIME] =
+    // MR_MIME
     {
         {
             ISAAC_SET(MR_MIME, SOUNDPROOF, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, DOUBLE_SLAP, BARRIER, REFLECT),
@@ -1849,7 +1850,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MR_MIME, FILTER, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, PSYCHIC, DAZZLING_GLEAM, SHADOW_BALL, FOCUS_BLAST),
         },
     },
-    [SPECIES_SCYTHER] =
+    // SCYTHER
     {
         {
             ISAAC_SET(SCYTHER, SWARM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, QUICK_ATTACK, FURY_CUTTER, AERIAL_ACE, WING_ATTACK),
@@ -1864,7 +1865,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SCYTHER, TECHNICIAN, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, DUAL_WINGBEAT, U_TURN, KNOCK_OFF, QUICK_ATTACK),
         },
     },
-    [SPECIES_JYNX] =
+    // JYNX
     {
         {
             ISAAC_SET(JYNX, OBLIVIOUS, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, POUND, LICK, POWDER_SNOW, CONFUSION),
@@ -1879,7 +1880,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(JYNX, DRY_SKIN, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, ICE_BEAM, PSYCHIC, FOCUS_BLAST, ENERGY_BALL),
         },
     },
-    [SPECIES_ELECTABUZZ] =
+    // ELECTABUZZ
     {
         {
             ISAAC_SET(ELECTABUZZ, STATIC, NONE, HARDY, 15, 0, 40, 0, 84, 40, 0, THUNDER_SHOCK, QUICK_ATTACK, LOW_KICK, SHOCK_WAVE),
@@ -1894,7 +1895,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ELECTABUZZ, STATIC, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, WILD_CHARGE, CROSS_CHOP, ICE_PUNCH, FIRE_PUNCH),
         },
     },
-    [SPECIES_MAGMAR] =
+    // MAGMAR
     {
         {
             ISAAC_SET(MAGMAR, FLAME_BODY, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, EMBER, SMOG, INCINERATE, FIRE_SPIN),
@@ -1909,7 +1910,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MAGMAR, FLAME_BODY, CHOICE_SPECS, MODEST, 31, 4, 0, 0, 252, 252, 0, FIRE_BLAST, FOCUS_BLAST, PSYCHIC, SCORCHING_SANDS),
         },
     },
-    [SPECIES_PINSIR] =
+    // PINSIR
     {
         {
             ISAAC_SET(PINSIR, HYPER_CUTTER, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, VISE_GRIP, SEISMIC_TOSS, BUG_BITE, BIND),
@@ -1924,7 +1925,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PINSIR, MOLD_BREAKER, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, X_SCISSOR, CLOSE_COMBAT, STONE_EDGE, EARTHQUAKE),
         },
     },
-    [SPECIES_TAUROS] =
+    // TAUROS
     {
         {
             ISAAC_SET(TAUROS, INTIMIDATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, HORN_ATTACK, STOMP, SCARY_FACE),
@@ -1939,7 +1940,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TAUROS, INTIMIDATE, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, DOUBLE_EDGE, EARTHQUAKE, ZEN_HEADBUTT, IRON_HEAD),
         },
     },
-    [SPECIES_MAGIKARP] =
+    // MAGIKARP
     {
         {
             ISAAC_SET(MAGIKARP, SWIFT_SWIM, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, TACKLE, NONE, NONE, NONE),
@@ -1954,7 +1955,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MAGIKARP, SWIFT_SWIM, FOCUS_SASH, ADAMANT, 31, 4, 252, 0, 252, 0, 0, FLAIL, BOUNCE, TACKLE, SPLASH),
         },
     },
-    [SPECIES_GYARADOS] =
+    // GYARADOS
     {
         {
             ISAAC_SET(GYARADOS, INTIMIDATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BITE, WATER_GUN, BULLDOZE, TWISTER),
@@ -1969,7 +1970,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GYARADOS, INTIMIDATE, HEAVY_DUTY_BOOTS, JOLLY, 31, 4, 252, 0, 252, 0, 0, DRAGON_DANCE, WATERFALL, CRUNCH, EARTHQUAKE),
         },
     },
-    [SPECIES_LAPRAS] =
+    // LAPRAS
     {
         {
             ISAAC_SET(LAPRAS, WATER_ABSORB, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, WATER_GUN, SING, CONFUSE_RAY, ICE_SHARD),
@@ -1984,7 +1985,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LAPRAS, SHELL_ARMOR, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DRAGON_DANCE, AVALANCHE, LIQUIDATION, ICE_SHARD),
         },
     },
-    [SPECIES_DITTO] =
+    // DITTO
     {
         {
             ISAAC_SET(DITTO, LIMBER, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, TRANSFORM, NONE, NONE, NONE),
@@ -1999,7 +2000,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DITTO, IMPOSTER, FOCUS_SASH, JOLLY, 31, 252, 0, 4, 252, 0, 0, TRANSFORM, NONE, NONE, NONE),
         },
     },
-    [SPECIES_EEVEE] =
+    // EEVEE
     {
         {
             ISAAC_SET(EEVEE, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, QUICK_ATTACK, COVET, BITE),
@@ -2014,7 +2015,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(EEVEE, ADAPTABILITY, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, DOUBLE_EDGE, QUICK_ATTACK, BITE, DIG),
         },
     },
-    [SPECIES_VAPOREON] =
+    // VAPOREON
     {
         {
             ISAAC_SET(VAPOREON, WATER_ABSORB, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, WATER_GUN, QUICK_ATTACK, AURORA_BEAM, ACID_ARMOR),
@@ -2029,7 +2030,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VAPOREON, WATER_ABSORB, CHOICE_SPECS, MODEST, 31, 252, 0, 0, 0, 252, 4, HYDRO_PUMP, ICE_BEAM, SHADOW_BALL, ALLURING_VOICE),
         },
     },
-    [SPECIES_JOLTEON] =
+    // JOLTEON
     {
         {
             ISAAC_SET(JOLTEON, VOLT_ABSORB, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, THUNDER_SHOCK, QUICK_ATTACK, DOUBLE_KICK, PIN_MISSILE),
@@ -2044,7 +2045,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(JOLTEON, VOLT_ABSORB, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, CALM_MIND, THUNDERBOLT, SHADOW_BALL, HYPER_VOICE),
         },
     },
-    [SPECIES_FLAREON] =
+    // FLAREON
     {
         {
             ISAAC_SET(FLAREON, FLASH_FIRE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, EMBER, QUICK_ATTACK, BITE, FIRE_FANG),
@@ -2059,7 +2060,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(FLAREON, FLASH_FIRE, CHOICE_BAND, ADAMANT, 31, 4, 252, 0, 252, 0, 0, FLARE_BLITZ, SUPERPOWER, QUICK_ATTACK, DOUBLE_EDGE),
         },
     },
-    [SPECIES_PORYGON] =
+    // PORYGON
     {
         {
             ISAAC_SET(PORYGON, TRACE, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, TACKLE, PSYBEAM, AGILITY, SWIFT),
@@ -2074,7 +2075,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PORYGON, DOWNLOAD, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, AGILITY, TRI_ATTACK, ICE_BEAM, THUNDERBOLT),
         },
     },
-    [SPECIES_OMANYTE] =
+    // OMANYTE
     {
         {
             ISAAC_SET(OMANYTE, SWIFT_SWIM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, CONSTRICT, WATER_PULSE, ROCK_THROW),
@@ -2089,7 +2090,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(OMANYTE, SWIFT_SWIM, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, ICE_BEAM, ANCIENT_POWER, EARTH_POWER),
         },
     },
-    [SPECIES_OMASTAR] =
+    // OMASTAR
     {
         {
             ISAAC_SET(OMASTAR, SWIFT_SWIM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, ROCK_THROW, CONSTRICT, SPIKE_CANNON),
@@ -2104,7 +2105,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(OMASTAR, SWIFT_SWIM, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, ICE_BEAM, ANCIENT_POWER, EARTH_POWER),
         },
     },
-    [SPECIES_KABUTO] =
+    // KABUTO
     {
         {
             ISAAC_SET(KABUTO, SWIFT_SWIM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, ABSORB, ROCK_TOMB, MUD_SHOT),
@@ -2119,7 +2120,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KABUTO, SWIFT_SWIM, FOCUS_SASH, ADAMANT, 31, 4, 252, 0, 252, 0, 0, STONE_EDGE, WATERFALL, KNOCK_OFF, RAPID_SPIN),
         },
     },
-    [SPECIES_KABUTOPS] =
+    // KABUTOPS
     {
         {
             ISAAC_SET(KABUTOPS, SWIFT_SWIM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SLASH, ABSORB, MUD_SHOT, ANCIENT_POWER),
@@ -2134,7 +2135,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KABUTOPS, SWIFT_SWIM, CHOICE_BAND, ADAMANT, 31, 4, 252, 0, 252, 0, 0, STONE_EDGE, WATERFALL, KNOCK_OFF, AQUA_JET),
         },
     },
-    [SPECIES_AERODACTYL] =
+    // AERODACTYL
     {
         {
             ISAAC_SET(AERODACTYL, ROCK_HEAD, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WING_ATTACK, BITE, ROCK_THROW, SUPERSONIC),
@@ -2149,7 +2150,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(AERODACTYL, ROCK_HEAD, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, STONE_EDGE, DOUBLE_EDGE, EARTHQUAKE, AERIAL_ACE),
         },
     },
-    [SPECIES_SNORLAX] =
+    // SNORLAX
     {
         {
             ISAAC_SET(SNORLAX, THICK_FAT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, TACKLE, COVET, BODY_SLAM, REST),
@@ -2164,7 +2165,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SNORLAX, THICK_FAT, CHOICE_BAND, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DOUBLE_EDGE, EARTHQUAKE, CRUNCH, HEAVY_SLAM),
         },
     },
-    [SPECIES_ARTICUNO] =
+    // ARTICUNO
     {
         {
             ISAAC_SET(ARTICUNO, PRESSURE, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, ICE_SHARD, GUST, AERIAL_ACE, POWDER_SNOW),
@@ -2179,7 +2180,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ARTICUNO, PRESSURE, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, BLIZZARD, HURRICANE, FREEZE_DRY, ICE_BEAM),
         },
     },
-    [SPECIES_ZAPDOS] =
+    // ZAPDOS
     {
         {
             ISAAC_SET(ZAPDOS, PRESSURE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, THUNDER_SHOCK, PECK, THUNDER_WAVE, DETECT),
@@ -2194,7 +2195,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ZAPDOS, PRESSURE, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, THUNDERBOLT, HURRICANE, HEAT_WAVE, VOLT_SWITCH),
         },
     },
-    [SPECIES_MOLTRES] =
+    // MOLTRES
     {
         {
             ISAAC_SET(MOLTRES, PRESSURE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, EMBER, WING_ATTACK, FIRE_SPIN, AGILITY),
@@ -2209,7 +2210,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MOLTRES, PRESSURE, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, FIRE_BLAST, HURRICANE, SCORCHING_SANDS, HEAT_WAVE),
         },
     },
-    [SPECIES_DRATINI] =
+    // DRATINI
     {
         {
             ISAAC_SET(DRATINI, SHED_SKIN, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WRAP, TWISTER, THUNDER_WAVE, BREAKING_SWIPE),
@@ -2224,7 +2225,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DRATINI, MARVEL_SCALE, CHOICE_SPECS, MODEST, 31, 4, 0, 0, 252, 252, 0, DRACO_METEOR, FLAMETHROWER, ICE_BEAM, THUNDERBOLT),
         },
     },
-    [SPECIES_DRAGONAIR] =
+    // DRAGONAIR
     {
         {
             ISAAC_SET(DRAGONAIR, SHED_SKIN, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TWISTER, WRAP, DRAGON_TAIL, THUNDER_WAVE),
@@ -2239,7 +2240,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DRAGONAIR, MARVEL_SCALE, CHOICE_SPECS, MODEST, 31, 4, 0, 0, 252, 252, 0, DRACO_METEOR, FLAMETHROWER, ICE_BEAM, THUNDERBOLT),
         },
     },
-    [SPECIES_DRAGONITE] =
+    // DRAGONITE
     {
         {
             ISAAC_SET(DRAGONITE, INNER_FOCUS, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, DRAGON_TAIL, WING_ATTACK, THUNDER_WAVE, SLAM),
@@ -2254,7 +2255,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DRAGONITE, INNER_FOCUS, CHOICE_BAND, ADAMANT, 31, 4, 252, 0, 252, 0, 0, OUTRAGE, EXTREME_SPEED, EARTHQUAKE, FIRE_PUNCH),
         },
     },
-    [SPECIES_MEWTWO] =
+    // MEWTWO
     {
         {
             ISAAC_SET(MEWTWO, PRESSURE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, SWIFT, DISABLE, BARRIER),
@@ -2269,7 +2270,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MEWTWO, UNNERVE, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, PSYSTRIKE, AURA_SPHERE, ICE_BEAM, SHADOW_BALL),
         },
     },
-    [SPECIES_MEW] =
+    // MEW
     {
         {
             ISAAC_SET(MEW, SYNCHRONIZE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POUND, PSYWAVE, TRANSFORM, METRONOME),
@@ -2284,7 +2285,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MEW, SYNCHRONIZE, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, STEALTH_ROCK, WILL_O_WISP, SOFT_BOILED, PSYSHOCK),
         },
     },
-    [SPECIES_CHIKORITA] =
+    // CHIKORITA
     {
         {
             ISAAC_SET(CHIKORITA, OVERGROW, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, RAZOR_LEAF, TACKLE, MAGICAL_LEAF, POISON_POWDER),
@@ -2299,7 +2300,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CHIKORITA, LEAF_GUARD, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, GIGA_DRAIN, LEECH_SEED, SYNTHESIS, KNOCK_OFF),
         },
     },
-    [SPECIES_BAYLEEF] =
+    // BAYLEEF
     {
         {
             ISAAC_SET(BAYLEEF, OVERGROW, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, RAZOR_LEAF, POISON_POWDER, HEADBUTT, REFLECT),
@@ -2314,7 +2315,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BAYLEEF, LEAF_GUARD, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, GIGA_DRAIN, LEECH_SEED, SYNTHESIS, KNOCK_OFF),
         },
     },
-    [SPECIES_MEGANIUM] =
+    // MEGANIUM
     {
         {
             ISAAC_SET(MEGANIUM, OVERGROW, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, RAZOR_LEAF, HEADBUTT, POISON_POWDER, REFLECT),
@@ -2329,7 +2330,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MEGANIUM, LEAF_GUARD, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, LEAF_STORM, DRAGON_TAIL, LEECH_SEED, SYNTHESIS),
         },
     },
-    [SPECIES_CYNDAQUIL] =
+    // CYNDAQUIL
     {
         {
             ISAAC_SET(CYNDAQUIL, BLAZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, EMBER, TACKLE, INCINERATE, QUICK_ATTACK),
@@ -2344,7 +2345,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CYNDAQUIL, FLASH_FIRE, LEFTOVERS, TIMID, 31, 4, 0, 0, 252, 252, 0, FLAMETHROWER, EXTRASENSORY, WILL_O_WISP, ROAR),
         },
     },
-    [SPECIES_QUILAVA] =
+    // QUILAVA
     {
         {
             ISAAC_SET(QUILAVA, BLAZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, EMBER, QUICK_ATTACK, FLAME_WHEEL, INCINERATE),
@@ -2359,7 +2360,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(QUILAVA, FLASH_FIRE, LEFTOVERS, TIMID, 31, 4, 0, 0, 252, 252, 0, FLAMETHROWER, EXTRASENSORY, WILL_O_WISP, ROAR),
         },
     },
-    [SPECIES_TYPHLOSION] =
+    // TYPHLOSION
     {
         {
             ISAAC_SET(TYPHLOSION, BLAZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, FLAME_WHEEL, QUICK_ATTACK, SWIFT, INCINERATE),
@@ -2374,7 +2375,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TYPHLOSION, FLASH_FIRE, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, ERUPTION, FIRE_BLAST, FOCUS_BLAST, EXTRASENSORY),
         },
     },
-    [SPECIES_TOTODILE] =
+    // TOTODILE
     {
         {
             ISAAC_SET(TOTODILE, TORRENT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WATER_GUN, SCRATCH, BITE, FLIP_TURN),
@@ -2389,7 +2390,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TOTODILE, SHEER_FORCE, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, DRAGON_DANCE, LIQUIDATION, CRUNCH, ICE_PUNCH),
         },
     },
-    [SPECIES_CROCONAW] =
+    // CROCONAW
     {
         {
             ISAAC_SET(CROCONAW, TORRENT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WATER_GUN, BITE, SCARY_FACE, ICE_FANG),
@@ -2404,7 +2405,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CROCONAW, SHEER_FORCE, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, DRAGON_DANCE, LIQUIDATION, CRUNCH, ICE_PUNCH),
         },
     },
-    [SPECIES_FERALIGATR] =
+    // FERALIGATR
     {
         {
             ISAAC_SET(FERALIGATR, TORRENT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WATER_GUN, BITE, ICE_FANG, SCARY_FACE),
@@ -2419,7 +2420,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(FERALIGATR, SHEER_FORCE, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, DRAGON_DANCE, LIQUIDATION, CRUNCH, ICE_PUNCH),
         },
     },
-    [SPECIES_SENTRET] =
+    // SENTRET
     {
         {
             ISAAC_SET(SENTRET, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, QUICK_ATTACK, COVET, FURY_SWIPES),
@@ -2434,7 +2435,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SENTRET, FRISK, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, DOUBLE_EDGE, U_TURN, KNOCK_OFF, SUCKER_PUNCH),
         },
     },
-    [SPECIES_FURRET] =
+    // FURRET
     {
         {
             ISAAC_SET(FURRET, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, FURY_SWIPES, QUICK_ATTACK, COVET, SLAM),
@@ -2449,7 +2450,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(FURRET, FRISK, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, DOUBLE_EDGE, U_TURN, KNOCK_OFF, TRICK),
         },
     },
-    [SPECIES_HOOTHOOT] =
+    // HOOTHOOT
     {
         {
             ISAAC_SET(HOOTHOOT, INSOMNIA, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, PECK, HYPNOSIS, SWIFT, CONFUSION),
@@ -2464,7 +2465,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HOOTHOOT, TINTED_LENS, LEFTOVERS, CALM, 31, 252, 0, 4, 0, 0, 252, AIR_SLASH, ROOST, HYPNOSIS, NIGHT_SHADE),
         },
     },
-    [SPECIES_NOCTOWL] =
+    // NOCTOWL
     {
         {
             ISAAC_SET(NOCTOWL, INSOMNIA, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, PECK, HYPNOSIS, CONFUSION, EXTRASENSORY),
@@ -2479,7 +2480,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NOCTOWL, TINTED_LENS, HEAVY_DUTY_BOOTS, MODEST, 31, 4, 0, 0, 252, 252, 0, NASTY_PLOT, HURRICANE, PSYCHIC, ROOST),
         },
     },
-    [SPECIES_LEDYBA] =
+    // LEDYBA
     {
         {
             ISAAC_SET(LEDYBA, SWARM, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, TACKLE, SUPERSONIC, AERIAL_ACE, REFLECT),
@@ -2494,7 +2495,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LEDYBA, EARLY_BIRD, FOCUS_SASH, JOLLY, 31, 252, 0, 4, 252, 0, 0, REFLECT, LIGHT_SCREEN, U_TURN, KNOCK_OFF),
         },
     },
-    [SPECIES_LEDIAN] =
+    // LEDIAN
     {
         {
             ISAAC_SET(LEDIAN, SWARM, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, AERIAL_ACE, SUPERSONIC, REFLECT, SWIFT),
@@ -2509,7 +2510,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LEDIAN, EARLY_BIRD, LIGHT_CLAY, JOLLY, 31, 252, 0, 4, 252, 0, 0, REFLECT, LIGHT_SCREEN, U_TURN, KNOCK_OFF),
         },
     },
-    [SPECIES_SPINARAK] =
+    // SPINARAK
     {
         {
             ISAAC_SET(SPINARAK, SWARM, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, POISON_STING, BUG_BITE, CONSTRICT, NIGHT_SHADE),
@@ -2524,7 +2525,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SPINARAK, SNIPER, BLACK_SLUDGE, ADAMANT, 31, 252, 252, 4, 0, 0, 0, STICKY_WEB, POISON_JAB, LEECH_LIFE, TOXIC_SPIKES),
         },
     },
-    [SPECIES_ARIADOS] =
+    // ARIADOS
     {
         {
             ISAAC_SET(ARIADOS, SWARM, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, POISON_STING, NIGHT_SHADE, BUG_BITE, FURY_SWIPES),
@@ -2539,7 +2540,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ARIADOS, SNIPER, FOCUS_SASH, ADAMANT, 31, 252, 252, 4, 0, 0, 0, STICKY_WEB, TOXIC_SPIKES, POISON_JAB, MEGAHORN),
         },
     },
-    [SPECIES_CROBAT] =
+    // CROBAT
     {
         {
             ISAAC_SET(CROBAT, INNER_FOCUS, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WING_ATTACK, BITE, CONFUSE_RAY, POISON_FANG),
@@ -2554,7 +2555,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CROBAT, INFILTRATOR, HEAVY_DUTY_BOOTS, JOLLY, 31, 4, 252, 0, 252, 0, 0, BRAVE_BIRD, CROSS_POISON, U_TURN, ROOST),
         },
     },
-    [SPECIES_CHINCHOU] =
+    // CHINCHOU
     {
         {
             ISAAC_SET(CHINCHOU, VOLT_ABSORB, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, SPARK, SUPERSONIC, THUNDER_WAVE),
@@ -2569,7 +2570,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CHINCHOU, VOLT_ABSORB, LIFE_ORB, MODEST, 31, 252, 0, 0, 0, 252, 4, SCALD, THUNDERBOLT, VOLT_SWITCH, ICE_BEAM),
         },
     },
-    [SPECIES_LANTURN] =
+    // LANTURN
     {
         {
             ISAAC_SET(LANTURN, VOLT_ABSORB, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, WATER_GUN, SPARK, CONFUSE_RAY, THUNDER_WAVE),
@@ -2584,7 +2585,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LANTURN, VOLT_ABSORB, ASSAULT_VEST, MODEST, 31, 252, 0, 0, 0, 252, 4, SCALD, VOLT_SWITCH, ICE_BEAM, THUNDERBOLT),
         },
     },
-    [SPECIES_PICHU] =
+    // PICHU
     {
         {
             ISAAC_SET(PICHU, STATIC, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, THUNDER_SHOCK, SHOCK_WAVE, TAIL_WHIP, SWEET_KISS),
@@ -2599,7 +2600,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PICHU, LIGHTNING_ROD, FOCUS_SASH, TIMID, 31, 4, 0, 0, 252, 252, 0, NASTY_PLOT, THUNDERBOLT, GRASS_KNOT, VOLT_SWITCH),
         },
     },
-    [SPECIES_CLEFFA] =
+    // CLEFFA
     {
         {
             ISAAC_SET(CLEFFA, CUTE_CHARM, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POUND, DRAINING_KISS, SING, SWEET_KISS),
@@ -2614,7 +2615,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CLEFFA, MAGIC_GUARD, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, DAZZLING_GLEAM, STEALTH_ROCK, THUNDER_WAVE, ENCORE),
         },
     },
-    [SPECIES_IGGLYBUFF] =
+    // IGGLYBUFF
     {
         {
             ISAAC_SET(IGGLYBUFF, CUTE_CHARM, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POUND, SING, SWEET_KISS, DRAINING_KISS),
@@ -2629,7 +2630,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(IGGLYBUFF, COMPETITIVE, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, DAZZLING_GLEAM, WISH, PROTECT, THUNDER_WAVE),
         },
     },
-    [SPECIES_TOGEPI] =
+    // TOGEPI
     {
         {
             ISAAC_SET(TOGEPI, HUSTLE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POUND, DRAINING_KISS, SWEET_KISS, METRONOME),
@@ -2644,7 +2645,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TOGEPI, SERENE_GRACE, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, DAZZLING_GLEAM, SOFT_BOILED, HEAL_BELL, THUNDER_WAVE),
         },
     },
-    [SPECIES_TOGETIC] =
+    // TOGETIC
     {
         {
             ISAAC_SET(TOGETIC, HUSTLE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, AERIAL_ACE, SWEET_KISS, ANCIENT_POWER, METRONOME),
@@ -2659,7 +2660,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TOGETIC, SERENE_GRACE, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, AIR_SLASH, DAZZLING_GLEAM, ROOST, THUNDER_WAVE),
         },
     },
-    [SPECIES_NATU] =
+    // NATU
     {
         {
             ISAAC_SET(NATU, SYNCHRONIZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, PECK, NIGHT_SHADE, AIR_CUTTER, TELEPORT),
@@ -2674,7 +2675,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NATU, MAGIC_BOUNCE, FOCUS_SASH, TIMID, 31, 252, 0, 4, 252, 0, 0, PSYCHIC, ROOST, U_TURN, THUNDER_WAVE),
         },
     },
-    [SPECIES_XATU] =
+    // XATU
     {
         {
             ISAAC_SET(XATU, SYNCHRONIZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, PECK, NIGHT_SHADE, CONFUSE_RAY, TELEPORT),
@@ -2689,7 +2690,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(XATU, MAGIC_BOUNCE, HEAVY_DUTY_BOOTS, BOLD, 31, 252, 0, 252, 0, 0, 4, NIGHT_SHADE, ROOST, U_TURN, THUNDER_WAVE),
         },
     },
-    [SPECIES_MAREEP] =
+    // MAREEP
     {
         {
             ISAAC_SET(MAREEP, STATIC, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, TACKLE, THUNDER_SHOCK, SHOCK_WAVE, THUNDER_WAVE),
@@ -2704,7 +2705,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MAREEP, STATIC, LIFE_ORB, MODEST, 31, 252, 0, 0, 0, 252, 4, THUNDERBOLT, VOLT_SWITCH, DAZZLING_GLEAM, THUNDER_WAVE),
         },
     },
-    [SPECIES_FLAAFFY] =
+    // FLAAFFY
     {
         {
             ISAAC_SET(FLAAFFY, STATIC, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, THUNDER_SHOCK, TACKLE, THUNDER_WAVE, COTTON_SPORE),
@@ -2719,7 +2720,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(FLAAFFY, STATIC, LIFE_ORB, MODEST, 31, 252, 0, 0, 0, 252, 4, THUNDERBOLT, VOLT_SWITCH, DAZZLING_GLEAM, THUNDER_WAVE),
         },
     },
-    [SPECIES_AMPHAROS] =
+    // AMPHAROS
     {
         {
             ISAAC_SET(AMPHAROS, STATIC, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, THUNDER_PUNCH, THUNDER_SHOCK, THUNDER_WAVE, COTTON_SPORE),
@@ -2734,7 +2735,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(AMPHAROS, STATIC, ASSAULT_VEST, MODEST, 31, 252, 0, 0, 0, 252, 4, THUNDERBOLT, DRAGON_PULSE, FOCUS_BLAST, VOLT_SWITCH),
         },
     },
-    [SPECIES_BELLOSSOM] =
+    // BELLOSSOM
     {
         {
             ISAAC_SET(BELLOSSOM, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, MAGICAL_LEAF, MEGA_DRAIN, STUN_SPORE, ABSORB),
@@ -2749,7 +2750,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BELLOSSOM, CHLOROPHYLL, LEFTOVERS, MODEST, 31, 4, 0, 0, 252, 252, 0, QUIVER_DANCE, GIGA_DRAIN, MOONBLAST, STRENGTH_SAP),
         },
     },
-    [SPECIES_MARILL] =
+    // MARILL
     {
         {
             ISAAC_SET(MARILL, THICK_FAT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, WATER_GUN, TACKLE, AQUA_JET, ROLLOUT),
@@ -2764,7 +2765,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MARILL, HUGE_POWER, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, BELLY_DRUM, AQUA_JET, PLAY_ROUGH, KNOCK_OFF),
         },
     },
-    [SPECIES_AZUMARILL] =
+    // AZUMARILL
     {
         {
             ISAAC_SET(AZUMARILL, THICK_FAT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, WATER_GUN, ROLLOUT, BUBBLE_BEAM, AQUA_JET),
@@ -2779,7 +2780,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(AZUMARILL, HUGE_POWER, SITRUS_BERRY, ADAMANT, 31, 252, 252, 4, 0, 0, 0, BELLY_DRUM, AQUA_JET, PLAY_ROUGH, KNOCK_OFF),
         },
     },
-    [SPECIES_SUDOWOODO] =
+    // SUDOWOODO
     {
         {
             ISAAC_SET(SUDOWOODO, STURDY, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, ROCK_THROW, LOW_KICK, FLAIL, MIMIC),
@@ -2794,7 +2795,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SUDOWOODO, ROCK_HEAD, LEFTOVERS, ADAMANT, 31, 252, 252, 4, 0, 0, 0, HEAD_SMASH, WOOD_HAMMER, SUCKER_PUNCH, STEALTH_ROCK),
         },
     },
-    [SPECIES_POLITOED] =
+    // POLITOED
     {
         {
             ISAAC_SET(POLITOED, WATER_ABSORB, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, BUBBLE_BEAM, HYPNOSIS, DOUBLE_SLAP, PERISH_SONG),
@@ -2809,7 +2810,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(POLITOED, DRIZZLE, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, SCALD, ICE_BEAM, ENCORE, HAZE),
         },
     },
-    [SPECIES_HOPPIP] =
+    // HOPPIP
     {
         {
             ISAAC_SET(HOPPIP, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, AERIAL_ACE, TACKLE, SYNTHESIS, ABSORB),
@@ -2824,7 +2825,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HOPPIP, INFILTRATOR, FOCUS_SASH, JOLLY, 31, 252, 0, 4, 252, 0, 0, SLEEP_POWDER, LEECH_SEED, U_TURN, STRENGTH_SAP),
         },
     },
-    [SPECIES_SKIPLOOM] =
+    // SKIPLOOM
     {
         {
             ISAAC_SET(SKIPLOOM, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, TACKLE, SYNTHESIS, STUN_SPORE, BULLET_SEED),
@@ -2839,7 +2840,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SKIPLOOM, INFILTRATOR, FOCUS_SASH, JOLLY, 31, 252, 0, 4, 252, 0, 0, SLEEP_POWDER, LEECH_SEED, U_TURN, STRENGTH_SAP),
         },
     },
-    [SPECIES_JUMPLUFF] =
+    // JUMPLUFF
     {
         {
             ISAAC_SET(JUMPLUFF, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, BULLET_SEED, STUN_SPORE, SYNTHESIS, TACKLE),
@@ -2854,7 +2855,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(JUMPLUFF, INFILTRATOR, HEAVY_DUTY_BOOTS, JOLLY, 31, 252, 0, 4, 252, 0, 0, SLEEP_POWDER, LEECH_SEED, U_TURN, STRENGTH_SAP),
         },
     },
-    [SPECIES_AIPOM] =
+    // AIPOM
     {
         {
             ISAAC_SET(AIPOM, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, COVET, SAND_ATTACK, ASTONISH),
@@ -2869,7 +2870,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(AIPOM, SKILL_LINK, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, FAKE_OUT, TAIL_SLAP, U_TURN, KNOCK_OFF),
         },
     },
-    [SPECIES_SUNKERN] =
+    // SUNKERN
     {
         {
             ISAAC_SET(SUNKERN, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, ABSORB, MAGICAL_LEAF, MEGA_DRAIN, NONE),
@@ -2884,7 +2885,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SUNKERN, CHLOROPHYLL, LEFTOVERS, MODEST, 31, 252, 0, 0, 0, 252, 4, GIGA_DRAIN, EARTH_POWER, SLUDGE_BOMB, SYNTHESIS),
         },
     },
-    [SPECIES_SUNFLORA] =
+    // SUNFLORA
     {
         {
             ISAAC_SET(SUNFLORA, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, RAZOR_LEAF, MAGICAL_LEAF, MEGA_DRAIN, PETAL_DANCE),
@@ -2899,7 +2900,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SUNFLORA, CHLOROPHYLL, LEFTOVERS, MODEST, 31, 4, 0, 0, 252, 252, 0, LEAF_STORM, EARTH_POWER, SLUDGE_BOMB, SYNTHESIS),
         },
     },
-    [SPECIES_YANMA] =
+    // YANMA
     {
         {
             ISAAC_SET(YANMA, SPEED_BOOST, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, QUICK_ATTACK, SONIC_BOOM, SUPERSONIC, WING_ATTACK),
@@ -2914,7 +2915,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(YANMA, SPEED_BOOST, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, PROTECT, BUG_BUZZ, AIR_SLASH, GIGA_DRAIN),
         },
     },
-    [SPECIES_WOOPER] =
+    // WOOPER
     {
         {
             ISAAC_SET(WOOPER, DAMP, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, WATER_GUN, MUD_SHOT, WATER_PULSE, SLAM),
@@ -2929,7 +2930,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WOOPER, UNAWARE, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, SCALD, EARTHQUAKE, RECOVER, STEALTH_ROCK),
         },
     },
-    [SPECIES_QUAGSIRE] =
+    // QUAGSIRE
     {
         {
             ISAAC_SET(QUAGSIRE, DAMP, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, WATER_GUN, MUD_SHOT, SLAM, AMNESIA),
@@ -2944,7 +2945,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(QUAGSIRE, UNAWARE, LEFTOVERS, RELAXED, 31, 252, 0, 252, 0, 0, 4, SCALD, EARTHQUAKE, RECOVER, TOXIC),
         },
     },
-    [SPECIES_ESPEON] =
+    // ESPEON
     {
         {
             ISAAC_SET(ESPEON, SYNCHRONIZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, QUICK_ATTACK, SWIFT, MAGICAL_LEAF),
@@ -2959,7 +2960,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ESPEON, MAGIC_BOUNCE, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, CALM_MIND, PSYCHIC, DAZZLING_GLEAM, SHADOW_BALL),
         },
     },
-    [SPECIES_UMBREON] =
+    // UMBREON
     {
         {
             ISAAC_SET(UMBREON, SYNCHRONIZE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, PURSUIT, QUICK_ATTACK, CONFUSE_RAY, THIEF),
@@ -2974,7 +2975,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(UMBREON, INNER_FOCUS, LEFTOVERS, CAREFUL, 31, 252, 0, 4, 0, 0, 252, FOUL_PLAY, WISH, PROTECT, YAWN),
         },
     },
-    [SPECIES_MURKROW] =
+    // MURKROW
     {
         {
             ISAAC_SET(MURKROW, INSOMNIA, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, PECK, PURSUIT, ASTONISH, HAZE),
@@ -2989,7 +2990,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MURKROW, PRANKSTER, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, FOUL_PLAY, ROOST, DEFOG, THUNDER_WAVE),
         },
     },
-    [SPECIES_SLOWKING] =
+    // SLOWKING
     {
         {
             ISAAC_SET(SLOWKING, OBLIVIOUS, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, WATER_GUN, CONFUSION, HEADBUTT, YAWN),
@@ -3004,7 +3005,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SLOWKING, REGENERATOR, HEAVY_DUTY_BOOTS, SASSY, 31, 252, 0, 4, 0, 0, 252, SCALD, FUTURE_SIGHT, SLACK_OFF, CHILLY_RECEPTION),
         },
     },
-    [SPECIES_MISDREAVUS] =
+    // MISDREAVUS
     {
         {
             ISAAC_SET(MISDREAVUS, LEVITATE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, ASTONISH, PSYWAVE, CONFUSE_RAY, SPITE),
@@ -3019,7 +3020,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MISDREAVUS, LEVITATE, FOCUS_SASH, TIMID, 31, 252, 0, 4, 252, 0, 0, SHADOW_BALL, WILL_O_WISP, PAIN_SPLIT, TAUNT),
         },
     },
-    [SPECIES_UNOWN] =
+    // UNOWN
     {
         {
             ISAAC_SET(UNOWN, LEVITATE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, HIDDEN_POWER, NONE, NONE, NONE),
@@ -3034,7 +3035,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(UNOWN, LEVITATE, CHOICE_SPECS, MODEST, 31, 4, 0, 0, 252, 252, 0, HIDDEN_POWER, NONE, NONE, NONE),
         },
     },
-    [SPECIES_WOBBUFFET] =
+    // WOBBUFFET
     {
         {
             ISAAC_SET(WOBBUFFET, SHADOW_TAG, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, COUNTER, MIRROR_COAT, NONE, NONE),
@@ -3049,7 +3050,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WOBBUFFET, SHADOW_TAG, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, COUNTER, MIRROR_COAT, ENCORE, DESTINY_BOND),
         },
     },
-    [SPECIES_GIRAFARIG] =
+    // GIRAFARIG
     {
         {
             ISAAC_SET(GIRAFARIG, INNER_FOCUS, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, STOMP, ASTONISH, SWIFT),
@@ -3064,7 +3065,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GIRAFARIG, SAP_SIPPER, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, NASTY_PLOT, PSYCHIC, HYPER_VOICE, SHADOW_BALL),
         },
     },
-    [SPECIES_PINECO] =
+    // PINECO
     {
         {
             ISAAC_SET(PINECO, STURDY, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, TACKLE, PROTECT, SELF_DESTRUCT, BUG_BITE),
@@ -3079,7 +3080,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PINECO, STURDY, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, SPIKES, TOXIC_SPIKES, RAPID_SPIN, BUG_BITE),
         },
     },
-    [SPECIES_FORRETRESS] =
+    // FORRETRESS
     {
         {
             ISAAC_SET(FORRETRESS, STURDY, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, BUG_BITE, PROTECT, SPIKES, TACKLE),
@@ -3094,7 +3095,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(FORRETRESS, STURDY, ROCKY_HELMET, RELAXED, 31, 252, 0, 252, 0, 0, 4, GYRO_BALL, STEALTH_ROCK, SPIKES, RAPID_SPIN),
         },
     },
-    [SPECIES_DUNSPARCE] =
+    // DUNSPARCE
     {
         {
             ISAAC_SET(DUNSPARCE, SERENE_GRACE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, RAGE, ROUND, ROLLOUT, SPITE),
@@ -3109,7 +3110,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DUNSPARCE, SERENE_GRACE, LEFTOVERS, CAREFUL, 31, 252, 0, 4, 0, 0, 252, BODY_SLAM, GLARE, ROOST, COIL),
         },
     },
-    [SPECIES_GLIGAR] =
+    // GLIGAR
     {
         {
             ISAAC_SET(GLIGAR, HYPER_CUTTER, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, POISON_STING, AERIAL_ACE, QUICK_ATTACK, FURY_CUTTER),
@@ -3124,7 +3125,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GLIGAR, IMMUNITY, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, EARTHQUAKE, KNOCK_OFF, ROOST, STEALTH_ROCK),
         },
     },
-    [SPECIES_STEELIX] =
+    // STEELIX
     {
         {
             ISAAC_SET(STEELIX, ROCK_HEAD, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, BIND, ROCK_THROW, SCREECH, IRON_TAIL),
@@ -3139,7 +3140,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(STEELIX, STURDY, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, HEAVY_SLAM, EARTHQUAKE, STEALTH_ROCK, TOXIC),
         },
     },
-    [SPECIES_SNUBBULL] =
+    // SNUBBULL
     {
         {
             ISAAC_SET(SNUBBULL, INTIMIDATE, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, TACKLE, BITE, BULLDOZE, SCARY_FACE),
@@ -3154,7 +3155,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SNUBBULL, INTIMIDATE, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, PLAY_ROUGH, EARTHQUAKE, CLOSE_COMBAT, THUNDER_WAVE),
         },
     },
-    [SPECIES_GRANBULL] =
+    // GRANBULL
     {
         {
             ISAAC_SET(GRANBULL, INTIMIDATE, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, BITE, HEADBUTT, BULLDOZE, SCARY_FACE),
@@ -3169,7 +3170,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GRANBULL, INTIMIDATE, LEFTOVERS, ADAMANT, 31, 252, 252, 4, 0, 0, 0, BULK_UP, PLAY_ROUGH, CLOSE_COMBAT, EARTHQUAKE),
         },
     },
-    [SPECIES_QWILFISH] =
+    // QWILFISH
     {
         {
             ISAAC_SET(QWILFISH, POISON_POINT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WATER_GUN, POISON_STING, SPIKES, FLIP_TURN),
@@ -3184,7 +3185,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(QWILFISH, INTIMIDATE, BLACK_SLUDGE, IMPISH, 31, 252, 0, 252, 0, 0, 4, SPIKES, TOXIC_SPIKES, WATERFALL, POISON_JAB),
         },
     },
-    [SPECIES_SCIZOR] =
+    // SCIZOR
     {
         {
             ISAAC_SET(SCIZOR, SWARM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, METAL_CLAW, FURY_CUTTER, QUICK_ATTACK, BUG_BITE),
@@ -3199,7 +3200,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SCIZOR, TECHNICIAN, CHOICE_BAND, ADAMANT, 31, 252, 252, 4, 0, 0, 0, BULLET_PUNCH, U_TURN, KNOCK_OFF, CLOSE_COMBAT),
         },
     },
-    [SPECIES_SHUCKLE] =
+    // SHUCKLE
     {
         {
             ISAAC_SET(SHUCKLE, STURDY, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, WRAP, BUG_BITE, ROLLOUT, BIDE),
@@ -3214,7 +3215,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SHUCKLE, STURDY, MENTAL_HERB, BOLD, 31, 252, 0, 252, 0, 0, 4, STICKY_WEB, STEALTH_ROCK, ENCORE, KNOCK_OFF),
         },
     },
-    [SPECIES_HERACROSS] =
+    // HERACROSS
     {
         {
             ISAAC_SET(HERACROSS, SWARM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, HORN_ATTACK, FURY_ATTACK, BRICK_BREAK, BUG_BITE),
@@ -3229,7 +3230,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HERACROSS, GUTS, FLAME_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, FACADE, CLOSE_COMBAT, MEGAHORN, KNOCK_OFF),
         },
     },
-    [SPECIES_SNEASEL] =
+    // SNEASEL
     {
         {
             ISAAC_SET(SNEASEL, INNER_FOCUS, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, QUICK_ATTACK, ICY_WIND, BITE),
@@ -3244,7 +3245,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SNEASEL, PICKPOCKET, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, TRIPLE_AXEL, KNOCK_OFF, ICE_SHARD, LOW_KICK),
         },
     },
-    [SPECIES_TEDDIURSA] =
+    // TEDDIURSA
     {
         {
             ISAAC_SET(TEDDIURSA, PICKUP, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, LICK, FURY_SWIPES, FAKE_TEARS),
@@ -3259,7 +3260,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TEDDIURSA, QUICK_FEET, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, FACADE, CLOSE_COMBAT, CRUNCH),
         },
     },
-    [SPECIES_URSARING] =
+    // URSARING
     {
         {
             ISAAC_SET(URSARING, GUTS, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SLASH, FURY_SWIPES, SCARY_FACE, FAKE_TEARS),
@@ -3274,7 +3275,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(URSARING, GUTS, FLAME_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, FACADE, CLOSE_COMBAT, CRUNCH),
         },
     },
-    [SPECIES_SLUGMA] =
+    // SLUGMA
     {
         {
             ISAAC_SET(SLUGMA, MAGMA_ARMOR, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, EMBER, ROCK_THROW, SMOG, INCINERATE),
@@ -3289,7 +3290,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SLUGMA, FLAME_BODY, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, LAVA_PLUME, RECOVER, WILL_O_WISP, STEALTH_ROCK),
         },
     },
-    [SPECIES_MAGCARGO] =
+    // MAGCARGO
     {
         {
             ISAAC_SET(MAGCARGO, MAGMA_ARMOR, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, EMBER, ROCK_THROW, SMOG, AMNESIA),
@@ -3304,7 +3305,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MAGCARGO, WEAK_ARMOR, WHITE_HERB, MODEST, 31, 4, 0, 0, 252, 252, 0, SHELL_SMASH, FIRE_BLAST, POWER_GEM, EARTH_POWER),
         },
     },
-    [SPECIES_SWINUB] =
+    // SWINUB
     {
         {
             ISAAC_SET(SWINUB, OBLIVIOUS, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, TACKLE, POWDER_SNOW, MUD_SLAP, ICE_SHARD),
@@ -3319,7 +3320,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SWINUB, THICK_FAT, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, ICICLE_CRASH, EARTHQUAKE, ICE_SHARD, STEALTH_ROCK),
         },
     },
-    [SPECIES_PILOSWINE] =
+    // PILOSWINE
     {
         {
             ISAAC_SET(PILOSWINE, OBLIVIOUS, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, POWDER_SNOW, MUD_SLAP, ICE_SHARD, TAKE_DOWN),
@@ -3334,7 +3335,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PILOSWINE, THICK_FAT, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, ICICLE_CRASH, EARTHQUAKE, ICE_SHARD, STEALTH_ROCK),
         },
     },
-    [SPECIES_CORSOLA] =
+    // CORSOLA
     {
         {
             ISAAC_SET(CORSOLA, HUSTLE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, TACKLE, BUBBLE_BEAM, ANCIENT_POWER, RECOVER),
@@ -3349,7 +3350,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CORSOLA, REGENERATOR, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, SCALD, STEALTH_ROCK, RECOVER, TOXIC),
         },
     },
-    [SPECIES_REMORAID] =
+    // REMORAID
     {
         {
             ISAAC_SET(REMORAID, HUSTLE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, WATER_PULSE, PSYBEAM, AURORA_BEAM),
@@ -3364,7 +3365,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(REMORAID, SNIPER, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, ICE_BEAM, FIRE_BLAST, PSYCHIC),
         },
     },
-    [SPECIES_OCTILLERY] =
+    // OCTILLERY
     {
         {
             ISAAC_SET(OCTILLERY, SUCTION_CUPS, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, OCTAZOOKA, WATER_GUN, PSYBEAM, AURORA_BEAM),
@@ -3379,7 +3380,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(OCTILLERY, SNIPER, SCOPE_LENS, MODEST, 31, 252, 0, 0, 0, 252, 4, HYDRO_PUMP, ICE_BEAM, FIRE_BLAST, SLUDGE_BOMB),
         },
     },
-    [SPECIES_DELIBIRD] =
+    // DELIBIRD
     {
         {
             ISAAC_SET(DELIBIRD, VITAL_SPIRIT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, PRESENT, ICE_SHARD, PECK, NONE),
@@ -3394,7 +3395,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DELIBIRD, HUSTLE, FOCUS_SASH, JOLLY, 31, 4, 252, 0, 252, 0, 0, ICE_SPINNER, BRAVE_BIRD, ICE_SHARD, RAPID_SPIN),
         },
     },
-    [SPECIES_MANTINE] =
+    // MANTINE
     {
         {
             ISAAC_SET(MANTINE, SWIFT_SWIM, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, BUBBLE_BEAM, WING_ATTACK, SUPERSONIC, TACKLE),
@@ -3409,7 +3410,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MANTINE, WATER_ABSORB, HEAVY_DUTY_BOOTS, CALM, 31, 252, 0, 4, 0, 0, 252, SCALD, HURRICANE, ROOST, DEFOG),
         },
     },
-    [SPECIES_SKARMORY] =
+    // SKARMORY
     {
         {
             ISAAC_SET(SKARMORY, KEEN_EYE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, PECK, AERIAL_ACE, METAL_CLAW, SWIFT),
@@ -3424,7 +3425,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SKARMORY, STURDY, ROCKY_HELMET, IMPISH, 31, 252, 0, 252, 0, 0, 4, BODY_PRESS, SPIKES, ROOST, WHIRLWIND),
         },
     },
-    [SPECIES_HOUNDOUR] =
+    // HOUNDOUR
     {
         {
             ISAAC_SET(HOUNDOUR, EARLY_BIRD, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, EMBER, BITE, INCINERATE, ROAR),
@@ -3439,7 +3440,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HOUNDOUR, FLASH_FIRE, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, NASTY_PLOT, FLAMETHROWER, DARK_PULSE, SLUDGE_BOMB),
         },
     },
-    [SPECIES_HOUNDOOM] =
+    // HOUNDOOM
     {
         {
             ISAAC_SET(HOUNDOOM, EARLY_BIRD, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, EMBER, BITE, ROAR, SMOG),
@@ -3454,7 +3455,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HOUNDOOM, FLASH_FIRE, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, NASTY_PLOT, FIRE_BLAST, DARK_PULSE, SLUDGE_BOMB),
         },
     },
-    [SPECIES_KINGDRA] =
+    // KINGDRA
     {
         {
             ISAAC_SET(KINGDRA, SWIFT_SWIM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, TWISTER, WATER_PULSE, AGILITY),
@@ -3469,7 +3470,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KINGDRA, SWIFT_SWIM, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, DRACO_METEOR, ICE_BEAM, FLIP_TURN),
         },
     },
-    [SPECIES_PHANPY] =
+    // PHANPY
     {
         {
             ISAAC_SET(PHANPY, PICKUP, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, TACKLE, BULLDOZE, ROLLOUT, FLAIL),
@@ -3484,7 +3485,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PHANPY, PICKUP, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, EARTHQUAKE, KNOCK_OFF, ICE_SHARD, STEALTH_ROCK),
         },
     },
-    [SPECIES_DONPHAN] =
+    // DONPHAN
     {
         {
             ISAAC_SET(DONPHAN, STURDY, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, HORN_ATTACK, ROLLOUT, BULLDOZE, MAGNITUDE),
@@ -3499,7 +3500,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DONPHAN, STURDY, LEFTOVERS, ADAMANT, 31, 252, 252, 4, 0, 0, 0, EARTHQUAKE, ICE_SPINNER, KNOCK_OFF, RAPID_SPIN),
         },
     },
-    [SPECIES_PORYGON2] =
+    // PORYGON2
     {
         {
             ISAAC_SET(PORYGON2, TRACE, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, PSYBEAM, TACKLE, AGILITY, SWIFT),
@@ -3514,7 +3515,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PORYGON2, TRACE, LEFTOVERS, CALM, 31, 252, 0, 128, 0, 0, 128, TRI_ATTACK, ICE_BEAM, RECOVER, THUNDER_WAVE),
         },
     },
-    [SPECIES_STANTLER] =
+    // STANTLER
     {
         {
             ISAAC_SET(STANTLER, INTIMIDATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, STOMP, HYPNOSIS, THIEF),
@@ -3529,7 +3530,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(STANTLER, INTIMIDATE, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, DOUBLE_EDGE, MEGAHORN, JUMP_KICK, EARTHQUAKE),
         },
     },
-    [SPECIES_SMEARGLE] =
+    // SMEARGLE
     {
         {
             ISAAC_SET(SMEARGLE, OWN_TEMPO, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, SKETCH, TACKLE, NONE, NONE),
@@ -3544,7 +3545,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SMEARGLE, OWN_TEMPO, FOCUS_SASH, JOLLY, 31, 252, 0, 4, 252, 0, 0, SPORE, STICKY_WEB, STEALTH_ROCK, WHIRLWIND),
         },
     },
-    [SPECIES_TYROGUE] =
+    // TYROGUE
     {
         {
             ISAAC_SET(TYROGUE, GUTS, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, FAKE_OUT, ROCK_SMASH, NONE),
@@ -3559,7 +3560,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TYROGUE, STEADFAST, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, HIGH_JUMP_KICK, FAKE_OUT, MACH_PUNCH, RAPID_SPIN),
         },
     },
-    [SPECIES_HITMONTOP] =
+    // HITMONTOP
     {
         {
             ISAAC_SET(HITMONTOP, INTIMIDATE, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, ROLLING_KICK, QUICK_ATTACK, REVENGE, PURSUIT),
@@ -3574,7 +3575,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HITMONTOP, INTIMIDATE, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, CLOSE_COMBAT, RAPID_SPIN, SUCKER_PUNCH, TRIPLE_AXEL),
         },
     },
-    [SPECIES_SMOOCHUM] =
+    // SMOOCHUM
     {
         {
             ISAAC_SET(SMOOCHUM, OBLIVIOUS, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, POUND, LICK, POWDER_SNOW, SWEET_KISS),
@@ -3589,7 +3590,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SMOOCHUM, FOREWARN, LEFTOVERS, TIMID, 31, 4, 0, 0, 252, 252, 0, LOVELY_KISS, NASTY_PLOT, ICE_BEAM, PSYSHOCK),
         },
     },
-    [SPECIES_ELEKID] =
+    // ELEKID
     {
         {
             ISAAC_SET(ELEKID, STATIC, NONE, HARDY, 15, 0, 40, 0, 84, 40, 0, THUNDER_SHOCK, QUICK_ATTACK, SHOCK_WAVE, LOW_KICK),
@@ -3604,7 +3605,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ELEKID, VITAL_SPIRIT, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, THUNDERBOLT, VOLT_SWITCH, PSYCHIC, FOCUS_BLAST),
         },
     },
-    [SPECIES_MAGBY] =
+    // MAGBY
     {
         {
             ISAAC_SET(MAGBY, FLAME_BODY, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, EMBER, SMOG, INCINERATE, SMOKESCREEN),
@@ -3619,7 +3620,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MAGBY, FLAME_BODY, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, FLAMETHROWER, PSYCHIC, CLEAR_SMOG, WILL_O_WISP),
         },
     },
-    [SPECIES_MILTANK] =
+    // MILTANK
     {
         {
             ISAAC_SET(MILTANK, THICK_FAT, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, TACKLE, STOMP, ROUND, MILK_DRINK),
@@ -3634,7 +3635,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MILTANK, THICK_FAT, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, BODY_SLAM, MILK_DRINK, STEALTH_ROCK, HEAL_BELL),
         },
     },
-    [SPECIES_BLISSEY] =
+    // BLISSEY
     {
         {
             ISAAC_SET(BLISSEY, NATURAL_CURE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POUND, DOUBLE_SLAP, SOFT_BOILED, SING),
@@ -3649,7 +3650,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BLISSEY, NATURAL_CURE, HEAVY_DUTY_BOOTS, BOLD, 31, 252, 0, 252, 0, 0, 4, SEISMIC_TOSS, SOFT_BOILED, STEALTH_ROCK, CALM_MIND),
         },
     },
-    [SPECIES_RAIKOU] =
+    // RAIKOU
     {
         {
             ISAAC_SET(RAIKOU, PRESSURE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, THUNDER_SHOCK, BITE, ROAR, QUICK_ATTACK),
@@ -3664,7 +3665,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(RAIKOU, INNER_FOCUS, LEFTOVERS, TIMID, 31, 4, 0, 0, 252, 252, 0, CALM_MIND, THUNDERBOLT, SCALD, SUBSTITUTE),
         },
     },
-    [SPECIES_ENTEI] =
+    // ENTEI
     {
         {
             ISAAC_SET(ENTEI, PRESSURE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, EMBER, BITE, STOMP, ROAR),
@@ -3679,7 +3680,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ENTEI, INNER_FOCUS, CHOICE_BAND, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SACRED_FIRE, EXTREME_SPEED, STONE_EDGE, STOMPING_TANTRUM),
         },
     },
-    [SPECIES_SUICUNE] =
+    // SUICUNE
     {
         {
             ISAAC_SET(SUICUNE, PRESSURE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, BUBBLE_BEAM, BITE, GUST, WATER_PULSE),
@@ -3694,7 +3695,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SUICUNE, INNER_FOCUS, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, CALM_MIND, SCALD, REST, SLEEP_TALK),
         },
     },
-    [SPECIES_LARVITAR] =
+    // LARVITAR
     {
         {
             ISAAC_SET(LARVITAR, GUTS, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, BITE, ROCK_THROW, BULLDOZE, SANDSTORM),
@@ -3709,7 +3710,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LARVITAR, GUTS, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DRAGON_DANCE, STONE_EDGE, EARTHQUAKE, CRUNCH),
         },
     },
-    [SPECIES_PUPITAR] =
+    // PUPITAR
     {
         {
             ISAAC_SET(PUPITAR, SHED_SKIN, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, BITE, ROCK_THROW, SCREECH, SANDSTORM),
@@ -3724,7 +3725,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PUPITAR, SHED_SKIN, LEFTOVERS, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DRAGON_DANCE, STONE_EDGE, EARTHQUAKE, STEALTH_ROCK),
         },
     },
-    [SPECIES_TYRANITAR] =
+    // TYRANITAR
     {
         {
             ISAAC_SET(TYRANITAR, SAND_STREAM, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, BITE, ROCK_SLIDE, SCREECH, THRASH),
@@ -3739,7 +3740,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TYRANITAR, SAND_STREAM, LEFTOVERS, CAREFUL, 31, 252, 0, 4, 0, 0, 252, STONE_EDGE, KNOCK_OFF, EARTHQUAKE, STEALTH_ROCK),
         },
     },
-    [SPECIES_LUGIA] =
+    // LUGIA
     {
         {
             ISAAC_SET(LUGIA, PRESSURE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, GUST, EXTRASENSORY, WHIRLWIND, SAFEGUARD),
@@ -3754,7 +3755,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LUGIA, MULTISCALE, HEAVY_DUTY_BOOTS, BOLD, 31, 252, 0, 252, 0, 0, 4, CALM_MIND, AEROBLAST, ROOST, EARTH_POWER),
         },
     },
-    [SPECIES_HO_OH] =
+    // HO_OH
     {
         {
             ISAAC_SET(HO_OH, PRESSURE, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, GUST, EXTRASENSORY, SACRED_FIRE, SAFEGUARD),
@@ -3769,7 +3770,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HO_OH, REGENERATOR, HEAVY_DUTY_BOOTS, ADAMANT, 31, 252, 252, 4, 0, 0, 0, SACRED_FIRE, BRAVE_BIRD, EARTHQUAKE, RECOVER),
         },
     },
-    [SPECIES_CELEBI] =
+    // CELEBI
     {
         {
             ISAAC_SET(CELEBI, NATURAL_CURE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, CONFUSION, MAGICAL_LEAF, HEAL_BELL, ANCIENT_POWER),
@@ -3784,7 +3785,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CELEBI, NATURAL_CURE, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, NASTY_PLOT, LEAF_STORM, PSYCHIC, EARTH_POWER),
         },
     },
-    [SPECIES_TREECKO] =
+    // TREECKO
     {
         {
             ISAAC_SET(TREECKO, OVERGROW, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, POUND, ABSORB, QUICK_ATTACK, MAGICAL_LEAF),
@@ -3799,7 +3800,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TREECKO, UNBURDEN, LEFTOVERS, TIMID, 31, 4, 0, 0, 252, 252, 0, ENERGY_BALL, DRAGON_BREATH, GRASS_KNOT, SYNTHESIS),
         },
     },
-    [SPECIES_GROVYLE] =
+    // GROVYLE
     {
         {
             ISAAC_SET(GROVYLE, OVERGROW, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, LEAF_BLADE, QUICK_ATTACK, FURY_CUTTER, PURSUIT),
@@ -3814,7 +3815,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GROVYLE, UNBURDEN, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, LEAF_STORM, ENERGY_BALL, DRAGON_BREATH, GIGA_DRAIN),
         },
     },
-    [SPECIES_SCEPTILE] =
+    // SCEPTILE
     {
         {
             ISAAC_SET(SCEPTILE, OVERGROW, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, LEAF_BLADE, QUICK_ATTACK, FURY_CUTTER, SCREECH),
@@ -3829,7 +3830,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SCEPTILE, OVERGROW, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, LEAF_STORM, DRAGON_PULSE, FOCUS_BLAST, GIGA_DRAIN),
         },
     },
-    [SPECIES_TORCHIC] =
+    // TORCHIC
     {
         {
             ISAAC_SET(TORCHIC, BLAZE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, EMBER, FLAME_CHARGE, SAND_ATTACK),
@@ -3844,7 +3845,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TORCHIC, SPEED_BOOST, LEFTOVERS, ADAMANT, 31, 4, 252, 0, 252, 0, 0, PROTECT, FLARE_BLITZ, LOW_KICK, SWORDS_DANCE),
         },
     },
-    [SPECIES_COMBUSKEN] =
+    // COMBUSKEN
     {
         {
             ISAAC_SET(COMBUSKEN, BLAZE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, EMBER, DOUBLE_KICK, PECK, BULK_UP),
@@ -3859,7 +3860,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(COMBUSKEN, SPEED_BOOST, LEFTOVERS, ADAMANT, 31, 4, 252, 0, 252, 0, 0, PROTECT, FLARE_BLITZ, CLOSE_COMBAT, SWORDS_DANCE),
         },
     },
-    [SPECIES_BLAZIKEN] =
+    // BLAZIKEN
     {
         {
             ISAAC_SET(BLAZIKEN, BLAZE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, FIRE_PUNCH, DOUBLE_KICK, PECK, BULK_UP),
@@ -3874,7 +3875,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BLAZIKEN, SPEED_BOOST, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, FLARE_BLITZ, CLOSE_COMBAT, KNOCK_OFF),
         },
     },
-    [SPECIES_MUDKIP] =
+    // MUDKIP
     {
         {
             ISAAC_SET(MUDKIP, TORRENT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, WATER_GUN, TACKLE, MUD_SLAP, BITE),
@@ -3889,7 +3890,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MUDKIP, DAMP, LEFTOVERS, RELAXED, 31, 252, 0, 252, 0, 0, 4, WATERFALL, EARTH_POWER, ROAR, PROTECT),
         },
     },
-    [SPECIES_MARSHTOMP] =
+    // MARSHTOMP
     {
         {
             ISAAC_SET(MARSHTOMP, TORRENT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, WATER_GUN, MUD_SHOT, TAKE_DOWN, PROTECT),
@@ -3904,7 +3905,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MARSHTOMP, DAMP, LEFTOVERS, RELAXED, 31, 252, 0, 252, 0, 0, 4, WATERFALL, EARTHQUAKE, STEALTH_ROCK, ROAR),
         },
     },
-    [SPECIES_SWAMPERT] =
+    // SWAMPERT
     {
         {
             ISAAC_SET(SWAMPERT, TORRENT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, WATER_GUN, MUD_SHOT, TAKE_DOWN, PROTECT),
@@ -3919,7 +3920,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SWAMPERT, TORRENT, LEFTOVERS, RELAXED, 31, 252, 0, 252, 0, 0, 4, FLIP_TURN, EARTHQUAKE, STEALTH_ROCK, KNOCK_OFF),
         },
     },
-    [SPECIES_POOCHYENA] =
+    // POOCHYENA
     {
         {
             ISAAC_SET(POOCHYENA, RUN_AWAY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, HOWL, BITE, THIEF),
@@ -3934,7 +3935,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(POOCHYENA, QUICK_FEET, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, CRUNCH, SUCKER_PUNCH, PLAY_ROUGH, TOXIC),
         },
     },
-    [SPECIES_MIGHTYENA] =
+    // MIGHTYENA
     {
         {
             ISAAC_SET(MIGHTYENA, INTIMIDATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BITE, HOWL, ROAR, TAKE_DOWN),
@@ -3949,7 +3950,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MIGHTYENA, MOXIE, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, CRUNCH, SUCKER_PUNCH, PLAY_ROUGH, THROAT_CHOP),
         },
     },
-    [SPECIES_ZIGZAGOON] =
+    // ZIGZAGOON
     {
         {
             ISAAC_SET(ZIGZAGOON, PICKUP, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, COVET, TAIL_WHIP, HEADBUTT),
@@ -3964,7 +3965,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ZIGZAGOON, GLUTTONY, SITRUS_BERRY, JOLLY, 31, 4, 252, 0, 252, 0, 0, BELLY_DRUM, EXTREME_SPEED, SEED_BOMB, GUNK_SHOT),
         },
     },
-    [SPECIES_LINOONE] =
+    // LINOONE
     {
         {
             ISAAC_SET(LINOONE, PICKUP, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, HEADBUTT, FURY_SWIPES, COVET, SAND_ATTACK),
@@ -3979,7 +3980,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LINOONE, GLUTTONY, SITRUS_BERRY, JOLLY, 31, 4, 252, 0, 252, 0, 0, BELLY_DRUM, EXTREME_SPEED, SEED_BOMB, SHADOW_CLAW),
         },
     },
-    [SPECIES_WURMPLE] =
+    // WURMPLE
     {
         {
             ISAAC_SET(WURMPLE, SHIELD_DUST, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, BUG_BITE, POISON_STING, NONE),
@@ -3994,7 +3995,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WURMPLE, SHIELD_DUST, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, BUG_BITE, POISON_STING, ELECTROWEB, STRING_SHOT),
         },
     },
-    [SPECIES_SILCOON] =
+    // SILCOON
     {
         {
             ISAAC_SET(SILCOON, SHED_SKIN, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, BUG_BITE, ELECTROWEB, NONE, NONE),
@@ -4009,7 +4010,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SILCOON, SHED_SKIN, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, BUG_BITE, IRON_DEFENSE, ELECTROWEB, STRING_SHOT),
         },
     },
-    [SPECIES_BEAUTIFLY] =
+    // BEAUTIFLY
     {
         {
             ISAAC_SET(BEAUTIFLY, SWARM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, GUST, ABSORB, STUN_SPORE, MORNING_SUN),
@@ -4024,7 +4025,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BEAUTIFLY, RIVALRY, HEAVY_DUTY_BOOTS, TIMID, 31, 4, 0, 0, 252, 252, 0, QUIVER_DANCE, BUG_BUZZ, AIR_SLASH, GIGA_DRAIN),
         },
     },
-    [SPECIES_CASCOON] =
+    // CASCOON
     {
         {
             ISAAC_SET(CASCOON, SHED_SKIN, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, BUG_BITE, ELECTROWEB, NONE, NONE),
@@ -4039,7 +4040,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CASCOON, SHED_SKIN, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, BUG_BITE, IRON_DEFENSE, ELECTROWEB, STRING_SHOT),
         },
     },
-    [SPECIES_DUSTOX] =
+    // DUSTOX
     {
         {
             ISAAC_SET(DUSTOX, SHIELD_DUST, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, CONFUSION, SILVER_WIND, POISON_POWDER, MOONLIGHT),
@@ -4054,7 +4055,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DUSTOX, SHIELD_DUST, HEAVY_DUTY_BOOTS, CALM, 31, 252, 0, 4, 0, 0, 252, QUIVER_DANCE, BUG_BUZZ, SLUDGE_BOMB, ROOST),
         },
     },
-    [SPECIES_LOTAD] =
+    // LOTAD
     {
         {
             ISAAC_SET(LOTAD, SWIFT_SWIM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, ABSORB, WATER_GUN, MAGICAL_LEAF, MIST),
@@ -4069,7 +4070,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LOTAD, SWIFT_SWIM, LEFTOVERS, MODEST, 31, 4, 0, 0, 252, 252, 0, SCALD, GIGA_DRAIN, ICE_BEAM, LEECH_SEED),
         },
     },
-    [SPECIES_LOMBRE] =
+    // LOMBRE
     {
         {
             ISAAC_SET(LOMBRE, SWIFT_SWIM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, ABSORB, FURY_SWIPES, FAKE_OUT),
@@ -4084,7 +4085,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LOMBRE, SWIFT_SWIM, LEFTOVERS, MODEST, 31, 4, 0, 0, 252, 252, 0, SCALD, GIGA_DRAIN, ICE_BEAM, LEECH_SEED),
         },
     },
-    [SPECIES_LUDICOLO] =
+    // LUDICOLO
     {
         {
             ISAAC_SET(LUDICOLO, SWIFT_SWIM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, MEGA_DRAIN, FAKE_OUT, MAGICAL_LEAF),
@@ -4099,7 +4100,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LUDICOLO, SWIFT_SWIM, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, HYDRO_PUMP, GIGA_DRAIN, ICE_BEAM, FOCUS_BLAST),
         },
     },
-    [SPECIES_SEEDOT] =
+    // SEEDOT
     {
         {
             ISAAC_SET(SEEDOT, CHLOROPHYLL, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BIDE, GRASSY_GLIDE, GROWTH, BULLET_SEED),
@@ -4114,7 +4115,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SEEDOT, CHLOROPHYLL, LEFTOVERS, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SEED_BOMB, SUCKER_PUNCH, EXPLOSION, LEECH_SEED),
         },
     },
-    [SPECIES_NUZLEAF] =
+    // NUZLEAF
     {
         {
             ISAAC_SET(NUZLEAF, CHLOROPHYLL, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, RAZOR_LEAF, POUND, FAKE_OUT, TORMENT),
@@ -4129,7 +4130,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NUZLEAF, CHLOROPHYLL, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, LEAF_BLADE, KNOCK_OFF, SUCKER_PUNCH),
         },
     },
-    [SPECIES_SHIFTRY] =
+    // SHIFTRY
     {
         {
             ISAAC_SET(SHIFTRY, CHLOROPHYLL, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, RAZOR_LEAF, FAKE_OUT, POUND, TORMENT),
@@ -4144,7 +4145,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SHIFTRY, WIND_RIDER, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, LEAF_BLADE, KNOCK_OFF, SUCKER_PUNCH),
         },
     },
-    [SPECIES_TAILLOW] =
+    // TAILLOW
     {
         {
             ISAAC_SET(TAILLOW, GUTS, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, PECK, AERIAL_ACE, QUICK_ATTACK, WING_ATTACK),
@@ -4159,7 +4160,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TAILLOW, GUTS, FLAME_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, FACADE, BRAVE_BIRD, QUICK_ATTACK, U_TURN),
         },
     },
-    [SPECIES_SWELLOW] =
+    // SWELLOW
     {
         {
             ISAAC_SET(SWELLOW, GUTS, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, WING_ATTACK, QUICK_ATTACK, AERIAL_ACE, ENDEAVOR),
@@ -4174,7 +4175,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SWELLOW, GUTS, FLAME_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, FACADE, BRAVE_BIRD, QUICK_ATTACK, U_TURN),
         },
     },
-    [SPECIES_WINGULL] =
+    // WINGULL
     {
         {
             ISAAC_SET(WINGULL, KEEN_EYE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, WATER_GUN, WATER_PULSE, SUPERSONIC, WING_ATTACK),
@@ -4189,7 +4190,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WINGULL, RAIN_DISH, LEFTOVERS, TIMID, 31, 4, 0, 0, 252, 252, 0, SCALD, AIR_SLASH, ROOST, U_TURN),
         },
     },
-    [SPECIES_PELIPPER] =
+    // PELIPPER
     {
         {
             ISAAC_SET(PELIPPER, KEEN_EYE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, WATER_GUN, WING_ATTACK, SUPERSONIC, STOCKPILE),
@@ -4204,7 +4205,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PELIPPER, DRIZZLE, DAMP_ROCK, BOLD, 31, 252, 0, 252, 0, 0, 4, SCALD, HURRICANE, ROOST, U_TURN),
         },
     },
-    [SPECIES_RALTS] =
+    // RALTS
     {
         {
             ISAAC_SET(RALTS, SYNCHRONIZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, DRAINING_KISS, DISARMING_VOICE, DOUBLE_TEAM),
@@ -4219,7 +4220,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(RALTS, TRACE, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, PSYCHIC, DAZZLING_GLEAM, CALM_MIND, SHADOW_BALL),
         },
     },
-    [SPECIES_KIRLIA] =
+    // KIRLIA
     {
         {
             ISAAC_SET(KIRLIA, SYNCHRONIZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, DISARMING_VOICE, DRAINING_KISS, TELEPORT),
@@ -4234,7 +4235,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KIRLIA, TRACE, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, CALM_MIND, PSYCHIC, DAZZLING_GLEAM, SHADOW_BALL),
         },
     },
-    [SPECIES_GARDEVOIR] =
+    // GARDEVOIR
     {
         {
             ISAAC_SET(GARDEVOIR, SYNCHRONIZE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, DISARMING_VOICE, DRAINING_KISS, CALM_MIND),
@@ -4249,7 +4250,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GARDEVOIR, TRACE, CHOICE_SCARF, TIMID, 31, 4, 0, 0, 252, 252, 0, MOONBLAST, PSYCHIC, FOCUS_BLAST, TRICK),
         },
     },
-    [SPECIES_SURSKIT] =
+    // SURSKIT
     {
         {
             ISAAC_SET(SURSKIT, SWIFT_SWIM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, BUBBLE, QUICK_ATTACK, STRUGGLE_BUG, WATER_SPORT),
@@ -4264,7 +4265,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SURSKIT, SWIFT_SWIM, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, STICKY_WEB, BUG_BUZZ, SCALD, ICE_BEAM),
         },
     },
-    [SPECIES_MASQUERAIN] =
+    // MASQUERAIN
     {
         {
             ISAAC_SET(MASQUERAIN, INTIMIDATE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, GUST, SCARY_FACE, STUN_SPORE, BUBBLE),
@@ -4279,7 +4280,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MASQUERAIN, INTIMIDATE, HEAVY_DUTY_BOOTS, TIMID, 31, 4, 0, 0, 252, 252, 0, QUIVER_DANCE, BUG_BUZZ, AIR_SLASH, HYDRO_PUMP),
         },
     },
-    [SPECIES_SHROOMISH] =
+    // SHROOMISH
     {
         {
             ISAAC_SET(SHROOMISH, EFFECT_SPORE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, ABSORB, TACKLE, STUN_SPORE, LEECH_SEED),
@@ -4294,7 +4295,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SHROOMISH, POISON_HEAL, TOXIC_ORB, IMPISH, 31, 252, 0, 252, 0, 0, 4, SPORE, LEECH_SEED, SEED_BOMB, PROTECT),
         },
     },
-    [SPECIES_BRELOOM] =
+    // BRELOOM
     {
         {
             ISAAC_SET(BRELOOM, EFFECT_SPORE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, MEGA_DRAIN, MACH_PUNCH, STUN_SPORE, HEADBUTT),
@@ -4309,7 +4310,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BRELOOM, TECHNICIAN, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SPORE, BULLET_SEED, MACH_PUNCH, ROCK_TOMB),
         },
     },
-    [SPECIES_SLAKOTH] =
+    // SLAKOTH
     {
         {
             ISAAC_SET(SLAKOTH, TRUANT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, SCRATCH, YAWN, ENCORE, SLACK_OFF),
@@ -4324,7 +4325,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SLAKOTH, TRUANT, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, BODY_SLAM, SLACK_OFF, YAWN, THROAT_CHOP),
         },
     },
-    [SPECIES_VIGOROTH] =
+    // VIGOROTH
     {
         {
             ISAAC_SET(VIGOROTH, VITAL_SPIRIT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, FURY_SWIPES, ENCORE, UPROAR),
@@ -4339,7 +4340,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VIGOROTH, VITAL_SPIRIT, LEFTOVERS, JOLLY, 31, 4, 252, 0, 252, 0, 0, BULK_UP, BODY_SLAM, KNOCK_OFF, SLACK_OFF),
         },
     },
-    [SPECIES_SLAKING] =
+    // SLAKING
     {
         {
             ISAAC_SET(SLAKING, TRUANT, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SLASH, YAWN, ENCORE, SLACK_OFF),
@@ -4354,7 +4355,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SLAKING, TRUANT, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, GIGA_IMPACT, EARTHQUAKE, KNOCK_OFF, FIRE_PUNCH),
         },
     },
-    [SPECIES_NINCADA] =
+    // NINCADA
     {
         {
             ISAAC_SET(NINCADA, COMPOUND_EYES, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, LEECH_LIFE, BUG_BITE, SAND_ATTACK),
@@ -4369,7 +4370,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NINCADA, COMPOUND_EYES, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, LEECH_LIFE, DIG, NIGHT_SLASH, AERIAL_ACE),
         },
     },
-    [SPECIES_NINJASK] =
+    // NINJASK
     {
         {
             ISAAC_SET(NINJASK, SPEED_BOOST, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, FURY_CUTTER, LEECH_LIFE, AERIAL_ACE, SCREECH),
@@ -4384,7 +4385,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NINJASK, SPEED_BOOST, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, LEECH_LIFE, DUAL_WINGBEAT, AERIAL_ACE),
         },
     },
-    [SPECIES_SHEDINJA] =
+    // SHEDINJA
     {
         {
             ISAAC_SET(SHEDINJA, WONDER_GUARD, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, LEECH_LIFE, SHADOW_SNEAK, GRUDGE, NONE),
@@ -4399,7 +4400,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SHEDINJA, WONDER_GUARD, FOCUS_SASH, ADAMANT, 31, 4, 252, 0, 252, 0, 0, POLTERGEIST, X_SCISSOR, SHADOW_SNEAK, WILL_O_WISP),
         },
     },
-    [SPECIES_WHISMUR] =
+    // WHISMUR
     {
         {
             ISAAC_SET(WHISMUR, SOUNDPROOF, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, POUND, UPROAR, ASTONISH, SUPERSONIC),
@@ -4414,7 +4415,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WHISMUR, SOUNDPROOF, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, HYPER_VOICE, FIRE_BLAST, ICE_BEAM, SHADOW_BALL),
         },
     },
-    [SPECIES_LOUDRED] =
+    // LOUDRED
     {
         {
             ISAAC_SET(LOUDRED, SOUNDPROOF, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, POUND, UPROAR, STOMP, SUPERSONIC),
@@ -4429,7 +4430,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LOUDRED, SOUNDPROOF, LIFE_ORB, MODEST, 31, 4, 0, 0, 252, 252, 0, HYPER_VOICE, FIRE_BLAST, ICE_BEAM, SHADOW_BALL),
         },
     },
-    [SPECIES_EXPLOUD] =
+    // EXPLOUD
     {
         {
             ISAAC_SET(EXPLOUD, SOUNDPROOF, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, UPROAR, STOMP, SUPERSONIC, CRUNCH),
@@ -4444,7 +4445,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(EXPLOUD, SCRAPPY, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, BOOMBURST, FIRE_BLAST, FOCUS_BLAST, SURF),
         },
     },
-    [SPECIES_MAKUHITA] =
+    // MAKUHITA
     {
         {
             ISAAC_SET(MAKUHITA, THICK_FAT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, TACKLE, ARM_THRUST, FAKE_OUT, REVENGE),
@@ -4459,7 +4460,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MAKUHITA, THICK_FAT, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, CLOSE_COMBAT, KNOCK_OFF, BULLET_PUNCH, FAKE_OUT),
         },
     },
-    [SPECIES_HARIYAMA] =
+    // HARIYAMA
     {
         {
             ISAAC_SET(HARIYAMA, THICK_FAT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, ARM_THRUST, FAKE_OUT, VITAL_THROW, REVENGE),
@@ -4474,7 +4475,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HARIYAMA, THICK_FAT, ASSAULT_VEST, ADAMANT, 31, 252, 252, 4, 0, 0, 0, CLOSE_COMBAT, KNOCK_OFF, BULLET_PUNCH, HEAVY_SLAM),
         },
     },
-    [SPECIES_AZURILL] =
+    // AZURILL
     {
         {
             ISAAC_SET(AZURILL, THICK_FAT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, COVET, WATER_GUN, BRUTAL_SWING, TAIL_WHIP),
@@ -4489,7 +4490,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(AZURILL, HUGE_POWER, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, BELLY_DRUM, AQUA_JET, RETURN, KNOCK_OFF),
         },
     },
-    [SPECIES_NOSEPASS] =
+    // NOSEPASS
     {
         {
             ISAAC_SET(NOSEPASS, STURDY, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, TACKLE, ANCIENT_POWER, ROCK_THROW, BLOCK),
@@ -4504,7 +4505,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NOSEPASS, STURDY, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, POWER_GEM, VOLT_SWITCH, STEALTH_ROCK, THUNDER_WAVE),
         },
     },
-    [SPECIES_SKITTY] =
+    // SKITTY
     {
         {
             ISAAC_SET(SKITTY, CUTE_CHARM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, COVET, ATTRACT, SING),
@@ -4519,7 +4520,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SKITTY, WONDER_SKIN, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, FAKE_OUT, DOUBLE_EDGE, SUCKER_PUNCH, THUNDER_WAVE),
         },
     },
-    [SPECIES_DELCATTY] =
+    // DELCATTY
     {
         {
             ISAAC_SET(DELCATTY, CUTE_CHARM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, DOUBLE_SLAP, SING, ATTRACT, FAKE_OUT),
@@ -4534,7 +4535,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DELCATTY, WONDER_SKIN, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, FAKE_OUT, DOUBLE_EDGE, SUCKER_PUNCH, WILD_CHARGE),
         },
     },
-    [SPECIES_SABLEYE] =
+    // SABLEYE
     {
         {
             ISAAC_SET(SABLEYE, KEEN_EYE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, SCRATCH, THIEF, NIGHT_SHADE, ASTONISH),
@@ -4549,7 +4550,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SABLEYE, PRANKSTER, LEFTOVERS, CAREFUL, 31, 252, 0, 4, 0, 0, 252, KNOCK_OFF, WILL_O_WISP, RECOVER, FOUL_PLAY),
         },
     },
-    [SPECIES_MAWILE] =
+    // MAWILE
     {
         {
             ISAAC_SET(MAWILE, HYPER_CUTTER, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, BITE, DRAINING_KISS, FAKE_TEARS, IRON_DEFENSE),
@@ -4564,7 +4565,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MAWILE, INTIMIDATE, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, SWORDS_DANCE, PLAY_ROUGH, IRON_HEAD, SUCKER_PUNCH),
         },
     },
-    [SPECIES_ARON] =
+    // ARON
     {
         {
             ISAAC_SET(ARON, STURDY, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, TACKLE, ROCK_TOMB, METAL_CLAW, HEADBUTT),
@@ -4579,7 +4580,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ARON, ROCK_HEAD, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, HEAD_SMASH, IRON_HEAD, EARTHQUAKE, STEALTH_ROCK),
         },
     },
-    [SPECIES_LAIRON] =
+    // LAIRON
     {
         {
             ISAAC_SET(LAIRON, STURDY, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, METAL_CLAW, HEADBUTT, ROCK_TOMB, IRON_DEFENSE),
@@ -4594,7 +4595,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LAIRON, ROCK_HEAD, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, HEAD_SMASH, IRON_HEAD, EARTHQUAKE, STEALTH_ROCK),
         },
     },
-    [SPECIES_AGGRON] =
+    // AGGRON
     {
         {
             ISAAC_SET(AGGRON, STURDY, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, METAL_CLAW, HEADBUTT, ROCK_TOMB, IRON_DEFENSE),
@@ -4609,7 +4610,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(AGGRON, ROCK_HEAD, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, HEAD_SMASH, HEAVY_SLAM, EARTHQUAKE, STEALTH_ROCK),
         },
     },
-    [SPECIES_MEDITITE] =
+    // MEDITITE
     {
         {
             ISAAC_SET(MEDITITE, PURE_POWER, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, CONFUSION, ROCK_SMASH, DETECT, FORCE_PALM),
@@ -4624,7 +4625,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MEDITITE, PURE_POWER, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, HIGH_JUMP_KICK, ZEN_HEADBUTT, BULLET_PUNCH, THUNDER_PUNCH),
         },
     },
-    [SPECIES_MEDICHAM] =
+    // MEDICHAM
     {
         {
             ISAAC_SET(MEDICHAM, PURE_POWER, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, CONFUSION, FORCE_PALM, DETECT, ROCK_SMASH),
@@ -4639,7 +4640,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MEDICHAM, PURE_POWER, CHOICE_SCARF, JOLLY, 31, 4, 252, 0, 252, 0, 0, HIGH_JUMP_KICK, ZEN_HEADBUTT, ICE_PUNCH, THUNDER_PUNCH),
         },
     },
-    [SPECIES_ELECTRIKE] =
+    // ELECTRIKE
     {
         {
             ISAAC_SET(ELECTRIKE, STATIC, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, TACKLE, THUNDER_WAVE, SHOCK_WAVE, SPARK),
@@ -4654,7 +4655,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ELECTRIKE, LIGHTNING_ROD, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, THUNDERBOLT, FLAMETHROWER, VOLT_SWITCH, SWITCHEROO),
         },
     },
-    [SPECIES_MANECTRIC] =
+    // MANECTRIC
     {
         {
             ISAAC_SET(MANECTRIC, STATIC, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, SPARK, QUICK_ATTACK, HOWL, THUNDER_WAVE),
@@ -4669,7 +4670,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MANECTRIC, LIGHTNING_ROD, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, THUNDERBOLT, OVERHEAT, VOLT_SWITCH, SIGNAL_BEAM),
         },
     },
-    [SPECIES_PLUSLE] =
+    // PLUSLE
     {
         {
             ISAAC_SET(PLUSLE, PLUS, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, SPARK, QUICK_ATTACK, THUNDER_WAVE, HELPING_HAND),
@@ -4684,7 +4685,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(PLUSLE, LIGHTNING_ROD, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, NASTY_PLOT, THUNDERBOLT, GRASS_KNOT, ALLURING_VOICE),
         },
     },
-    [SPECIES_MINUN] =
+    // MINUN
     {
         {
             ISAAC_SET(MINUN, MINUS, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, SPARK, QUICK_ATTACK, THUNDER_WAVE, HELPING_HAND),
@@ -4699,7 +4700,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MINUN, VOLT_ABSORB, LIFE_ORB, TIMID, 31, 4, 0, 0, 252, 252, 0, NASTY_PLOT, THUNDERBOLT, GRASS_KNOT, ALLURING_VOICE),
         },
     },
-    [SPECIES_VOLBEAT] =
+    // VOLBEAT
     {
         {
             ISAAC_SET(VOLBEAT, ILLUMINATE, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, SILVER_WIND, CONFUSE_RAY, QUICK_ATTACK, MOONLIGHT),
@@ -4714,7 +4715,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VOLBEAT, PRANKSTER, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, THUNDER_WAVE, ENCORE, U_TURN, ROOST),
         },
     },
-    [SPECIES_ILLUMISE] =
+    // ILLUMISE
     {
         {
             ISAAC_SET(ILLUMISE, OBLIVIOUS, NONE, HARDY, 15, 84, 0, 0, 84, 0, 0, TACKLE, SILVER_WIND, BUG_BITE, MOONLIGHT),
@@ -4729,7 +4730,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ILLUMISE, PRANKSTER, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, THUNDER_WAVE, ENCORE, U_TURN, ROOST),
         },
     },
-    [SPECIES_ROSELIA] =
+    // ROSELIA
     {
         {
             ISAAC_SET(ROSELIA, NATURAL_CURE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, ABSORB, POISON_STING, STUN_SPORE, MAGICAL_LEAF),
@@ -4744,7 +4745,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ROSELIA, NATURAL_CURE, BLACK_SLUDGE, BOLD, 31, 252, 0, 252, 0, 0, 4, GIGA_DRAIN, SLUDGE_BOMB, SPIKES, SYNTHESIS),
         },
     },
-    [SPECIES_GULPIN] =
+    // GULPIN
     {
         {
             ISAAC_SET(GULPIN, LIQUID_OOZE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, POUND, SLUDGE, YAWN, AMNESIA),
@@ -4759,7 +4760,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GULPIN, LIQUID_OOZE, BLACK_SLUDGE, BOLD, 31, 252, 0, 252, 0, 0, 4, SLUDGE_BOMB, TOXIC_SPIKES, ENCORE, PAIN_SPLIT),
         },
     },
-    [SPECIES_SWALOT] =
+    // SWALOT
     {
         {
             ISAAC_SET(SWALOT, LIQUID_OOZE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, SLUDGE, YAWN, BODY_SLAM, AMNESIA),
@@ -4774,7 +4775,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SWALOT, LIQUID_OOZE, BLACK_SLUDGE, BOLD, 31, 252, 0, 252, 0, 0, 4, SLUDGE_BOMB, TOXIC_SPIKES, ENCORE, PAIN_SPLIT),
         },
     },
-    [SPECIES_CARVANHA] =
+    // CARVANHA
     {
         {
             ISAAC_SET(CARVANHA, ROUGH_SKIN, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BITE, RAGE, FLIP_TURN, SCREECH),
@@ -4789,7 +4790,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CARVANHA, SPEED_BOOST, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, PROTECT, LIQUIDATION, CRUNCH, ICE_FANG),
         },
     },
-    [SPECIES_SHARPEDO] =
+    // SHARPEDO
     {
         {
             ISAAC_SET(SHARPEDO, ROUGH_SKIN, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BITE, RAGE, SCREECH, SCARY_FACE),
@@ -4804,7 +4805,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SHARPEDO, SPEED_BOOST, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, PROTECT, LIQUIDATION, CRUNCH, CLOSE_COMBAT),
         },
     },
-    [SPECIES_WAILMER] =
+    // WAILMER
     {
         {
             ISAAC_SET(WAILMER, WATER_VEIL, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, WATER_PULSE, GROWL, WATER_GUN, ROLLOUT),
@@ -4819,7 +4820,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WAILMER, WATER_VEIL, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, SCALD, ICE_BEAM, ROAR, SOAK),
         },
     },
-    [SPECIES_WAILORD] =
+    // WAILORD
     {
         {
             ISAAC_SET(WAILORD, WATER_VEIL, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, WATER_GUN, ROLLOUT, ASTONISH, WATER_PULSE),
@@ -4834,7 +4835,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WAILORD, PRESSURE, CHOICE_SPECS, MODEST, 31, 252, 0, 0, 0, 252, 4, WATER_SPOUT, HYDRO_PUMP, ICE_BEAM, HYPER_VOICE),
         },
     },
-    [SPECIES_NUMEL] =
+    // NUMEL
     {
         {
             ISAAC_SET(NUMEL, OBLIVIOUS, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, TACKLE, EMBER, INCINERATE, MAGNITUDE),
@@ -4849,7 +4850,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(NUMEL, SIMPLE, LEFTOVERS, MODEST, 31, 252, 0, 0, 0, 252, 4, AMNESIA, FLAMETHROWER, EARTH_POWER, STEALTH_ROCK),
         },
     },
-    [SPECIES_CAMERUPT] =
+    // CAMERUPT
     {
         {
             ISAAC_SET(CAMERUPT, MAGMA_ARMOR, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, EMBER, MAGNITUDE, TAKE_DOWN, AMNESIA),
@@ -4864,7 +4865,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CAMERUPT, SOLID_ROCK, LEFTOVERS, QUIET, 31, 252, 0, 0, 0, 252, 4, ERUPTION, EARTH_POWER, STEALTH_ROCK, ROAR),
         },
     },
-    [SPECIES_TORKOAL] =
+    // TORKOAL
     {
         {
             ISAAC_SET(TORKOAL, WHITE_SMOKE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, EMBER, SMOG, CURSE, INCINERATE),
@@ -4879,7 +4880,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TORKOAL, DROUGHT, HEAT_ROCK, BOLD, 31, 252, 0, 252, 0, 0, 4, LAVA_PLUME, RAPID_SPIN, STEALTH_ROCK, SOLAR_BEAM),
         },
     },
-    [SPECIES_SPOINK] =
+    // SPOINK
     {
         {
             ISAAC_SET(SPOINK, THICK_FAT, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, CONFUSION, PSYWAVE, ODOR_SLEUTH, PSYBEAM),
@@ -4894,7 +4895,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SPOINK, THICK_FAT, LEFTOVERS, CALM, 31, 252, 0, 4, 0, 0, 252, PSYCHIC, SHADOW_BALL, CALM_MIND, REST),
         },
     },
-    [SPECIES_GRUMPIG] =
+    // GRUMPIG
     {
         {
             ISAAC_SET(GRUMPIG, THICK_FAT, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, PSYBEAM, PSYWAVE, CONFUSION, CONFUSE_RAY),
@@ -4909,7 +4910,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GRUMPIG, THICK_FAT, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, PSYCHIC, FOCUS_BLAST, THUNDER_WAVE, WHIRLWIND),
         },
     },
-    [SPECIES_SPINDA] =
+    // SPINDA
     {
         {
             ISAAC_SET(SPINDA, OWN_TEMPO, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, TACKLE, DIZZY_PUNCH, COVET, UPROAR),
@@ -4924,7 +4925,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SPINDA, CONTRARY, LEFTOVERS, ADAMANT, 31, 4, 252, 0, 252, 0, 0, DRAIN_PUNCH, SUCKER_PUNCH, RAPID_SPIN, DOUBLE_EDGE),
         },
     },
-    [SPECIES_TRAPINCH] =
+    // TRAPINCH
     {
         {
             ISAAC_SET(TRAPINCH, HYPER_CUTTER, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, BITE, BULLDOZE, MUD_SLAP, SAND_TOMB),
@@ -4939,7 +4940,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TRAPINCH, ARENA_TRAP, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, EARTHQUAKE, STONE_EDGE, SUPERPOWER, FEINT),
         },
     },
-    [SPECIES_VIBRAVA] =
+    // VIBRAVA
     {
         {
             ISAAC_SET(VIBRAVA, LEVITATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BITE, SAND_TOMB, SONIC_BOOM, DRAGON_BREATH),
@@ -4954,7 +4955,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(VIBRAVA, LEVITATE, LIFE_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, EARTHQUAKE, DRAGON_CLAW, U_TURN, DEFOG),
         },
     },
-    [SPECIES_FLYGON] =
+    // FLYGON
     {
         {
             ISAAC_SET(FLYGON, LEVITATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BITE, DRAGON_BREATH, SAND_TOMB, SCREECH),
@@ -4969,7 +4970,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(FLYGON, LEVITATE, CHOICE_SCARF, JOLLY, 31, 4, 252, 0, 252, 0, 0, EARTHQUAKE, OUTRAGE, U_TURN, STONE_EDGE),
         },
     },
-    [SPECIES_CACNEA] =
+    // CACNEA
     {
         {
             ISAAC_SET(CACNEA, SAND_VEIL, NONE, HARDY, 15, 0, 40, 0, 84, 40, 0, POISON_STING, MAGICAL_LEAF, ABSORB, GROWTH),
@@ -4984,7 +4985,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CACNEA, WATER_ABSORB, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SPIKES, SEED_BOMB, SUCKER_PUNCH, DRAIN_PUNCH),
         },
     },
-    [SPECIES_CACTURNE] =
+    // CACTURNE
     {
         {
             ISAAC_SET(CACTURNE, SAND_VEIL, NONE, HARDY, 15, 0, 40, 0, 84, 40, 0, NEEDLE_ARM, PAYBACK, MAGICAL_LEAF, ABSORB),
@@ -4999,7 +5000,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CACTURNE, WATER_ABSORB, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, SEED_BOMB, SUCKER_PUNCH, DRAIN_PUNCH),
         },
     },
-    [SPECIES_SWABLU] =
+    // SWABLU
     {
         {
             ISAAC_SET(SWABLU, NATURAL_CURE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, PECK, SWIFT, SING, ASTONISH),
@@ -5014,7 +5015,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SWABLU, NATURAL_CURE, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, DRAGON_PULSE, ROOST, DEFOG, TOXIC),
         },
     },
-    [SPECIES_ALTARIA] =
+    // ALTARIA
     {
         {
             ISAAC_SET(ALTARIA, NATURAL_CURE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, PECK, DRAGON_BREATH, SING, SAFEGUARD),
@@ -5029,7 +5030,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ALTARIA, NATURAL_CURE, LEFTOVERS, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DRAGON_DANCE, EARTHQUAKE, DRAGON_CLAW, ROOST),
         },
     },
-    [SPECIES_ZANGOOSE] =
+    // ZANGOOSE
     {
         {
             ISAAC_SET(ZANGOOSE, IMMUNITY, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, QUICK_ATTACK, SLASH, FALSE_SWIPE),
@@ -5044,7 +5045,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ZANGOOSE, TOXIC_BOOST, TOXIC_ORB, JOLLY, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, FACADE, CLOSE_COMBAT, KNOCK_OFF),
         },
     },
-    [SPECIES_SEVIPER] =
+    // SEVIPER
     {
         {
             ISAAC_SET(SEVIPER, SHED_SKIN, NONE, HARDY, 15, 0, 40, 0, 84, 40, 0, WRAP, POISON_FANG, BITE, GLARE),
@@ -5059,7 +5060,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SEVIPER, INFILTRATOR, LIFE_ORB, NAIVE, 31, 0, 128, 0, 252, 128, 0, SLUDGE_WAVE, GIGA_DRAIN, FLAMETHROWER, EARTHQUAKE),
         },
     },
-    [SPECIES_LUNATONE] =
+    // LUNATONE
     {
         {
             ISAAC_SET(LUNATONE, LEVITATE, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, TACKLE, CONFUSION, ROCK_THROW, HYPNOSIS),
@@ -5074,7 +5075,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LUNATONE, LEVITATE, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, PSYCHIC, POWER_GEM, STEALTH_ROCK, MOONLIGHT),
         },
     },
-    [SPECIES_SOLROCK] =
+    // SOLROCK
     {
         {
             ISAAC_SET(SOLROCK, LEVITATE, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, TACKLE, CONFUSION, ROCK_THROW, FIRE_SPIN),
@@ -5089,7 +5090,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SOLROCK, LEVITATE, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, STONE_EDGE, MORNING_SUN, STEALTH_ROCK, WILL_O_WISP),
         },
     },
-    [SPECIES_BARBOACH] =
+    // BARBOACH
     {
         {
             ISAAC_SET(BARBOACH, OBLIVIOUS, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, MUD_SLAP, WATER_GUN, BULLDOZE, AMNESIA),
@@ -5104,7 +5105,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BARBOACH, OBLIVIOUS, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DRAGON_DANCE, WATERFALL, EARTHQUAKE, STONE_EDGE),
         },
     },
-    [SPECIES_WHISCASH] =
+    // WHISCASH
     {
         {
             ISAAC_SET(WHISCASH, OBLIVIOUS, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, MUD_SLAP, WATER_GUN, MAGNITUDE, AMNESIA),
@@ -5119,7 +5120,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WHISCASH, OBLIVIOUS, LEFTOVERS, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DRAGON_DANCE, LIQUIDATION, EARTHQUAKE, STONE_EDGE),
         },
     },
-    [SPECIES_CORPHISH] =
+    // CORPHISH
     {
         {
             ISAAC_SET(CORPHISH, HYPER_CUTTER, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BUBBLE, AQUA_JET, METAL_CLAW, LEER),
@@ -5134,7 +5135,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CORPHISH, ADAPTABILITY, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, DRAGON_DANCE, CRABHAMMER, KNOCK_OFF, AQUA_JET),
         },
     },
-    [SPECIES_CRAWDAUNT] =
+    // CRAWDAUNT
     {
         {
             ISAAC_SET(CRAWDAUNT, HYPER_CUTTER, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BUBBLE_BEAM, METAL_CLAW, KNOCK_OFF, THIEF),
@@ -5149,7 +5150,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CRAWDAUNT, ADAPTABILITY, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, DRAGON_DANCE, CRABHAMMER, KNOCK_OFF, AQUA_JET),
         },
     },
-    [SPECIES_BALTOY] =
+    // BALTOY
     {
         {
             ISAAC_SET(BALTOY, LEVITATE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, CONFUSION, BULLDOZE, MUD_SLAP, RAPID_SPIN),
@@ -5164,7 +5165,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BALTOY, LEVITATE, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, EARTHQUAKE, RAPID_SPIN, STEALTH_ROCK, TOXIC),
         },
     },
-    [SPECIES_CLAYDOL] =
+    // CLAYDOL
     {
         {
             ISAAC_SET(CLAYDOL, LEVITATE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, CONFUSION, MUD_SLAP, ANCIENT_POWER, RAPID_SPIN),
@@ -5179,7 +5180,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CLAYDOL, LEVITATE, LEFTOVERS, IMPISH, 31, 252, 0, 252, 0, 0, 4, EARTHQUAKE, RAPID_SPIN, STEALTH_ROCK, PSYCHIC),
         },
     },
-    [SPECIES_LILEEP] =
+    // LILEEP
     {
         {
             ISAAC_SET(LILEEP, SUCTION_CUPS, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, ASTONISH, ANCIENT_POWER, ACID, INGRAIN),
@@ -5194,7 +5195,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LILEEP, STORM_DRAIN, LEFTOVERS, CALM, 31, 252, 0, 4, 0, 0, 252, GIGA_DRAIN, ANCIENT_POWER, RECOVER, STEALTH_ROCK),
         },
     },
-    [SPECIES_CRADILY] =
+    // CRADILY
     {
         {
             ISAAC_SET(CRADILY, SUCTION_CUPS, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, CONSTRICT, ACID, ANCIENT_POWER, INGRAIN),
@@ -5209,7 +5210,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CRADILY, STORM_DRAIN, LEFTOVERS, CAREFUL, 31, 252, 0, 4, 0, 0, 252, SEED_BOMB, STONE_EDGE, RECOVER, STEALTH_ROCK),
         },
     },
-    [SPECIES_ANORITH] =
+    // ANORITH
     {
         {
             ISAAC_SET(ANORITH, BATTLE_ARMOR, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, ROCK_TOMB, MUD_SPORT, FURY_CUTTER),
@@ -5224,7 +5225,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ANORITH, SWIFT_SWIM, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, ROCK_BLAST, X_SCISSOR, AQUA_JET, RAPID_SPIN),
         },
     },
-    [SPECIES_ARMALDO] =
+    // ARMALDO
     {
         {
             ISAAC_SET(ARMALDO, BATTLE_ARMOR, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, METAL_CLAW, FURY_CUTTER, ANCIENT_POWER, BUG_BITE),
@@ -5239,7 +5240,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ARMALDO, SWIFT_SWIM, LEFTOVERS, ADAMANT, 31, 252, 252, 4, 0, 0, 0, STONE_EDGE, X_SCISSOR, KNOCK_OFF, RAPID_SPIN),
         },
     },
-    [SPECIES_FEEBAS] =
+    // FEEBAS
     {
         {
             ISAAC_SET(FEEBAS, SWIFT_SWIM, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, WATER_PULSE, TACKLE, NONE, NONE),
@@ -5254,7 +5255,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(FEEBAS, ADAPTABILITY, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, SCALD, MIRROR_COAT, ICE_BEAM, HAZE),
         },
     },
-    [SPECIES_MILOTIC] =
+    // MILOTIC
     {
         {
             ISAAC_SET(MILOTIC, MARVEL_SCALE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, WATER_PULSE, WRAP, TWISTER, RECOVER),
@@ -5269,7 +5270,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(MILOTIC, COMPETITIVE, FLAME_ORB, BOLD, 31, 252, 0, 252, 0, 0, 4, SCALD, RECOVER, DRAGON_TAIL, HAZE),
         },
     },
-    [SPECIES_CASTFORM] =
+    // CASTFORM
     {
         {
             ISAAC_SET(CASTFORM, FORECAST, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, TACKLE, WATER_GUN, EMBER, POWDER_SNOW),
@@ -5284,7 +5285,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CASTFORM, FORECAST, DAMP_ROCK, TIMID, 31, 4, 0, 0, 252, 252, 0, RAIN_DANCE, WEATHER_BALL, THUNDER, HURRICANE),
         },
     },
-    [SPECIES_KECLEON] =
+    // KECLEON
     {
         {
             ISAAC_SET(KECLEON, COLOR_CHANGE, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, LICK, SCRATCH, BIND, ASTONISH),
@@ -5299,7 +5300,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KECLEON, PROTEAN, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, FAKE_OUT, KNOCK_OFF, SHADOW_SNEAK, DRAIN_PUNCH),
         },
     },
-    [SPECIES_SHUPPET] =
+    // SHUPPET
     {
         {
             ISAAC_SET(SHUPPET, INSOMNIA, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, KNOCK_OFF, NIGHT_SHADE, SCREECH, ASTONISH),
@@ -5314,7 +5315,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SHUPPET, CURSED_BODY, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, POLTERGEIST, SHADOW_SNEAK, GUNK_SHOT, DESTINY_BOND),
         },
     },
-    [SPECIES_BANETTE] =
+    // BANETTE
     {
         {
             ISAAC_SET(BANETTE, INSOMNIA, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, KNOCK_OFF, NIGHT_SHADE, SCREECH, CURSE),
@@ -5329,7 +5330,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BANETTE, CURSED_BODY, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, POLTERGEIST, SHADOW_SNEAK, GUNK_SHOT, KNOCK_OFF),
         },
     },
-    [SPECIES_DUSKULL] =
+    // DUSKULL
     {
         {
             ISAAC_SET(DUSKULL, LEVITATE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, OMINOUS_WIND, NIGHT_SHADE, DISABLE, ASTONISH),
@@ -5344,7 +5345,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DUSKULL, FRISK, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, NIGHT_SHADE, WILL_O_WISP, PAIN_SPLIT, TRICK_ROOM),
         },
     },
-    [SPECIES_DUSCLOPS] =
+    // DUSCLOPS
     {
         {
             ISAAC_SET(DUSCLOPS, PRESSURE, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, SHADOW_PUNCH, NIGHT_SHADE, DISABLE, CONFUSE_RAY),
@@ -5359,7 +5360,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(DUSCLOPS, FRISK, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, NIGHT_SHADE, WILL_O_WISP, PAIN_SPLIT, TRICK_ROOM),
         },
     },
-    [SPECIES_TROPIUS] =
+    // TROPIUS
     {
         {
             ISAAC_SET(TROPIUS, CHLOROPHYLL, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, GUST, RAZOR_LEAF, STOMP, MAGICAL_LEAF),
@@ -5374,7 +5375,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(TROPIUS, HARVEST, SITRUS_BERRY, BOLD, 31, 252, 0, 252, 0, 0, 4, AIR_SLASH, GIGA_DRAIN, LEECH_SEED, SYNTHESIS),
         },
     },
-    [SPECIES_CHIMECHO] =
+    // CHIMECHO
     {
         {
             ISAAC_SET(CHIMECHO, LEVITATE, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, WRAP, SHOCK_WAVE, ASTONISH, CONFUSION),
@@ -5389,7 +5390,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CHIMECHO, LEVITATE, LEFTOVERS, BOLD, 31, 252, 0, 252, 0, 0, 4, PSYCHIC, RECOVER, HEAL_BELL, KNOCK_OFF),
         },
     },
-    [SPECIES_ABSOL] =
+    // ABSOL
     {
         {
             ISAAC_SET(ABSOL, PRESSURE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, SCRATCH, QUICK_ATTACK, BITE, THIEF),
@@ -5404,7 +5405,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(ABSOL, JUSTIFIED, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SWORDS_DANCE, KNOCK_OFF, SUCKER_PUNCH, CLOSE_COMBAT),
         },
     },
-    [SPECIES_WYNAUT] =
+    // WYNAUT
     {
         {
             ISAAC_SET(WYNAUT, SHADOW_TAG, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, SPLASH, CHARM, ENCORE, COUNTER),
@@ -5419,7 +5420,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WYNAUT, SHADOW_TAG, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, COUNTER, MIRROR_COAT, ENCORE, DESTINY_BOND),
         },
     },
-    [SPECIES_SNORUNT] =
+    // SNORUNT
     {
         {
             ISAAC_SET(SNORUNT, INNER_FOCUS, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POWDER_SNOW, AVALANCHE, BITE, ICY_WIND),
@@ -5434,7 +5435,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SNORUNT, INNER_FOCUS, FOCUS_SASH, JOLLY, 31, 252, 0, 4, 252, 0, 0, ICE_SHARD, SPIKES, CRUNCH, DISABLE),
         },
     },
-    [SPECIES_GLALIE] =
+    // GLALIE
     {
         {
             ISAAC_SET(GLALIE, INNER_FOCUS, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, POWDER_SNOW, BITE, ICY_WIND, HEADBUTT),
@@ -5449,7 +5450,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GLALIE, MOODY, LEFTOVERS, JOLLY, 31, 4, 252, 0, 252, 0, 0, ICICLE_CRASH, SPIKES, TAUNT, EARTHQUAKE),
         },
     },
-    [SPECIES_SPHEAL] =
+    // SPHEAL
     {
         {
             ISAAC_SET(SPHEAL, THICK_FAT, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POWDER_SNOW, WATER_GUN, ROLLOUT, WATER_PULSE),
@@ -5464,7 +5465,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SPHEAL, THICK_FAT, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, ICE_BEAM, SURF, ENCORE, YAWN),
         },
     },
-    [SPECIES_SEALEO] =
+    // SEALEO
     {
         {
             ISAAC_SET(SEALEO, THICK_FAT, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, POWDER_SNOW, WATER_GUN, ROLLOUT, ENCORE),
@@ -5479,7 +5480,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SEALEO, THICK_FAT, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, ICE_BEAM, SURF, ENCORE, YAWN),
         },
     },
-    [SPECIES_WALREIN] =
+    // WALREIN
     {
         {
             ISAAC_SET(WALREIN, THICK_FAT, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, AURORA_BEAM, WATER_GUN, BODY_SLAM, REST),
@@ -5494,7 +5495,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(WALREIN, THICK_FAT, LEFTOVERS, BOLD, 31, 252, 0, 128, 0, 0, 128, ICE_BEAM, SURF, PROTECT, TOXIC),
         },
     },
-    [SPECIES_CLAMPERL] =
+    // CLAMPERL
     {
         {
             ISAAC_SET(CLAMPERL, SHELL_ARMOR, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CLAMP, WATER_GUN, IRON_DEFENSE, WHIRLPOOL),
@@ -5509,7 +5510,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(CLAMPERL, RATTLED, DEEP_SEA_TOOTH, MODEST, 31, 4, 0, 0, 252, 252, 0, SHELL_SMASH, SURF, ICE_BEAM, HIDDEN_POWER),
         },
     },
-    [SPECIES_HUNTAIL] =
+    // HUNTAIL
     {
         {
             ISAAC_SET(HUNTAIL, SWIFT_SWIM, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BITE, WATER_GUN, SCARY_FACE, WHIRLPOOL),
@@ -5524,7 +5525,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(HUNTAIL, SWIFT_SWIM, WHITE_HERB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, SHELL_SMASH, WATERFALL, SUCKER_PUNCH, ICE_FANG),
         },
     },
-    [SPECIES_GOREBYSS] =
+    // GOREBYSS
     {
         {
             ISAAC_SET(GOREBYSS, SWIFT_SWIM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, CONFUSION, WATER_GUN, AMNESIA, WHIRLPOOL),
@@ -5539,7 +5540,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GOREBYSS, SWIFT_SWIM, WHITE_HERB, MODEST, 31, 4, 0, 0, 252, 252, 0, SHELL_SMASH, HYDRO_PUMP, ICE_BEAM, PSYCHIC),
         },
     },
-    [SPECIES_RELICANTH] =
+    // RELICANTH
     {
         {
             ISAAC_SET(RELICANTH, SWIFT_SWIM, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, TACKLE, WATER_GUN, ROCK_TOMB, SMACK_DOWN),
@@ -5554,7 +5555,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(RELICANTH, ROCK_HEAD, LEFTOVERS, ADAMANT, 31, 252, 252, 4, 0, 0, 0, HEAD_SMASH, LIQUIDATION, EARTHQUAKE, STEALTH_ROCK),
         },
     },
-    [SPECIES_LUVDISC] =
+    // LUVDISC
     {
         {
             ISAAC_SET(LUVDISC, SWIFT_SWIM, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, TACKLE, WATER_PULSE, WATER_GUN, SWEET_KISS),
@@ -5569,7 +5570,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LUVDISC, HYDRATION, HEAVY_DUTY_BOOTS, TIMID, 31, 4, 0, 0, 252, 252, 0, SCALD, ICE_BEAM, CHARM, AQUA_RING),
         },
     },
-    [SPECIES_BAGON] =
+    // BAGON
     {
         {
             ISAAC_SET(BAGON, ROCK_HEAD, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, RAGE, BITE, DRAGON_TAIL, HEADBUTT),
@@ -5584,7 +5585,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BAGON, SHEER_FORCE, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, DRAGON_DANCE, OUTRAGE, ZEN_HEADBUTT, FIRE_FANG),
         },
     },
-    [SPECIES_SHELGON] =
+    // SHELGON
     {
         {
             ISAAC_SET(SHELGON, ROCK_HEAD, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, BITE, HEADBUTT, PROTECT, DRAGON_BREATH),
@@ -5599,7 +5600,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SHELGON, ROCK_HEAD, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, DRAGON_DANCE, OUTRAGE, ZEN_HEADBUTT, FIRE_FANG),
         },
     },
-    [SPECIES_SALAMENCE] =
+    // SALAMENCE
     {
         {
             ISAAC_SET(SALAMENCE, INTIMIDATE, NONE, HARDY, 15, 0, 84, 0, 84, 0, 0, BITE, DRAGON_BREATH, HEADBUTT, FLY),
@@ -5614,7 +5615,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(SALAMENCE, MOXIE, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, DRAGON_DANCE, OUTRAGE, EARTHQUAKE, DUAL_WINGBEAT),
         },
     },
-    [SPECIES_BELDUM] =
+    // BELDUM
     {
         {
             ISAAC_SET(BELDUM, CLEAR_BODY, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, TAKE_DOWN, TACKLE, NONE, NONE),
@@ -5629,7 +5630,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(BELDUM, CLEAR_BODY, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, IRON_HEAD, ZEN_HEADBUTT, IRON_DEFENSE, NONE),
         },
     },
-    [SPECIES_METANG] =
+    // METANG
     {
         {
             ISAAC_SET(METANG, CLEAR_BODY, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, METAL_CLAW, CONFUSION, TAKE_DOWN, SCARY_FACE),
@@ -5644,7 +5645,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(METANG, CLEAR_BODY, LIFE_ORB, ADAMANT, 31, 252, 252, 4, 0, 0, 0, METEOR_MASH, BULLET_PUNCH, EARTHQUAKE, STEALTH_ROCK),
         },
     },
-    [SPECIES_METAGROSS] =
+    // METAGROSS
     {
         {
             ISAAC_SET(METAGROSS, CLEAR_BODY, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, METAL_CLAW, CONFUSION, PURSUIT, SCARY_FACE),
@@ -5659,7 +5660,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(METAGROSS, CLEAR_BODY, CHOICE_BAND, JOLLY, 31, 4, 252, 0, 252, 0, 0, METEOR_MASH, ZEN_HEADBUTT, BULLET_PUNCH, EARTHQUAKE),
         },
     },
-    [SPECIES_REGIROCK] =
+    // REGIROCK
     {
         {
             ISAAC_SET(REGIROCK, CLEAR_BODY, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, ROCK_THROW, CURSE, SUPERPOWER, ANCIENT_POWER),
@@ -5674,7 +5675,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(REGIROCK, STURDY, LEFTOVERS, CAREFUL, 31, 252, 0, 4, 0, 0, 252, STONE_EDGE, BODY_PRESS, STEALTH_ROCK, THUNDER_WAVE),
         },
     },
-    [SPECIES_REGICE] =
+    // REGICE
     {
         {
             ISAAC_SET(REGICE, CLEAR_BODY, NONE, HARDY, 15, 84, 0, 0, 0, 0, 84, ICY_WIND, CURSE, SUPERPOWER, ANCIENT_POWER),
@@ -5689,7 +5690,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(REGICE, ICE_BODY, LEFTOVERS, CALM, 31, 252, 0, 4, 0, 0, 252, ICE_BEAM, THUNDERBOLT, THUNDER_WAVE, ROCK_POLISH),
         },
     },
-    [SPECIES_REGISTEEL] =
+    // REGISTEEL
     {
         {
             ISAAC_SET(REGISTEEL, CLEAR_BODY, NONE, HARDY, 15, 84, 0, 84, 0, 0, 0, METAL_CLAW, CURSE, SUPERPOWER, ANCIENT_POWER),
@@ -5704,7 +5705,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(REGISTEEL, CLEAR_BODY, LEFTOVERS, CAREFUL, 31, 252, 0, 4, 0, 0, 252, IRON_HEAD, BODY_PRESS, STEALTH_ROCK, TOXIC),
         },
     },
-    [SPECIES_LATIAS] =
+    // LATIAS
     {
         {
             ISAAC_SET(LATIAS, LEVITATE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, PSYWAVE, WISH, HELPING_HAND, DRAGON_BREATH),
@@ -5719,7 +5720,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LATIAS, LEVITATE, SOUL_DEW, TIMID, 31, 4, 0, 0, 252, 252, 0, CALM_MIND, DRAGON_PULSE, PSYSHOCK, RECOVER),
         },
     },
-    [SPECIES_LATIOS] =
+    // LATIOS
     {
         {
             ISAAC_SET(LATIOS, LEVITATE, NONE, HARDY, 15, 0, 0, 0, 84, 84, 0, PSYWAVE, PROTECT, HELPING_HAND, DRAGON_BREATH),
@@ -5734,7 +5735,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(LATIOS, LEVITATE, SOUL_DEW, TIMID, 31, 4, 0, 0, 252, 252, 0, DRACO_METEOR, LUSTER_PURGE, AURA_SPHERE, RECOVER),
         },
     },
-    [SPECIES_KYOGRE] =
+    // KYOGRE
     {
         {
             ISAAC_SET(KYOGRE, DRIZZLE, NONE, HARDY, 15, 84, 0, 0, 0, 84, 0, WATER_PULSE, SCARY_FACE, ANCIENT_POWER, BODY_SLAM),
@@ -5749,7 +5750,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(KYOGRE, DRIZZLE, CHOICE_SPECS, TIMID, 31, 4, 0, 0, 252, 252, 0, WATER_SPOUT, ORIGIN_PULSE, THUNDER, ICE_BEAM),
         },
     },
-    [SPECIES_GROUDON] =
+    // GROUDON
     {
         {
             ISAAC_SET(GROUDON, DROUGHT, NONE, HARDY, 15, 84, 84, 0, 0, 0, 0, MUD_SHOT, SCARY_FACE, ANCIENT_POWER, SLASH),
@@ -5764,7 +5765,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(GROUDON, DROUGHT, LEFTOVERS, ADAMANT, 31, 252, 252, 4, 0, 0, 0, PRECIPICE_BLADES, HEAT_CRASH, STEALTH_ROCK, SWORDS_DANCE),
         },
     },
-    [SPECIES_RAYQUAZA] =
+    // RAYQUAZA
     {
         {
             ISAAC_SET(RAYQUAZA, AIR_LOCK, NONE, HARDY, 15, 0, 40, 0, 84, 40, 0, TWISTER, SCARY_FACE, ANCIENT_POWER, CRUNCH),
@@ -5779,7 +5780,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(RAYQUAZA, AIR_LOCK, LIFE_ORB, ADAMANT, 31, 4, 252, 0, 252, 0, 0, DRAGON_DANCE, DRAGON_ASCENT, EXTREME_SPEED, EARTHQUAKE),
         },
     },
-    [SPECIES_JIRACHI] =
+    // JIRACHI
     {
         {
             ISAAC_SET(JIRACHI, SERENE_GRACE, NONE, HARDY, 15, 84, 0, 40, 0, 0, 40, CONFUSION, REST, SWIFT, HELPING_HAND),
@@ -5794,7 +5795,7 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
             ISAAC_SET(JIRACHI, SERENE_GRACE, LEFTOVERS, CAREFUL, 31, 252, 0, 4, 0, 0, 252, IRON_HEAD, BODY_SLAM, WISH, PROTECT),
         },
     },
-    [SPECIES_DEOXYS] =
+    // DEOXYS
     {
         {
             ISAAC_SET(DEOXYS, PRESSURE, NONE, HARDY, 15, 0, 40, 0, 84, 40, 0, ZEN_HEADBUTT, WRAP, SHOCK_WAVE, NIGHT_SHADE),
@@ -5812,3 +5813,393 @@ static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][I
 };
 
 #undef ISAAC_SET
+
+static const u16 sIsaacSetIndex[NUM_SPECIES] =
+{
+    [SPECIES_BULBASAUR] = 1,
+    [SPECIES_IVYSAUR] = 2,
+    [SPECIES_VENUSAUR] = 3,
+    [SPECIES_CHARMANDER] = 4,
+    [SPECIES_CHARMELEON] = 5,
+    [SPECIES_CHARIZARD] = 6,
+    [SPECIES_SQUIRTLE] = 7,
+    [SPECIES_WARTORTLE] = 8,
+    [SPECIES_BLASTOISE] = 9,
+    [SPECIES_CATERPIE] = 10,
+    [SPECIES_METAPOD] = 11,
+    [SPECIES_BUTTERFREE] = 12,
+    [SPECIES_WEEDLE] = 13,
+    [SPECIES_KAKUNA] = 14,
+    [SPECIES_BEEDRILL] = 15,
+    [SPECIES_PIDGEY] = 16,
+    [SPECIES_PIDGEOTTO] = 17,
+    [SPECIES_PIDGEOT] = 18,
+    [SPECIES_RATTATA] = 19,
+    [SPECIES_RATICATE] = 20,
+    [SPECIES_SPEAROW] = 21,
+    [SPECIES_FEAROW] = 22,
+    [SPECIES_EKANS] = 23,
+    [SPECIES_ARBOK] = 24,
+    [SPECIES_PIKACHU] = 25,
+    [SPECIES_RAICHU] = 26,
+    [SPECIES_SANDSHREW] = 27,
+    [SPECIES_SANDSLASH] = 28,
+    [SPECIES_NIDORAN_F] = 29,
+    [SPECIES_NIDORINA] = 30,
+    [SPECIES_NIDOQUEEN] = 31,
+    [SPECIES_NIDORAN_M] = 32,
+    [SPECIES_NIDORINO] = 33,
+    [SPECIES_NIDOKING] = 34,
+    [SPECIES_CLEFAIRY] = 35,
+    [SPECIES_CLEFABLE] = 36,
+    [SPECIES_VULPIX] = 37,
+    [SPECIES_NINETALES] = 38,
+    [SPECIES_JIGGLYPUFF] = 39,
+    [SPECIES_WIGGLYTUFF] = 40,
+    [SPECIES_ZUBAT] = 41,
+    [SPECIES_GOLBAT] = 42,
+    [SPECIES_ODDISH] = 43,
+    [SPECIES_GLOOM] = 44,
+    [SPECIES_VILEPLUME] = 45,
+    [SPECIES_PARAS] = 46,
+    [SPECIES_PARASECT] = 47,
+    [SPECIES_VENONAT] = 48,
+    [SPECIES_VENOMOTH] = 49,
+    [SPECIES_DIGLETT] = 50,
+    [SPECIES_DUGTRIO] = 51,
+    [SPECIES_MEOWTH] = 52,
+    [SPECIES_PERSIAN] = 53,
+    [SPECIES_PSYDUCK] = 54,
+    [SPECIES_GOLDUCK] = 55,
+    [SPECIES_MANKEY] = 56,
+    [SPECIES_PRIMEAPE] = 57,
+    [SPECIES_GROWLITHE] = 58,
+    [SPECIES_ARCANINE] = 59,
+    [SPECIES_POLIWAG] = 60,
+    [SPECIES_POLIWHIRL] = 61,
+    [SPECIES_POLIWRATH] = 62,
+    [SPECIES_ABRA] = 63,
+    [SPECIES_KADABRA] = 64,
+    [SPECIES_ALAKAZAM] = 65,
+    [SPECIES_MACHOP] = 66,
+    [SPECIES_MACHOKE] = 67,
+    [SPECIES_MACHAMP] = 68,
+    [SPECIES_BELLSPROUT] = 69,
+    [SPECIES_WEEPINBELL] = 70,
+    [SPECIES_VICTREEBEL] = 71,
+    [SPECIES_TENTACOOL] = 72,
+    [SPECIES_TENTACRUEL] = 73,
+    [SPECIES_GEODUDE] = 74,
+    [SPECIES_GRAVELER] = 75,
+    [SPECIES_GOLEM] = 76,
+    [SPECIES_PONYTA] = 77,
+    [SPECIES_RAPIDASH] = 78,
+    [SPECIES_SLOWPOKE] = 79,
+    [SPECIES_SLOWBRO] = 80,
+    [SPECIES_MAGNEMITE] = 81,
+    [SPECIES_MAGNETON] = 82,
+    [SPECIES_FARFETCHD] = 83,
+    [SPECIES_DODUO] = 84,
+    [SPECIES_DODRIO] = 85,
+    [SPECIES_SEEL] = 86,
+    [SPECIES_DEWGONG] = 87,
+    [SPECIES_GRIMER] = 88,
+    [SPECIES_MUK] = 89,
+    [SPECIES_SHELLDER] = 90,
+    [SPECIES_CLOYSTER] = 91,
+    [SPECIES_GASTLY] = 92,
+    [SPECIES_HAUNTER] = 93,
+    [SPECIES_GENGAR] = 94,
+    [SPECIES_ONIX] = 95,
+    [SPECIES_DROWZEE] = 96,
+    [SPECIES_HYPNO] = 97,
+    [SPECIES_KRABBY] = 98,
+    [SPECIES_KINGLER] = 99,
+    [SPECIES_VOLTORB] = 100,
+    [SPECIES_ELECTRODE] = 101,
+    [SPECIES_EXEGGCUTE] = 102,
+    [SPECIES_EXEGGUTOR] = 103,
+    [SPECIES_CUBONE] = 104,
+    [SPECIES_MAROWAK] = 105,
+    [SPECIES_HITMONLEE] = 106,
+    [SPECIES_HITMONCHAN] = 107,
+    [SPECIES_LICKITUNG] = 108,
+    [SPECIES_KOFFING] = 109,
+    [SPECIES_WEEZING] = 110,
+    [SPECIES_RHYHORN] = 111,
+    [SPECIES_RHYDON] = 112,
+    [SPECIES_CHANSEY] = 113,
+    [SPECIES_TANGELA] = 114,
+    [SPECIES_KANGASKHAN] = 115,
+    [SPECIES_HORSEA] = 116,
+    [SPECIES_SEADRA] = 117,
+    [SPECIES_GOLDEEN] = 118,
+    [SPECIES_SEAKING] = 119,
+    [SPECIES_STARYU] = 120,
+    [SPECIES_STARMIE] = 121,
+    [SPECIES_MR_MIME] = 122,
+    [SPECIES_SCYTHER] = 123,
+    [SPECIES_JYNX] = 124,
+    [SPECIES_ELECTABUZZ] = 125,
+    [SPECIES_MAGMAR] = 126,
+    [SPECIES_PINSIR] = 127,
+    [SPECIES_TAUROS] = 128,
+    [SPECIES_MAGIKARP] = 129,
+    [SPECIES_GYARADOS] = 130,
+    [SPECIES_LAPRAS] = 131,
+    [SPECIES_DITTO] = 132,
+    [SPECIES_EEVEE] = 133,
+    [SPECIES_VAPOREON] = 134,
+    [SPECIES_JOLTEON] = 135,
+    [SPECIES_FLAREON] = 136,
+    [SPECIES_PORYGON] = 137,
+    [SPECIES_OMANYTE] = 138,
+    [SPECIES_OMASTAR] = 139,
+    [SPECIES_KABUTO] = 140,
+    [SPECIES_KABUTOPS] = 141,
+    [SPECIES_AERODACTYL] = 142,
+    [SPECIES_SNORLAX] = 143,
+    [SPECIES_ARTICUNO] = 144,
+    [SPECIES_ZAPDOS] = 145,
+    [SPECIES_MOLTRES] = 146,
+    [SPECIES_DRATINI] = 147,
+    [SPECIES_DRAGONAIR] = 148,
+    [SPECIES_DRAGONITE] = 149,
+    [SPECIES_MEWTWO] = 150,
+    [SPECIES_MEW] = 151,
+    [SPECIES_CHIKORITA] = 152,
+    [SPECIES_BAYLEEF] = 153,
+    [SPECIES_MEGANIUM] = 154,
+    [SPECIES_CYNDAQUIL] = 155,
+    [SPECIES_QUILAVA] = 156,
+    [SPECIES_TYPHLOSION] = 157,
+    [SPECIES_TOTODILE] = 158,
+    [SPECIES_CROCONAW] = 159,
+    [SPECIES_FERALIGATR] = 160,
+    [SPECIES_SENTRET] = 161,
+    [SPECIES_FURRET] = 162,
+    [SPECIES_HOOTHOOT] = 163,
+    [SPECIES_NOCTOWL] = 164,
+    [SPECIES_LEDYBA] = 165,
+    [SPECIES_LEDIAN] = 166,
+    [SPECIES_SPINARAK] = 167,
+    [SPECIES_ARIADOS] = 168,
+    [SPECIES_CROBAT] = 169,
+    [SPECIES_CHINCHOU] = 170,
+    [SPECIES_LANTURN] = 171,
+    [SPECIES_PICHU] = 172,
+    [SPECIES_CLEFFA] = 173,
+    [SPECIES_IGGLYBUFF] = 174,
+    [SPECIES_TOGEPI] = 175,
+    [SPECIES_TOGETIC] = 176,
+    [SPECIES_NATU] = 177,
+    [SPECIES_XATU] = 178,
+    [SPECIES_MAREEP] = 179,
+    [SPECIES_FLAAFFY] = 180,
+    [SPECIES_AMPHAROS] = 181,
+    [SPECIES_BELLOSSOM] = 182,
+    [SPECIES_MARILL] = 183,
+    [SPECIES_AZUMARILL] = 184,
+    [SPECIES_SUDOWOODO] = 185,
+    [SPECIES_POLITOED] = 186,
+    [SPECIES_HOPPIP] = 187,
+    [SPECIES_SKIPLOOM] = 188,
+    [SPECIES_JUMPLUFF] = 189,
+    [SPECIES_AIPOM] = 190,
+    [SPECIES_SUNKERN] = 191,
+    [SPECIES_SUNFLORA] = 192,
+    [SPECIES_YANMA] = 193,
+    [SPECIES_WOOPER] = 194,
+    [SPECIES_QUAGSIRE] = 195,
+    [SPECIES_ESPEON] = 196,
+    [SPECIES_UMBREON] = 197,
+    [SPECIES_MURKROW] = 198,
+    [SPECIES_SLOWKING] = 199,
+    [SPECIES_MISDREAVUS] = 200,
+    [SPECIES_UNOWN] = 201,
+    [SPECIES_WOBBUFFET] = 202,
+    [SPECIES_GIRAFARIG] = 203,
+    [SPECIES_PINECO] = 204,
+    [SPECIES_FORRETRESS] = 205,
+    [SPECIES_DUNSPARCE] = 206,
+    [SPECIES_GLIGAR] = 207,
+    [SPECIES_STEELIX] = 208,
+    [SPECIES_SNUBBULL] = 209,
+    [SPECIES_GRANBULL] = 210,
+    [SPECIES_QWILFISH] = 211,
+    [SPECIES_SCIZOR] = 212,
+    [SPECIES_SHUCKLE] = 213,
+    [SPECIES_HERACROSS] = 214,
+    [SPECIES_SNEASEL] = 215,
+    [SPECIES_TEDDIURSA] = 216,
+    [SPECIES_URSARING] = 217,
+    [SPECIES_SLUGMA] = 218,
+    [SPECIES_MAGCARGO] = 219,
+    [SPECIES_SWINUB] = 220,
+    [SPECIES_PILOSWINE] = 221,
+    [SPECIES_CORSOLA] = 222,
+    [SPECIES_REMORAID] = 223,
+    [SPECIES_OCTILLERY] = 224,
+    [SPECIES_DELIBIRD] = 225,
+    [SPECIES_MANTINE] = 226,
+    [SPECIES_SKARMORY] = 227,
+    [SPECIES_HOUNDOUR] = 228,
+    [SPECIES_HOUNDOOM] = 229,
+    [SPECIES_KINGDRA] = 230,
+    [SPECIES_PHANPY] = 231,
+    [SPECIES_DONPHAN] = 232,
+    [SPECIES_PORYGON2] = 233,
+    [SPECIES_STANTLER] = 234,
+    [SPECIES_SMEARGLE] = 235,
+    [SPECIES_TYROGUE] = 236,
+    [SPECIES_HITMONTOP] = 237,
+    [SPECIES_SMOOCHUM] = 238,
+    [SPECIES_ELEKID] = 239,
+    [SPECIES_MAGBY] = 240,
+    [SPECIES_MILTANK] = 241,
+    [SPECIES_BLISSEY] = 242,
+    [SPECIES_RAIKOU] = 243,
+    [SPECIES_ENTEI] = 244,
+    [SPECIES_SUICUNE] = 245,
+    [SPECIES_LARVITAR] = 246,
+    [SPECIES_PUPITAR] = 247,
+    [SPECIES_TYRANITAR] = 248,
+    [SPECIES_LUGIA] = 249,
+    [SPECIES_HO_OH] = 250,
+    [SPECIES_CELEBI] = 251,
+    [SPECIES_TREECKO] = 252,
+    [SPECIES_GROVYLE] = 253,
+    [SPECIES_SCEPTILE] = 254,
+    [SPECIES_TORCHIC] = 255,
+    [SPECIES_COMBUSKEN] = 256,
+    [SPECIES_BLAZIKEN] = 257,
+    [SPECIES_MUDKIP] = 258,
+    [SPECIES_MARSHTOMP] = 259,
+    [SPECIES_SWAMPERT] = 260,
+    [SPECIES_POOCHYENA] = 261,
+    [SPECIES_MIGHTYENA] = 262,
+    [SPECIES_ZIGZAGOON] = 263,
+    [SPECIES_LINOONE] = 264,
+    [SPECIES_WURMPLE] = 265,
+    [SPECIES_SILCOON] = 266,
+    [SPECIES_BEAUTIFLY] = 267,
+    [SPECIES_CASCOON] = 268,
+    [SPECIES_DUSTOX] = 269,
+    [SPECIES_LOTAD] = 270,
+    [SPECIES_LOMBRE] = 271,
+    [SPECIES_LUDICOLO] = 272,
+    [SPECIES_SEEDOT] = 273,
+    [SPECIES_NUZLEAF] = 274,
+    [SPECIES_SHIFTRY] = 275,
+    [SPECIES_TAILLOW] = 276,
+    [SPECIES_SWELLOW] = 277,
+    [SPECIES_WINGULL] = 278,
+    [SPECIES_PELIPPER] = 279,
+    [SPECIES_RALTS] = 280,
+    [SPECIES_KIRLIA] = 281,
+    [SPECIES_GARDEVOIR] = 282,
+    [SPECIES_SURSKIT] = 283,
+    [SPECIES_MASQUERAIN] = 284,
+    [SPECIES_SHROOMISH] = 285,
+    [SPECIES_BRELOOM] = 286,
+    [SPECIES_SLAKOTH] = 287,
+    [SPECIES_VIGOROTH] = 288,
+    [SPECIES_SLAKING] = 289,
+    [SPECIES_NINCADA] = 290,
+    [SPECIES_NINJASK] = 291,
+    [SPECIES_SHEDINJA] = 292,
+    [SPECIES_WHISMUR] = 293,
+    [SPECIES_LOUDRED] = 294,
+    [SPECIES_EXPLOUD] = 295,
+    [SPECIES_MAKUHITA] = 296,
+    [SPECIES_HARIYAMA] = 297,
+    [SPECIES_AZURILL] = 298,
+    [SPECIES_NOSEPASS] = 299,
+    [SPECIES_SKITTY] = 300,
+    [SPECIES_DELCATTY] = 301,
+    [SPECIES_SABLEYE] = 302,
+    [SPECIES_MAWILE] = 303,
+    [SPECIES_ARON] = 304,
+    [SPECIES_LAIRON] = 305,
+    [SPECIES_AGGRON] = 306,
+    [SPECIES_MEDITITE] = 307,
+    [SPECIES_MEDICHAM] = 308,
+    [SPECIES_ELECTRIKE] = 309,
+    [SPECIES_MANECTRIC] = 310,
+    [SPECIES_PLUSLE] = 311,
+    [SPECIES_MINUN] = 312,
+    [SPECIES_VOLBEAT] = 313,
+    [SPECIES_ILLUMISE] = 314,
+    [SPECIES_ROSELIA] = 315,
+    [SPECIES_GULPIN] = 316,
+    [SPECIES_SWALOT] = 317,
+    [SPECIES_CARVANHA] = 318,
+    [SPECIES_SHARPEDO] = 319,
+    [SPECIES_WAILMER] = 320,
+    [SPECIES_WAILORD] = 321,
+    [SPECIES_NUMEL] = 322,
+    [SPECIES_CAMERUPT] = 323,
+    [SPECIES_TORKOAL] = 324,
+    [SPECIES_SPOINK] = 325,
+    [SPECIES_GRUMPIG] = 326,
+    [SPECIES_SPINDA] = 327,
+    [SPECIES_TRAPINCH] = 328,
+    [SPECIES_VIBRAVA] = 329,
+    [SPECIES_FLYGON] = 330,
+    [SPECIES_CACNEA] = 331,
+    [SPECIES_CACTURNE] = 332,
+    [SPECIES_SWABLU] = 333,
+    [SPECIES_ALTARIA] = 334,
+    [SPECIES_ZANGOOSE] = 335,
+    [SPECIES_SEVIPER] = 336,
+    [SPECIES_LUNATONE] = 337,
+    [SPECIES_SOLROCK] = 338,
+    [SPECIES_BARBOACH] = 339,
+    [SPECIES_WHISCASH] = 340,
+    [SPECIES_CORPHISH] = 341,
+    [SPECIES_CRAWDAUNT] = 342,
+    [SPECIES_BALTOY] = 343,
+    [SPECIES_CLAYDOL] = 344,
+    [SPECIES_LILEEP] = 345,
+    [SPECIES_CRADILY] = 346,
+    [SPECIES_ANORITH] = 347,
+    [SPECIES_ARMALDO] = 348,
+    [SPECIES_FEEBAS] = 349,
+    [SPECIES_MILOTIC] = 350,
+    [SPECIES_CASTFORM] = 351,
+    [SPECIES_KECLEON] = 352,
+    [SPECIES_SHUPPET] = 353,
+    [SPECIES_BANETTE] = 354,
+    [SPECIES_DUSKULL] = 355,
+    [SPECIES_DUSCLOPS] = 356,
+    [SPECIES_TROPIUS] = 357,
+    [SPECIES_CHIMECHO] = 358,
+    [SPECIES_ABSOL] = 359,
+    [SPECIES_WYNAUT] = 360,
+    [SPECIES_SNORUNT] = 361,
+    [SPECIES_GLALIE] = 362,
+    [SPECIES_SPHEAL] = 363,
+    [SPECIES_SEALEO] = 364,
+    [SPECIES_WALREIN] = 365,
+    [SPECIES_CLAMPERL] = 366,
+    [SPECIES_HUNTAIL] = 367,
+    [SPECIES_GOREBYSS] = 368,
+    [SPECIES_RELICANTH] = 369,
+    [SPECIES_LUVDISC] = 370,
+    [SPECIES_BAGON] = 371,
+    [SPECIES_SHELGON] = 372,
+    [SPECIES_SALAMENCE] = 373,
+    [SPECIES_BELDUM] = 374,
+    [SPECIES_METANG] = 375,
+    [SPECIES_METAGROSS] = 376,
+    [SPECIES_REGIROCK] = 377,
+    [SPECIES_REGICE] = 378,
+    [SPECIES_REGISTEEL] = 379,
+    [SPECIES_LATIAS] = 380,
+    [SPECIES_LATIOS] = 381,
+    [SPECIES_KYOGRE] = 382,
+    [SPECIES_GROUDON] = 383,
+    [SPECIES_RAYQUAZA] = 384,
+    [SPECIES_JIRACHI] = 385,
+    [SPECIES_DEOXYS] = 386,
+};

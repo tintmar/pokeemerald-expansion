@@ -12,7 +12,7 @@ struct Pokemon;
 #define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux
 #define ISAAC_MAX_EVOLUTION_CHOICES  8  // évolutions au choix d'une Pierre Évolution (Évoli : 5)
 
-// Catégorie d'un Pokémon selon son BST (tools/isaac/build_categories.py) : quartiles des non légendaires des 386,
+// Catégorie d'un Pokémon selon son BST (tools/isaac/build_categories.py) : quartiles des non légendaires du roster,
 // légendaires à part (IsaacGetSpeciesCategory).
 // ISAAC_CATEGORIES_PER_BIOME : si TRUE, les dresseurs, boss et Pokémon de la salle de capture utilisent à la place des
 // catégories 1 à 4 recalculées sur les seules espèces du biome (quartiles de BST du biome, voir IsaacPickLineSpecies),
@@ -74,6 +74,8 @@ extern const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT];
 
 const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier, u32 variant);
 enum IsaacCategory IsaacGetSpeciesCategory(enum Species species);
+u32 IsaacGetRosterCount(void);
+enum Species IsaacGetRosterSpecies(u32 index);
 enum Species IsaacGetEvolution(enum Species species, u32 choice);
 enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 roll);
 enum IsaacCategory IsaacGetLinesCategory(const u16 *lines, u32 lineCount, enum Species species);

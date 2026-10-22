@@ -41,16 +41,23 @@ class Record:
     pass
 
 
-# --- Espèces 1 à 386 -------------------------------------------------------------------------
+# --- Espèces du roster : 1 à 386, puis roster.EXTRA_SPECIES --------------------------------------
 _species_h = read('include/constants/species.h')
-SPECIES = [None] * 387
+SPECIES_NUM = {}
 for _name, _num in re.findall(r'SPECIES_(\w+)\s*=\s*(\d+),', _species_h):
-    _n = int(_num)
+    SPECIES_NUM.setdefault(_name, int(_num))
+SPECIES = [None] * 387
+for _name, _n in SPECIES_NUM.items():
     if 1 <= _n <= 386 and SPECIES[_n] is None:
         SPECIES[_n] = _name
 assert all(SPECIES[1:]), 'espèce manquante'
 
-_info = resolve_ternaries(''.join(read(f'src/data/pokemon/species_info/gen_{g}_families.h') for g in range(1, 4)))
+import roster as _roster
+for _name in _roster.EXTRA_SPECIES:
+    assert SPECIES_NUM.get(_name, 0) > 386, f'roster : {_name} inconnue ou déjà dans les 386'
+ROSTER = SPECIES[1:] + sorted(_roster.EXTRA_SPECIES, key=lambda n: SPECIES_NUM[n])
+
+_info = resolve_ternaries(''.join(read(f'src/data/pokemon/species_info/gen_{g}_families.h') for g in range(1, 10)))
 _blocks = {}
 for _m in re.finditer(r'\[SPECIES_(\w+)\]\s*=\s*\{', _info):
     if _m.group(1) in _blocks:
@@ -96,11 +103,10 @@ LEARN_NAMES = {'DEOXYS': 'DEOXYS_NORMAL'}  # nom dans all_learnables.json
 
 MONS = {}
 ORDER = []
-for _n in range(1, 387):
-    _name = SPECIES[_n]
+for _name in ROSTER:
     _b = _UNOWN_BLOCK if _name == 'UNOWN' else _blocks[_name]
     mon = Record()
-    mon.name, mon.num = SHORT_NAMES.get(_name, _name), _n
+    mon.name, mon.num = SHORT_NAMES.get(_name, _name), SPECIES_NUM[_name]
     mon.hp, mon.atk, mon.dfn = _stat(_b, 'baseHP'), _stat(_b, 'baseAttack'), _stat(_b, 'baseDefense')
     mon.spe, mon.spa, mon.spd = _stat(_b, 'baseSpeed'), _stat(_b, 'baseSpAttack'), _stat(_b, 'baseSpDefense')
     _types = re.search(r'\.types\s*=\s*([^\n]+)', _b).group(1).rstrip(',')

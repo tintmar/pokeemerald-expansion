@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Vérifie les sets écrits à la main et génère src/data/isaac_sets.h : pour chaque Pokémon (1 à 386), 3 paliers
+Vérifie les sets écrits à la main et génère src/data/isaac_sets.h : pour chaque Pokémon du roster (roster.py), 3 paliers
 du plus faible au plus fort, et deux variantes A et B de chaque palier (même force, rôles différents :
 physique / spécial, offensif / soutien, autre objet...).
   - variante A : tools/isaac/sets_gen1.py, sets_gen2.py, sets_gen3.py (dictionnaire SETS) ;
@@ -293,7 +293,8 @@ def load_all_sets():
 def write_header(sets):
     out = ['// Fichier généré par tools/isaac/build_sets.py à partir de tools/isaac/sets_gen*.py :',
            '// ne pas modifier à la main.',
-           '// Par Pokémon (1 à 386) : 3 paliers, du plus faible (0) au plus fort (2), en deux variantes (A, B).',
+           '// Par Pokémon du roster : 3 paliers, du plus faible (0) au plus fort (2), en deux variantes (A, B).',
+           '// sIsaacSetIndex : rang des sets de l\'espèce dans sIsaacSets, plus 1 (0 : pas de sets).',
            '',
            '// ISAAC_SET(espèce, talent, objet, nature, IVs, EVs PV / Att / Déf / Vit / AttSp / DéfSp, 4 attaques)',
            '#define ISAAC_SET(sp, ab, it, nat, ivs, hp, at, df, spe, sa, sd, m1, m2, m3, m4)  \\',
@@ -310,12 +311,11 @@ def write_header(sets):
            '        .dynamaxLevel = MAX_DYNAMAX_LEVEL,                                    \\',
            '    }',
            '',
-           'static const struct TrainerMon sIsaacSets[SPECIES_DEOXYS + 1][ISAAC_SET_TIERS][ISAAC_SET_VARIANTS] =',
+           'static const struct TrainerMon sIsaacSets[][ISAAC_SET_TIERS][ISAAC_SET_VARIANTS] =',
            '{']
-    for name in g.ORDER:
-        if name not in sets:
-            continue
-        out.append(f'    [SPECIES_{name}] =')
+    names = [n for n in g.ORDER if n in sets]
+    for name in names:
+        out.append(f'    // {name}')
         out.append('    {')
         for variants in sets[name]:
             out.append('        {')
@@ -328,6 +328,11 @@ def write_header(sets):
     out.append('};')
     out.append('')
     out.append('#undef ISAAC_SET')
+    out.append('')
+    out.append('static const u16 sIsaacSetIndex[NUM_SPECIES] =')
+    out.append('{')
+    out.extend(f'    [SPECIES_{name}] = {i + 1},' for i, name in enumerate(names))
+    out.append('};')
     path = os.path.join(g.ROOT, 'src', 'data', 'isaac_sets.h')
     open(path, 'w', encoding='utf-8').write('\n'.join(out) + '\n')
 

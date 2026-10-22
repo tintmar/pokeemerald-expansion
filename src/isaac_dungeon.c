@@ -1497,7 +1497,7 @@ static enum IsaacCategory RollCaptureCategory(s32 x, s32 y, u32 slot)
     }
 }
 
-// Une espèce de la catégorie voulue : des lignées du biome, ou n'importe quel légendaire des 386
+// Une espèce de la catégorie voulue : des lignées du biome, ou n'importe quel légendaire du roster
 static u16 PickCaptureSpecies(enum IsaacCategory category, u32 roll)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
@@ -1507,11 +1507,12 @@ static u16 PickCaptureSpecies(enum IsaacCategory category, u32 roll)
 
     if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
     {
-        for (i = 1; i <= SPECIES_DEOXYS && count < ARRAY_COUNT(legendaries); i++)
+        for (i = 0; i < IsaacGetRosterCount() && count < ARRAY_COUNT(legendaries); i++)
         {
-            category = IsaacGetSpeciesCategory(i);
+            species = IsaacGetRosterSpecies(i);
+            category = IsaacGetSpeciesCategory(species);
             if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
-                legendaries[count++] = i;
+                legendaries[count++] = species;
         }
         return legendaries[roll % count];
     }
@@ -2330,11 +2331,11 @@ void IsaacPrepareTrade(void)
     seed = RoomRandom(x, y, 0x7AD0 + species);
     if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
     {
-        for (i = 1; i <= SPECIES_DEOXYS && count < ARRAY_COUNT(candidates); i++)
+        for (i = 0; i < IsaacGetRosterCount() && count < ARRAY_COUNT(candidates); i++)
         {
-            legendary = IsaacGetSpeciesCategory(i);
-            if (legendary == category && i != species)
-                candidates[count++] = i;
+            legendary = IsaacGetSpeciesCategory(IsaacGetRosterSpecies(i));
+            if (legendary == category && IsaacGetRosterSpecies(i) != species)
+                candidates[count++] = IsaacGetRosterSpecies(i);
         }
         sTradeSpecies = count ? candidates[seed % count] : species;
     }

@@ -21,7 +21,7 @@
 #include "constants/battle.h"
 
 /*
- * Sets des Pokémon du donjon : pour chaque espèce (1 à 386), 3 paliers du plus faible au plus fort, chacun en
+ * Sets des Pokémon du donjon : pour chaque espèce du roster, 3 paliers du plus faible au plus fort, chacun en
  * deux variantes A et B de même force mais de rôles différents (tirées à 50/50).
  * Les sets sont écrits dans tools/isaac/sets_gen*.py ; src/data/isaac_sets.h est généré par
  * tools/isaac/build_sets.py, qui vérifie aussi que les attaques sont apprenables.
@@ -31,15 +31,15 @@
 #include "data/isaac_biomes.h"
 #include "data/isaac_categories.h"
 
-// NULL si l'espèce n'a pas de sets (au-delà de Deoxys)
+// NULL si l'espèce n'a pas de sets (hors du roster)
 const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier, u32 variant)
 {
-    if (species == SPECIES_NONE || species >= ARRAY_COUNT(sIsaacSets) || sIsaacSets[species][0][0].species == SPECIES_NONE)
+    if (species == SPECIES_NONE || species >= NUM_SPECIES || sIsaacSetIndex[species] == 0)
         return NULL;
-    return &sIsaacSets[species][min(tier, ISAAC_SET_TIERS - 1)][variant % ISAAC_SET_VARIANTS];
+    return &sIsaacSets[sIsaacSetIndex[species] - 1][min(tier, ISAAC_SET_TIERS - 1)][variant % ISAAC_SET_VARIANTS];
 }
 
-// ISAAC_CATEGORY_NONE au-delà de Deoxys
+// ISAAC_CATEGORY_NONE hors du roster
 enum IsaacCategory IsaacGetSpeciesCategory(enum Species species)
 {
     if (species >= ARRAY_COUNT(sIsaacSpeciesCategories))
@@ -47,12 +47,22 @@ enum IsaacCategory IsaacGetSpeciesCategory(enum Species species)
     return sIsaacSpeciesCategories[species];
 }
 
+// Espèces du roster (data/isaac_categories.h), dans l'ordre du Pokédex national
+u32 IsaacGetRosterCount(void)
+{
+    return ARRAY_COUNT(sIsaacRoster);
+}
+
+enum Species IsaacGetRosterSpecies(u32 index)
+{
+    return sIsaacRoster[index];
+}
+
 // ---------------------------------------------------------------------------
 // Lignées et évolutions
 // ---------------------------------------------------------------------------
 
-// Évolutions d'une espèce parmi les 386 premières (ni « clone » comme Munja, ni forme régionale) ; renvoie
-// leur nombre
+// Évolutions d'une espèce dans le roster (ni « clone » comme Munja, ni forme régionale) ; renvoie leur nombre
 static u32 GetEvolutions(enum Species species, u16 *targets, u32 max)
 {
     const struct Evolution *evolutions = GetSpeciesEvolutions(species);
@@ -64,7 +74,7 @@ static u32 GetEvolutions(enum Species species, u16 *targets, u32 max)
     {
         enum Species target = SanitizeSpeciesId(evolutions[i].targetSpecies);
 
-        if (target == SPECIES_NONE || target > SPECIES_DEOXYS
+        if (target == SPECIES_NONE || IsaacGetSpeciesCategory(target) == ISAAC_CATEGORY_NONE
          || evolutions[i].method == EVO_NONE || evolutions[i].method == EVO_SPLIT_FROM_EVO)
             continue;
         for (j = 0; j < count && targets[j] != target; j++)
@@ -728,7 +738,7 @@ static bool32 SharesTypeWithStarters(u16 species, const u16 *starters, u32 count
 void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
 {
     static EWRAM_DATA u16 sStarterSpecies[ISAAC_STARTER_CHOICES] = {0};
-    u16 candidates[SPECIES_DEOXYS];
+    u16 candidates[ARRAY_COUNT(sIsaacRoster)];
     u32 count = 0, i, j, tmp;
 
     if (index >= ISAAC_STARTER_CHOICES)
@@ -737,9 +747,9 @@ void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
     {
         u32 chosen = 0;
 
-        for (i = 1; i <= SPECIES_DEOXYS; i++)
-            if (IsaacGetSpeciesCategory(i) == ISAAC_CATEGORY_1)
-                candidates[count++] = i;
+        for (i = 0; i < ARRAY_COUNT(sIsaacRoster); i++)
+            if (IsaacGetSpeciesCategory(sIsaacRoster[i]) == ISAAC_CATEGORY_1)
+                candidates[count++] = sIsaacRoster[i];
         // tirage dans un ordre au hasard, en gardant seulement les espèces sans type commun avec celles déjà prises
         for (i = 0; i < count && chosen < ISAAC_STARTER_CHOICES; i++)
         {

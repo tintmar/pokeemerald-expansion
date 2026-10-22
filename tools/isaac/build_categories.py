@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Génère src/data/isaac_categories.h : la catégorie de chacun des 386 premiers Pokémon selon son BST
-(total des stats de base).
+Génère src/data/isaac_categories.h : la catégorie de chaque Pokémon du roster (roster.py) selon son BST
+(total des stats de base), et la liste du roster.
   - les non légendaires sont répartis en 4 catégories par quartile de BST (calculés sur eux seuls) :
     BST <= Q1 -> catégorie 1, <= Q2 -> 2, <= Q3 -> 3, au-delà -> 4 ;
   - les légendaires et fabuleux sont à part : « petits » (BST < 620 : Électhor, Suicune, Mew...) et
@@ -40,10 +40,16 @@ def main():
            '// Catégorie de chaque Pokémon selon son BST : quartiles des non légendaires (BST <= %d, <= %d, <= %d, au-delà),' % (q1, q2, q3),
            '// légendaires à part (petits : BST < %d, grands : BST >= %d).' % (BIG_LEGENDARY_BST, BIG_LEGENDARY_BST),
            '',
-           'static const u8 sIsaacSpeciesCategories[SPECIES_DEOXYS + 1] =',
+           'static const u8 sIsaacSpeciesCategories[NUM_SPECIES] =',
            '{']
     for name in g.ORDER:
         out.append(f'    [SPECIES_{name}] = ISAAC_CATEGORY_{categories[name]},  // BST {bst(name)}')
+    out.append('};')
+    out.append('')
+    out.append('// Toutes les espèces du roster, dans l\'ordre du Pokédex national')
+    out.append('static const u16 sIsaacRoster[] =')
+    out.append('{')
+    out.extend(f'    SPECIES_{name},' for name in g.ORDER)
     out.append('};')
     path = os.path.join(g.ROOT, 'src', 'data', 'isaac_categories.h')
     open(path, 'w', encoding='utf-8').write('\n'.join(out) + '\n')
