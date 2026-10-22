@@ -1976,7 +1976,7 @@ void IsaacKecleonGreeting(void)
 // Les salles normales sans dresseur peuvent accueillir un contenu (un personnage au centre), chacun au plus une
 // fois par étage, dans des salles différentes tirées pour l'étage (GetRoomContent) :
 //  - ROOM_CONTENT_EGG : à l'étage 1 ou 2 (un seul des deux par descente, GetEggFloor), quelqu'un confie un Œuf
-//    d'un Pokémon de catégorie 4 de n'importe quel biome (set 2), qui éclot après ISAAC_EGG_HATCH_ROOMS nouvelles
+//    d'un Pokémon de n'importe quel biome (set 2), de catégorie 3 à l'étage 1 et 4 à l'étage 2, qui éclot après ISAAC_EGG_HATCH_ROOMS nouvelles
 //    salles visitées (environ deux étages, IsaacTickEggs) ;
 //  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de même catégorie (au sens du
 //    biome de chacun) et de même palier de set, de n'importe quel biome ; un légendaire contre un légendaire ;
@@ -2190,7 +2190,7 @@ void IsaacGiveEgg(void)
         return;
     GetCurrentCell(&x, &y);
     seed = RoomRandom(x, y, 0xE66);
-    species = PickSpeciesOfAnyBiome(ISAAC_CATEGORY_4, SPECIES_NONE, seed);
+    species = PickSpeciesOfAnyBiome(VarGet(VAR_ISAAC_FLOOR) == 1 ? ISAAC_CATEGORY_3 : ISAAC_CATEGORY_4, SPECIES_NONE, seed);
     mon = &gParties[B_TRAINER_PLAYER][gPartiesCount[B_TRAINER_PLAYER]];
     IsaacCreateMonFromSet(mon, species, 1, (seed >> 16) % ISAAC_SET_VARIANTS, seed);
     value = TRUE;
