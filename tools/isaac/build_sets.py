@@ -53,7 +53,8 @@ TIER2_MIN_ACCURACY = 85
 NERF_EXCLUDED = {'DREAM_EATER', 'SNORE', 'SPIT_UP', 'NATURAL_GIFT', 'SYNCHRONOISE', 'BELCH', 'STEEL_ROLLER',
                  'LAST_RESORT', 'FUTURE_SIGHT', 'DOOM_DESIRE', 'SKY_DROP', 'BIDE', 'COUNTER', 'MIRROR_COAT',
                  'METAL_BURST', 'ROLLOUT', 'ICE_BALL', 'UPROAR', 'THRASH', 'OUTRAGE', 'PETAL_DANCE', 'RAGE',
-                 'RAZOR_WIND', 'SKULL_BASH', 'SKY_ATTACK', 'SOLAR_BEAM', 'SOLAR_BLADE', 'METEOR_BEAM', 'GEOMANCY'}
+                 'RAZOR_WIND', 'SKULL_BASH', 'SKY_ATTACK', 'SOLAR_BEAM', 'SOLAR_BLADE', 'METEOR_BEAM', 'GEOMANCY',
+                 'TERA_BLAST'}  # pas de Téracristallisation : une simple attaque Normal spéciale
 TIER_EV_FRACTION = ((1, 3), (1, 2), (1, 1))  # set 2 nettement en dessous du set 3
 
 # Objets réservés aux sets les plus forts
@@ -91,19 +92,21 @@ def error(name, tier, msg):
 
 
 def best_replacement(name, move, taken):
-    """Meilleure attaque apprenable de puissance TIER2_MIN_POWER à TIER2_MAX_POWER : de même type et catégorie, sinon
-    de même type, sinon de même catégorie (autre type)"""
+    """Meilleure attaque apprenable de puissance TIER2_MIN_POWER à TIER2_MAX_POWER et de même catégorie (physique /
+    spéciale, pour rester cohérente avec le build) : de même type, sinon d'un autre type, de préférence un type que
+    le set n'a pas encore"""
     info = g.MOVES[move]
-    for same_type, same_cat in ((True, True), (True, False), (False, True)):
+    used_types = {g.MOVES[mv].type for mv in taken if mv in g.MOVES and g.MOVES[mv].cat != 'STATUS'}
+    for same_type in (True, False):
         best = None
         for cand in g.learnset(name):
             c = g.MOVES.get(cand)
-            if (c is None or cand in taken or cand in NERF_EXCLUDED or c.cat == 'STATUS'
-                    or (same_type and c.type != info.type) or (same_cat and c.cat != info.cat)
+            if (c is None or cand in taken or cand in NERF_EXCLUDED or c.cat != info.cat
+                    or (same_type and c.type != info.type)
                     or not TIER2_MIN_POWER <= c.power <= TIER2_MAX_POWER
                     or (c.acc != 0 and c.acc < TIER2_MIN_ACCURACY)):
                 continue
-            key = (c.power, c.acc if c.acc else 101, cand)
+            key = (c.type not in used_types, c.power, c.acc if c.acc else 101, cand)
             if best is None or key > best[0]:
                 best = (key, cand)
         if best:
