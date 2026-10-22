@@ -1662,6 +1662,8 @@ static bool8 DoesSelectedMonKnowHM(u8 *slotPtr)
 {
     if (B_CATCH_SWAP_CHECK_HMS == FALSE)
         return FALSE;
+    if (VarGet(VAR_ISAAC_FLOOR) > 0)
+        return FALSE;
 
     for (u32 i = 0; i < MAX_MON_MOVES; i++)
     {
