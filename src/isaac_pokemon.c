@@ -164,11 +164,13 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // SPECIAL_ITEM_WEIGHT, sauf l'Omniboost (OMNIBOOST_WEIGHT, deux fois plus rare) et les deux Pierres Évolution, plus
 // rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6).
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, de
-// même que les Gemmes de Type (puis le type est tiré). Le Cœur Doré n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
+// même que les Gemmes de Type (puis le type est tiré ; retirées pour l'instant : TYPE_GEM_WEIGHT à 0). Le Cœur Doré
+// n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
 // La Méga-Évolution (ITEM_MEGA_RING dans la liste) n'apparaît que si un Pokémon de l'équipe peut méga-évoluer avec
 // une Méga-Gemme qu'on n'a pas encore : on reçoit l'une d'elles au hasard (et l'Anneau Méga avec, voir AddBagItem).
 #define SPECIAL_ITEM_WEIGHT  4
 #define OMNIBOOST_WEIGHT     2
+#define TYPE_GEM_WEIGHT      0
 #define GOLDEN_HEART_MIN_FLOOR  4
 
 #define ISAAC_MAX_MEGA_STONES  (PARTY_SIZE * 2)  // Dracaufeu et Mewtwo ont deux Méga-Évolutions
@@ -225,6 +227,8 @@ u16 IsaacPickSpecialItem(u32 roll)
             weights[i] = sEvolutionStoneWeights[floor - 1];
         else if (sSpecialItems[i] == ITEM_OMNIBOOST)
             weights[i] = OMNIBOOST_WEIGHT;
+        else if (sSpecialItems[i] == ITEM_ISAAC_GEM_FIRST)
+            weights[i] = TYPE_GEM_WEIGHT;
         else if (sSpecialItems[i] == ITEM_GOLDEN_HEART)
             weights[i] = VarGet(VAR_ISAAC_FLOOR) >= GOLDEN_HEART_MIN_FLOOR ? SPECIAL_ITEM_WEIGHT : 0;
         else if (sSpecialItems[i] == ITEM_MEGA_RING)
