@@ -57,6 +57,7 @@ void IsaacDuelSetUpParty(void);
 void IsaacDuelRestoreParty(void);
 void IsaacOpenSecretRoom(void);
 void IsaacBufferBossTeam(void);
+void IsaacBufferTutorChoice(void);
 void IsaacPrepareRockSmash(void);
 void IsaacHealerHealMon(void);
 void IsaacBufferHealerPokemon(void);

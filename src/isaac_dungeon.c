@@ -1975,7 +1975,7 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_DEVIL : à partir de DEVIL_PACT_MIN_FLOOR, pacte du diable, un objet rare (Master Ball, Dé
 //    Maudit, Pacte de Sang ou objet spécial, IsaacPrepareDevilPact) contre le sacrifice définitif d'un Pokémon de
 //    l'équipe (pas le dernier en état de se battre, pas un Œuf) ;
-//  - ROOM_CONTENT_TUTOR : maître des capacités, propose 3 attaques fortes (sTutorMoves) que le Pokémon choisi peut
+//  - ROOM_CONTENT_TUTOR : maître des capacités, propose TUTOR_CHOICES attaques fortes (sTutorMoves) que le Pokémon choisi peut
 //    apprendre et ne connaît pas ; il en apprend une (en oubliant une autre s'il en connaît déjà 4) ;
 //  - ROOM_CONTENT_DUELIST : le duelliste annonce son Pokémon (plus fort que ceux de l'étage, voir GetIsaacTrainer),
 //    puis combat en 1 contre 1 contre le Pokémon choisi par le joueur. Perdre ne renvoie pas au hub. Un seul duel :
@@ -2369,7 +2369,7 @@ static const u16 sTutorMoves[] =
     MOVE_DOUBLE_EDGE, MOVE_BODY_SLAM, MOVE_VOLT_SWITCH, MOVE_SWORDS_DANCE, MOVE_NASTY_PLOT, MOVE_DRAGON_DANCE,
     MOVE_CALM_MIND, MOVE_BULK_UP, MOVE_ROOST, MOVE_RECOVER, MOVE_WILL_O_WISP, MOVE_THUNDER_WAVE, MOVE_STEALTH_ROCK,
 };
-#define TUTOR_CHOICES  3
+#define TUTOR_CHOICES  5
 
 static EWRAM_DATA u16 sTutorChoices[TUTOR_CHOICES] = {0};
 static EWRAM_DATA u16 sTutorMove = MOVE_NONE;
@@ -2388,12 +2388,11 @@ static bool8 CanLearnTutorMove(enum Species species, u16 move)
 }
 
 // Pokémon n° VAR_0x8004 : VAR_RESULT = nombre d'attaques proposées (0 pour un Œuf ou s'il n'y a rien à lui
-// apprendre), leurs noms dans gStringVar1 à 3. Toujours les mêmes pour ce Pokémon dans cette salle.
+// apprendre ; leurs noms avec IsaacBufferTutorChoice). Toujours les mêmes pour ce Pokémon dans cette salle.
 void IsaacPrepareTutor(void)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
     u16 species = GetMonData(mon, MON_DATA_SPECIES), candidates[ARRAY_COUNT(sTutorMoves)], tmp;
-    u8 *const names[TUTOR_CHOICES] = { gStringVar1, gStringVar2, gStringVar3 };
     u32 count = 0, i, pick;
     s32 x, y;
 
@@ -2409,9 +2408,14 @@ void IsaacPrepareTutor(void)
         pick = i + RoomRandom(x, y, 0x7070 + species * TUTOR_CHOICES + i) % (count - i);
         SWAP(candidates[i], candidates[pick], tmp);
         sTutorChoices[i] = candidates[i];
-        StringCopy(names[i], GetMoveName(candidates[i]));
     }
     gSpecialVar_Result = i;
+}
+
+// Nom de l'attaque proposée n° VAR_0x8006 dans gStringVar1 (pour le menu, voir IsaacPrepareTutor)
+void IsaacBufferTutorChoice(void)
+{
+    StringCopy(gStringVar1, GetMoveName(sTutorChoices[min(gSpecialVar_0x8006, TUTOR_CHOICES - 1)]));
 }
 
 // Attaque n° VAR_0x8006 choisie : gStringVar1 = le Pokémon, gStringVar2 = l'attaque. Apprise tout de suite s'il a une

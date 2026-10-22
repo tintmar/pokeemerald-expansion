@@ -486,7 +486,7 @@ IsaacRoom_Text_DevilDeclined:
 IsaacRoom_Text_DevilEgg:
 	.string "Un Œuf ? Ça ne vaut rien pour moi.$"
 
-@ Maître des capacités : 3 attaques fortes au choix pour le Pokémon choisi
+@ Maître des capacités : 5 attaques fortes au choix pour le Pokémon choisi
 IsaacRoom_EventScript_Tutor::
 	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_TutorDone
 	msgbox IsaacRoom_Text_TutorIntro, MSGBOX_DEFAULT
@@ -494,15 +494,16 @@ IsaacRoom_EventScript_Tutor::
 	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_TutorDeclined
 	special IsaacPrepareTutor
 	goto_if_eq VAR_RESULT, 0, IsaacRoom_EventScript_TutorNothing
+	copyvar VAR_0x8007, VAR_RESULT
 	message IsaacRoom_Text_TutorWhich
 	waitmessage
-	dynmultipush IsaacRoom_Text_StrVar1, 0
-	goto_if_lt VAR_RESULT, 2, IsaacRoom_EventScript_TutorMenu
-	dynmultipush IsaacRoom_Text_StrVar2, 1
-	goto_if_lt VAR_RESULT, 3, IsaacRoom_EventScript_TutorMenu
-	dynmultipush IsaacRoom_Text_StrVar3, 2
-IsaacRoom_EventScript_TutorMenu::
-	dynmultistack 0, 0, FALSE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	setvar VAR_0x8006, 0
+IsaacRoom_EventScript_TutorPushChoice::
+	special IsaacBufferTutorChoice
+	dynmultipush IsaacRoom_Text_StrVar1, VAR_0x8006
+	addvar VAR_0x8006, 1
+	goto_if_lt VAR_0x8006, VAR_0x8007, IsaacRoom_EventScript_TutorPushChoice
+	dynmultistack 0, 0, FALSE, 5, FALSE, 0, DYN_MULTICHOICE_CB_NONE
 	closemessage
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, IsaacRoom_EventScript_TutorDeclined
 	copyvar VAR_0x8006, VAR_RESULT
@@ -541,12 +542,6 @@ IsaacRoom_EventScript_TutorNothing::
 
 IsaacRoom_Text_StrVar1:
 	.string "{STR_VAR_1}$"
-
-IsaacRoom_Text_StrVar2:
-	.string "{STR_VAR_2}$"
-
-IsaacRoom_Text_StrVar3:
-	.string "{STR_VAR_3}$"
 
 IsaacRoom_Text_TutorIntro:
 	.string "Je suis maître des capacités.\n"

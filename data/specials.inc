@@ -676,6 +676,7 @@ gSpecials::
 	def_special IsaacDuelRestoreParty
 	def_special IsaacOpenSecretRoom
 	def_special IsaacBufferBossTeam
+	def_special IsaacBufferTutorChoice
 	def_special IsaacPrepareRockSmash
 	def_special IsaacHealerHealMon
 	def_special IsaacBufferHealerPokemon
