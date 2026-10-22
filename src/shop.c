@@ -1162,13 +1162,19 @@ static void BuyMenuTryMakePurchase(u8 taskId)
 
     if (sMartInfo.martType == MART_TYPE_NORMAL)
     {
+        bool32 hadMegaRing = CheckBagHasItem(ITEM_MEGA_RING, 1);
+
         if (AddBagItem(tItemId, tItemCount) == TRUE)
         {
             GetSetItemObtained(tItemId, FLAG_SET_ITEM_OBTAINED);
             if (sIsaacMart)
                 IsaacOnShopPurchase(tItemId, tItemCount);
             RecordItemPurchase(taskId);
-            BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
+            // Donjon : la première Méga-Gemme vient avec l'Anneau Méga (voir AddBagItem), Kecleon le dit
+            if (!hadMegaRing && CheckBagHasItem(ITEM_MEGA_RING, 1))
+                BuyMenuDisplayMessage(taskId, COMPOUND_STRING("Here you go! Take this Mega Ring\ntoo, to use it. Thank you!{PAUSE_UNTIL_PRESS}"), BuyMenuSubtractMoney);
+            else
+                BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
         }
         else
         {
