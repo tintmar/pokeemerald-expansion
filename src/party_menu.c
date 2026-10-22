@@ -6353,31 +6353,89 @@ void ItemUseCB_EvolutionStone(u8 taskId, TaskFunc task)
     }
 }
 
-// Donjon : Pierre Évolution. Scène d'évolution normale vers l'évolution suivante (au hasard s'il y en a
-// plusieurs). Le Pokémon garde ses attaques et son objet, sauf exceptions qui apprennent pendant la scène
-// les attaques de leur set évolué (voir IsaacPrepareEvolutionMoves).
+// Donjon : Pierre Évolution. Scène d'évolution normale vers l'évolution suivante ; s'il y en a plusieurs, le joueur
+// choisit (« Évoluer en X ? », Non passe à la suivante, B garde la pierre). Le Pokémon garde ses attaques et son
+// objet, sauf exceptions qui apprennent pendant la scène les attaques de leur set évolué (voir
+// IsaacPrepareEvolutionMoves).
 static EWRAM_DATA void (*sIsaacEvolutionExitCallback)(void) = NULL;
+static EWRAM_DATA u16 sIsaacEvolutionChoices[ISAAC_MAX_EVOLUTION_CHOICES] = {0};
+static EWRAM_DATA u8 sIsaacEvolutionChoiceCount = 0;
+static EWRAM_DATA u8 sIsaacEvolutionChoice = 0;
+static EWRAM_DATA TaskFunc sIsaacEvolutionTask = NULL;
 
 static void CB2_AfterIsaacEvolution(void)
 {
     SetMainCallback2(sIsaacEvolutionExitCallback);
 }
 
+static void StartIsaacEvolution(enum Species target)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+
+    sIsaacEvolutionExitCallback = gPartyMenu.exitCallback;
+    IsaacPrepareEvolutionMoves(mon, target);
+    gCB2_AfterEvolution = CB2_AfterIsaacEvolution;
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    BeginEvolutionScene(mon, target, FALSE, gPartyMenu.slotId);
+    FreePartyPointers();
+}
+
+static void Task_HandleIsaacEvolutionChoiceInput(u8 taskId);
+
+static void Task_AskIsaacEvolutionChoice(u8 taskId)
+{
+    if (IsPartyMenuTextPrinterActive() != TRUE)
+    {
+        PartyMenuDisplayYesNoMenu();
+        gTasks[taskId].func = Task_HandleIsaacEvolutionChoiceInput;
+    }
+}
+
+// « Évoluer en X ? » pour l'évolution n° sIsaacEvolutionChoice
+static void AskIsaacEvolutionChoice(u8 taskId)
+{
+    GetMonNickname(&gParties[B_TRAINER_PLAYER][gPartyMenu.slotId], gStringVar1);
+    StringCopy(gStringVar2, GetSpeciesName(sIsaacEvolutionChoices[sIsaacEvolutionChoice]));
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("Evolve {STR_VAR_1}\ninto {STR_VAR_2}?"));
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = Task_AskIsaacEvolutionChoice;
+}
+
+static void Task_HandleIsaacEvolutionChoiceInput(u8 taskId)
+{
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case 0:
+        StartIsaacEvolution(sIsaacEvolutionChoices[sIsaacEvolutionChoice]);
+        gTasks[taskId].func = TaskDummy;  // la scène d'évolution prend la suite
+        break;
+    case 1:
+        PlaySE(SE_SELECT);
+        sIsaacEvolutionChoice = (sIsaacEvolutionChoice + 1) % sIsaacEvolutionChoiceCount;
+        AskIsaacEvolutionChoice(taskId);
+        break;
+    case MENU_B_PRESSED:
+        PlaySE(SE_SELECT);
+        gPartyMenuUseExitCallback = FALSE;
+        DisplayPartyMenuMessage(COMPOUND_STRING("The stone was kept."), TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = sIsaacEvolutionTask;
+        break;
+    }
+}
+
 // Pierre Évolution (un stade) ou Super Pierre Évolution (stade final)
 static void UseIsaacEvolutionStone(u8 taskId, TaskFunc task, bool32 toFinalStage)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
-    enum Species target = SPECIES_NONE;
 
     PlaySE(SE_SELECT);
+    sIsaacEvolutionChoiceCount = 0;
     if (!GetMonData(mon, MON_DATA_IS_EGG))
-    {
-        if (toFinalStage)
-            target = IsaacGetFinalEvolution(GetMonData(mon, MON_DATA_SPECIES), Random32());
-        else
-            target = IsaacGetEvolution(GetMonData(mon, MON_DATA_SPECIES), Random());
-    }
-    if (target == SPECIES_NONE)
+        sIsaacEvolutionChoiceCount = IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), toFinalStage,
+                                                              sIsaacEvolutionChoices, ISAAC_MAX_EVOLUTION_CHOICES);
+    if (sIsaacEvolutionChoiceCount == 0)
     {
         gPartyMenuUseExitCallback = FALSE;
         DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
@@ -6385,12 +6443,14 @@ static void UseIsaacEvolutionStone(u8 taskId, TaskFunc task, bool32 toFinalStage
         gTasks[taskId].func = task;
         return;
     }
-    sIsaacEvolutionExitCallback = gPartyMenu.exitCallback;
-    IsaacPrepareEvolutionMoves(mon, target);
-    gCB2_AfterEvolution = CB2_AfterIsaacEvolution;
-    RemoveBagItem(gSpecialVar_ItemId, 1);
-    BeginEvolutionScene(mon, target, FALSE, gPartyMenu.slotId);
-    FreePartyPointers();
+    if (sIsaacEvolutionChoiceCount == 1)
+    {
+        StartIsaacEvolution(sIsaacEvolutionChoices[0]);
+        return;
+    }
+    sIsaacEvolutionTask = task;
+    sIsaacEvolutionChoice = 0;
+    AskIsaacEvolutionChoice(taskId);
 }
 
 void ItemUseCB_IsaacEvolutionStone(u8 taskId, TaskFunc task)

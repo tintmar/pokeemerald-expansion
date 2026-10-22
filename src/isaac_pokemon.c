@@ -75,19 +75,36 @@ static u32 GetEvolutions(enum Species species, u16 *targets, u32 max)
     return count;
 }
 
-// Stade final d'une espèce (Super Pierre Évolution), en tirant au hasard aux embranchements ; SPECIES_NONE si elle
-// n'évolue pas
-enum Species IsaacGetFinalEvolution(enum Species species, u32 roll)
+// Évolutions possibles d'une espèce (Pierre Évolution : un stade ; Super Pierre Évolution, toFinalStage : tous les
+// stades finaux qu'elle peut atteindre, sans doublon) ; renvoie leur nombre
+u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out, u32 max)
 {
-    enum Species next = IsaacGetEvolution(species, roll), final = SPECIES_NONE;
+    u16 targets[8], finals[ISAAC_MAX_EVOLUTION_CHOICES];
+    u32 count = GetEvolutions(species, targets, ARRAY_COUNT(targets)), n = 0, i, j, k, finalCount;
 
-    while (next != SPECIES_NONE)
+    if (!toFinalStage)
     {
-        final = next;
-        roll = roll * 1103515245 + 12345;
-        next = IsaacGetEvolution(final, roll >> 8);
+        for (i = 0; i < count && n < max; i++)
+            out[n++] = targets[i];
+        return n;
     }
-    return final;
+    for (i = 0; i < count; i++)
+    {
+        finalCount = IsaacGetEvolutionChoices(targets[i], TRUE, finals, ARRAY_COUNT(finals));
+        if (finalCount == 0)  // ce stade n'évolue plus : c'est un stade final
+        {
+            finals[0] = targets[i];
+            finalCount = 1;
+        }
+        for (j = 0; j < finalCount; j++)
+        {
+            for (k = 0; k < n && out[k] != finals[j]; k++)
+                ;
+            if (k == n && n < max)
+                out[n++] = finals[j];
+        }
+    }
+    return n;
 }
 
 // Objet spécial tiré au hasard (salle trésor, salle secrète, boutique, boss, pacte du diable). Chaque entrée a un poids :

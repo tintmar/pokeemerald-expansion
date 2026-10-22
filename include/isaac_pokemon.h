@@ -10,6 +10,7 @@ struct Pokemon;
 #define ISAAC_SET_VARIANTS  2  // variantes de chaque palier (A, B) : même force, rôles différents
 #define ISAAC_STARTER_CHOICES  6  // Pokémon proposés par le Montagnard du hub (écran de l'Usine de Combat)
 #define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux
+#define ISAAC_MAX_EVOLUTION_CHOICES  8  // évolutions au choix d'une Pierre Évolution (Évoli : 5)
 
 // Catégorie d'un Pokémon selon son BST (tools/isaac/build_categories.py) : quartiles des non légendaires des 386,
 // légendaires à part (IsaacGetSpeciesCategory).
@@ -82,7 +83,7 @@ void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index);
 s32 IsaacApplyStatBoosts(struct Pokemon *mon, u32 stat, s32 value);
 bool8 IsaacAddStatBoost(struct Pokemon *mon, u32 stat);
 bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat);
-enum Species IsaacGetFinalEvolution(enum Species species, u32 roll);
+u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out, u32 max);
 u16 IsaacPickSpecialItem(u32 roll);
 bool8 IsaacAddOmniboost(struct Pokemon *mon);
 bool8 IsaacUpgradeSet(struct Pokemon *mon);
