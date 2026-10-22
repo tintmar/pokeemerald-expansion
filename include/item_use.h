@@ -34,6 +34,7 @@ void ItemUseOutOfBattle_IsaacSuperEvolutionStone(u8 taskId);
 void ItemUseOutOfBattle_IsaacStatBoost(u8 taskId);
 void ItemUseOutOfBattle_IsaacBrilliantStone(u8 taskId);
 void ItemUseOutOfBattle_IsaacTypeGem(u8 taskId);
+void ItemUseOutOfBattle_IsaacCursedDie(u8 taskId);
 void ItemUseOutOfBattle_Berry(u8 taskId);
 void ItemUseOutOfBattle_EnigmaBerry(u8 taskId);
 void ItemUseOutOfBattle_FormChange(u8 taskId);

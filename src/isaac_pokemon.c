@@ -608,17 +608,13 @@ u16 IsaacTryLearningEvolutionMove(struct Pokemon *mon, bool8 firstMove)
     return MOVE_NONE;
 }
 
-// Ability Trainer : le Pokémon prend les attaques du palier suivant de son espèce, même variante (FALSE s'il a déjà
-// le meilleur). Seul le moveset change : IVs, EVs, nature, talent et objet tenu restent les mêmes.
-bool8 IsaacUpgradeSet(struct Pokemon *mon)
+// Le Pokémon prend les attaques du set (palier tier, variante variant) de son espèce. Seul le moveset change : IVs,
+// EVs, nature, talent et objet tenu restent les mêmes. FALSE si l'espèce n'a pas ce set.
+static bool8 SetMovesFromSet(struct Pokemon *mon, u32 tier, u32 variant)
 {
-    const struct TrainerMon *set;
-    u32 tier = IsaacGetMonSetTier(mon);
+    const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), tier, variant);
     u32 i, value;
 
-    if (tier + 1 >= ISAAC_SET_TIERS)
-        return FALSE;
-    set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), tier + 1, IsaacGetMonSetVariant(mon));
     if (set == NULL)
         return FALSE;
     for (i = 0; i < MAX_MON_MOVES; i++)
@@ -626,9 +622,49 @@ bool8 IsaacUpgradeSet(struct Pokemon *mon)
         RemoveMonPPBonus(mon, i);
         SetMonMoveSlot(mon, set->moves[i], i);  // PP au complet (MOVE_NONE : place vide)
     }
-    value = tier + 2;  // palier suivant + 1
+    value = tier + 1;
     SetMonData(mon, ISAAC_TIER_DATA, &value);
+    value = variant + 1;
+    SetMonData(mon, ISAAC_VARIANT_DATA, &value);
     return TRUE;
+}
+
+// Ability Trainer : le Pokémon prend les attaques du palier suivant de son espèce, même variante (FALSE s'il a déjà
+// le meilleur)
+bool8 IsaacUpgradeSet(struct Pokemon *mon)
+{
+    u32 tier = IsaacGetMonSetTier(mon);
+
+    if (tier + 1 >= ISAAC_SET_TIERS)
+        return FALSE;
+    return SetMovesFromSet(mon, tier + 1, IsaacGetMonSetVariant(mon));
+}
+
+// Dé Maudit : chaque Pokémon de l'équipe (hors Œufs) prend les attaques d'un set tiré au hasard, un palier plus bas,
+// le même ou un plus haut (dans les limites), en variante A ou B. *up / *down = nombre de Pokémon qui ont monté /
+// descendu d'un palier.
+void IsaacRollCursedDie(u32 *up, u32 *down)
+{
+    struct Pokemon *mon;
+    u32 i, tier, newTier, roll;
+
+    *up = *down = 0;
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+    {
+        mon = &gParties[B_TRAINER_PLAYER][i];
+        if (GetMonData(mon, MON_DATA_IS_EGG))
+            continue;
+        roll = Random();
+        tier = IsaacGetMonSetTier(mon);
+        newTier = tier + roll % 3;  // tier - 1, tier ou tier + 1, décalé d'un
+        newTier = (newTier == 0) ? 0 : min(newTier - 1, (u32)ISAAC_SET_TIERS - 1);
+        if (!SetMovesFromSet(mon, newTier, (roll >> 8) % ISAAC_SET_VARIANTS))
+            continue;
+        if (newTier > tier)
+            (*up)++;
+        else if (newTier < tier)
+            (*down)++;
+    }
 }
 
 // Choix du Montagnard du hub : le Pokémon proposé n° index (0 à ISAAC_STARTER_CHOICES - 1), une espèce

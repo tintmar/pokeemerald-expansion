@@ -1,5 +1,6 @@
 #include "global.h"
 #include "item_use.h"
+#include "isaac_pokemon.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_stat_change.h"
@@ -1159,6 +1160,21 @@ void ItemUseOutOfBattle_IsaacTypeGem(u8 taskId)
 {
     gItemUseCB = ItemUseCB_IsaacTypeGem;
     SetUpItemUseCallback(taskId);
+}
+
+// Donjon : Dé Maudit, utilisé depuis le Sac sur toute l'équipe (voir IsaacRollCursedDie)
+void ItemUseOutOfBattle_IsaacCursedDie(u8 taskId)
+{
+    u32 up, down;
+
+    PlaySE(SE_M_NIGHTMARE);
+    IsaacRollCursedDie(&up, &down);
+    RemoveUsedItem();
+    ConvertIntToDecimalStringN(gStringVar1, up, STR_CONV_MODE_LEFT_ALIGN, 1);
+    ConvertIntToDecimalStringN(gStringVar2, down, STR_CONV_MODE_LEFT_ALIGN, 1);
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("The team's moves changed!\n"
+                                                          "Up: {STR_VAR_1}, down: {STR_VAR_2}.{PAUSE_UNTIL_PRESS}"));
+    DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, CloseItemMessage);
 }
 
 static u32 GetBallThrowableState(void)

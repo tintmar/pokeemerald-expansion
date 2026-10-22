@@ -4838,6 +4838,25 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_ContestPass,
     },
 
+    // Donjon : relance le set de chaque Pokémon de l'équipe, qui peut monter ou descendre d'un palier (voir
+    // IsaacRollCursedDie)
+    [ITEM_CURSED_DIE] =
+    {
+        .name = ITEM_NAME("Cursed Die"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Rerolls the moves\n"
+            "of the whole team.\n"
+            "Better or worse…"),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacCursedDie,
+        .flingPower = 30,
+        .iconPic = gItemIcon_LoadedDice,
+        .iconPalette = gItemIconPalette_LoadedDice,
+    },
+
     [ITEM_DAWN_STONE] =
     {
         .name = ITEM_NAME("Dawn Stone"),
