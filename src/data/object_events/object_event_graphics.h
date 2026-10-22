@@ -634,10 +634,13 @@ const u16 gObjectEventPic_ClefairyOld[] = INCGFX_U16("graphics/object_events/pic
 
 #endif // IS_FRLG
 
-// Donjon : Pierre et Erika (boss) dans la version Émeraude aussi
+// Donjon : Pierre, Erika, Koga et Giovanni (boss) dans la version Émeraude aussi
 #if !IS_FRLG
 const u16 gObjectEventPal_NpcGreen[] = INCGFX_U16("graphics/object_events/palettes/npc_green.pal", ".gbapal");
 const u16 gObjectEventPic_Brock[] = INCGFX_U16("graphics/object_events/pics/people/brock.png", ".4bpp", "-mwidth 2 -mheight 4");
 const u16 gObjectEventPal_NpcBlue[] = INCGFX_U16("graphics/object_events/palettes/npc_blue.pal", ".gbapal");
 const u16 gObjectEventPic_Erika[] = INCGFX_U16("graphics/object_events/pics/people/erika.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_NpcWhite[] = INCGFX_U16("graphics/object_events/palettes/npc_white.pal", ".gbapal");
+const u16 gObjectEventPic_Koga[] = INCGFX_U16("graphics/object_events/pics/people/koga.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPic_Giovanni[] = INCGFX_U16("graphics/object_events/pics/people/giovanni.png", ".4bpp", "-mwidth 2 -mheight 4");
 #endif

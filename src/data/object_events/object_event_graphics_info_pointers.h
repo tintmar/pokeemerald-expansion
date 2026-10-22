@@ -793,7 +793,9 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
 #endif // IS_FRLG
 #if !IS_FRLG
     [OBJ_EVENT_GFX_BROCK]                    = &gObjectEventGraphicsInfo_Brock,  // Donjon : boss de la grotte
-    [OBJ_EVENT_GFX_ERIKA]                    = &gObjectEventGraphicsInfo_Erika,  // Donjon : boss de la grotte poison
+    [OBJ_EVENT_GFX_ERIKA]                    = &gObjectEventGraphicsInfo_Erika,  // Donjon : boss de la forêt
+    [OBJ_EVENT_GFX_KOGA]                     = &gObjectEventGraphicsInfo_Koga,  // Donjon : boss du tunnel poison
+    [OBJ_EVENT_GFX_GIOVANNI]                 = &gObjectEventGraphicsInfo_Giovanni,  // Donjon : boss du désert
 #endif
 };
 
