@@ -87,7 +87,8 @@
  *
  * SALLE DE CAPTURE : des Pokémon sauvages différents du biome se promènent (3 aux étages 1-2, 4 aux étages
  * 3-4, 5 aux étages 5-6), de catégorie de plus en plus haute avec la profondeur (RollCaptureCategory), au set 2
- * jusqu'à l'étage 3 puis au set 3. Leur parler lance le combat, après quoi ils disparaissent. SALLE TRÉSOR : une Pierre Évolution au sol.
+ * jusqu'à l'étage 3 puis au set 3. Leur parler lance le combat, après quoi ils disparaissent. SALLE TRÉSOR : un objet spécial au sol (deux salles
+ * trésor à partir de ISAAC_TWO_TREASURES_MIN_FLOOR).
  *
  * MINI-CARTE (bouton R dans une salle) : comme Isaac, on voit les salles visitées et celles qui les
  * touchent (pas la salle secrète tant qu'on n'y est pas entré), avec l'icône des salles spéciales.
@@ -96,6 +97,7 @@
 #define ISAAC_MAX_ROOMS        20
 #define ISAAC_SHOP_MIN_FLOOR   2
 #define ISAAC_SECRET_MIN_FLOOR 3
+#define ISAAC_TWO_TREASURES_MIN_FLOOR 4  // deux salles trésor à partir de cet étage
 #define ISAAC_MAX_TRIES        200  // graines essayées pour un étage valide
 
 #define ISAAC_TRAINER_PCT    60  // % de salles normales avec un dresseur
@@ -563,9 +565,11 @@ static bool8 TryBuildFloor(u32 floor)
     u8 deadX[ISAAC_GRID_W * ISAAC_GRID_H];
     u8 deadY[ISAAC_GRID_W * ISAAC_GRID_H];
     u32 target = GetTargetRoomCount(floor);
-    u32 needed = (floor >= ISAAC_SHOP_MIN_FLOOR) ? 4 : 3;  // boss, trésor, capture (+ boutique)
+    u32 needed = (floor >= ISAAC_SHOP_MIN_FLOOR) ? 4 : 3;  // boss, trésor, capture (+ boutique, + 2e trésor)
     u32 deadCount;
 
+    if (floor >= ISAAC_TWO_TREASURES_MIN_FLOOR)
+        needed++;
     GrowFloor(target);
     if (sFloor.roomCount < target)
         return FALSE;
@@ -576,6 +580,8 @@ static bool8 TryBuildFloor(u32 floor)
     // Boss sur le cul-de-sac le plus éloigné, les autres spéciales au hasard parmi le reste
     sFloor.room[deadY[0]][deadX[0]] = ROOM_BOSS;
     PlaceOnFreeDeadEnd(deadX, deadY, deadCount, ROOM_TREASURE);
+    if (floor >= ISAAC_TWO_TREASURES_MIN_FLOOR)
+        PlaceOnFreeDeadEnd(deadX, deadY, deadCount, ROOM_TREASURE);
     PlaceOnFreeDeadEnd(deadX, deadY, deadCount, ROOM_CAPTURE);
     if (floor >= ISAAC_SHOP_MIN_FLOOR)
         PlaceOnFreeDeadEnd(deadX, deadY, deadCount, ROOM_SHOP);
