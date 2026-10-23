@@ -33,12 +33,29 @@ Isaac_EventScript_Minimap::
 	releaseall
 	end
 
-@ Dresseur d'une salle normale (placé par isaac_dungeon.c) : il regarde la porte par laquelle on arrive,
-@ s'approche et lance le combat ; vaincu, il donne un objet de son butin et retourne au centre de la salle. Dans une
-@ salle secrète, la récompense de la salle apparaît en plus au sol.
+@ Dresseur d'une salle (placé par isaac_dungeon.c, comportement : voir GetRoomTrainerBehavior) : quand il voit le
+@ joueur, il s'approche et lance le combat ; s'il est facultatif, il faut lui parler et accepter. Vaincu, il donne un
+@ objet de son butin et retourne au centre de la salle. Dans une salle secrète, la récompense de la salle apparaît en
+@ plus au sol.
 IsaacRoom_EventScript_Trainer::
+	special IsaacCheckOptionalTrainer
+	goto_if_eq VAR_RESULT, TRUE, IsaacRoom_EventScript_OptionalTrainer
 	trainerbattle_single TRAINER_ISAAC_ROOM, IsaacRoom_Text_TrainerIntro, IsaacRoom_Text_TrainerDefeat, IsaacRoom_EventScript_TrainerDefeated
 	msgbox IsaacRoom_Text_TrainerPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+IsaacRoom_EventScript_OptionalTrainer::
+	lock
+	faceplayer
+	msgbox IsaacRoom_Text_TrainerChallenge, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_TrainerDeclined
+	trainerbattle_single TRAINER_ISAAC_ROOM, IsaacRoom_Text_TrainerAccepted, IsaacRoom_Text_TrainerDefeat, IsaacRoom_EventScript_TrainerDefeated
+	release
+	end
+
+IsaacRoom_EventScript_TrainerDeclined::
+	msgbox IsaacRoom_Text_TrainerDeclined, MSGBOX_DEFAULT
+	release
 	end
 
 IsaacRoom_EventScript_TrainerDefeated::
@@ -66,6 +83,16 @@ IsaacRoom_Text_TrainerIntro:
 
 IsaacRoom_Text_TrainerDefeat:
 	.string "Bien joué…$"
+
+IsaacRoom_Text_TrainerChallenge:
+	.string "Tu veux te mesurer à moi ?\n"
+	.string "Je ne t'en voudrai pas de passer…$"
+
+IsaacRoom_Text_TrainerAccepted:
+	.string "Parfait ! En garde !$"
+
+IsaacRoom_Text_TrainerDeclined:
+	.string "Dommage. Reviens quand tu veux.$"
 
 IsaacRoom_Text_TrainerPostBattle:
 	.string "La salle est à toi.\n"

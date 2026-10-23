@@ -39,6 +39,7 @@
 #include "constants/items.h"
 #include "constants/map_event_ids.h"
 #include "constants/opponents.h"
+#include "constants/trainer_types.h"
 #include "constants/trainers.h"
 #include "constants/characters.h"
 #include "constants/map_types.h"
@@ -1506,11 +1507,46 @@ static struct ObjectEventTemplate *GetObjectTemplate(u8 localId)
     return NULL;
 }
 
-// Au chargement de la salle : place (ou cache) le dresseur et choisit son apparence. Pas encore vaincu, il
-// regarde la porte par laquelle le joueur arrive (la vue du dresseur couvre toute la salle).
+// Comportement du dresseur d'une salle normale, tiré pour la salle (une chance sur trois chacun) ; celui de la salle
+// secrète est toujours un guetteur :
+//  - guetteur : il regarde la porte par laquelle le joueur arrive, sa vue couvre toute la salle ;
+//  - rôdeur : il tourne sur lui-même et ne voit qu'à ROAMING_TRAINER_SIGHT cases, on peut l'éviter ;
+//  - facultatif : il ne voit personne, il faut lui parler et accepter le combat.
+// Dans tous les cas, vaincu, il retourne au centre de la salle.
+enum
+{
+    TRAINER_BEHAVIOR_WATCHER,
+    TRAINER_BEHAVIOR_ROAMING,
+    TRAINER_BEHAVIOR_OPTIONAL,
+    TRAINER_BEHAVIOR_COUNT,
+};
+#define WATCHER_TRAINER_SIGHT  7
+#define ROAMING_TRAINER_SIGHT  3
+
+static u32 GetRoomTrainerBehavior(s32 x, s32 y)
+{
+    if (GetRoom(x, y) != ROOM_NORMAL)
+        return TRAINER_BEHAVIOR_WATCHER;
+    return RoomRandom(x, y, 0xBE4A) % TRAINER_BEHAVIOR_COUNT;
+}
+
+// En parlant au dresseur : VAR_RESULT = TRUE s'il est facultatif et pas encore vaincu (il demande d'abord)
+void IsaacCheckOptionalTrainer(void)
+{
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    gSpecialVar_Result = GetRoomTrainerBehavior(x, y) == TRAINER_BEHAVIOR_OPTIONAL
+                      && !FlagGet(TRAINER_FLAGS_START + TRAINER_ISAAC_ROOM);
+}
+
+// Au chargement de la salle : place (ou cache) le dresseur, choisit son apparence et son comportement
+// (GetRoomTrainerBehavior). Pas encore vaincu, il regarde la porte par laquelle le joueur arrive, ou tourne sur
+// lui-même s'il est rôdeur.
 static void SetUpRoomTrainer(s32 x, s32 y)
 {
     struct ObjectEventTemplate *template = GetObjectTemplate(LOCALID_ISAAC_ROOM_TRAINER);
+    u32 behavior;
 
     if (template == NULL)
         return;
@@ -1523,6 +1559,9 @@ static void SetUpRoomTrainer(s32 x, s32 y)
     VarSet(VAR_OBJ_GFX_ID_0, GetRoomTrainerType(x, y)->objEventGfx);
     template->x = ROOM_MID_X;
     template->y = ROOM_MID_Y;
+    behavior = GetRoomTrainerBehavior(x, y);
+    template->trainerType = (behavior == TRAINER_BEHAVIOR_OPTIONAL) ? TRAINER_TYPE_NONE : TRAINER_TYPE_NORMAL;
+    template->trainerRange_berryTreeId = (behavior == TRAINER_BEHAVIOR_ROAMING) ? ROAMING_TRAINER_SIGHT : WATCHER_TRAINER_SIGHT;
     if (IsCleared(x, y))
     {
         FlagSet(TRAINER_FLAGS_START + TRAINER_ISAAC_ROOM);
@@ -1534,6 +1573,11 @@ static void SetUpRoomTrainer(s32 x, s32 y)
     if (sArrivalFacing == DIR_NONE)
         return;
     FlagClear(TRAINER_FLAGS_START + TRAINER_ISAAC_ROOM);
+    if (behavior == TRAINER_BEHAVIOR_ROAMING)
+    {
+        template->movementType = MOVEMENT_TYPE_ROTATE_CLOCKWISE;
+        return;
+    }
     switch (sArrivalFacing)  // le joueur marche vers le centre : le dresseur lui fait face
     {
     case DIR_NORTH:
