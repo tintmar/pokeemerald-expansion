@@ -868,7 +868,17 @@ static u16 GetCliffRoleTile(s32 x, s32 y)
     return TILE_CLIFF_C;
 }
 
-// Nombre de cases jusqu'au sol le plus proche dans la direction (dx, dy), ou TREE_FAR s'il est trop loin
+// Forêt : ligne d'une porte (ouverte ou non), au milieu de chaque mur. La salle a un nombre impair de cases de large et
+// de haut : les arbres de 2 x 2 se calent de part et d'autre de ces lignes, comme pour un couloir. Une porte fermée y
+// laisse une colonne de petits arbres étroits (nord, sud) ou une rangée d'herbe infranchissable (ouest, est).
+static bool8 IsForestDoorLine(s32 x, s32 y)
+{
+    return (x == ROOM_MID_X && (y < ROOM_MIN_Y || y > ROOM_MAX_Y))
+        || (y == ROOM_MID_Y && (x < ROOM_MIN_X || x > ROOM_MAX_X));
+}
+
+// Nombre de cases jusqu'au sol le plus proche dans la direction (dx, dy) (les lignes des portes comptent comme du sol),
+// ou TREE_FAR s'il est trop loin
 #define TREE_FAR  99
 
 static s32 DistanceToFloor(s32 x, s32 y, s32 dx, s32 dy)
@@ -876,7 +886,7 @@ static s32 DistanceToFloor(s32 x, s32 y, s32 dx, s32 dy)
     s32 d;
 
     for (d = 1; d < 9; d++)
-        if (!IsWallAt(x + dx * d, y + dy * d))
+        if (!IsWallAt(x + dx * d, y + dy * d) || IsForestDoorLine(x + dx * d, y + dy * d))
             return d;
     return TREE_FAR;
 }
@@ -916,6 +926,24 @@ static u16 GetTreeTile(s32 x, s32 y)
     else
         rightHalf = !(left & 1);
     return tile + rightHalf;
+}
+
+// Herbe de la forêt : avec le bout de la cime de l'arbre juste en dessous, s'il y en a un
+static u16 GetForestGrassTile(s32 x, s32 y)
+{
+    if (IsWallAt(x, y + 1) && !IsForestDoorLine(x, y + 1) && (GetTreeTile(x, y + 1) & ~1) == TILE_TREE_TOP)
+        return TILE_TREE_TIP + (GetTreeTile(x, y + 1) & 1);
+    return TILE_FLOOR;
+}
+
+// Case de mur d'une forêt : un arbre, ou ce qui remplace une porte fermée (voir IsForestDoorLine)
+static u16 GetForestWallTile(s32 x, s32 y)
+{
+    if (!IsForestDoorLine(x, y))
+        return GetTreeTile(x, y);
+    if (x == ROOM_MID_X)  // petit arbre étroit (une moitié de bosquet), calé sur les rangées d'arbres voisines
+        return ((GetTreeTile(x - 1, y) & ~1) == TILE_TREE_TOP) ? TILE_GROVE : TILE_GROVE + 2;
+    return GetForestGrassTile(x, y);
 }
 
 // Falaise : la salle est le dessus d'un plateau à deux niveaux, dans les pièces de montagne de General. Le niveau bas
@@ -1098,7 +1126,7 @@ static void PaintRoom(void)
         for (x = PAINT_MIN; x < PAINT_MIN + PAINT_W; x++)
         {
             if (gIsaacBiomes[ISAAC_BIOME].trees && IsWallAt(x, y))
-                tile = GetTreeTile(x, y);
+                tile = GetForestWallTile(x, y);
             else if (gIsaacBiomes[ISAAC_BIOME].cliff && GetCliffCorridorTile(x, y) != 0)
                 tile = GetCliffCorridorTile(x, y);
             else if (gIsaacBiomes[ISAAC_BIOME].cliff && GetCliffPlatformTile(x, y) != 0)
@@ -1109,9 +1137,8 @@ static void PaintRoom(void)
                 tile = GetCliffRoleTile(x, y);
             else if (IsWallAt(x, y))  // bout de mur trop fin pour une falaise : rocher isolé
                 tile = (IsaacRandom() & 1) ? TILE_ROCK_1 : TILE_ROCK_2;
-            else if (gIsaacBiomes[ISAAC_BIOME].trees && IsWallAt(x, y + 1)
-                  && (GetTreeTile(x, y + 1) & ~1) == TILE_TREE_TOP)  // bout de la cime de l'arbre du dessous
-                tile = TILE_TREE_TIP + (GetTreeTile(x, y + 1) & 1);
+            else if (gIsaacBiomes[ISAAC_BIOME].trees)
+                tile = GetForestGrassTile(x, y);
             else
                 tile = TILE_FLOOR;
 
