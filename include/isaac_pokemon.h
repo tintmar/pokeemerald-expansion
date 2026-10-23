@@ -72,7 +72,6 @@ struct IsaacBiome
     bool8 ocean;      // le joueur surfe sur toute la salle
     bool8 trees;      // murs en arbres de 2 x 2 (demi-arbres TILE_TREE_*) au lieu des rôles de falaise
     bool8 cliff;      // la salle est le haut d'une falaise : paroi sud sur deux rangées, couloirs en ponts
-
     u8 types[2];      // les deux types principaux du biome (deux fois le même pour l'océan)
 };
 
