@@ -4301,12 +4301,12 @@ const struct ItemInfo gItemsInfo[] =
     // Donjon : le Pokémon passe au set suivant de son espèce (voir IsaacUpgradeSet)
     [ITEM_ABILITY_TRAINER] =
     {
-        .name = ITEM_NAME("Ability Trainer"),
+        .name = ITEM_NAME("Super TM"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "Trains a Pokémon\n"
-            "to reach its next\n"
-            "level of mastery."),
+            "Teaches a Pokémon\n"
+            "its next, stronger\n"
+            "set of moves."),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
         .type = ITEM_USE_PARTY_MENU,

@@ -6746,7 +6746,7 @@ void ItemUseCB_IsaacOmniboost(u8 taskId, TaskFunc task)
     gTasks[taskId].func = task;
 }
 
-// Donjon : Ability Trainer, le Pokémon passe au set suivant de son espèce
+// Donjon : Super CT (ITEM_ABILITY_TRAINER), le Pokémon passe au set suivant de son espèce
 void ItemUseCB_IsaacAbilityTrainer(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];

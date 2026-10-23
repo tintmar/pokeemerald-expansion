@@ -875,7 +875,7 @@ static bool8 SetMovesFromSet(struct Pokemon *mon, u32 tier, u32 variant)
     return TRUE;
 }
 
-// Ability Trainer : le Pokémon prend les attaques du palier suivant de son espèce, même variante (FALSE s'il a déjà
+// Super CT (ITEM_ABILITY_TRAINER) : le Pokémon prend les attaques du palier suivant de son espèce, même variante (FALSE s'il a déjà
 // le meilleur)
 bool8 IsaacUpgradeSet(struct Pokemon *mon)
 {

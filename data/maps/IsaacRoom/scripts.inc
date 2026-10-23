@@ -601,7 +601,7 @@ IsaacRoom_Text_TutorNothing:
 	.string "Je n'ai rien à lui apprendre…$"
 
 @ Duelliste : il annonce son Pokémon, puis combat en 1 contre 1 contre le Pokémon choisi (perdre ne renvoie pas au
-@ hub). Un seul duel : gagné, une Guérison et un Ability Trainer ; perdu, un Rappel pour relever le Pokémon K.O.
+@ hub). Un seul duel : gagné, une Guérison et une Super CT ; perdu, un Rappel pour relever le Pokémon K.O.
 IsaacRoom_EventScript_Duelist::
 	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_DuelistDone
 	special IsaacPrepareDuel
