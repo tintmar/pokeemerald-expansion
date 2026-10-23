@@ -81,13 +81,14 @@
  * DRESSEURS : une salle normale a ISAAC_TRAINER_PCT % de chances d'avoir un dresseur du biome, au centre. Il
  * regarde la porte par laquelle le joueur arrive : le moteur le fait réagir, s'approcher et lancer le combat
  * dès l'arrivée. Vaincu, il retourne au centre et la salle est « nettoyée » (FLAG_ISAAC_CLEARED_FIRST + cellule).
- * Ses Pokémon (nombre, catégorie, set selon l'étage : sRoomTrainerParties) sont tirés au hasard dans toutes
+ * Ses Pokémon (nombre et set selon l'étage : sRoomTrainerParties ; catégorie et BST : palier de force de l'étage,
+ * sStrengthLevels) sont tirés au hasard dans toutes
  * les lignées du biome, sans doublon (AddTrainerMon). Vaincu, il donne ISAAC_TRAINER_MONEY_PER_FLOOR x
  * la profondeur, et un objet de son butin (IsaacPickTrainerLoot) : à partir de l'étage 2, l'un des dresseurs de
  * l'étage donne une Master Ball à la place, à coup sûr si on les bat tous.
  *
  * SALLE DE CAPTURE : des Pokémon sauvages différents du biome se promènent (3 aux étages 1-2, 4 aux étages
- * 3-4, 5 aux étages 5-6), de catégorie de plus en plus haute avec la profondeur (RollCaptureCategory), au set 2
+ * 3-4, 5 aux étages 5-6), deux paliers de force au-dessus des dresseurs de l'étage (GetCaptureLevel), au set 2
  * jusqu'à l'étage 3 puis au set 3. Leur parler lance le combat, après quoi ils disparaissent. SALLE TRÉSOR : un objet spécial au sol (deux salles
  * trésor à partir de ISAAC_TWO_TREASURES_MIN_FLOOR).
  *
@@ -1089,28 +1090,64 @@ EWRAM_DATA u8 gIsaacTrainerReturnMovement[ISAAC_ROOM_W + 2] = {0};
 static EWRAM_DATA struct Trainer sRoomTrainer = {0};
 static EWRAM_DATA struct TrainerMon sRoomTrainerMons[PARTY_SIZE] = {0};
 
+// Paliers de force : comme des catégories plus fines, un par étage. Un Pokémon d'un palier a une catégorie tirée entre
+// minCategory et maxCategory (légendaire dans legendaryPct % des cas), et un BST au moins minBst (plancher qui
+// adoucit le passage d'une catégorie à la suivante). Les dresseurs de l'étage n prennent le palier n (ceux d'une salle
+// secrète le suivant), la salle de capture et l'échangeur CAPTURE_LEVEL_AHEAD paliers plus haut ; le boss garde ses
+// propres catégories mais le plancher de son étage. Au-delà du dernier, on garde le dernier.
+struct IsaacStrengthLevel
+{
+    u8 minCategory, maxCategory;
+    u8 legendaryPct;
+    u16 minBst;
+};
+
+static const struct IsaacStrengthLevel sStrengthLevels[] =
+{
+    { ISAAC_CATEGORY_1, ISAAC_CATEGORY_1,  0, 210 },
+    { ISAAC_CATEGORY_1, ISAAC_CATEGORY_2,  0, 265 },
+    { ISAAC_CATEGORY_2, ISAAC_CATEGORY_2,  0, 330 },
+    { ISAAC_CATEGORY_2, ISAAC_CATEGORY_3,  0, 360 },
+    { ISAAC_CATEGORY_3, ISAAC_CATEGORY_3,  0, 430 },
+    { ISAAC_CATEGORY_3, ISAAC_CATEGORY_4,  0, 455 },
+    { ISAAC_CATEGORY_4, ISAAC_CATEGORY_4,  0, 490 },
+    { ISAAC_CATEGORY_4, ISAAC_CATEGORY_4, 25, 500 },
+};
+
+#define CAPTURE_LEVEL_AHEAD  2
+
+static const struct IsaacStrengthLevel *GetStrengthLevel(u32 level)
+{
+    return &sStrengthLevels[min(max(level, 1u), ARRAY_COUNT(sStrengthLevels)) - 1];
+}
+
+// Catégorie tirée dans un palier (roll : tirage de la salle)
+static enum IsaacCategory RollLevelCategory(const struct IsaacStrengthLevel *level, u32 roll)
+{
+    if (roll % 100 < level->legendaryPct)
+        return ISAAC_CATEGORY_LEGENDARY_SMALL;  // légendaire : petit ou grand
+    return level->minCategory + (roll >> 8) % (level->maxCategory - level->minCategory + 1);
+}
+
 // Équipe des dresseurs de salle selon l'étage : maxCount Pokémon (maxCountPct % des salles), sinon un de moins ;
-// chaque Pokémon tire sa catégorie et son set au hasard entre les deux bornes (au-delà du dernier étage, on garde la
-// dernière ligne), parmi les espèces de BST au moins minBst (plancher qui adoucit le passage d'une catégorie à la
-// suivante). tierByCategory : le set n'est pas tiré mais suit la catégorie à l'envers (catégorie la plus faible
-// -> meilleur set)
+// chaque Pokémon est du palier de force de l'étage, avec un set tiré entre les deux bornes (au-delà du dernier étage,
+// on garde la dernière ligne). tierByCategory : le set n'est pas tiré mais suit la catégorie à l'envers (catégorie la
+// plus faible -> meilleur set)
 struct IsaacTrainerParty
 {
     u8 maxCount, maxCountPct;
-    u8 minCategory, maxCategory;
     u8 minTier, maxTier;  // 0 = set 1
     bool8 tierByCategory;
-    u16 minBst;
 };
 
 static const struct IsaacTrainerParty sRoomTrainerParties[] =
 {
-    { 2,  60, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 0, FALSE, 210 },
-    { 2, 100, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 0, 1, TRUE,  265 },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
-    { 3,  60, ISAAC_CATEGORY_2, ISAAC_CATEGORY_2, 1, 1, FALSE, 330 },
-    { 3,  75, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 2, FALSE, 360 },
-    { 4,  50, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 2, FALSE, 430 },
-    { 4,  70, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 2, 2, FALSE, 455 },
+    { 2,  60, 0, 0, FALSE },
+    { 2, 100, 0, 1, TRUE },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
+    { 3,  60, 1, 1, FALSE },
+    { 3,  75, 1, 2, FALSE },
+    { 4,  50, 1, 2, FALSE },
+    { 4,  70, 2, 2, FALSE },
 };
 
 // Équipe du boss selon l'étage. Principe : le boss garde toujours un cran d'avance sur les dresseurs
@@ -1121,7 +1158,7 @@ static const struct IsaacTrainerParty sRoomTrainerParties[] =
 //    (aceBrilliant, étage 6 : chromatique, meilleure stat +20 %) ;
 //  - l'as du dernier étage est un petit légendaire, choisi selon le thème du boss (sBossLegendaries) ;
 //  - l'IA est « Smart » à tous les étages ;
-//  - les espèces respectent le même plancher de BST que les dresseurs de l'étage (sRoomTrainerParties).
+//  - les espèces respectent le plancher de BST du palier de force de l'étage (sStrengthLevels).
 struct IsaacBossParty
 {
     u8 count;  // as compris
@@ -1309,12 +1346,12 @@ static const struct IsaacTrainerType *GetDuelistType(void)
 
 static u32 GetDuelistCategory(void)
 {
-    return min(sRoomTrainerParties[min(VarGet(VAR_ISAAC_FLOOR), ARRAY_COUNT(sRoomTrainerParties)) - 1].maxCategory + 1, ISAAC_CATEGORY_4);
+    return min(GetStrengthLevel(VarGet(VAR_ISAAC_FLOOR))->maxCategory + 1, ISAAC_CATEGORY_4);
 }
 
 static u32 GetDuelistTier(void)
 {
-    return min(sRoomTrainerParties[min(VarGet(VAR_ISAAC_FLOOR), ARRAY_COUNT(sRoomTrainerParties)) - 1].maxTier + 1, ISAAC_SET_TIERS - 1);
+    return min(GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR))->maxTier + 1, ISAAC_SET_TIERS - 1);
 }
 
 bool8 IsIsaacTrainer(u16 trainerId)
@@ -1330,6 +1367,7 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
     const struct IsaacTrainerType *type;
     const struct IsaacTrainerParty *party;
+    const struct IsaacStrengthLevel *level;
     const u8 *const *names;
     s32 x, y;
     u32 i, count;
@@ -1355,10 +1393,10 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
             u32 category = boss->minCategory + (roll >> 8) % (boss->maxCategory - boss->minCategory + 1);
             u32 tier = boss->minTier + (roll >> 16) % (boss->maxTier - boss->minTier + 1);
 
-            AddTrainerMon(category, tier, roll, GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR))->minBst);
+            AddTrainerMon(category, tier, roll, GetStrengthLevel(VarGet(VAR_ISAAC_FLOOR))->minBst);
         }
         // L'as, envoyé en dernier
-        AddTrainerMon(boss->aceCategory, boss->aceTier, RoomRandom(x, y, 0xB0A5), GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR))->minBst);
+        AddTrainerMon(boss->aceCategory, boss->aceTier, RoomRandom(x, y, 0xB0A5), GetStrengthLevel(VarGet(VAR_ISAAC_FLOOR))->minBst);
         return &sRoomTrainer;
     }
 
@@ -1369,16 +1407,17 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
         sRoomTrainer.aiFlags = AI_FLAG_CHECK_BAD_MOVE;  // premier étage : attaques au hasard, sauf les inutiles
     // dresseur de la salle secrète : l'équipe de l'étage suivant
     party = GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET));
+    level = GetStrengthLevel(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET));
     count = party->maxCount - (RoomRandom(x, y, 0xC0F7) % 100 >= party->maxCountPct);
     for (i = 0; i < count; i++)
     {
         u32 roll = RoomRandom(x, y, 0x5EC + i);
-        u32 category = party->minCategory + (roll >> 8) % (party->maxCategory - party->minCategory + 1);
+        u32 category = RollLevelCategory(level, roll);
         u32 tier = party->minTier + (roll >> 16) % (party->maxTier - party->minTier + 1);
 
         if (party->tierByCategory)
-            tier = max((s32)party->maxTier - (s32)(category - party->minCategory), (s32)party->minTier);
-        AddTrainerMon(category, tier, roll, party->minBst);
+            tier = max((s32)party->maxTier - (s32)(category - level->minCategory), (s32)party->minTier);
+        AddTrainerMon(category, tier, roll, level->minBst);
     }
     return &sRoomTrainer;
 }
@@ -1605,30 +1644,20 @@ static u32 GetCaptureMonCount(void)
     return min(3 + (floor - 1) / 2, (u32)CAPTURE_MAX_MONS);
 }
 
-// Catégorie du Pokémon n° slot : étage 1 catégorie 2, 2 catégorie 2 ou 3, 3 catégorie 3, 4 catégorie 3 ou 4,
-// 5 catégorie 4, 6 et plus catégorie 4 (75 %) ou légendaire (25 %)
-static enum IsaacCategory RollCaptureCategory(s32 x, s32 y, u32 slot)
+// Palier de force de la salle de capture et de l'échangeur : CAPTURE_LEVEL_AHEAD paliers d'avance sur les dresseurs
+// de l'étage (catégorie 2 à l'étage 1... catégorie 4 ou légendaire à l'étage 6)
+static const struct IsaacStrengthLevel *GetCaptureLevel(void)
 {
-    u32 roll = RoomRandom(x, y, 0xCA70 + slot) % 100;
-
-    switch (VarGet(VAR_ISAAC_FLOOR))
-    {
-    case 1:
-        return ISAAC_CATEGORY_2;
-    case 2:
-        return roll < 50 ? ISAAC_CATEGORY_2 : ISAAC_CATEGORY_3;
-    case 3:
-        return ISAAC_CATEGORY_3;
-    case 4:
-        return roll < 50 ? ISAAC_CATEGORY_3 : ISAAC_CATEGORY_4;
-    case 5:
-        return ISAAC_CATEGORY_4;
-    default:
-        return roll < 75 ? ISAAC_CATEGORY_4 : ISAAC_CATEGORY_LEGENDARY_SMALL;  // légendaire : petit ou grand
-    }
+    return GetStrengthLevel(VarGet(VAR_ISAAC_FLOOR) + CAPTURE_LEVEL_AHEAD);
 }
 
-// Une espèce de la catégorie voulue : des lignées du biome, ou n'importe quel légendaire du roster
+static enum IsaacCategory RollCaptureCategory(s32 x, s32 y, u32 slot)
+{
+    return RollLevelCategory(GetCaptureLevel(), RoomRandom(x, y, 0xCA70 + slot));
+}
+
+// Une espèce de la catégorie voulue (au plancher de BST du palier de capture) : des lignées du biome, ou n'importe quel
+// légendaire du roster
 static u16 PickCaptureSpecies(enum IsaacCategory category, u32 roll)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
@@ -1647,7 +1676,7 @@ static u16 PickCaptureSpecies(enum IsaacCategory category, u32 roll)
         }
         return legendaries[roll % count];
     }
-    species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, roll);
+    species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, GetCaptureLevel()->minBst, roll);
     return species != SPECIES_NONE ? species : biome->lines[0];
 }
 
@@ -2363,8 +2392,9 @@ void IsaacGetRoomContent(void)
     gSpecialVar_0x8005 = IsCleared(x, y);
 }
 
-// Une espèce de la catégorie voulue (1 à 4, au sens de son biome) dans un biome tiré au hasard ; autre que exclude
-static u16 PickSpeciesOfAnyBiome(enum IsaacCategory category, u16 exclude, u32 seed)
+// Une espèce de la catégorie voulue (1 à 4, au sens de son biome, de BST au moins minBst s'il y en a) dans un biome
+// tiré au hasard ; autre que exclude
+static u16 PickSpeciesOfAnyBiome(enum IsaacCategory category, u32 minBst, u16 exclude, u32 seed)
 {
     const struct IsaacBiome *biome;
     u32 try;
@@ -2373,7 +2403,7 @@ static u16 PickSpeciesOfAnyBiome(enum IsaacCategory category, u16 exclude, u32 s
     for (try = 0; try < 16; try++)
     {
         biome = &gIsaacBiomes[(seed >> 8) % ISAAC_BIOME_COUNT];
-        species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, seed);
+        species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, minBst, seed);
         if (species != SPECIES_NONE && species != exclude)
             return species;
         seed = seed * 1103515245 + 12345;
@@ -2398,7 +2428,7 @@ void IsaacGiveEgg(void)
     seed = RoomRandom(x, y, 0xE66);
     for (i = 0, species = SPECIES_NONE; i < EGG_SPECIES_DRAWS; i++)
     {
-        candidate = PickSpeciesOfAnyBiome(VarGet(VAR_ISAAC_FLOOR) == 1 ? ISAAC_CATEGORY_3 : ISAAC_CATEGORY_4,
+        candidate = PickSpeciesOfAnyBiome(VarGet(VAR_ISAAC_FLOOR) == 1 ? ISAAC_CATEGORY_3 : ISAAC_CATEGORY_4, 0,
                                           SPECIES_NONE, seed ^ (i * 0x9E3779B9));
         if (species == SPECIES_NONE || IsaacGetSpeciesBST(candidate) > IsaacGetSpeciesBST(species))
             species = candidate;
@@ -2466,7 +2496,7 @@ static EWRAM_DATA u16 sTradeSpecies = SPECIES_NONE;
 
 // Échange avec le Pokémon n° VAR_0x8004 de l'équipe : VAR_RESULT = FALSE pour un Œuf. Sinon, l'offre est celle de la
 // salle (toujours la même) : un Pokémon de n'importe quel biome, de la force de ceux de la salle de capture de l'étage
-// (RollCaptureCategory, GetCaptureSetTier), d'une autre espèce que celui du joueur. gStringVar1 = le Pokémon du joueur,
+// (GetCaptureLevel, GetCaptureSetTier), d'une autre espèce que celui du joueur. gStringVar1 = le Pokémon du joueur,
 // gStringVar2 = l'offre, révélée seulement une fois l'échange conclu.
 void IsaacPrepareTrade(void)
 {
@@ -2487,7 +2517,7 @@ void IsaacPrepareTrade(void)
         if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
             sTradeSpecies = PickCaptureSpecies(category, seed);
         else
-            sTradeSpecies = PickSpeciesOfAnyBiome(category, SPECIES_NONE, seed);
+            sTradeSpecies = PickSpeciesOfAnyBiome(category, GetCaptureLevel()->minBst, SPECIES_NONE, seed);
         if (sTradeSpecies != species)
             break;
     }

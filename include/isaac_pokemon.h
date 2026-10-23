@@ -85,7 +85,7 @@ enum Species IsaacGetSharedFormBase(enum Species species);
 enum Species IsaacRollSharedForm(enum Species species, u32 roll);
 enum Species IsaacGetRosterSpecies(u32 index);
 enum Species IsaacGetEvolution(enum Species species, u32 choice);
-enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 roll);
+enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 minBst, u32 roll);
 enum IsaacCategory IsaacGetLinesCategory(const u16 *lines, u32 lineCount, enum Species species);
 u32 IsaacAddLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum IsaacCategory category, u16 *out, u32 count, u32 max);
 void IsaacCreateMonFromSet(struct Pokemon *mon, enum Species species, u32 tier, u32 variant, u32 seed);

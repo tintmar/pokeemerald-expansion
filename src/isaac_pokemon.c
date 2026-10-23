@@ -398,13 +398,20 @@ u32 IsaacAddLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum IsaacCa
     return count;
 }
 
-// Une espèce des lignées données de la catégorie voulue, au sens de ces lignées (voir GetLinesSpeciesOfCategory), ou
-// une de ses formes à poids partagé ; SPECIES_NONE s'il n'y en a pas
-enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 roll)
+// Une espèce des lignées données de la catégorie voulue, au sens de ces lignées (voir GetLinesSpeciesOfCategory), de
+// BST au moins minBst s'il y en a (sinon sans plancher), ou une de ses formes à poids partagé ; SPECIES_NONE s'il n'y en
+// a pas
+enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCategory category, u32 minBst, u32 roll)
 {
     u16 candidates[ISAAC_MAX_LINE_SPECIES];
     u32 n = GetLinesSpeciesOfCategory(lines, lineCount, category, candidates);
+    u32 kept = 0, i;
 
+    for (i = 0; i < n; i++)
+        if (GetSpeciesBST(candidates[i]) >= minBst)
+            candidates[kept++] = candidates[i];
+    if (kept != 0)
+        n = kept;
     return n ? IsaacRollSharedForm(candidates[roll % n], (roll / n) >> 3) : SPECIES_NONE;
 }
 
