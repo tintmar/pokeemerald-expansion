@@ -870,7 +870,7 @@ static u16 GetCliffRoleTile(s32 x, s32 y)
 
 // Forêt : ligne d'une porte (ouverte ou non), au milieu de chaque mur. La salle a un nombre impair de cases de large et
 // de haut : les arbres de 2 x 2 se calent de part et d'autre de ces lignes, comme pour un couloir. Une porte fermée y
-// laisse une colonne de petits arbres étroits (nord, sud) ou une rangée d'herbe infranchissable (ouest, est).
+// laisse une colonne de petits arbres étroits (nord, sud) ou une rangée de buissons (TILE_ROCK_2, ouest, est).
 static bool8 IsForestDoorLine(s32 x, s32 y)
 {
     return (x == ROOM_MID_X && (y < ROOM_MIN_Y || y > ROOM_MAX_Y))
@@ -943,7 +943,7 @@ static u16 GetForestWallTile(s32 x, s32 y)
         return GetTreeTile(x, y);
     if (x == ROOM_MID_X)  // petit arbre étroit (une moitié de bosquet), calé sur les rangées d'arbres voisines
         return ((GetTreeTile(x - 1, y) & ~1) == TILE_TREE_TOP) ? TILE_GROVE : TILE_GROVE + 2;
-    return GetForestGrassTile(x, y);
+    return TILE_ROCK_2;
 }
 
 // Falaise : la salle est le dessus d'un plateau à deux niveaux, dans les pièces de montagne de General. Le niveau bas

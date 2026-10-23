@@ -98,8 +98,8 @@ BIOME_TILESETS = [
         BRIDGE_V=0x071, BRIDGE_H=0x069, ROCK_FLANK_W=0x073, ROCK_FLANK_E=0x075, ROCK_CREST_NW=0x06B,
         ROCK_CREST_NE=0x06D, ROCK_FACE=0x07C, ROCK_FACE_SW=0x07B, ROCK_FACE_SE=0x07D, NOTCH_W=0x089, NOTCH_E=0x074)),
     # Forêt (Bois Clémentines) : herbe, murs en arbres de 2 x 2 de General (voir TREES), arbustes d'une case
-    ('isaac_forest', 'rustboro', dict(
-        FLOOR=0x001, ROCK_1=0x0C6, ROCK_2=0x0CE, TL=0x1D4, T=0x1D4, TR=0x1D4, L=0x1D4, C=0x1D4, R=0x1D4,
+    ('isaac_forest', 'petalburg', dict(
+        FLOOR=0x001, ROCK_1=0x0C6, ROCK_2=0x202, TL=0x1D4, T=0x1D4, TR=0x1D4, L=0x1D4, C=0x1D4, R=0x1D4,
         BL=0x1D4, B=0x1D4, BR=0x1D4, IN_SE=0x1D4, IN_SW=0x1D4, IN_NE=0x1D4, IN_NW=0x1D4, DECO_1=0x0C6, DECO_2=0x0CE,
         TREE_TOP_L=0x1D4, TREE_TOP_R=0x1D5, TREE_BOT_L=0x1DC, TREE_BOT_R=0x1DD, TREE_TRUNK_L=0x1E4, TREE_TRUNK_R=0x1E5,
         TREE_TIP_L=0x1CE, TREE_TIP_R=0x1CF, GROVE_TL=0x00E, GROVE_TR=0x00F, GROVE_BL=0x016, GROVE_BR=0x017)),
