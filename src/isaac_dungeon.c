@@ -1218,30 +1218,34 @@ static enum IsaacCategory RollLevelCategory(const struct IsaacStrengthLevel *lev
 // Équipe des dresseurs de salle selon l'étage : maxCount Pokémon (maxCountPct % des salles), sinon un de moins ;
 // chaque Pokémon est du palier de force de l'étage, avec un set tiré entre les deux bornes (au-delà du dernier étage,
 // on garde la dernière ligne). tierByCategory : le set n'est pas tiré mais suit la catégorie à l'envers (catégorie la
-// plus faible -> meilleur set)
+// plus faible -> meilleur set). Le dernier Pokémon est un as : aceCategory 1 = la catégorie la plus haute du palier,
+// 2 = une au-dessus (catégorie 4 au plus ; 0 = tirée comme les autres), son set + aceTier, et aceBoosts Omniboosts
+// (IsaacBoostTrainerParty).
 struct IsaacTrainerParty
 {
     u8 maxCount, maxCountPct;
     u8 minTier, maxTier;  // 0 = set 1
     bool8 tierByCategory;
+    u8 aceCategory, aceTier, aceBoosts;
 };
 
 static const struct IsaacTrainerParty sRoomTrainerParties[] =
 {
-    { 2,  60, 0, 0, FALSE },
-    { 2, 100, 0, 1, TRUE },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
-    { 3,  60, 1, 1, FALSE },
-    { 3,  75, 1, 2, FALSE },
-    { 4,  50, 1, 2, FALSE },
-    { 4,  70, 2, 2, FALSE },
+    { 2,  60, 0, 0, FALSE, 0, 1, 0 },
+    { 2, 100, 0, 1, TRUE,  0, 1, 0 },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
+    { 3,  60, 1, 1, FALSE, 2, 0, 0 },
+    { 3,  75, 1, 2, FALSE, 1, 1, 0 },
+    { 4,  50, 1, 2, FALSE, 2, 0, 0 },
+    { 4,  70, 2, 2, FALSE, 1, 0, 1 },
 };
 
 // Équipe du boss selon l'étage. Principe : le boss garde toujours un cran d'avance sur les dresseurs
 // de son étage (un Pokémon de plus, catégorie et set au moins égaux), et son dernier Pokémon est un
-// « as » d'une catégorie au-dessus du reste, pour finir le combat sur une vraie menace.
+// « as » d'une catégorie au-dessus du reste, pour finir le combat sur une vraie menace. Juste avant lui,
+// secondaryAces « as secondaires » ont la catégorie et le set les plus hauts de l'équipe.
 // En plus du tableau (voir IsaacBoostTrainerParty et GetIsaacTrainer) :
-//  - pas d'Omniboost sur l'équipe, seulement sur l'as : aceBoosts Omniboosts (étage 5) ou une Pierre brillante
-//    (aceBrilliant, étage 6 : chromatique, meilleure stat +20 %) ;
+//  - objets, un seul par Pokémon : la Pierre brillante de l'as (aceBrilliant, étage 6 : chromatique, meilleure stat
+//    +20 %), puis boosts Omniboosts, un par Pokémon en remontant depuis l'as (as secondaires ensuite) ;
 //  - l'as du dernier étage est un petit légendaire, choisi selon le thème du boss (sBossLegendaries) ;
 //  - l'IA est « Smart » à tous les étages ;
 //  - les espèces respectent le plancher de BST du palier de force de l'étage (sStrengthLevels).
@@ -1250,18 +1254,19 @@ struct IsaacBossParty
     u8 count;  // as compris
     u8 minCategory, maxCategory;
     u8 minTier, maxTier;  // 0 = set 1
-    u8 aceCategory, aceTier, aceBoosts;
+    u8 aceCategory, aceTier;
+    u8 secondaryAces, boosts;
     bool8 aceBrilliant;
 };
 
 static const struct IsaacBossParty sBossParties[] =
 {
-    { 3, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 0, ISAAC_CATEGORY_2,               1, 0, FALSE },
-    { 4, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 1, 1, ISAAC_CATEGORY_3,               1, 0, FALSE },
-    { 4, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_3,               1, 0, FALSE },
-    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_4,               1, 0, FALSE },
-    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 1, 2, ISAAC_CATEGORY_4,               2, 1, FALSE },
-    { 6, ISAAC_CATEGORY_4, ISAAC_CATEGORY_4, 1, 2, ISAAC_CATEGORY_LEGENDARY_SMALL, 2, 0, TRUE },
+    { 3, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 1, ISAAC_CATEGORY_2,               1, 0, 0, FALSE },
+    { 4, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 1, 1, ISAAC_CATEGORY_3,               2, 1, 0, FALSE },
+    { 4, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_3,               1, 1, 1, FALSE },
+    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_4,               2, 1, 0, FALSE },
+    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 1, 2, ISAAC_CATEGORY_4,               2, 1, 2, FALSE },
+    { 6, ISAAC_CATEGORY_4, ISAAC_CATEGORY_4, 1, 2, ISAAC_CATEGORY_LEGENDARY_SMALL, 2, 2, 2, TRUE },
 };
 
 // Petit légendaire de l'as du dernier étage, au thème du biome et de son boss
@@ -1479,6 +1484,11 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
             u32 category = boss->minCategory + (roll >> 8) % (boss->maxCategory - boss->minCategory + 1);
             u32 tier = boss->minTier + (roll >> 16) % (boss->maxTier - boss->minTier + 1);
 
+            if (i + 1 + boss->secondaryAces >= boss->count)  // as secondaire
+            {
+                category = boss->maxCategory;
+                tier = boss->maxTier;
+            }
             AddTrainerMon(category, tier, roll, GetStrengthLevel(VarGet(VAR_ISAAC_FLOOR))->minBst);
         }
         // L'as, envoyé en dernier
@@ -1503,6 +1513,12 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
 
         if (party->tierByCategory)
             tier = max((s32)party->maxTier - (s32)(category - level->minCategory), (s32)party->minTier);
+        if (i == count - 1)  // l'as
+        {
+            if (party->aceCategory != 0 && category < ISAAC_CATEGORY_LEGENDARY_SMALL)
+                category = min(level->maxCategory + party->aceCategory - 1, ISAAC_CATEGORY_4);
+            tier = min(tier + party->aceTier, ISAAC_SET_TIERS - 1);
+        }
         AddTrainerMon(category, tier, roll, level->minBst);
     }
     return &sRoomTrainer;
@@ -1602,16 +1618,25 @@ void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party)
     const struct IsaacBossParty *boss = GetBossParty();
     struct Pokemon *ace;
     u32 n, stat;
+    s32 x, y;
 
+    if (trainerId == TRAINER_ISAAC_ROOM && IsIsaacTrainer(trainerId) && sRoomTrainer.partySize != 0)
+    {
+        GetCurrentCell(&x, &y);  // l'as du dresseur de salle (sRoomTrainerParties)
+        for (n = GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET))->aceBoosts; n != 0; n--)
+            IsaacAddOmniboost(&party[sRoomTrainer.partySize - 1]);
+        return;
+    }
     if (trainerId != TRAINER_ISAAC_BOSS || !IsIsaacTrainer(trainerId) || sRoomTrainer.partySize == 0)
         return;
     IsaacGoldenHeartStart();  // le Cœur Doré utilisé depuis le sac, s'il y en a un
     IsaacBossEvolutionStart();
+    // un objet par Pokémon, en remontant depuis l'as
     ace = &party[sRoomTrainer.partySize - 1];
-    for (n = boss->aceBoosts; n != 0; n--)
-        IsaacAddOmniboost(ace);
     if (boss->aceBrilliant)
-        IsaacUseBrilliantStone(ace, &stat);
+        IsaacUseBrilliantStone(ace--, &stat);
+    for (n = boss->boosts; n != 0 && ace >= party; n--)
+        IsaacAddOmniboost(ace--);
 }
 
 static struct ObjectEventTemplate *GetObjectTemplate(u8 localId)
