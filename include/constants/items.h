@@ -1089,6 +1089,7 @@ enum __attribute__((packed)) Item
     ITEM_FIRST_AID_KIT = 908,          // soin complet de toute l'équipe, K.O. compris
     ITEM_PRISM_STONE = 909,            // nouveau second type pour un Pokémon, au choix parmi trois
     ITEM_Z_TM = 910,                   // apprend le Z-move du type du Pokémon (1 PP, très puissant)
+    ITEM_MAX_RESTORE = 911,            // Guérison qui relève aussi un Pokémon K.O. (PV au complet)
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

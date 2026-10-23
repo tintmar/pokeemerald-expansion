@@ -3482,6 +3482,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, enum Item item, u8 partyIndex, 
 
     // Get item effect
     itemEffect = GetItemEffect(item);
+    if (item == ITEM_MAX_RESTORE && GetMonData(mon, MON_DATA_HP) == 0)
+        itemEffect = GetItemEffect(ITEM_MAX_REVIVE);  // donjon : la Restore Max relève un Pokémon K.O.
     isLevelUpItem = (itemEffect[3] & ITEM3_LEVEL_UP) != 0;
     levelBefore = GetMonData(mon, MON_DATA_LEVEL, NULL);
 

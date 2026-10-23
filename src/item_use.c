@@ -1348,6 +1348,8 @@ bool32 CannotUseItemsInBattle(enum Item itemId, struct Pokemon *mon)
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_HEAL_AND_CURE_STATUS:
+        if (itemId == ITEM_MAX_RESTORE && hp == 0)  // donjon : la Restore Max relève aussi un Pokémon K.O.
+            break;
         if ((hp == 0 || hp == GetMonData(mon, MON_DATA_MAX_HP))
             && !((GetMonData(mon, MON_DATA_STATUS) & GetItemStatus1Mask(itemId))
             || SelectedMonHasVolatile(itemId)))

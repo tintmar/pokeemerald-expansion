@@ -22,8 +22,7 @@ Hub_EventScript_Hiker::
 	msgbox Hub_Text_HikerMasterBall, MSGBOX_DEFAULT
 	giveitem ITEM_MASTER_BALL
 	msgbox Hub_Text_HikerSupplies, MSGBOX_DEFAULT
-	giveitem ITEM_SUPER_POTION, 2
-	giveitem ITEM_REVIVE, 2
+	giveitem ITEM_MAX_RESTORE, 2
 	msgbox Hub_Text_HikerGoodLuck, MSGBOX_DEFAULT
 	release
 	end

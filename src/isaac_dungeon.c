@@ -128,7 +128,7 @@ STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSE
 // Articles de la boutique de l'étage déjà vendus, chacun en un seul exemplaire (voir SHOP_SLOT_*), dans des drapeaux
 // inutilisés du jeu
 #define FLAG_ISAAC_SHOP_SOLD_FIRST  FLAG_UNUSED_0x030
-#define SHOP_LIMITED_SLOTS  13
+#define SHOP_LIMITED_SLOTS  14
 STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED_0x047, IsaacShopFlagsAreUnused);
 
 // Passage vers la salle secrète de l'étage ouvert (sinon ses portes sont fermées par de la roche)
@@ -1445,9 +1445,8 @@ static u32 CountTrainersLeftOnFloor(void)
 }
 
 // Butin d'un dresseur vaincu, donné objet par objet (IsaacNextLootItem) :
-//  - jusqu'à l'étage TRAINER_LOOT_BOTH_FLOOR - 1 : une Guérison (TRAINER_LOOT_FULL_RESTORE_PCT %) ou un Rappel (toujours
-//    le même pour une salle) ;
-//  - à partir de l'étage TRAINER_LOOT_BOTH_FLOOR : une Guérison et un Rappel.
+//  - jusqu'à l'étage TRAINER_LOOT_BOTH_FLOOR - 1 : une Restore Max ;
+//  - à partir de l'étage TRAINER_LOOT_BOTH_FLOOR : deux Restore Max.
 // À partir de ISAAC_MASTER_BALL_MIN_FLOOR, une Master Ball, une seule par étage : tant qu'elle n'est pas tombée, chaque
 // dresseur la donne avec 1 chance sur le nombre de dresseurs encore à battre (1/8, 1/7... 1/1) ; battre tous les
 // dresseurs de l'étage la donne donc à coup sûr. Le dresseur de la salle secrète, qu'on ne peut pas toujours atteindre,
@@ -1455,7 +1454,6 @@ static u32 CountTrainersLeftOnFloor(void)
 // TRAINER_LOOT_BOTH_FLOOR où elle s'y ajoute.
 // En plus, TRAINER_LOOT_RARE_PCT % des dresseurs donnent un butin rare (PickTrainerRareLoot, toujours le même pour une
 // salle) : un objet spécial, une très bonne CT, un objet de combat de la boutique ou un Rappel Max.
-#define TRAINER_LOOT_FULL_RESTORE_PCT  66
 #define TRAINER_LOOT_BOTH_FLOOR        4
 #define TRAINER_LOOT_RARE_PCT          10
 
@@ -1473,15 +1471,9 @@ void IsaacPickTrainerLoot(void)
 
     GetCurrentCell(&x, &y);
     sLootCount = 0;
+    sLoot[sLootCount++] = ITEM_MAX_RESTORE;
     if (both)
-    {
-        sLoot[sLootCount++] = ITEM_FULL_RESTORE;
-        sLoot[sLootCount++] = ITEM_REVIVE;
-    }
-    else
-    {
-        sLoot[sLootCount++] = (RoomRandom(x, y, 0x1007) % 100 < TRAINER_LOOT_FULL_RESTORE_PCT) ? ITEM_FULL_RESTORE : ITEM_REVIVE;
-    }
+        sLoot[sLootCount++] = ITEM_MAX_RESTORE;
     if (RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_RARE_PCT)
         sLoot[sLootCount++] = PickTrainerRareLoot(RoomRandom(x, y, 0x7E58));
     if (VarGet(VAR_ISAAC_FLOOR) < ISAAC_MASTER_BALL_MIN_FLOOR || FlagGet(FLAG_ISAAC_MASTER_BALL_DROPPED)
@@ -1944,7 +1936,8 @@ static void SetUpCaptureMons(s32 x, s32 y)
 // Boutique de Kecleon
 // ---------------------------------------------------------------------------
 // Kecleon tient la boutique de l'étage (menu Acheter / Quitter, CreateIsaacMartMenu). Ses articles possibles :
-//  - une Master Ball, une Guérison, un Rappel, un Rappel Max, une Super Potion, une Hyper Potion, un Total Soin ;
+//  - une Master Ball, une Guérison, un Rappel, un Rappel Max, une Restore Max, une Super Potion, une Hyper Potion, un
+//    Total Soin ;
 //  - jusqu'à l'étage SHOP_DISCOUNT_CARD_MAX_FLOOR, la Carte de Réduction (si on ne l'a pas déjà) : -SHOP_DISCOUNT_PCT %
 //    sur tous les autres articles jusqu'à la fin de la descente ;
 //  - deux objets de combat de sShopBattleItems et deux CT de sShopTMs (tirés pour la salle), un objet spécial
@@ -1961,6 +1954,7 @@ enum
     SHOP_SLOT_FULL_RESTORE,
     SHOP_SLOT_REVIVE,
     SHOP_SLOT_MAX_REVIVE,
+    SHOP_SLOT_MAX_RESTORE,
     SHOP_SLOT_SUPER_POTION,
     SHOP_SLOT_HYPER_POTION,
     SHOP_SLOT_FULL_HEAL,
@@ -2064,6 +2058,7 @@ static const struct IsaacShopPrice sShopPrices[] =
     { ITEM_REVIVE,        4 },
     { ITEM_FULL_RESTORE,  6 },
     { ITEM_MAX_REVIVE,   10 },
+    { ITEM_MAX_RESTORE,  12 },
     { ITEM_MASTER_BALL,  30 },
     { ITEM_DISCOUNT_CARD, 20 },
 };
@@ -2093,6 +2088,8 @@ static u16 GetShopSlotItem(u32 slot)
         return ITEM_REVIVE;
     case SHOP_SLOT_MAX_REVIVE:
         return ITEM_MAX_REVIVE;
+    case SHOP_SLOT_MAX_RESTORE:
+        return ITEM_MAX_RESTORE;
     case SHOP_SLOT_SUPER_POTION:
         return ITEM_SUPER_POTION;
     case SHOP_SLOT_HYPER_POTION:
@@ -2176,6 +2173,7 @@ static const u8 sShopSlotPresentPct[SHOP_LIMITED_SLOTS][6] =
     [SHOP_SLOT_FULL_RESTORE]  = { 20, 25, 35, 50, 65, 75 },
     [SHOP_SLOT_REVIVE]        = { 60, 65, 65, 60, 55, 50 },
     [SHOP_SLOT_MAX_REVIVE]    = { 15, 20, 30, 45, 55, 65 },
+    [SHOP_SLOT_MAX_RESTORE]   = { 30, 35, 40, 50, 60, 70 },
     [SHOP_SLOT_SUPER_POTION]  = { 80, 75, 60, 45, 30, 20 },
     [SHOP_SLOT_HYPER_POTION]  = { 40, 55, 65, 65, 60, 55 },
     [SHOP_SLOT_FULL_HEAL]     = { 60, 60, 60, 60, 60, 60 },

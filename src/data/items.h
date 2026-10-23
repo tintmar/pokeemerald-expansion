@@ -4945,6 +4945,27 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_NormaliumZ,
     },
 
+    // Donjon : Guérison qui relève aussi un Pokémon K.O. (effet du Rappel Max sur un K.O., voir PokemonItemEffect)
+    [ITEM_MAX_RESTORE] =
+    {
+        .name = ITEM_NAME("Restore Max"),
+        .price = 0,
+        .holdEffectParam = 255,
+        .description = COMPOUND_STRING(
+            "Fully heals a\n"
+            "Pokémon, even a\n"
+            "fainted one."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_HEALTH_RECOVERY,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .battleUsage = EFFECT_ITEM_HEAL_AND_CURE_STATUS,
+        .effect = gItemEffect_FullRestore,
+        .flingPower = 30,
+        .iconPic = gItemIcon_LargePotion,
+        .iconPalette = gItemIconPalette_FullRestore,
+    },
+
     [ITEM_DAWN_STONE] =
     {
         .name = ITEM_NAME("Dawn Stone"),
