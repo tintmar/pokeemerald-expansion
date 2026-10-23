@@ -2479,7 +2479,8 @@ static void IsaacTickEggs(void)
 static EWRAM_DATA u16 sTradeSpecies = SPECIES_NONE;
 
 // Échange avec le Pokémon n° VAR_0x8004 de l'équipe : VAR_RESULT = FALSE pour un Œuf. Sinon, l'offre est fixée
-// (toujours la même pour ce Pokémon dans cette salle) : gStringVar1 = le Pokémon du joueur, gStringVar2 = l'offre.
+// (toujours la même pour ce Pokémon dans cette salle) : gStringVar1 = le Pokémon du joueur, gStringVar2 = l'offre,
+// révélée seulement une fois l'échange conclu.
 void IsaacPrepareTrade(void)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];

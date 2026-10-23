@@ -427,8 +427,9 @@ IsaacRoom_Text_TraderIntro:
 	.string "Lequel me proposes-tu ?$"
 
 IsaacRoom_Text_TraderOffer:
-	.string "Ton {STR_VAR_1} contre mon\n"
-	.string "{STR_VAR_2} ? Marché conclu ?$"
+	.string "Ton {STR_VAR_1} contre un de mes\n"
+	.string "Pokémon de force comparable.\p"
+	.string "Marché conclu ?$"
 
 IsaacRoom_Text_TraderTraded:
 	.string "{PLAYER} échange {STR_VAR_1}\n"
