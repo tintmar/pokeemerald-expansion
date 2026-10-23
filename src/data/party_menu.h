@@ -758,6 +758,7 @@ static const u8 *const sActionStringTable[] =
     [PARTY_MSG_NO_POKEMON]             = COMPOUND_STRING("You have no POKéMON."),
     [PARTY_MSG_CHOOSE_MON_FOR_BOX]     = COMPOUND_STRING("Relâcher quel Pokémon ?"),  // donjon : pas de PC
     [PARTY_MSG_MOVE_ITEM_WHERE]        = gText_MoveItemWhere,
+    [PARTY_MSG_ISAAC_WHICH_TYPE]       = COMPOUND_STRING("Which new type?"),
 };
 
 static const u8 *const sDescriptionStringTable[] =

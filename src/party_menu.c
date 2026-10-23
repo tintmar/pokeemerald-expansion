@@ -2805,6 +2805,7 @@ void DisplayPartyMenuStdMessage(u32 stringId)
             break;
         case PARTY_MSG_RESTORE_WHICH_MOVE:
         case PARTY_MSG_BOOST_PP_WHICH_MOVE:
+        case PARTY_MSG_ISAAC_WHICH_TYPE:
             *windowPtr = AddWindow(&sWhichMoveMsgWindowTemplate);
             break;
         case PARTY_MSG_ALREADY_HOLDING_ONE:
@@ -6569,60 +6570,36 @@ void ItemUseCB_IsaacTypeGem(u8 taskId, TaskFunc task)
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
 }
 
-// Donjon : Pierre Prisme, nouveau second type au choix parmi trois tirés au hasard (pas ceux du Pokémon) : « Rendre X
-// de type Y ? », Non passe au suivant, B garde la pierre
+// Donjon : Pierre Prisme, nouveau second type au choix parmi trois (pas ceux du Pokémon) dans une liste ; B garde la
+// pierre. Les trois types sont toujours les mêmes pour un Pokémon (tirés d'après sa personnalité et ses types
+// actuels) : reprendre la pierre ne permet pas d'en voir d'autres.
 #define ISAAC_PRISM_CHOICES  3
 
 static EWRAM_DATA u8 sIsaacPrismTypes[ISAAC_PRISM_CHOICES] = {0};
-static EWRAM_DATA u8 sIsaacPrismChoice = 0;
 static EWRAM_DATA TaskFunc sIsaacPrismTask = NULL;
-
-static void Task_HandleIsaacPrismChoiceInput(u8 taskId);
-
-static void Task_AskIsaacPrismChoice(u8 taskId)
-{
-    if (IsPartyMenuTextPrinterActive() != TRUE)
-    {
-        PartyMenuDisplayYesNoMenu();
-        gTasks[taskId].func = Task_HandleIsaacPrismChoiceInput;
-    }
-}
-
-static void AskIsaacPrismChoice(u8 taskId)
-{
-    GetMonNickname(&gParties[B_TRAINER_PLAYER][gPartyMenu.slotId], gStringVar1);
-    StringCopy(gStringVar2, gTypesInfo[sIsaacPrismTypes[sIsaacPrismChoice]].name);
-    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("Make {STR_VAR_1}\npart {STR_VAR_2} type?"));
-    DisplayPartyMenuMessage(gStringVar4, TRUE);
-    ScheduleBgCopyTilemapToVram(2);
-    gTasks[taskId].func = Task_AskIsaacPrismChoice;
-}
 
 static void Task_HandleIsaacPrismChoiceInput(u8 taskId)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    s8 input = Menu_ProcessInput();
 
-    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    if (input == MENU_NOTHING_CHOSEN)
+        return;
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+    if (input == MENU_B_PRESSED)
     {
-    case 0:
-        IsaacUseTypeGem(mon, sIsaacPrismTypes[sIsaacPrismChoice]);
-        GetMonNickname(mon, gStringVar1);
-        StringCopy(gStringVar2, gTypesInfo[sIsaacPrismTypes[sIsaacPrismChoice]].name);
-        IsaacItemUsed(taskId, sIsaacPrismTask, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
-        break;
-    case 1:
-        PlaySE(SE_SELECT);
-        sIsaacPrismChoice = (sIsaacPrismChoice + 1) % ISAAC_PRISM_CHOICES;
-        AskIsaacPrismChoice(taskId);
-        break;
-    case MENU_B_PRESSED:
         PlaySE(SE_SELECT);
         gPartyMenuUseExitCallback = FALSE;
         DisplayPartyMenuMessage(COMPOUND_STRING("The stone was kept."), TRUE);
         ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].func = sIsaacPrismTask;
-        break;
+        return;
     }
+    IsaacUseTypeGem(mon, sIsaacPrismTypes[input]);
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, gTypesInfo[sIsaacPrismTypes[input]].name);
+    IsaacItemUsed(taskId, sIsaacPrismTask, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
 }
 
 void ItemUseCB_IsaacPrismStone(u8 taskId, TaskFunc task)
@@ -6630,7 +6607,8 @@ void ItemUseCB_IsaacPrismStone(u8 taskId, TaskFunc task)
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
     u8 candidates[NUMBER_OF_MON_TYPES];
     enum Type types[2];
-    u32 count = 0, i, j, tmp;
+    u32 count = 0, i, j, tmp, state;
+    u8 windowId;
 
     if (GetMonData(mon, MON_DATA_IS_EGG))
     {
@@ -6642,15 +6620,22 @@ void ItemUseCB_IsaacPrismStone(u8 taskId, TaskFunc task)
     for (i = TYPE_NORMAL; i < NUMBER_OF_MON_TYPES; i++)
         if (i != TYPE_MYSTERY && i != TYPE_STELLAR && i != types[0] && i != types[1])
             candidates[count++] = i;
-    for (i = 0; i < ISAAC_PRISM_CHOICES; i++)  // les trois premiers d'un mélange
+    state = GetMonData(mon, MON_DATA_PERSONALITY) ^ 0x9215A7E5;
+    for (i = 0; i < ISAAC_PRISM_CHOICES; i++)  // les trois premiers d'un mélange propre au Pokémon
     {
-        j = i + Random() % (count - i);
+        state = state * 1103515245 + 12345;
+        j = i + (state >> 16) % (count - i);
         SWAP(candidates[i], candidates[j], tmp);
         sIsaacPrismTypes[i] = candidates[i];
     }
     sIsaacPrismTask = task;
-    sIsaacPrismChoice = 0;
-    AskIsaacPrismChoice(taskId);
+    DisplayPartyMenuStdMessage(PARTY_MSG_ISAAC_WHICH_TYPE);
+    windowId = DisplaySelectionWindow(SELECTWINDOW_MOVES);
+    for (i = 0; i < ISAAC_PRISM_CHOICES; i++)
+        AddTextPrinterParameterized(windowId, FONT_NORMAL, gTypesInfo[sIsaacPrismTypes[i]].name, 8, (i * 16) + 1, TEXT_SKIP_DRAW, NULL);
+    InitMenuInUpperLeftCornerNormal(windowId, ISAAC_PRISM_CHOICES, 0);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = Task_HandleIsaacPrismChoiceInput;
 }
 
 // Donjon : CT Z, apprend le Z-move du premier type du Pokémon (comme une CT : il peut remplacer une attaque)
