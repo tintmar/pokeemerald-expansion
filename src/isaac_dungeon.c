@@ -1104,12 +1104,13 @@ EWRAM_DATA u8 gIsaacTrainerReturnMovement[ISAAC_ROOM_W + 2] = {0};
 static EWRAM_DATA struct Trainer sRoomTrainer = {0};
 static EWRAM_DATA struct TrainerMon sRoomTrainerMons[PARTY_SIZE] = {0};
 
-// Équipe des dresseurs de salle selon l'étage : chaque Pokémon tire sa catégorie
-// et son set au hasard entre les deux bornes (au-delà du dernier étage, on garde la dernière ligne).
-// tierByCategory : le set n'est pas tiré mais suit la catégorie à l'envers (catégorie la plus faible -> meilleur set)
+// Équipe des dresseurs de salle selon l'étage : maxCount Pokémon (maxCountPct % des salles), sinon un de moins ;
+// chaque Pokémon tire sa catégorie et son set au hasard entre les deux bornes (au-delà du dernier étage, on garde la
+// dernière ligne). tierByCategory : le set n'est pas tiré mais suit la catégorie à l'envers (catégorie la plus faible
+// -> meilleur set)
 struct IsaacTrainerParty
 {
-    u8 count;
+    u8 maxCount, maxCountPct;
     u8 minCategory, maxCategory;
     u8 minTier, maxTier;  // 0 = set 1
     bool8 tierByCategory;
@@ -1117,12 +1118,12 @@ struct IsaacTrainerParty
 
 static const struct IsaacTrainerParty sRoomTrainerParties[] =
 {
-    { 2, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 0 },
-    { 2, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 0, 1, TRUE },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
-    { 3, ISAAC_CATEGORY_2, ISAAC_CATEGORY_2, 1, 1 },
-    { 3, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 2 },
-    { 4, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 2 },
-    { 4, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 2, 2 },
+    { 2,  60, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 0 },
+    { 2, 100, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 0, 1, TRUE },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
+    { 3,  60, ISAAC_CATEGORY_2, ISAAC_CATEGORY_2, 1, 1 },
+    { 3,  75, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 2 },
+    { 4,  50, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 2 },
+    { 4,  70, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 2, 2 },
 };
 
 // Équipe du boss selon l'étage. Principe : le boss garde toujours un cran d'avance sur les dresseurs
@@ -1330,7 +1331,7 @@ bool8 IsIsaacTrainer(u16 trainerId)
         && IsInRoomMap();
 }
 
-// Dresseur de la salle courante (classe et nom selon son type, 2 Pokémon de catégorie 1, set 1) ou boss de
+// Dresseur de la salle courante (classe et nom selon son type, équipe selon sRoomTrainerParties) ou boss de
 // l'étage (champion du biome : 2 Pokémon de catégorie 1 et 1 de catégorie 2, set 2)
 const struct Trainer *GetIsaacTrainer(u16 trainerId)
 {
@@ -1339,7 +1340,7 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     const struct IsaacTrainerParty *party;
     const u8 *const *names;
     s32 x, y;
-    u32 i;
+    u32 i, count;
 
     GetCurrentCell(&x, &y);
     if (trainerId == TRAINER_ISAAC_DUELIST)
@@ -1378,7 +1379,8 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
         sRoomTrainer.aiFlags = AI_FLAG_CHECK_BAD_MOVE;  // premier étage : attaques au hasard, sauf les inutiles
     // dresseur de la salle secrète : l'équipe de l'étage suivant
     party = &sRoomTrainerParties[min(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET), ARRAY_COUNT(sRoomTrainerParties)) - 1];
-    for (i = 0; i < party->count; i++)
+    count = party->maxCount - (RoomRandom(x, y, 0xC0F7) % 100 >= party->maxCountPct);
+    for (i = 0; i < count; i++)
     {
         u32 roll = RoomRandom(x, y, 0x5EC + i);
         u32 category = party->minCategory + (roll >> 8) % (party->maxCategory - party->minCategory + 1);
