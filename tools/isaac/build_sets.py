@@ -108,6 +108,12 @@ MID_ITEMS = {'LEFTOVERS', 'SITRUS_BERRY', 'LUM_BERRY', 'BLACK_SLUDGE', 'FLAME_OR
 # Objets interdits : l'Évoluroc ne sert plus à rien dès que le Pokémon évolue
 FORBIDDEN_ITEMS = {'EVIOLITE'}
 
+# Pas d'entry hazards dans le jeu (ni de Grosses Bottes) : remplacés à la génération (voir remove_hazards)
+HAZARD_MOVES = {'STEALTH_ROCK', 'SPIKES', 'TOXIC_SPIKES', 'STICKY_WEB', 'STONE_AXE', 'CEASELESS_EDGE'}
+NERF_EXCLUDED |= HAZARD_MOVES
+ITEM_REPLACEMENTS = {'HEAVY_DUTY_BOOTS': 'LEFTOVERS'}
+HAZARD_MAX_POWER = [60, 70, 90]  # puissance maximale de l'attaque de remplacement, par palier
+
 SET_FILES = ['sets_gen1', 'sets_gen2', 'sets_gen3', 'sets_cave', 'sets_dark', 'sets_fire', 'sets_ice', 'sets_poison',
              'sets_ocean', 'sets_desert', 'sets_cliff', 'sets_forest']
 SET_FILES_B = ['sets_gen1b', 'sets_gen2b', 'sets_gen3b', 'sets_caveb', 'sets_darkb', 'sets_fireb', 'sets_iceb',
@@ -244,9 +250,37 @@ def buff_tier1(name, moves, spread):
     return out, [(a, b) for a, b in zip(moves + ['-'] * (len(out) - len(moves)), out) if a != b]
 
 
+def remove_hazards(name, moves, tier, spread):
+    """Remplace les entry hazards par une attaque offensive apprenable de la catégorie du build, de préférence d'un
+    type que le set n'a pas encore (même type pour une attaque offensive qui pose des pièges) ; sinon les retire"""
+    category = 'PHYSICAL' if spread in PHYS_SPREADS else ('SPECIAL' if spread in SPEC_SPREADS else None)
+    out = list(moves)
+    changes = []
+    for i, mv in enumerate(moves):
+        if mv not in HAZARD_MOVES:
+            continue
+        info = g.MOVES[mv]
+        used = {g.MOVES[m].type for m in out if m in g.MOVES and g.MOVES[m].cat != 'STATUS'}
+        best = None
+        for cand in g.learnset(name) if name != 'SMEARGLE' else g.MOVES:
+            c = g.MOVES.get(cand)
+            if (c is None or cand in out or cand in HAZARD_MOVES or cand in NERF_EXCLUDED or c.cat == 'STATUS'
+                    or cand in ('SELF_DESTRUCT', 'EXPLOSION') or (category and c.cat != category)
+                    or not TIER1_MIN_POWER <= c.total <= HAZARD_MAX_POWER[tier] or (c.acc != 0 and c.acc < 85)):
+                continue
+            same = c.type == info.type if info.cat != 'STATUS' else c.type not in used
+            key = (same, c.type in g.MONS[name].types, c.total, cand)
+            if best is None or key > best[0]:
+                best = (key, cand)
+        out[i] = best[1] if best else None
+        changes.append((mv, out[i] or '-'))
+    return [mv for mv in out if mv], changes
+
+
 nerf_log = []
 buff_log = []
 status_log = []
+hazard_log = []
 
 
 def parse_set(name, tier, line):
@@ -288,6 +322,9 @@ def parse_set(name, tier, line):
         elif mv not in learn and name != 'SMEARGLE':  # Queulorior : attaques obtenues par Gribouille
             error(name, tier, f'{mv} non apprenable')
 
+    item = ITEM_REPLACEMENTS.get(item, item)
+    moves, changes = remove_hazards(name, moves, tier, spread)
+    hazard_log.extend((name, f'{tier + 1}{variant_letter}', a, b) for a, b in changes)
     if tier < 2:
         moves, changes = nerf_status(name, moves)
         status_log.extend((name, f'{tier + 1}{variant_letter}', a, b) for a, b in changes)
@@ -402,6 +439,10 @@ def main():
     print(f'set 2 : {len(nerf_log)} attaques remplacées (puissance > {TIER2_MAX_POWER})')
     print(f'set 1 : {len(buff_log)} attaques remplacées ou ajoutées (STAB, statut trop faible)')
     print(f'sets 1 et 2 : {len(status_log)} attaques de statut trop fortes remplacées')
+    print(f'tous les sets : {len(hazard_log)} entry hazards remplacés')
+    if '--hazard-log' in sys.argv:
+        for name, tier, old, new in hazard_log:
+            print(f'  {name} ({tier}) : {old} -> {new}')
     if '--status-log' in sys.argv:
         for name, tier, old, new in status_log:
             print(f'  {name} ({tier}) : {old} -> {new}')
