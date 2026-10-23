@@ -1445,16 +1445,17 @@ static u32 CountTrainersLeftOnFloor(void)
 }
 
 // Butin d'un dresseur vaincu, donné objet par objet (IsaacNextLootItem) :
-//  - jusqu'à l'étage TRAINER_LOOT_BOTH_FLOOR - 1 : une Restore Max ;
-//  - à partir de l'étage TRAINER_LOOT_BOTH_FLOOR : deux Restore Max.
+//  - une Restore Max, et une seconde avec TRAINER_LOOT_SECOND_PCT_PER_FLOOR % de chances par étage au-delà de
+//    l'étage 2 (toujours la même réponse pour une salle) : 1 en moyenne aux étages 1-2, 1,25 à l'étage 3, 1,5 au 4,
+//    1,75 au 5, 2 à partir du 6.
 // À partir de ISAAC_MASTER_BALL_MIN_FLOOR, une Master Ball, une seule par étage : tant qu'elle n'est pas tombée, chaque
 // dresseur la donne avec 1 chance sur le nombre de dresseurs encore à battre (1/8, 1/7... 1/1) ; battre tous les
 // dresseurs de l'étage la donne donc à coup sûr. Le dresseur de la salle secrète, qu'on ne peut pas toujours atteindre,
-// n'en fait pas partie (ni pour la donner, ni dans le compte). Elle remplace le soin, sauf à partir de
-// TRAINER_LOOT_BOTH_FLOOR où elle s'y ajoute.
+// n'en fait pas partie (ni pour la donner, ni dans le compte). Elle remplace la Restore Max s'il n'y en a qu'une,
+// sinon elle s'y ajoute.
 // En plus, TRAINER_LOOT_RARE_PCT % des dresseurs donnent un butin rare (PickTrainerRareLoot, toujours le même pour une
 // salle) : un objet spécial, une très bonne CT, un objet de combat de la boutique ou un Rappel Max.
-#define TRAINER_LOOT_BOTH_FLOOR        4
+#define TRAINER_LOOT_SECOND_PCT_PER_FLOOR  25
 #define TRAINER_LOOT_RARE_PCT          10
 
 static u16 PickGoodTM(u32 roll);
@@ -1467,10 +1468,11 @@ void IsaacPickTrainerLoot(void)
 {
     s32 x, y;
     u32 left;
-    bool32 both = VarGet(VAR_ISAAC_FLOOR) >= TRAINER_LOOT_BOTH_FLOOR;
+    bool32 both;
 
     GetCurrentCell(&x, &y);
     sLootCount = 0;
+    both = RoomRandom(x, y, 0x1007) % 100 < TRAINER_LOOT_SECOND_PCT_PER_FLOOR * max((s32)VarGet(VAR_ISAAC_FLOOR) - 2, 0);
     sLoot[sLootCount++] = ITEM_MAX_RESTORE;
     if (both)
         sLoot[sLootCount++] = ITEM_MAX_RESTORE;
