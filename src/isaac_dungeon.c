@@ -101,7 +101,7 @@
 #define ISAAC_SECRET_MIN_FLOOR 3
 // Salles secrètes (et donc l'entraîneur d'Éclate-Roc, qui ne vient que s'il y en a une) : mises de côté pour l'instant
 #define ISAAC_SECRET_ROOMS     FALSE
-#define ISAAC_TWO_TREASURES_MIN_FLOOR 4  // deux salles trésor à partir de cet étage
+#define ISAAC_TWO_TREASURES_MIN_FLOOR 5  // deux salles trésor à partir de cet étage
 #define ISAAC_MAX_TRIES        200  // graines essayées pour un étage valide
 
 #define ISAAC_TRAINER_PCT    60  // % de salles normales avec un dresseur
