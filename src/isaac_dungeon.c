@@ -2183,7 +2183,7 @@ void IsaacKecleonGreeting(void)
 // Les salles normales sans dresseur peuvent accueillir un contenu (un personnage au centre), chacun au plus une
 // fois par étage, dans des salles différentes tirées pour l'étage (GetRoomContent) :
 //  - ROOM_CONTENT_EGG : à l'étage 1 ou 2 (un seul des deux par descente, GetEggFloor), quelqu'un confie un Œuf
-//    d'un Pokémon de n'importe quel biome (set 2), de catégorie 3 à l'étage 1 et 4 à l'étage 2, qui éclot après ISAAC_EGG_HATCH_ROOMS nouvelles
+//    d'un Pokémon de n'importe quel biome (set 2), de catégorie 3 à l'étage 1 et 4 à l'étage 2 (le plus fort de plusieurs tirages), qui éclot après ISAAC_EGG_HATCH_ROOMS nouvelles
 //    salles visitées (environ deux étages, IsaacTickEggs) ;
 //  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de même catégorie (au sens du
 //    biome de chacun) et de même palier de set, de n'importe quel biome ; un légendaire contre un légendaire ;
@@ -2384,20 +2384,28 @@ static u16 PickSpeciesOfAnyBiome(enum IsaacCategory category, u16 exclude, u32 s
     return species;
 }
 
-// Œuf confié : VAR_RESULT = FALSE si l'équipe est pleine
+// Œuf confié : VAR_RESULT = FALSE si l'équipe est pleine. L'espèce est la plus forte (BST) de EGG_SPECIES_DRAWS tirages.
+#define EGG_SPECIES_DRAWS  3
+
 void IsaacGiveEgg(void)
 {
     struct Pokemon *mon;
     s32 x, y;
-    u32 seed, value;
-    u16 species;
+    u32 seed, value, i;
+    u16 species, candidate;
 
     gSpecialVar_Result = FALSE;
     if (gPartiesCount[B_TRAINER_PLAYER] >= PARTY_SIZE)
         return;
     GetCurrentCell(&x, &y);
     seed = RoomRandom(x, y, 0xE66);
-    species = PickSpeciesOfAnyBiome(VarGet(VAR_ISAAC_FLOOR) == 1 ? ISAAC_CATEGORY_3 : ISAAC_CATEGORY_4, SPECIES_NONE, seed);
+    for (i = 0, species = SPECIES_NONE; i < EGG_SPECIES_DRAWS; i++)
+    {
+        candidate = PickSpeciesOfAnyBiome(VarGet(VAR_ISAAC_FLOOR) == 1 ? ISAAC_CATEGORY_3 : ISAAC_CATEGORY_4,
+                                          SPECIES_NONE, seed ^ (i * 0x9E3779B9));
+        if (species == SPECIES_NONE || IsaacGetSpeciesBST(candidate) > IsaacGetSpeciesBST(species))
+            species = candidate;
+    }
     mon = &gParties[B_TRAINER_PLAYER][gPartiesCount[B_TRAINER_PLAYER]];
     IsaacCreateMonFromSet(mon, species, 1, (seed >> 16) % ISAAC_SET_VARIANTS, seed);
     value = TRUE;
