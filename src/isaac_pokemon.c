@@ -165,7 +165,7 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // Objet spécial tiré au hasard (salle trésor, salle secrète, boutique, boss, pacte du diable). Chaque entrée a un poids :
 // SPECIAL_ITEM_WEIGHT, sauf l'Omniboost (OMNIBOOST_WEIGHT, deux fois plus rare) et les deux Pierres Évolution, plus
 // rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6),
-// et le Dresseur de Talent, de plus en plus rare (sAbilityTrainerWeights), absent à partir de l'étage 4. La Pièce
+// et la Super CT, de plus en plus rare (sAbilityTrainerWeights), rare à partir de l'étage 4. La Pièce
 // Porte-Bonheur est surtout au début (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours surtout à la fin
 // (sFirstAidKitWeights) ; la Pierre Prisme est rare (PRISM_STONE_WEIGHT), le Cœur Doré peu courant (GOLDEN_HEART_WEIGHT).
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, de
@@ -224,7 +224,7 @@ u16 IsaacPickSpecialItem(u32 roll)
         ITEM_FIRST_AID_KIT, ITEM_PRISM_STONE, ITEM_Z_TM,
     };
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
-    static const u8 sAbilityTrainerWeights[] = { 4, 3, 2, 0, 0, 0 };
+    static const u8 sAbilityTrainerWeights[] = { 4, 3, 2, 1, 1, 1 };
     static const u8 sLuckyCoinWeights[] = { 6, 5, 4, 2, 1, 0 };
     static const u8 sFirstAidKitWeights[] = { 1, 1, 2, 3, 4, 5 };
     u32 floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvolutionStoneWeights));
