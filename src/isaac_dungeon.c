@@ -1231,7 +1231,7 @@ struct IsaacTrainerParty
 
 static const struct IsaacTrainerParty sRoomTrainerParties[] =
 {
-    { 2,  60, 0, 0, FALSE, 0, 1, 0 },
+    { 2,  60, 0, 0, FALSE, 0, 0, 0 },  // étage 1 : pas d'as
     { 2, 100, 0, 1, TRUE,  0, 1, 0 },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
     { 3,  60, 1, 1, FALSE, 2, 0, 0 },
     { 3,  75, 1, 2, FALSE, 1, 1, 0 },
