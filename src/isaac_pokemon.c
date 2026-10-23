@@ -495,15 +495,15 @@ bool8 IsaacAddStatBoost(struct Pokemon *mon, u32 stat)
     return TRUE;
 }
 
-// Pierre brillante : le Pokémon devient chromatique et sa meilleure stat actuelle (PV compris) monte de 20 %. FALSE
+// Pierre brillante : le Pokémon devient chromatique et sa meilleure stat actuelle (hors PV) monte de 20 %. FALSE
 // s'il en a déjà reçu une ; *stat = la stat boostée.
 bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat)
 {
-    u32 best = STAT_HP, i, value = TRUE;
+    u32 best = STAT_ATK, i, value = TRUE;
 
     if (GetMonData(mon, ISAAC_BRILLIANT_DATA) != 0)
         return FALSE;
-    for (i = STAT_HP + 1; i < NUM_STATS; i++)
+    for (i = STAT_ATK + 1; i < NUM_STATS; i++)
         if (GetMonData(mon, MON_DATA_MAX_HP + i) > GetMonData(mon, MON_DATA_MAX_HP + best))
             best = i;
     SetMonData(mon, MON_DATA_IS_SHINY, &value);
