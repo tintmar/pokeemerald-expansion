@@ -11,8 +11,8 @@ Tous ont la même numérotation de metatiles, pour que isaac_dungeon.c dessine l
   - 0x212, 0x213 : deux décorations d'une case du décor (rochers, glace...), posées dans les coins des salles ;
   - 0x214 à 0x219 : les demi-arbres des décors en forêt (arbres de 2 x 2 : haut, bas, bas avec le tronc ; gauche
     et droite), dans l'ordre de TREES ; les autres décors y mettent le centre de leurs murs (rôle C) ;
-  - 0x21A à 0x21E : les pièces de la falaise (EXTRAS) : seconde rangée de la paroi sud (T2 et ses deux bouts) et
-    couloirs en crêtes (nord-sud, est-ouest) ; les autres décors y mettent leur centre de mur ou leur sol ;
+  - 0x21A à 0x224 : les pièces de la falaise (EXTRAS) : dessus des ponts, bords du niveau haut contre la roche du
+    niveau bas, coins rentrants sous les ponts ; les autres décors y mettent leur centre de mur ou leur sol ;
   - à partir de 0x240 (ISAAC_MAT_FIRST) : les paillassons devant les portes des salles spéciales : tapis rouge
     et or avec la tête du Pokémon de la mini-carte (Mewtwo boss, Pikachu trésor, Kecleon boutique) ou une Poké
     Ball (capture), découpées dans les sprites de face du jeu.
@@ -41,9 +41,12 @@ DECOS = ['DECO_1', 'DECO_2']  # décorations des coins de salle, à partir de DE
 DECO_FIRST = 0x212
 TREES = ['TREE_TOP_L', 'TREE_TOP_R', 'TREE_BOT_L', 'TREE_BOT_R', 'TREE_TRUNK_L', 'TREE_TRUNK_R']
 TREE_FIRST = 0x214
-EXTRAS = ['T2', 'IN_NE2', 'IN_NW2', 'BRIDGE_V', 'BRIDGE_H']
+# Pièces de la falaise : dessus des ponts (nord-sud, est-ouest), puis les bords du niveau haut qui touchent la roche
+# du niveau bas (flancs, coins de la crête nord, paroi sud et ses coins) et les coins rentrants sous les ponts
+EXTRAS = ['BRIDGE_V', 'BRIDGE_H', 'ROCK_FLANK_W', 'ROCK_FLANK_E', 'ROCK_CREST_NW', 'ROCK_CREST_NE', 'ROCK_FACE',
+          'ROCK_FACE_SW', 'ROCK_FACE_SE', 'NOTCH_W', 'NOTCH_E']
 EXTRA_FIRST = 0x21A
-EXTRA_DEFAULTS = {'T2': 'C', 'IN_NE2': 'C', 'IN_NW2': 'C', 'BRIDGE_V': 'FLOOR', 'BRIDGE_H': 'FLOOR'}
+EXTRA_DEFAULTS = {role: 'C' for role in EXTRAS} | {'BRIDGE_V': 'FLOOR', 'BRIDGE_H': 'FLOOR'}
 ROLES = ['FLOOR', 'ROCK_1', 'ROCK_2', 'TL', 'T', 'TR', 'L', 'C', 'R', 'BL', 'B', 'BR', 'IN_SE', 'IN_SW', 'IN_NE', 'IN_NW']
 SIGN_METATILE = 0x210
 MAT_FIRST = 0x240
@@ -80,16 +83,15 @@ BIOME_TILESETS = [
     ('isaac_desert', 'mauville', dict(
         FLOOR=0x251, ROCK_1=0x0E1, ROCK_2=0x0E1, TL=0x080, T=0x081, TR=0x082, L=0x088, C=0x071, R=0x08A,
         BL=0x090, B=0x091, BR=0x092, IN_SE=0x074, IN_SW=0x089, IN_NE=0x0BF, IN_NW=0x0BE, DECO_1=0x0E0, DECO_2=0x0E2)),
-    # Falaise : la salle est le dessus d'une montagne de General, les murs sont l'herbe tout en bas (dans la brume,
-    # voir HAZE). Les rôles sont inversés : chaque case de mur montre le bord de la montagne vu de l'extérieur
-    # (paroi sud sur deux rangées T puis T2, deux étages de roche séparés par leur ombre ; crête au nord, flancs à
-    # l'ouest et à l'est ; coins de la salle = coins rentrants de la montagne et inversement). Les couloirs sont des
-    # crêtes rocheuses au-dessus du vide (voir GetCliffCorridorTile) : d'est en ouest, la crête du plateau ; du nord au
-    # sud, une bande du dessus du plateau entre ses deux flancs.
+    # Falaise : la salle est le dessus d'une montagne de General à deux niveaux, les murs sont l'herbe tout en bas
+    # (dans la brume, voir HAZE). Les rôles servent de pièces de montagne (voir GetCliffPlatformTile) : les bords qui
+    # touchent l'herbe (crête 068-06A, flancs 070 / 072, paroi 078-07A), ceux du niveau haut qui touchent la roche du
+    # niveau bas (EXTRAS : 06B / 06D, 073 / 075, 07B-07D), les raccords des ponts (0BE / 0BF, coins rentrants 089 / 074).
     ('isaac_cliff', 'fortree', dict(
         FLOOR=0x071, ROCK_1=0x0E1, ROCK_2=0x0E1, TL=0x078, T=0x079, TR=0x07A, L=0x072, C=0x001, R=0x070,
         BL=0x0BE, B=0x069, BR=0x0BF, IN_SE=0x068, IN_SW=0x06A, IN_NE=0x078, IN_NW=0x07A, DECO_1=0x0E0, DECO_2=0x0E2,
-        T2=0x079, IN_NE2=0x078, IN_NW2=0x07A, BRIDGE_V=0x071, BRIDGE_H=0x069)),
+        BRIDGE_V=0x071, BRIDGE_H=0x069, ROCK_FLANK_W=0x073, ROCK_FLANK_E=0x075, ROCK_CREST_NW=0x06B,
+        ROCK_CREST_NE=0x06D, ROCK_FACE=0x07C, ROCK_FACE_SW=0x07B, ROCK_FACE_SE=0x07D, NOTCH_W=0x089, NOTCH_E=0x074)),
     # Forêt (Bois Clémentines) : herbe, murs en arbres de 2 x 2 de General (voir TREES), arbustes d'une case
     ('isaac_forest', 'rustboro', dict(
         FLOOR=0x001, ROCK_1=0x0C6, ROCK_2=0x0CE, TL=0x1D4, T=0x1D4, TR=0x1D4, L=0x1D4, C=0x1D4, R=0x1D4,

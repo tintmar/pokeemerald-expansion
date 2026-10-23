@@ -176,12 +176,30 @@ STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED
 #define TILE_TREE_TOP    0x214
 #define TILE_TREE_BOTTOM 0x216
 #define TILE_TREE_TRUNK  0x218
-// Falaise : seconde rangée de la paroi sud (et ses bouts), dessus des couloirs (nord-sud, est-ouest)
-#define TILE_CLIFF_T2     0x21A
-#define TILE_CLIFF_IN_NE2 0x21B
-#define TILE_CLIFF_IN_NW2 0x21C
-#define TILE_BRIDGE_V     0x21D
-#define TILE_BRIDGE_H     0x21E
+// Falaise (tools/isaac/build_tileset.py, EXTRAS) : dessus des ponts (nord-sud, est-ouest), bords du niveau haut qui
+// touchent la roche du niveau bas, coins rentrants sous les ponts
+#define TILE_BRIDGE_V             0x21A
+#define TILE_BRIDGE_H             0x21B
+#define TILE_CLIFF_ROCK_FLANK_W   0x21C
+#define TILE_CLIFF_ROCK_FLANK_E   0x21D
+#define TILE_CLIFF_ROCK_CREST_NW  0x21E
+#define TILE_CLIFF_ROCK_CREST_NE  0x21F
+#define TILE_CLIFF_ROCK_FACE      0x220
+#define TILE_CLIFF_ROCK_FACE_SW   0x221
+#define TILE_CLIFF_ROCK_FACE_SE   0x222
+#define TILE_CLIFF_NOTCH_W        0x223
+#define TILE_CLIFF_NOTCH_E        0x224
+// Falaise : les rôles de base y sont les bords de la montagne qui touchent l'herbe, et les raccords des ponts
+#define CLIFF_GRASS_CREST     TILE_CLIFF_B      // crête nord, l'herbe au-dessus
+#define CLIFF_GRASS_CREST_NW  TILE_CLIFF_IN_SE
+#define CLIFF_GRASS_CREST_NE  TILE_CLIFF_IN_SW
+#define CLIFF_GRASS_FLANK_W   TILE_CLIFF_R      // flanc ouest, l'herbe à gauche
+#define CLIFF_GRASS_FLANK_E   TILE_CLIFF_L
+#define CLIFF_GRASS_FACE      TILE_CLIFF_T      // paroi sud, l'herbe en dessous
+#define CLIFF_GRASS_FACE_SW   TILE_CLIFF_TL
+#define CLIFF_GRASS_FACE_SE   TILE_CLIFF_TR
+#define CLIFF_JOIN_W          TILE_CLIFF_BL     // crête posée sous un flanc ouest : départ d'un pont
+#define CLIFF_JOIN_E          TILE_CLIFF_BR
 
 // Paillassons devant les portes des salles spéciales (tileset IsaacCave, tools/isaac/build_tileset.py) :
 // motif (MAT_BOSS...), orientation (MAT_HORIZONTAL...), case du paillasson (ligne par ligne)
@@ -896,25 +914,42 @@ static u16 GetTreeTile(s32 x, s32 y)
     return tile + rightHalf;
 }
 
-// Falaise : la salle est le dessus d'un plateau dont les bords sont sur deux niveaux : deux rangées de paroi au sud,
-// deux flancs à l'ouest et à l'est (ROOM_MIN_X - 2 à ROOM_MAX_X + 2), la crête au nord. Renvoie 0 hors de ces bords.
+// Falaise : la salle est le dessus d'un plateau à deux niveaux, dans les pièces de montagne de General. Le niveau bas
+// (ROOM_MIN_X - 2, ROOM_MAX_X + 2, rangée ROOM_MAX_Y + 2) touche l'herbe ; le niveau haut (ROOM_MIN_X - 1,
+// ROOM_MAX_X + 1, rangée ROOM_MAX_Y + 1) touche la roche du niveau bas. Au nord, une seule crête, avec les coins des
+// deux niveaux. Renvoie 0 hors de ces bords.
 static u16 GetCliffPlatformTile(s32 x, s32 y)
 {
     if (x < ROOM_MIN_X - 2 || x > ROOM_MAX_X + 2 || y < ROOM_MIN_Y - 1 || y > ROOM_MAX_Y + 2)
         return 0;
     if (y == ROOM_MIN_Y - 1)
-        return (x == ROOM_MIN_X - 2) ? TILE_CLIFF_IN_SE : ((x == ROOM_MAX_X + 2) ? TILE_CLIFF_IN_SW : TILE_CLIFF_B);
-    if (y <= ROOM_MAX_Y)
-        return (x < ROOM_MIN_X) ? TILE_CLIFF_R : ((x > ROOM_MAX_X) ? TILE_CLIFF_L : 0);
+    {
+        if (x == ROOM_MIN_X - 2)
+            return CLIFF_GRASS_CREST_NW;
+        if (x == ROOM_MIN_X - 1)
+            return TILE_CLIFF_ROCK_CREST_NW;
+        if (x == ROOM_MAX_X + 1)
+            return TILE_CLIFF_ROCK_CREST_NE;
+        if (x == ROOM_MAX_X + 2)
+            return CLIFF_GRASS_CREST_NE;
+        return CLIFF_GRASS_CREST;
+    }
+    if (y == ROOM_MAX_Y + 2)
+        return (x == ROOM_MIN_X - 2) ? CLIFF_GRASS_FACE_SW : ((x == ROOM_MAX_X + 2) ? CLIFF_GRASS_FACE_SE : CLIFF_GRASS_FACE);
+    if (x == ROOM_MIN_X - 2)
+        return CLIFF_GRASS_FLANK_W;
+    if (x == ROOM_MAX_X + 2)
+        return CLIFF_GRASS_FLANK_E;
     if (y == ROOM_MAX_Y + 1)
-        return (x == ROOM_MIN_X - 2) ? TILE_CLIFF_IN_NE : ((x == ROOM_MAX_X + 2) ? TILE_CLIFF_IN_NW : TILE_CLIFF_T);
-    return (x == ROOM_MIN_X - 2) ? TILE_CLIFF_IN_NE2 : ((x == ROOM_MAX_X + 2) ? TILE_CLIFF_IN_NW2 : TILE_CLIFF_T2);
+        return (x == ROOM_MIN_X - 1) ? TILE_CLIFF_ROCK_FACE_SW : ((x == ROOM_MAX_X + 1) ? TILE_CLIFF_ROCK_FACE_SE : TILE_CLIFF_ROCK_FACE);
+    return (x == ROOM_MIN_X - 1) ? TILE_CLIFF_ROCK_FLANK_W : ((x == ROOM_MAX_X + 1) ? TILE_CLIFF_ROCK_FLANK_E : 0);
 }
 
-// Falaise : les couloirs sont des crêtes au-dessus du vide. Couloir est-ouest : on marche sur sa crête, sa paroi (deux
-// rangées) est dessous, le vide au-dessus ; il traverse à plat les deux flancs du plateau. Couloir nord-sud : une bande
-// de dessus de montagne bordée de ses deux flancs ; au nord, ils se raccordent à la crête de la salle, au sud, la paroi
-// de la salle s'arrête de chaque côté. Renvoie 0 hors des abords des couloirs.
+// Falaise : les couloirs sont des ponts de roche au-dessus du vide. Pont nord-sud : une bande de dessus de montagne
+// entre ses deux flancs, qui part de la crête nord par les raccords CLIFF_JOIN_* et traverse la paroi sud entre deux
+// coins rentrants. Pont est-ouest : on marche sur sa crête, sa paroi (deux rangées) est dessous et le vide au-dessus ;
+// il part des flancs du plateau par les raccords, et sa paroi s'y accroche par un coin rentrant. Renvoie 0 hors des
+// abords des couloirs (les bords du plateau sont dans GetCliffPlatformTile).
 static bool8 IsVerticalCorridorCell(s32 x, s32 y)
 {
     return IsCorridorCell(x, y) && x >= ROOM_MIN_X && x <= ROOM_MAX_X;
@@ -933,25 +968,32 @@ static u16 GetCliffCorridorTile(s32 x, s32 y)
     if (IsVerticalCorridorCell(x, y))
         return TILE_BRIDGE_V;
     if (IsHorizontalCorridorCell(x, y))
-        return (x >= ROOM_MIN_X - 2 && x <= ROOM_MAX_X + 2) ? TILE_FLOOR : TILE_BRIDGE_H;
-    if (IsVerticalCorridorCell(x + 1, y) || IsVerticalCorridorCell(x - 1, y))  // flancs du couloir nord-sud
+    {
+        if (x >= ROOM_MIN_X - 2 && x <= ROOM_MAX_X + 2)  // sous les flancs du plateau
+            return (x < ROOM_MIN_X) ? CLIFF_JOIN_W : CLIFF_JOIN_E;
+        return TILE_BRIDGE_H;
+    }
+    if (IsVerticalCorridorCell(x + 1, y) || IsVerticalCorridorCell(x - 1, y))  // flancs du pont nord-sud
     {
         left = IsVerticalCorridorCell(x + 1, y);
         if (y == ROOM_MIN_Y - 1)
-            return left ? TILE_CLIFF_BL : TILE_CLIFF_BR;
-        if (y == ROOM_MAX_Y + 1)
-            return left ? TILE_CLIFF_TR : TILE_CLIFF_TL;
-        if (y == ROOM_MAX_Y + 2)
-            return left ? TILE_CLIFF_IN_NW2 : TILE_CLIFF_IN_NE2;
-        return left ? TILE_CLIFF_R : TILE_CLIFF_L;
+            return left ? CLIFF_JOIN_W : CLIFF_JOIN_E;
+        if (y == ROOM_MAX_Y + 1 || y == ROOM_MAX_Y + 2)
+            return left ? TILE_CLIFF_NOTCH_W : TILE_CLIFF_NOTCH_E;
+        return left ? CLIFF_GRASS_FLANK_W : CLIFF_GRASS_FLANK_E;
     }
-    if (x >= ROOM_MIN_X - 2 && x <= ROOM_MAX_X + 2)  // contre le plateau : ses flancs
+    for (d = 1; d <= 2; d++)  // sous le pont est-ouest : sa paroi
+    {
+        if (!IsHorizontalCorridorCell(x, y - d))
+            continue;
+        if (x == ROOM_MIN_X - 1 || x == ROOM_MAX_X + 1)  // contre le niveau haut : coin rentrant, puis son flanc
+            return (d == 1) ? ((x < ROOM_MIN_X) ? TILE_CLIFF_NOTCH_W : TILE_CLIFF_NOTCH_E) : 0;
+        return (d == 1) ? TILE_CLIFF_ROCK_FACE : CLIFF_GRASS_FACE;
+    }
+    if (x >= ROOM_MIN_X - 2 && x <= ROOM_MAX_X + 2)
         return 0;
-    if (IsHorizontalCorridorCell(x, y + 1))  // au-dessus du couloir est-ouest
+    if (IsHorizontalCorridorCell(x, y + 1))  // au-dessus du pont est-ouest : le vide
         return TILE_CLIFF_C;
-    for (d = 1; d <= 2; d++)  // sous le couloir est-ouest : sa paroi
-        if (IsHorizontalCorridorCell(x, y - d))
-            return (d == 1) ? TILE_CLIFF_T : TILE_CLIFF_T2;
     return 0;
 }
 
