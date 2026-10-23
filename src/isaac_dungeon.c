@@ -1524,6 +1524,123 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     return &sRoomTrainer;
 }
 
+// Répliques des dresseurs de salle selon leur classe : avant le combat (à l'approche, ou combat accepté pour le
+// dresseur facultatif) et à la défaite. Avant le combat, un dresseur qui a un as (voir sRoomTrainerParties) le
+// nomme une fois sur deux (tiré pour la salle), avec une des sTrainerAceSpeeches.
+struct IsaacTrainerSpeech
+{
+    u8 trainerClass;
+    const u8 *intro, *defeat;
+};
+
+static const struct IsaacTrainerSpeech sTrainerSpeeches[] =
+{
+    { TRAINER_CLASS_HIKER,         COMPOUND_STRING("Hé ho ! J'ai grimpé jusqu'ici,\npas question de redescendre\lsans un petit combat !"),
+                                    COMPOUND_STRING("Bon… Je redescends à pied.") },
+    { TRAINER_CLASS_RUIN_MANIAC,   COMPOUND_STRING("Tu marches sur des vestiges\nprécieux ! Sanction : combat !"),
+                                    COMPOUND_STRING("Je retourne à mes fouilles…") },
+    { TRAINER_CLASS_BLACK_BELT,    COMPOUND_STRING("Hiyaaa ! Mes Pokémon et moi,\non s'entraîne depuis l'aube !"),
+                                    COMPOUND_STRING("Ouille. Je ferai cent pompes\nde plus demain.") },
+    { TRAINER_CLASS_BATTLE_GIRL,   COMPOUND_STRING("Mes poings sont prêts, et mes\nPokémon aussi ! En garde !"),
+                                    COMPOUND_STRING("J'ai encore des choses à\napprendre… Toi aussi, hein !") },
+    { TRAINER_CLASS_POKEMANIAC,    COMPOUND_STRING("Ils sont trop mignons, mes\nPokémon ! Admire-les combattre !"),
+                                    COMPOUND_STRING("Mes bébés… Ils ont fait\nde leur mieux !") },
+    { TRAINER_CLASS_HEX_MANIAC,    COMPOUND_STRING("Hihihi… Les esprits m'ont dit\nque tu viendrais…"),
+                                    COMPOUND_STRING("Les esprits… ne m'avaient\npas dit ça…") },
+    { TRAINER_CLASS_PSYCHIC,       COMPOUND_STRING("J'ai prédit ce combat. Et ma\nvictoire aussi. Normalement."),
+                                    COMPOUND_STRING("Ma boule de cristal est\nmanifestement rayée…") },
+    { TRAINER_CLASS_TEAM_MAGMA,    COMPOUND_STRING("La Team Magma réquisitionne\ncette salle ! Pars, ou combats !"),
+                                    COMPOUND_STRING("Rapport au chef : on a perdu.\nEncore.") },
+    { TRAINER_CLASS_NINJA_BOY,     COMPOUND_STRING("Tu ne m'avais pas vu, hein ?\nNormal, je suis un ninja !"),
+                                    COMPOUND_STRING("Pfff… Je disparais. Pour de\nvrai, cette fois.") },
+    { TRAINER_CLASS_KINDLER,       COMPOUND_STRING("Ça chauffe ici ! Et ça va\nchauffer encore plus pour toi !"),
+                                    COMPOUND_STRING("Je me suis brûlé les doigts…") },
+    { TRAINER_CLASS_CAMPER,        COMPOUND_STRING("Ma tente est juste derrière.\nOn règle ça vite, j'ai faim !"),
+                                    COMPOUND_STRING("Je vais griller des\nchamallows pour me consoler.") },
+    { TRAINER_CLASS_PICNICKER,     COMPOUND_STRING("Tu tombes bien, j'ai fini mon\nsandwich ! À nous deux !"),
+                                    COMPOUND_STRING("J'aurais dû garder mon\nsandwich pour le moral…") },
+    { TRAINER_CLASS_GUITARIST,     COMPOUND_STRING("Écoute ce riff ! Mes Pokémon\nvont jouer fort, très fort !"),
+                                    COMPOUND_STRING("J'ai cassé une corde…") },
+    { TRAINER_CLASS_COOLTRAINER,   COMPOUND_STRING("Tu as l'air fort. Moi aussi.\nVoyons qui l'est vraiment !"),
+                                    COMPOUND_STRING("Respect. Tu mérites la suite.") },
+    { TRAINER_CLASS_EXPERT,        COMPOUND_STRING("J'ai vu passer bien des\ndresseurs. Peu m'ont battu."),
+                                    COMPOUND_STRING("Et un de plus sur la liste…") },
+    { TRAINER_CLASS_BUG_MANIAC,    COMPOUND_STRING("Tu as vu mes insectes ?\nIls ont… beaucoup de pattes !"),
+                                    COMPOUND_STRING("Mes petits chéris… Repliez\nvos antennes.") },
+    { TRAINER_CLASS_BUG_CATCHER,   COMPOUND_STRING("J'ai attrapé tout ça avec mon\nfilet ! Tu veux voir ?"),
+                                    COMPOUND_STRING("Mon filet… Il a un trou.") },
+    { TRAINER_CLASS_PKMN_RANGER,   COMPOUND_STRING("La nature est sous ma\nprotection ! Même contre toi !"),
+                                    COMPOUND_STRING("La nature reprendra ses\ndroits… Plus tard.") },
+    { TRAINER_CLASS_SWIMMER_M,     COMPOUND_STRING("Tu nages bien, pour un\ndresseur ! Un petit duel ?"),
+                                    COMPOUND_STRING("Glou… J'ai bu la tasse.") },
+    { TRAINER_CLASS_SWIMMER_F,     COMPOUND_STRING("Je nage plus vite que toi !\nEt je combats mieux !"),
+                                    COMPOUND_STRING("Plouf… J'ai coulé.") },
+    { TRAINER_CLASS_BIRD_KEEPER,   COMPOUND_STRING("Mes oiseaux te surveillent\ndepuis la porte ! En piqué !"),
+                                    COMPOUND_STRING("Mes oiseaux… Ils boudent.") },
+    { TRAINER_CLASS_DRAGON_TAMER,  COMPOUND_STRING("Les dragons ne craignent rien.\nMoi non plus ! Grrr !"),
+                                    COMPOUND_STRING("Même les dragons ont des\njours sans…") },
+    { TRAINER_CLASS_AROMA_LADY,    COMPOUND_STRING("Respire ce doux parfum…\nAvant de perdre, bien sûr !"),
+                                    COMPOUND_STRING("Mon parfum ne t'a pas\nendormi ? Étrange…") },
+    { TRAINER_CLASS_LASS,          COMPOUND_STRING("Mes Pokémon sont mignons ET\nforts ! Tu vas voir !"),
+                                    COMPOUND_STRING("Bouh… C'est pas juste !") },
+    { TRAINER_CLASS_BEAUTY,        COMPOUND_STRING("Un combat ? Avec plaisir, tant\nque tu n'abîmes pas ma coiffure."),
+                                    COMPOUND_STRING("Ma coiffure… Tout est ruiné !") },
+};
+
+static const u8 *const sTrainerAceSpeeches[] =
+{
+    COMPOUND_STRING("\pEt gare à mon {STR_VAR_1} :\nc'est lui le patron ici !"),
+    COMPOUND_STRING("\pPetit conseil : mon {STR_VAR_1},\nje le garde pour la fin."),
+    COMPOUND_STRING("\pJe ne dis rien… Mais mon\n{STR_VAR_1} va te faire mal."),
+};
+
+static EWRAM_DATA u8 sTrainerSpeechText[256] = {0};
+
+static const struct IsaacTrainerSpeech *GetRoomTrainerSpeech(void)
+{
+    const struct IsaacTrainerType *type;
+    s32 x, y;
+    u32 i;
+
+    GetCurrentCell(&x, &y);
+    type = GetRoomTrainerType(x, y);
+    for (i = 0; i < ARRAY_COUNT(sTrainerSpeeches); i++)
+        if (sTrainerSpeeches[i].trainerClass == type->trainerClass)
+            return &sTrainerSpeeches[i];
+    return NULL;
+}
+
+// Réplique avant le combat contre le dresseur de la salle (defaultText : celle du script, pour une classe sans
+// réplique)
+const u8 *IsaacGetRoomTrainerIntro(const u8 *defaultText)
+{
+    const struct IsaacTrainerSpeech *speech = GetRoomTrainerSpeech();
+    const struct IsaacTrainerParty *party;
+    const struct Trainer *trainer;
+    const u8 *text = (speech != NULL) ? speech->intro : defaultText;
+    u32 roll;
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    party = GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET));
+    roll = RoomRandom(x, y, 0xACE0);
+    if ((party->aceCategory == 0 && party->aceTier == 0 && party->aceBoosts == 0) || (roll & 1))
+        return text;
+    trainer = GetIsaacTrainer(TRAINER_ISAAC_ROOM);
+    StringCopy(gStringVar1, GetSpeciesName(trainer->party[trainer->partySize - 1].species));
+    StringExpandPlaceholders(StringCopy(sTrainerSpeechText, text),
+                             sTrainerAceSpeeches[(roll >> 1) % ARRAY_COUNT(sTrainerAceSpeeches)]);
+    return sTrainerSpeechText;
+}
+
+// Réplique de défaite du dresseur de la salle
+const u8 *IsaacGetRoomTrainerDefeat(const u8 *defaultText)
+{
+    const struct IsaacTrainerSpeech *speech = GetRoomTrainerSpeech();
+
+    return (speech != NULL) ? speech->defeat : defaultText;
+}
+
 // Argent gagné contre un dresseur ou le boss du donjon (doublé avec la Pièce Porte-Bonheur)
 u32 IsaacGetTrainerMoney(void)
 {

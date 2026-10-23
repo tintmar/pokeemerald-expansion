@@ -1756,6 +1756,8 @@ static const u8 *GetIntroSpeechOfApproachingTrainer(void)
         if (OW_NAME_BOX_NPC_TRAINER)
             gSpeakerName = GetTrainerNameFromId(TRAINER_BATTLE_PARAM.opponentA);
 
+        if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_ISAAC_ROOM && IsIsaacTrainer(TRAINER_ISAAC_ROOM))
+            return IsaacGetRoomTrainerIntro(ReturnEmptyStringIfNull(TRAINER_BATTLE_PARAM.introTextA));  // donjon
         return ReturnEmptyStringIfNull(TRAINER_BATTLE_PARAM.introTextA);
     }
     else
@@ -1775,6 +1777,8 @@ const u8 *GetTrainerALoseText(void)
         string = GetSecretBaseTrainerLoseText();
     else
         string = TRAINER_BATTLE_PARAM.defeatTextA;
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_ISAAC_ROOM && IsIsaacTrainer(TRAINER_ISAAC_ROOM))
+        string = IsaacGetRoomTrainerDefeat(ReturnEmptyStringIfNull(string));  // donjon
 
     StringExpandPlaceholders(gStringVar4, ReturnEmptyStringIfNull(string));
     return gStringVar4;

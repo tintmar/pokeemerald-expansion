@@ -64,6 +64,8 @@ void IsaacBufferHealerPokemon(void);
 void IsaacMaxEvsIvs(void);
 const u8 *IsaacGetWallInteractScript(s16 x, s16 y);
 void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party);
+const u8 *IsaacGetRoomTrainerIntro(const u8 *defaultText);
+const u8 *IsaacGetRoomTrainerDefeat(const u8 *defaultText);
 
 extern u8 gIsaacTrainerReturnMovement[];
 extern u8 gIsaacNurseArrivalMovement[];
