@@ -509,10 +509,16 @@ bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat)
     return TRUE;
 }
 
-// Le Pokémon a-t-il déjà reçu un boost de stat (un seul par Pokémon) ?
-bool8 IsaacHasStatBoost(struct Pokemon *mon)
+// Le Pokémon a-t-il déjà reçu un boost (un seul par Pokémon) : boost de stat, Pierre brillante ou Omniboost ? Les
+// Omniboosts du Pacte de Sang ne comptent pas.
+bool8 IsaacHasBoost(struct Pokemon *mon)
 {
-    return (GetMonData(mon, ISAAC_STAT_BOOST_DATA) & ((1 << NUM_STATS) - 1)) != 0;
+    u32 boosts = GetMonData(mon, ISAAC_STAT_BOOST_DATA);
+    u32 omniboosts = GetMonData(mon, ISAAC_OMNIBOOST_DATA);
+
+    if (boosts & ISAAC_BLOOD_PACT_BIT)
+        omniboosts -= min(omniboosts, (u32)ISAAC_BLOOD_PACT_OMNIBOOSTS);
+    return (boosts & ((1 << NUM_STATS) - 1)) != 0 || GetMonData(mon, ISAAC_BRILLIANT_DATA) != 0 || omniboosts != 0;
 }
 
 // Un Omniboost de plus (FALSE s'il en a déjà le maximum) ; les stats sont recalculées

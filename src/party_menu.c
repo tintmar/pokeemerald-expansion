@@ -6500,7 +6500,23 @@ static void IsaacItemUsed(u8 taskId, TaskFunc task, const u8 *message)
     gTasks[taskId].func = task;
 }
 
-// Donjon : boost de stat (ITEM_BOOST_HP + STAT_*), +25 % à cette stat ; un seul boost de stat par Pokémon
+// Donjon : un seul boost par Pokémon (boost de stat, Pierre brillante ou Omniboost, voir IsaacHasBoost). TRUE si le
+// Pokémon en a déjà un (le message est affiché).
+static bool8 IsaacRefuseSecondBoost(struct Pokemon *mon, u8 taskId, TaskFunc task)
+{
+    if (!IsaacHasBoost(mon))
+        return FALSE;
+    gPartyMenuUseExitCallback = FALSE;
+    PlaySE(SE_SELECT);
+    GetMonNickname(mon, gStringVar1);
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} already has a boost.\nOnly one per Pokémon!{PAUSE_UNTIL_PRESS}"));
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = task;
+    return TRUE;
+}
+
+// Donjon : boost de stat (ITEM_BOOST_HP + STAT_*), +25 % à cette stat ; un seul boost par Pokémon
 void ItemUseCB_IsaacStatBoost(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
@@ -6511,29 +6527,22 @@ void ItemUseCB_IsaacStatBoost(u8 taskId, TaskFunc task)
         IsaacItemWontHaveEffect(taskId, task);
         return;
     }
-    if (IsaacHasStatBoost(mon))  // un seul boost de stat par Pokémon
-    {
-        gPartyMenuUseExitCallback = FALSE;
-        PlaySE(SE_SELECT);
-        GetMonNickname(mon, gStringVar1);
-        StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} already has a stat boost.\nOnly one per Pokémon!{PAUSE_UNTIL_PRESS}"));
-        DisplayPartyMenuMessage(gStringVar4, TRUE);
-        ScheduleBgCopyTilemapToVram(2);
-        gTasks[taskId].func = task;
+    if (IsaacRefuseSecondBoost(mon, taskId, task))
         return;
-    }
     IsaacAddStatBoost(mon, stat);
     GetMonNickname(mon, gStringVar1);
     StringCopy(gStringVar2, sIsaacStatNames[stat]);
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1}'s {STR_VAR_2}\nrose by 25%!{PAUSE_UNTIL_PRESS}"));
 }
 
-// Donjon : Pierre brillante, chromatique et +20 % à la meilleure stat, une fois par Pokémon
+// Donjon : Pierre brillante, chromatique et +20 % à la meilleure stat ; un seul boost par Pokémon
 void ItemUseCB_IsaacBrilliantStone(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
     u32 stat;
 
+    if (!GetMonData(mon, MON_DATA_IS_EGG) && IsaacRefuseSecondBoost(mon, taskId, task))
+        return;
     if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacUseBrilliantStone(mon, &stat))
     {
         IsaacItemWontHaveEffect(taskId, task);
@@ -6721,11 +6730,13 @@ void ItemUseCB_IsaacBloodPact(u8 taskId, TaskFunc task)
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} sealed a blood pact!\nIt's stronger, but frailer…{PAUSE_UNTIL_PRESS}"));
 }
 
-// Donjon : Omniboost, +10 % à toutes les stats du Pokémon (cumulable)
+// Donjon : Omniboost, +10 % à toutes les stats du Pokémon ; un seul boost par Pokémon
 void ItemUseCB_IsaacOmniboost(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
 
+    if (!GetMonData(mon, MON_DATA_IS_EGG) && IsaacRefuseSecondBoost(mon, taskId, task))
+        return;
     if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacAddOmniboost(mon))
     {
         gPartyMenuUseExitCallback = FALSE;
