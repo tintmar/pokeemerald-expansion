@@ -65,6 +65,7 @@
 #define PARTY_MSG_CHOOSE_MON_FOR_BOX        30
 #define PARTY_MSG_MOVE_ITEM_WHERE           31
 #define PARTY_MSG_ISAAC_WHICH_TYPE          32  // donjon : Pierre Prisme
+#define PARTY_MSG_ISAAC_WHICH_EVOLUTION     33  // donjon : Pierre Évolution
 
 #define PARTY_MSG_NONE                      127
 

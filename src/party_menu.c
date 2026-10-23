@@ -2806,6 +2806,7 @@ void DisplayPartyMenuStdMessage(u32 stringId)
         case PARTY_MSG_RESTORE_WHICH_MOVE:
         case PARTY_MSG_BOOST_PP_WHICH_MOVE:
         case PARTY_MSG_ISAAC_WHICH_TYPE:
+        case PARTY_MSG_ISAAC_WHICH_EVOLUTION:
             *windowPtr = AddWindow(&sWhichMoveMsgWindowTemplate);
             break;
         case PARTY_MSG_ALREADY_HOLDING_ONE:
@@ -6356,14 +6357,39 @@ void ItemUseCB_EvolutionStone(u8 taskId, TaskFunc task)
     }
 }
 
-// Donjon : Pierre Évolution. Scène d'évolution normale vers l'évolution suivante ; s'il y en a plusieurs, le joueur
-// choisit (« Évoluer en X ? », Non passe à la suivante, B garde la pierre). Le Pokémon garde ses attaques et son
-// objet, sauf exceptions qui apprennent pendant la scène les attaques de leur set évolué (voir
+// Donjon : liste de count choix (8 au plus) à droite, avec le message stringId (PARTY_MSG_*) en bas : même place et même
+// mémoire que le menu d'actions du Pokémon (DisplaySelectionWindow). Réponse avec Menu_ProcessInput.
+static void IsaacShowChoiceList(u32 stringId, const u8 *const *names, u32 count)
+{
+    struct WindowTemplate window;
+    u8 windowId;
+    u32 i;
+
+    DisplayPartyMenuStdMessage(stringId);
+    SetWindowTemplateFields(&window, 2, 19, 19 - count * 2, 10, count * 2, 14, 0x2E9);
+    windowId = sPartyMenuInternal->windowId[0] = AddWindow(&window);
+    DrawStdFrameWithCustomTileAndPalette(windowId, FALSE, 0x4F, 13);
+    for (i = 0; i < count; i++)
+        AddTextPrinterParameterized(windowId, GetFontIdToFit(names[i], FONT_NORMAL, 0, 72), names[i], 8, (i * 16) + 1,
+                                    TEXT_SKIP_DRAW, NULL);
+    InitMenuInUpperLeftCornerNormal(windowId, count, 0);
+    ScheduleBgCopyTilemapToVram(2);
+}
+
+static void IsaacCloseChoiceList(void)
+{
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+}
+
+// Donjon : Pierre Évolution. Scène d'évolution normale vers l'évolution suivante ; s'il y en a plusieurs (jusqu'à
+// ISAAC_MAX_EVOLUTION_CHOICES, Évoli), le joueur la choisit dans une liste, B garde la pierre. Le Pokémon garde ses
+// attaques et son objet, sauf exceptions qui apprennent pendant la scène les attaques de leur set évolué (voir
 // IsaacPrepareEvolutionMoves).
+STATIC_ASSERT(ISAAC_MAX_EVOLUTION_CHOICES <= 8, IsaacEvolutionChoicesFitTheList);
 static EWRAM_DATA void (*sIsaacEvolutionExitCallback)(void) = NULL;
 static EWRAM_DATA u16 sIsaacEvolutionChoices[ISAAC_MAX_EVOLUTION_CHOICES] = {0};
 static EWRAM_DATA u8 sIsaacEvolutionChoiceCount = 0;
-static EWRAM_DATA u8 sIsaacEvolutionChoice = 0;
 static EWRAM_DATA TaskFunc sIsaacEvolutionTask = NULL;
 
 static void CB2_AfterIsaacEvolution(void)
@@ -6383,49 +6409,53 @@ static void StartIsaacEvolution(enum Species target)
     FreePartyPointers();
 }
 
-static void Task_HandleIsaacEvolutionChoiceInput(u8 taskId);
-
-static void Task_AskIsaacEvolutionChoice(u8 taskId)
+// Nom de l'évolution n° i dans la liste : une forme régionale qui a le même nom qu'une autre évolution de la liste
+// (Raichu et Raichu d'Alola) porte sa région
+static const u8 *GetIsaacEvolutionChoiceName(u32 i)
 {
-    if (IsPartyMenuTextPrinterActive() != TRUE)
-    {
-        PartyMenuDisplayYesNoMenu();
-        gTasks[taskId].func = Task_HandleIsaacEvolutionChoiceInput;
-    }
-}
+    static EWRAM_DATA u8 sNames[ISAAC_MAX_EVOLUTION_CHOICES][POKEMON_NAME_LENGTH + 8] = {0};
+    const struct SpeciesInfo *info = &gSpeciesInfo[sIsaacEvolutionChoices[i]];
+    const u8 *name = GetSpeciesName(sIsaacEvolutionChoices[i]);
+    const u8 *region = NULL;
+    u32 j;
 
-// « Évoluer en X ? » pour l'évolution n° sIsaacEvolutionChoice
-static void AskIsaacEvolutionChoice(u8 taskId)
-{
-    GetMonNickname(&gParties[B_TRAINER_PLAYER][gPartyMenu.slotId], gStringVar1);
-    StringCopy(gStringVar2, GetSpeciesName(sIsaacEvolutionChoices[sIsaacEvolutionChoice]));
-    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("Evolve {STR_VAR_1}\ninto {STR_VAR_2}?"));
-    DisplayPartyMenuMessage(gStringVar4, TRUE);
-    ScheduleBgCopyTilemapToVram(2);
-    gTasks[taskId].func = Task_AskIsaacEvolutionChoice;
+    for (j = 0; j < sIsaacEvolutionChoiceCount; j++)
+        if (j != i && StringCompare(GetSpeciesName(sIsaacEvolutionChoices[j]), name) == 0)
+            break;
+    if (j == sIsaacEvolutionChoiceCount)
+        return name;
+    if (info->isAlolanForm)
+        region = COMPOUND_STRING(" Alola");
+    else if (info->isGalarianForm)
+        region = COMPOUND_STRING(" Galar");
+    else if (info->isHisuianForm)
+        region = COMPOUND_STRING(" Hisui");
+    else if (info->isPaldeanForm)
+        region = COMPOUND_STRING(" Paldea");
+    if (region == NULL)
+        return name;
+    StringAppend(StringCopy(sNames[i], name), region);
+    return sNames[i];
 }
 
 static void Task_HandleIsaacEvolutionChoiceInput(u8 taskId)
 {
-    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    s8 input = Menu_ProcessInput();
+
+    if (input == MENU_NOTHING_CHOSEN)
+        return;
+    IsaacCloseChoiceList();
+    if (input == MENU_B_PRESSED)
     {
-    case 0:
-        StartIsaacEvolution(sIsaacEvolutionChoices[sIsaacEvolutionChoice]);
-        gTasks[taskId].func = TaskDummy;  // la scène d'évolution prend la suite
-        break;
-    case 1:
-        PlaySE(SE_SELECT);
-        sIsaacEvolutionChoice = (sIsaacEvolutionChoice + 1) % sIsaacEvolutionChoiceCount;
-        AskIsaacEvolutionChoice(taskId);
-        break;
-    case MENU_B_PRESSED:
         PlaySE(SE_SELECT);
         gPartyMenuUseExitCallback = FALSE;
         DisplayPartyMenuMessage(COMPOUND_STRING("The stone was kept."), TRUE);
         ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].func = sIsaacEvolutionTask;
-        break;
+        return;
     }
+    StartIsaacEvolution(sIsaacEvolutionChoices[input]);
+    gTasks[taskId].func = TaskDummy;  // la scène d'évolution prend la suite
 }
 
 // Pierre Évolution (un stade) ou Super Pierre Évolution (stade final)
@@ -6451,9 +6481,16 @@ static void UseIsaacEvolutionStone(u8 taskId, TaskFunc task, bool32 toFinalStage
         StartIsaacEvolution(sIsaacEvolutionChoices[0]);
         return;
     }
-    sIsaacEvolutionTask = task;
-    sIsaacEvolutionChoice = 0;
-    AskIsaacEvolutionChoice(taskId);
+    {
+        const u8 *names[ISAAC_MAX_EVOLUTION_CHOICES];
+        u32 i;
+
+        for (i = 0; i < sIsaacEvolutionChoiceCount; i++)
+            names[i] = GetIsaacEvolutionChoiceName(i);
+        sIsaacEvolutionTask = task;
+        IsaacShowChoiceList(PARTY_MSG_ISAAC_WHICH_EVOLUTION, names, sIsaacEvolutionChoiceCount);
+        gTasks[taskId].func = Task_HandleIsaacEvolutionChoiceInput;
+    }
 }
 
 void ItemUseCB_IsaacEvolutionStone(u8 taskId, TaskFunc task)
@@ -6585,8 +6622,7 @@ static void Task_HandleIsaacPrismChoiceInput(u8 taskId)
 
     if (input == MENU_NOTHING_CHOSEN)
         return;
-    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
-    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+    IsaacCloseChoiceList();
     if (input == MENU_B_PRESSED)
     {
         PlaySE(SE_SELECT);
@@ -6607,8 +6643,8 @@ void ItemUseCB_IsaacPrismStone(u8 taskId, TaskFunc task)
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
     u8 candidates[NUMBER_OF_MON_TYPES];
     enum Type types[2];
+    const u8 *names[ISAAC_PRISM_CHOICES];
     u32 count = 0, i, j, tmp, state;
-    u8 windowId;
 
     if (GetMonData(mon, MON_DATA_IS_EGG))
     {
@@ -6628,13 +6664,10 @@ void ItemUseCB_IsaacPrismStone(u8 taskId, TaskFunc task)
         SWAP(candidates[i], candidates[j], tmp);
         sIsaacPrismTypes[i] = candidates[i];
     }
-    sIsaacPrismTask = task;
-    DisplayPartyMenuStdMessage(PARTY_MSG_ISAAC_WHICH_TYPE);
-    windowId = DisplaySelectionWindow(SELECTWINDOW_MOVES);
     for (i = 0; i < ISAAC_PRISM_CHOICES; i++)
-        AddTextPrinterParameterized(windowId, FONT_NORMAL, gTypesInfo[sIsaacPrismTypes[i]].name, 8, (i * 16) + 1, TEXT_SKIP_DRAW, NULL);
-    InitMenuInUpperLeftCornerNormal(windowId, ISAAC_PRISM_CHOICES, 0);
-    ScheduleBgCopyTilemapToVram(2);
+        names[i] = gTypesInfo[sIsaacPrismTypes[i]].name;
+    sIsaacPrismTask = task;
+    IsaacShowChoiceList(PARTY_MSG_ISAAC_WHICH_TYPE, names, ISAAC_PRISM_CHOICES);
     gTasks[taskId].func = Task_HandleIsaacPrismChoiceInput;
 }
 
