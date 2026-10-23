@@ -98,6 +98,8 @@
 #define ISAAC_MAX_ROOMS        20
 #define ISAAC_SHOP_MIN_FLOOR   2
 #define ISAAC_SECRET_MIN_FLOOR 3
+// Salles secrètes (et donc l'entraîneur d'Éclate-Roc, qui ne vient que s'il y en a une) : mises de côté pour l'instant
+#define ISAAC_SECRET_ROOMS     FALSE
 #define ISAAC_TWO_TREASURES_MIN_FLOOR 4  // deux salles trésor à partir de cet étage
 #define ISAAC_MAX_TRIES        200  // graines essayées pour un étage valide
 
@@ -608,7 +610,7 @@ static bool8 TryBuildFloor(u32 floor)
     PlaceOnFreeDeadEnd(deadX, deadY, deadCount, ROOM_CAPTURE);
     if (floor >= ISAAC_SHOP_MIN_FLOOR)
         PlaceOnFreeDeadEnd(deadX, deadY, deadCount, ROOM_SHOP);
-    if (floor >= ISAAC_SECRET_MIN_FLOOR)
+    if (ISAAC_SECRET_ROOMS && floor >= ISAAC_SECRET_MIN_FLOOR)
         PlaceSecretRoom();
     return TRUE;
 }
