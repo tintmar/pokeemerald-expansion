@@ -1422,12 +1422,14 @@ static u32 CountTrainersLeftOnFloor(void)
 // dresseurs de l'étage la donne donc à coup sûr. Le dresseur de la salle secrète, qu'on ne peut pas toujours atteindre,
 // n'en fait pas partie (ni pour la donner, ni dans le compte). Elle remplace le soin, sauf à partir de
 // TRAINER_LOOT_BOTH_FLOOR où elle s'y ajoute.
-// En plus, TRAINER_LOOT_TM_PCT % des dresseurs donnent une très bonne CT (sShopTMs, toujours la même pour une salle).
+// En plus, TRAINER_LOOT_RARE_PCT % des dresseurs donnent un butin rare (PickTrainerRareLoot, toujours le même pour une
+// salle) : un objet spécial, une très bonne CT, un objet de combat de la boutique ou un Rappel Max.
 #define TRAINER_LOOT_FULL_RESTORE_PCT  66
 #define TRAINER_LOOT_BOTH_FLOOR        4
-#define TRAINER_LOOT_TM_PCT            10
+#define TRAINER_LOOT_RARE_PCT          10
 
 static u16 PickGoodTM(u32 roll);
+static u16 PickTrainerRareLoot(u32 roll);
 
 static EWRAM_DATA u16 sLoot[4] = {0};
 static EWRAM_DATA u8 sLootCount = 0;
@@ -1449,8 +1451,8 @@ void IsaacPickTrainerLoot(void)
     {
         sLoot[sLootCount++] = (RoomRandom(x, y, 0x1007) % 100 < TRAINER_LOOT_FULL_RESTORE_PCT) ? ITEM_FULL_RESTORE : ITEM_REVIVE;
     }
-    if (RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_TM_PCT)
-        sLoot[sLootCount++] = PickGoodTM(RoomRandom(x, y, 0x7E58));
+    if (RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_RARE_PCT)
+        sLoot[sLootCount++] = PickTrainerRareLoot(RoomRandom(x, y, 0x7E58));
     if (VarGet(VAR_ISAAC_FLOOR) < ISAAC_MASTER_BALL_MIN_FLOOR || FlagGet(FLAG_ISAAC_MASTER_BALL_DROPPED)
      || GetRoom(x, y) == ROOM_SECRET)
         return;
@@ -2019,6 +2021,22 @@ static const u16 sShopTMs[] =
 static u16 PickGoodTM(u32 roll)
 {
     return sShopTMs[roll % ARRAY_COUNT(sShopTMs)];
+}
+
+// Butin rare d'un dresseur (sur 100) : objet spécial 40, très bonne CT 25, objet de combat de la boutique 25, Rappel
+// Max 10
+static u16 PickTrainerRareLoot(u32 roll)
+{
+    u32 pick = roll % 100;
+
+    roll /= 100;
+    if (pick < 40)
+        return IsaacPickSpecialItem(roll);
+    if (pick < 65)
+        return PickGoodTM(roll);
+    if (pick < 90)
+        return sShopBattleItems[roll % ARRAY_COUNT(sShopBattleItems)];
+    return ITEM_MAX_REVIVE;
 }
 
 // Prix en dixièmes des gains d'un dresseur de l'étage
