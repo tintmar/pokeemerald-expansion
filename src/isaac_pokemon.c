@@ -318,6 +318,11 @@ static u32 GetSpeciesBST(enum Species species)
     return info->baseHP + info->baseAttack + info->baseDefense + info->baseSpeed + info->baseSpAttack + info->baseSpDefense;
 }
 
+u32 IsaacGetSpeciesBST(enum Species species)
+{
+    return GetSpeciesBST(species);
+}
+
 // Espèces des lignées données de la catégorie voulue (1 à 4). Avec ISAAC_CATEGORIES_PER_BIOME, catégories
 // recalculées sur ces lignées seules : leurs espèces triées par BST sont réparties en 4 quarts égaux (catégorie 1 : le
 // quart le plus faible ; deux espèces de même BST ont la même catégorie). Sinon, catégories globales

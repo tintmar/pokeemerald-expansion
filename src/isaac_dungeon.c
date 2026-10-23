@@ -1110,7 +1110,8 @@ static EWRAM_DATA struct TrainerMon sRoomTrainerMons[PARTY_SIZE] = {0};
 
 // Équipe des dresseurs de salle selon l'étage : maxCount Pokémon (maxCountPct % des salles), sinon un de moins ;
 // chaque Pokémon tire sa catégorie et son set au hasard entre les deux bornes (au-delà du dernier étage, on garde la
-// dernière ligne). tierByCategory : le set n'est pas tiré mais suit la catégorie à l'envers (catégorie la plus faible
+// dernière ligne), parmi les espèces de BST au moins minBst (plancher qui adoucit le passage d'une catégorie à la
+// suivante). tierByCategory : le set n'est pas tiré mais suit la catégorie à l'envers (catégorie la plus faible
 // -> meilleur set)
 struct IsaacTrainerParty
 {
@@ -1118,16 +1119,17 @@ struct IsaacTrainerParty
     u8 minCategory, maxCategory;
     u8 minTier, maxTier;  // 0 = set 1
     bool8 tierByCategory;
+    u16 minBst;
 };
 
 static const struct IsaacTrainerParty sRoomTrainerParties[] =
 {
-    { 2,  60, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 0 },
-    { 2, 100, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 0, 1, TRUE },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
-    { 3,  60, ISAAC_CATEGORY_2, ISAAC_CATEGORY_2, 1, 1 },
-    { 3,  75, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 2 },
-    { 4,  50, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 2 },
-    { 4,  70, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 2, 2 },
+    { 2,  60, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 0, FALSE, 210 },
+    { 2, 100, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 0, 1, TRUE,  265 },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
+    { 3,  60, ISAAC_CATEGORY_2, ISAAC_CATEGORY_2, 1, 1, FALSE, 330 },
+    { 3,  75, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 2, FALSE, 360 },
+    { 4,  50, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 2, FALSE, 430 },
+    { 4,  70, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 2, 2, FALSE, 455 },
 };
 
 // Équipe du boss selon l'étage. Principe : le boss garde toujours un cran d'avance sur les dresseurs
@@ -1171,6 +1173,11 @@ static const u16 sBossLegendaries[ISAAC_BIOME_COUNT][3] =
     [ISAAC_BIOME_CLIFF]  = { SPECIES_LATIAS,   SPECIES_LATIOS,    SPECIES_ZAPDOS },    // Alizée (vol, dragon)
     [ISAAC_BIOME_FOREST] = { SPECIES_CELEBI,   SPECIES_CELEBI,    SPECIES_CELEBI },    // Erika (plante)
 };
+
+static const struct IsaacTrainerParty *GetRoomTrainerParty(u32 floor)
+{
+    return &sRoomTrainerParties[min(max(floor, 1u), ARRAY_COUNT(sRoomTrainerParties)) - 1];
+}
 
 static const struct IsaacBossParty *GetBossParty(void)
 {
@@ -1249,7 +1256,7 @@ static const struct IsaacTrainerType *GetRoomTrainerType(s32 x, s32 y)
 // parmi toutes les lignées du biome, de la catégorie voulue, jamais une espèce déjà dans l'équipe (s'il n'en reste
 // aucune de cette catégorie, la plus proche, en dessous d'abord), avec le set voulu (variante 50/50). Le petit
 // légendaire de l'as du boss vient de sBossLegendaries.
-static void AddTrainerMon(enum IsaacCategory category, u32 tier, u32 seed)
+static void AddTrainerMon(enum IsaacCategory category, u32 tier, u32 seed, u32 minBst)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
     u16 candidates[96];
@@ -1271,9 +1278,11 @@ static void AddTrainerMon(enum IsaacCategory category, u32 tier, u32 seed)
                 if (cat < ISAAC_CATEGORY_1 || cat > ISAAC_CATEGORY_4 || (i == 1 && delta == 0))
                     continue;
                 count = IsaacAddLinesSpeciesOfCategory(biome->lines, biome->lineCount, cat, candidates, 0, ARRAY_COUNT(candidates));
-                // sans les espèces déjà dans l'équipe
+                // sans les espèces déjà dans l'équipe, ni celles sous le plancher de BST
                 for (kept = 0, j = 0; j < count; j++)
                 {
+                    if (IsaacGetSpeciesBST(candidates[j]) < minBst)
+                        continue;
                     for (k = 0; k < sRoomTrainer.partySize && IsaacGetSharedFormBase(sRoomTrainerMons[k].species) != candidates[j]; k++)
                         ;
                     if (k == sRoomTrainer.partySize)
@@ -1348,7 +1357,7 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     {
         InitTrainer(&sRoomTrainer, GetDuelistType(), COMPOUND_STRING("DUELLISTE"), sRoomTrainerMons);
         sRoomTrainer.aiFlags = AI_FLAG_SMART_TRAINER;
-        AddTrainerMon(GetDuelistCategory(), GetDuelistTier(), RoomRandom(x, y, 0xD0E1));
+        AddTrainerMon(GetDuelistCategory(), GetDuelistTier(), RoomRandom(x, y, 0xD0E1), 0);
         return &sRoomTrainer;
     }
     if (trainerId == TRAINER_ISAAC_BOSS)
@@ -1364,10 +1373,10 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
             u32 category = boss->minCategory + (roll >> 8) % (boss->maxCategory - boss->minCategory + 1);
             u32 tier = boss->minTier + (roll >> 16) % (boss->maxTier - boss->minTier + 1);
 
-            AddTrainerMon(category, tier, roll);
+            AddTrainerMon(category, tier, roll, 0);
         }
         // L'as, envoyé en dernier
-        AddTrainerMon(boss->aceCategory, boss->aceTier, RoomRandom(x, y, 0xB0A5));
+        AddTrainerMon(boss->aceCategory, boss->aceTier, RoomRandom(x, y, 0xB0A5), 0);
         return &sRoomTrainer;
     }
 
@@ -1377,7 +1386,7 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     if (VarGet(VAR_ISAAC_FLOOR) == 1)
         sRoomTrainer.aiFlags = AI_FLAG_CHECK_BAD_MOVE;  // premier étage : attaques au hasard, sauf les inutiles
     // dresseur de la salle secrète : l'équipe de l'étage suivant
-    party = &sRoomTrainerParties[min(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET), ARRAY_COUNT(sRoomTrainerParties)) - 1];
+    party = GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET));
     count = party->maxCount - (RoomRandom(x, y, 0xC0F7) % 100 >= party->maxCountPct);
     for (i = 0; i < count; i++)
     {
@@ -1387,7 +1396,7 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
 
         if (party->tierByCategory)
             tier = max((s32)party->maxTier - (s32)(category - party->minCategory), (s32)party->minTier);
-        AddTrainerMon(category, tier, roll);
+        AddTrainerMon(category, tier, roll, party->minBst);
     }
     return &sRoomTrainer;
 }
