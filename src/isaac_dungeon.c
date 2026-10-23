@@ -1531,16 +1531,17 @@ static u32 CountTrainersLeftOnFloor(void)
 }
 
 // Butin d'un dresseur vaincu, donné objet par objet (IsaacNextLootItem) :
-//  - une Restore Max, et une seconde avec TRAINER_LOOT_SECOND_PCT_PER_FLOOR % de chances par étage au-delà de
-//    l'étage 2 (toujours la même réponse pour une salle) : 1 en moyenne aux étages 1-2, 1,25 à l'étage 3, 1,5 au 4,
-//    1,75 au 5, 2 à partir du 6.
+//  - une Restore Max avec TRAINER_LOOT_MAX_RESTORE_PCT % de chances, et une seconde avec la même chance multipliée par
+//    TRAINER_LOOT_SECOND_PCT_PER_FLOOR % par étage au-delà de l'étage 2 (toujours la même réponse pour une salle) : en
+//    moyenne 0,7 aux étages 1-2, 0,875 à l'étage 3, 1,05 au 4, 1,225 au 5, 1,4 à partir du 6.
 // À partir de ISAAC_MASTER_BALL_MIN_FLOOR, une Master Ball, une seule par étage : tant qu'elle n'est pas tombée, chaque
 // dresseur la donne avec 1 chance sur le nombre de dresseurs encore à battre (1/8, 1/7... 1/1) ; battre tous les
 // dresseurs de l'étage la donne donc à coup sûr. Le dresseur de la salle secrète, qu'on ne peut pas toujours atteindre,
 // n'en fait pas partie (ni pour la donner, ni dans le compte). Elle remplace la Restore Max s'il n'y en a qu'une,
-// sinon elle s'y ajoute.
+// sinon elle s'ajoute au butin.
 // En plus, TRAINER_LOOT_RARE_PCT % des dresseurs donnent un butin rare (PickTrainerRareLoot, toujours le même pour une
 // salle) : un objet spécial, une très bonne CT, un objet de combat de la boutique ou un Rappel Max.
+#define TRAINER_LOOT_MAX_RESTORE_PCT       70
 #define TRAINER_LOOT_SECOND_PCT_PER_FLOOR  25
 #define TRAINER_LOOT_RARE_PCT          10
 
@@ -1553,14 +1554,16 @@ static EWRAM_DATA u8 sLootCount = 0;
 void IsaacPickTrainerLoot(void)
 {
     s32 x, y;
-    u32 left;
-    bool32 both;
+    u32 left, secondPct, heals = 0;
 
     GetCurrentCell(&x, &y);
     sLootCount = 0;
-    both = RoomRandom(x, y, 0x1007) % 100 < TRAINER_LOOT_SECOND_PCT_PER_FLOOR * max((s32)VarGet(VAR_ISAAC_FLOOR) - 2, 0);
-    sLoot[sLootCount++] = ITEM_MAX_RESTORE;
-    if (both)
+    secondPct = min(TRAINER_LOOT_SECOND_PCT_PER_FLOOR * max((s32)VarGet(VAR_ISAAC_FLOOR) - 2, 0), 100);
+    if (RoomRandom(x, y, 0x1006) % 100 < TRAINER_LOOT_MAX_RESTORE_PCT)
+        heals++;
+    if (RoomRandom(x, y, 0x1007) % 10000 < TRAINER_LOOT_MAX_RESTORE_PCT * secondPct)
+        heals++;
+    while (sLootCount < heals)
         sLoot[sLootCount++] = ITEM_MAX_RESTORE;
     if (RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_RARE_PCT)
         sLoot[sLootCount++] = PickTrainerRareLoot(RoomRandom(x, y, 0x7E58));
@@ -1570,7 +1573,7 @@ void IsaacPickTrainerLoot(void)
     left = CountTrainersLeftOnFloor();
     if (left != 0 && Random() % left == 0)
     {
-        if (!both)
+        if (heals == 1)
             sLoot[0] = ITEM_MASTER_BALL;  // la Master Ball remplace le soin
         else
             sLoot[sLootCount++] = ITEM_MASTER_BALL;
