@@ -3794,11 +3794,11 @@ static void CursorCb_Release(u8 taskId)
     GetMonNickname(mon, gStringVar1);
     if (!GetMonData(mon, MON_DATA_IS_EGG) && fighters <= 1)
     {
-        DisplayPartyMenuMessage(COMPOUND_STRING("Tu ne peux pas relâcher ton\ndernier Pokémon !"), TRUE);
+        DisplayPartyMenuMessage(COMPOUND_STRING("You can't release your\nlast Pokémon!"), TRUE);
         gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
         return;
     }
-    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("Relâcher {STR_VAR_1} ?\nIl ne reviendra pas."));
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("Release {STR_VAR_1}?\nIt won't come back."));
     DisplayPartyMenuMessage(gStringVar4, TRUE);
     gTasks[taskId].func = Task_ReleaseMonYesNo;
 }
@@ -3808,7 +3808,7 @@ static void Task_HandleReleaseMonYesNoInput(u8 taskId)
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
     case 0:
-        StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} a été relâché.\nAu revoir, {STR_VAR_1} !"));
+        StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} was released.\nBye-bye, {STR_VAR_1}!"));
         DisplayPartyMenuMessage(gStringVar4, TRUE);
         gTasks[taskId].func = Task_ReleaseMon;
         break;

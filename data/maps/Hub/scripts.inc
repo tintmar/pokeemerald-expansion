@@ -50,32 +50,32 @@ Hub_EventScript_NeedPokemon::
 	end
 
 Hub_Text_HikerOffer:
-	.string "Tu veux descendre dans la grotte ?\n"
-	.string "Pas sans Pokémon !$"
+	.string "Want to head down into the cave?\n"
+	.string "Not without Pokémon!$"
 
 Hub_Text_HikerChoose:
-	.string "Choisis-en deux parmi ceux-là.$"
+	.string "Pick two of these.$"
 
 Hub_Text_HikerCancel:
-	.string "Tu hésites ? Reviens me voir\n"
-	.string "quand tu seras décidé.$"
+	.string "Having second thoughts? Come back\n"
+	.string "when you've made up your mind.$"
 
 Hub_Text_HikerMasterBall:
-	.string "Et prends ça : une MASTER BALL.\n"
-	.string "Garde-la pour un Pokémon d'exception.$"
+	.string "And take this: a MASTER BALL.\n"
+	.string "Save it for a truly special Pokémon.$"
 
 Hub_Text_HikerSupplies:
-	.string "Et quelques soins pour la route.$"
+	.string "And some healing for the road.$"
 
 Hub_Text_HikerFirstBiome:
-	.string "Je suis descendu jeter un œil :\n"
-	.string "en bas, ça commence par…\p"
-	.string "{STR_VAR_1} !\p"
-	.string "Prépare ton équipe en conséquence.$"
+	.string "I went down to take a look:\n"
+	.string "down there, it starts with…\p"
+	.string "{STR_VAR_1}!\p"
+	.string "Prepare your team accordingly.$"
 
 Hub_Text_HikerGoodLuck:
-	.string "Bonne chance là-dessous !$"
+	.string "Good luck down there!$"
 
 Hub_Text_HikerStop:
-	.string "Hé ! Tu ne vas pas entrer\n"
-	.string "sans Pokémon ? Viens me voir !$"
+	.string "Hey! You're not going in there\n"
+	.string "without Pokémon? Come talk to me!$"

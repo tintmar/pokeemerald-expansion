@@ -1466,7 +1466,7 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     GetCurrentCell(&x, &y);
     if (trainerId == TRAINER_ISAAC_DUELIST)
     {
-        InitTrainer(&sRoomTrainer, GetDuelistType(), COMPOUND_STRING("DUELLISTE"), sRoomTrainerMons);
+        InitTrainer(&sRoomTrainer, GetDuelistType(), COMPOUND_STRING("DUELIST"), sRoomTrainerMons);
         sRoomTrainer.aiFlags = AI_FLAG_SMART_TRAINER;
         AddTrainerMon(GetDuelistCategory(), GetDuelistTier(), RoomRandom(x, y, 0xD0E1), 0);
         return &sRoomTrainer;
@@ -1535,63 +1535,63 @@ struct IsaacTrainerSpeech
 
 static const struct IsaacTrainerSpeech sTrainerSpeeches[] =
 {
-    { TRAINER_CLASS_HIKER,         COMPOUND_STRING("Hé ho ! J'ai grimpé jusqu'ici,\npas question de redescendre\lsans un petit combat !"),
-                                    COMPOUND_STRING("Bon… Je redescends à pied.") },
-    { TRAINER_CLASS_RUIN_MANIAC,   COMPOUND_STRING("Tu marches sur des vestiges\nprécieux ! Sanction : combat !"),
-                                    COMPOUND_STRING("Je retourne à mes fouilles…") },
-    { TRAINER_CLASS_BLACK_BELT,    COMPOUND_STRING("Hiyaaa ! Mes Pokémon et moi,\non s'entraîne depuis l'aube !"),
-                                    COMPOUND_STRING("Ouille. Je ferai cent pompes\nde plus demain.") },
-    { TRAINER_CLASS_BATTLE_GIRL,   COMPOUND_STRING("Mes poings sont prêts, et mes\nPokémon aussi ! En garde !"),
-                                    COMPOUND_STRING("J'ai encore des choses à\napprendre… Toi aussi, hein !") },
-    { TRAINER_CLASS_POKEMANIAC,    COMPOUND_STRING("Ils sont trop mignons, mes\nPokémon ! Admire-les combattre !"),
-                                    COMPOUND_STRING("Mes bébés… Ils ont fait\nde leur mieux !") },
-    { TRAINER_CLASS_HEX_MANIAC,    COMPOUND_STRING("Hihihi… Les esprits m'ont dit\nque tu viendrais…"),
-                                    COMPOUND_STRING("Les esprits… ne m'avaient\npas dit ça…") },
-    { TRAINER_CLASS_PSYCHIC,       COMPOUND_STRING("J'ai prédit ce combat. Et ma\nvictoire aussi. Normalement."),
-                                    COMPOUND_STRING("Ma boule de cristal est\nmanifestement rayée…") },
-    { TRAINER_CLASS_TEAM_MAGMA,    COMPOUND_STRING("La Team Magma réquisitionne\ncette salle ! Pars, ou combats !"),
-                                    COMPOUND_STRING("Rapport au chef : on a perdu.\nEncore.") },
-    { TRAINER_CLASS_NINJA_BOY,     COMPOUND_STRING("Tu ne m'avais pas vu, hein ?\nNormal, je suis un ninja !"),
-                                    COMPOUND_STRING("Pfff… Je disparais. Pour de\nvrai, cette fois.") },
-    { TRAINER_CLASS_KINDLER,       COMPOUND_STRING("Ça chauffe ici ! Et ça va\nchauffer encore plus pour toi !"),
-                                    COMPOUND_STRING("Je me suis brûlé les doigts…") },
-    { TRAINER_CLASS_CAMPER,        COMPOUND_STRING("Ma tente est juste derrière.\nOn règle ça vite, j'ai faim !"),
-                                    COMPOUND_STRING("Je vais griller des\nchamallows pour me consoler.") },
-    { TRAINER_CLASS_PICNICKER,     COMPOUND_STRING("Tu tombes bien, j'ai fini mon\nsandwich ! À nous deux !"),
-                                    COMPOUND_STRING("J'aurais dû garder mon\nsandwich pour le moral…") },
-    { TRAINER_CLASS_GUITARIST,     COMPOUND_STRING("Écoute ce riff ! Mes Pokémon\nvont jouer fort, très fort !"),
-                                    COMPOUND_STRING("J'ai cassé une corde…") },
-    { TRAINER_CLASS_COOLTRAINER,   COMPOUND_STRING("Tu as l'air fort. Moi aussi.\nVoyons qui l'est vraiment !"),
-                                    COMPOUND_STRING("Respect. Tu mérites la suite.") },
-    { TRAINER_CLASS_EXPERT,        COMPOUND_STRING("J'ai vu passer bien des\ndresseurs. Peu m'ont battu."),
-                                    COMPOUND_STRING("Et un de plus sur la liste…") },
-    { TRAINER_CLASS_BUG_MANIAC,    COMPOUND_STRING("Tu as vu mes insectes ?\nIls ont… beaucoup de pattes !"),
-                                    COMPOUND_STRING("Mes petits chéris… Repliez\nvos antennes.") },
-    { TRAINER_CLASS_BUG_CATCHER,   COMPOUND_STRING("J'ai attrapé tout ça avec mon\nfilet ! Tu veux voir ?"),
-                                    COMPOUND_STRING("Mon filet… Il a un trou.") },
-    { TRAINER_CLASS_PKMN_RANGER,   COMPOUND_STRING("La nature est sous ma\nprotection ! Même contre toi !"),
-                                    COMPOUND_STRING("La nature reprendra ses\ndroits… Plus tard.") },
-    { TRAINER_CLASS_SWIMMER_M,     COMPOUND_STRING("Tu nages bien, pour un\ndresseur ! Un petit duel ?"),
-                                    COMPOUND_STRING("Glou… J'ai bu la tasse.") },
-    { TRAINER_CLASS_SWIMMER_F,     COMPOUND_STRING("Je nage plus vite que toi !\nEt je combats mieux !"),
-                                    COMPOUND_STRING("Plouf… J'ai coulé.") },
-    { TRAINER_CLASS_BIRD_KEEPER,   COMPOUND_STRING("Mes oiseaux te surveillent\ndepuis la porte ! En piqué !"),
-                                    COMPOUND_STRING("Mes oiseaux… Ils boudent.") },
-    { TRAINER_CLASS_DRAGON_TAMER,  COMPOUND_STRING("Les dragons ne craignent rien.\nMoi non plus ! Grrr !"),
-                                    COMPOUND_STRING("Même les dragons ont des\njours sans…") },
-    { TRAINER_CLASS_AROMA_LADY,    COMPOUND_STRING("Respire ce doux parfum…\nAvant de perdre, bien sûr !"),
-                                    COMPOUND_STRING("Mon parfum ne t'a pas\nendormi ? Étrange…") },
-    { TRAINER_CLASS_LASS,          COMPOUND_STRING("Mes Pokémon sont mignons ET\nforts ! Tu vas voir !"),
-                                    COMPOUND_STRING("Bouh… C'est pas juste !") },
-    { TRAINER_CLASS_BEAUTY,        COMPOUND_STRING("Un combat ? Avec plaisir, tant\nque tu n'abîmes pas ma coiffure."),
-                                    COMPOUND_STRING("Ma coiffure… Tout est ruiné !") },
+    { TRAINER_CLASS_HIKER,         COMPOUND_STRING("Hey there! I climbed all the way\nup here, I'm not going back\ldown without a battle!"),
+                                    COMPOUND_STRING("Well… I'll walk back down.") },
+    { TRAINER_CLASS_RUIN_MANIAC,   COMPOUND_STRING("You're stepping on priceless\nruins! The penalty: a battle!"),
+                                    COMPOUND_STRING("Back to my digging…") },
+    { TRAINER_CLASS_BLACK_BELT,    COMPOUND_STRING("Hiyaaah! My Pokémon and I have\nbeen training since dawn!"),
+                                    COMPOUND_STRING("Ouch. A hundred extra push-ups\ntomorrow.") },
+    { TRAINER_CLASS_BATTLE_GIRL,   COMPOUND_STRING("My fists are ready, and so are\nmy Pokémon! En garde!"),
+                                    COMPOUND_STRING("I still have a lot to learn…\nAnd so do you!") },
+    { TRAINER_CLASS_POKEMANIAC,    COMPOUND_STRING("Aren't my Pokémon just adorable?\nAdmire them in battle!"),
+                                    COMPOUND_STRING("My babies… They did\ntheir best!") },
+    { TRAINER_CLASS_HEX_MANIAC,    COMPOUND_STRING("Hehehe… The spirits told me\nyou would come…"),
+                                    COMPOUND_STRING("The spirits… didn't tell\nme about this…") },
+    { TRAINER_CLASS_PSYCHIC,       COMPOUND_STRING("I foresaw this battle. And my\nvictory too. Probably."),
+                                    COMPOUND_STRING("My crystal ball must be\nscratched…") },
+    { TRAINER_CLASS_TEAM_MAGMA,    COMPOUND_STRING("Team Magma is taking over this\nroom! Leave, or fight!"),
+                                    COMPOUND_STRING("Report to the boss: we lost.\nAgain.") },
+    { TRAINER_CLASS_NINJA_BOY,     COMPOUND_STRING("Didn't see me, did you?\nOf course not, I'm a ninja!"),
+                                    COMPOUND_STRING("Pfft… I'm vanishing. For real\nthis time.") },
+    { TRAINER_CLASS_KINDLER,       COMPOUND_STRING("It's hot in here! And it's about\nto get hotter for you!"),
+                                    COMPOUND_STRING("I burned my fingers…") },
+    { TRAINER_CLASS_CAMPER,        COMPOUND_STRING("My tent is right behind me.\nLet's make it quick, I'm hungry!"),
+                                    COMPOUND_STRING("I'll roast some marshmallows\nto cheer myself up.") },
+    { TRAINER_CLASS_PICNICKER,     COMPOUND_STRING("Perfect timing, I just finished\nmy sandwich! Let's go!"),
+                                    COMPOUND_STRING("I should have saved my\nsandwich for morale…") },
+    { TRAINER_CLASS_GUITARIST,     COMPOUND_STRING("Hear that riff? My Pokémon\nare going to play it loud!"),
+                                    COMPOUND_STRING("I broke a string…") },
+    { TRAINER_CLASS_COOLTRAINER,   COMPOUND_STRING("You look strong. So do I.\nLet's see who really is!"),
+                                    COMPOUND_STRING("Respect. You've earned the\nway forward.") },
+    { TRAINER_CLASS_EXPERT,        COMPOUND_STRING("I've seen many Trainers come\nthrough. Few have beaten me."),
+                                    COMPOUND_STRING("One more for the list…") },
+    { TRAINER_CLASS_BUG_MANIAC,    COMPOUND_STRING("Have you seen my bugs?\nThey have… so many legs!"),
+                                    COMPOUND_STRING("My little darlings… Fold\nyour antennae.") },
+    { TRAINER_CLASS_BUG_CATCHER,   COMPOUND_STRING("I caught all of these with my\nnet! Want to see?"),
+                                    COMPOUND_STRING("My net… It has a hole.") },
+    { TRAINER_CLASS_PKMN_RANGER,   COMPOUND_STRING("Nature is under my protection!\nEven from you!"),
+                                    COMPOUND_STRING("Nature will reclaim its\ndue… Later.") },
+    { TRAINER_CLASS_SWIMMER_M,     COMPOUND_STRING("You swim well, for a Trainer!\nHow about a little duel?"),
+                                    COMPOUND_STRING("Glub… I swallowed water.") },
+    { TRAINER_CLASS_SWIMMER_F,     COMPOUND_STRING("I swim faster than you!\nAnd I battle better too!"),
+                                    COMPOUND_STRING("Splash… I sank.") },
+    { TRAINER_CLASS_BIRD_KEEPER,   COMPOUND_STRING("My birds have been watching\nyou from the door! Dive!"),
+                                    COMPOUND_STRING("My birds… They're sulking.") },
+    { TRAINER_CLASS_DRAGON_TAMER,  COMPOUND_STRING("Dragons fear nothing.\nNeither do I! Grrr!"),
+                                    COMPOUND_STRING("Even dragons have\noff days…") },
+    { TRAINER_CLASS_AROMA_LADY,    COMPOUND_STRING("Breathe in this sweet scent…\nBefore you lose, of course!"),
+                                    COMPOUND_STRING("My perfume didn't put\nyou to sleep? Strange…") },
+    { TRAINER_CLASS_LASS,          COMPOUND_STRING("My Pokémon are cute AND\nstrong! You'll see!"),
+                                    COMPOUND_STRING("Boo… That's not fair!") },
+    { TRAINER_CLASS_BEAUTY,        COMPOUND_STRING("A battle? Gladly, as long as\nyou don't ruin my hair."),
+                                    COMPOUND_STRING("My hair… It's all ruined!") },
 };
 
 static const u8 *const sTrainerAceSpeeches[] =
 {
-    COMPOUND_STRING("\pEt gare à mon {STR_VAR_1} :\nc'est lui le patron ici !"),
-    COMPOUND_STRING("\pPetit conseil : mon {STR_VAR_1},\nje le garde pour la fin."),
-    COMPOUND_STRING("\pJe ne dis rien… Mais mon\n{STR_VAR_1} va te faire mal."),
+    COMPOUND_STRING("\pAnd watch out for my {STR_VAR_1}:\nit's the boss around here!"),
+    COMPOUND_STRING("\pA little tip: my {STR_VAR_1},\nI'm saving it for last."),
+    COMPOUND_STRING("\pI won't say a thing… But my\n{STR_VAR_1} is going to hurt."),
 };
 
 static EWRAM_DATA u8 sTrainerSpeechText[256] = {0};
@@ -3288,15 +3288,15 @@ void IsaacBufferFirstBiome(void)
 {
     static const u8 *const sBiomeHints[ISAAC_BIOME_COUNT] =
     {
-        [ISAAC_BIOME_CAVE]   = COMPOUND_STRING("une grotte rocheuse, pleine de\nPokémon Roche et Combat"),
-        [ISAAC_BIOME_DARK]   = COMPOUND_STRING("une grotte hantée par des\nPokémon Spectre et Ténèbres"),
-        [ISAAC_BIOME_FIRE]   = COMPOUND_STRING("un chemin brûlant, avec des\nPokémon Feu et Électrik"),
-        [ISAAC_BIOME_ICE]    = COMPOUND_STRING("une grotte gelée, avec des\nPokémon Glace et Acier"),
-        [ISAAC_BIOME_POISON] = COMPOUND_STRING("un tunnel moussu, plein de\nPokémon Poison et Insecte"),
-        [ISAAC_BIOME_OCEAN]  = COMPOUND_STRING("l'océan, plein de\nPokémon Eau"),
-        [ISAAC_BIOME_DESERT] = COMPOUND_STRING("un désert brûlant, avec des\nPokémon Sol et Psy"),
-        [ISAAC_BIOME_CLIFF]  = COMPOUND_STRING("le haut des falaises, avec des\nPokémon Vol et Dragon"),
-        [ISAAC_BIOME_FOREST] = COMPOUND_STRING("une forêt enchantée, pleine de\nPokémon Plante et Fée"),
+        [ISAAC_BIOME_CAVE]   = COMPOUND_STRING("a rocky cave, full of\nRock and Fighting Pokémon"),
+        [ISAAC_BIOME_DARK]   = COMPOUND_STRING("a cave haunted by\nGhost and Dark Pokémon"),
+        [ISAAC_BIOME_FIRE]   = COMPOUND_STRING("a scorching path, with\nFire and Electric Pokémon"),
+        [ISAAC_BIOME_ICE]    = COMPOUND_STRING("a frozen cave, with\nIce and Steel Pokémon"),
+        [ISAAC_BIOME_POISON] = COMPOUND_STRING("a mossy tunnel, full of\nPoison and Bug Pokémon"),
+        [ISAAC_BIOME_OCEAN]  = COMPOUND_STRING("the open sea, full of\nWater Pokémon"),
+        [ISAAC_BIOME_DESERT] = COMPOUND_STRING("a scorching desert, with\nGround and Psychic Pokémon"),
+        [ISAAC_BIOME_CLIFF]  = COMPOUND_STRING("the clifftops, with\nFlying and Dragon Pokémon"),
+        [ISAAC_BIOME_FOREST] = COMPOUND_STRING("an enchanted forest, full of\nGrass and Fairy Pokémon"),
     };
 
     PrepareRunBiomeOrder();
@@ -3423,7 +3423,7 @@ static u32 DrawMinimap(u8 windowId, u8 *iconSpriteIds, u16 *iconSpecies, u8 *bal
 
     *ballSpriteId = MAX_SPRITES;
     FillWindowPixelBuffer(windowId, PIXEL_FILL(MINIMAP_COLOR_BG));
-    end = ConvertIntToDecimalStringN(StringCopy(title, COMPOUND_STRING("ÉTAGE ")), VarGet(VAR_ISAAC_FLOOR),
+    end = ConvertIntToDecimalStringN(StringCopy(title, COMPOUND_STRING("FLOOR ")), VarGet(VAR_ISAAC_FLOOR),
                                      STR_CONV_MODE_LEFT_ALIGN, 3);
     *end++ = CHAR_SLASH;
     ConvertIntToDecimalStringN(end, ISAAC_FLOOR_COUNT, STR_CONV_MODE_LEFT_ALIGN, 3);

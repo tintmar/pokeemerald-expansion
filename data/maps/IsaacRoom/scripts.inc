@@ -78,25 +78,25 @@ IsaacRoom_EventScript_TrainerWalkBack::
 	end
 
 IsaacRoom_Text_TrainerIntro:
-	.string "Personne ne traverse cette salle\n"
-	.string "sans combattre !$"
+	.string "No one crosses this room\n"
+	.string "without a battle!$"
 
 IsaacRoom_Text_TrainerDefeat:
-	.string "Bien joué…$"
+	.string "Well played…$"
 
 IsaacRoom_Text_TrainerChallenge:
-	.string "Tu veux te mesurer à moi ?\n"
-	.string "Je ne t'en voudrai pas de passer…$"
+	.string "Want to take me on?\n"
+	.string "No hard feelings if you pass…$"
 
 IsaacRoom_Text_TrainerAccepted:
-	.string "Parfait ! En garde !$"
+	.string "Perfect! En garde!$"
 
 IsaacRoom_Text_TrainerDeclined:
-	.string "Dommage. Reviens quand tu veux.$"
+	.string "Too bad. Come back anytime.$"
 
 IsaacRoom_Text_TrainerPostBattle:
-	.string "La salle est à toi.\n"
-	.string "Continue ta descente !$"
+	.string "The room is yours.\n"
+	.string "Keep heading down!$"
 
 @ Salle de capture : des Pokémon sauvages du biome (placés par isaac_dungeon.c, CAPTURE_MAX_MONS au plus). Après
 @ le combat (capturé, vaincu ou fui), le Pokémon disparaît.
@@ -212,51 +212,51 @@ IsaacRoom_EventScript_NurseNoMoney::
 	end
 
 IsaacRoom_Text_NurseOffer:
-	.string "Bravo pour ta victoire !\p"
-	.string "Je soigne tes Pokémon, même ceux qui\n"
-	.string "sont K.O. : PV au complet.\p"
-	.string "{STR_VAR_3} Pokémon à soigner : {STR_VAR_2}¥.\n"
-	.string "Ça te va ?$"
+	.string "Congratulations on your win!\p"
+	.string "I can heal your Pokémon, even the\n"
+	.string "fainted ones: full HP.\p"
+	.string "{STR_VAR_3} Pokémon to heal: ¥{STR_VAR_2}.\n"
+	.string "Is that all right?$"
 
 IsaacRoom_Text_NurseHealing:
-	.string "Je m'occupe de tes Pokémon.$"
+	.string "I'll take care of your Pokémon.$"
 
 IsaacRoom_Text_NurseHealed:
-	.string "Voilà ! Bonne chance pour la suite.$"
+	.string "There you go! Good luck ahead.$"
 
 IsaacRoom_Text_NurseNoNeed:
-	.string "Ton équipe est en pleine forme.\n"
-	.string "Bonne chance pour la suite !$"
+	.string "Your team is in great shape.\n"
+	.string "Good luck ahead!$"
 
 IsaacRoom_Text_NurseDeclined:
-	.string "Comme tu veux. Reviens me voir\n"
-	.string "avant de descendre si tu changes d'avis.$"
+	.string "As you wish. Come see me before\n"
+	.string "heading down if you change your mind.$"
 
 IsaacRoom_Text_NursePartial:
-	.string "Tu n'avais pas assez d'argent pour\n"
-	.string "tout le monde…\p"
-	.string "J'ai pu en soigner {STR_VAR_3}, dans l'ordre\n"
-	.string "de ton équipe. Bonne chance !$"
+	.string "You didn't have enough money\n"
+	.string "for everyone…\p"
+	.string "I could heal {STR_VAR_3} of them, in\n"
+	.string "party order. Good luck!$"
 
 IsaacRoom_Text_NurseNoMoney:
-	.string "Désolée, tu n'as pas assez\n"
-	.string "d'argent…$"
+	.string "Sorry, you don't have\n"
+	.string "enough money…$"
 
 IsaacRoom_Text_BossIntro:
-	.string "Je suis {STR_VAR_1}, et je garde\n"
-	.string "cet étage.\p"
-	.string "Personne ne descend plus bas\n"
-	.string "sans me battre !$"
+	.string "I am {STR_VAR_1}, and I guard\n"
+	.string "this floor.\p"
+	.string "No one goes any deeper\n"
+	.string "without beating me!$"
 
 IsaacRoom_Text_BossDefeat:
-	.string "Ta force est impressionnante…$"
+	.string "Your strength is impressive…$"
 
 IsaacRoom_Text_BossReward:
-	.string "Tu as mérité ceci.$"
+	.string "You've earned this.$"
 
 IsaacRoom_Text_BossPostBattle:
-	.string "Le passage vers l'étage suivant\n"
-	.string "est ouvert. Descends !$"
+	.string "The way to the next floor\n"
+	.string "is open. Go on down!$"
 
 @ Boutique : Kecleon, qui parle comme un humain (blague la toute première fois). Menu Acheter / Quitter
 @ (voir IsaacOpenShop)
@@ -278,21 +278,22 @@ IsaacRoom_EventScript_ShopkeeperOpen::
 	end
 
 IsaacRoom_Text_KecleonFirstTime:
-	.string "Bienvenue, bienvenue !\p"
-	.string "… Pourquoi cette tête ? Tu n'as\n"
-	.string "jamais vu un Kecleon qui parle ?\p"
-	.string "À force de me camoufler derrière\n"
-	.string "les comptoirs des humains, j'ai\l"
-	.string "appris leur langue…\p"
-	.string "… et surtout leurs prix ! Kehehe !$"
+	.string "Welcome, welcome!\p"
+	.string "… Why that face? Never seen\n"
+	.string "a talking Kecleon before?\p"
+	.string "Hiding behind human shop\n"
+	.string "counters for so long, I\l"
+	.string "picked up their language…\p"
+	.string "… and above all, their prices!\n"
+	.string "Kehehe!$"
 
 IsaacRoom_Text_KecleonHello:
-	.string "Bienvenue ! Regarde un peu\n"
-	.string "ce que j'ai aujourd'hui !$"
+	.string "Welcome! Take a look at\n"
+	.string "what I've got today!$"
 
 IsaacRoom_Text_KecleonBye:
-	.string "Reviens quand tu veux !\n"
-	.string "Enfin, si tu me trouves… Kehehe !$"
+	.string "Come back anytime!\n"
+	.string "If you can find me… Kehehe!$"
 
 @ Contenus des salles vides (voir GetRoomContent, ROOM_CONTENT_* dans include/constants/isaac_dungeon.h)
 IsaacRoom_EventScript_Content::
@@ -391,62 +392,63 @@ IsaacRoom_EventScript_TraderEgg::
 	end
 
 IsaacRoom_Text_EggOffer:
-	.string "Oh, un dresseur ! J'ai trouvé cet Œuf\n"
-	.string "au fond du donjon…\p"
-	.string "Je ne peux pas m'en occuper ici.\n"
-	.string "Tu veux bien le prendre ?$"
+	.string "Oh, a Trainer! I found this Egg\n"
+	.string "deep in the dungeon…\p"
+	.string "I can't look after it down here.\n"
+	.string "Would you take it?$"
 
 IsaacRoom_Text_EggReceived:
-	.string "{PLAYER} reçoit un Œuf !$"
+	.string "{PLAYER} received an Egg!$"
 
 IsaacRoom_Text_EggAdvice:
-	.string "Garde-le dans ton équipe : il devrait\n"
-	.string "éclore d'ici deux étages environ.\p"
-	.string "Ça m'a l'air d'être un Pokémon très\n"
-	.string "puissant !$"
+	.string "Keep it in your party: it should\n"
+	.string "hatch in about two floors.\p"
+	.string "It looks like a very powerful\n"
+	.string "Pokémon!$"
 
 IsaacRoom_Text_EggDeclined:
-	.string "Dommage… Repasse si tu changes d'avis.$"
+	.string "Too bad… Come back if you\n"
+	.string "change your mind.$"
 
 IsaacRoom_Text_EggPartyFull:
-	.string "Ton équipe est pleine…\n"
-	.string "Relâcher un Pokémon pour prendre l'Œuf ?$"
+	.string "Your party is full…\n"
+	.string "Release a Pokémon to take the Egg?$"
 
 IsaacRoom_Text_MonReleased:
-	.string "{STR_VAR_1} a été relâché.\n"
-	.string "Au revoir, {STR_VAR_1} !$"
+	.string "{STR_VAR_1} was released.\n"
+	.string "Bye-bye, {STR_VAR_1}!$"
 
 IsaacRoom_Text_CantReleaseLastMon:
-	.string "Tu ne peux pas relâcher ton dernier\n"
-	.string "Pokémon !$"
+	.string "You can't release your last\n"
+	.string "Pokémon!$"
 
 IsaacRoom_Text_TraderIntro:
-	.string "Je collectionne les Pokémon de tous\n"
-	.string "les biomes.\p"
-	.string "Je t'échange un des tiens contre un\n"
-	.string "des miens, aussi fort que ceux des\l"
-	.string "salles de capture de cet étage.\p"
-	.string "Lequel me proposes-tu ?$"
+	.string "I collect Pokémon from every\n"
+	.string "biome.\p"
+	.string "I'll trade one of yours for one\n"
+	.string "of mine, as strong as the ones in\l"
+	.string "this floor's capture rooms.\p"
+	.string "Which one will you offer?$"
 
 IsaacRoom_Text_TraderOffer:
-	.string "Ton {STR_VAR_1} contre un de mes\n"
-	.string "Pokémon ? Marché conclu ?$"
+	.string "Your {STR_VAR_1} for one of my\n"
+	.string "Pokémon? Do we have a deal?$"
 
 IsaacRoom_Text_TraderTraded:
-	.string "{PLAYER} échange {STR_VAR_1}\n"
-	.string "contre {STR_VAR_2} !$"
+	.string "{PLAYER} traded {STR_VAR_1}\n"
+	.string "for {STR_VAR_2}!$"
 
 IsaacRoom_Text_TraderDone:
-	.string "Merci pour l'échange !\n"
-	.string "Prends-en bien soin.$"
+	.string "Thanks for the trade!\n"
+	.string "Take good care of it.$"
 
 IsaacRoom_Text_TraderDeclined:
-	.string "Comme tu veux. Ma proposition tient\n"
-	.string "toujours.$"
+	.string "As you wish. My offer still\n"
+	.string "stands.$"
 
 IsaacRoom_Text_TraderEgg:
-	.string "Un Œuf ? Non merci, je ne prends\n"
-	.string "que des Pokémon éclos.$"
+	.string "An Egg? No thanks, I only take\n"
+	.string "hatched Pokémon.$"
 
 @ Pacte du diable : un objet rare contre le sacrifice définitif d'un Pokémon
 IsaacRoom_EventScript_Devil::
@@ -491,34 +493,34 @@ IsaacRoom_EventScript_DevilEgg::
 	end
 
 IsaacRoom_Text_DevilOffer:
-	.string "Héhéhé… Tu veux du pouvoir ?\p"
-	.string "Cet objet est à toi :\n"
+	.string "Heheheh… You want power?\p"
+	.string "This item is yours:\n"
 	.string "{STR_VAR_2}.\p"
-	.string "En échange, l'un de tes Pokémon\n"
-	.string "restera ici… pour toujours.\p"
-	.string "Marché conclu ?$"
+	.string "In exchange, one of your Pokémon\n"
+	.string "stays here… forever.\p"
+	.string "Do we have a deal?$"
 
 IsaacRoom_Text_DevilConfirm:
-	.string "Tu abandonnes {STR_VAR_1} ?\n"
-	.string "Il n'y aura pas de retour…$"
+	.string "You're giving up {STR_VAR_1}?\n"
+	.string "There's no going back…$"
 
 IsaacRoom_Text_DevilSealed:
-	.string "{STR_VAR_1} disparaît dans l'ombre…\p"
-	.string "Le pacte est scellé. Héhéhé…$"
+	.string "{STR_VAR_1} vanishes into the dark…\p"
+	.string "The pact is sealed. Heheheh…$"
 
 IsaacRoom_Text_DevilDone:
-	.string "Le pacte est scellé.\n"
-	.string "Je n'ai plus rien à t'offrir…$"
+	.string "The pact is sealed.\n"
+	.string "I have nothing more to offer…$"
 
 IsaacRoom_Text_DevilTooFew:
-	.string "Héhéhé… Tu n'as qu'un seul Pokémon.\n"
-	.string "Reviens quand tu auras de quoi payer.$"
+	.string "Heheheh… You only have one Pokémon.\n"
+	.string "Come back when you can pay.$"
 
 IsaacRoom_Text_DevilDeclined:
-	.string "Héhéhé… L'offre tient toujours.$"
+	.string "Heheheh… The offer still stands.$"
 
 IsaacRoom_Text_DevilEgg:
-	.string "Un Œuf ? Ça ne vaut rien pour moi.$"
+	.string "An Egg? That's worthless to me.$"
 
 @ Maître des capacités : 5 attaques fortes au choix pour le Pokémon choisi
 IsaacRoom_EventScript_Tutor::
@@ -578,29 +580,29 @@ IsaacRoom_Text_StrVar1:
 	.string "{STR_VAR_1}$"
 
 IsaacRoom_Text_TutorIntro:
-	.string "Je suis maître des capacités.\n"
-	.string "J'enseigne une seule attaque par étage.\p"
-	.string "Quel Pokémon veux-tu entraîner ?$"
+	.string "I am a Move Master.\n"
+	.string "I teach a single move per floor.\p"
+	.string "Which Pokémon do you want to train?$"
 
 IsaacRoom_Text_TutorWhich:
-	.string "Laquelle de ces attaques ?$"
+	.string "Which of these moves?$"
 
 IsaacRoom_Text_TutorForget:
-	.string "{STR_VAR_1} connaît déjà 4 attaques.\n"
-	.string "Laquelle doit-il oublier pour\l"
-	.string "{STR_VAR_2} ?$"
+	.string "{STR_VAR_1} already knows 4 moves.\n"
+	.string "Which one should it forget for\l"
+	.string "{STR_VAR_2}?$"
 
 IsaacRoom_Text_TutorLearned:
-	.string "{STR_VAR_1} apprend {STR_VAR_2} !$"
+	.string "{STR_VAR_1} learned {STR_VAR_2}!$"
 
 IsaacRoom_Text_TutorDone:
-	.string "Bien joué. Utilise-la avec sagesse.$"
+	.string "Well done. Use it wisely.$"
 
 IsaacRoom_Text_TutorDeclined:
-	.string "Reviens quand tu veux.$"
+	.string "Come back anytime.$"
 
 IsaacRoom_Text_TutorNothing:
-	.string "Je n'ai rien à lui apprendre…$"
+	.string "I have nothing to teach it…$"
 
 @ Duelliste : il annonce son Pokémon, puis combat en 1 contre 1 contre le Pokémon choisi (perdre ne renvoie pas au
 @ hub). Un seul duel : gagné, une Restore Max et une Super CT ; perdu, une Restore Max pour relever le Pokémon K.O.
@@ -651,38 +653,38 @@ IsaacRoom_EventScript_DuelistCantFight::
 	end
 
 IsaacRoom_Text_DuelistOffer:
-	.string "Un duel, un seul Pokémon chacun !\p"
-	.string "Mon {STR_VAR_1} attend un adversaire\n"
-	.string "digne de lui.\p"
-	.string "Tu relèves le défi ?$"
+	.string "A duel, one Pokémon each!\p"
+	.string "My {STR_VAR_1} is waiting for an\n"
+	.string "opponent worthy of it.\p"
+	.string "Do you accept the challenge?$"
 
 IsaacRoom_Text_DuelistChoose:
-	.string "Choisis ton champion !$"
+	.string "Choose your champion!$"
 
 IsaacRoom_Text_DuelistIntro:
-	.string "En garde !$"
+	.string "En garde!$"
 
 IsaacRoom_Text_DuelistDefeat:
-	.string "Quel duel ! Tu as gagné.$"
+	.string "What a duel! You win.$"
 
 IsaacRoom_Text_DuelistWon:
-	.string "Je n'ai qu'une parole : voici ta\n"
-	.string "récompense.$"
+	.string "I keep my word: here is your\n"
+	.string "reward.$"
 
 IsaacRoom_Text_DuelistLost:
-	.string "Ha ! Belle tentative, mais un duel\n"
-	.string "ne se rejoue pas.\p"
-	.string "Tiens, pour remettre ton Pokémon\n"
-	.string "sur pied.$"
+	.string "Ha! Nice try, but a duel\n"
+	.string "can't be replayed.\p"
+	.string "Here, to get your Pokémon\n"
+	.string "back on its feet.$"
 
 IsaacRoom_Text_DuelistDone:
-	.string "Un duel mémorable. Bonne route !$"
+	.string "A memorable duel. Safe travels!$"
 
 IsaacRoom_Text_DuelistDeclined:
-	.string "Dommage… Mon {STR_VAR_1} t'attendra.$"
+	.string "Too bad… My {STR_VAR_1} will wait.$"
 
 IsaacRoom_Text_DuelistCantFight:
-	.string "Ce Pokémon ne peut pas se battre !$"
+	.string "That Pokémon can't battle!$"
 
 @ Voyant : ouvre le passage vers la salle secrète de l'étage
 IsaacRoom_EventScript_Seer::
@@ -699,16 +701,16 @@ IsaacRoom_EventScript_SeerAgain::
 	end
 
 IsaacRoom_Text_SeerVision:
-	.string "Hmm… Je vois {STR_VAR_1}, qui t'attend\n"
-	.string "au bout de cet étage…\p"
-	.string "Son équipe :\n"
+	.string "Hmm… I see {STR_VAR_1}, waiting\n"
+	.string "at the end of this floor…\p"
+	.string "Their team:\n"
 	.string "{STR_VAR_2}.\p"
-	.string "Son as, gardé pour la fin :\n"
-	.string "{STR_VAR_3} !$"
+	.string "Their ace, saved for last:\n"
+	.string "{STR_VAR_3}!$"
 
 IsaacRoom_Text_SeerAgain:
-	.string "Méfie-toi de l'as de {STR_VAR_1} :\n"
-	.string "{STR_VAR_3} !$"
+	.string "Beware of {STR_VAR_1}'s ace:\n"
+	.string "{STR_VAR_3}!$"
 
 @ Entraîneur d'Éclate-Roc : apprend Éclate-Roc au Pokémon choisi
 IsaacRoom_EventScript_RockSmashTeacher::
@@ -761,24 +763,24 @@ IsaacRoom_EventScript_SecretWallEnd::
 	end
 
 IsaacRoom_Text_RockSmashIntro:
-	.string "Certaines roches de ce donjon sonnent\n"
-	.string "creux… Il y a des salles cachées derrière.\p"
-	.string "Je peux apprendre Éclate-Roc à l'un\n"
-	.string "de tes Pokémon. Lequel ?$"
+	.string "Some rocks in this dungeon sound\n"
+	.string "hollow… Hidden rooms lie behind.\p"
+	.string "I can teach Rock Smash to one\n"
+	.string "of your Pokémon. Which one?$"
 
 IsaacRoom_Text_RockSmashHint:
-	.string "Parle aux roches qui ferment les salles :\n"
-	.string "si l'une sonne creux, brise-la !$"
+	.string "Check the rocks blocking the rooms:\n"
+	.string "if one sounds hollow, smash it!$"
 
 IsaacRoom_Text_RockSmashCant:
-	.string "Je n'ai rien à lui apprendre…$"
+	.string "I have nothing to teach it…$"
 
 IsaacRoom_Text_SecretWallAsk:
-	.string "Cette roche sonne creux…\n"
-	.string "{STR_VAR_1} utilise Éclate-Roc ?$"
+	.string "This rock sounds hollow…\n"
+	.string "Should {STR_VAR_1} use Rock Smash?$"
 
 IsaacRoom_Text_SecretWallSmash:
-	.string "{STR_VAR_1} utilise Éclate-Roc !$"
+	.string "{STR_VAR_1} used Rock Smash!$"
 
 @ Vieille dame et son Leveinard : soin complet d'un Pokémon (même K.O.), une fois
 IsaacRoom_EventScript_Healer::
@@ -849,40 +851,40 @@ IsaacRoom_EventScript_EvTrainerNoNeed::
 	end
 
 IsaacRoom_Text_HealerIntro:
-	.string "Mon {STR_VAR_2} et moi soignons les\n"
-	.string "Pokémon en difficulté.\p"
-	.string "Lequel des tiens a besoin de nous ?$"
+	.string "My {STR_VAR_2} and I heal\n"
+	.string "Pokémon in trouble.\p"
+	.string "Which of yours needs us?$"
 
 IsaacRoom_Text_HealerHealed:
-	.string "{STR_VAR_1} est en pleine forme !$"
+	.string "{STR_VAR_1} is in top shape!$"
 
 IsaacRoom_Text_HealerDone:
-	.string "{STR_VAR_2} n'a plus d'énergie pour\n"
-	.string "aujourd'hui. Bonne route !$"
+	.string "{STR_VAR_2} is out of energy for\n"
+	.string "today. Safe travels!$"
 
 IsaacRoom_Text_HealerDeclined:
-	.string "Reviens quand tu veux, mon petit.$"
+	.string "Come back anytime, dear.$"
 
 IsaacRoom_Text_HealerNoNeed:
-	.string "Celui-là est déjà en pleine forme !$"
+	.string "That one is already in top shape!$"
 
 IsaacRoom_Text_Chansey:
-	.string "{STR_VAR_2} : Grrrou !$"
+	.string "{STR_VAR_2}: Chaaan-sey!$"
 
 IsaacRoom_Text_EvTrainerIntro:
-	.string "Je suis entraîneur personnel.\n"
-	.string "Une séance avec moi et ton Pokémon\l"
-	.string "atteint tout son potentiel.\p"
-	.string "Lequel veux-tu entraîner ?$"
+	.string "I'm a personal trainer.\n"
+	.string "One session with me and your\l"
+	.string "Pokémon reaches its full potential.\p"
+	.string "Which one do you want to train?$"
 
 IsaacRoom_Text_EvTrainerDone:
-	.string "{STR_VAR_1} a atteint tout son\n"
-	.string "potentiel !$"
+	.string "{STR_VAR_1} reached its full\n"
+	.string "potential!$"
 
 IsaacRoom_Text_EvTrainerAfter:
-	.string "Une seule séance par client !\n"
-	.string "Bonne chance.$"
+	.string "One session per client!\n"
+	.string "Good luck.$"
 
 IsaacRoom_Text_EvTrainerNoNeed:
-	.string "Celui-là est déjà au maximum !$"
+	.string "That one is already maxed out!$"
 

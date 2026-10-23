@@ -853,7 +853,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_SUPEREFFECTIVETWOFOES]                = COMPOUND_STRING("It's super effective on {B_DEF_NAME_WITH_PREFIX2} and {B_DEF_PARTNER_NAME}!"),
     [STRINGID_NOTVERYEFFECTIVETWOFOES]              = COMPOUND_STRING("It's not very effective on {B_DEF_NAME_WITH_PREFIX2} and {B_DEF_PARTNER_NAME}."),
     [STRINGID_ITDOESNTAFFECTTWOFOES]                = COMPOUND_STRING("It doesn't affect {B_DEF_NAME_WITH_PREFIX2} and {B_DEF_PARTNER_NAME}…"),
-    [STRINGID_SENDCAUGHTMONPARTYORBOX]              = COMPOUND_STRING("Équipe pleine ! Remplacer un\nPokémon par {B_DEF_NAME} ?"),
+    [STRINGID_SENDCAUGHTMONPARTYORBOX]              = COMPOUND_STRING("Your party is full! Replace a\nPokémon with {B_DEF_NAME}?"),
     [STRINGID_PKMNSENTTOPCAFTERCATCH]               = gText_PkmnSentToPCAfterCatch,
     [STRINGID_PKMNDYNAMAXED]                        = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} grew huge into its Dynamax form!"),
     [STRINGID_PKMNGIGANTAMAXED]                     = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} grew huge into its Gigantamax form!"),
@@ -904,8 +904,8 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_S]                                    = COMPOUND_STRING("s"),
     [STRINGID_LOSTSOMEOFITSHP]                      = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} lost some of its HP!"),
     [STRINGID_BELCHCANTUSE]                         = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} hasn't eaten any held Berries, so it can't possibly belch!\p"),
-    [STRINGID_ISAAC_CAUGHTMONRELEASED]              = COMPOUND_STRING("Ton équipe est pleine…\n{STR_VAR_2} a été relâché.\p"),
-    [STRINGID_ISAAC_SWAPPEDMONRELEASED]             = COMPOUND_STRING("{STR_VAR_2} a été relâché.\n{STR_VAR_1} rejoint l'équipe !\p"),
+    [STRINGID_ISAAC_CAUGHTMONRELEASED]              = COMPOUND_STRING("Your party is full…\n{STR_VAR_2} was released.\p"),
+    [STRINGID_ISAAC_SWAPPEDMONRELEASED]             = COMPOUND_STRING("{STR_VAR_2} was released.\n{STR_VAR_1} joined the party!\p"),
 };
 
 const u16 gTrainerUsedItemStringIds[] =
