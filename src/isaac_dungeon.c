@@ -1135,8 +1135,7 @@ static const struct IsaacTrainerParty sRoomTrainerParties[] =
 //  - pas d'Omniboost sur l'équipe, seulement sur l'as : aceBoosts Omniboosts (étage 5) ou une Pierre brillante
 //    (aceBrilliant, étage 6 : chromatique, meilleure stat +20 %) ;
 //  - l'as du dernier étage est un petit légendaire, choisi selon le thème du boss (sBossLegendaries) ;
-//  - l'IA est « Smart » dès l'étage 1 et prédit les changements et les attaques du joueur à partir
-//    de ISAAC_BOSS_PREDICTION_FLOOR.
+//  - l'IA est « Smart » à tous les étages.
 struct IsaacBossParty
 {
     u8 count;  // as compris
@@ -1170,8 +1169,6 @@ static const u16 sBossLegendaries[ISAAC_BIOME_COUNT][3] =
     [ISAAC_BIOME_CLIFF]  = { SPECIES_LATIAS,   SPECIES_LATIOS,    SPECIES_ZAPDOS },    // Alizée (vol, dragon)
     [ISAAC_BIOME_FOREST] = { SPECIES_CELEBI,   SPECIES_CELEBI,    SPECIES_CELEBI },    // Erika (plante)
 };
-
-#define ISAAC_BOSS_PREDICTION_FLOOR    4
 
 static const struct IsaacBossParty *GetBossParty(void)
 {
@@ -1359,8 +1356,6 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
         GetBossCell(&x, &y);  // la même équipe vue d'ailleurs (voyant)
         InitTrainer(&sRoomTrainer, biome->boss, biome->bossName, sRoomTrainerMons);
         sRoomTrainer.aiFlags = AI_FLAG_SMART_TRAINER;
-        if (VarGet(VAR_ISAAC_FLOOR) >= ISAAC_BOSS_PREDICTION_FLOOR)
-            sRoomTrainer.aiFlags |= AI_FLAG_PREDICTION;
         for (i = 0; i < boss->count - 1; i++)
         {
             u32 roll = RoomRandom(x, y, 0xB051 + i);
