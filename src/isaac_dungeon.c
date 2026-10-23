@@ -1139,7 +1139,8 @@ static const struct IsaacTrainerParty sRoomTrainerParties[] =
 //  - pas d'Omniboost sur l'équipe, seulement sur l'as : aceBoosts Omniboosts (étage 5) ou une Pierre brillante
 //    (aceBrilliant, étage 6 : chromatique, meilleure stat +20 %) ;
 //  - l'as du dernier étage est un petit légendaire, choisi selon le thème du boss (sBossLegendaries) ;
-//  - l'IA est « Smart » à tous les étages.
+//  - l'IA est « Smart » à tous les étages ;
+//  - les espèces respectent le même plancher de BST que les dresseurs de l'étage (sRoomTrainerParties).
 struct IsaacBossParty
 {
     u8 count;  // as compris
@@ -1154,9 +1155,9 @@ static const struct IsaacBossParty sBossParties[] =
     { 3, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 0, ISAAC_CATEGORY_2,               1, 0, FALSE },
     { 4, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 1, 1, ISAAC_CATEGORY_3,               1, 0, FALSE },
     { 4, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_3,               1, 0, FALSE },
-    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_4,               2, 0, FALSE },
-    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 2, 2, ISAAC_CATEGORY_4,               2, 1, FALSE },
-    { 6, ISAAC_CATEGORY_4, ISAAC_CATEGORY_4, 2, 2, ISAAC_CATEGORY_LEGENDARY_SMALL, 2, 0, TRUE },
+    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_4,               1, 0, FALSE },
+    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 1, 2, ISAAC_CATEGORY_4,               2, 1, FALSE },
+    { 6, ISAAC_CATEGORY_4, ISAAC_CATEGORY_4, 1, 2, ISAAC_CATEGORY_LEGENDARY_SMALL, 2, 0, TRUE },
 };
 
 // Petit légendaire de l'as du dernier étage, au thème du biome et de son boss
@@ -1373,10 +1374,10 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
             u32 category = boss->minCategory + (roll >> 8) % (boss->maxCategory - boss->minCategory + 1);
             u32 tier = boss->minTier + (roll >> 16) % (boss->maxTier - boss->minTier + 1);
 
-            AddTrainerMon(category, tier, roll, 0);
+            AddTrainerMon(category, tier, roll, GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR))->minBst);
         }
         // L'as, envoyé en dernier
-        AddTrainerMon(boss->aceCategory, boss->aceTier, RoomRandom(x, y, 0xB0A5), 0);
+        AddTrainerMon(boss->aceCategory, boss->aceTier, RoomRandom(x, y, 0xB0A5), GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR))->minBst);
         return &sRoomTrainer;
     }
 
