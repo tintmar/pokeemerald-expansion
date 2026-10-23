@@ -153,9 +153,11 @@ IsaacRoom_EventScript_BossDefeated::
 	playse SE_M_STRENGTH
 	special IsaacOpenBossExit
 	waitse
-	msgbox IsaacRoom_Text_BossReward, MSGBOX_DEFAULT
 	special IsaacPickBossReward
+	goto_if_eq VAR_0x8004, ITEM_NONE, IsaacRoom_EventScript_BossNurse
+	msgbox IsaacRoom_Text_BossReward, MSGBOX_DEFAULT
 	giveitem VAR_0x8004
+IsaacRoom_EventScript_BossNurse::
 	special IsaacPrepareNurseArrival
 	addobject LOCALID_ISAAC_ROOM_NURSE
 	applymovement LOCALID_ISAAC_ROOM_NURSE, gIsaacNurseArrivalMovement

@@ -2943,13 +2943,18 @@ const u8 *IsaacGetWallInteractScript(s16 x, s16 y)
     return IsaacRoom_EventScript_SecretWall;
 }
 
-// Récompense du boss vaincu (dans VAR_0x8004, toujours la même pour l'étage) : un objet spécial ou une Master Ball,
-// une fois sur deux chacun
+// Récompense du boss vaincu (dans VAR_0x8004, toujours la même pour l'étage) : à partir de BOSS_REWARD_MIN_FLOOR, un
+// objet spécial ou une Master Ball, une fois sur deux chacun ; ITEM_NONE avant
+#define BOSS_REWARD_MIN_FLOOR  3
+
 void IsaacPickBossReward(void)
 {
     s32 x, y;
     u32 roll;
 
+    gSpecialVar_0x8004 = ITEM_NONE;
+    if (VarGet(VAR_ISAAC_FLOOR) < BOSS_REWARD_MIN_FLOOR)
+        return;
     GetCurrentCell(&x, &y);
     roll = RoomRandom(x, y, 0xB0B0);
     gSpecialVar_0x8004 = (roll & 1) ? IsaacPickSpecialItem(roll >> 1, FALSE) : ITEM_MASTER_BALL;
