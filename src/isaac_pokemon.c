@@ -898,9 +898,6 @@ s32 IsaacRollCursedDie(struct Pokemon *mon, bool8 *ok)
     return (s32)newTier - (s32)tier;
 }
 
-// Choix du Montagnard du hub : le Pokémon proposé n° index (0 à ISAAC_STARTER_CHOICES - 1), une espèce
-// différente de catégorie 1 pour chacun, sans type en commun entre eux, avec le set 2 (variante au hasard). Les
-// espèces sont tirées à l'index 0.
 // L'espèce a-t-elle un type en commun avec une des count espèces données ?
 static bool32 SharesTypeWithStarters(u16 species, const u16 *starters, u32 count)
 {
@@ -914,14 +911,26 @@ static bool32 SharesTypeWithStarters(u16 species, const u16 *starters, u32 count
     return FALSE;
 }
 
+// Tirage des choix du Montagnard : il ne dépend que de la graine de la prochaine descente (VAR_ISAAC_BIOME_ORDER,
+// tirée avant l'écran de choix par IsaacBufferFirstBiome), pour que les choix restent les mêmes si on lui reparle
+static u32 StarterRandom(u32 *state)
+{
+    *state = *state * 1103515245 + 12345;
+    return *state >> 16;
+}
+
+// Choix du Montagnard du hub : le Pokémon proposé n° index (0 à ISAAC_STARTER_CHOICES - 1), une espèce
+// différente de catégorie 1 pour chacun, sans type en commun entre eux, avec le set 2 (variante au hasard). Les
+// espèces sont tirées à l'index 0. Mêmes choix tant que la descente n'a pas commencé (StarterRandom).
 void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
 {
     static EWRAM_DATA u16 sStarterSpecies[ISAAC_STARTER_CHOICES] = {0};
     u16 candidates[ARRAY_COUNT(sIsaacRoster)];
-    u32 count = 0, i, j, tmp;
+    u32 count = 0, i, j, tmp, state, seed;
 
     if (index >= ISAAC_STARTER_CHOICES)
         return;
+    state = VarGet(VAR_ISAAC_BIOME_ORDER) * 2654435761u ^ 0x57A47E25;
     if (index == 0)
     {
         u32 chosen = 0;
@@ -932,11 +941,14 @@ void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
         // tirage dans un ordre au hasard, en gardant seulement les espèces sans type commun avec celles déjà prises
         for (i = 0; i < count && chosen < ISAAC_STARTER_CHOICES; i++)
         {
-            j = i + Random() % (count - i);
+            j = i + StarterRandom(&state) % (count - i);
             SWAP(candidates[i], candidates[j], tmp);
             if (!SharesTypeWithStarters(candidates[i], sStarterSpecies, chosen))
                 sStarterSpecies[chosen++] = candidates[i];
         }
     }
-    IsaacCreateMonFromSet(mon, sStarterSpecies[index], 1, Random() % ISAAC_SET_VARIANTS, Random32());  // set 2
+    state ^= (index + 1) * 0x9E3779B9;
+    seed = StarterRandom(&state) << 16;
+    seed |= StarterRandom(&state);
+    IsaacCreateMonFromSet(mon, sStarterSpecies[index], 1, StarterRandom(&state) % ISAAC_SET_VARIANTS, seed);  // set 2
 }
