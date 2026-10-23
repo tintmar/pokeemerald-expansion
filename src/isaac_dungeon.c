@@ -2242,7 +2242,8 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_SEER : le voyant annonce l'équipe du boss de l'étage (IsaacBufferBossTeam) ;
 //  - ROOM_CONTENT_ROCK_SMASH : un entraîneur apprend Éclate-Roc au Pokémon choisi, qui pourra briser les roches qui
 //    ferment la salle secrète (seulement s'il y en a une, et si personne ne connaissait Éclate-Roc en début d'étage) ;
-//  - ROOM_CONTENT_HEALER : une vieille dame et son Leveinard soignent complètement un Pokémon (même K.O.), une fois ;
+//  - ROOM_CONTENT_HEALER : une vieille dame et son Leveinard soignent complètement un Pokémon (même K.O.), une fois
+//    (mise de côté pour l'instant, HEALER_ENABLED : la Restore Max fait la même chose) ;
 //  - ROOM_CONTENT_EV_TRAINER : un entraîneur met au maximum les IVs (31) et EVs (répartition du set 3 de l'espèce)
 //    d'un Pokémon, une fois.
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
@@ -2267,6 +2268,7 @@ static bool8 FloorHasSecretRoom(void)
 }
 
 #define DEVIL_PACT_MIN_FLOOR  3  // le pacte du diable n'apparaît qu'à partir de cet étage
+#define HEALER_ENABLED        FALSE
 
 static bool8 IsRoomContentAvailable(u32 content)
 {
@@ -2278,6 +2280,8 @@ static bool8 IsRoomContentAvailable(u32 content)
         return VarGet(VAR_ISAAC_FLOOR) >= DEVIL_PACT_MIN_FLOOR;
     case ROOM_CONTENT_ROCK_SMASH:
         return FloorHasSecretRoom() && FlagGet(FLAG_ISAAC_ROCK_SMASH_TEACHER);
+    case ROOM_CONTENT_HEALER:
+        return HEALER_ENABLED;
     default:
         return TRUE;
     }
