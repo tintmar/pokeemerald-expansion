@@ -165,7 +165,7 @@ IsaacRoom_EventScript_BossDefeated::
 	release
 	end
 
-@ Infirmière (arrivée par le passage une fois le boss vaincu) : soin partiel payant (voir IsaacNurseTryHeal)
+@ Infirmière (arrivée par le passage une fois le boss vaincu) : soin payant, par Pokémon (voir IsaacNurseTryHeal)
 IsaacRoom_EventScript_Nurse::
 	lock
 	faceplayer
@@ -211,9 +211,8 @@ IsaacRoom_EventScript_NurseNoMoney::
 
 IsaacRoom_Text_NurseOffer:
 	.string "Bravo pour ta victoire !\p"
-	.string "Je soigne tes Pokémon : PV au complet\n"
-	.string "pour ceux qui tiennent debout, moitié\l"
-	.string "des PV pour les K.O.\p"
+	.string "Je soigne tes Pokémon, même ceux qui\n"
+	.string "sont K.O. : PV au complet.\p"
 	.string "{STR_VAR_3} Pokémon à soigner : {STR_VAR_2}¥.\n"
 	.string "Ça te va ?$"
 

@@ -1742,8 +1742,7 @@ void IsaacOpenBossExit(void)
 // Infirmière de la salle du boss
 // ---------------------------------------------------------------------------
 // Le boss vaincu, elle arrive par le passage qui vient de s'ouvrir et se poste juste à côté (le passage reste
-// libre). Elle propose un soin partiel : PV et statut au complet pour les Pokémon debout, moitié des PV pour les
-// K.O. Le prix dépend du nombre de Pokémon à soigner : ISAAC_NURSE_PRICE_PER_MON x étage chacun. Sans assez d'argent
+// libre). Elle propose un soin payant : PV et statut au complet, K.O. compris. Le prix dépend du nombre de Pokémon à soigner : ISAAC_NURSE_PRICE_PER_MON x étage chacun. Sans assez d'argent
 // pour tous, elle soigne dans l'ordre de l'équipe autant de Pokémon que le joueur peut en payer.
 
 #define ISAAC_NURSE_PRICE_PER_MON  600
@@ -1874,8 +1873,6 @@ void IsaacNurseTryHeal(void)
             break;
         RemoveMoney(&gSaveBlock1Ptr->money, price);
         hp = GetMonData(mon, MON_DATA_MAX_HP);
-        if (GetMonData(mon, MON_DATA_HP) == 0)
-            hp = max(hp / 2, 1);
         SetMonData(mon, MON_DATA_HP, &hp);
         SetMonData(mon, MON_DATA_STATUS, &status);
         healed++;
