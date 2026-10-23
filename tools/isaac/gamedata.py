@@ -164,6 +164,14 @@ for _m in re.finditer(r'\[MOVE_(\w+)\]\s*=\s*\{', _moves_h):
     mv.type = _t.group(1) if _t else 'NORMAL'
     _c = re.search(r'\.category\s*=\s*DAMAGE_CATEGORY_(\w+)', _b)
     mv.cat = _c.group(1) if _c else 'STATUS'
+    # puissance réelle des attaques à plusieurs coups : coups fixes (strikeCount), 2 à 5 coups (multiHit, environ 3),
+    # Triple Pied et Triple Axel (puissance doublée puis triplée : 6 fois la puissance)
+    _e = re.search(r'\.effect\s*=\s*EFFECT_(\w+)', _b)
+    _s = re.search(r'\.strikeCount\s*=\s*(\d+)', _b)
+    mv.effect = _e.group(1) if _e else ''
+    mv.hits = 6 if mv.effect == 'TRIPLE_KICK' else (3 if re.search(r'\.multiHit\s*=\s*TRUE', _b)
+                                                     else (int(_s.group(1)) if _s else 1))
+    mv.total = mv.power * mv.hits
     MOVES[mv.name] = mv
 
 _learn = json.loads(read('src/data/pokemon/all_learnables.json'))

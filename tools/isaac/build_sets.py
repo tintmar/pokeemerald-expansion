@@ -43,12 +43,13 @@ TIER_IVS = (15, 20, 31)
 # Set 2 : attaques offensives plafonnées en puissance (les plus fortes sont réservées au set 3). Chaque attaque plus
 # puissante que TIER2_MAX_POWER est remplacée par la meilleure que l'espèce peut apprendre, de même type et de même
 # catégorie, de puissance TIER2_MIN_POWER à TIER2_MAX_POWER et de précision >= TIER2_MIN_ACCURACY (voir nerf_moves),
-# avec une exception pour les sets aux autres attaques faibles.
-TIER2_MAX_POWER = 80
+# avec une exception pour les sets aux autres attaques faibles. La puissance d'une attaque à plusieurs coups est celle
+# de tous ses coups (gamedata : total).
+TIER2_MAX_POWER = 70
 # Exception : la plus forte attaque du set peut aller jusqu'à TIER2_EXCEPTION_POWER si toutes les autres attaques
 # offensives du set (après remplacement) ont au plus TIER2_WEAK_POWER de puissance
-TIER2_EXCEPTION_POWER = 100
-TIER2_WEAK_POWER = 65
+TIER2_EXCEPTION_POWER = 90
+TIER2_WEAK_POWER = 60
 TIER2_MIN_POWER = 40
 TIER2_MIN_ACCURACY = 85
 # Attaques jamais choisies en remplacement (effet trop particulier)
@@ -56,8 +57,35 @@ NERF_EXCLUDED = {'DREAM_EATER', 'SNORE', 'SPIT_UP', 'NATURAL_GIFT', 'SYNCHRONOIS
                  'LAST_RESORT', 'FUTURE_SIGHT', 'DOOM_DESIRE', 'SKY_DROP', 'BIDE', 'COUNTER', 'MIRROR_COAT',
                  'METAL_BURST', 'ROLLOUT', 'ICE_BALL', 'UPROAR', 'THRASH', 'OUTRAGE', 'PETAL_DANCE', 'RAGE',
                  'RAZOR_WIND', 'SKULL_BASH', 'SKY_ATTACK', 'SOLAR_BEAM', 'SOLAR_BLADE', 'METEOR_BEAM', 'GEOMANCY',
-                 'TERA_BLAST'}  # pas de Téracristallisation : une simple attaque Normal spéciale
+                 'TERA_BLAST',  # pas de Téracristallisation : une simple attaque Normal spéciale
+                 'UPPER_HAND', 'FAKE_OUT', 'FOCUS_PUNCH', 'BURN_UP', 'DOUBLE_SHOCK'}  # échouent hors cas précis
 TIER_EV_FRACTION = ((1, 3), (1, 2), (1, 1))  # set 2 nettement en dessous du set 3
+
+# Puissance comptée pour les attaques à puissance variable (selon le poids, la Vitesse, les PV, l'amitié...) et les
+# attaques K.O. en un coup
+VARIABLE_POWER = {'LOW_KICK': 80, 'GRASS_KNOT': 80, 'HEAVY_SLAM': 80, 'HEAT_CRASH': 80, 'GYRO_BALL': 80,
+                  'ELECTRO_BALL': 80, 'FLAIL': 100, 'REVERSAL': 100, 'RETURN': 102, 'FRUSTRATION': 102,
+                  'HORN_DRILL': 150, 'GUILLOTINE': 150, 'FISSURE': 150, 'SHEER_COLD': 150}
+for _mv, _power in VARIABLE_POWER.items():
+    g.MOVES[_mv].total = _power
+
+# Attaques de statut trop fortes pour les sets 1 et 2 (réservées au set 3) : remplacées par la première version plus
+# faible que l'espèce peut apprendre (voir nerf_status), dans l'ordre de préférence
+STATUS_NERFS = {
+    'SPORE':           ['SLEEP_POWDER', 'HYPNOSIS', 'SING', 'GRASS_WHISTLE', 'YAWN', 'STUN_SPORE'],
+    'DARK_VOID':       ['HYPNOSIS', 'YAWN'],
+    'SHELL_SMASH':     ['WORK_UP', 'GROWTH', 'HOWL', 'HONE_CLAWS', 'AGILITY'],
+    'QUIVER_DANCE':    ['CALM_MIND', 'WORK_UP', 'GROWTH'],
+    'TAIL_GLOW':       ['CALM_MIND', 'WORK_UP', 'GROWTH'],
+    'DRAGON_DANCE':    ['HONE_CLAWS', 'WORK_UP', 'HOWL', 'AGILITY'],
+    'SHIFT_GEAR':      ['AUTOTOMIZE', 'AGILITY', 'HONE_CLAWS', 'WORK_UP'],
+    'VICTORY_DANCE':   ['BULK_UP', 'WORK_UP', 'HOWL'],
+    'BELLY_DRUM':      ['BULK_UP', 'HOWL', 'WORK_UP'],
+    'CLANGOROUS_SOUL': ['WORK_UP', 'HOWL', 'BULK_UP'],
+    'NO_RETREAT':      ['BULK_UP', 'WORK_UP', 'HOWL'],
+    'FILLET_AWAY':     ['AGILITY', 'WORK_UP', 'HOWL'],
+    'COTTON_GUARD':    ['IRON_DEFENSE', 'ACID_ARMOR', 'BARRIER', 'REFLECT', 'DEFENSE_CURL'],
+}
 
 # Objets réservés aux sets les plus forts
 TOP_ITEMS = {'LIFE_ORB', 'CHOICE_BAND', 'CHOICE_SPECS', 'CHOICE_SCARF', 'ASSAULT_VEST', 'FOCUS_SASH',
@@ -95,37 +123,57 @@ def error(name, tier, msg):
     errors.append(f'{name} (set {tier + 1}{variant_letter}) : {msg}')
 
 
-def best_replacement(name, move, taken):
+def best_replacement(name, move, taken, allow_over=True):
     """Meilleure attaque apprenable de puissance TIER2_MIN_POWER à TIER2_MAX_POWER et de même catégorie (physique /
     spéciale, pour rester cohérente avec le build) : de même type, sinon d'un autre type, de préférence un type que
-    le set n'a pas encore"""
+    le set n'a pas encore. Pour une attaque du type du Pokémon (STAB), on préfère garder le type : faute de mieux, la
+    moins puissante de même type jusqu'à TIER2_EXCEPTION_POWER (l'attaque elle-même, au besoin) plutôt qu'une attaque
+    d'un autre type. Une seule attaque par set dépasse ainsi TIER2_MAX_POWER (allow_over)."""
     info = g.MOVES[move]
     used_types = {g.MOVES[mv].type for mv in taken if mv in g.MOVES and g.MOVES[mv].cat != 'STATUS'}
-    for same_type in (True, False):
+    stab = info.type in g.MONS[name].types
+
+    def pick(same_type, low, high, weakest):
         best = None
         for cand in g.learnset(name):
             c = g.MOVES.get(cand)
-            if (c is None or cand in taken or cand in NERF_EXCLUDED or c.cat != info.cat
+            if (c is None or (cand in taken and cand != move) or cand in NERF_EXCLUDED or c.cat != info.cat
                     or (same_type and c.type != info.type)
-                    or not TIER2_MIN_POWER <= c.power <= TIER2_MAX_POWER
+                    or not low <= c.total <= high
                     or (c.acc != 0 and c.acc < TIER2_MIN_ACCURACY)):
                 continue
-            key = (c.type not in used_types, c.power, c.acc if c.acc else 101, cand)
+            key = (c.type not in used_types, -c.total if weakest else c.total, c.acc if c.acc else 101, cand)
             if best is None or key > best[0]:
                 best = (key, cand)
-        if best:
-            return best[1]
-    return None
+        return best[1] if best else None
+
+    return (pick(True, TIER2_MIN_POWER, TIER2_MAX_POWER, False)
+            or (stab and allow_over and pick(True, TIER2_MAX_POWER + 1, min(info.total, TIER2_EXCEPTION_POWER), True))
+            or pick(False, TIER2_MIN_POWER, TIER2_MAX_POWER, False))
+
+
+def nerf_status(name, moves):
+    """Sets 1 et 2 : remplace les attaques de STATUS_NERFS par leur version plus faible (la première apprenable) ;
+    renvoie les attaques et les remplacements"""
+    learn = g.learnset(name)
+    out = list(moves)
+    for i, mv in enumerate(moves):
+        for weaker in STATUS_NERFS.get(mv, []):
+            if weaker not in out and (weaker in learn or name == 'SMEARGLE'):
+                out[i] = weaker
+                break
+    return out, [(a, b) for a, b in zip(moves, out) if a != b]
 
 
 def nerf_moves(name, moves):
     """Set 2 : remplace les attaques plus puissantes que TIER2_MAX_POWER, sauf l'exception (TIER2_EXCEPTION_POWER) ;
     renvoie les attaques et les remplacements"""
-    power = lambda mv: g.MOVES[mv].power if mv in g.MOVES and g.MOVES[mv].cat != 'STATUS' else 0
+    power = lambda mv: g.MOVES[mv].total if mv in g.MOVES and g.MOVES[mv].cat != 'STATUS' else 0
     strong = sorted((i for i, mv in enumerate(moves) if power(mv) > TIER2_MAX_POWER), key=lambda i: -power(moves[i]))
     out = list(moves)
     for i in strong:
-        new = best_replacement(name, moves[i], out)
+        over = any(power(mv) > TIER2_MAX_POWER for k, mv in enumerate(out) if k != i and k not in strong[strong.index(i):])
+        new = best_replacement(name, moves[i], out, not over)
         if new:
             out[i] = new
     # exception : on garde la plus forte (si <= TIER2_EXCEPTION_POWER) quand le reste du set est faible
@@ -158,9 +206,9 @@ def best_tier1_move(name, taken, types, category):
         if (c is None or cand in taken or cand in NERF_EXCLUDED or c.cat == 'STATUS'
                 or cand in ('SELF_DESTRUCT', 'EXPLOSION') or (types and c.type not in types)
                 or (category and c.cat != category)
-                or not TIER1_MIN_POWER <= c.power <= TIER1_MAX_POWER or (c.acc != 0 and c.acc < 85)):
+                or not TIER1_MIN_POWER <= c.total <= TIER1_MAX_POWER or (c.acc != 0 and c.acc < 85)):
             continue
-        key = (c.type not in used, c.power, c.acc if c.acc else 101, cand)
+        key = (c.type not in used, c.total, c.acc if c.acc else 101, cand)
         if best is None or key > best[0]:
             best = (key, cand)
     return best[1] if best else None
@@ -198,6 +246,7 @@ def buff_tier1(name, moves, spread):
 
 nerf_log = []
 buff_log = []
+status_log = []
 
 
 def parse_set(name, tier, line):
@@ -239,6 +288,9 @@ def parse_set(name, tier, line):
         elif mv not in learn and name != 'SMEARGLE':  # Queulorior : attaques obtenues par Gribouille
             error(name, tier, f'{mv} non apprenable')
 
+    if tier < 2:
+        moves, changes = nerf_status(name, moves)
+        status_log.extend((name, f'{tier + 1}{variant_letter}', a, b) for a, b in changes)
     if tier == 1:
         moves, changes = nerf_moves(name, moves)
         nerf_log.extend((name, variant_letter, a, b) for a, b in changes)
@@ -349,6 +401,10 @@ def main():
     print(f'{len(sets)} espèces, {len(missing)} sans sets, {count_b} avec une variante B, {len(errors)} erreurs')
     print(f'set 2 : {len(nerf_log)} attaques remplacées (puissance > {TIER2_MAX_POWER})')
     print(f'set 1 : {len(buff_log)} attaques remplacées ou ajoutées (STAB, statut trop faible)')
+    print(f'sets 1 et 2 : {len(status_log)} attaques de statut trop fortes remplacées')
+    if '--status-log' in sys.argv:
+        for name, tier, old, new in status_log:
+            print(f'  {name} ({tier}) : {old} -> {new}')
     if '--buff-log' in sys.argv:
         for name, letter, old, new in buff_log:
             print(f'  {name} (1{letter}) : {old} -> {new}')
