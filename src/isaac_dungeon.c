@@ -1949,8 +1949,8 @@ static void SetUpCaptureMons(s32 x, s32 y)
 //    sur tous les autres articles jusqu'à la fin de la descente ;
 //  - deux objets de combat de sShopBattleItems et deux CT de sShopTMs (tirés pour la salle), un objet spécial
 //    (IsaacPickSpecialItem).
-// Chacun n'est vraiment en vente qu'avec SHOP_SLOT_PRESENT_PCT % de chances (tiré pour l'étage,
-// IsShopSlotPresent), en un seul exemplaire.
+// Chacun n'est vraiment en vente qu'avec une chance qui dépend de l'article et de l'étage (sShopSlotPresentPct, tirée
+// pour l'étage, IsShopSlotPresent), en un seul exemplaire.
 // Les prix se comptent en dixièmes de SHOP_PRICE_UNIT_PER_FLOOR x étage (voir sShopPrices) : un étage rapporte de
 // l'ordre de 6 (étage 2) à 13 (étages profonds) de ces unités, on ne peut donc pas tout acheter et il faut choisir.
 #define SHOP_PRICE_UNIT_PER_FLOOR  1000  // les gains d'un dresseur valaient 1000 x étage quand les prix ont été fixés
@@ -2168,15 +2168,33 @@ void IsaacOnShopPurchase(u16 item, u16 count)
         FlagSet(FLAG_ISAAC_SHOP_SOLD_FIRST + slot);
 }
 
-#define SHOP_SLOT_PRESENT_PCT  60
+// Chance (%) que chaque article soit en vente, étages 1 à 6 (au-delà, la dernière colonne ; pas de boutique à
+// l'étage 1) : les soins forts et le Rappel Max de plus en plus courants, la Super Potion de moins en moins
+static const u8 sShopSlotPresentPct[SHOP_LIMITED_SLOTS][6] =
+{
+    [SHOP_SLOT_MASTER_BALL]   = { 15, 15, 20, 25, 30, 35 },
+    [SHOP_SLOT_FULL_RESTORE]  = { 20, 25, 35, 50, 65, 75 },
+    [SHOP_SLOT_REVIVE]        = { 60, 65, 65, 60, 55, 50 },
+    [SHOP_SLOT_MAX_REVIVE]    = { 15, 20, 30, 45, 55, 65 },
+    [SHOP_SLOT_SUPER_POTION]  = { 80, 75, 60, 45, 30, 20 },
+    [SHOP_SLOT_HYPER_POTION]  = { 40, 55, 65, 65, 60, 55 },
+    [SHOP_SLOT_FULL_HEAL]     = { 60, 60, 60, 60, 60, 60 },
+    [SHOP_SLOT_ITEM_1]        = { 50, 55, 60, 65, 70, 70 },
+    [SHOP_SLOT_ITEM_2]        = { 50, 55, 60, 65, 70, 70 },
+    [SHOP_SLOT_TM_1]          = { 60, 60, 60, 55, 50, 45 },
+    [SHOP_SLOT_TM_2]          = { 60, 60, 60, 55, 50, 45 },
+    [SHOP_SLOT_SPECIAL]       = { 50, 55, 60, 65, 70, 75 },
+    [SHOP_SLOT_DISCOUNT_CARD] = { 70, 70, 60, 50,  0,  0 },  // jusqu'à SHOP_DISCOUNT_CARD_MAX_FLOOR
+};
 
 // L'article n° slot est-il en vente à cet étage ? (toujours la même réponse pour la salle)
 static bool8 IsShopSlotPresent(u32 slot)
 {
+    u32 floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sShopSlotPresentPct[0]));
     s32 x, y;
 
     GetCurrentCell(&x, &y);
-    return RoomRandom(x, y, 0x5A70 + slot) % 100 < SHOP_SLOT_PRESENT_PCT;
+    return RoomRandom(x, y, 0x5A70 + slot) % 100 < sShopSlotPresentPct[slot][floor - 1];
 }
 
 // Ouvre la boutique (suivre de `waitstate`) : seulement les articles en vente à cet étage et pas encore vendus
