@@ -440,7 +440,7 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 #define ISAAC_STAT_BOOST_DATA  MON_DATA_SMART
 #define ISAAC_STAT_BOOST_PCT   25
 #define ISAAC_BLOOD_PACT_BIT   (1 << 7)
-#define ISAAC_BLOOD_PACT_OMNIBOOSTS     2
+#define ISAAC_BLOOD_PACT_PCT           20  // Attaque, Attaque Spéciale et Vitesse
 #define ISAAC_BLOOD_PACT_HP_MALUS_PCT  25
 // Pierre brillante : stat boostée + 1 (0 : pas encore utilisée), dans la stat de concours Robustesse
 #define ISAAC_BRILLIANT_DATA   MON_DATA_TOUGH
@@ -472,8 +472,13 @@ s32 IsaacApplyStatBoosts(struct Pokemon *mon, u32 stat, s32 value)
         value = value * (100 + ISAAC_STAT_BOOST_PCT) / 100;
     if (GetMonData(mon, ISAAC_BRILLIANT_DATA) == stat + 1)
         value = value * (100 + ISAAC_BRILLIANT_PCT) / 100;
-    if (stat == STAT_HP && (GetMonData(mon, ISAAC_STAT_BOOST_DATA) & ISAAC_BLOOD_PACT_BIT))
-        value = max(value * (100 - ISAAC_BLOOD_PACT_HP_MALUS_PCT) / 100, 1);
+    if (GetMonData(mon, ISAAC_STAT_BOOST_DATA) & ISAAC_BLOOD_PACT_BIT)
+    {
+        if (stat == STAT_HP)
+            value = max(value * (100 - ISAAC_BLOOD_PACT_HP_MALUS_PCT) / 100, 1);
+        else if (stat == STAT_ATK || stat == STAT_SPATK || stat == STAT_SPEED)
+            value = value * (100 + ISAAC_BLOOD_PACT_PCT) / 100;
+    }
     return value;
 }
 
@@ -509,16 +514,12 @@ bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat)
     return TRUE;
 }
 
-// Le Pokémon a-t-il déjà reçu un boost (un seul par Pokémon) : boost de stat, Pierre brillante ou Omniboost ? Les
-// Omniboosts du Pacte de Sang ne comptent pas.
+// Le Pokémon a-t-il déjà reçu un boost (un seul par Pokémon) : boost de stat, Pierre brillante, Omniboost ou Pacte de
+// Sang ?
 bool8 IsaacHasBoost(struct Pokemon *mon)
 {
-    u32 boosts = GetMonData(mon, ISAAC_STAT_BOOST_DATA);
-    u32 omniboosts = GetMonData(mon, ISAAC_OMNIBOOST_DATA);
-
-    if (boosts & ISAAC_BLOOD_PACT_BIT)
-        omniboosts -= min(omniboosts, (u32)ISAAC_BLOOD_PACT_OMNIBOOSTS);
-    return (boosts & ((1 << NUM_STATS) - 1)) != 0 || GetMonData(mon, ISAAC_BRILLIANT_DATA) != 0 || omniboosts != 0;
+    return GetMonData(mon, ISAAC_STAT_BOOST_DATA) != 0 || GetMonData(mon, ISAAC_BRILLIANT_DATA) != 0
+        || GetMonData(mon, ISAAC_OMNIBOOST_DATA) != 0;
 }
 
 // Un Omniboost de plus (FALSE s'il en a déjà le maximum) ; les stats sont recalculées
@@ -534,19 +535,15 @@ bool8 IsaacAddOmniboost(struct Pokemon *mon)
     return TRUE;
 }
 
-// Pacte de Sang : deux Omniboosts de plus (dans la limite) et un quart des PV max en moins, pour toujours. FALSE si le
-// Pokémon en a déjà reçu un ou a déjà le maximum d'Omniboosts.
+// Pacte de Sang : Attaque, Attaque Spéciale et Vitesse +ISAAC_BLOOD_PACT_PCT %, mais PV max
+// -ISAAC_BLOOD_PACT_HP_MALUS_PCT %, pour toujours. FALSE si le Pokémon a déjà un boost (voir IsaacHasBoost).
 bool8 IsaacUseBloodPact(struct Pokemon *mon)
 {
-    u32 boosts = GetMonData(mon, ISAAC_STAT_BOOST_DATA);
-    u32 count = GetMonData(mon, ISAAC_OMNIBOOST_DATA);
+    u32 boosts = ISAAC_BLOOD_PACT_BIT;
 
-    if ((boosts & ISAAC_BLOOD_PACT_BIT) || count >= ISAAC_OMNIBOOST_MAX)
+    if (IsaacHasBoost(mon))
         return FALSE;
-    boosts |= ISAAC_BLOOD_PACT_BIT;
     SetMonData(mon, ISAAC_STAT_BOOST_DATA, &boosts);
-    count = min(count + ISAAC_BLOOD_PACT_OMNIBOOSTS, (u32)ISAAC_OMNIBOOST_MAX);
-    SetMonData(mon, ISAAC_OMNIBOOST_DATA, &count);
     CalculateMonStats(mon);
     return TRUE;
 }

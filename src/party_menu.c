@@ -6721,6 +6721,8 @@ void ItemUseCB_IsaacBloodPact(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
 
+    if (!GetMonData(mon, MON_DATA_IS_EGG) && IsaacRefuseSecondBoost(mon, taskId, task))
+        return;
     if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacUseBloodPact(mon))
     {
         IsaacItemWontHaveEffect(taskId, task);

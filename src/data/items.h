@@ -4862,9 +4862,9 @@ const struct ItemInfo gItemsInfo[] =
         .name = ITEM_NAME("Blood Pact"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "All stats +20%,\n"
-            "but max HP -25%,\n"
-            "for good."),
+            "Atk, Sp. Atk, Speed\n"
+            "+20%, but max HP\n"
+            "-25%, for good."),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
         .type = ITEM_USE_PARTY_MENU,
