@@ -189,6 +189,10 @@ STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED
 #define TILE_CLIFF_ROCK_FACE_SE   0x222
 #define TILE_CLIFF_NOTCH_W        0x223
 #define TILE_CLIFF_NOTCH_E        0x224
+// Forêt : l'herbe avec le bout de la cime de l'arbre juste en dessous (+ 1 à droite), bosquet de 2 x 2 des coins de
+// salle (haut gauche, haut droite, bas gauche, bas droite)
+#define TILE_TREE_TIP             0x225
+#define TILE_GROVE                0x227
 // Falaise : les rôles de base y sont les bords de la montagne qui touchent l'herbe, et les raccords des ponts
 #define CLIFF_GRASS_CREST     TILE_CLIFF_B      // crête nord, l'herbe au-dessus
 #define CLIFF_GRASS_CREST_NW  TILE_CLIFF_IN_SE
@@ -1041,7 +1045,8 @@ static void PaintDoorMats(s32 cellX, s32 cellY)
 
 // Décorations des coins de la salle, semi-aléatoires (toujours les mêmes pour une salle) : dans chaque coin, rien
 // (DECO_EMPTY_PCT %) ou une des deux décorations du décor, parfois doublée d'une seconde le long du mur
-// (DECO_PAIR_PCT %). Elles sont infranchissables ; elles ne vont que sur du sol, loin des portes et du centre.
+// (DECO_PAIR_PCT %) ; en forêt, un bosquet de 2 x 2. Elles sont infranchissables ; elles ne vont que sur du sol, loin
+// des portes et du centre.
 #define DECO_EMPTY_PCT  30
 #define DECO_PAIR_PCT   40
 
@@ -1060,6 +1065,15 @@ static void PaintCornerDecorations(s32 cellX, s32 cellY)
         roll = RoomRandom(cellX, cellY, 0xDEC0 + corner);
         if (roll % 100 < DECO_EMPTY_PCT)
             continue;
+        if (gIsaacBiomes[ISAAC_BIOME].trees)
+        {
+            x = (sAlongWallDx[corner] > 0) ? sCornerX[corner] : sCornerX[corner] - 1;
+            y = (sCornerY[corner] == ROOM_MIN_Y) ? ROOM_MIN_Y : ROOM_MAX_Y - 1;
+            for (i = 0; i < 4; i++)
+                if (!IsWallAt(x + i % 2, y + i / 2))
+                    SetTile(x + i % 2, y + i / 2, (TILE_GROVE + i) | MAPGRID_IMPASSABLE | PACK_ELEVATION(FLOOR_ELEVATION));
+            continue;
+        }
         count = ((roll >> 8) % 100 < DECO_PAIR_PCT) ? 2 : 1;
         for (i = 0; i < count; i++)
         {
@@ -1095,6 +1109,9 @@ static void PaintRoom(void)
                 tile = GetCliffRoleTile(x, y);
             else if (IsWallAt(x, y))  // bout de mur trop fin pour une falaise : rocher isolé
                 tile = (IsaacRandom() & 1) ? TILE_ROCK_1 : TILE_ROCK_2;
+            else if (gIsaacBiomes[ISAAC_BIOME].trees && IsWallAt(x, y + 1)
+                  && (GetTreeTile(x, y + 1) & ~1) == TILE_TREE_TOP)  // bout de la cime de l'arbre du dessous
+                tile = TILE_TREE_TIP + (GetTreeTile(x, y + 1) & 1);
             else
                 tile = TILE_FLOOR;
 

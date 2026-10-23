@@ -11,8 +11,9 @@ Tous ont la même numérotation de metatiles, pour que isaac_dungeon.c dessine l
   - 0x212, 0x213 : deux décorations d'une case du décor (rochers, glace...), posées dans les coins des salles ;
   - 0x214 à 0x219 : les demi-arbres des décors en forêt (arbres de 2 x 2 : haut, bas, bas avec le tronc ; gauche
     et droite), dans l'ordre de TREES ; les autres décors y mettent le centre de leurs murs (rôle C) ;
-  - 0x21A à 0x224 : les pièces de la falaise (EXTRAS) : dessus des ponts, bords du niveau haut contre la roche du
-    niveau bas, coins rentrants sous les ponts ; les autres décors y mettent leur centre de mur ou leur sol ;
+  - 0x21A à 0x22A : les pièces de la falaise et de la forêt (EXTRAS) : dessus des ponts, bords du niveau haut contre
+    la roche du niveau bas, coins rentrants sous les ponts ; bouts de cime au-dessus des arbres, bosquet des coins ;
+    les autres décors y mettent leur centre de mur ou leur sol ;
   - à partir de 0x240 (ISAAC_MAT_FIRST) : les paillassons devant les portes des salles spéciales : tapis rouge
     et or avec la tête du Pokémon de la mini-carte (Mewtwo boss, Pikachu trésor, Kecleon boutique) ou une Poké
     Ball (capture), découpées dans les sprites de face du jeu.
@@ -43,10 +44,14 @@ TREES = ['TREE_TOP_L', 'TREE_TOP_R', 'TREE_BOT_L', 'TREE_BOT_R', 'TREE_TRUNK_L',
 TREE_FIRST = 0x214
 # Pièces de la falaise : dessus des ponts (nord-sud, est-ouest), puis les bords du niveau haut qui touchent la roche
 # du niveau bas (flancs, coins de la crête nord, paroi sud et ses coins) et les coins rentrants sous les ponts
+# Forêt : l'herbe avec le bout de la cime d'un arbre juste en dessous (gauche, droite), et le bosquet de 2 x 2 des
+# coins de salle
 EXTRAS = ['BRIDGE_V', 'BRIDGE_H', 'ROCK_FLANK_W', 'ROCK_FLANK_E', 'ROCK_CREST_NW', 'ROCK_CREST_NE', 'ROCK_FACE',
-          'ROCK_FACE_SW', 'ROCK_FACE_SE', 'NOTCH_W', 'NOTCH_E']
+          'ROCK_FACE_SW', 'ROCK_FACE_SE', 'NOTCH_W', 'NOTCH_E', 'TREE_TIP_L', 'TREE_TIP_R', 'GROVE_TL', 'GROVE_TR',
+          'GROVE_BL', 'GROVE_BR']
+WALKABLE_EXTRAS = {'BRIDGE_V', 'BRIDGE_H', 'TREE_TIP_L', 'TREE_TIP_R'}  # comportement du sol
 EXTRA_FIRST = 0x21A
-EXTRA_DEFAULTS = {role: 'C' for role in EXTRAS} | {'BRIDGE_V': 'FLOOR', 'BRIDGE_H': 'FLOOR'}
+EXTRA_DEFAULTS = {role: 'C' for role in EXTRAS} | {role: 'FLOOR' for role in WALKABLE_EXTRAS}
 ROLES = ['FLOOR', 'ROCK_1', 'ROCK_2', 'TL', 'T', 'TR', 'L', 'C', 'R', 'BL', 'B', 'BR', 'IN_SE', 'IN_SW', 'IN_NE', 'IN_NW']
 SIGN_METATILE = 0x210
 MAT_FIRST = 0x240
@@ -96,7 +101,8 @@ BIOME_TILESETS = [
     ('isaac_forest', 'rustboro', dict(
         FLOOR=0x001, ROCK_1=0x0C6, ROCK_2=0x0CE, TL=0x1D4, T=0x1D4, TR=0x1D4, L=0x1D4, C=0x1D4, R=0x1D4,
         BL=0x1D4, B=0x1D4, BR=0x1D4, IN_SE=0x1D4, IN_SW=0x1D4, IN_NE=0x1D4, IN_NW=0x1D4, DECO_1=0x0C6, DECO_2=0x0CE,
-        TREE_TOP_L=0x1D4, TREE_TOP_R=0x1D5, TREE_BOT_L=0x1DC, TREE_BOT_R=0x1DD, TREE_TRUNK_L=0x1E4, TREE_TRUNK_R=0x1E5)),
+        TREE_TOP_L=0x1D4, TREE_TOP_R=0x1D5, TREE_BOT_L=0x1DC, TREE_BOT_R=0x1DD, TREE_TRUNK_L=0x1E4, TREE_TRUNK_R=0x1E5,
+        TREE_TIP_L=0x1CE, TREE_TIP_R=0x1CF, GROVE_TL=0x00E, GROVE_TR=0x00F, GROVE_BL=0x016, GROVE_BR=0x017)),
 ]
 SURF_TILESETS = {'isaac_ocean'}  # décors où le joueur surfe : tous les rôles ont le comportement du sol (eau)
 # Décors dont les décorations (rochers de General à deux calques) sont posées sur le sol du décor : on garde seulement
@@ -338,11 +344,11 @@ def build(out_name, source_name, mapping, mats):
         m = mapping[role]
         if m < NUM_PRIMARY_TILES:
             metatiles.extend(primary_meta[m * 8: m * 8 + 8])
-            attributes.append(attributes[0] if role.startswith('BRIDGE') else primary_attr[m])
+            attributes.append(((attributes[0] & 0x0FFF) | (primary_attr[m] & 0xF000)) if role in WALKABLE_EXTRAS else primary_attr[m])
         else:
             m -= NUM_PRIMARY_TILES
             metatiles.extend(convert(e) for e in src_meta[m * 8: m * 8 + 8])
-            attributes.append(attributes[0] if role.startswith('BRIDGE') else src_attr[m])
+            attributes.append(((attributes[0] & 0x0FFF) | (src_attr[m] & 0xF000)) if role in WALKABLE_EXTRAS else src_attr[m])
     if out_name in SURF_TILESETS:
         attributes[TREE_FIRST - NUM_PRIMARY_TILES:] = [(a & 0xF000) | floor_behavior
                                                        for a in attributes[TREE_FIRST - NUM_PRIMARY_TILES:]]
