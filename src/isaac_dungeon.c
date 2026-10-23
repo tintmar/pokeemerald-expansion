@@ -315,6 +315,8 @@ STATIC_ASSERT(ARRAY_COUNT(sVisitedVars) * 16 >= ISAAC_GRID_W * ISAAC_GRID_H, Eno
 extern const u8 Isaac_EventScript_Exit[];
 extern const u8 Hub_EventScript_NeedPokemon[];
 extern const u8 IsaacRoom_EventScript_SecretWall[];
+extern const u8 IsaacRoom_EventScript_Trainer[];
+extern const u8 IsaacRoom_EventScript_OptionalTrainer[];
 extern const u8 Isaac_EventScript_Minimap[];
 
 static EWRAM_DATA u32 sSeed = 0;
@@ -1534,16 +1536,6 @@ static u32 GetRoomTrainerBehavior(s32 x, s32 y)
     return RoomRandom(x, y, 0xBE4A) % TRAINER_BEHAVIOR_COUNT;
 }
 
-// En parlant au dresseur : VAR_RESULT = TRUE s'il est facultatif et pas encore vaincu (il demande d'abord)
-void IsaacCheckOptionalTrainer(void)
-{
-    s32 x, y;
-
-    GetCurrentCell(&x, &y);
-    gSpecialVar_Result = GetRoomTrainerBehavior(x, y) == TRAINER_BEHAVIOR_OPTIONAL
-                      && !FlagGet(TRAINER_FLAGS_START + TRAINER_ISAAC_ROOM);
-}
-
 // Au chargement de la salle : place (ou cache) le dresseur, choisit son apparence et son comportement
 // (GetRoomTrainerBehavior). Pas encore vaincu, il regarde la porte par laquelle le joueur arrive, ou tourne sur
 // lui-même s'il est rôdeur.
@@ -1565,6 +1557,8 @@ static void SetUpRoomTrainer(s32 x, s32 y)
     template->y = ROOM_MID_Y;
     behavior = GetRoomTrainerBehavior(x, y);
     template->trainerType = (behavior == TRAINER_BEHAVIOR_OPTIONAL) ? TRAINER_TYPE_NONE : TRAINER_TYPE_NORMAL;
+    template->script = (behavior == TRAINER_BEHAVIOR_OPTIONAL) ? IsaacRoom_EventScript_OptionalTrainer
+                                                               : IsaacRoom_EventScript_Trainer;
     template->trainerRange_berryTreeId = (behavior == TRAINER_BEHAVIOR_ROAMING) ? ROAMING_TRAINER_SIGHT : WATCHER_TRAINER_SIGHT;
     if (IsCleared(x, y))
     {

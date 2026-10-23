@@ -34,17 +34,17 @@ Isaac_EventScript_Minimap::
 	end
 
 @ Dresseur d'une salle (placé par isaac_dungeon.c, comportement : voir GetRoomTrainerBehavior) : quand il voit le
-@ joueur, il s'approche et lance le combat ; s'il est facultatif, il faut lui parler et accepter. Vaincu, il donne un
-@ objet de son butin et retourne au centre de la salle. Dans une salle secrète, la récompense de la salle apparaît en
-@ plus au sol.
+@ joueur, il s'approche et lance le combat ; s'il est facultatif (IsaacRoom_EventScript_OptionalTrainer, choisi par
+@ SetUpRoomTrainer), il faut lui parler et accepter. Vaincu, il donne un objet de son butin et retourne au centre de la
+@ salle. Dans une salle secrète, la récompense de la salle apparaît en plus au sol.
+@ Le script doit commencer par trainerbattle : la vue des dresseurs y lit le dresseur et s'il est déjà vaincu.
 IsaacRoom_EventScript_Trainer::
-	special IsaacCheckOptionalTrainer
-	goto_if_eq VAR_RESULT, TRUE, IsaacRoom_EventScript_OptionalTrainer
 	trainerbattle_single TRAINER_ISAAC_ROOM, IsaacRoom_Text_TrainerIntro, IsaacRoom_Text_TrainerDefeat, IsaacRoom_EventScript_TrainerDefeated
 	msgbox IsaacRoom_Text_TrainerPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 IsaacRoom_EventScript_OptionalTrainer::
+	goto_if_defeated TRAINER_ISAAC_ROOM, IsaacRoom_EventScript_Trainer
 	lock
 	faceplayer
 	msgbox IsaacRoom_Text_TrainerChallenge, MSGBOX_YESNO
