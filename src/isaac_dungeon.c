@@ -2182,8 +2182,8 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_EGG : à l'étage 1 ou 2 (un seul des deux par descente, GetEggFloor), quelqu'un confie un Œuf
 //    d'un Pokémon de n'importe quel biome (set 2), de catégorie 3 à l'étage 1 et 4 à l'étage 2 (le plus fort de plusieurs tirages), qui éclot après ISAAC_EGG_HATCH_ROOMS nouvelles
 //    salles visitées (environ deux étages, IsaacTickEggs) ;
-//  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de même catégorie (au sens du
-//    biome de chacun) et de même palier de set, de n'importe quel biome ; un légendaire contre un légendaire ;
+//  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de n'importe quel biome, de la
+//    force de ceux de la salle de capture de l'étage (IsaacPrepareTrade) ;
 //  - ROOM_CONTENT_DEVIL : à partir de DEVIL_PACT_MIN_FLOOR, pacte du diable, un objet rare (Master Ball, Dé
 //    Maudit, Pacte de Sang ou objet spécial, IsaacPrepareDevilPact) contre le sacrifice définitif d'un Pokémon de
 //    l'équipe (pas le dernier en état de se battre, pas un Œuf) ;
@@ -2464,57 +2464,44 @@ static void IsaacTickEggs(void)
 
 static EWRAM_DATA u16 sTradeSpecies = SPECIES_NONE;
 
-// Échange avec le Pokémon n° VAR_0x8004 de l'équipe : VAR_RESULT = FALSE pour un Œuf. Sinon, l'offre est fixée
-// (toujours la même pour ce Pokémon dans cette salle) : gStringVar1 = le Pokémon du joueur, gStringVar2 = l'offre,
-// révélée seulement une fois l'échange conclu.
+// Échange avec le Pokémon n° VAR_0x8004 de l'équipe : VAR_RESULT = FALSE pour un Œuf. Sinon, l'offre est celle de la
+// salle (toujours la même) : un Pokémon de n'importe quel biome, de la force de ceux de la salle de capture de l'étage
+// (RollCaptureCategory, GetCaptureSetTier), d'une autre espèce que celui du joueur. gStringVar1 = le Pokémon du joueur,
+// gStringVar2 = l'offre, révélée seulement une fois l'échange conclu.
 void IsaacPrepareTrade(void)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
-    enum IsaacCategory category = IsaacGetSpeciesCategory(species), legendary;
-    u16 candidates[32];
-    u32 count = 0, seed, i;
+    enum IsaacCategory category;
+    u32 try, seed;
     s32 x, y;
 
     gSpecialVar_Result = FALSE;
     if (GetMonData(mon, MON_DATA_IS_EGG))
         return;
     GetCurrentCell(&x, &y);
-    seed = RoomRandom(x, y, 0x7AD0 + species);
-    if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
+    category = RollCaptureCategory(x, y, 0);
+    for (try = 0; try < 16; try++)
     {
-        for (i = 0; i < IsaacGetRosterCount() && count < ARRAY_COUNT(candidates); i++)
-        {
-            legendary = IsaacGetSpeciesCategory(IsaacGetRosterSpecies(i));
-            if (legendary == category && IsaacGetRosterSpecies(i) != species)
-                candidates[count++] = IsaacGetRosterSpecies(i);
-        }
-        sTradeSpecies = count ? candidates[seed % count] : species;
-    }
-    else
-    {
-        // catégorie au sens du biome de sa lignée
-        for (i = 0; i < ISAAC_BIOME_COUNT; i++)
-        {
-            category = IsaacGetLinesCategory(gIsaacBiomes[i].lines, gIsaacBiomes[i].lineCount, species);
-            if (category != ISAAC_CATEGORY_NONE)
-                break;
-        }
-        if (category == ISAAC_CATEGORY_NONE)
-            category = IsaacGetSpeciesCategory(species);
-        sTradeSpecies = PickSpeciesOfAnyBiome(category, species, seed);
+        seed = RoomRandom(x, y, 0x7AD0 + try);
+        if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
+            sTradeSpecies = PickCaptureSpecies(category, seed);
+        else
+            sTradeSpecies = PickSpeciesOfAnyBiome(category, SPECIES_NONE, seed);
+        if (sTradeSpecies != species)
+            break;
     }
     GetMonNickname(mon, gStringVar1);
     StringCopy(gStringVar2, GetSpeciesName(sTradeSpecies));
     gSpecialVar_Result = TRUE;
 }
 
-// Échange conclu : le Pokémon n° VAR_0x8004 devient l'offre (même palier de set, variante au hasard) ; l'objet qu'il
-// tenait revient dans le Sac
+// Échange conclu : le Pokémon n° VAR_0x8004 devient l'offre (set de la salle de capture, variante au hasard) ;
+// l'objet qu'il tenait revient dans le Sac
 void IsaacDoTrade(void)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
-    u32 tier = IsaacGetMonSetTier(mon);
+    u32 tier = GetCaptureSetTier();
     u16 heldItem = GetMonData(mon, MON_DATA_HELD_ITEM);
     s32 x, y;
     u32 seed;

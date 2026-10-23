@@ -353,7 +353,7 @@ IsaacRoom_EventScript_EggGiverLastMon::
 	release
 	end
 
-@ Échangeur : un Pokémon contre un autre de même catégorie et même palier de set, de n'importe quel biome
+@ Échangeur : un Pokémon contre un autre de n'importe quel biome, de la force de ceux de la salle de capture
 IsaacRoom_EventScript_Trader::
 	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_TraderDone
 	msgbox IsaacRoom_Text_TraderIntro, MSGBOX_DEFAULT
@@ -422,13 +422,13 @@ IsaacRoom_Text_TraderIntro:
 	.string "Je collectionne les Pokémon de tous\n"
 	.string "les biomes.\p"
 	.string "Je t'échange un des tiens contre un\n"
-	.string "des miens, d'une force équivalente.\p"
+	.string "des miens, aussi fort que ceux des\l"
+	.string "salles de capture de cet étage.\p"
 	.string "Lequel me proposes-tu ?$"
 
 IsaacRoom_Text_TraderOffer:
 	.string "Ton {STR_VAR_1} contre un de mes\n"
-	.string "Pokémon de force comparable.\p"
-	.string "Marché conclu ?$"
+	.string "Pokémon ? Marché conclu ?$"
 
 IsaacRoom_Text_TraderTraded:
 	.string "{PLAYER} échange {STR_VAR_1}\n"
