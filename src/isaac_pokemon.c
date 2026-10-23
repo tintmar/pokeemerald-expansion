@@ -165,12 +165,14 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // Objet spécial tiré au hasard (salle trésor, salle secrète, boutique, boss, pacte du diable). Chaque entrée a un poids :
 // SPECIAL_ITEM_WEIGHT, sauf l'Omniboost (OMNIBOOST_WEIGHT, deux fois plus rare) et les deux Pierres Évolution, plus
 // rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6),
-// et la Super CT, de plus en plus rare (sAbilityTrainerWeights), rare à partir de l'étage 4. La Pièce
-// Porte-Bonheur est surtout au début (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours surtout à la fin
-// (sFirstAidKitWeights) ; la Pierre Prisme est rare (PRISM_STONE_WEIGHT), le Cœur Doré peu courant (GOLDEN_HEART_WEIGHT).
-// Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, de
-// même que les Gemmes de Type (puis le type est tiré ; retirées pour l'instant : TYPE_GEM_WEIGHT à 0). Le Cœur Doré
-// n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
+// et la Super CT, de plus en plus rare (sAbilityTrainerWeights), rare à partir de l'étage 4. Dans la boutique (shop),
+// pas de Pierre Évolution après SHOP_EVOLUTION_STONE_MAX_FLOOR. La Pièce Porte-Bonheur est surtout au début
+// (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours surtout à la fin (sFirstAidKitWeights, retirée pour
+// l'instant : FIRST_AID_KIT_ENABLED) ; la Pierre Prisme est rare (PRISM_STONE_WEIGHT), le Cœur Doré peu courant
+// (GOLDEN_HEART_WEIGHT).
+// Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, un
+// peu plus fréquente en profondeur (sStatBoostWeights) ; de même pour les Gemmes de Type (puis le type est tiré ;
+// retirées pour l'instant : TYPE_GEM_WEIGHT à 0). Le Cœur Doré n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
 // La Méga-Évolution (ITEM_MEGA_RING dans la liste) n'apparaît que si un Pokémon de l'équipe peut méga-évoluer avec
 // une Méga-Gemme qu'on n'a pas encore : on reçoit l'une d'elles au hasard (et l'Anneau Méga avec, voir AddBagItem).
 #define SPECIAL_ITEM_WEIGHT  4
@@ -180,6 +182,8 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 #define PRISM_STONE_WEIGHT   1
 #define Z_TM_WEIGHT          2
 #define GOLDEN_HEART_MIN_FLOOR  4
+#define FIRST_AID_KIT_ENABLED   FALSE
+#define SHOP_EVOLUTION_STONE_MAX_FLOOR  3
 
 #define ISAAC_MAX_MEGA_STONES  (PARTY_SIZE * 2)  // Dracaufeu et Mewtwo ont deux Méga-Évolutions
 
@@ -215,7 +219,7 @@ static u32 GetMissingPartyMegaStones(u16 *out)
     return count;
 }
 
-u16 IsaacPickSpecialItem(u32 roll)
+u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
 {
     static const u16 sSpecialItems[] =
     {
@@ -227,6 +231,7 @@ u16 IsaacPickSpecialItem(u32 roll)
     static const u8 sAbilityTrainerWeights[] = { 4, 3, 2, 1, 1, 1 };
     static const u8 sLuckyCoinWeights[] = { 6, 5, 4, 2, 1, 0 };
     static const u8 sFirstAidKitWeights[] = { 1, 1, 2, 3, 4, 5 };
+    static const u8 sStatBoostWeights[] = { 4, 4, 4, 5, 6, 6 };
     u32 floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvolutionStoneWeights));
     u32 weights[ARRAY_COUNT(sSpecialItems)], total = 0, pick, i;
     u16 item = sSpecialItems[0];
@@ -236,7 +241,9 @@ u16 IsaacPickSpecialItem(u32 roll)
     for (i = 0; i < ARRAY_COUNT(sSpecialItems); i++)
     {
         if (sSpecialItems[i] == ITEM_EVOLUTION_STONE || sSpecialItems[i] == ITEM_SUPER_EVOLUTION_STONE)
-            weights[i] = sEvolutionStoneWeights[floor - 1];
+            weights[i] = (shop && floor > SHOP_EVOLUTION_STONE_MAX_FLOOR) ? 0 : sEvolutionStoneWeights[floor - 1];
+        else if (sSpecialItems[i] == ITEM_BOOST_HP)
+            weights[i] = sStatBoostWeights[floor - 1];
         else if (sSpecialItems[i] == ITEM_ABILITY_TRAINER)
             weights[i] = sAbilityTrainerWeights[floor - 1];
         else if (sSpecialItems[i] == ITEM_OMNIBOOST)
@@ -248,7 +255,7 @@ u16 IsaacPickSpecialItem(u32 roll)
         else if (sSpecialItems[i] == ITEM_LUCKY_COIN)
             weights[i] = CheckBagHasItem(ITEM_LUCKY_COIN, 1) ? 0 : sLuckyCoinWeights[floor - 1];
         else if (sSpecialItems[i] == ITEM_FIRST_AID_KIT)
-            weights[i] = sFirstAidKitWeights[floor - 1];
+            weights[i] = FIRST_AID_KIT_ENABLED ? sFirstAidKitWeights[floor - 1] : 0;
         else if (sSpecialItems[i] == ITEM_PRISM_STONE)
             weights[i] = PRISM_STONE_WEIGHT;
         else if (sSpecialItems[i] == ITEM_Z_TM)

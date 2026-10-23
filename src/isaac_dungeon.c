@@ -2035,7 +2035,7 @@ static u16 PickTrainerRareLoot(u32 roll)
 
     roll /= 100;
     if (pick < 40)
-        return IsaacPickSpecialItem(roll);
+        return IsaacPickSpecialItem(roll, FALSE);
     if (pick < 65)
         return PickGoodTM(roll);
     if (pick < 90)
@@ -2112,7 +2112,7 @@ static u16 GetShopSlotItem(u32 slot)
     case SHOP_SLOT_DISCOUNT_CARD:
         return ITEM_DISCOUNT_CARD;
     default:
-        return IsaacPickSpecialItem(RoomRandom(x, y, 0x5495));
+        return IsaacPickSpecialItem(RoomRandom(x, y, 0x5495), TRUE);
     }
 }
 
@@ -2582,7 +2582,7 @@ void IsaacPrepareDevilPact(void)
     else if ((roll >> 4) % DEVIL_PACT_ITEM_ODDS == 1)
         gSpecialVar_0x8006 = ITEM_BLOOD_PACT;
     else
-        gSpecialVar_0x8006 = IsaacPickSpecialItem(roll >> 8);
+        gSpecialVar_0x8006 = IsaacPickSpecialItem(roll >> 8, FALSE);
     CopyItemName(gSpecialVar_0x8006, gStringVar2);
     gSpecialVar_Result = CountPartyFighters() >= 2;
 }
@@ -2800,7 +2800,7 @@ void IsaacPickBossReward(void)
 
     GetCurrentCell(&x, &y);
     roll = RoomRandom(x, y, 0xB0B0);
-    gSpecialVar_0x8004 = (roll & 1) ? IsaacPickSpecialItem(roll >> 1) : ITEM_MASTER_BALL;
+    gSpecialVar_0x8004 = (roll & 1) ? IsaacPickSpecialItem(roll >> 1, FALSE) : ITEM_MASTER_BALL;
 }
 
 // Butin de la salle secrète, une entrée de la table tirée pour la salle (la Carte de Réduction, si on l'a déjà, est
@@ -2857,7 +2857,7 @@ void IsaacPickTreasureItem(void)
     if (GetRoom(x, y) == ROOM_SECRET)
         PickSecretRoomLoot(x, y);
     else
-        sLoot[sLootCount++] = IsaacPickSpecialItem(RoomRandom(x, y, 0x7EA5));
+        sLoot[sLootCount++] = IsaacPickSpecialItem(RoomRandom(x, y, 0x7EA5), FALSE);
 }
 
 // Le Pokémon de la vieille dame dans gStringVar2 (Leveinard, Lokhlass dans l'océan)
