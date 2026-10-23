@@ -1736,9 +1736,10 @@ static enum IsaacCategory RollCaptureCategory(s32 x, s32 y, u32 slot)
     return RollLevelCategory(GetCaptureLevel(), RoomRandom(x, y, 0xCA70 + slot));
 }
 
-// Une espèce de la catégorie voulue (au plancher de BST du palier de capture) : des lignées du biome, ou n'importe quel
-// légendaire du roster
-static u16 PickCaptureSpecies(enum IsaacCategory category, u32 roll)
+// Une espèce de la catégorie voulue (au plancher de BST du palier de capture) : des lignées du biome, ou un légendaire
+// du roster. Avec biomeLegendary, seulement un légendaire d'un des types du biome (à défaut, un de ceux de son boss,
+// sBossLegendaries) ; sinon n'importe lequel (l'échangeur, qui propose des Pokémon de tous les biomes).
+static u16 PickCaptureSpecies(enum IsaacCategory category, u32 roll, bool8 biomeLegendary)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
     u16 legendaries[32];
@@ -1751,9 +1752,16 @@ static u16 PickCaptureSpecies(enum IsaacCategory category, u32 roll)
         {
             species = IsaacGetRosterSpecies(i);
             category = IsaacGetSpeciesCategory(species);
-            if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
-                legendaries[count++] = species;
+            if (category != ISAAC_CATEGORY_LEGENDARY_SMALL && category != ISAAC_CATEGORY_LEGENDARY_BIG)
+                continue;
+            if (biomeLegendary
+             && GetSpeciesType(species, 0) != biome->types[0] && GetSpeciesType(species, 0) != biome->types[1]
+             && GetSpeciesType(species, 1) != biome->types[0] && GetSpeciesType(species, 1) != biome->types[1])
+                continue;
+            legendaries[count++] = species;
         }
+        if (count == 0)
+            return sBossLegendaries[ISAAC_BIOME][roll % ARRAY_COUNT(sBossLegendaries[0])];
         return legendaries[roll % count];
     }
     species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, GetCaptureLevel()->minBst, roll);
@@ -1773,7 +1781,7 @@ static void GetCaptureSpecies(s32 x, s32 y, u16 *species)
         taken = TRUE;
         for (try = 0; try < 16 && taken; try++)
         {
-            species[slot] = PickCaptureSpecies(category, RoomRandom(x, y, 0xC5EC + slot * 32 + try));
+            species[slot] = PickCaptureSpecies(category, RoomRandom(x, y, 0xC5EC + slot * 32 + try), TRUE);
             taken = FALSE;
             for (prev = 0; prev < slot; prev++)
                 if (species[prev] == species[slot])
@@ -2623,7 +2631,7 @@ void IsaacPrepareTrade(void)
     {
         seed = RoomRandom(x, y, 0x7AD0 + try);
         if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
-            sTradeSpecies = PickCaptureSpecies(category, seed);
+            sTradeSpecies = PickCaptureSpecies(category, seed, FALSE);
         else
             sTradeSpecies = PickSpeciesOfAnyBiome(category, GetCaptureLevel()->minBst, SPECIES_NONE, seed);
         if (sTradeSpecies != species)
