@@ -427,13 +427,13 @@ static u32 CountNeighborRooms(s32 x, s32 y)
     return count;
 }
 
-// 7 à 9 salles au 1er étage (ISAAC_FIRST_FLOOR_EXTRA_ROOMS de plus), 9 à 11 au 2e, 13 à 15 au 3e... jusqu'à
-// ISAAC_MAX_ROOMS
+// 7 à 9 salles au 1er étage (ISAAC_FIRST_FLOOR_EXTRA_ROOMS de plus), 9 à 11 au 2e, 11 à 13 au 3e, 14 à 16 au 4e,
+// 16 à 18 au 5e, 19 à 21 au 6e... jusqu'à ISAAC_MAX_ROOMS
 #define ISAAC_FIRST_FLOOR_EXTRA_ROOMS  1
 
 static u32 GetTargetRoomCount(u32 floor)
 {
-    u32 count = 3 + floor * 10 / 3 + IsaacRandom() % 3;
+    u32 count = 4 + floor * 5 / 2 + IsaacRandom() % 3;
 
     if (floor == 1)
         count += ISAAC_FIRST_FLOOR_EXTRA_ROOMS;
