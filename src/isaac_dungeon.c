@@ -2321,7 +2321,7 @@ void IsaacKecleonGreeting(void)
 //    Maudit, Pacte de Sang ou objet spécial, IsaacPrepareDevilPact) contre le sacrifice définitif d'un Pokémon de
 //    l'équipe (pas le dernier en état de se battre, pas un Œuf) ;
 //  - ROOM_CONTENT_TUTOR : maître des capacités, propose TUTOR_CHOICES attaques fortes (sTutorMoves) que le Pokémon choisi peut
-//    apprendre et ne connaît pas ; il en apprend une (en oubliant une autre s'il en connaît déjà 4) ;
+//    apprendre et ne connaît pas, dont au moins TUTOR_TYPE_CHOICES de ses types (Pierre Prisme comprise) ; il en apprend une (en oubliant une autre s'il en connaît déjà 4) ;
 //  - ROOM_CONTENT_DUELIST : le duelliste annonce son Pokémon (plus fort que ceux de l'étage, voir GetIsaacTrainer),
 //    puis combat en 1 contre 1 contre le Pokémon choisi par le joueur. Perdre ne renvoie pas au hub. Un seul duel :
 //    gagné, il donne une Restore Max et une Super CT ; perdu, une Restore Max pour relever le Pokémon K.O. ;
@@ -2715,7 +2715,8 @@ static const u16 sTutorMoves[] =
     MOVE_DOUBLE_EDGE, MOVE_BODY_SLAM, MOVE_VOLT_SWITCH, MOVE_SWORDS_DANCE, MOVE_NASTY_PLOT, MOVE_DRAGON_DANCE,
     MOVE_CALM_MIND, MOVE_BULK_UP, MOVE_ROOST, MOVE_RECOVER, MOVE_WILL_O_WISP, MOVE_THUNDER_WAVE,
 };
-#define TUTOR_CHOICES  5
+#define TUTOR_CHOICES       5
+#define TUTOR_TYPE_CHOICES  2  // au moins, s'il y en a : attaques offensives des types du Pokémon
 
 static EWRAM_DATA u16 sTutorChoices[TUTOR_CHOICES] = {0};
 static EWRAM_DATA u16 sTutorMove = MOVE_NONE;
@@ -2733,25 +2734,48 @@ static bool8 CanLearnTutorMove(enum Species species, u16 move)
     return FALSE;
 }
 
+// Attaque offensive d'un des types du Pokémon (Gemme de Type et Pierre Prisme comprises, voir IsaacGetMonTypes) ?
+static bool8 IsTutorMoveOfMonTypes(u16 move, const enum Type *types)
+{
+    return GetMoveCategory(move) != DAMAGE_CATEGORY_STATUS
+        && (GetMoveType(move) == types[0] || GetMoveType(move) == types[1]);
+}
+
 // Pokémon n° VAR_0x8004 : VAR_RESULT = nombre d'attaques proposées (0 pour un Œuf ou s'il n'y a rien à lui
 // apprendre ; leurs noms avec IsaacBufferTutorChoice). Toujours les mêmes pour ce Pokémon dans cette salle.
+// Les attaques offensives de ses types lui sont toujours enseignables, même hors de l'apprentissage de l'espèce (un
+// Pokémon devenu Feu par une Pierre Prisme peut apprendre Lance-Flammes) ; TUTOR_TYPE_CHOICES places leur sont
+// réservées, le reste est tiré parmi toutes les attaques possibles.
 void IsaacPrepareTutor(void)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
     u16 species = GetMonData(mon, MON_DATA_SPECIES), candidates[ARRAY_COUNT(sTutorMoves)], tmp;
-    u32 count = 0, i, pick;
+    enum Type types[2];
+    u32 count = 0, typed = 0, i, pick;
     s32 x, y;
 
     gSpecialVar_Result = 0;
     if (GetMonData(mon, MON_DATA_IS_EGG))
         return;
+    IsaacGetMonTypes(mon, types);
+    // les attaques de ses types d'abord (typed premières places de candidates), puis les autres
     for (i = 0; i < ARRAY_COUNT(sTutorMoves); i++)
-        if (CanLearnTutorMove(species, sTutorMoves[i]) && !MonKnowsMove(mon, sTutorMoves[i]))
+        if (!MonKnowsMove(mon, sTutorMoves[i]) && IsTutorMoveOfMonTypes(sTutorMoves[i], types))
+            candidates[typed++] = sTutorMoves[i];
+    count = typed;
+    for (i = 0; i < ARRAY_COUNT(sTutorMoves); i++)
+        if (!MonKnowsMove(mon, sTutorMoves[i]) && !IsTutorMoveOfMonTypes(sTutorMoves[i], types)
+         && CanLearnTutorMove(species, sTutorMoves[i]))
             candidates[count++] = sTutorMoves[i];
     GetCurrentCell(&x, &y);
     for (i = 0; i < TUTOR_CHOICES && i < count; i++)
     {
-        pick = i + RoomRandom(x, y, 0x7070 + species * TUTOR_CHOICES + i) % (count - i);
+        u32 roll = RoomRandom(x, y, 0x7070 + species * TUTOR_CHOICES + i);
+
+        if (i < TUTOR_TYPE_CHOICES && i < typed)  // place réservée : parmi les attaques de ses types
+            pick = i + roll % (typed - i);
+        else
+            pick = i + roll % (count - i);
         SWAP(candidates[i], candidates[pick], tmp);
         sTutorChoices[i] = candidates[i];
     }
