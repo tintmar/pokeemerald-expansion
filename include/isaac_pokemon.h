@@ -71,6 +71,7 @@ struct IsaacBiome
     bool8 dark;       // dans le noir, comme la Grotte Granite sans Flash
     bool8 ocean;      // le joueur surfe sur toute la salle
     bool8 trees;      // murs en arbres de 2 x 2 (demi-arbres TILE_TREE_*) au lieu des rôles de falaise
+    bool8 cliff;      // la salle est le haut d'une falaise : paroi sud sur deux rangées, couloirs en ponts
 };
 
 extern const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT];

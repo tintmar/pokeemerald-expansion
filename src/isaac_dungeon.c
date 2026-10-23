@@ -172,6 +172,12 @@ STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED
 #define TILE_TREE_TOP    0x214
 #define TILE_TREE_BOTTOM 0x216
 #define TILE_TREE_TRUNK  0x218
+// Falaise : seconde rangée de la paroi sud (et ses bouts), dessus des couloirs (nord-sud, est-ouest)
+#define TILE_CLIFF_T2     0x21A
+#define TILE_CLIFF_IN_NE2 0x21B
+#define TILE_CLIFF_IN_NW2 0x21C
+#define TILE_BRIDGE_V     0x21D
+#define TILE_BRIDGE_H     0x21E
 
 // Paillassons devant les portes des salles spéciales (tileset IsaacCave, tools/isaac/build_tileset.py) :
 // motif (MAT_BOSS...), orientation (MAT_HORIZONTAL...), case du paillasson (ligne par ligne)
@@ -775,6 +781,19 @@ static bool8 IsBigRockAt(s32 x, s32 y)
     return sIsBigRock[y - PAINT_MIN][x - PAINT_MIN];
 }
 
+// Case de sol d'un couloir (hors du rectangle de la salle)
+static bool8 IsCorridorCell(s32 x, s32 y)
+{
+    return !IsWallAt(x, y) && (x < ROOM_MIN_X || x > ROOM_MAX_X || y < ROOM_MIN_Y || y > ROOM_MAX_Y);
+}
+
+// Mur pour le contour : dans une falaise, seul le rectangle de la salle dessine la montagne (les abords des couloirs
+// sont dessinés à part, voir GetCliffCorridorTile)
+static bool8 IsOutlineWallAt(s32 x, s32 y)
+{
+    return IsWallAt(x, y) || (gIsaacBiomes[ISAAC_BIOME].cliff && IsCorridorCell(x, y));
+}
+
 // Une case de mur est un « gros rocher » si elle fait partie d'un carré de mur 3 x 3
 static void ComputeBigRocks(void)
 {
@@ -789,7 +808,7 @@ static void ComputeBigRocks(void)
             full = TRUE;
             for (dy = 0; dy < 3 && full; dy++)
                 for (dx = 0; dx < 3 && full; dx++)
-                    full = IsWallAt(x + dx, y + dy);
+                    full = IsOutlineWallAt(x + dx, y + dy);
             if (!full)
                 continue;
             for (dy = 0; dy < 3; dy++)
@@ -800,7 +819,7 @@ static void ComputeBigRocks(void)
     }
 }
 
-static u16 GetCliffTile(s32 x, s32 y)
+static u16 GetCliffRoleTile(s32 x, s32 y)
 {
     bool8 up, down, left, right;
 
@@ -876,6 +895,79 @@ static u16 GetTreeTile(s32 x, s32 y)
     else
         rightHalf = !(left & 1);
     return tile + rightHalf;
+}
+
+// Rôle de falaise d'une case de gros rocher ; dans une falaise, la case sous la paroi sud en est la seconde rangée
+static u16 GetCliffTile(s32 x, s32 y)
+{
+    u16 tile = GetCliffRoleTile(x, y), above;
+
+    if (!gIsaacBiomes[ISAAC_BIOME].cliff || !IsBigRockAt(x, y - 1)
+     || tile == TILE_CLIFF_T || tile == TILE_CLIFF_TL || tile == TILE_CLIFF_TR
+     || tile == TILE_CLIFF_B || tile == TILE_CLIFF_BL || tile == TILE_CLIFF_BR)
+        return tile;
+    above = GetCliffRoleTile(x, y - 1);
+    if (above == TILE_CLIFF_T)
+        return TILE_CLIFF_T2;
+    if (above == TILE_CLIFF_IN_NE)
+        return TILE_CLIFF_IN_NE2;
+    if (above == TILE_CLIFF_IN_NW)
+        return TILE_CLIFF_IN_NW2;
+    return tile;
+}
+
+// Falaise : les couloirs sont des crêtes au-dessus du vide, raccordées à la salle comme les montagnes de General.
+// Couloir est-ouest : on marche sur sa crête, sa paroi (deux rangées) est dessous, le vide au-dessus ; contre la salle,
+// la case du couloir est le raccord de la crête au flanc. Couloir nord-sud : une bande de dessus de montagne bordée de
+// ses deux flancs ; au nord, ils se raccordent à la crête de la salle, au sud, la paroi de la salle s'arrête de chaque
+// côté. Renvoie 0 hors des abords des couloirs.
+static bool8 IsVerticalCorridorCell(s32 x, s32 y)
+{
+    return IsCorridorCell(x, y) && x >= ROOM_MIN_X && x <= ROOM_MAX_X;
+}
+
+static bool8 IsHorizontalCorridorCell(s32 x, s32 y)
+{
+    return IsCorridorCell(x, y) && (x < ROOM_MIN_X || x > ROOM_MAX_X);
+}
+
+static u16 GetCliffCorridorTile(s32 x, s32 y)
+{
+    s32 d;
+    bool32 left;
+
+    if (IsVerticalCorridorCell(x, y))
+        return TILE_BRIDGE_V;
+    if (IsHorizontalCorridorCell(x, y))
+        return (x == ROOM_MIN_X - 1) ? TILE_CLIFF_BL : ((x == ROOM_MAX_X + 1) ? TILE_CLIFF_BR : TILE_BRIDGE_H);
+    if (IsVerticalCorridorCell(x + 1, y) || IsVerticalCorridorCell(x - 1, y))  // flancs du couloir nord-sud
+    {
+        left = IsVerticalCorridorCell(x + 1, y);
+        if (y == ROOM_MIN_Y - 1)
+            return left ? TILE_CLIFF_BL : TILE_CLIFF_BR;
+        if (y == ROOM_MAX_Y + 1)
+            return left ? TILE_CLIFF_TR : TILE_CLIFF_TL;
+        if (y == ROOM_MAX_Y + 2)
+            return left ? TILE_CLIFF_IN_NW2 : TILE_CLIFF_IN_NE2;
+        return left ? TILE_CLIFF_R : TILE_CLIFF_L;
+    }
+    if (IsHorizontalCorridorCell(x, y + 1))  // au-dessus du couloir est-ouest
+        return (x == ROOM_MIN_X - 1) ? TILE_CLIFF_R : ((x == ROOM_MAX_X + 1) ? TILE_CLIFF_L : TILE_CLIFF_C);
+    for (d = 1; d <= 2; d++)  // sous le couloir est-ouest : sa paroi
+    {
+        if (!IsHorizontalCorridorCell(x, y - d))
+            continue;
+        if (x == ROOM_MIN_X - 1)
+            return TILE_CLIFF_R;
+        if (x == ROOM_MAX_X + 1)
+            return TILE_CLIFF_L;
+        if (x == ROOM_MIN_X - 2)
+            return (d == 1) ? TILE_CLIFF_TR : TILE_CLIFF_IN_NW2;
+        if (x == ROOM_MAX_X + 2)
+            return (d == 1) ? TILE_CLIFF_TL : TILE_CLIFF_IN_NE2;
+        return (d == 1) ? TILE_CLIFF_T : TILE_CLIFF_T2;
+    }
+    return 0;
 }
 
 static u8 GetDoorMat(u8 room)
@@ -966,6 +1058,10 @@ static void PaintRoom(void)
         {
             if (gIsaacBiomes[ISAAC_BIOME].trees && IsWallAt(x, y))
                 tile = GetTreeTile(x, y);
+            else if (gIsaacBiomes[ISAAC_BIOME].cliff && GetCliffCorridorTile(x, y) != 0)
+                tile = GetCliffCorridorTile(x, y);
+            else if (gIsaacBiomes[ISAAC_BIOME].cliff && IsWallAt(x, y))
+                tile = IsBigRockAt(x, y) ? GetCliffTile(x, y) : TILE_CLIFF_C;
             else if (IsBigRockAt(x, y))
                 tile = GetCliffTile(x, y);
             else if (IsWallAt(x, y))  // bout de mur trop fin pour une falaise : rocher isolé

@@ -188,7 +188,7 @@ static const struct IsaacTrainerType sForestBoss = ISAAC_TRAINER(LEADER, LEADER_
 
 #undef ISAAC_TRAINER
 
-#define ISAAC_BIOME(prefix, layout, mus, wea, isDark, isOcean, hasTrees, name) \
+#define ISAAC_BIOME(prefix, layout, mus, wea, isDark, isOcean, hasTrees, isCliff, name) \
     {                                                                     \
         .lines = s##prefix##Lines,                                        \
         .lineCount = ARRAY_COUNT(s##prefix##Lines),                       \
@@ -202,19 +202,20 @@ static const struct IsaacTrainerType sForestBoss = ISAAC_TRAINER(LEADER, LEADER_
         .dark = isDark,                                                   \
         .ocean = isOcean,                                                 \
         .trees = hasTrees,                                                \
+        .cliff = isCliff,                                                 \
     }
 
 const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT] =
 {
-    [ISAAC_BIOME_CAVE]   = ISAAC_BIOME(Cave,   ISAAC_ROOM,        VICTORY_ROAD,       NONE,           FALSE, FALSE, FALSE, "BROCK"),
-    [ISAAC_BIOME_DARK]   = ISAAC_BIOME(Dark,   ISAAC_ROOM,        MT_PYRE,            FOG_DIAGONAL,   FALSE, FALSE, FALSE, "PHOEBE"),
-    [ISAAC_BIOME_FIRE]   = ISAAC_BIOME(Fire,   ISAAC_ROOM_FIRE,   MT_CHIMNEY,         NONE,           FALSE, FALSE, FALSE, "FLANNERY"),
-    [ISAAC_BIOME_ICE]    = ISAAC_BIOME(Ice,    ISAAC_ROOM_ICE,    SEALED_CHAMBER,     NONE,           FALSE, FALSE, FALSE, "GLACIA"),
-    [ISAAC_BIOME_POISON] = ISAAC_BIOME(Poison, ISAAC_ROOM_POISON, RG_VIRIDIAN_FOREST, FOG_HORIZONTAL, FALSE, FALSE, FALSE, "KOGA"),
-    [ISAAC_BIOME_OCEAN]  = ISAAC_BIOME(Ocean,  ISAAC_ROOM_OCEAN,  SURF,               NONE,           FALSE, TRUE,  FALSE, "MISTY"),
-    [ISAAC_BIOME_DESERT] = ISAAC_BIOME(Desert, ISAAC_ROOM_DESERT, DESERT,             SANDSTORM,      FALSE, FALSE, FALSE, "GIOVANNI"),
-    [ISAAC_BIOME_CLIFF]  = ISAAC_BIOME(Cliff,  ISAAC_ROOM_CLIFF,  ROUTE119,           NONE,           FALSE, FALSE, FALSE, "WINONA"),
-    [ISAAC_BIOME_FOREST] = ISAAC_BIOME(Forest, ISAAC_ROOM_FOREST, PETALBURG_WOODS,    NONE,           FALSE, FALSE, TRUE,  "ERIKA"),
+    [ISAAC_BIOME_CAVE]   = ISAAC_BIOME(Cave,   ISAAC_ROOM,        VICTORY_ROAD,       NONE,           FALSE, FALSE, FALSE, FALSE, "BROCK"),
+    [ISAAC_BIOME_DARK]   = ISAAC_BIOME(Dark,   ISAAC_ROOM,        MT_PYRE,            FOG_DIAGONAL,   FALSE, FALSE, FALSE, FALSE, "PHOEBE"),
+    [ISAAC_BIOME_FIRE]   = ISAAC_BIOME(Fire,   ISAAC_ROOM_FIRE,   MT_CHIMNEY,         NONE,           FALSE, FALSE, FALSE, FALSE, "FLANNERY"),
+    [ISAAC_BIOME_ICE]    = ISAAC_BIOME(Ice,    ISAAC_ROOM_ICE,    SEALED_CHAMBER,     NONE,           FALSE, FALSE, FALSE, FALSE, "GLACIA"),
+    [ISAAC_BIOME_POISON] = ISAAC_BIOME(Poison, ISAAC_ROOM_POISON, RG_VIRIDIAN_FOREST, FOG_HORIZONTAL, FALSE, FALSE, FALSE, FALSE, "KOGA"),
+    [ISAAC_BIOME_OCEAN]  = ISAAC_BIOME(Ocean,  ISAAC_ROOM_OCEAN,  SURF,               NONE,           FALSE, TRUE,  FALSE, FALSE, "MISTY"),
+    [ISAAC_BIOME_DESERT] = ISAAC_BIOME(Desert, ISAAC_ROOM_DESERT, DESERT,             SANDSTORM,      FALSE, FALSE, FALSE, FALSE, "GIOVANNI"),
+    [ISAAC_BIOME_CLIFF]  = ISAAC_BIOME(Cliff,  ISAAC_ROOM_CLIFF,  ROUTE119,           NONE,           FALSE, FALSE, FALSE, TRUE,  "WINONA"),
+    [ISAAC_BIOME_FOREST] = ISAAC_BIOME(Forest, ISAAC_ROOM_FOREST, PETALBURG_WOODS,    NONE,           FALSE, FALSE, TRUE,  FALSE, "ERIKA"),
 };
 
 #undef ISAAC_BIOME

@@ -11,6 +11,8 @@ Tous ont la même numérotation de metatiles, pour que isaac_dungeon.c dessine l
   - 0x212, 0x213 : deux décorations d'une case du décor (rochers, glace...), posées dans les coins des salles ;
   - 0x214 à 0x219 : les demi-arbres des décors en forêt (arbres de 2 x 2 : haut, bas, bas avec le tronc ; gauche
     et droite), dans l'ordre de TREES ; les autres décors y mettent le centre de leurs murs (rôle C) ;
+  - 0x21A à 0x21E : les pièces de la falaise (EXTRAS) : seconde rangée de la paroi sud (T2 et ses deux bouts) et
+    couloirs en crêtes (nord-sud, est-ouest) ; les autres décors y mettent leur centre de mur ou leur sol ;
   - à partir de 0x240 (ISAAC_MAT_FIRST) : les paillassons devant les portes des salles spéciales : tapis rouge
     et or avec la tête du Pokémon de la mini-carte (Mewtwo boss, Pikachu trésor, Kecleon boutique) ou une Poké
     Ball (capture), découpées dans les sprites de face du jeu.
@@ -39,6 +41,9 @@ DECOS = ['DECO_1', 'DECO_2']  # décorations des coins de salle, à partir de DE
 DECO_FIRST = 0x212
 TREES = ['TREE_TOP_L', 'TREE_TOP_R', 'TREE_BOT_L', 'TREE_BOT_R', 'TREE_TRUNK_L', 'TREE_TRUNK_R']
 TREE_FIRST = 0x214
+EXTRAS = ['T2', 'IN_NE2', 'IN_NW2', 'BRIDGE_V', 'BRIDGE_H']
+EXTRA_FIRST = 0x21A
+EXTRA_DEFAULTS = {'T2': 'C', 'IN_NE2': 'C', 'IN_NW2': 'C', 'BRIDGE_V': 'FLOOR', 'BRIDGE_H': 'FLOOR'}
 ROLES = ['FLOOR', 'ROCK_1', 'ROCK_2', 'TL', 'T', 'TR', 'L', 'C', 'R', 'BL', 'B', 'BR', 'IN_SE', 'IN_SW', 'IN_NE', 'IN_NW']
 SIGN_METATILE = 0x210
 MAT_FIRST = 0x240
@@ -75,22 +80,31 @@ BIOME_TILESETS = [
     ('isaac_desert', 'mauville', dict(
         FLOOR=0x251, ROCK_1=0x0E1, ROCK_2=0x0E1, TL=0x080, T=0x081, TR=0x082, L=0x088, C=0x071, R=0x08A,
         BL=0x090, B=0x091, BR=0x092, IN_SE=0x074, IN_SW=0x089, IN_NE=0x0BF, IN_NW=0x0BE, DECO_1=0x0E0, DECO_2=0x0E2)),
-    # Falaise : la salle est le dessus d'une montagne de General, les murs sont l'herbe tout en bas. Les rôles
-    # sont inversés : chaque case de mur montre le bord de la montagne vu de l'extérieur (paroi au sud, crête
-    # au nord, flancs à l'ouest et à l'est ; coins de la salle = coins rentrants de la montagne et inversement).
+    # Falaise : la salle est le dessus d'une montagne de General, les murs sont l'herbe tout en bas (dans la brume,
+    # voir HAZE). Les rôles sont inversés : chaque case de mur montre le bord de la montagne vu de l'extérieur
+    # (paroi sud sur deux rangées T puis T2, deux étages de roche séparés par leur ombre ; crête au nord, flancs à
+    # l'ouest et à l'est ; coins de la salle = coins rentrants de la montagne et inversement). Les couloirs sont des
+    # crêtes rocheuses au-dessus du vide (voir GetCliffCorridorTile) : d'est en ouest, la crête du plateau ; du nord au
+    # sud, une bande du dessus du plateau entre ses deux flancs.
     ('isaac_cliff', 'fortree', dict(
-        FLOOR=0x071, ROCK_1=0x0E1, ROCK_2=0x0E1, TL=0x089, T=0x079, TR=0x07B, L=0x070, C=0x001, R=0x072,
-        BL=0x0BE, B=0x069, BR=0x0BF, IN_SE=0x068, IN_SW=0x06A, IN_NE=0x078, IN_NW=0x07A, DECO_1=0x0E0, DECO_2=0x0E2)),
+        FLOOR=0x071, ROCK_1=0x0E1, ROCK_2=0x0E1, TL=0x078, T=0x079, TR=0x07A, L=0x072, C=0x001, R=0x070,
+        BL=0x0BE, B=0x069, BR=0x0BF, IN_SE=0x068, IN_SW=0x06A, IN_NE=0x078, IN_NW=0x07A, DECO_1=0x0E0, DECO_2=0x0E2,
+        T2=0x079, IN_NE2=0x078, IN_NW2=0x07A, BRIDGE_V=0x071, BRIDGE_H=0x069)),
     # Forêt (Bois Clémentines) : herbe, murs en arbres de 2 x 2 de General (voir TREES), arbustes d'une case
     ('isaac_forest', 'rustboro', dict(
         FLOOR=0x001, ROCK_1=0x0C6, ROCK_2=0x0CE, TL=0x1D4, T=0x1D4, TR=0x1D4, L=0x1D4, C=0x1D4, R=0x1D4,
         BL=0x1D4, B=0x1D4, BR=0x1D4, IN_SE=0x1D4, IN_SW=0x1D4, IN_NE=0x1D4, IN_NW=0x1D4, DECO_1=0x0C6, DECO_2=0x0CE,
         TREE_TOP_L=0x1D4, TREE_TOP_R=0x1D5, TREE_BOT_L=0x1DC, TREE_BOT_R=0x1DD, TREE_TRUNK_L=0x1E4, TREE_TRUNK_R=0x1E5)),
 ]
-SURF_TILESETS = {'isaac_ocean'}
+SURF_TILESETS = {'isaac_ocean'}  # décors où le joueur surfe : tous les rôles ont le comportement du sol (eau)
 # Décors dont les décorations (rochers de General à deux calques) sont posées sur le sol du décor : on garde seulement
 # leur calque du dessus (le rocher) sur le calque du dessous du sol, au lieu de l'herbe ou du sable d'origine
-DECO_ON_FLOOR = {'isaac_desert', 'isaac_cliff'}  # décors où le joueur surfe : tous les rôles ont le comportement du sol (eau)
+DECO_ON_FLOOR = {'isaac_desert', 'isaac_cliff'}
+# Brume : palettes de General copiées dans le tileset avec leurs verts délavés (l'herbe vue de haut à travers les
+# nuages) ; toutes les pièces du décor qui utilisaient ces palettes passent sur leur copie
+HAZE = {'isaac_cliff': (2, 3)}
+HAZE_COLOR = (226, 236, 244)
+HAZE_AMOUNT = 0.55
 NUM_PRIMARY_TILES = 512
 NUM_SECONDARY_TILES = 512
 NUM_SECONDARY_METATILES = 512
@@ -186,6 +200,14 @@ def mat_with_head(name):
     return im, MAT_COLORS + colors
 
 
+def hazy(color):
+    """Couleur dans la brume : les verts (vert plus fort que rouge et bleu) se fondent dans HAZE_COLOR"""
+    r, g, b = color
+    if not (g > r + 20 and g > b):
+        return color
+    return tuple(round(c + (h - c) * HAZE_AMOUNT) for c, h in zip(color, HAZE_COLOR))
+
+
 def tiles_of(im):
     """Tuiles 8 x 8 d'une image (indices), ligne par ligne"""
     out = []
@@ -225,8 +247,10 @@ def build(out_name, source_name, mapping, mats):
     mapping = dict(mapping)
     for role in TREES:
         mapping.setdefault(role, mapping['C'])
+    for role in EXTRAS:
+        mapping.setdefault(role, mapping[EXTRA_DEFAULTS[role]])
     pal_remap = {}
-    for role in ROLES + DECOS + TREES:
+    for role in ROLES + DECOS + TREES + EXTRAS:
         if mapping[role] < NUM_PRIMARY_TILES:
             continue  # metatile de General : palettes de General
         m = mapping[role] - NUM_PRIMARY_TILES
@@ -234,7 +258,8 @@ def build(out_name, source_name, mapping, mats):
             pal = e >> 12
             if pal >= FIRST_SECONDARY_PALETTE and pal not in pal_remap:
                 pal_remap[pal] = FIRST_SECONDARY_PALETTE + len(pal_remap)
-    assert FIRST_SECONDARY_PALETTE + len(pal_remap) + len(mats) <= NUM_PALETTES, f'{out_name} : trop de palettes'
+    haze = HAZE.get(out_name, ())
+    assert FIRST_SECONDARY_PALETTE + len(pal_remap) + len(haze) + len(mats) <= NUM_PALETTES, f'{out_name} : trop de palettes'
 
     src_w = src_tiles.width // 8
     tile_remap = {}
@@ -304,9 +329,27 @@ def build(out_name, source_name, mapping, mats):
             m -= NUM_PRIMARY_TILES
             metatiles.extend(convert(e) for e in src_meta[m * 8: m * 8 + 8])
             attributes.append(src_attr[m])
+
+    # 2 quinquies. Pièces de la falaise (EXTRA_FIRST et suivantes) ; les couloirs ont le comportement du sol
+    assert len(attributes) == EXTRA_FIRST - NUM_PRIMARY_TILES
+    for role in EXTRAS:
+        m = mapping[role]
+        if m < NUM_PRIMARY_TILES:
+            metatiles.extend(primary_meta[m * 8: m * 8 + 8])
+            attributes.append(attributes[0] if role.startswith('BRIDGE') else primary_attr[m])
+        else:
+            m -= NUM_PRIMARY_TILES
+            metatiles.extend(convert(e) for e in src_meta[m * 8: m * 8 + 8])
+            attributes.append(attributes[0] if role.startswith('BRIDGE') else src_attr[m])
     if out_name in SURF_TILESETS:
         attributes[TREE_FIRST - NUM_PRIMARY_TILES:] = [(a & 0xF000) | floor_behavior
                                                        for a in attributes[TREE_FIRST - NUM_PRIMARY_TILES:]]
+
+    # 2 sexies. Brume : les pièces du décor passent sur les copies délavées de leurs palettes de General
+    haze_slots = {}
+    for k, pal in enumerate(haze):
+        haze_slots[pal] = FIRST_SECONDARY_PALETTE + len(pal_remap) + k
+        metatiles[:] = [((haze_slots[pal] << 12) | (e & 0x0FFF)) if e and (e >> 12) == pal else e for e in metatiles]
 
     # 3. Rien jusqu'aux paillassons
     while len(attributes) < MAT_FIRST - NUM_PRIMARY_TILES:
@@ -317,8 +360,11 @@ def build(out_name, source_name, mapping, mats):
     palettes = [[(0, 0, 0)] * 16 for _ in range(16)]
     for old, new in pal_remap.items():
         palettes[new] = src_pals[old]
+    primary_pals = [read_pal(os.path.join(PRIMARY, 'palettes', '%02d.pal' % i)) for i in range(16)]
+    for pal, slot in haze_slots.items():
+        palettes[slot] = [hazy(c) for c in primary_pals[pal]]
     for k, (images, colors) in enumerate(mats):
-        pal_num = FIRST_SECONDARY_PALETTE + len(pal_remap) + k
+        pal_num = FIRST_SECONDARY_PALETTE + len(pal_remap) + len(haze) + k
         palettes[pal_num] = [(0, 0, 0)] + colors
         for im in images:
             w, h = im.width // 16, im.height // 16
