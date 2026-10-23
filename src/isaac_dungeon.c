@@ -1496,6 +1496,7 @@ void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party)
     if (trainerId != TRAINER_ISAAC_BOSS || !IsIsaacTrainer(trainerId) || sRoomTrainer.partySize == 0)
         return;
     IsaacGoldenHeartStart();  // le Cœur Doré utilisé depuis le sac, s'il y en a un
+    IsaacBossEvolutionStart();
     ace = &party[sRoomTrainer.partySize - 1];
     for (n = boss->aceBoosts; n != 0; n--)
         IsaacAddOmniboost(ace);

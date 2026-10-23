@@ -5400,6 +5400,20 @@ static void TryEvolvePokemon(void)
             }
         }
     }
+    // Donjon : boss vaincu, le Pokémon qui a fait le plus de K.O. évolue (IsaacPickBossEvolution)
+    {
+        u32 slot;
+        enum Species species = IsaacPickBossEvolution(gBattleOutcome == B_OUTCOME_WON
+                                                   && TRAINER_BATTLE_PARAM.opponentA == TRAINER_ISAAC_BOSS, &slot);
+
+        if (species != SPECIES_NONE)
+        {
+            CloseMainBattleScreen();
+            gBattleMainFunc = WaitForEvoSceneToFinish;
+            EvolutionScene(&gParties[B_TRAINER_PLAYER][slot], species, FALSE, slot);
+            return;
+        }
+    }
     gTriedEvolving = 0;
     gLeveledUpInBattle = 0;
     gBattleMainFunc = ReturnFromBattleToOverworld;

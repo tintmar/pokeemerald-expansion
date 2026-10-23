@@ -72,6 +72,8 @@ struct IsaacBiome
     bool8 ocean;      // le joueur surfe sur toute la salle
     bool8 trees;      // murs en arbres de 2 x 2 (demi-arbres TILE_TREE_*) au lieu des rôles de falaise
     bool8 cliff;      // la salle est le haut d'une falaise : paroi sud sur deux rangées, couloirs en ponts
+
+    u8 types[2];      // les deux types principaux du biome (deux fois le même pour l'océan)
 };
 
 extern const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT];
@@ -106,6 +108,10 @@ bool8 IsaacUseGoldenHeart(void);
 void IsaacGoldenHeartReset(void);
 void IsaacGoldenHeartStart(void);
 void IsaacGoldenHeartEnd(void);
+void IsaacBossEvolutionStart(void);
+void IsaacRecordKO(enum BattlerId fainted);
+enum Species IsaacPickBossEvolution(bool8 won, u32 *outSlot);
+const u8 *IsaacGetEvolutionIntroText(void);
 enum Type IsaacGetMonGemType(struct Pokemon *mon);
 void IsaacGetMonTypes(struct Pokemon *mon, enum Type *types);
 bool8 IsaacUseTypeGem(struct Pokemon *mon, enum Type type);

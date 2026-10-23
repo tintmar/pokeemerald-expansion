@@ -1,8 +1,10 @@
 #include "global.h"
 #include "battle.h"
+#include "battle_message.h"
 #include "data.h"
 #include "event_data.h"
 #include "item.h"
+#include "isaac_dungeon.h"
 #include "isaac_pokemon.h"
 #include "party_menu.h"
 #include "pokemon.h"
@@ -565,6 +567,109 @@ void IsaacGoldenHeartEnd(void)
         return;
     FlagClear(FLAG_ISAAC_GOLDEN_HEART_ACTIVE);
     RecalculatePlayerPartyStats();
+}
+
+// ---------------------------------------------------------------------------
+// Évolution après le boss
+// ---------------------------------------------------------------------------
+
+// Pendant le combat contre le boss, chaque Pokémon de l'équipe compte les K.O. qu'il inflige. Boss vaincu, celui qui
+// n'est pas à son stade final et en a le plus évolue (à égalité, le premier de l'équipe ; il en faut au moins un ;
+// s'il a plusieurs évolutions, l'une d'elles au hasard).
+static EWRAM_DATA u8 sIsaacBossKOs[PARTY_SIZE] = {0};
+static EWRAM_DATA bool8 sIsaacBossEvolutionPending = FALSE;
+static EWRAM_DATA bool8 sIsaacBossEvolutionIntro = FALSE;
+
+// Début du combat contre le boss
+void IsaacBossEvolutionStart(void)
+{
+    memset(sIsaacBossKOs, 0, sizeof(sIsaacBossKOs));
+    sIsaacBossEvolutionPending = TRUE;
+}
+
+// Un Pokémon adverse est mis K.O. : le Pokémon du joueur qui attaquait le compte
+void IsaacRecordKO(enum BattlerId fainted)
+{
+    u32 slot;
+
+    if (!sIsaacBossEvolutionPending || IsOnPlayerSide(fainted) || !IsOnPlayerSide(gBattlerAttacker))
+        return;
+    slot = gBattlerPartyIndexes[gBattlerAttacker];
+    if (slot < PARTY_SIZE && sIsaacBossKOs[slot] < 255)
+        sIsaacBossKOs[slot]++;
+}
+
+// Nombre de types de l'espèce parmi les types principaux du biome courant
+static u32 CountBiomeTypes(enum Species species)
+{
+    const struct IsaacBiome *biome = &gIsaacBiomes[IsaacGetCurrentBiome()];
+    enum Type type1 = GetSpeciesType(species, 0), type2 = GetSpeciesType(species, 1);
+    u32 count = (type1 == biome->types[0] || type1 == biome->types[1]);
+
+    if (type2 != type1 && (type2 == biome->types[0] || type2 == biome->types[1]))
+        count++;
+    return count;
+}
+
+// Parmi plusieurs évolutions, ne garde que celles qui collent le mieux au biome (le plus de types en commun avec
+// lui) ; renvoie leur nombre
+static u32 KeepBiomeEvolutions(u16 *choices, u32 count)
+{
+    u32 best = 0, n = 0, i;
+
+    for (i = 0; i < count; i++)
+        best = max(best, CountBiomeTypes(choices[i]));
+    for (i = 0; i < count; i++)
+        if (CountBiomeTypes(choices[i]) == best)
+            choices[n++] = choices[i];
+    return n;
+}
+
+// Après le combat (une seule fois) : évolution du Pokémon qui a fait le plus de K.O. contre le boss, s'il a gagné.
+// Renvoie l'espèce visée et sa place dans l'équipe, SPECIES_NONE s'il n'y a rien à faire évoluer.
+enum Species IsaacPickBossEvolution(bool8 won, u32 *outSlot)
+{
+    u16 choices[ISAAC_MAX_EVOLUTION_CHOICES];
+    u32 i, best = PARTY_SIZE, count = 0, n;
+    struct Pokemon *mon;
+
+    if (!sIsaacBossEvolutionPending)
+        return SPECIES_NONE;
+    sIsaacBossEvolutionPending = FALSE;
+    if (!won)
+        return SPECIES_NONE;
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+    {
+        mon = &gParties[B_TRAINER_PLAYER][i];
+        if (sIsaacBossKOs[i] == 0 || GetMonData(mon, MON_DATA_IS_EGG)
+         || (best != PARTY_SIZE && sIsaacBossKOs[i] <= sIsaacBossKOs[best]))
+            continue;
+        n = IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), FALSE, choices, ARRAY_COUNT(choices));
+        if (n == 0)
+            continue;
+        best = i;
+        count = n;
+    }
+    if (best == PARTY_SIZE)
+        return SPECIES_NONE;
+    mon = &gParties[B_TRAINER_PLAYER][best];
+    IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), FALSE, choices, ARRAY_COUNT(choices));
+    count = KeepBiomeEvolutions(choices, count);
+    *outSlot = best;
+    i = Random() % count;
+    IsaacPrepareEvolutionMoves(mon, choices[i]);
+    sIsaacBossEvolutionIntro = TRUE;
+    return choices[i];
+}
+
+// Début de la scène d'évolution : texte d'annonce, qui explique l'évolution après le boss
+const u8 *IsaacGetEvolutionIntroText(void)
+{
+    if (!sIsaacBossEvolutionIntro)
+        return gText_PkmnIsEvolving;
+    sIsaacBossEvolutionIntro = FALSE;
+    return COMPOUND_STRING("{STR_VAR_1} knocked out the most\nPokémon in this fight!\p"
+                           "To reward its efforts…\pWhat? {STR_VAR_1} is evolving!");
 }
 
 // ---------------------------------------------------------------------------

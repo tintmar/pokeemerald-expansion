@@ -683,7 +683,7 @@ static void Task_EvolutionScene(u8 taskId)
     case EVOSTATE_INTRO_MSG:
         if (!gPaletteFade.active)
         {
-            StringExpandPlaceholders(gStringVar4, gText_PkmnIsEvolving);
+            StringExpandPlaceholders(gStringVar4, IsaacGetEvolutionIntroText());  // donjon : évolution après le boss
             BattlePutTextOnWindow(gStringVar4, B_WIN_MSG);
             gTasks[taskId].tState++;
         }
