@@ -792,13 +792,6 @@ static bool8 IsCorridorCell(s32 x, s32 y)
     return !IsWallAt(x, y) && (x < ROOM_MIN_X || x > ROOM_MAX_X || y < ROOM_MIN_Y || y > ROOM_MAX_Y);
 }
 
-// Mur pour le contour : dans une falaise, seul le rectangle de la salle dessine la montagne (les abords des couloirs
-// sont dessinés à part, voir GetCliffCorridorTile)
-static bool8 IsOutlineWallAt(s32 x, s32 y)
-{
-    return IsWallAt(x, y) || (gIsaacBiomes[ISAAC_BIOME].cliff && IsCorridorCell(x, y));
-}
-
 // Une case de mur est un « gros rocher » si elle fait partie d'un carré de mur 3 x 3
 static void ComputeBigRocks(void)
 {
@@ -813,7 +806,7 @@ static void ComputeBigRocks(void)
             full = TRUE;
             for (dy = 0; dy < 3 && full; dy++)
                 for (dx = 0; dx < 3 && full; dx++)
-                    full = IsOutlineWallAt(x + dx, y + dy);
+                    full = IsWallAt(x + dx, y + dy);
             if (!full)
                 continue;
             for (dy = 0; dy < 3; dy++)
@@ -902,30 +895,25 @@ static u16 GetTreeTile(s32 x, s32 y)
     return tile + rightHalf;
 }
 
-// Rôle de falaise d'une case de gros rocher ; dans une falaise, la case sous la paroi sud en est la seconde rangée
-static u16 GetCliffTile(s32 x, s32 y)
+// Falaise : la salle est le dessus d'un plateau dont les bords sont sur deux niveaux : deux rangées de paroi au sud,
+// deux flancs à l'ouest et à l'est (ROOM_MIN_X - 2 à ROOM_MAX_X + 2), la crête au nord. Renvoie 0 hors de ces bords.
+static u16 GetCliffPlatformTile(s32 x, s32 y)
 {
-    u16 tile = GetCliffRoleTile(x, y), above;
-
-    if (!gIsaacBiomes[ISAAC_BIOME].cliff || !IsBigRockAt(x, y - 1)
-     || tile == TILE_CLIFF_T || tile == TILE_CLIFF_TL || tile == TILE_CLIFF_TR
-     || tile == TILE_CLIFF_B || tile == TILE_CLIFF_BL || tile == TILE_CLIFF_BR)
-        return tile;
-    above = GetCliffRoleTile(x, y - 1);
-    if (above == TILE_CLIFF_T)
-        return TILE_CLIFF_T2;
-    if (above == TILE_CLIFF_IN_NE)
-        return TILE_CLIFF_IN_NE2;
-    if (above == TILE_CLIFF_IN_NW)
-        return TILE_CLIFF_IN_NW2;
-    return tile;
+    if (x < ROOM_MIN_X - 2 || x > ROOM_MAX_X + 2 || y < ROOM_MIN_Y - 1 || y > ROOM_MAX_Y + 2)
+        return 0;
+    if (y == ROOM_MIN_Y - 1)
+        return (x == ROOM_MIN_X - 2) ? TILE_CLIFF_IN_SE : ((x == ROOM_MAX_X + 2) ? TILE_CLIFF_IN_SW : TILE_CLIFF_B);
+    if (y <= ROOM_MAX_Y)
+        return (x < ROOM_MIN_X) ? TILE_CLIFF_R : ((x > ROOM_MAX_X) ? TILE_CLIFF_L : 0);
+    if (y == ROOM_MAX_Y + 1)
+        return (x == ROOM_MIN_X - 2) ? TILE_CLIFF_IN_NE : ((x == ROOM_MAX_X + 2) ? TILE_CLIFF_IN_NW : TILE_CLIFF_T);
+    return (x == ROOM_MIN_X - 2) ? TILE_CLIFF_IN_NE2 : ((x == ROOM_MAX_X + 2) ? TILE_CLIFF_IN_NW2 : TILE_CLIFF_T2);
 }
 
-// Falaise : les couloirs sont des crêtes au-dessus du vide, raccordées à la salle comme les montagnes de General.
-// Couloir est-ouest : on marche sur sa crête, sa paroi (deux rangées) est dessous, le vide au-dessus ; contre la salle,
-// la case du couloir est le raccord de la crête au flanc. Couloir nord-sud : une bande de dessus de montagne bordée de
-// ses deux flancs ; au nord, ils se raccordent à la crête de la salle, au sud, la paroi de la salle s'arrête de chaque
-// côté. Renvoie 0 hors des abords des couloirs.
+// Falaise : les couloirs sont des crêtes au-dessus du vide. Couloir est-ouest : on marche sur sa crête, sa paroi (deux
+// rangées) est dessous, le vide au-dessus ; il traverse à plat les deux flancs du plateau. Couloir nord-sud : une bande
+// de dessus de montagne bordée de ses deux flancs ; au nord, ils se raccordent à la crête de la salle, au sud, la paroi
+// de la salle s'arrête de chaque côté. Renvoie 0 hors des abords des couloirs.
 static bool8 IsVerticalCorridorCell(s32 x, s32 y)
 {
     return IsCorridorCell(x, y) && x >= ROOM_MIN_X && x <= ROOM_MAX_X;
@@ -944,7 +932,7 @@ static u16 GetCliffCorridorTile(s32 x, s32 y)
     if (IsVerticalCorridorCell(x, y))
         return TILE_BRIDGE_V;
     if (IsHorizontalCorridorCell(x, y))
-        return (x == ROOM_MIN_X - 1) ? TILE_CLIFF_BL : ((x == ROOM_MAX_X + 1) ? TILE_CLIFF_BR : TILE_BRIDGE_H);
+        return (x >= ROOM_MIN_X - 2 && x <= ROOM_MAX_X + 2) ? TILE_FLOOR : TILE_BRIDGE_H;
     if (IsVerticalCorridorCell(x + 1, y) || IsVerticalCorridorCell(x - 1, y))  // flancs du couloir nord-sud
     {
         left = IsVerticalCorridorCell(x + 1, y);
@@ -956,22 +944,13 @@ static u16 GetCliffCorridorTile(s32 x, s32 y)
             return left ? TILE_CLIFF_IN_NW2 : TILE_CLIFF_IN_NE2;
         return left ? TILE_CLIFF_R : TILE_CLIFF_L;
     }
+    if (x >= ROOM_MIN_X - 2 && x <= ROOM_MAX_X + 2)  // contre le plateau : ses flancs
+        return 0;
     if (IsHorizontalCorridorCell(x, y + 1))  // au-dessus du couloir est-ouest
-        return (x == ROOM_MIN_X - 1) ? TILE_CLIFF_R : ((x == ROOM_MAX_X + 1) ? TILE_CLIFF_L : TILE_CLIFF_C);
+        return TILE_CLIFF_C;
     for (d = 1; d <= 2; d++)  // sous le couloir est-ouest : sa paroi
-    {
-        if (!IsHorizontalCorridorCell(x, y - d))
-            continue;
-        if (x == ROOM_MIN_X - 1)
-            return TILE_CLIFF_R;
-        if (x == ROOM_MAX_X + 1)
-            return TILE_CLIFF_L;
-        if (x == ROOM_MIN_X - 2)
-            return (d == 1) ? TILE_CLIFF_TR : TILE_CLIFF_IN_NW2;
-        if (x == ROOM_MAX_X + 2)
-            return (d == 1) ? TILE_CLIFF_TL : TILE_CLIFF_IN_NE2;
-        return (d == 1) ? TILE_CLIFF_T : TILE_CLIFF_T2;
-    }
+        if (IsHorizontalCorridorCell(x, y - d))
+            return (d == 1) ? TILE_CLIFF_T : TILE_CLIFF_T2;
     return 0;
 }
 
@@ -1065,10 +1044,12 @@ static void PaintRoom(void)
                 tile = GetTreeTile(x, y);
             else if (gIsaacBiomes[ISAAC_BIOME].cliff && GetCliffCorridorTile(x, y) != 0)
                 tile = GetCliffCorridorTile(x, y);
+            else if (gIsaacBiomes[ISAAC_BIOME].cliff && GetCliffPlatformTile(x, y) != 0)
+                tile = GetCliffPlatformTile(x, y);
             else if (gIsaacBiomes[ISAAC_BIOME].cliff && IsWallAt(x, y))
-                tile = IsBigRockAt(x, y) ? GetCliffTile(x, y) : TILE_CLIFF_C;
+                tile = TILE_CLIFF_C;
             else if (IsBigRockAt(x, y))
-                tile = GetCliffTile(x, y);
+                tile = GetCliffRoleTile(x, y);
             else if (IsWallAt(x, y))  // bout de mur trop fin pour une falaise : rocher isolé
                 tile = (IsaacRandom() & 1) ? TILE_ROCK_1 : TILE_ROCK_2;
             else
