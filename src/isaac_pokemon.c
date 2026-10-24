@@ -187,11 +187,41 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 
 #define ISAAC_MAX_MEGA_STONES  (PARTY_SIZE * 2)  // Dracaufeu et Mewtwo ont deux Méga-Évolutions
 
-// Méga-Gemmes des Pokémon de l'équipe qu'on n'a pas encore (ni dans le sac, ni tenues) ; renvoie leur nombre
+// Méga-Évolution qui va au build du Pokémon, parmi les siennes (Dracaufeu, Mewtwo : X ou Y) : celle qui favorise le
+// plus l'Attaque pour un Pokémon physique (EVs d'Attaque au moins égaux à ceux d'Attaque Spéciale, voir son set),
+// l'Attaque Spéciale sinon ; renvoie son indice dans formChanges
+static u32 GetBuildMegaEvolution(struct Pokemon *mon, const struct FormChange *formChanges)
+{
+    bool32 physical = GetMonData(mon, MON_DATA_ATK_EV) >= GetMonData(mon, MON_DATA_SPATK_EV);
+    bool32 found = FALSE;
+    s32 score, bestScore = 0;
+    u32 j, best = 0;
+    const struct SpeciesInfo *mega;
+
+    for (j = 0; formChanges[j].method != FORM_CHANGE_TERMINATOR; j++)
+    {
+        if (formChanges[j].method != FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM)
+            continue;
+        mega = &gSpeciesInfo[formChanges[j].targetSpecies];
+        score = (s32)mega->baseAttack - (s32)mega->baseSpAttack;
+        if (!physical)
+            score = -score;
+        if (!found || score > bestScore)
+        {
+            found = TRUE;
+            best = j;
+            bestScore = score;
+        }
+    }
+    return best;
+}
+
+// Méga-Gemmes des Pokémon de l'équipe qu'on n'a pas encore (ni dans le sac, ni tenues) ; renvoie leur nombre. Pour
+// un Pokémon qui en a plusieurs, seulement celle de sa Méga-Évolution qui va à son build (GetBuildMegaEvolution).
 static u32 GetMissingPartyMegaStones(u16 *out)
 {
     const struct FormChange *formChanges;
-    u32 count = 0, i, j, k;
+    u32 count = 0, i, j, k, build;
     u16 stone;
 
     for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
@@ -199,9 +229,13 @@ static u32 GetMissingPartyMegaStones(u16 *out)
         if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
             continue;
         formChanges = GetSpeciesFormChanges(GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES));
-        for (j = 0; formChanges != NULL && formChanges[j].method != FORM_CHANGE_TERMINATOR; j++)
+        if (formChanges == NULL)
+            continue;
+        build = GetBuildMegaEvolution(&gParties[B_TRAINER_PLAYER][i], formChanges);
+        for (j = 0; formChanges[j].method != FORM_CHANGE_TERMINATOR; j++)
         {
-            if (formChanges[j].method != FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM || count == ISAAC_MAX_MEGA_STONES)
+            if (formChanges[j].method != FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM || j != build
+             || count == ISAAC_MAX_MEGA_STONES)
                 continue;
             stone = formChanges[j].param1;
             if (CheckBagHasItem(stone, 1))
