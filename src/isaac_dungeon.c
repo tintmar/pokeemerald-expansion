@@ -84,7 +84,7 @@
  * Ses Pokémon (nombre et set selon l'étage : sRoomTrainerParties ; catégorie et BST : palier de force de l'étage,
  * sStrengthLevels) sont tirés au hasard dans toutes
  * les lignées du biome, sans doublon (AddTrainerMon). Vaincu, il donne ISAAC_TRAINER_MONEY_PER_FLOOR x
- * la profondeur, et un objet de son butin (IsaacPickTrainerLoot) : à partir de l'étage 2, l'un des dresseurs de
+ * la profondeur, et un objet de son butin (IsaacPickTrainerLoot) : à chaque étage, l'un des dresseurs de
  * l'étage donne une Master Ball à la place, à coup sûr si on les bat tous.
  *
  * SALLE DE CAPTURE : des Pokémon sauvages différents du biome se promènent (3 aux étages 1-2, 4 aux étages
@@ -117,7 +117,7 @@ STATIC_ASSERT(FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H - 1 <= FLAG
 // Master Ball déjà donnée par un dresseur de l'étage (juste après les drapeaux des salles)
 #define FLAG_ISAAC_MASTER_BALL_DROPPED  (FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H)
 STATIC_ASSERT(FLAG_ISAAC_MASTER_BALL_DROPPED <= FLAG_UNUSED_0x2BB, IsaacMasterBallFlagIsUnused);
-#define ISAAC_MASTER_BALL_MIN_FLOOR  2  // à partir de cet étage, un dresseur de l'étage donne une Master Ball
+#define ISAAC_MASTER_BALL_MIN_FLOOR  1  // à partir de cet étage, un dresseur de l'étage donne une Master Ball
 // Pokémon de la salle de capture déjà combattus (un drapeau par emplacement, juste après)
 #define CAPTURE_MAX_MONS                5
 #define FLAG_ISAAC_CAPTURE_DONE_FIRST   (FLAG_ISAAC_MASTER_BALL_DROPPED + 1)
