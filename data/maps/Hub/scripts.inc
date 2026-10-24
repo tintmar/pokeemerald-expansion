@@ -19,8 +19,6 @@ Hub_EventScript_Hiker::
 	specialvar VAR_RESULT, CalculatePlayerPartyCount
 	goto_if_eq VAR_RESULT, 0, Hub_EventScript_HikerCancel
 	setflag FLAG_SYS_POKEMON_GET
-	msgbox Hub_Text_HikerMasterBall, MSGBOX_DEFAULT
-	giveitem ITEM_MASTER_BALL
 	msgbox Hub_Text_HikerSupplies, MSGBOX_DEFAULT
 	giveitem ITEM_MAX_RESTORE, 2
 	msgbox Hub_Text_HikerGoodLuck, MSGBOX_DEFAULT
@@ -60,12 +58,8 @@ Hub_Text_HikerCancel:
 	.string "Having second thoughts? Come back\n"
 	.string "when you've made up your mind.$"
 
-Hub_Text_HikerMasterBall:
-	.string "And take this: a MASTER BALL.\n"
-	.string "Save it for a truly special Pokémon.$"
-
 Hub_Text_HikerSupplies:
-	.string "And some healing for the road.$"
+	.string "Take some healing for the road.$"
 
 Hub_Text_HikerFirstBiome:
 	.string "I went down to take a look:\n"
