@@ -1219,24 +1219,24 @@ static enum IsaacCategory RollLevelCategory(const struct IsaacStrengthLevel *lev
 // chaque Pokémon est du palier de force de l'étage, avec un set tiré entre les deux bornes (au-delà du dernier étage,
 // on garde la dernière ligne). tierByCategory : le set n'est pas tiré mais suit la catégorie à l'envers (catégorie la
 // plus faible -> meilleur set). Le dernier Pokémon est un as : aceCategory 1 = la catégorie la plus haute du palier,
-// 2 = une au-dessus (catégorie 4 au plus ; 0 = tirée comme les autres), son set + aceTier, et aceBoosts Omniboosts
-// (IsaacBoostTrainerParty).
+// 2 = une au-dessus (catégorie 4 au plus ; 0 = tirée comme les autres), son set tiré comme les autres, et aceBoosts
+// Omniboosts (IsaacBoostTrainerParty).
 struct IsaacTrainerParty
 {
     u8 maxCount, maxCountPct;
     u8 minTier, maxTier;  // 0 = set 1
     bool8 tierByCategory;
-    u8 aceCategory, aceTier, aceBoosts;
+    u8 aceCategory, aceBoosts;
 };
 
 static const struct IsaacTrainerParty sRoomTrainerParties[] =
 {
-    { 2,  60, 0, 0, FALSE, 0, 0, 0 },  // étage 1 : pas d'as
-    { 2, 100, 0, 1, TRUE,  0, 1, 0 },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
-    { 3,  60, 1, 1, FALSE, 2, 0, 0 },
-    { 3,  75, 1, 2, FALSE, 1, 1, 0 },
-    { 4,  50, 1, 2, FALSE, 2, 0, 0 },
-    { 4,  70, 2, 2, FALSE, 1, 0, 1 },
+    { 2,  60, 0, 0, FALSE, 0, 0 },  // étage 1 : pas d'as
+    { 2, 100, 0, 1, TRUE,  0, 0 },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
+    { 3,  60, 1, 1, FALSE, 2, 0 },
+    { 3,  75, 1, 2, FALSE, 1, 0 },
+    { 4,  50, 1, 2, FALSE, 2, 0 },
+    { 4,  70, 2, 2, FALSE, 1, 1 },
 };
 
 // Équipe du boss selon l'étage. Principe : le boss garde toujours un cran d'avance sur les dresseurs
@@ -1513,12 +1513,8 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
 
         if (party->tierByCategory)
             tier = max((s32)party->maxTier - (s32)(category - level->minCategory), (s32)party->minTier);
-        if (i == count - 1)  // l'as
-        {
-            if (party->aceCategory != 0 && category < ISAAC_CATEGORY_LEGENDARY_SMALL)
-                category = min(level->maxCategory + party->aceCategory - 1, ISAAC_CATEGORY_4);
-            tier = min(tier + party->aceTier, ISAAC_SET_TIERS - 1);
-        }
+        if (i == count - 1 && party->aceCategory != 0 && category < ISAAC_CATEGORY_LEGENDARY_SMALL)  // l'as
+            category = min(level->maxCategory + party->aceCategory - 1, ISAAC_CATEGORY_4);
         AddTrainerMon(category, tier, roll, level->minBst);
     }
     return &sRoomTrainer;
@@ -1624,7 +1620,7 @@ const u8 *IsaacGetRoomTrainerIntro(const u8 *defaultText)
     GetCurrentCell(&x, &y);
     party = GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET));
     roll = RoomRandom(x, y, 0xACE0);
-    if ((party->aceCategory == 0 && party->aceTier == 0 && party->aceBoosts == 0) || (roll & 1))
+    if ((party->aceCategory == 0 && party->aceBoosts == 0) || (roll & 1))
         return text;
     trainer = GetIsaacTrainer(TRAINER_ISAAC_ROOM);
     StringCopy(gStringVar1, GetSpeciesName(trainer->party[trainer->partySize - 1].species));
