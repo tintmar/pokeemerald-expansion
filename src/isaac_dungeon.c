@@ -1250,7 +1250,7 @@ static const struct IsaacTrainerParty sRoomTrainerParties[] =
     { 3,  60, 1, 1, FALSE, 1, 0 },  // étage 3 : set 2, catégories 3-4
     { 3,  75, 1, 1, FALSE, 1, 0 },  // étage 4 : set 2, catégories 4-5
     { 4,  50, 2, 2, FALSE, 1, 0 },  // étage 5 : set 3, catégories 5-6
-    { 4,  70, 2, 2, FALSE, 1, 1 },  // étage 6 : set 3, catégories 6-7
+    { 4,  70, 2, 2, FALSE, 1, 0 },  // étage 6 : set 3, catégories 6-7
 };
 
 // Équipe du boss selon l'étage. Principe : le boss garde toujours un cran d'avance sur les dresseurs
@@ -1424,14 +1424,14 @@ static void GetBossGuardPos(s32 x, s32 y, bool8 aside, s32 *outX, s32 *outY, u32
 #define RIVAL_ENCOUNTERS   3
 #define RIVAL_MAX_MONS     5
 
-static const u8 sRivalJoinCount[RIVAL_ENCOUNTERS] = { 3, 1, 1 };
+static const u8 sRivalJoinCount[RIVAL_ENCOUNTERS] = { 2, 2, 1 };
 static const u8 sRivalJoinCategories[RIVAL_ENCOUNTERS][2] =
 {
     { ISAAC_CATEGORY_2, ISAAC_CATEGORY_3 },
     { ISAAC_CATEGORY_4, ISAAC_CATEGORY_5 },
     { ISAAC_CATEGORY_6, ISAAC_CATEGORY_7 },
 };
-static const u8 sRivalTiers[RIVAL_ENCOUNTERS] = { 1, 2, 3 };  // sets 2, 3 et 4
+static const u8 sRivalTiers[RIVAL_ENCOUNTERS] = { 1, 2, 2 };  // sets 2, 3 et 3
 
 static const struct IsaacTrainerType sRivalType =
     { TRAINER_CLASS_RIVAL_LATE_FRLG, TRAINER_PIC_RIVAL_LATE_FRLG, OBJ_EVENT_GFX_BLUE, TRAINER_GENDER_MALE, TRAINER_ENCOUNTER_MUSIC_MALE };
