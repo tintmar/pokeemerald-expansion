@@ -637,16 +637,15 @@ void IsaacGoldenHeartEnd(void)
 // terrain à la fin du tour). Combat gagné : le Pokémon qui n'est pas à son stade final et en a le plus évolue
 // (PROGRESSION_EVOLUTION_PCT % de chances, toujours contre le boss ; s'il a plusieurs évolutions, l'une
 // de celles qui collent le mieux au biome), et apprend en même temps une attaque de tier supérieur pour sa nouvelle
-// espèce (PickUpgradeMove). Sinon, le Pokémon qui a le plus de tours actifs apprend une attaque de tier supérieur
-// (PROGRESSION_MOVE_PCT %, toujours contre le boss), dans l'écran de l'évolution mais sans l'animation. Sinon, ce même
-// Pokémon gagne un cran d'EVs avec PROGRESSION_EVS_PCT % de chances (IncreaseMonEvs), avec un simple message dans la
-// même scène (à coup sûr si ses attaques sont déjà de tier moyen 4, avant tout boost). Si ce Pokémon est à son stade final, que ses attaques sont déjà de tier moyen 4 et que ses EVs sont au
-// maximum (rien d'autre à gagner), il a PROGRESSION_BOOST_PCT % de chances de recevoir un boost de stat au hasard, s'il
-// n'en a pas déjà un (IsaacHasBoost). Sinon, rien. À égalité, le premier de l'équipe.
+// espèce (PickUpgradeMove). Sinon, avec PROGRESSION_MOVE_PCT % de chances (toujours contre le boss), le Pokémon qui a le
+// plus de tours actifs apprend une attaque de tier supérieur, dans l'écran de l'évolution mais sans l'animation ; si la
+// moyenne de ses attaques est déjà de tier 4, il gagne à la place un cran d'EVs (IncreaseMonEvs), avec un simple
+// message dans la même scène. Sinon, avec PROGRESSION_EVS_PCT % de chances, ce même Pokémon gagne un cran d'EVs, ou, si
+// ses EVs sont au maximum, que son stade est final, que ses attaques sont de tier moyen 4 et qu'il n'a pas déjà de boost
+// (IsaacHasBoost), un boost de stat au hasard. Sinon, rien. À égalité, le premier de l'équipe.
 #define PROGRESSION_EVOLUTION_PCT  19  // à tous les étages
-#define PROGRESSION_MOVE_PCT       30
-#define PROGRESSION_EVS_PCT        20  // après l'échec des deux autres tirages
-#define PROGRESSION_BOOST_PCT      25  // Pokémon sans rien d'autre à gagner
+#define PROGRESSION_MOVE_PCT       25
+#define PROGRESSION_EVS_PCT        20  // après l'échec des deux autres tirages (EVs ou boost)
 
 enum
 {
@@ -750,21 +749,6 @@ static bool8 IncreaseMonEvs(struct Pokemon *mon)
     if (changed)
         CalculateMonStats(mon);
     return changed;
-}
-
-// Les EVs du Pokémon sont-ils tous au maximum de son dernier set (voir IncreaseMonEvs) ?
-static bool8 AreMonEvsMaxed(struct Pokemon *mon)
-{
-    static const u8 sEvData[] = { MON_DATA_HP_EV, MON_DATA_ATK_EV, MON_DATA_DEF_EV, MON_DATA_SPATK_EV, MON_DATA_SPDEF_EV, MON_DATA_SPEED_EV };
-    const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
-    u32 i;
-
-    if (set == NULL || set->ev == NULL)
-        return TRUE;
-    for (i = 0; i < ARRAY_COUNT(sEvData); i++)
-        if (GetMonData(mon, sEvData[i]) < set->ev[i])
-            return FALSE;
-    return TRUE;
 }
 
 // Tier d'une attaque pour la moyenne du Pokémon (sIsaacMoveTiers) : 0 pour une attaque situationnelle ou sans tier
@@ -965,6 +949,17 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
     return picked;
 }
 
+// Un cran d'EVs pour le Pokémon n° slot, avec la scène de message (FALSE si ses EVs sont déjà au maximum)
+static bool8 TryProgressionEvs(struct Pokemon *mon, u32 slot, u32 *outSlot)
+{
+    if (!IncreaseMonEvs(mon))
+        return FALSE;
+    memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
+    sIsaacProgressionScene = PROGRESSION_SCENE_EVS;
+    *outSlot = slot;
+    return TRUE;
+}
+
 // Après le combat (une seule fois) : évolution ou attaque de tier supérieur (voir plus haut). Renvoie l'espèce de la
 // scène d'évolution à lancer (celle du Pokémon pour un simple apprentissage) et sa place dans l'équipe, SPECIES_NONE
 // s'il ne se passe rien.
@@ -1009,33 +1004,34 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
     {
         mon = &gParties[B_TRAINER_PLAYER][active];
         species = GetMonData(mon, MON_DATA_SPECIES);
-        move = PickUpgradeMove(mon, species);
-        if (move != MOVE_NONE)
+        if (GetMonAverageMoveTier(mon) >= ISAAC_SET_TIERS)  // ses attaques n'ont plus rien à gagner : des EVs à la place
         {
-            memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
-            sIsaacEvolutionMoves[MAX_MON_MOVES] = move;
-            sIsaacProgressionScene = PROGRESSION_SCENE_MOVE;
-            *outSlot = active;
-            return species;
+            if (TryProgressionEvs(mon, active, outSlot))
+                return species;
+        }
+        else
+        {
+            move = PickUpgradeMove(mon, species);
+            if (move != MOVE_NONE)
+            {
+                memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
+                sIsaacEvolutionMoves[MAX_MON_MOVES] = move;
+                sIsaacProgressionScene = PROGRESSION_SCENE_MOVE;
+                *outSlot = active;
+                return species;
+            }
         }
     }
-    // un Pokémon dont les attaques sont déjà de tier moyen 4 n'a plus d'autre progression : ses EVs montent à coup sûr
-    if (active != PARTY_SIZE
-     && (GetMonAverageMoveTier(&gParties[B_TRAINER_PLAYER][active]) >= ISAAC_SET_TIERS || Random() % 100 < PROGRESSION_EVS_PCT)
-     && IncreaseMonEvs(&gParties[B_TRAINER_PLAYER][active]))
-    {
-        memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
-        sIsaacProgressionScene = PROGRESSION_SCENE_EVS;
-        *outSlot = active;
-        return GetMonData(&gParties[B_TRAINER_PLAYER][active], MON_DATA_SPECIES);
-    }
-    if (active != PARTY_SIZE)
+    if (active != PARTY_SIZE && Random() % 100 < PROGRESSION_EVS_PCT)
     {
         mon = &gParties[B_TRAINER_PLAYER][active];
         species = GetMonData(mon, MON_DATA_SPECIES);
+        if (TryProgressionEvs(mon, active, outSlot))
+            return species;
+        // EVs au maximum : un boost de stat au hasard, si le Pokémon est à son stade final, que ses attaques sont de
+        // tier moyen 4 et qu'il n'a pas déjà de boost
         if (IsaacGetEvolutionChoices(species, FALSE, choices, ARRAY_COUNT(choices)) == 0
-         && GetMonAverageMoveTier(mon) >= ISAAC_SET_TIERS && AreMonEvsMaxed(mon)
-         && !IsaacHasBoost(mon) && Random() % 100 < PROGRESSION_BOOST_PCT)
+         && GetMonAverageMoveTier(mon) >= ISAAC_SET_TIERS && !IsaacHasBoost(mon))
         {
             sIsaacBoostedStat = Random() % NUM_STATS;
             IsaacAddStatBoost(mon, sIsaacBoostedStat);
