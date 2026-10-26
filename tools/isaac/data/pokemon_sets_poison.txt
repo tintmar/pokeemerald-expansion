@@ -31,7 +31,7 @@ Variants: A = Physical (Bug Bite) / B = Speed control (Electroweb, String Shot)
        Moves: Tackle [T1]  /  String Shot [T1]  /  Bug Bite [T2]   (movepool limit: no other legal move fits this tier)
   [1B] Sticky worm
        Caterpie @ Oran Berry   |   Ability: Run Away   |   Nature: Docile
-       Moves: Tackle [T1]  /  String Shot [T1]  /  Electroweb [T2]   (movepool limit: no other legal move fits this tier)
+       Moves: Tackle [T1]  /  String Shot [T1]  /  Bug Bite [T2]   (movepool limit: no other legal move fits this tier)
   [2A] Biting worm
        Caterpie @ Silver Powder   |   Ability: Shield Dust   |   Nature: Lonely
        Moves: Bug Bite [T2]  /  Electroweb [T2]  /  Tackle [T1]  /  String Shot [T1]
@@ -97,19 +97,19 @@ Variants: A = Physical attacker / B = Support (Taunt, Super Fang, Tailwind)
        Moves: Wing Attack [T2]  /  Poison Fang [T2]  /  Feint Attack [T2]  /  Zen Headbutt [T3]
   [2B] Confusing bat
        Zubat @ Sitrus Berry   |   Ability: Infiltrator   |   Nature: Hasty
-       Moves: Confuse Ray [Sit]  /  Hypnosis [T2]  /  U-turn [T2]  /  Super Fang [Sit]
+       Moves: Confuse Ray [Sit]  /  Hypnosis [T2]  /  U-turn [T2]  /  Cross Poison [T3]
   [3A] Diving bat
        Zubat @ Muscle Band   |   Ability: Inner Focus   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Crunch [T3]  /  Zen Headbutt [T3]  /  U-turn [T2]
   [3B] Taunting bat
        Zubat @ Black Sludge   |   Ability: Infiltrator   |   Nature: Timid
-       Moves: Taunt [Sit]  /  Roost [Sit]  /  Super Fang [Sit]  /  Toxic [Sit]
+       Moves: Taunt [Sit]  /  Roost [Sit]  /  Brave Bird [T4]  /  Toxic [Sit]
   [4A] Choice Band bat
        Zubat @ Choice Band   |   Ability: Inner Focus   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Leech Life [T4]  /  Crunch [T3]  /  U-turn [T2]
   [4B] Tailwind lead
        Zubat @ Focus Sash   |   Ability: Infiltrator   |   Nature: Timid
-       Moves: Taunt [Sit]  /  Tailwind [Sit]  /  Super Fang [Sit]  /  U-turn [T2]
+       Moves: Taunt [Sit]  /  Tailwind [Sit]  /  Brave Bird [T4]  /  U-turn [T2]
 
 ====================================================================================================
 #165 LEDYBA  —  Bug/Flying  —  BST 265  —  Category 1
@@ -271,7 +271,7 @@ Variants: A = Defensive (Rapid Spin, Pain Split) / B = Offensive (Sturdy, Explos
        Moves: Tackle [T1]  /  Defense Curl [T1]  /  Sand Tomb [T1]  /  Bug Bite [T2]
   [1B] Coated bag
        Pineco @ (no item)   |   Ability: Overcoat   |   Nature: Docile
-       Moves: Tackle [T1]  /  Rock Smash [T1]  /  String Shot [T1]  /  Headbutt [T2]
+       Moves: Tackle [T1]  /  Rock Smash [T1]  /  String Shot [T1]  /  Bug Bite [T2]
   [2A] Spinning bag
        Pineco @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
        Moves: Rapid Spin [T2]  /  Bug Bite [T2]  /  Protect [Sit]  /  Pain Split [Sit]
@@ -280,16 +280,16 @@ Variants: A = Defensive (Rapid Spin, Pain Split) / B = Offensive (Sturdy, Explos
        Moves: Bug Bite [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Self-Destruct [T3]
   [3A] Spinning wall
        Pineco @ Leftovers   |   Ability: Sturdy   |   Nature: Relaxed
-       Moves: Gyro Ball [T3]  /  Pain Split [Sit]  /  Rapid Spin [T2]  /  Toxic [Sit]
+       Moves: Gyro Ball [T3]  /  Pain Split [Sit]  /  Lunge [T3]  /  Toxic [Sit]
   [3B] Explosive bag
        Pineco @ Muscle Band   |   Ability: Overcoat   |   Nature: Brave
        Moves: Rock Blast [T3]  /  Lunge [T3]  /  Gyro Ball [T3]  /  Explosion [T4]
   [4A] Helmet bag
        Pineco @ Rocky Helmet   |   Ability: Overcoat   |   Nature: Relaxed
-       Moves: Gyro Ball [T3]  /  Earthquake [T4]  /  Pain Split [Sit]  /  Rapid Spin [T2]
+       Moves: Gyro Ball [T3]  /  Earthquake [T4]  /  Pain Split [Sit]  /  Lunge [T3]
   [4B] Choice Band bomber
        Pineco @ Choice Band   |   Ability: Sturdy   |   Nature: Brave
-       Moves: Gyro Ball [T3]  /  Earthquake [T4]  /  Explosion [T4]  /  Rock Slide [T4]
+       Moves: Lunge [T3]  /  Earthquake [T4]  /  Explosion [T4]  /  Rock Slide [T4]
 
 ====================================================================================================
 #316 GULPIN  —  Poison  —  BST 302  —  Category 2
@@ -331,7 +331,7 @@ Variants: A = Special attacker (Tinted Lens) / B = Support (powders)
        Moves: Confusion [T1]  /  Infestation [T1]  /  Tackle [T1]  /  Supersonic [T1]
   [1B] Powder bug
        Venonat @ Oran Berry   |   Ability: Compound Eyes   |   Nature: Docile
-       Moves: Confusion [T1]  /  Poison Powder [T1]  /  Mega Drain [T1]  /  Psybeam [T2]
+       Moves: Confusion [T1]  /  Poison Powder [T1]  /  Infestation [T1]  /  Psybeam [T2]
   [2A] Tinted caster
        Venonat @ Silver Powder   |   Ability: Tinted Lens   |   Nature: Mild
        Moves: Struggle Bug [T2]  /  Psybeam [T2]  /  Acid Spray [T2]  /  Signal Beam [T3]
@@ -421,7 +421,7 @@ Variants: A = Defensive (Sticky Hold) / B = Offensive (Poison Touch)
        Moves: Pound [T1]  /  Poison Gas [T1]  /  Harden [T1]  /  Sludge [T2]
   [1B] Sticky blob
        Grimer @ (no item)   |   Ability: Sticky Hold   |   Nature: Docile
-       Moves: Lick [T1]  /  Mud-Slap [T1]  /  Infestation [T1]  /  Mega Drain [T1]
+       Moves: Lick [T1]  /  Sludge [T2]  /  Infestation [T1]  /  Mega Drain [T1]
   [2A] Haze blob
        Grimer @ Sitrus Berry   |   Ability: Sticky Hold   |   Nature: Impish
        Moves: Sludge [T2]  /  Shadow Punch [T2]  /  Haze [Sit]  /  Protect [Sit]
@@ -430,7 +430,7 @@ Variants: A = Defensive (Sticky Hold) / B = Offensive (Poison Touch)
        Moves: Shadow Punch [T2]  /  Rock Tomb [T2]  /  Power-Up Punch [T2]  /  Fire Punch [T3]
   [3A] Curse rester
        Grimer @ Black Sludge   |   Ability: Sticky Hold   |   Nature: Careful
-       Moves: Curse [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Payback [T3]
+       Moves: Curse [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Gunk Shot [T4]
   [3B] Elemental puncher
        Grimer @ Muscle Band   |   Ability: Poison Touch   |   Nature: Adamant
        Moves: Poison Jab [T4]  /  Fire Punch [T3]  /  Ice Punch [T3]  /  Thunder Punch [T3]
@@ -463,13 +463,13 @@ Variants: A = Adaptability attacker / B = Support (Wish, Baton Pass)
        Moves: Double-Edge [T4]  /  Dig [T3]  /  Iron Tail [T3]  /  Bite [T2]
   [3B] Wish passer
        Eevee @ Lum Berry   |   Ability: Anticipation   |   Nature: Calm
-       Moves: Wish [Sit]  /  Baton Pass [Sit]  /  Heal Bell [Sit]  /  Alluring Voice [T3]
+       Moves: Wish [Sit]  /  Baton Pass [Sit]  /  Heal Bell [Sit]  /  Hyper Voice [T4]
   [4A] Choice Band pup
        Eevee @ Choice Band   |   Ability: Adaptability   |   Nature: Adamant
        Moves: Double-Edge [T4]  /  Dig [T3]  /  Iron Tail [T3]  /  Quick Attack [T1]
   [4B] Calm Mind pup
        Eevee @ Leftovers   |   Ability: Anticipation   |   Nature: Calm
-       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Wish [Sit]  /  Protect [Sit]
+       Moves: Calm Mind [T4]  /  Hyper Voice [T4]  /  Wish [Sit]  /  Protect [Sit]
 
 ====================================================================================================
 #109 KOFFING  —  Poison  —  BST 340  —  Category 3
@@ -580,7 +580,7 @@ Variants: A = Defensive (Toxic, Super Fang) / B = Offensive (Hustle)
        Moves: Poison Fang [T2]  /  Bite [T2]  /  Chip Away [T2]  /  Stomping Tantrum [T3]
   [3A] Toxic guard
        Nidorina @ Black Sludge   |   Ability: Poison Point   |   Nature: Calm
-       Moves: Toxic [Sit]  /  Protect [Sit]  /  Super Fang [Sit]  /  Crunch [T3]
+       Moves: Toxic [Sit]  /  Protect [Sit]  /  Poison Jab [T4]  /  Crunch [T3]
   [3B] Hustle striker
        Nidorina @ Muscle Band   |   Ability: Hustle   |   Nature: Adamant
        Moves: Poison Jab [T4]  /  Crunch [T3]  /  Stomping Tantrum [T3]  /  Iron Tail [T3]
@@ -610,16 +610,16 @@ Variants: A = Stall (Roost, Toxic) / B = Utility (screens, Tailwind, Iron Fist)
        Moves: Power-Up Punch [T2]  /  Dizzy Punch [T2]  /  U-turn [T2]  /  Ice Punch [T3]
   [3A] Field cleaner
        Ledian @ Leftovers   |   Ability: Early Bird   |   Nature: Careful
-       Moves: Roost [Sit]  /  Defog [Sit]  /  Knock Off [T4]  /  Encore [Sit]
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Acrobatics [T3]  /  Encore [Sit]
   [3B] Screen pivot
        Ledian @ Light Clay   |   Ability: Swarm   |   Nature: Timid
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Tailwind [Sit]  /  U-turn [T2]
   [4A] Encore staller
        Ledian @ Rocky Helmet   |   Ability: Early Bird   |   Nature: Calm
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  Encore [Sit]  /  Knock Off [T4]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Encore [Sit]  /  Acrobatics [T3]
   [4B] Tailwind lead
        Ledian @ Focus Sash   |   Ability: Iron Fist   |   Nature: Jolly
-       Moves: Tailwind [Sit]  /  Encore [Sit]  /  Knock Off [T4]  /  Mach Punch [T4]
+       Moves: Tailwind [Sit]  /  Encore [Sit]  /  Knock Off [T4]  /  Acrobatics [T3]
 
 ====================================================================================================
 #193 YANMA  —  Bug/Flying  —  BST 390  —  Category 3
@@ -763,13 +763,13 @@ Variants: A = Defensive (Serene Grace Glare) / B = Offensive (Coil)
        Moves: Glare [Sit]  /  Roost [Sit]  /  Body Slam [T4]  /  Zen Headbutt [T3]
   [3B] Coil striker
        Dunsparce @ Muscle Band   |   Ability: Serene Grace   |   Nature: Adamant
-       Moves: Coil [T3]  /  Iron Tail [T3]  /  Dragon Rush [T3]  /  Rock Slide [T4]
+       Moves: Coil [T3]  /  Strength [T3]  /  Dragon Rush [T3]  /  Rock Slide [T4]
   [4A] Serene Grace wall
        Dunsparce @ Leftovers   |   Ability: Serene Grace   |   Nature: Careful
        Moves: Glare [Sit]  /  Roost [Sit]  /  Body Slam [T4]  /  Earthquake [T4]
   [4B] Coil sweeper
        Dunsparce @ Sitrus Berry   |   Ability: Serene Grace   |   Nature: Adamant
-       Moves: Coil [T3]  /  Rock Slide [T4]  /  Earthquake [T4]  /  Roost [Sit]
+       Moves: Coil [T3]  /  Double-Edge [T4]  /  Earthquake [T4]  /  Roost [Sit]
 
 ====================================================================================================
 #313 VOLBEAT  —  Bug  —  BST 430  —  Category 4
@@ -778,7 +778,7 @@ Variants: A = Prankster support / B = Tail Glow passer
 ----------------------------------------------------------------------------------------------------
   [1A] Firefly
        Volbeat @ Oran Berry   |   Ability: Prankster   |   Nature: Hardy
-       Moves: Tackle [T1]  /  Quick Attack [T1]  /  Flash [T1]  /  String Shot [T1]
+       Moves: U-turn [T2]  /  Quick Attack [T1]  /  Flash [T1]  /  String Shot [T1]
   [1B] Swarming firefly
        Volbeat @ (no item)   |   Ability: Swarm   |   Nature: Docile
        Moves: Tackle [T1]  /  Infestation [T1]  /  Mud-Slap [T1]  /  Bug Bite [T2]
@@ -793,7 +793,7 @@ Variants: A = Prankster support / B = Tail Glow passer
        Moves: Tailwind [Sit]  /  Encore [Sit]  /  Light Screen [Sit]  /  U-turn [T2]
   [3B] Tail Glow passer
        Volbeat @ Leftovers   |   Ability: Prankster   |   Nature: Bold
-       Moves: Tail Glow [T4]  /  Baton Pass [Sit]  /  Substitute [Sit]  /  Protect [Sit]
+       Moves: Tail Glow [T4]  /  Lunge [T3]  /  Substitute [Sit]  /  Protect [Sit]
   [4A] Prankster pivot
        Volbeat @ Mental Herb   |   Ability: Prankster   |   Nature: Bold
        Moves: Encore [Sit]  /  Thunder Wave [Sit]  /  Roost [Sit]  /  U-turn [T2]
@@ -808,19 +808,19 @@ Variants: A = Prankster support (Wish) / B = Tinted Lens attacker
 ----------------------------------------------------------------------------------------------------
   [1A] Glowing bug
        Illumise @ Oran Berry   |   Ability: Prankster   |   Nature: Hardy
-       Moves: Tackle [T1]  /  Play Nice [T1]  /  Sweet Scent [T1]  /  Disarming Voice [T1]
+       Moves: Silver Wind [T2]  /  Play Nice [T1]  /  Sweet Scent [T1]  /  Disarming Voice [T1]
   [1B] Shimmering bug
        Illumise @ (no item)   |   Ability: Tinted Lens   |   Nature: Docile
        Moves: Disarming Voice [T1]  /  Infestation [T1]  /  Quick Attack [T1]  /  Silver Wind [T2]
   [2A] Wishing bug
        Illumise @ Sitrus Berry   |   Ability: Prankster   |   Nature: Bold
-       Moves: Wish [Sit]  /  Protect [Sit]  /  Thunder Wave [Sit]  /  Draining Kiss [T2]
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Thunder Wave [Sit]  /  Silver Wind [T2]
   [2B] Tinted caster
        Illumise @ Silver Powder   |   Ability: Tinted Lens   |   Nature: Mild
        Moves: Silver Wind [T2]  /  Draining Kiss [T2]  /  Air Cutter [T2]  /  Dazzling Gleam [T3]
   [3A] Prankster wisher
        Illumise @ Leftovers   |   Ability: Prankster   |   Nature: Bold
-       Moves: Wish [Sit]  /  Encore [Sit]  /  Thunder Wave [Sit]  /  Dazzling Gleam [T3]
+       Moves: Wish [Sit]  /  Encore [Sit]  /  Thunder Wave [Sit]  /  Bug Buzz [T4]
   [3B] Growth caster
        Illumise @ Wise Glasses   |   Ability: Tinted Lens   |   Nature: Modest
        Moves: Growth [T3]  /  Dazzling Gleam [T3]  /  Bug Buzz [T4]  /  Moonlight [Sit]
@@ -847,7 +847,7 @@ Variants: A = Physical (Technician) / B = Special (Nasty Plot)
        Moves: Feint Attack [T2]  /  Aerial Ace [T2]  /  Covet [T2]  /  Hone Claws [T2]
   [2B] Elegant caster
        Persian @ Wise Glasses   |   Ability: Unnerve   |   Nature: Mild
-       Moves: Icy Wind [T2]  /  Water Pulse [T2]  /  Shock Wave [T2]  /  Work Up [T2]
+       Moves: Swift [T2]  /  Water Pulse [T2]  /  Shock Wave [T2]  /  Work Up [T2]
   [3A] Fake Out pivot
        Persian @ Muscle Band   |   Ability: Technician   |   Nature: Jolly
        Moves: Fake Out [Sit]  /  Lash Out [T3]  /  Seed Bomb [T3]  /  U-turn [T2]
@@ -913,7 +913,7 @@ Variants: A = Power attacker (fangs, Choice Band) / B = Utility (Glare, Haze)
        Moves: Poison Jab [T4]  /  Throat Chop [T3]  /  Stomping Tantrum [T3]  /  Seed Bomb [T3]
   [3B] Glare phazer
        Arbok @ Rocky Helmet   |   Ability: Shed Skin   |   Nature: Impish
-       Moves: Glare [Sit]  /  Pain Split [Sit]  /  Throat Chop [T3]  /  Dragon Tail [Sit]
+       Moves: Glare [Sit]  /  Pain Split [Sit]  /  Throat Chop [T3]  /  Gunk Shot [T4]
   [4A] Choice Band cobra
        Arbok @ Choice Band   |   Ability: Intimidate   |   Nature: Adamant
        Moves: Gunk Shot [T4]  /  Sucker Punch [T4]  /  Earthquake [T4]  /  Psychic Fangs [T4]
@@ -928,7 +928,7 @@ Variants: A = Setup (Quiver Dance) / B = Support (Sleep Powder, Toxic)
 ----------------------------------------------------------------------------------------------------
   [1A] Poison moth
        Venomoth @ (no item)   |   Ability: Shield Dust   |   Nature: Hardy
-       Moves: Confusion [T1]  /  Gust [T1]  /  Poison Powder [T1]  /  Psybeam [T2]
+       Moves: Confusion [T1]  /  Infestation [T1]  /  Poison Powder [T1]  /  Psybeam [T2]
   [1B] Dusky moth
        Venomoth @ Oran Berry   |   Ability: Tinted Lens   |   Nature: Docile
        Moves: Infestation [T1]  /  Supersonic [T1]  /  Mega Drain [T1]  /  Struggle Bug [T2]
@@ -964,13 +964,13 @@ Variants: A = Defensive (Roost, Defog, U-turn) / B = Offensive
        Moves: Quick Attack [T1]  /  Gust [T1]  /  Twister [T1]  /  Poison Fang [T2]
   [2A] Roosting bat
        Golbat @ Sitrus Berry   |   Ability: Inner Focus   |   Nature: Impish
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  U-turn [T2]  /  Confuse Ray [Sit]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Cross Poison [T3]  /  Confuse Ray [Sit]
   [2B] Crunching bat
        Golbat @ Poison Barb   |   Ability: Infiltrator   |   Nature: Lonely
        Moves: Poison Fang [T2]  /  Wing Attack [T2]  /  Steel Wing [T2]  /  Crunch [T3]
   [3A] Field cleaner
        Golbat @ Black Sludge   |   Ability: Inner Focus   |   Nature: Impish
-       Moves: Roost [Sit]  /  Defog [Sit]  /  Haze [Sit]  /  U-turn [T2]
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Haze [Sit]  /  Brave Bird [T4]
   [3B] Pursuit bat
        Golbat @ Muscle Band   |   Ability: Infiltrator   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Crunch [T3]  /  Pursuit [Sit]  /  U-turn [T2]
@@ -991,7 +991,7 @@ Variants: A = Physical (Swords Dance) / B = Special (Venoshock)
        Moves: Wrap [T1]  /  Lick [T1]  /  Infestation [T1]  /  Poison Tail [T2]
   [1B] Sneaky snake
        Seviper @ Oran Berry   |   Ability: Infiltrator   |   Nature: Docile
-       Moves: Bind [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]  /  Bite [T2]
+       Moves: Bind [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]  /  Poison Tail [T2]
   [2A] Coil snake
        Seviper @ Poison Barb   |   Ability: Shed Skin   |   Nature: Lonely
        Moves: Coil [T3]  /  Poison Fang [T2]  /  Brutal Swing [T2]  /  Breaking Swipe [T2]
@@ -1051,13 +1051,13 @@ Variants: A = Physical (Intimidate) / B = Special (Sap Sipper, Trick)
        Moves: Tackle [T1]  /  Astonish [T1]  /  Leer [T1]  /  Stomp [T2]
   [1B] Curious deer
        Stantler @ Oran Berry   |   Ability: Frisk   |   Nature: Docile
-       Moves: Double Kick [T1]  /  Sand Attack [T1]  /  Mud-Slap [T1]  /  Psybeam [T2]
+       Moves: Double Kick [T1]  /  Sand Attack [T1]  /  Mud-Slap [T1]  /  Swift [T2]
   [2A] Charging deer
        Stantler @ Muscle Band   |   Ability: Intimidate   |   Nature: Lonely
        Moves: Stomp [T2]  /  Bite [T2]  /  Bulldoze [T2]  /  Psyshield Bash [T3]
   [2B] Hypnotic deer
        Stantler @ Sitrus Berry   |   Ability: Sap Sipper   |   Nature: Mild
-       Moves: Psybeam [T2]  /  Charge Beam [T2]  /  Shock Wave [T2]  /  Hypnosis [T2]
+       Moves: Psybeam [T2]  /  Swift [T2]  /  Shock Wave [T2]  /  Hypnosis [T2]
   [3A] Kicking deer
        Stantler @ Expert Belt   |   Ability: Intimidate   |   Nature: Adamant
        Moves: Jump Kick [T3]  /  Throat Chop [T3]  /  Zen Headbutt [T3]  /  Body Slam [T4]
@@ -1120,7 +1120,7 @@ Variants: A = Pure Stall (Will-O-Wisp) / B = Defensive with utility (Neutralizin
        Moves: Sludge [T2]  /  Taunt [Sit]  /  Destiny Bond [Sit]  /  Haze [Sit]
   [3A] Burn staller
        Weezing @ Black Sludge   |   Ability: Levitate   |   Nature: Bold
-       Moves: Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Heat Wave [T3]  /  Protect [Sit]
+       Moves: Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Sludge Wave [T4]  /  Protect [Sit]
   [3B] Neutralizing lead
        Weezing @ Focus Sash   |   Ability: Neutralizing Gas   |   Nature: Bold
        Moves: Toxic [Sit]  /  Taunt [Sit]  /  Venoshock [T3]  /  Destiny Bond [Sit]
@@ -1180,7 +1180,7 @@ Variants: A = Defensive (Sticky Hold) / B = Offensive (Poison Touch)
        Moves: Shadow Punch [T2]  /  Power-Up Punch [T2]  /  Rock Tomb [T2]  /  Ice Punch [T3]
   [3A] Sticky staller
        Muk @ Black Sludge   |   Ability: Sticky Hold   |   Nature: Careful
-       Moves: Toxic [Sit]  /  Protect [Sit]  /  Pain Split [Sit]  /  Payback [T3]
+       Moves: Toxic [Sit]  /  Protect [Sit]  /  Pain Split [Sit]  /  Gunk Shot [T4]
   [3B] Poison Touch striker
        Muk @ Expert Belt   |   Ability: Poison Touch   |   Nature: Adamant
        Moves: Gunk Shot [T4]  /  Lash Out [T3]  /  Ice Punch [T3]  /  Self-Destruct [T3]
@@ -1201,13 +1201,13 @@ Variants: A = Setup (Moxie, Swords Dance) / B = Mold Breaker attacker
        Moves: Vise Grip [T1]  /  Harden [T1]  /  Bind [T1]  /  Bug Bite [T2]
   [1B] Pincer beetle
        Pinsir @ Oran Berry   |   Ability: Mold Breaker   |   Nature: Docile
-       Moves: Vise Grip [T1]  /  Quick Attack [T1]  /  Fury Attack [T1]  /  Focus Energy [T1]
+       Moves: Vise Grip [T1]  /  Quick Attack [T1]  /  Bug Bite [T2]  /  Focus Energy [T1]
   [2A] Moxie beetle
        Pinsir @ Silver Powder   |   Ability: Moxie   |   Nature: Lonely
        Moves: Bug Bite [T2]  /  Submission [T2]  /  Rock Tomb [T2]  /  X-Scissor [T3]
   [2B] Throwing beetle
        Pinsir @ Muscle Band   |   Ability: Mold Breaker   |   Nature: Naughty
-       Moves: Double Hit [T2]  /  Feint Attack [T2]  /  Bulldoze [T2]  /  Storm Throw [T3]
+       Moves: Bug Bite [T2]  /  Feint Attack [T2]  /  Bulldoze [T2]  /  Storm Throw [T3]
   [3A] Swords Dance beetle
        Pinsir @ Expert Belt   |   Ability: Moxie   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Superpower [T3]  /  High Horsepower [T3]
@@ -1300,13 +1300,13 @@ Variants: A = Pure Stall (Encore, Toxic) / B = Utility (Contrary Shell Smash, Po
        Moves: Power Trick [Sit]  /  Rollout [T2]  /  Bug Bite [T2]  /  Smack Down [T2]
   [3A] Toxic shell
        Shuckle @ Leftovers   |   Ability: Sturdy   |   Nature: Bold
-       Moves: Encore [Sit]  /  Toxic [Sit]  /  Protect [Sit]  /  Rest [Sit]
+       Moves: Stone Edge [T4]  /  Toxic [Sit]  /  Protect [Sit]  /  Rest [Sit]
   [3B] Contrary Shell Smash
        Shuckle @ Rocky Helmet   |   Ability: Contrary   |   Nature: Calm
-       Moves: Shell Smash [T4]  /  Toxic [Sit]  /  Rest [Sit]  /  Encore [Sit]
+       Moves: Shell Smash [T4]  /  Toxic [Sit]  /  Rest [Sit]  /  Rock Blast [T3]
   [4A] Encore staller
        Shuckle @ Mental Herb   |   Ability: Sturdy   |   Nature: Bold
-       Moves: Encore [Sit]  /  Toxic [Sit]  /  Knock Off [T4]  /  Rest [Sit]
+       Moves: Encore [Sit]  /  Toxic [Sit]  /  Stone Edge [T4]  /  Rest [Sit]
   [4B] Power Trick cannon
        Shuckle @ Iron Ball   |   Ability: Sturdy   |   Nature: Relaxed
        Moves: Power Trick [Sit]  /  Gyro Ball [T3]  /  Stone Edge [T4]  /  Earthquake [T4]
@@ -1351,7 +1351,7 @@ Variants: A = Defensive (Serene Grace, Glare) / B = Offensive (Coil, Calm Mind)
        Moves: Astonish [T1]  /  Bind [T1]  /  Mud-Slap [T1]  /  Headbutt [T2]
   [1B] Shy serpent
        Dudunsparce @ (no item)   |   Ability: Run Away   |   Nature: Docile
-       Moves: Astonish [T1]  /  Defense Curl [T1]  /  Rock Smash [T1]  /  Rock Tomb [T2]
+       Moves: Astonish [T1]  /  Defense Curl [T1]  /  Rock Smash [T1]  /  Take Down [T2]
   [2A] Flinching serpent
        Dudunsparce @ Sitrus Berry   |   Ability: Serene Grace   |   Nature: Careful
        Moves: Glare [Sit]  /  Roost [Sit]  /  Ancient Power [T2]  /  Headbutt [T2]
@@ -1360,7 +1360,7 @@ Variants: A = Defensive (Serene Grace, Glare) / B = Offensive (Coil, Calm Mind)
        Moves: Headbutt [T2]  /  Bite [T2]  /  Breaking Swipe [T2]  /  Dragon Rush [T3]
   [3A] Paraflinch serpent
        Dudunsparce @ Leftovers   |   Ability: Serene Grace   |   Nature: Calm
-       Moves: Roost [Sit]  /  Glare [Sit]  /  Air Slash [T4]  /  Hex [T3]
+       Moves: Roost [Sit]  /  Glare [Sit]  /  Boomburst [T4]  /  Hex [T3]
   [3B] Coil serpent
        Dudunsparce @ Expert Belt   |   Ability: Serene Grace   |   Nature: Adamant
        Moves: Coil [T3]  /  Hyper Drill [T4]  /  Dragon Rush [T3]  /  Stomping Tantrum [T3]
@@ -1507,7 +1507,7 @@ Variants: A = Physical attacker / B = Support (Taunt, Toxic, Nasty Plot)
        Moves: Dual Wingbeat [T2]  /  Poison Fang [T2]  /  Thief [T2]  /  Cross Poison [T3]
   [2B] Tailwind bat
        Crobat @ Sitrus Berry   |   Ability: Infiltrator   |   Nature: Hasty
-       Moves: U-turn [T2]  /  Tailwind [Sit]  /  Thief [T2]  /  Super Fang [Sit]
+       Moves: U-turn [T2]  /  Tailwind [Sit]  /  Thief [T2]  /  Cross Poison [T3]
   [3A] Coverage bat
        Crobat @ Expert Belt   |   Ability: Inner Focus   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Cross Poison [T3]  /  X-Scissor [T3]  /  U-turn [T2]
@@ -1621,7 +1621,7 @@ Variants: A = Defensive (Roost, Taunt, U-turn) / B = Offensive (Technician, Swor
        Moves: Peck [T1]  /  Disarming Voice [T1]  /  Poison Gas [T1]  /  Quick Attack [T1]
   [1B] Technician pheasant
        Fezandipiti @ (no item)   |   Ability: Technician   |   Nature: Docile
-       Moves: Double Kick [T1]  /  Quick Attack [T1]  /  Peck [T1]  /  Dual Wingbeat [T2]
+       Moves: Double Kick [T1]  /  Quick Attack [T1]  /  Peck [T1]  /  Poison Tail [T2]
   [2A] Charming pivot
        Fezandipiti @ Sitrus Berry   |   Ability: Toxic Chain   |   Nature: Calm
        Moves: Roost [Sit]  /  U-turn [T2]  /  Poison Tail [T2]  /  Charm [T2]
@@ -1681,13 +1681,13 @@ Variants: A = Physical (Swords Dance, Extreme Speed) / B = Special (Calm Mind)
        Moves: Rock Smash [T1]  /  Twister [T1]  /  Whirlpool [T1]  /  Headbutt [T2]
   [1B] Original one
        Arceus @ Oran Berry   |   Ability: Multitype   |   Nature: Docile
-       Moves: Mud-Slap [T1]  /  Flash [T1]  /  Rock Smash [T1]  /  Icy Wind [T2]
+       Moves: Mud-Slap [T1]  /  Flash [T1]  /  Rock Smash [T1]  /  Swift [T2]
   [2A] Honing alpha
        Arceus @ Silk Scarf   |   Ability: Multitype   |   Nature: Lonely
        Moves: Hone Claws [T2]  /  Headbutt [T2]  /  Rock Tomb [T2]  /  Shadow Claw [T3]
   [2B] Alpha caster
        Arceus @ Sitrus Berry   |   Ability: Multitype   |   Nature: Mild
-       Moves: Work Up [T2]  /  Shock Wave [T2]  /  Icy Wind [T2]  /  Ominous Wind [T2]
+       Moves: Work Up [T2]  /  Shock Wave [T2]  /  Swift [T2]  /  Ominous Wind [T2]
   [3A] Swords Dance alpha
        Arceus @ Muscle Band   |   Ability: Multitype   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Rock Climb [T3]  /  Shadow Claw [T3]  /  Stomping Tantrum [T3]

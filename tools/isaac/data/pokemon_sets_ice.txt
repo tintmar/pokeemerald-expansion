@@ -97,13 +97,13 @@ Variants: A = Physical attacker / B = Utility (pivot, Defog, Taunt)
        Moves: Pluck [T2]  /  Hone Claws [T2]  /  Thief [T2]  /  Drill Peck [T3]
   [2B] Pivot chick
        Rookidee @ Sitrus Berry   |   Ability: Unnerve   |   Nature: Hasty
-       Moves: U-turn [T2]  /  Fake Tears [T2]  /  Roost [Sit]  /  Taunt [Sit]
+       Moves: Drill Peck [T3]  /  Fake Tears [T2]  /  Roost [Sit]  /  Taunt [Sit]
   [3A] Feisty chick
        Rookidee @ Muscle Band   |   Ability: Keen Eye   |   Nature: Jolly
        Moves: Drill Peck [T3]  /  Retaliate [T3]  /  Assurance [T3]  /  Facade [T4]
   [3B] Sash utility
        Rookidee @ Focus Sash   |   Ability: Unnerve   |   Nature: Jolly
-       Moves: U-turn [T2]  /  Taunt [Sit]  /  Defog [Sit]  /  Roost [Sit]
+       Moves: Brave Bird [T4]  /  Taunt [Sit]  /  Defog [Sit]  /  Roost [Sit]
   [4A] Brave Bird chick
        Rookidee @ Life Orb   |   Ability: Big Pecks   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  U-turn [T2]  /  Roost [Sit]  /  Facade [T4]
@@ -307,7 +307,7 @@ Variants: A = Clear Body attacker / B = Light Metal (Iron Defense)
        Moves: Headbutt [T2]  /  Take Down [T2]  /  Zen Headbutt [T3]  /  Iron Defense [Sit]
   [2B] Iron wall
        Beldum @ Sitrus Berry   |   Ability: Light Metal   |   Nature: Impish
-       Moves: Headbutt [T2]  /  Take Down [T2]  /  Iron Defense [Sit]   (movepool limit: no other legal move fits this tier)
+       Moves: Zen Headbutt [T3]  /  Take Down [T2]  /  Iron Defense [Sit]   (movepool limit: no other legal move fits this tier)
   [3A] Iron striker
        Beldum @ Muscle Band   |   Ability: Clear Body   |   Nature: Adamant
        Moves: Zen Headbutt [T3]  /  Iron Head [T4]  /  Iron Defense [Sit]   (movepool limit: no other legal move fits this tier)
@@ -337,7 +337,7 @@ Variants: A = Pure Stall / B = Defensive with utility (Trick Room, screens)
        Moves: Psywave [T2]  /  Toxic [Sit]  /  Protect [Sit]  /  Confuse Ray [Sit]
   [2B] Screen mirror
        Bronzor @ Lum Berry   |   Ability: Heatproof   |   Nature: Relaxed
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Feint Attack [T2]
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Steel Roller [T3]
   [3A] Mirror staller
        Bronzor @ Leftovers   |   Ability: Levitate   |   Nature: Bold
        Moves: Toxic [Sit]  /  Protect [Sit]  /  Gyro Ball [T3]  /  Psychic [T4]
@@ -454,7 +454,7 @@ Variants: A = Defensive (Encore, status) / B = Offensive (physical)
        Moves: Water Gun [T1]  /  Pay Day [T1]  /  Whirlpool [T1]  /  Aurora Beam [T2]
   [2A] Encore pup
        Seel @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Calm
-       Moves: Aurora Beam [T2]  /  Encore [Sit]  /  Protect [Sit]  /  Toxic [Sit]
+       Moves: Muddy Water [T3]  /  Encore [Sit]  /  Protect [Sit]  /  Toxic [Sit]
   [2B] Pivot pup
        Seel @ Mystic Water   |   Ability: Hydration   |   Nature: Lonely
        Moves: Flip Turn [T2]  /  Headbutt [T2]  /  Fake Out [Sit]  /  Ice Spinner [T3]
@@ -493,7 +493,7 @@ Variants: A = Hustle attacker / B = Support (Aurora Veil, Tailwind, Memento)
        Moves: Ice Spinner [T3]  /  Drill Peck [T3]  /  Brick Break [T3]  /  Ice Shard [T4]
   [3B] Aurora Veil setter
        Delibird @ Light Clay   |   Ability: Insomnia   |   Nature: Jolly
-       Moves: Snowscape [Sit]  /  Aurora Veil [Sit]  /  Tailwind [Sit]  /  Memento [Sit]
+       Moves: Brave Bird [T4]  /  Aurora Veil [Sit]  /  Tailwind [Sit]  /  Memento [Sit]
   [4A] Hustle attacker
        Delibird @ Life Orb   |   Ability: Hustle   |   Nature: Jolly
        Moves: Triple Axel [T4]  /  Brave Bird [T4]  /  Ice Shard [T4]  /  Drill Run [T3]
@@ -607,7 +607,7 @@ Variants: A = Physical attacker / B = Support (Defog, Tailwind, Roost)
        Moves: Hone Claws [T2]  /  Pluck [T2]  /  Thief [T2]  /  Drill Peck [T3]
   [2B] Tailwind scout
        Corvisquire @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Hasty
-       Moves: U-turn [T2]  /  Tailwind [Sit]  /  Defog [Sit]  /  Roost [Sit]
+       Moves: Drill Peck [T3]  /  Tailwind [Sit]  /  Defog [Sit]  /  Roost [Sit]
   [3A] Raven striker
        Corvisquire @ Muscle Band   |   Ability: Big Pecks   |   Nature: Adamant
        Moves: Drill Peck [T3]  /  Payback [T3]  /  Revenge [T3]  /  Brave Bird [T4]
@@ -658,7 +658,7 @@ Variants: A = Defensive (Wish cleric) / B = Offensive (Belly Drum / Swords Dance
 ----------------------------------------------------------------------------------------------------
   [1A] Licking tongue
        Lickitung @ Oran Berry   |   Ability: Own Tempo   |   Nature: Hardy
-       Moves: Lick [T1]  /  Supersonic [T1]  /  Defense Curl [T1]  /  Rock Smash [T1]
+       Moves: Take Down [T2]  /  Supersonic [T1]  /  Defense Curl [T1]  /  Rock Smash [T1]
   [1B] Slobbering tongue
        Lickitung @ (no item)   |   Ability: Oblivious   |   Nature: Docile
        Moves: Lick [T1]  /  Water Gun [T1]  /  Acid [T1]  /  Headbutt [T2]
@@ -937,7 +937,7 @@ Variants: A = Special attacker / B = Support (Lovely Kiss, Taunt, Trick)
        Moves: Icy Wind [T2]  /  Bubble Beam [T2]  /  Draining Kiss [T2]  /  Expanding Force [T3]
   [2B] Kiss support
        Jynx @ Sitrus Berry   |   Ability: Forewarn   |   Nature: Hasty
-       Moves: Lovely Kiss [T3]  /  Encore [Sit]  /  Fake Tears [T2]  /  Draining Kiss [T2]
+       Moves: Lovely Kiss [T3]  /  Encore [Sit]  /  Fake Tears [T2]  /  Icy Wind [T2]
   [3A] Frost caster
        Jynx @ Wise Glasses   |   Ability: Dry Skin   |   Nature: Modest
        Moves: Frost Breath [T3]  /  Psyshock [T4]  /  Signal Beam [T3]  /  Grass Knot [T3]
@@ -973,10 +973,10 @@ Variants: A = Pure Stall / B = Defensive with utility (Defog, Taunt, Tailwind)
        Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Toxic [Sit]  /  Drill Peck [T3]
   [3B] Field cleaner
        Skarmory @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Impish
-       Moves: Roost [Sit]  /  Defog [Sit]  /  Taunt [Sit]  /  Body Press [T4]
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Taunt [Sit]  /  Brave Bird [T4]
   [4A] Iron Defense wall
        Skarmory @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Iron Defense [Sit]  /  Body Press [T4]
+       Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Iron Defense [Sit]  /  Brave Bird [T4]
   [4B] Tailwind support
        Skarmory @ Leftovers   |   Ability: Sturdy   |   Nature: Careful
        Moves: Roost [Sit]  /  Tailwind [Sit]  /  Brave Bird [T4]  /  Taunt [Sit]
@@ -1141,10 +1141,10 @@ Variants: A = Physical (Scrappy) / B = Special (Boomburst)
        Moves: Pound [T1]  /  Astonish [T1]  /  Howl [T1]  /  Bite [T2]
   [1B] Blaring kid
        Exploud @ Oran Berry   |   Ability: Soundproof   |   Nature: Docile
-       Moves: Disarming Voice [T1]  /  Whirlpool [T1]  /  Smokescreen [T1]  /  Icy Wind [T2]
+       Moves: Disarming Voice [T1]  /  Whirlpool [T1]  /  Smokescreen [T1]  /  Round [T2]
   [2A] Elemental fangs
        Exploud @ Muscle Band   |   Ability: Scrappy   |   Nature: Lonely
-       Moves: Fire Fang [T2]  /  Ice Fang [T2]  /  Thunder Fang [T2]  /  Crunch [T3]
+       Moves: Take Down [T2]  /  Ice Fang [T2]  /  Thunder Fang [T2]  /  Crunch [T3]
   [2B] Loud caster
        Exploud @ Sitrus Berry   |   Ability: Scrappy   |   Nature: Rash
        Moves: Round [T2]  /  Incinerate [T2]  /  Water Pulse [T2]  /  Extrasensory [T3]
@@ -1210,13 +1210,13 @@ Variants: A = Defensive (Defog, Body Press) / B = Offensive (Bulk Up)
        Moves: Hone Claws [T2]  /  Steel Wing [T2]  /  Dual Wingbeat [T2]  /  Power Trip [T3]
   [3A] Defog pivot
        Corviknight @ Leftovers   |   Ability: Pressure   |   Nature: Impish
-       Moves: Roost [Sit]  /  Defog [Sit]  /  Body Press [T4]  /  U-turn [T2]
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Body Press [T4]  /  Drill Peck [T3]
   [3B] Bulk Up knight
        Corviknight @ Muscle Band   |   Ability: Mirror Armor   |   Nature: Adamant
        Moves: Bulk Up [T4]  /  Drill Peck [T3]  /  Heavy Slam [T3]  /  Roost [Sit]
   [4A] Iron Defense wall
        Corviknight @ Rocky Helmet   |   Ability: Pressure   |   Nature: Impish
-       Moves: Roost [Sit]  /  Defog [Sit]  /  Body Press [T4]  /  Iron Defense [Sit]
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Brave Bird [T4]  /  Iron Defense [Sit]
   [4B] Bulk Up tank
        Corviknight @ Leftovers   |   Ability: Mirror Armor   |   Nature: Impish
        Moves: Bulk Up [T4]  /  Roost [Sit]  /  Brave Bird [T4]  /  Body Press [T4]
@@ -1537,7 +1537,7 @@ Variants: A = Power attacker (Punching Glove) / B = Setup and bulk (Iron Defense
        Moves: Hone Claws [T2]  /  Brutal Swing [T2]  /  Bulldoze [T2]  /  Zen Headbutt [T3]
   [2B] Screen legs
        Metagross @ Sitrus Berry   |   Ability: Light Metal   |   Nature: Hasty
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Rock Tomb [T2]  /  Headbutt [T2]
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Steel Roller [T3]  /  Headbutt [T2]
   [3A] Bullet Punch striker
        Metagross @ Muscle Band   |   Ability: Clear Body   |   Nature: Adamant
        Moves: Bullet Punch [T4]  /  Zen Headbutt [T3]  /  Hammer Arm [T3]  /  Ice Punch [T3]
@@ -1591,7 +1591,7 @@ Variants: A = Defensive (special wall) / B = Offensive (Rock Polish, Lock-On)
        Moves: Rock Smash [T1]  /  Mud-Slap [T1]  /  Defense Curl [T1]  /  Icy Wind [T2]
   [1B] Frozen golem
        Regice @ (no item)   |   Ability: Ice Body   |   Nature: Docile
-       Moves: Rock Smash [T1]  /  Confide [T1]  /  Mud-Slap [T1]  /  Shock Wave [T2]
+       Moves: Rock Smash [T1]  /  Confide [T1]  /  Mud-Slap [T1]  /  Icy Wind [T2]
   [2A] Paralysis golem
        Regice @ Sitrus Berry   |   Ability: Ice Body   |   Nature: Calm
        Moves: Icy Wind [T2]  /  Charge Beam [T2]  /  Thunder Wave [Sit]  /  Rest [Sit]
@@ -1627,13 +1627,13 @@ Variants: A = Pure Stall / B = Defensive with utility (paralysis, Iron Defense, 
        Moves: Toxic [Sit]  /  Protect [Sit]  /  Rest [Sit]  /  Heavy Slam [T3]
   [2B] Blocking golem
        Registeel @ Lum Berry   |   Ability: Clear Body   |   Nature: Impish
-       Moves: Thunder Wave [Sit]  /  Rock Tomb [T2]  /  Block [Sit]  /  Stomping Tantrum [T3]
+       Moves: Thunder Wave [Sit]  /  Rock Tomb [T2]  /  Block [Sit]  /  Steel Roller [T3]
   [3A] Steel staller
        Registeel @ Leftovers   |   Ability: Clear Body   |   Nature: Careful
        Moves: Toxic [Sit]  /  Protect [Sit]  /  Heavy Slam [T3]  /  Seismic Toss [T4]
   [3B] Iron Defense golem
        Registeel @ Rocky Helmet   |   Ability: Clear Body   |   Nature: Impish
-       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Thunder Wave [Sit]  /  Rest [Sit]
+       Moves: Iron Defense [Sit]  /  Iron Head [T4]  /  Thunder Wave [Sit]  /  Rest [Sit]
   [4A] Curse rester
        Registeel @ Leftovers   |   Ability: Clear Body   |   Nature: Careful
        Moves: Curse [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Iron Head [T4]

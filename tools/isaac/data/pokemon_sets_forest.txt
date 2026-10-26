@@ -61,7 +61,7 @@ Variants: A = Physical (Bug Bite) / B = Speed control (Electroweb, String Shot)
        Moves: Tackle [T1]  /  Poison Sting [T1]  /  String Shot [T1]  /  Bug Bite [T2]
   [1B] Running worm
        Wurmple @ Oran Berry   |   Ability: Run Away   |   Nature: Docile
-       Moves: Tackle [T1]  /  String Shot [T1]  /  Poison Sting [T1]  /  Electroweb [T2]
+       Moves: Tackle [T1]  /  String Shot [T1]  /  Poison Sting [T1]  /  Bug Bite [T2]
   [2A] Biting worm
        Wurmple @ Silver Powder   |   Ability: Shield Dust   |   Nature: Lonely
        Moves: Bug Bite [T2]  /  Electroweb [T2]  /  Tackle [T1]  /  Poison Sting [T1]
@@ -121,7 +121,7 @@ Variants: A = Pure Stall (Iron Defense) / B = Defensive with utility
        Moves: Tackle [T1]  /  Harden [T1]  /  String Shot [T1]  /  Bug Bite [T2]
   [1B] White cocoon
        Silcoon @ (no item)   |   Ability: Shed Skin   |   Nature: Docile
-       Moves: Tackle [T1]  /  Poison Sting [T1]  /  Harden [T1]  /  Electroweb [T2]
+       Moves: Tackle [T1]  /  Poison Sting [T1]  /  Harden [T1]  /  Bug Bite [T2]
   [2A] Iron cocoon
        Silcoon @ Sitrus Berry   |   Ability: Shed Skin   |   Nature: Impish
        Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Electroweb [T2]  /  Tackle [T1]
@@ -151,7 +151,7 @@ Variants: A = Pure Stall (Iron Defense) / B = Defensive with utility
        Moves: Tackle [T1]  /  Harden [T1]  /  Poison Sting [T1]  /  Bug Bite [T2]
   [1B] Hidden cocoon
        Cascoon @ Oran Berry   |   Ability: Shed Skin   |   Nature: Docile
-       Moves: String Shot [T1]  /  Harden [T1]  /  Tackle [T1]  /  Electroweb [T2]
+       Moves: String Shot [T1]  /  Harden [T1]  /  Tackle [T1]  /  Bug Bite [T2]
   [2A] Iron cocoon
        Cascoon @ Sitrus Berry   |   Ability: Shed Skin   |   Nature: Bold
        Moves: Iron Defense [Sit]  /  Electroweb [T2]  /  Bug Bite [T2]  /  Harden [T1]
@@ -217,7 +217,7 @@ Variants: A = Special attacker / B = Support (sleep, Stun Spore)
        Moves: Swift [T2]  /  Round [T2]  /  Cotton Spore [T2]  /  Grass Knot [T3]
   [2B] Paralysis bud
        Budew @ Sitrus Berry   |   Ability: Leaf Guard   |   Nature: Calm
-       Moves: Stun Spore [Sit]  /  Synthesis [Sit]  /  Cotton Spore [T2]  /  Swift [T2]
+       Moves: Stun Spore [Sit]  /  Synthesis [Sit]  /  Cotton Spore [T2]  /  Petal Dance [T3]
   [3A] Growth bud
        Budew @ Wise Glasses   |   Ability: Natural Cure   |   Nature: Modest
        Moves: Growth [T3]  /  Grass Knot [T3]  /  Extrasensory [T3]  /  Sludge Bomb [T4]
@@ -247,7 +247,7 @@ Variants: A = Pure Stall (Poison Heal) / B = Defensive with utility (Spore, Quic
        Moves: Leech Seed [Sit]  /  Stun Spore [Sit]  /  Magical Leaf [T2]  /  Protect [Sit]
   [2B] Slapping mushroom
        Shroomish @ Lum Berry   |   Ability: Quick Feet   |   Nature: Impish
-       Moves: Headbutt [T2]  /  Wake-Up Slap [T2]  /  Stun Spore [Sit]  /  Pounce [T2]
+       Moves: Headbutt [T2]  /  Wake-Up Slap [T2]  /  Stun Spore [Sit]  /  Seed Bomb [T3]
   [3A] Poison Heal staller
        Shroomish @ Toxic Orb   |   Ability: Poison Heal   |   Nature: Bold
        Moves: Leech Seed [Sit]  /  Protect [Sit]  /  Substitute [Sit]  /  Seed Bomb [T3]
@@ -256,7 +256,7 @@ Variants: A = Pure Stall (Poison Heal) / B = Defensive with utility (Spore, Quic
        Moves: Spore [T4]  /  Leech Seed [Sit]  /  Seed Bomb [T3]  /  Synthesis [Sit]
   [4A] Poison Heal wall
        Shroomish @ Toxic Orb   |   Ability: Poison Heal   |   Nature: Impish
-       Moves: Spore [T4]  /  Leech Seed [Sit]  /  Substitute [Sit]  /  Drain Punch [T4]
+       Moves: Spore [T4]  /  Leech Seed [Sit]  /  Substitute [Sit]  /  Seed Bomb [T3]
   [4B] Quick Feet mushroom
        Shroomish @ Flame Orb   |   Ability: Quick Feet   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Facade [T4]  /  Seed Bomb [T3]  /  Drain Punch [T4]
@@ -313,7 +313,7 @@ Variants: A = Attacker (Intimidate) / B = Support (Heal Bell, paralysis)
        Moves: Play Rough [T4]  /  Crunch [T3]  /  Fire Punch [T3]  /  Thunder Punch [T3]
   [3B] Bulky cleric
        Snubbull @ Leftovers   |   Ability: Intimidate   |   Nature: Careful
-       Moves: Heal Bell [Sit]  /  Thunder Wave [Sit]  /  Roar [Sit]  /  Crunch [T3]
+       Moves: Heal Bell [Sit]  /  Thunder Wave [Sit]  /  Roar [Sit]  /  Play Rough [T4]
   [4A] Bulk Up pup
        Snubbull @ Life Orb   |   Ability: Intimidate   |   Nature: Adamant
        Moves: Bulk Up [T4]  /  Play Rough [T4]  /  Close Combat [T4]  /  Earthquake [T4]
@@ -406,7 +406,7 @@ Variants: A = Defensive (Leech Seed, Stockpile) / B = Offensive (Shell Smash)
        Moves: Shell Smash [T4]  /  Seed Bomb [T3]  /  Crunch [T3]  /  Superpower [T3]
   [4A] Bulky turtle
        Turtwig @ Rocky Helmet   |   Ability: Shell Armor   |   Nature: Impish
-       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Iron Head [T4]  /  Toxic [Sit]
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Leaf Blade [T4]  /  Toxic [Sit]
   [4B] Sash smasher
        Turtwig @ Focus Sash   |   Ability: Overgrow   |   Nature: Adamant
        Moves: Shell Smash [T4]  /  Seed Bomb [T3]  /  Iron Head [T4]  /  Superpower [T3]
@@ -643,7 +643,7 @@ Variants: A = Attacker (Chlorophyll, Growth) / B = Support (Strength Sap, Leech 
        Moves: Growth [T3]  /  Grass Knot [T3]  /  Dazzling Gleam [T3]  /  Sludge Bomb [T4]
   [3B] Strength Sap weed
        Gloom @ Black Sludge   |   Ability: Stench   |   Nature: Bold
-       Moves: Strength Sap [Sit]  /  Sleep Powder [T3]  /  Pollen Puff [T3]  /  Toxic [Sit]
+       Moves: Strength Sap [Sit]  /  Sleep Powder [T3]  /  Leaf Storm [T4]  /  Toxic [Sit]
   [4A] Sun sweeper
        Gloom @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Modest
        Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Sludge Bomb [T4]  /  Moonblast [T4]
@@ -760,7 +760,7 @@ Variants: A = Physical (Unburden) / B = Special
        Moves: Magical Leaf [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Grass Pledge [T3]
   [3A] Unburden striker
        Grovyle @ Sitrus Berry   |   Ability: Unburden   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  Acrobatics [T3]  /  X-Scissor [T3]  /  Brick Break [T3]
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  X-Scissor [T3]  /  Brick Break [T3]
   [3B] Leaf Storm gecko
        Grovyle @ Wise Glasses   |   Ability: Overgrow   |   Nature: Timid
        Moves: Leaf Storm [T4]  /  Grass Knot [T3]  /  Dragon Breath [T2]  /  Synthesis [Sit]
@@ -787,7 +787,7 @@ Variants: A = Defensive (Leech Seed, Curse) / B = Offensive (Shell Smash, Swords
        Moves: Leech Seed [Sit]  /  Bulldoze [T2]  /  Protect [Sit]  /  Razor Leaf [T2]
   [2B] Crunching turtle
        Grotle @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
-       Moves: Bulldoze [T2]  /  Bite [T2]  /  Smack Down [T2]  /  Crunch [T3]
+       Moves: Bulldoze [T2]  /  Bite [T2]  /  Grassy Glide [T2]  /  Crunch [T3]
   [3A] Curse turtle
        Grotle @ Leftovers   |   Ability: Shell Armor   |   Nature: Impish
        Moves: Curse [Sit]  /  Seed Bomb [T3]  /  Heavy Slam [T3]  /  Synthesis [Sit]
@@ -796,7 +796,7 @@ Variants: A = Defensive (Leech Seed, Curse) / B = Offensive (Shell Smash, Swords
        Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Crunch [T3]  /  Rock Climb [T3]
   [4A] Bulky turtle
        Grotle @ Rocky Helmet   |   Ability: Shell Armor   |   Nature: Impish
-       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Body Slam [T4]  /  Toxic [Sit]
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Leaf Blade [T4]  /  Toxic [Sit]
   [4B] Shell Smash turtle
        Grotle @ White Herb   |   Ability: Overgrow   |   Nature: Adamant
        Moves: Shell Smash [T4]  /  Seed Bomb [T3]  /  Crunch [T3]  /  Iron Head [T4]
@@ -844,10 +844,10 @@ Variants: A = Pure Stall (Regenerator, Leech Seed) / B = Utility (sleep, Knock O
        Moves: Constrict [T1]  /  Confusion [T1]  /  Mega Drain [T1]  /  Sweet Scent [T1]
   [2A] Regenerating vines
        Tangela @ Sitrus Berry   |   Ability: Regenerator   |   Nature: Bold
-       Moves: Leech Seed [Sit]  /  Stun Spore [Sit]  /  Ancient Power [T2]  /  Protect [Sit]
+       Moves: Leech Seed [Sit]  /  Stun Spore [Sit]  /  Grass Knot [T3]  /  Protect [Sit]
   [2B] Rooted vines
        Tangela @ Lum Berry   |   Ability: Leaf Guard   |   Nature: Relaxed
-       Moves: Slam [T2]  /  Tickle [T2]  /  Stun Spore [Sit]  /  Ingrain [Sit]
+       Moves: Seed Bomb [T3]  /  Tickle [T2]  /  Stun Spore [Sit]  /  Ingrain [Sit]
   [3A] Leech Seed staller
        Tangela @ Leftovers   |   Ability: Regenerator   |   Nature: Bold
        Moves: Leech Seed [Sit]  /  Sleep Powder [T3]  /  Giga Drain [T4]  /  Synthesis [Sit]
@@ -874,19 +874,19 @@ Variants: A = Protean attacker / B = Bulky utility (Color Change, Recover)
        Moves: Astonish [T1]  /  Fury Swipes [T1]  /  Bind [T1]  /  Dizzy Punch [T2]
   [2A] Protean brawler
        Kecleon @ Silk Scarf   |   Ability: Protean   |   Nature: Lonely
-       Moves: Feint Attack [T2]  /  Power-Up Punch [T2]  /  Rock Tomb [T2]  /  Shadow Claw [T3]
+       Moves: Feint Attack [T2]  /  Headbutt [T2]  /  Rock Tomb [T2]  /  Shadow Claw [T3]
   [2B] Recovering swapper
        Kecleon @ Sitrus Berry   |   Ability: Color Change   |   Nature: Calm
-       Moves: Thunder Wave [Sit]  /  Recover [Sit]  /  Feint Attack [T2]  /  Psybeam [T2]
+       Moves: Thunder Wave [Sit]  /  Recover [Sit]  /  Mega Kick [T3]  /  Psybeam [T2]
   [3A] Protean striker
        Kecleon @ Muscle Band   |   Ability: Protean   |   Nature: Adamant
-       Moves: Shadow Sneak [T4]  /  Brick Break [T3]  /  Ice Punch [T3]  /  Fire Punch [T3]
+       Moves: Shadow Sneak [T4]  /  Mega Kick [T3]  /  Ice Punch [T3]  /  Fire Punch [T3]
   [3B] Bulky swapper
        Kecleon @ Leftovers   |   Ability: Color Change   |   Nature: Careful
-       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Knock Off [T4]  /  Shadow Claw [T3]
+       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Knock Off [T4]  /  Mega Kick [T3]
   [4A] Protean attacker
        Kecleon @ Life Orb   |   Ability: Protean   |   Nature: Adamant
-       Moves: Shadow Sneak [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]  /  Drain Punch [T4]
+       Moves: Double-Edge [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]  /  Drain Punch [T4]
   [4B] Choice Scarf trickster
        Kecleon @ Choice Scarf   |   Ability: Protean   |   Nature: Jolly
        Moves: Trick [Sit]  /  Knock Off [T4]  /  Drain Punch [T4]  /  Return [T4]
@@ -910,7 +910,7 @@ Variants: A = Attacker (Intimidate, Quick Feet) / B = Bulky support (Heal Bell, 
        Moves: Charm [T2]  /  Roar [Sit]  /  Bite [T2]  /  Thunder Wave [Sit]
   [3A] Quick Feet bulldog
        Granbull @ Flame Orb   |   Ability: Quick Feet   |   Nature: Adamant
-       Moves: Facade [T4]  /  Crunch [T3]  /  Superpower [T3]  /  Ice Punch [T3]
+       Moves: Play Rough [T4]  /  Crunch [T3]  /  Superpower [T3]  /  Ice Punch [T3]
   [3B] Bulk Up rester
        Granbull @ Leftovers   |   Ability: Intimidate   |   Nature: Careful
        Moves: Bulk Up [T4]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Crunch [T3]
@@ -937,7 +937,7 @@ Variants: A = Setup (Swords Dance) / B = Support (sleep, Leech Seed)
        Moves: Razor Leaf [T2]  /  Bite [T2]  /  Bug Bite [T2]  /  Crunch [T3]
   [2B] Seeding trap
        Carnivine @ Sitrus Berry   |   Ability: Levitate   |   Nature: Impish
-       Moves: Leech Seed [Sit]  /  Stun Spore [Sit]  /  Grass Whistle [T2]  /  Slam [T2]
+       Moves: Leech Seed [Sit]  /  Stun Spore [Sit]  /  Grass Whistle [T2]  /  Seed Bomb [T3]
   [3A] Swords Dance trap
        Carnivine @ Muscle Band   |   Ability: Levitate   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Crunch [T3]  /  Sleep Powder [T3]
@@ -961,7 +961,7 @@ Variants: A = Toxic Boost attacker / B = Immunity attacker (Swords Dance, Choice
        Moves: Scratch [T1]  /  Quick Attack [T1]  /  Leer [T1]  /  Fury Swipes [T1]
   [1B] Toxic ferret
        Zangoose @ Oran Berry   |   Ability: Toxic Boost   |   Nature: Docile
-       Moves: Metal Claw [T1]  /  Double Kick [T1]  /  Defense Curl [T1]  /  Hone Claws [T2]
+       Moves: Metal Claw [T1]  /  Scratch [T1]  /  Defense Curl [T1]  /  Hone Claws [T2]
   [2A] Clawing ferret
        Zangoose @ Silk Scarf   |   Ability: Immunity   |   Nature: Lonely
        Moves: Hone Claws [T2]  /  Double Hit [T2]  /  Low Sweep [T2]  /  Crush Claw [T3]
@@ -1150,7 +1150,7 @@ Variants: A = Defensive (Strength Sap, Aromatherapy) / B = Offensive (sun, Growt
        Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Round [T2]  /  Petal Dance [T3]
   [3A] Cleric flower
        Vileplume @ Black Sludge   |   Ability: Effect Spore   |   Nature: Bold
-       Moves: Strength Sap [Sit]  /  Aromatherapy [Sit]  /  Pollen Puff [T3]  /  Sleep Powder [T3]
+       Moves: Strength Sap [Sit]  /  Aromatherapy [Sit]  /  Leaf Storm [T4]  /  Sleep Powder [T3]
   [3B] Sun flower
        Vileplume @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Modest
        Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Weather Ball [T4]  /  Growth [T3]
@@ -1207,13 +1207,13 @@ Variants: A = Setup (Quiver Dance) / B = Support (Healer, Strength Sap) and sun
        Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Trailblaze [T2]  /  Dazzling Gleam [T3]
   [2B] Healer dancer
        Bellossom @ Sitrus Berry   |   Ability: Healer   |   Nature: Calm
-       Moves: Leech Seed [Sit]  /  Moonlight [Sit]  /  Stun Spore [Sit]  /  Encore [Sit]
+       Moves: Leech Seed [Sit]  /  Moonlight [Sit]  /  Stun Spore [Sit]  /  Petal Dance [T3]
   [3A] Quiver Dance dancer
        Bellossom @ Wise Glasses   |   Ability: Chlorophyll   |   Nature: Modest
        Moves: Quiver Dance [T4]  /  Grass Knot [T3]  /  Dazzling Gleam [T3]  /  Strength Sap [Sit]
   [3B] Strength Sap dancer
        Bellossom @ Leftovers   |   Ability: Healer   |   Nature: Calm
-       Moves: Strength Sap [Sit]  /  Leech Seed [Sit]  /  Pollen Puff [T3]  /  Encore [Sit]
+       Moves: Strength Sap [Sit]  /  Leech Seed [Sit]  /  Leaf Storm [T4]  /  Encore [Sit]
   [4A] Quiver Dance sweeper
        Bellossom @ Life Orb   |   Ability: Chlorophyll   |   Nature: Modest
        Moves: Quiver Dance [T4]  /  Giga Drain [T4]  /  Moonblast [T4]  /  Strength Sap [Sit]
@@ -1360,7 +1360,7 @@ Variants: A = Defensive (screens, Aromatherapy) / B = Offensive (Swords Dance)
        Moves: Razor Leaf [T2]  /  Bulldoze [T2]  /  Headbutt [T2]  /  Petal Blizzard [T3]
   [3A] Screen setter
        Meganium @ Light Clay   |   Ability: Leaf Guard   |   Nature: Bold
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Dragon Tail [Sit]  /  Synthesis [Sit]
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Leaf Blade [T4]  /  Synthesis [Sit]
   [3B] Swords Dance dino
        Meganium @ Expert Belt   |   Ability: Overgrow   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Petal Blizzard [T3]  /  Stomping Tantrum [T3]  /  Rock Climb [T3]
@@ -1423,7 +1423,7 @@ Variants: A = Setup (Swords Dance) / B = Support (Wish, Heal Bell) and Choice
        Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  X-Scissor [T3]  /  Iron Tail [T3]
   [3B] Cleric fox
        Leafeon @ Leftovers   |   Ability: Leaf Guard   |   Nature: Impish
-       Moves: Wish [Sit]  /  Heal Bell [Sit]  /  Synthesis [Sit]  /  Knock Off [T4]
+       Moves: Wish [Sit]  /  Heal Bell [Sit]  /  Synthesis [Sit]  /  Leaf Blade [T4]
   [4A] Swords Dance sweeper
        Leafeon @ Life Orb   |   Ability: Chlorophyll   |   Nature: Jolly
        Moves: Swords Dance [T4]  /  Leaf Blade [T4]  /  Knock Off [T4]  /  Double-Edge [T4]
@@ -1534,7 +1534,7 @@ Variants: A = Defensive (Regenerator) / B = Offensive (sun, Assault Vest)
        Moves: Mega Drain [T1]  /  Confusion [T1]  /  Sweet Scent [T1]  /  Ancient Power [T2]
   [2A] Rooted giant
        Tangrowth @ Sitrus Berry   |   Ability: Regenerator   |   Nature: Relaxed
-       Moves: Leech Seed [Sit]  /  Rock Tomb [T2]  /  Stun Spore [Sit]  /  Ingrain [Sit]
+       Moves: Leech Seed [Sit]  /  Seed Bomb [T3]  /  Stun Spore [Sit]  /  Ingrain [Sit]
   [2B] Slamming giant
        Tangrowth @ Miracle Seed   |   Ability: Leaf Guard   |   Nature: Lonely
        Moves: Slam [T2]  /  Brutal Swing [T2]  /  Bulldoze [T2]  /  Seed Bomb [T3]
@@ -1621,7 +1621,7 @@ Variants: A = Special attacker (Seed Flare) / B = Support (Leech Seed, Healing W
        Moves: Quick Attack [T1]  /  Disarming Voice [T1]  /  Sweet Kiss [T1]  /  Magical Leaf [T2]
   [1B] Flower hedgehog
        Shaymin @ Oran Berry   |   Ability: Natural Cure   |   Nature: Docile
-       Moves: Mud-Slap [T1]  /  Flash [T1]  /  Defense Curl [T1]  /  Air Cutter [T2]
+       Moves: Mud-Slap [T1]  /  Flash [T1]  /  Defense Curl [T1]  /  Magical Leaf [T2]
   [2A] Leafy caster
        Shaymin @ Miracle Seed   |   Ability: Natural Cure   |   Nature: Mild
        Moves: Magical Leaf [T2]  /  Air Cutter [T2]  /  Ominous Wind [T2]  /  Grass Knot [T3]
@@ -1633,7 +1633,7 @@ Variants: A = Special attacker (Seed Flare) / B = Support (Leech Seed, Healing W
        Moves: Growth [T3]  /  Grass Knot [T3]  /  Dazzling Gleam [T3]  /  Earth Power [T4]
   [3B] Healing hedgehog
        Shaymin @ Leftovers   |   Ability: Natural Cure   |   Nature: Calm
-       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Healing Wish [Sit]  /  Dazzling Gleam [T3]
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Healing Wish [Sit]  /  Leaf Storm [T4]
   [4A] Choice Specs hedgehog
        Shaymin @ Choice Specs   |   Ability: Natural Cure   |   Nature: Timid
        Moves: Seed Flare [T4]  /  Earth Power [T4]  /  Air Slash [T4]  /  Psychic [T4]
@@ -1693,7 +1693,7 @@ Variants: A = Setup (Geomancy, Calm Mind) / B = Attacker (Fairy Aura)
        Moves: Calm Mind [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Rest [Sit]
   [3B] Physical deer
        Xerneas @ Expert Belt   |   Ability: Fairy Aura   |   Nature: Adamant
-       Moves: Horn Leech [T4]  /  Night Slash [T3]  /  Zen Headbutt [T3]  /  Smart Strike [T3]
+       Moves: Play Rough [T4]  /  Night Slash [T3]  /  Zen Headbutt [T3]  /  Smart Strike [T3]
   [4A] Geomancy deer
        Xerneas @ Power Herb   |   Ability: Fairy Aura   |   Nature: Modest
        Moves: Geomancy [T4]  /  Moonblast [T4]  /  Focus Blast [T4]  /  Thunderbolt [T4]

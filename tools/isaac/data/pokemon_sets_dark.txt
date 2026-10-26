@@ -61,7 +61,7 @@ Variants: A = Physical attacker / B = Utility (Yawn, Taunt, Super Fang)
        Moves: Tackle [T1]  /  Howl [T1]  /  Sand Attack [T1]  /  Bite [T2]
   [1B] Barking pup
        Poochyena @ Oran Berry   |   Ability: Rattled   |   Nature: Docile
-       Moves: Tackle [T1]  /  Leer [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]
+       Moves: Tackle [T1]  /  Leer [T1]  /  Thief [T2]  /  Rock Smash [T1]
   [2A] Fang pup
        Poochyena @ Black Glasses   |   Ability: Quick Feet   |   Nature: Lonely
        Moves: Bite [T2]  /  Fire Fang [T2]  /  Ice Fang [T2]  /  Thunder Fang [T2]
@@ -118,10 +118,10 @@ Variants: A = Offensive (setup) / B = Status stall (Will-O-Wisp, Toxic)
 ----------------------------------------------------------------------------------------------------
   [1A] Empty shell
        Shedinja @ (no item)   |   Ability: Wonder Guard   |   Nature: Hardy
-       Moves: Scratch [T1]  /  Harden [T1]  /  Sand Attack [T1]  /  Fury Swipes [T1]
+       Moves: Scratch [T1]  /  Harden [T1]  /  Sand Attack [T1]  /  Skitter Smack [T2]
   [1B] Hollow husk
        Shedinja @ (no item)   |   Ability: Wonder Guard   |   Nature: Docile
-       Moves: Absorb [T1]  /  Metal Claw [T1]  /  String Shot [T1]  /  Gust [T1]
+       Moves: Silver Wind [T2]  /  Metal Claw [T1]  /  String Shot [T1]  /  Gust [T1]
   [2A] Haunted shell
        Shedinja @ Spell Tag   |   Ability: Wonder Guard   |   Nature: Lonely
        Moves: Bug Bite [T2]  /  Aerial Ace [T2]  /  Feint Attack [T2]  /  Shadow Claw [T3]
@@ -190,13 +190,13 @@ Variants: A = Defensive (Roost, phazing) / B = Offensive (special setup)
        Moves: Air Cutter [T2]  /  Psybeam [T2]  /  Ominous Wind [T2]  /  Extrasensory [T3]
   [3A] Night Shade staller
        Hoothoot @ Leftovers   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Toxic [Sit]  /  Night Shade [T4]
+       Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Toxic [Sit]  /  Hyper Voice [T4]
   [3B] Calm Mind owl
        Hoothoot @ Wise Glasses   |   Ability: Tinted Lens   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Extrasensory [T3]  /  Heat Wave [T3]  /  Roost [Sit]
   [4A] Owl wall
        Hoothoot @ Rocky Helmet   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Night Shade [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Defog [Sit]
+       Moves: Hyper Voice [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Defog [Sit]
   [4B] Nasty Plot owl
        Hoothoot @ Life Orb   |   Ability: Tinted Lens   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Air Slash [T4]  /  Psychic [T4]  /  Roost [Sit]
@@ -277,7 +277,7 @@ Variants: A = Physical attacker / B = Utility (Will-O-Wisp, Trick Room, Destiny 
        Moves: Feint Attack [T2]  /  Headbutt [T2]  /  Skitter Smack [T2]  /  Phantom Force [T3]
   [2B] Cursed puppet
        Shuppet @ Sitrus Berry   |   Ability: Frisk   |   Nature: Hasty
-       Moves: Will-O-Wisp [Sit]  /  Feint Attack [T2]  /  Confuse Ray [Sit]  /  Spite [Sit]
+       Moves: Will-O-Wisp [Sit]  /  Phantom Force [T3]  /  Confuse Ray [Sit]  /  Spite [Sit]
   [3A] Puppet haunter
        Shuppet @ Spell Tag   |   Ability: Cursed Body   |   Nature: Adamant
        Moves: Phantom Force [T3]  /  Lash Out [T3]  /  Shadow Sneak [T4]  /  Thunder Wave [Sit]
@@ -307,7 +307,7 @@ Variants: A = Pure Stall / B = Defensive with utility (Trick Room, Memento)
        Moves: Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Protect [Sit]  /  Ominous Wind [T2]
   [2B] Trick skull
        Duskull @ Shell Bell   |   Ability: Frisk   |   Nature: Relaxed
-       Moves: Haze [Sit]  /  Trick Room [Sit]  /  Confuse Ray [Sit]  /  Thief [T2]
+       Moves: Haze [Sit]  /  Trick Room [Sit]  /  Confuse Ray [Sit]  /  Phantom Force [T3]
   [3A] Hex staller
        Duskull @ Leftovers   |   Ability: Levitate   |   Nature: Bold
        Moves: Hex [T3]  /  Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Protect [Sit]
@@ -496,7 +496,7 @@ Variants: A = Defensive support / B = Offensive (special setup)
        Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Dazzling Gleam [T3]  /  Wish [Sit]
   [4A] Wish wall
        Drowzee @ Rocky Helmet   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Foul Play [T4]  /  Thunder Wave [Sit]  /  Wish [Sit]  /  Protect [Sit]
+       Moves: Zen Headbutt [T3]  /  Thunder Wave [Sit]  /  Wish [Sit]  /  Protect [Sit]
   [4B] Nasty Plot tapir
        Drowzee @ Life Orb   |   Ability: Inner Focus   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Psychic [T4]  /  Focus Blast [T4]  /  Shadow Ball [T4]
@@ -811,7 +811,7 @@ Variants: A = Moxie attacker / B = Utility (Intimidate, Yawn, Taunt)
        Moves: Tackle [T1]  /  Howl [T1]  /  Leer [T1]  /  Bite [T2]
   [1B] Tracking hound
        Mightyena @ Oran Berry   |   Ability: Quick Feet   |   Nature: Docile
-       Moves: Tackle [T1]  /  Sand Attack [T1]  /  Astonish [T1]  /  Odor Sleuth [T1]
+       Moves: Tackle [T1]  /  Sand Attack [T1]  /  Thief [T2]  /  Odor Sleuth [T1]
   [2A] Moxie hound
        Mightyena @ Black Glasses   |   Ability: Moxie   |   Nature: Lonely
        Moves: Headbutt [T2]  /  Fire Fang [T2]  /  Thunder Fang [T2]  /  Crunch [T3]
@@ -841,7 +841,7 @@ Variants: A = Hustle attacker / B = Bulky utility (phazing, status)
        Moves: Tackle [T1]  /  Focus Energy [T1]  /  Astonish [T1]  /  Bite [T2]
   [1B] Squabbling heads
        Zweilous @ Oran Berry   |   Ability: Hustle   |   Nature: Docile
-       Moves: Tackle [T1]  /  Rock Smash [T1]  /  Confide [T1]  /  Double Hit [T2]
+       Moves: Tackle [T1]  /  Rock Smash [T1]  /  Confide [T1]  /  Thief [T2]
   [2A] Hustle biter
        Zweilous @ Dragon Fang   |   Ability: Hustle   |   Nature: Lonely
        Moves: Double Hit [T2]  /  Bite [T2]  /  Ice Fang [T2]  /  Dragon Rush [T3]
@@ -904,19 +904,19 @@ Variants: A = Defensive (Roost, phazing) / B = Offensive (special setup)
        Moves: Confusion [T1]  /  Peck [T1]  /  Twister [T1]  /  Air Cutter [T2]
   [2A] Roosting owl
        Noctowl @ Sitrus Berry   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]  /  Psybeam [T2]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]  /  Swift [T2]
   [2B] Tinted Lens caster
        Noctowl @ Sharp Beak   |   Ability: Tinted Lens   |   Nature: Modest
        Moves: Air Cutter [T2]  /  Psybeam [T2]  /  Work Up [T2]  /  Heat Wave [T3]
   [3A] Bulky phazer
        Noctowl @ Leftovers   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Extrasensory [T3]  /  Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
+       Moves: Hyper Voice [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
   [3B] Calm Mind owl
        Noctowl @ Wise Glasses   |   Ability: Tinted Lens   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Extrasensory [T3]  /  Heat Wave [T3]  /  Roost [Sit]
   [4A] Night Shade staller
        Noctowl @ Leftovers   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Night Shade [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
+       Moves: Hyper Voice [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
   [4B] Nasty Plot owl
        Noctowl @ Life Orb   |   Ability: Tinted Lens   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Air Slash [T4]  /  Moonblast [T4]  /  Roost [Sit]
@@ -937,7 +937,7 @@ Variants: A = Setup attacker / B = Utility (burns, Trick Room)
        Moves: Feint Attack [T2]  /  Headbutt [T2]  /  Pounce [T2]  /  Shadow Claw [T3]
   [2B] Grudge puppet
        Banette @ Sitrus Berry   |   Ability: Frisk   |   Nature: Hasty
-       Moves: Will-O-Wisp [Sit]  /  Screech [T2]  /  Feint Attack [T2]  /  Destiny Bond [Sit]
+       Moves: Will-O-Wisp [Sit]  /  Screech [T2]  /  Phantom Force [T3]  /  Destiny Bond [Sit]
   [3A] Swords Dance doll
        Banette @ Muscle Band   |   Ability: Insomnia   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Shadow Claw [T3]  /  Throat Chop [T3]  /  Protect [Sit]
@@ -1126,7 +1126,7 @@ Variants: A = Defensive (Wish, status) / B = Offensive (special setup)
        Moves: Calm Mind [T4]  /  Psychic Noise [T3]  /  Dazzling Gleam [T3]  /  Wish [Sit]
   [4A] Specially defensive wall
        Hypno @ Leftovers   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Seismic Toss [T4]  /  Toxic [Sit]  /  Wish [Sit]  /  Protect [Sit]
+       Moves: Zen Headbutt [T3]  /  Toxic [Sit]  /  Wish [Sit]  /  Protect [Sit]
   [4B] Nasty Plot hypnotist
        Hypno @ Expert Belt   |   Ability: Inner Focus   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Psyshock [T4]  /  Focus Blast [T4]  /  Shadow Ball [T4]
@@ -1378,7 +1378,7 @@ Variants: A = Pure Stall / B = Defensive with utility (cleric, Yawn)
 ----------------------------------------------------------------------------------------------------
   [1A] Moonlight fox
        Umbreon @ Oran Berry   |   Ability: Synchronize   |   Nature: Hardy
-       Moves: Tackle [T1]  /  Tail Whip [T1]  /  Sand Attack [T1]  /  Baby-Doll Eyes [T1]
+       Moves: Thief [T2]  /  Tail Whip [T1]  /  Sand Attack [T1]  /  Baby-Doll Eyes [T1]
   [1B] Night fox
        Umbreon @ (no item)   |   Ability: Inner Focus   |   Nature: Docile
        Moves: Tackle [T1]  /  Quick Attack [T1]  /  Growl [T1]  /  Bite [T2]
@@ -1504,10 +1504,10 @@ Variants: A = Special attacker / B = Bulky utility
        Moves: Tackle [T1]  /  Astonish [T1]  /  Charge Beam [T2]   (movepool limit: no other legal move fits this tier)
   [2A] Coin caster
        Gholdengo @ Sitrus Berry   |   Ability: Good as Gold   |   Nature: Modest
-       Moves: Charge Beam [T2]  /  Tera Blast [T2]  /  Metal Sound [T2]  /  Thunder Wave [Sit]
+       Moves: Hex [T3]  /  Tera Blast [T2]  /  Metal Sound [T2]  /  Thunder Wave [Sit]
   [2B] Paralysis golem
        Gholdengo @ Lum Berry   |   Ability: Good as Gold   |   Nature: Bold
-       Moves: Charge Beam [T2]  /  Recover [Sit]  /  Thunder Wave [Sit]  /  Confuse Ray [Sit]
+       Moves: Hex [T3]  /  Recover [Sit]  /  Thunder Wave [Sit]  /  Confuse Ray [Sit]
   [3A] Nasty Plot golem
        Gholdengo @ Wise Glasses   |   Ability: Good as Gold   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Hex [T3]  /  Dazzling Gleam [T3]  /  Recover [Sit]
@@ -1567,7 +1567,7 @@ Variants: A = Setup sweeper (Grim Neigh) / B = Disruptor (burns, Taunt)
        Moves: Snarl [T2]  /  Mud Shot [T2]  /  Draining Kiss [T2]  /  Hex [T3]
   [2B] Haunting steed
        Spectrier @ Sitrus Berry   |   Ability: Grim Neigh   |   Nature: Hasty
-       Moves: Will-O-Wisp [Sit]  /  Confuse Ray [Sit]  /  Snarl [T2]  /  Taunt [Sit]
+       Moves: Will-O-Wisp [Sit]  /  Confuse Ray [Sit]  /  Hex [T3]  /  Taunt [Sit]
   [3A] Hex steed
        Spectrier @ Wise Glasses   |   Ability: Grim Neigh   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Hex [T3]  /  Will-O-Wisp [Sit]  /  Substitute [Sit]
@@ -1591,7 +1591,7 @@ Variants: A = Special attacker / B = Sleep disruptor (Dark Void)
        Moves: Quick Attack [T1]  /  Rock Smash [T1]  /  Mud-Slap [T1]  /  Feint Attack [T2]
   [1B] Dark mist
        Darkrai @ Oran Berry   |   Ability: Bad Dreams   |   Nature: Docile
-       Moves: Quick Attack [T1]  /  Confide [T1]  /  Flash [T1]  /  Ominous Wind [T2]
+       Moves: Quick Attack [T1]  /  Confide [T1]  /  Flash [T1]  /  Snarl [T2]
   [2A] Nightmare caster
        Darkrai @ Black Glasses   |   Ability: Bad Dreams   |   Nature: Modest
        Moves: Snarl [T2]  /  Ominous Wind [T2]  /  Icy Wind [T2]  /  Hex [T3]

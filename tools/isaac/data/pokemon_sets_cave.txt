@@ -76,7 +76,7 @@ Variants: A = Defensive / B = Offensive (special)
        Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Dazzling Gleam [T3]  /  Soft-Boiled [Sit]
   [4A] Magic Guard staller
        Cleffa @ Rocky Helmet   |   Ability: Magic Guard   |   Nature: Bold
-       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Thunder Wave [Sit]  /  Encore [Sit]
+       Moves: Play Rough [T4]  /  Soft-Boiled [Sit]  /  Thunder Wave [Sit]  /  Encore [Sit]
   [4B] Magic Guard Life Orb
        Cleffa @ Life Orb   |   Ability: Magic Guard   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Dazzling Gleam [T3]  /  Flamethrower [T4]  /  Soft-Boiled [Sit]
@@ -94,22 +94,22 @@ Variants: A = Pure Stall / B = Defensive with utility
        Moves: Disarming Voice [T1]  /  Sweet Kiss [T1]  /  Mud-Slap [T1]  /  Charm [T2]
   [2A] Toxic stall
        Happiny @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Charm [T2]  /  Toxic [Sit]  /  Protect [Sit]  /  Water Pulse [T2]
+       Moves: Charm [T2]  /  Toxic [Sit]  /  Protect [Sit]  /  Round [T2]
   [2B] Support nurse
        Happiny @ Focus Band   |   Ability: Serene Grace   |   Nature: Calm
-       Moves: Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Icy Wind [T2]  /  Light Screen [Sit]
+       Moves: Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Round [T2]  /  Light Screen [Sit]
   [3A] RestTalk staller
        Happiny @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Seismic Toss [T4]  /  Toxic [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]
+       Moves: Double-Edge [T4]  /  Toxic [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]
   [3B] Screen support
        Happiny @ Light Clay   |   Ability: Serene Grace   |   Nature: Calm
-       Moves: Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Light Screen [Sit]  /  Seismic Toss [T4]
+       Moves: Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Light Screen [Sit]  /  Double-Edge [T4]
   [4A] Toxic staller
        Happiny @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Seismic Toss [T4]  /  Toxic [Sit]  /  Protect [Sit]  /  Rest [Sit]
+       Moves: Double-Edge [T4]  /  Toxic [Sit]  /  Protect [Sit]  /  Rest [Sit]
   [4B] Cleric wall
        Happiny @ Rocky Helmet   |   Ability: Serene Grace   |   Nature: Calm
-       Moves: Seismic Toss [T4]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Rest [Sit]
+       Moves: Double-Edge [T4]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Rest [Sit]
 
 ====================================================================================================
 #296 MAKUHITA  —  Fighting  —  BST 237  —  Category 1
@@ -571,7 +571,7 @@ Variants: A = Setup sweeper / B = Utility attacker (Knock Off, priority)
        Moves: Scratch [T1]  /  Harden [T1]  /  String Shot [T1]  /  Bug Bite [T2]
   [1B] Old shrimp
        Anorith @ Oran Berry   |   Ability: Swift Swim   |   Nature: Docile
-       Moves: Metal Claw [T1]  /  Rock Smash [T1]  /  Water Gun [T1]  /  Sand Attack [T1]
+       Moves: Metal Claw [T1]  /  Bug Bite [T2]  /  Water Gun [T1]  /  Sand Attack [T1]
   [2A] Slasher fossil
        Anorith @ Silver Powder   |   Ability: Battle Armor   |   Nature: Lonely
        Moves: Hone Claws [T2]  /  Bug Bite [T2]  /  Rock Tomb [T2]  /  X-Scissor [T3]
@@ -610,13 +610,13 @@ Variants: A = Pure Stall / B = Defensive with utility (Magnet Pull trapping, par
        Moves: Rock Tomb [T2]  /  Spark [T2]  /  Thunder Wave [Sit]  /  Block [Sit]
   [3A] Status wall
        Nosepass @ Leftovers   |   Ability: Sturdy   |   Nature: Bold
-       Moves: Body Press [T4]  /  Thunder Wave [Sit]  /  Toxic [Sit]  /  Pain Split [Sit]
+       Moves: Head Smash [T4]  /  Thunder Wave [Sit]  /  Toxic [Sit]  /  Pain Split [Sit]
   [3B] Magnet wall
        Nosepass @ Rocky Helmet   |   Ability: Magnet Pull   |   Nature: Relaxed
        Moves: Rock Blast [T3]  /  Discharge [T3]  /  Thunder Wave [Sit]  /  Pain Split [Sit]
   [4A] Iron Defense staller
        Nosepass @ Leftovers   |   Ability: Sturdy   |   Nature: Bold
-       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Rest [Sit]  /  Sleep Talk [Sit]
+       Moves: Iron Defense [Sit]  /  Head Smash [T4]  /  Rest [Sit]  /  Sleep Talk [Sit]
   [4B] Steel trapper
        Nosepass @ Air Balloon   |   Ability: Magnet Pull   |   Nature: Relaxed
        Moves: Volt Switch [T2]  /  Power Gem [T4]  /  Thunder Wave [Sit]  /  Pain Split [Sit]
@@ -880,7 +880,7 @@ Variants: A = Defensive (Slack Off, Encore) / B = Offensive
        Moves: Hone Claws [T2]  /  Headbutt [T2]  /  Low Sweep [T2]  /  Shadow Claw [T3]
   [3A] Encore pest
        Vigoroth @ Leftovers   |   Ability: Vital Spirit   |   Nature: Impish
-       Moves: Slack Off [Sit]  /  Knock Off [T4]  /  Encore [Sit]  /  Toxic [Sit]
+       Moves: Slack Off [Sit]  /  Double-Edge [T4]  /  Encore [Sit]  /  Toxic [Sit]
   [3B] Bulk Up brawler
        Vigoroth @ Muscle Band   |   Ability: Vital Spirit   |   Nature: Jolly
        Moves: Bulk Up [T4]  /  Rock Climb [T3]  /  Shadow Claw [T3]  /  Brick Break [T3]
@@ -904,22 +904,22 @@ Variants: A = Pure Stall / B = Defensive with utility (cleric, screens)
        Moves: Double Slap [T1]  /  Disarming Voice [T1]  /  Sweet Kiss [T1]  /  Sing [T2]
   [2A] Toxic nurse
        Chansey @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Toxic [Sit]  /  Protect [Sit]  /  Charm [T2]  /  Psywave [T2]
+       Moves: Toxic [Sit]  /  Protect [Sit]  /  Charm [T2]  /  Tri Attack [T3]
   [2B] Support nurse
        Chansey @ Lum Berry   |   Ability: Serene Grace   |   Nature: Calm
-       Moves: Bubble Beam [T2]  /  Thunder Wave [Sit]  /  Wish [Sit]  /  Heal Bell [Sit]
+       Moves: Tri Attack [T3]  /  Thunder Wave [Sit]  /  Wish [Sit]  /  Heal Bell [Sit]
   [3A] Toxic staller
        Chansey @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
        Moves: Tri Attack [T3]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Protect [Sit]
   [3B] Cleric nurse
        Chansey @ Leftovers   |   Ability: Serene Grace   |   Nature: Calm
-       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]
+       Moves: Double-Edge [T4]  /  Soft-Boiled [Sit]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]
   [4A] Seismic Toss wall
        Chansey @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+       Moves: Double-Edge [T4]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Protect [Sit]
   [4B] Screen cleric
        Chansey @ Light Clay   |   Ability: Natural Cure   |   Nature: Calm
-       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Heal Bell [Sit]  /  Light Screen [Sit]
+       Moves: Double-Edge [T4]  /  Soft-Boiled [Sit]  /  Heal Bell [Sit]  /  Light Screen [Sit]
 
 ====================================================================================================
 #057 PRIMEAPE  —  Fighting  —  BST 455  —  Category 5
@@ -1198,7 +1198,7 @@ Variants: A = Setup sweeper / B = Pivot / priority attacker
 ----------------------------------------------------------------------------------------------------
   [1A] Scythe fossil
        Kabutops @ (no item)   |   Ability: Battle Armor   |   Nature: Hardy
-       Moves: Scratch [T1]  /  Harden [T1]  /  Leer [T1]  /  Aerial Ace [T2]
+       Moves: Rock Throw [T1]  /  Harden [T1]  /  Leer [T1]  /  Aerial Ace [T2]
   [1B] Draining fossil
        Kabutops @ Oran Berry   |   Ability: Swift Swim   |   Nature: Docile
        Moves: Water Gun [T1]  /  Mega Drain [T1]  /  Rock Throw [T1]  /  Ancient Power [T2]
@@ -1258,7 +1258,7 @@ Variants: A = Defensive utility (Knock Off, status) / B = Offensive (setup)
 ----------------------------------------------------------------------------------------------------
   [1A] Plate fossil
        Armaldo @ Oran Berry   |   Ability: Battle Armor   |   Nature: Hardy
-       Moves: Harden [T1]  /  Scratch [T1]  /  Metal Claw [T1]  /  String Shot [T1]
+       Moves: Harden [T1]  /  Bug Bite [T2]  /  Metal Claw [T1]  /  String Shot [T1]
   [1B] Ancient shrimp
        Armaldo @ (no item)   |   Ability: Swift Swim   |   Nature: Docile
        Moves: Metal Claw [T1]  /  Water Gun [T1]  /  Rock Smash [T1]  /  Bug Bite [T2]
@@ -1318,7 +1318,7 @@ Variants: A = Defensive (phazing, status) / B = Offensive (Sheer Force)
 ----------------------------------------------------------------------------------------------------
   [1A] Iron snake
        Steelix @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
-       Moves: Bind [T1]  /  Harden [T1]  /  Defense Curl [T1]  /  Tackle [T1]
+       Moves: Bulldoze [T2]  /  Harden [T1]  /  Defense Curl [T1]  /  Tackle [T1]
   [1B] Burrowing snake
        Steelix @ (no item)   |   Ability: Sheer Force   |   Nature: Docile
        Moves: Rock Throw [T1]  /  Twister [T1]  /  Sand Tomb [T1]  /  Mud-Slap [T1]
@@ -1366,7 +1366,7 @@ Variants: A = Pure Stall / B = Defensive with utility (Magnet Pull, pivot)
        Moves: Discharge [T3]  /  Thunder Wave [Sit]  /  Volt Switch [T2]  /  Flash Cannon [T4]
   [4A] Iron Defense staller
        Probopass @ Leftovers   |   Ability: Sturdy   |   Nature: Calm
-       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Pain Split [Sit]  /  Toxic [Sit]
+       Moves: Iron Defense [Sit]  /  Head Smash [T4]  /  Pain Split [Sit]  /  Toxic [Sit]
   [4B] Steel trapper
        Probopass @ Assault Vest   |   Ability: Magnet Pull   |   Nature: Bold
        Moves: Volt Switch [T2]  /  Flash Cannon [T4]  /  Earth Power [T4]  /  Power Gem [T4]
@@ -1444,22 +1444,22 @@ Variants: A = Pure Stall / B = Defensive with utility
        Moves: Double Slap [T1]  /  Disarming Voice [T1]  /  Sweet Kiss [T1]  /  Sweet Scent [T1]
   [2A] Wish nurse
        Blissey @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Toxic [Sit]  /  Protect [Sit]  /  Wish [Sit]  /  Charge Beam [T2]
+       Moves: Toxic [Sit]  /  Protect [Sit]  /  Wish [Sit]  /  Tri Attack [T3]
   [2B] Support nurse
        Blissey @ Lum Berry   |   Ability: Serene Grace   |   Nature: Calm
-       Moves: Icy Wind [T2]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Light Screen [Sit]
+       Moves: Tri Attack [T3]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Light Screen [Sit]
   [3A] Classic staller
        Blissey @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+       Moves: Double-Edge [T4]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Protect [Sit]
   [3B] Serene cleric
        Blissey @ Lum Berry   |   Ability: Serene Grace   |   Nature: Calm
        Moves: Tri Attack [T3]  /  Soft-Boiled [Sit]  /  Heal Bell [Sit]  /  Thunder Wave [Sit]
   [4A] Special wall
        Blissey @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Heal Bell [Sit]
+       Moves: Double-Edge [T4]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Heal Bell [Sit]
   [4B] Calm Mind tank
        Blissey @ Leftovers   |   Ability: Natural Cure   |   Nature: Calm
-       Moves: Calm Mind [T4]  /  Ice Beam [T4]  /  Flamethrower [T4]  /  Soft-Boiled [Sit]
+       Moves: Calm Mind [T4]  /  Hyper Voice [T4]  /  Flamethrower [T4]  /  Soft-Boiled [Sit]
 
 ====================================================================================================
 #248 TYRANITAR  —  Rock/Dark  —  BST 600  —  Category 7
@@ -1498,7 +1498,7 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Young dragon
        Salamence @ (no item)   |   Ability: Intimidate   |   Nature: Hardy
-       Moves: Rock Smash [T1]  /  Leer [T1]  /  Focus Energy [T1]  /  Bite [T2]
+       Moves: Rock Smash [T1]  /  Leer [T1]  /  Focus Energy [T1]  /  Breaking Swipe [T2]
   [1B] Fire-breathing dragon
        Salamence @ Oran Berry   |   Ability: Moxie   |   Nature: Docile
        Moves: Twister [T1]  /  Ember [T1]  /  Fire Spin [T1]  /  Leer [T1]

@@ -310,7 +310,7 @@ Variants: A = Physical (Hustle) / B = Special (Sniper)
        Moves: Octazooka [T2]  /  Aurora Beam [T2]  /  Charge Beam [T2]  /  Incinerate [T2]
   [3A] Multi-hit fish
        Remoraid @ Muscle Band   |   Ability: Hustle   |   Nature: Adamant
-       Moves: Rock Blast [T3]  /  Bullet Seed [T3]  /  Bounce [T3]  /  Gunk Shot [T4]
+       Moves: Rock Blast [T3]  /  Bullet Seed [T3]  /  Bounce [T3]  /  Waterfall [T4]
   [3B] Sniper caster
        Remoraid @ Wise Glasses   |   Ability: Sniper   |   Nature: Modest
        Moves: Brine [T3]  /  Signal Beam [T3]  /  Flamethrower [T4]  /  Focus Energy [T1]
@@ -334,7 +334,7 @@ Variants: A = Skill Link attacker / B = Setup (Shell Smash)
        Moves: Water Gun [T1]  /  Supersonic [T1]  /  Withdraw [T1]  /  Aurora Beam [T2]
   [2A] Spinning bivalve
        Shellder @ Never-Melt Ice   |   Ability: Skill Link   |   Nature: Lonely
-       Moves: Rapid Spin [T2]  /  Headbutt [T2]  /  Take Down [T2]  /  Icicle Spear [T3]
+       Moves: Rapid Spin [T2]  /  Headbutt [T2]  /  Take Down [T2]  /  Razor Shell [T3]
   [2B] Iron bivalve
        Shellder @ Sitrus Berry   |   Ability: Shell Armor   |   Nature: Bold
        Moves: Aurora Beam [T2]  /  Bubble Beam [T2]  /  Iron Defense [Sit]  /  Protect [Sit]
@@ -397,7 +397,7 @@ Variants: A = Setup (Dragon Dance) / B = Sheer Force attacker
        Moves: Hone Claws [T2]  /  Bite [T2]  /  Ice Fang [T2]  /  Aqua Tail [T3]
   [2B] Sheer Force jaw
        Totodile @ Muscle Band   |   Ability: Sheer Force   |   Nature: Naughty
-       Moves: Bite [T2]  /  Ice Fang [T2]  /  Rock Tomb [T2]  /  Crunch [T3]
+       Moves: Bite [T2]  /  Ice Fang [T2]  /  Flip Turn [T2]  /  Crunch [T3]
   [3A] Dragon Dance jaw
        Totodile @ Expert Belt   |   Ability: Torrent   |   Nature: Adamant
        Moves: Dragon Dance [T4]  /  Aqua Tail [T3]  /  Crunch [T3]  /  Ice Punch [T3]
@@ -457,7 +457,7 @@ Variants: A = Setup (Swords Dance, Hyper Cutter) / B = Sheer Force attacker
        Moves: Hone Claws [T2]  /  Stomp [T2]  /  Rock Tomb [T2]  /  Razor Shell [T3]
   [2B] Sheer Force crab
        Krabby @ Muscle Band   |   Ability: Sheer Force   |   Nature: Naughty
-       Moves: Headbutt [T2]  /  Stomp [T2]  /  Rock Tomb [T2]  /  Night Slash [T3]
+       Moves: Headbutt [T2]  /  Stomp [T2]  /  Rock Tomb [T2]  /  Razor Shell [T3]
   [3A] Swords Dance crab
        Krabby @ Expert Belt   |   Ability: Hyper Cutter   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Razor Shell [T3]  /  X-Scissor [T3]  /  Superpower [T3]
@@ -748,7 +748,7 @@ Variants: A = Setup (Swords Dance) / B = Sheer Force attacker
 ----------------------------------------------------------------------------------------------------
   [1A] Big jaw
        Croconaw @ (no item)   |   Ability: Torrent   |   Nature: Hardy
-       Moves: Scratch [T1]  /  Metal Claw [T1]  /  Leer [T1]  /  Ice Fang [T2]
+       Moves: Scratch [T1]  /  Metal Claw [T1]  /  Leer [T1]  /  Flip Turn [T2]
   [1B] Biting jaw
        Croconaw @ Oran Berry   |   Ability: Sheer Force   |   Nature: Docile
        Moves: Water Gun [T1]  /  Rock Smash [T1]  /  Mud-Slap [T1]  /  Bite [T2]
@@ -898,7 +898,7 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Horned king
        Seaking @ (no item)   |   Ability: Swift Swim   |   Nature: Hardy
-       Moves: Peck [T1]  /  Fury Attack [T1]  /  Supersonic [T1]  /  Horn Attack [T2]
+       Moves: Peck [T1]  /  Fury Attack [T1]  /  Supersonic [T1]  /  Flip Turn [T2]
   [1B] Rod king
        Seaking @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
        Moves: Water Gun [T1]  /  Quick Attack [T1]  /  Tail Whip [T1]  /  Psybeam [T2]
@@ -1027,7 +1027,7 @@ Variants: A = Setup (Agility, Swords Dance) / B = Sheer Force attacker
        Moves: Hone Claws [T2]  /  Slam [T2]  /  Thief [T2]  /  Razor Shell [T3]
   [2B] Sheer Force crab
        Kingler @ Muscle Band   |   Ability: Sheer Force   |   Nature: Naughty
-       Moves: Stomp [T2]  /  Headbutt [T2]  /  Rock Tomb [T2]  /  High Horsepower [T3]
+       Moves: Stomp [T2]  /  Headbutt [T2]  /  Rock Tomb [T2]  /  Razor Shell [T3]
   [3A] Agility crab
        Kingler @ Expert Belt   |   Ability: Hyper Cutter   |   Nature: Adamant
        Moves: Agility [Sit]  /  Razor Shell [T3]  /  Superpower [T3]  /  Knock Off [T4]
@@ -1087,13 +1087,13 @@ Variants: A = Attacker / B = Support (Klutz, Healing Wish, Encore)
        Moves: Low Sweep [T2]  /  Dizzy Punch [T2]  /  Power-Up Punch [T2]  /  Bounce [T3]
   [2B] Charming pivot
        Lopunny @ Sitrus Berry   |   Ability: Cute Charm   |   Nature: Hasty
-       Moves: U-turn [T2]  /  Fake Tears [T2]  /  Charm [T2]  /  Thunder Wave [Sit]
+       Moves: Mega Kick [T3]  /  Fake Tears [T2]  /  Charm [T2]  /  Thunder Wave [Sit]
   [3A] Kicking rabbit
        Lopunny @ Expert Belt   |   Ability: Limber   |   Nature: Jolly
        Moves: Fake Out [Sit]  /  Sky Uppercut [T3]  /  Thunder Punch [T3]  /  High Jump Kick [T4]
   [3B] Klutz rabbit
        Lopunny @ Toxic Orb   |   Ability: Klutz   |   Nature: Jolly
-       Moves: Switcheroo [Sit]  /  Healing Wish [Sit]  /  Encore [Sit]  /  Jump Kick [T3]
+       Moves: Switcheroo [Sit]  /  Healing Wish [Sit]  /  Encore [Sit]  /  Double-Edge [T4]
   [4A] Choice Band rabbit
        Lopunny @ Choice Band   |   Ability: Limber   |   Nature: Jolly
        Moves: High Jump Kick [T4]  /  Return [T4]  /  Ice Punch [T3]  /  U-turn [T2]
@@ -1201,7 +1201,7 @@ Variants: A = Defensive (Sturdy, Yawn) / B = Offensive (Rock Head)
        Moves: Tackle [T1]  /  Harden [T1]  /  Water Gun [T1]  /  Rock Tomb [T2]
   [1B] Hard-headed fish
        Relicanth @ (no item)   |   Ability: Rock Head   |   Nature: Docile
-       Moves: Tackle [T1]  /  Rock Smash [T1]  /  Mud-Slap [T1]  /  Take Down [T2]
+       Moves: Tackle [T1]  /  Rock Smash [T1]  /  Mud-Slap [T1]  /  Rock Tomb [T2]
   [2A] Yawning fish
        Relicanth @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
        Moves: Yawn [Sit]  /  Rock Tomb [T2]  /  Water Pulse [T2]  /  Protect [Sit]
@@ -1447,7 +1447,7 @@ Variants: A = Setup (Dragon Dance) / B = Sheer Force attacker
        Moves: Hone Claws [T2]  /  Flip Turn [T2]  /  Bite [T2]  /  Dragon Claw [T3]
   [2B] Sheer Force jaw
        Feraligatr @ Black Glasses   |   Ability: Sheer Force   |   Nature: Naughty
-       Moves: Bite [T2]  /  Ice Fang [T2]  /  Headbutt [T2]  /  Crunch [T3]
+       Moves: Flip Turn [T2]  /  Ice Fang [T2]  /  Headbutt [T2]  /  Crunch [T3]
   [3A] Dragon Dance jaw
        Feraligatr @ Expert Belt   |   Ability: Torrent   |   Nature: Adamant
        Moves: Dragon Dance [T4]  /  Aqua Tail [T3]  /  Lash Out [T3]  /  Low Kick [T3]
@@ -1477,13 +1477,13 @@ Variants: A = Setup (Dragon Dance, Moxie) / B = Utility (Intimidate, paralysis)
        Moves: Bite [T2]  /  Ice Fang [T2]  /  Bulldoze [T2]  /  Aqua Tail [T3]
   [2B] Intimidating serpent
        Gyarados @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Impish
-       Moves: Thunder Wave [Sit]  /  Dragon Tail [Sit]  /  Bite [T2]  /  Taunt [Sit]
+       Moves: Thunder Wave [Sit]  /  Aqua Tail [T3]  /  Bite [T2]  /  Taunt [Sit]
   [3A] Dragon Dance serpent
        Gyarados @ Muscle Band   |   Ability: Moxie   |   Nature: Adamant
        Moves: Dragon Dance [T4]  /  Aqua Tail [T3]  /  Bounce [T3]  /  Temper Flare [T3]
   [3B] Utility serpent
        Gyarados @ Leftovers   |   Ability: Intimidate   |   Nature: Careful
-       Moves: Thunder Wave [Sit]  /  Taunt [Sit]  /  Dragon Tail [Sit]  /  Lash Out [T3]
+       Moves: Thunder Wave [Sit]  /  Taunt [Sit]  /  Waterfall [T4]  /  Lash Out [T3]
   [4A] Dragon Dance sweeper
        Gyarados @ Life Orb   |   Ability: Moxie   |   Nature: Jolly
        Moves: Dragon Dance [T4]  /  Waterfall [T4]  /  Earthquake [T4]  /  Power Whip [T4]
@@ -1531,7 +1531,7 @@ Variants: A = Defensive (Recover, Marvel Scale) / B = Offensive (Competitive)
        Moves: Water Gun [T1]  /  Wrap [T1]  /  Disarming Voice [T1]  /  Twister [T1]
   [1B] Graceful serpent
        Milotic @ (no item)   |   Ability: Competitive   |   Nature: Docile
-       Moves: Tackle [T1]  /  Splash [T1]  /  Mud-Slap [T1]  /  Dragon Breath [T2]
+       Moves: Tackle [T1]  /  Splash [T1]  /  Water Gun [T1]  /  Dragon Breath [T2]
   [2A] Recovering serpent
        Milotic @ Sitrus Berry   |   Ability: Marvel Scale   |   Nature: Bold
        Moves: Recover [Sit]  /  Toxic [Sit]  /  Water Pulse [T2]  /  Haze [Sit]
@@ -1681,7 +1681,7 @@ Variants: A = Defensive (Multiscale, Roost) / B = Offensive (Calm Mind)
        Moves: Gust [T1]  /  Twister [T1]  /  Whirlpool [T1]  /  Air Cutter [T2]
   [1B] Silver guardian
        Lugia @ (no item)   |   Ability: Pressure   |   Nature: Docile
-       Moves: Flash [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]  /  Dragon Breath [T2]
+       Moves: Flash [T1]  /  Gust [T1]  /  Rock Smash [T1]  /  Dragon Breath [T2]
   [2A] Roosting guardian
        Lugia @ Sitrus Berry   |   Ability: Multiscale   |   Nature: Bold
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Air Cutter [T2]  /  Whirlwind [Sit]

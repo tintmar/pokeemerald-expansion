@@ -76,7 +76,7 @@ Variants: A = Defensive support / B = Offensive (special, Competitive)
        Moves: Hyper Voice [T4]  /  Alluring Voice [T3]  /  Grass Knot [T3]  /  Protect [Sit]
   [4A] Wish wall
        Igglybuff @ Rocky Helmet   |   Ability: Cute Charm   |   Nature: Bold
-       Moves: Seismic Toss [T4]  /  Wish [Sit]  /  Protect [Sit]  /  Thunder Wave [Sit]
+       Moves: Double-Edge [T4]  /  Wish [Sit]  /  Protect [Sit]  /  Thunder Wave [Sit]
   [4B] Competitive attacker
        Igglybuff @ Life Orb   |   Ability: Competitive   |   Nature: Modest
        Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Flamethrower [T4]  /  Psychic [T4]
@@ -130,7 +130,7 @@ Variants: A = Physical attacker (Iron Fist) / B = Support (Fake Out, pivot, Supe
        Moves: Nuzzle [T2]  /  Volt Switch [T2]  /  Fake Out [Sit]  /  Encore [Sit]
   [3A] Iron Fist mouse
        Pawmi @ Focus Sash   |   Ability: Iron Fist   |   Nature: Jolly
-       Moves: Mach Punch [T4]  /  Crunch [T3]  /  Dig [T3]  /  Agility [Sit]
+       Moves: Wild Charge [T4]  /  Crunch [T3]  /  Dig [T3]  /  Agility [Sit]
   [3B] Support mouse
        Pawmi @ Lum Berry   |   Ability: Natural Cure   |   Nature: Jolly
        Moves: Volt Switch [T2]  /  Fake Out [Sit]  /  Encore [Sit]  /  Super Fang [Sit]
@@ -196,7 +196,7 @@ Variants: A = Defensive support / B = Offensive (special, Competitive)
        Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Psychic Noise [T3]
   [4A] Wish cleric
        Jigglypuff @ Rocky Helmet   |   Ability: Cute Charm   |   Nature: Bold
-       Moves: Seismic Toss [T4]  /  Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]
+       Moves: Double-Edge [T4]  /  Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]
   [4B] Choice Specs singer
        Jigglypuff @ Choice Specs   |   Ability: Competitive   |   Nature: Modest
        Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Fire Blast [T4]  /  Ice Beam [T4]
@@ -298,7 +298,7 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Numb camel
        Numel @ (no item)   |   Ability: Oblivious   |   Nature: Hardy
-       Moves: Tackle [T1]  /  Growl [T1]  /  Focus Energy [T1]  /  Stomp [T2]
+       Moves: Tackle [T1]  /  Growl [T1]  /  Focus Energy [T1]  /  Flame Wheel [T2]
   [1B] Ember camel
        Numel @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
        Moves: Ember [T1]  /  Fire Spin [T1]  /  Mud-Slap [T1]  /  Flame Burst [T2]
@@ -499,7 +499,7 @@ Variants: A = Special attacker / B = Support (screens, Explosion)
        Moves: Thunderbolt [T4]  /  Volt Switch [T2]  /  Foul Play [T4]  /  Taunt [Sit]
   [4B] Screen bomber lead
        Voltorb @ Light Clay   |   Ability: Aftermath   |   Nature: Timid
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Taunt [Sit]  /  Explosion [T4]
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Taunt [Sit]  /  Wild Charge [T4]
 
 ====================================================================================================
 #058 GROWLITHE  —  Fire  —  BST 350  —  Category 3
@@ -568,7 +568,7 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Spark kid
        Elekid @ (no item)   |   Ability: Static   |   Nature: Hardy
-       Moves: Quick Attack [T1]  /  Karate Chop [T1]  /  Leer [T1]  /  Meditate [T1]
+       Moves: Spark [T2]  /  Karate Chop [T1]  /  Leer [T1]  /  Meditate [T1]
   [1B] Static kid
        Elekid @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
        Moves: Thunder Shock [T1]  /  Leer [T1]  /  Flash [T1]  /  Shock Wave [T2]
@@ -607,19 +607,19 @@ Variants: A = Contrary attacker / B = Support (Teeter Dance, Encore, Wish)
        Moves: Dizzy Punch [T2]  /  Power-Up Punch [T2]  /  Feint Attack [T2]  /  Superpower [T3]
   [2B] Dizzy support
        Spinda @ Sitrus Berry   |   Ability: Own Tempo   |   Nature: Mild
-       Moves: Hypnosis [T2]  /  Psybeam [T2]  /  Teeter Dance [Sit]  /  Wish [Sit]
+       Moves: Hypnosis [T2]  /  Swift [T2]  /  Teeter Dance [Sit]  /  Wish [Sit]
   [3A] Superpower panda
        Spinda @ Muscle Band   |   Ability: Contrary   |   Nature: Adamant
-       Moves: Superpower [T3]  /  Ice Punch [T3]  /  Thunder Punch [T3]  /  Sucker Punch [T4]
+       Moves: Superpower [T3]  /  Thrash [T3]  /  Thunder Punch [T3]  /  Sucker Punch [T4]
   [3B] Teeter support
        Spinda @ Leftovers   |   Ability: Own Tempo   |   Nature: Relaxed
-       Moves: Teeter Dance [Sit]  /  Encore [Sit]  /  Wish [Sit]  /  Psycho Cut [T3]
+       Moves: Teeter Dance [Sit]  /  Encore [Sit]  /  Wish [Sit]  /  Double-Edge [T4]
   [4A] Contrary sweeper
        Spinda @ Life Orb   |   Ability: Contrary   |   Nature: Adamant
        Moves: Superpower [T3]  /  Double-Edge [T4]  /  Sucker Punch [T4]  /  Ice Punch [T3]
   [4B] Confusion support
        Spinda @ Rocky Helmet   |   Ability: Own Tempo   |   Nature: Relaxed
-       Moves: Teeter Dance [Sit]  /  Encore [Sit]  /  Wish [Sit]  /  Seismic Toss [T4]
+       Moves: Teeter Dance [Sit]  /  Encore [Sit]  /  Wish [Sit]  /  Double-Edge [T4]
 
 ====================================================================================================
 #180 FLAAFFY  —  Electric  —  BST 365  —  Category 3
@@ -874,7 +874,7 @@ Variants: A = Defensive support / B = Offensive (special, Competitive)
        Moves: Disarming Voice [T1]  /  Water Gun [T1]  /  Flash [T1]  /  Draining Kiss [T2]
   [2A] Lullaby diva
        Wigglytuff @ Sitrus Berry   |   Ability: Cute Charm   |   Nature: Bold
-       Moves: Sing [T2]  /  Charm [T2]  /  Wish [Sit]  /  Bubble Beam [T2]
+       Moves: Sing [T2]  /  Charm [T2]  /  Wish [Sit]  /  Misty Explosion [T3]
   [2B] Fairy caster
        Wigglytuff @ Fairy Feather   |   Ability: Competitive   |   Nature: Modest
        Moves: Draining Kiss [T2]  /  Icy Wind [T2]  /  Magical Leaf [T2]  /  Dazzling Gleam [T3]
@@ -886,7 +886,7 @@ Variants: A = Defensive support / B = Offensive (special, Competitive)
        Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Expanding Force [T3]
   [4A] Wish wall
        Wigglytuff @ Leftovers   |   Ability: Cute Charm   |   Nature: Bold
-       Moves: Seismic Toss [T4]  /  Encore [Sit]  /  Wish [Sit]  /  Protect [Sit]
+       Moves: Double-Edge [T4]  /  Encore [Sit]  /  Wish [Sit]  /  Protect [Sit]
   [4B] Competitive attacker
        Wigglytuff @ Life Orb   |   Ability: Competitive   |   Nature: Modest
        Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Fire Blast [T4]  /  Focus Blast [T4]
@@ -928,7 +928,7 @@ Variants: A = Physical / B = Special (Trick Room)
 ----------------------------------------------------------------------------------------------------
   [1A] Eruption camel
        Camerupt @ (no item)   |   Ability: Magma Armor   |   Nature: Hardy
-       Moves: Tackle [T1]  /  Growl [T1]  /  Focus Energy [T1]  /  Stomp [T2]
+       Moves: Tackle [T1]  /  Growl [T1]  /  Focus Energy [T1]  /  Flame Wheel [T2]
   [1B] Magma camel
        Camerupt @ Oran Berry   |   Ability: Solid Rock   |   Nature: Docile
        Moves: Ember [T1]  /  Fire Spin [T1]  /  Mud-Slap [T1]  /  Flame Burst [T2]
@@ -1087,7 +1087,7 @@ Variants: A = Sheer Force attacker / B = Choice / pivot attacker
        Moves: Fire Fang [T2]  /  Rock Tomb [T2]  /  Headbutt [T2]  /  Fire Punch [T3]
   [2B] Pivot brawler
        Darmanitan @ Sitrus Berry   |   Ability: Sheer Force   |   Nature: Naughty
-       Moves: U-turn [T2]  /  Bite [T2]  /  Bulldoze [T2]  /  Taunt [Sit]
+       Moves: U-turn [T2]  /  Fire Punch [T3]  /  Bulldoze [T2]  /  Taunt [Sit]
   [3A] Sheer Force breaker
        Darmanitan @ Muscle Band   |   Ability: Sheer Force   |   Nature: Adamant
        Moves: Fire Punch [T3]  /  Zen Headbutt [T3]  /  Brick Break [T3]  /  Rock Slide [T4]
@@ -1147,13 +1147,13 @@ Variants: A = Special attacker / B = Support (screens, Explosion)
        Moves: Charge Beam [T2]  /  Swift [T2]  /  Screech [T2]  /  Signal Beam [T3]
   [2B] Screen bomb
        Electrode @ Sitrus Berry   |   Ability: Aftermath   |   Nature: Hasty
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Thunder Wave [Sit]  /  Taunt [Sit]
+       Moves: Supercell Slam [T3]  /  Reflect [Sit]  /  Thunder Wave [Sit]  /  Taunt [Sit]
   [3A] Speed caster
        Electrode @ Magnet   |   Ability: Static   |   Nature: Timid
        Moves: Electro Ball [T3]  /  Signal Beam [T3]  /  Taunt [Sit]  /  Foul Play [T4]
   [3B] Screen bomber
        Electrode @ Light Clay   |   Ability: Aftermath   |   Nature: Timid
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Taunt [Sit]  /  Explosion [T4]
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Taunt [Sit]  /  Wild Charge [T4]
   [4A] Pivot attacker
        Electrode @ Life Orb   |   Ability: Static   |   Nature: Timid
        Moves: Thunderbolt [T4]  /  Volt Switch [T2]  /  Signal Beam [T3]  /  Foul Play [T4]
@@ -1168,7 +1168,7 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Electric brawler
        Electabuzz @ (no item)   |   Ability: Static   |   Nature: Hardy
-       Moves: Quick Attack [T1]  /  Karate Chop [T1]  /  Leer [T1]  /  Rock Smash [T1]
+       Moves: Spark [T2]  /  Karate Chop [T1]  /  Leer [T1]  /  Rock Smash [T1]
   [1B] Static brawler
        Electabuzz @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
        Moves: Thunder Shock [T1]  /  Leer [T1]  /  Meditate [T1]  /  Shock Wave [T2]
@@ -1273,7 +1273,7 @@ Variants: A = Physical attacker (setup) / B = Utility (burns) / Choice
        Moves: Flare Blitz [T4]  /  High Horsepower [T3]  /  Smart Strike [T3]  /  Agility [Sit]
   [3B] Burning wall
        Rapidash @ Rocky Helmet   |   Ability: Flame Body   |   Nature: Jolly
-       Moves: Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Drill Run [T3]  /  Megahorn [T4]
+       Moves: Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Drill Run [T3]  /  Flare Blitz [T4]
   [4A] Swords Dance sweeper
        Rapidash @ Life Orb   |   Ability: Flash Fire   |   Nature: Jolly
        Moves: Swords Dance [T4]  /  Flare Blitz [T4]  /  Wild Charge [T4]  /  High Horsepower [T3]
@@ -1303,7 +1303,7 @@ Variants: A = Special attacker / B = Sun support (Drought, burns)
        Moves: Nasty Plot [T4]  /  Heat Wave [T3]  /  Extrasensory [T3]  /  Scorching Sands [T3]
   [3B] Sun burner
        Ninetales @ Heat Rock   |   Ability: Drought   |   Nature: Timid
-       Moves: Will-O-Wisp [Sit]  /  Hex [T3]  /  Pain Split [Sit]  /  Solar Beam [T3]
+       Moves: Will-O-Wisp [Sit]  /  Overheat [T4]  /  Pain Split [Sit]  /  Solar Beam [T3]
   [4A] Drought sweeper
        Ninetales @ Life Orb   |   Ability: Drought   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Fire Blast [T4]  /  Solar Beam [T3]  /  Psyshock [T4]
@@ -1351,7 +1351,7 @@ Variants: A = Special attacker / B = Support (Wish, Baton Pass)
        Moves: Thunder Shock [T1]  /  Tail Whip [T1]  /  Quick Attack [T1]  /  Double Kick [T1]
   [1B] Spiky fox
        Jolteon @ Oran Berry   |   Ability: Quick Feet   |   Nature: Docile
-       Moves: Tackle [T1]  /  Sand Attack [T1]  /  Growl [T1]  /  Swift [T2]
+       Moves: Thunder Shock [T1]  /  Sand Attack [T1]  /  Growl [T1]  /  Swift [T2]
   [2A] Charged fox
        Jolteon @ Magnet   |   Ability: Volt Absorb   |   Nature: Modest
        Moves: Charge Beam [T2]  /  Swift [T2]  /  Electroweb [T2]  /  Discharge [T3]
@@ -1468,7 +1468,7 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Thunderbolt brawler
        Electivire @ (no item)   |   Ability: Motor Drive   |   Nature: Hardy
-       Moves: Quick Attack [T1]  /  Karate Chop [T1]  /  Meditate [T1]  /  Mega Punch [T2]
+       Moves: Quick Attack [T1]  /  Karate Chop [T1]  /  Meditate [T1]  /  Spark [T2]
   [1B] Static brawler
        Electivire @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
        Moves: Thunder Shock [T1]  /  Leer [T1]  /  Flash [T1]  /  Charge Beam [T2]

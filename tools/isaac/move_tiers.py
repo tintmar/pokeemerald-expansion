@@ -3,7 +3,7 @@ Tiers des attaques d'après data/moves_by_tier.txt (draft v3) : 1 faible (début
 meilleure option de tier 4 du même type existe), 4 optimal, 'SITUATIONAL' (utilitaire : soins, météo, statut...).
 Pas encore utilisé par les générateurs : c'est une donnée de référence.
 
-MOVES : constante MOVE_* (sans le préfixe) -> Record(tier, type, cat, power, acc, pp, priority, effect, tags,
+MOVES : constante MOVE_* (sans le préfixe) -> Record(name (nom affiché), tier, type, cat, power, acc, pp, priority, effect, tags,
 better), où tags est l'ensemble des étiquettes entre crochets ('Pivot', 'Priority', 'Exclusive: X line'...) et better
 la liste des attaques de tier 4 dont une attaque de tier 3 est une version plus faible (-> T4: ...), vide sinon.
 OMITTED : attaques écartées (entry hazards, attaques de combat en double).
@@ -51,6 +51,7 @@ def _parse():
             continue
         r = Record()
         r.tier, r.type, r.cat = tier, type_, _CATS[m.group(2)]
+        r.name = m.group(1).strip()
         r.power = m.group(3) if m.group(3) in ('var', 'fix', '—') else int(m.group(3).rstrip('*'))  # 102* : Retour
         r.acc = None if m.group(4) == '—' else int(m.group(4).rstrip('%'))
         r.pp, r.priority = int(m.group(5)), int(m.group(6) or 0)

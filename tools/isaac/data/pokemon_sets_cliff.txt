@@ -37,7 +37,7 @@ Variants: A = Stall (Wish, Soft-Boiled) / B = Utility (Serene Grace, screens, Na
        Moves: Wish [Sit]  /  Protect [Sit]  /  Draining Kiss [T2]  /  Yawn [Sit]
   [2B] Lucky egg
        Togepi @ Lum Berry   |   Ability: Super Luck   |   Nature: Calm
-       Moves: Encore [Sit]  /  Ancient Power [T2]  /  Charm [T2]  /  Thunder Wave [Sit]
+       Moves: Encore [Sit]  /  Dazzling Gleam [T3]  /  Charm [T2]  /  Thunder Wave [Sit]
   [3A] Cleric egg
        Togepi @ Leftovers   |   Ability: Serene Grace   |   Nature: Bold
        Moves: Soft-Boiled [Sit]  /  Heal Bell [Sit]  /  Dazzling Gleam [T3]  /  Thunder Wave [Sit]
@@ -46,7 +46,7 @@ Variants: A = Stall (Wish, Soft-Boiled) / B = Utility (Serene Grace, screens, Na
        Moves: Nasty Plot [T4]  /  Dazzling Gleam [T3]  /  Extrasensory [T3]  /  Mystical Fire [T3]
   [4A] Wish wall
        Togepi @ Rocky Helmet   |   Ability: Serene Grace   |   Nature: Bold
-       Moves: Wish [Sit]  /  Protect [Sit]  /  Seismic Toss [T4]  /  Encore [Sit]
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Play Rough [T4]  /  Encore [Sit]
   [4B] Screen egg
        Togepi @ Light Clay   |   Ability: Super Luck   |   Nature: Calm
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Wish [Sit]  /  Dazzling Gleam [T3]
@@ -67,13 +67,13 @@ Variants: A = Stall (Leech Seed, Strength Sap) / B = Utility (sleep, Encore, Mem
        Moves: Leech Seed [Sit]  /  Cotton Spore [T2]  /  Magical Leaf [T2]  /  Protect [Sit]
   [2B] Pivot weed
        Hoppip @ Lum Berry   |   Ability: Infiltrator   |   Nature: Timid
-       Moves: U-turn [T2]  /  Charm [T2]  /  Stun Spore [Sit]  /  Encore [Sit]
+       Moves: Seed Bomb [T3]  /  Charm [T2]  /  Stun Spore [Sit]  /  Encore [Sit]
   [3A] Strength Sap weed
        Hoppip @ Leftovers   |   Ability: Leaf Guard   |   Nature: Bold
-       Moves: Leech Seed [Sit]  /  Sleep Powder [T3]  /  Strength Sap [Sit]  /  Pollen Puff [T3]
+       Moves: Leech Seed [Sit]  /  Sleep Powder [T3]  /  Strength Sap [Sit]  /  Leaf Storm [T4]
   [3B] Memento lead
        Hoppip @ Focus Sash   |   Ability: Chlorophyll   |   Nature: Jolly
-       Moves: Sleep Powder [T3]  /  Encore [Sit]  /  Memento [Sit]  /  U-turn [T2]
+       Moves: Sleep Powder [T3]  /  Encore [Sit]  /  Memento [Sit]  /  Seed Bomb [T3]
   [4A] Bulky weed
        Hoppip @ Rocky Helmet   |   Ability: Infiltrator   |   Nature: Bold
        Moves: Leech Seed [Sit]  /  Strength Sap [Sit]  /  Giga Drain [T4]  /  Encore [Sit]
@@ -97,13 +97,13 @@ Variants: A = Attacker / B = Support (Tailwind, Defog, Roost)
        Moves: Steel Wing [T2]  /  Wing Attack [T2]  /  Feint Attack [T2]  /  Work Up [T2]
   [2B] Pivot bird
        Pidgey @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Hasty
-       Moves: U-turn [T2]  /  Feather Dance [T2]  /  Roost [Sit]  /  Whirlwind [Sit]
+       Moves: Take Down [T2]  /  Feather Dance [T2]  /  Roost [Sit]  /  Whirlwind [Sit]
   [3A] Diving bird
        Pidgey @ Muscle Band   |   Ability: Big Pecks   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Fly [T3]  /  Feint Attack [T2]  /  U-turn [T2]
   [3B] Tailwind support
        Pidgey @ Leftovers   |   Ability: Keen Eye   |   Nature: Timid
-       Moves: Roost [Sit]  /  Defog [Sit]  /  Tailwind [Sit]  /  Heat Wave [T3]
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Tailwind [Sit]  /  Hurricane [T4]
   [4A] Physical attacker
        Pidgey @ Life Orb   |   Ability: Big Pecks   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Double-Edge [T4]  /  U-turn [T2]  /  Roost [Sit]
@@ -127,7 +127,7 @@ Variants: A = Sniper attacker / B = Keen Eye attacker
        Moves: Focus Energy [T1]  /  Pluck [T2]  /  Thief [T2]  /  Drill Peck [T3]
   [2B] Pursuit bird
        Spearow @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Hasty
-       Moves: U-turn [T2]  /  Feather Dance [T2]  /  Scary Face [T2]  /  Pursuit [Sit]
+       Moves: U-turn [T2]  /  Feather Dance [T2]  /  Scary Face [T2]  /  Drill Peck [T3]
   [3A] Focus Energy sniper
        Spearow @ Scope Lens   |   Ability: Sniper   |   Nature: Jolly
        Moves: Focus Energy [T1]  /  Drill Peck [T3]  /  Drill Run [T3]  /  Double-Edge [T4]
@@ -217,7 +217,7 @@ Variants: A = Setup (Calm Mind) / B = Support (screens, Trick Room, Heal Bell)
        Moves: Charge Beam [T2]  /  Icy Wind [T2]  /  Round [T2]  /  Psychic Noise [T3]
   [2B] Cleric bell
        Chingling @ Sitrus Berry   |   Ability: Levitate   |   Nature: Calm
-       Moves: Hypnosis [T2]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Swift [T2]
+       Moves: Hypnosis [T2]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Extrasensory [T3]
   [3A] Stored Power bell
        Chingling @ Wise Glasses   |   Ability: Levitate   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Dazzling Gleam [T3]  /  Recover [Sit]
@@ -397,16 +397,16 @@ Variants: A = Stall (Roost, Cotton Guard) / B = Utility (Heal Bell, Perish Song,
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Air Cutter [T2]  /  Cotton Guard [Sit]
   [2B] Haze bird
        Swablu @ Lum Berry   |   Ability: Cloud Nine   |   Nature: Calm
-       Moves: Sing [T2]  /  Haze [Sit]  /  Dragon Breath [T2]  /  Feather Dance [T2]
+       Moves: Sing [T2]  /  Haze [Sit]  /  Swift [T2]  /  Feather Dance [T2]
   [3A] Cotton staller
        Swablu @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Roost [Sit]  /  Cotton Guard [Sit]  /  Dazzling Gleam [T3]  /  Toxic [Sit]
+       Moves: Roost [Sit]  /  Cotton Guard [Sit]  /  Hyper Voice [T4]  /  Toxic [Sit]
   [3B] Perish bird
        Swablu @ Mental Herb   |   Ability: Cloud Nine   |   Nature: Calm
-       Moves: Heal Bell [Sit]  /  Perish Song [Sit]  /  Haze [Sit]  /  Heat Wave [T3]
+       Moves: Heal Bell [Sit]  /  Perish Song [Sit]  /  Haze [Sit]  /  Hyper Voice [T4]
   [4A] Bulky bird
        Swablu @ Rocky Helmet   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Roost [Sit]  /  Defog [Sit]  /  Moonblast [T4]  /  Toxic [Sit]
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Hyper Voice [T4]  /  Toxic [Sit]
   [4B] Tailwind lead
        Swablu @ Focus Sash   |   Ability: Natural Cure   |   Nature: Timid
        Moves: Tailwind [Sit]  /  Heal Bell [Sit]  /  Hurricane [T4]  /  Haze [Sit]
@@ -427,19 +427,19 @@ Variants: A = Attacker (Calm Mind) / B = Support (Magic Bounce, Wish, Roost)
        Moves: Air Cutter [T2]  /  Ominous Wind [T2]  /  Silver Wind [T2]  /  Expanding Force [T3]
   [2B] Bouncing pivot
        Natu @ Sitrus Berry   |   Ability: Magic Bounce   |   Nature: Timid
-       Moves: U-turn [T2]  /  Thunder Wave [Sit]  /  Roost [Sit]  /  Wish [Sit]
+       Moves: Drill Peck [T3]  /  Thunder Wave [Sit]  /  Roost [Sit]  /  Wish [Sit]
   [3A] Stored Power bird
        Natu @ Wise Glasses   |   Ability: Magic Bounce   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Heat Wave [T3]  /  Roost [Sit]
   [3B] Magic Bounce support
        Natu @ Leftovers   |   Ability: Magic Bounce   |   Nature: Timid
-       Moves: Roost [Sit]  /  Wish [Sit]  /  Thunder Wave [Sit]  /  Heat Wave [T3]
+       Moves: Roost [Sit]  /  Wish [Sit]  /  Thunder Wave [Sit]  /  Psychic [T4]
   [4A] Calm Mind sweeper
        Natu @ Life Orb   |   Ability: Magic Bounce   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Psychic [T4]  /  Air Slash [T4]  /  Heat Wave [T3]
   [4B] Bulky pivot
        Natu @ Rocky Helmet   |   Ability: Magic Bounce   |   Nature: Timid
-       Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Night Shade [T4]  /  U-turn [T2]
+       Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Night Shade [T4]  /  Psychic [T4]
 
 ====================================================================================================
 #527 WOOBAT  —  Psychic/Flying  —  BST 323  —  Category 2
@@ -463,7 +463,7 @@ Variants: A = Setup (Simple Calm Mind) / B = Utility (Unaware, Roost, Defog)
        Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Heat Wave [T3]  /  Roost [Sit]
   [3B] Unaware bat
        Woobat @ Leftovers   |   Ability: Unaware   |   Nature: Bold
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  Heat Wave [T3]  /  Defog [Sit]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Psychic [T4]  /  Defog [Sit]
   [4A] Simple sweeper
        Woobat @ Life Orb   |   Ability: Simple   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Psychic [T4]  /  Air Slash [T4]  /  Shadow Ball [T4]
@@ -517,13 +517,13 @@ Variants: A = Stall (Strength Sap, Leech Seed) / B = Utility (sleep, Tailwind, s
        Moves: Leech Seed [Sit]  /  Magical Leaf [T2]  /  Encore [Sit]  /  Aromatherapy [Sit]
   [2B] Tailwind weed
        Skiploom @ Lum Berry   |   Ability: Chlorophyll   |   Nature: Timid
-       Moves: U-turn [T2]  /  Stun Spore [Sit]  /  Charm [T2]  /  Tailwind [Sit]
+       Moves: Seed Bomb [T3]  /  Stun Spore [Sit]  /  Charm [T2]  /  Tailwind [Sit]
   [3A] Strength Sap staller
        Skiploom @ Leftovers   |   Ability: Leaf Guard   |   Nature: Bold
-       Moves: Strength Sap [Sit]  /  Leech Seed [Sit]  /  Pollen Puff [T3]  /  Protect [Sit]
+       Moves: Strength Sap [Sit]  /  Leech Seed [Sit]  /  Leaf Storm [T4]  /  Protect [Sit]
   [3B] Sleep lead
        Skiploom @ Focus Sash   |   Ability: Infiltrator   |   Nature: Jolly
-       Moves: Sleep Powder [T3]  /  Tailwind [Sit]  /  Encore [Sit]  /  U-turn [T2]
+       Moves: Sleep Powder [T3]  /  Tailwind [Sit]  /  Encore [Sit]  /  Seed Bomb [T3]
   [4A] Bulky weed
        Skiploom @ Rocky Helmet   |   Ability: Infiltrator   |   Nature: Bold
        Moves: Strength Sap [Sit]  /  Encore [Sit]  /  Giga Drain [T4]  /  U-turn [T2]
@@ -661,13 +661,13 @@ Variants: A = Attacker (Download) / B = Bulky support (Recover, paralysis)
        Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Sharpen [T1]  /  Psybeam [T2]
   [1B] Tracing program
        Porygon @ Oran Berry   |   Ability: Trace   |   Nature: Docile
-       Moves: Thunder Shock [T1]  /  Defense Curl [T1]  /  Confide [T1]  /  Charge Beam [T2]
+       Moves: Thunder Shock [T1]  /  Defense Curl [T1]  /  Confide [T1]  /  Swift [T2]
   [2A] Download caster
        Porygon @ Twisted Spoon   |   Ability: Download   |   Nature: Mild
        Moves: Psybeam [T2]  /  Charge Beam [T2]  /  Icy Wind [T2]  /  Tri Attack [T3]
   [2B] Recovering program
        Porygon @ Sitrus Berry   |   Ability: Trace   |   Nature: Bold
-       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Psybeam [T2]  /  Shock Wave [T2]
+       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Psybeam [T2]  /  Tri Attack [T3]
   [3A] Coverage program
        Porygon @ Wise Glasses   |   Ability: Download   |   Nature: Modest
        Moves: Tri Attack [T3]  /  Discharge [T3]  /  Signal Beam [T3]  /  Ice Beam [T4]
@@ -676,10 +676,10 @@ Variants: A = Attacker (Download) / B = Bulky support (Recover, paralysis)
        Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Tri Attack [T3]  /  Discharge [T3]
   [4A] Special attacker
        Porygon @ Life Orb   |   Ability: Analytic   |   Nature: Modest
-       Moves: Thunderbolt [T4]  /  Ice Beam [T4]  /  Psychic [T4]  /  Shadow Ball [T4]
+       Moves: Thunderbolt [T4]  /  Ice Beam [T4]  /  Psychic [T4]  /  Tri Attack [T3]
   [4B] Foul Play wall
        Porygon @ Rocky Helmet   |   Ability: Trace   |   Nature: Bold
-       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Foul Play [T4]  /  Ice Beam [T4]
+       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Foul Play [T4]  /  Tri Attack [T3]
 
 ====================================================================================================
 #005 CHARMELEON  —  Fire  —  BST 405  —  Category 4
@@ -721,7 +721,7 @@ Variants: A = Stall (Roost, Wish) / B = Utility (Serene Grace, Nasty Plot)
        Moves: Fairy Wind [T1]  /  Peck [T1]  /  Growl [T1]  /  Air Cutter [T2]
   [1B] Lucky bird
        Togetic @ (no item)   |   Ability: Hustle   |   Nature: Docile
-       Moves: Pound [T1]  /  Twister [T1]  /  Sweet Kiss [T1]  /  Ancient Power [T2]
+       Moves: Fairy Wind [T1]  /  Twister [T1]  /  Sweet Kiss [T1]  /  Ancient Power [T2]
   [2A] Cleric bird
        Togetic @ Sitrus Berry   |   Ability: Serene Grace   |   Nature: Bold
        Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Air Cutter [T2]  /  Heal Bell [Sit]
@@ -739,7 +739,7 @@ Variants: A = Stall (Roost, Wish) / B = Utility (Serene Grace, Nasty Plot)
        Moves: Wish [Sit]  /  Roost [Sit]  /  Tailwind [Sit]  /  Dazzling Gleam [T3]
   [4B] Nasty Plot sweeper
        Togetic @ Life Orb   |   Ability: Serene Grace   |   Nature: Timid
-       Moves: Nasty Plot [T4]  /  Psyshock [T4]  /  Flamethrower [T4]  /  Shadow Ball [T4]
+       Moves: Nasty Plot [T4]  /  Moonblast [T4]  /  Flamethrower [T4]  /  Shadow Ball [T4]
 
 ====================================================================================================
 #444 GABITE  —  Dragon/Ground  —  BST 410  —  Category 4
@@ -781,7 +781,7 @@ Variants: A = Setup (Dragon Dance, Marvel Scale) / B = Special and bulky
        Moves: Wrap [T1]  /  Water Gun [T1]  /  Twister [T1]  /  Leer [T1]
   [1B] Shedding dragon
        Dragonair @ Oran Berry   |   Ability: Shed Skin   |   Nature: Docile
-       Moves: Supersonic [T1]  /  Whirlpool [T1]  /  Bind [T1]  /  Slam [T2]
+       Moves: Supersonic [T1]  /  Whirlpool [T1]  /  Bind [T1]  /  Breaking Swipe [T2]
   [2A] Rushing dragon
        Dragonair @ Dragon Fang   |   Ability: Marvel Scale   |   Nature: Lonely
        Moves: Breaking Swipe [T2]  /  Headbutt [T2]  /  Take Down [T2]  /  Dragon Rush [T3]
@@ -823,7 +823,7 @@ Variants: A = Setup (Simple) / B = Utility (Unaware, Trick)
        Moves: Calm Mind [T4]  /  Amnesia [Sit]  /  Stored Power [T3]  /  Roost [Sit]
   [3B] Taunt lead
        Swoobat @ Focus Sash   |   Ability: Unaware   |   Nature: Timid
-       Moves: Taunt [Sit]  /  Thunder Wave [Sit]  /  Heat Wave [T3]  /  U-turn [T2]
+       Moves: Taunt [Sit]  /  Thunder Wave [Sit]  /  Heat Wave [T3]  /  Psychic [T4]
   [4A] Simple sweeper
        Swoobat @ Weakness Policy   |   Ability: Simple   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Psychic [T4]  /  Air Slash [T4]  /  Roost [Sit]
@@ -907,7 +907,7 @@ Variants: A = Sniper attacker / B = Keen Eye utility (Roost, Tailwind)
        Moves: Focus Energy [T1]  /  Steel Wing [T2]  /  Feint Attack [T2]  /  Drill Run [T3]
   [2B] Pivot beak
        Fearow @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Hasty
-       Moves: U-turn [T2]  /  Scary Face [T2]  /  Feather Dance [T2]  /  Roost [Sit]
+       Moves: Drill Peck [T3]  /  Scary Face [T2]  /  Feather Dance [T2]  /  Roost [Sit]
   [3A] Focus Energy sniper
        Fearow @ Scope Lens   |   Ability: Sniper   |   Nature: Jolly
        Moves: Focus Energy [T1]  /  Drill Peck [T3]  /  Throat Chop [T3]  /  Return [T4]
@@ -1000,10 +1000,10 @@ Variants: A = Stall (Strength Sap, Leech Seed) / B = Utility (sleep, Tailwind, S
        Moves: U-turn [T2]  /  Stun Spore [Sit]  /  Tailwind [Sit]  /  Aerial Ace [T2]
   [3A] Strength Sap staller
        Jumpluff @ Leftovers   |   Ability: Infiltrator   |   Nature: Bold
-       Moves: Strength Sap [Sit]  /  Encore [Sit]  /  Pollen Puff [T3]  /  Substitute [Sit]
+       Moves: Strength Sap [Sit]  /  Encore [Sit]  /  Leaf Storm [T4]  /  Substitute [Sit]
   [3B] Sleep lead
        Jumpluff @ Focus Sash   |   Ability: Chlorophyll   |   Nature: Jolly
-       Moves: Sleep Powder [T3]  /  Tailwind [Sit]  /  Memento [Sit]  /  U-turn [T2]
+       Moves: Sleep Powder [T3]  /  Tailwind [Sit]  /  Memento [Sit]  /  Seed Bomb [T3]
   [4A] Swords Dance weed
        Jumpluff @ Life Orb   |   Ability: Infiltrator   |   Nature: Jolly
        Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Bounce [T3]  /  Strength Sap [Sit]
@@ -1051,16 +1051,16 @@ Variants: A = Bulky support (Magic Bounce, Roost) / B = Special attacker
        Moves: Peck [T1]  /  Twister [T1]  /  Leer [T1]  /  Air Cutter [T2]
   [1B] Seer bird
        Xatu @ Oran Berry   |   Ability: Early Bird   |   Nature: Docile
-       Moves: Quick Attack [T1]  /  Miracle Eye [T1]  /  Flash [T1]  /  Ominous Wind [T2]
+       Moves: Quick Attack [T1]  /  Miracle Eye [T1]  /  Flash [T1]  /  Synchronoise [T2]
   [2A] Future Sight bird
        Xatu @ Twisted Spoon   |   Ability: Synchronize   |   Nature: Mild
        Moves: Air Cutter [T2]  /  Silver Wind [T2]  /  Swift [T2]  /  Future Sight [T3]
   [2B] Bouncing pivot
        Xatu @ Sitrus Berry   |   Ability: Magic Bounce   |   Nature: Bold
-       Moves: Roost [Sit]  /  U-turn [T2]  /  Thunder Wave [Sit]  /  Feather Dance [T2]
+       Moves: Roost [Sit]  /  Drill Peck [T3]  /  Thunder Wave [Sit]  /  Feather Dance [T2]
   [3A] Magic Bounce wall
        Xatu @ Leftovers   |   Ability: Magic Bounce   |   Nature: Bold
-       Moves: Roost [Sit]  /  Heat Wave [T3]  /  Night Shade [T4]  /  Thunder Wave [Sit]
+       Moves: Roost [Sit]  /  Expanding Force [T3]  /  Night Shade [T4]  /  Thunder Wave [Sit]
   [3B] Psychic caster
        Xatu @ Wise Glasses   |   Ability: Synchronize   |   Nature: Timid
        Moves: Expanding Force [T3]  /  Heat Wave [T3]  /  Signal Beam [T3]  /  Air Slash [T4]
@@ -1120,7 +1120,7 @@ Variants: A = Sheer Force attacker / B = Bulky (Rough Skin, Glare)
        Moves: Glare [Sit]  /  Dragon Tail [Sit]  /  Rock Tomb [T2]  /  Protect [Sit]
   [3A] Sheer Force puncher
        Druddigon @ Muscle Band   |   Ability: Sheer Force   |   Nature: Adamant
-       Moves: Fire Punch [T3]  /  Thunder Punch [T3]  /  Crunch [T3]  /  Gunk Shot [T4]
+       Moves: Dragon Claw [T3]  /  Thunder Punch [T3]  /  Crunch [T3]  /  Gunk Shot [T4]
   [3B] Rough Skin wall
        Druddigon @ Rocky Helmet   |   Ability: Rough Skin   |   Nature: Impish
        Moves: Glare [Sit]  /  Dragon Tail [Sit]  /  Taunt [Sit]  /  Crunch [T3]
@@ -1141,7 +1141,7 @@ Variants: A = Defensive (Roost, Will-O-Wisp) / B = Offensive (Dragon Dance)
        Moves: Peck [T1]  /  Twister [T1]  /  Growl [T1]  /  Dragon Breath [T2]
   [1B] Singing dragon
        Altaria @ (no item)   |   Ability: Cloud Nine   |   Nature: Docile
-       Moves: Fury Attack [T1]  /  Disarming Voice [T1]  /  Astonish [T1]  /  Sing [T2]
+       Moves: Peck [T1]  /  Disarming Voice [T1]  /  Astonish [T1]  /  Sing [T2]
   [2A] Burning cloud
        Altaria @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
        Moves: Roost [Sit]  /  Will-O-Wisp [Sit]  /  Dragon Breath [T2]  /  Defog [Sit]
@@ -1150,7 +1150,7 @@ Variants: A = Defensive (Roost, Will-O-Wisp) / B = Offensive (Dragon Dance)
        Moves: Breaking Swipe [T2]  /  Dual Wingbeat [T2]  /  Hone Claws [T2]  /  Dragon Claw [T3]
   [3A] Cleric cloud
        Altaria @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Roost [Sit]  /  Will-O-Wisp [Sit]  /  Dazzling Gleam [T3]  /  Heal Bell [Sit]
+       Moves: Roost [Sit]  /  Will-O-Wisp [Sit]  /  Draco Meteor [T4]  /  Heal Bell [Sit]
   [3B] Dragon Dance cloud
        Altaria @ Muscle Band   |   Ability: Cloud Nine   |   Nature: Adamant
        Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Fly [T3]  /  Iron Tail [T3]
@@ -1243,7 +1243,7 @@ Variants: A = Guts attacker / B = Setup (Bulk Up, Quick Feet)
        Moves: Facade [T4]  /  Hammer Arm [T3]  /  Night Slash [T3]  /  Shadow Claw [T3]
   [3B] Bulk Up bear
        Ursaring @ Leftovers   |   Ability: Unnerve   |   Nature: Adamant
-       Moves: Bulk Up [T4]  /  Crunch [T3]  /  High Horsepower [T3]  /  Rest [Sit]
+       Moves: Bulk Up [T4]  /  Thrash [T3]  /  High Horsepower [T3]  /  Rest [Sit]
   [4A] Guts attacker
        Ursaring @ Toxic Orb   |   Ability: Guts   |   Nature: Adamant
        Moves: Facade [T4]  /  Close Combat [T4]  /  Crunch [T3]  /  Earthquake [T4]
@@ -1324,7 +1324,7 @@ Variants: A = Defensive (Recover, Trace) / B = Offensive (Download, Trick Room)
        Moves: Sharpen [T1]  /  Flash [T1]  /  Tackle [T1]  /  Shock Wave [T2]
   [2A] Recovering program
        Porygon2 @ Sitrus Berry   |   Ability: Trace   |   Nature: Bold
-       Moves: Recover [Sit]  /  Toxic [Sit]  /  Icy Wind [T2]  /  Eerie Impulse [T2]
+       Moves: Recover [Sit]  /  Toxic [Sit]  /  Tri Attack [T3]  /  Eerie Impulse [T2]
   [2B] Trick Room program
        Porygon2 @ Twisted Spoon   |   Ability: Download   |   Nature: Quiet
        Moves: Trick Room [Sit]  /  Psybeam [T2]  /  Charge Beam [T2]  /  Tri Attack [T3]
@@ -1336,10 +1336,10 @@ Variants: A = Defensive (Recover, Trace) / B = Offensive (Download, Trick Room)
        Moves: Trick Room [Sit]  /  Tri Attack [T3]  /  Discharge [T3]  /  Ice Beam [T4]
   [4A] Paralysis wall
        Porygon2 @ Rocky Helmet   |   Ability: Trace   |   Nature: Bold
-       Moves: Recover [Sit]  /  Ice Beam [T4]  /  Thunder Wave [Sit]  /  Shadow Ball [T4]
+       Moves: Recover [Sit]  /  Ice Beam [T4]  /  Thunder Wave [Sit]  /  Tri Attack [T3]
   [4B] Trick Room attacker
        Porygon2 @ Life Orb   |   Ability: Download   |   Nature: Quiet
-       Moves: Trick Room [Sit]  /  Ice Beam [T4]  /  Thunderbolt [T4]  /  Psychic [T4]
+       Moves: Trick Room [Sit]  /  Tri Attack [T3]  /  Thunderbolt [T4]  /  Psychic [T4]
 
 ====================================================================================================
 #330 FLYGON  —  Ground/Dragon  —  BST 520  —  Category 7
@@ -1411,13 +1411,13 @@ Variants: A = Setup (Adaptability, Nasty Plot) / B = Download speed (Agility, Ch
        Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Sharpen [T1]  /  Swift [T2]
   [1B] Downloading program
        Porygon-Z @ Oran Berry   |   Ability: Download   |   Nature: Docile
-       Moves: Thunder Shock [T1]  /  Flash [T1]  /  Defense Curl [T1]  /  Psybeam [T2]
+       Moves: Thunder Shock [T1]  /  Flash [T1]  /  Defense Curl [T1]  /  Swift [T2]
   [2A] Adaptability caster
        Porygon-Z @ Silk Scarf   |   Ability: Adaptability   |   Nature: Mild
        Moves: Swift [T2]  /  Charge Beam [T2]  /  Icy Wind [T2]  /  Tri Attack [T3]
   [2B] Agility program
        Porygon-Z @ Sitrus Berry   |   Ability: Download   |   Nature: Rash
-       Moves: Psybeam [T2]  /  Shock Wave [T2]  /  Electroweb [T2]  /  Agility [Sit]
+       Moves: Psybeam [T2]  /  Shock Wave [T2]  /  Tri Attack [T3]  /  Agility [Sit]
   [3A] Nasty Plot program
        Porygon-Z @ Wise Glasses   |   Ability: Adaptability   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Tri Attack [T3]  /  Discharge [T3]  /  Signal Beam [T3]
@@ -1516,7 +1516,7 @@ Variants: A = Setup (Dragon Dance, Multiscale) / B = Bulky (Roost) and Choice
        Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Dragon Tail [Sit]  /  Heal Bell [Sit]
   [4A] Dragon Dance sweeper
        Dragonite @ Life Orb   |   Ability: Multiscale   |   Nature: Adamant
-       Moves: Dragon Dance [T4]  /  Extreme Speed [T4]  /  Earthquake [T4]  /  Roost [Sit]
+       Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Earthquake [T4]  /  Roost [Sit]
   [4B] Choice Band dragon
        Dragonite @ Choice Band   |   Ability: Inner Focus   |   Nature: Adamant
        Moves: Extreme Speed [T4]  /  Outrage [T4]  /  Earthquake [T4]  /  Fire Punch [T3]
@@ -1651,7 +1651,7 @@ Variants: A = Physical (Dragon Dance) / B = Special and Choice
        Moves: Twister [T1]  /  Bind [T1]  /  Rock Smash [T1]  /  Breaking Swipe [T2]
   [1B] Ozone dragon
        Rayquaza @ Oran Berry   |   Ability: Air Lock   |   Nature: Docile
-       Moves: Whirlpool [T1]  /  Mud-Slap [T1]  /  Confide [T1]  /  Ancient Power [T2]
+       Moves: Whirlpool [T1]  /  Twister [T1]  /  Confide [T1]  /  Ancient Power [T2]
   [2A] Clawing dragon
        Rayquaza @ Dragon Fang   |   Ability: Air Lock   |   Nature: Lonely
        Moves: Breaking Swipe [T2]  /  Aerial Ace [T2]  /  Rock Tomb [T2]  /  Dragon Claw [T3]
