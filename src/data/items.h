@@ -4829,7 +4829,7 @@ const struct ItemInfo gItemsInfo[] =
         .importance = 1,
         .description = COMPOUND_STRING(
             "Kecleon's prices\n"
-            "are 30% lower\n"
+            "are 20% lower\n"
             "for this descent."),
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -4882,7 +4882,7 @@ const struct ItemInfo gItemsInfo[] =
         .importance = 1,
         .description = COMPOUND_STRING(
             "Trainers give\n"
-            "double money\n"
+            "50% more money\n"
             "for this descent."),
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_BAG_MENU,

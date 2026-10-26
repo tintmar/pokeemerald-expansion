@@ -1868,12 +1868,14 @@ const u8 *IsaacGetRoomTrainerDefeat(const u8 *defaultText)
     return (speech != NULL) ? speech->defeat : defaultText;
 }
 
-// Argent gagné contre un dresseur ou le boss du donjon (doublé avec la Pièce Porte-Bonheur)
+// Argent gagné contre un dresseur ou le boss du donjon (+LUCKY_COIN_BONUS_PCT % avec la Pièce Porte-Bonheur)
+#define LUCKY_COIN_BONUS_PCT  50
+
 u32 IsaacGetTrainerMoney(void)
 {
     u32 money = ISAAC_TRAINER_MONEY_PER_FLOOR * VarGet(VAR_ISAAC_FLOOR);
 
-    return CheckBagHasItem(ITEM_LUCKY_COIN, 1) ? money * 2 : money;
+    return CheckBagHasItem(ITEM_LUCKY_COIN, 1) ? money * (100 + LUCKY_COIN_BONUS_PCT) / 100 : money;
 }
 
 // Butin d'un dresseur vaincu, donné objet par objet (IsaacNextLootItem) :
@@ -2423,8 +2425,8 @@ static void SetUpCaptureMons(s32 x, s32 y)
 // Chacun n'est vraiment en vente qu'avec une chance qui dépend de l'article et de l'étage (sShopSlotPresentPct, tirée
 // pour l'étage, IsShopSlotPresent), en un seul exemplaire.
 // Les prix se comptent en dixièmes de SHOP_PRICE_UNIT_PER_FLOOR x étage (voir sShopPrices) : un étage rapporte de
-// l'ordre de 6 (étage 2) à 13 (étages profonds) de ces unités, on ne peut donc pas tout acheter et il faut choisir.
-#define SHOP_PRICE_UNIT_PER_FLOOR  1000  // les gains d'un dresseur valaient 1000 x étage quand les prix ont été fixés
+// l'ordre de 5 (étage 2) à 11 (étages profonds) de ces unités, on ne peut donc pas tout acheter et il faut choisir.
+#define SHOP_PRICE_UNIT_PER_FLOOR  1150
 
 enum
 {
@@ -2541,7 +2543,7 @@ static const struct IsaacShopPrice sShopPrices[] =
     { ITEM_DISCOUNT_CARD, 20 },
 };
 #define SHOP_DISCOUNT_CARD_MAX_FLOOR  4
-#define SHOP_DISCOUNT_PCT            30
+#define SHOP_DISCOUNT_PCT            20
 #define SHOP_TM_PRICE_TENTHS       12
 #define SHOP_ITEM_PRICE_TENTHS     15
 #define SHOP_SPECIAL_PRICE_TENTHS  50  // objet spécial : très cher
