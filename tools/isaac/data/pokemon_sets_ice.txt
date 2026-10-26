@@ -70,7 +70,7 @@ Variants: A = Physical / B = Special
        Moves: Water Pulse [T2]  /  Icy Wind [T2]  /  Shock Wave [T2]  /  Uproar [T3]
   [3A] Elemental puncher
        Whismur @ Muscle Band   |   Ability: Soundproof   |   Nature: Adamant
-       Moves: Ice Punch [T3]  /  Fire Punch [T3]  /  Thunder Punch [T3]  /  Retaliate [T3]
+       Moves: Ice Punch [T3]  /  Fire Punch [T3]  /  Thunder Punch [T3]  /  Double-Edge [T4]
   [3B] Booming whisper
        Whismur @ Wise Glasses   |   Ability: Rattled   |   Nature: Modest
        Moves: Hyper Voice [T4]  /  Extrasensory [T3]  /  Protect [Sit]  /  Roar [Sit]
@@ -100,7 +100,7 @@ Variants: A = Physical attacker / B = Utility (pivot, Defog, Taunt)
        Moves: Drill Peck [T3]  /  Fake Tears [T2]  /  Roost [Sit]  /  Taunt [Sit]
   [3A] Feisty chick
        Rookidee @ Muscle Band   |   Ability: Keen Eye   |   Nature: Jolly
-       Moves: Drill Peck [T3]  /  Retaliate [T3]  /  Assurance [T3]  /  Facade [T4]
+       Moves: Drill Peck [T3]  /  U-turn [T2]  /  Payback [T3]  /  Facade [T4]
   [3B] Sash utility
        Rookidee @ Focus Sash   |   Ability: Unnerve   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Taunt [Sit]  /  Defog [Sit]  /  Roost [Sit]
@@ -283,7 +283,7 @@ Variants: A = Physical / B = Special
        Moves: Ice Spinner [T3]  /  Crunch [T3]  /  Avalanche [T3]  /  Ice Shard [T4]
   [3B] Snow caster
        Snorunt @ Icy Rock   |   Ability: Ice Body   |   Nature: Modest
-       Moves: Snowscape [Sit]  /  Frost Breath [T3]  /  Hex [T3]  /  Blizzard [T4]
+       Moves: Toxic [Sit]  /  Frost Breath [T3]  /  Hex [T3]  /  Blizzard [T4]
   [4A] Physical attacker
        Snorunt @ Life Orb   |   Ability: Inner Focus   |   Nature: Jolly
        Moves: Icicle Crash [T4]  /  Crunch [T3]  /  Ice Shard [T4]  /  Double-Edge [T4]
@@ -337,10 +337,10 @@ Variants: A = Pure Stall / B = Defensive with utility (Trick Room, screens)
        Moves: Psywave [T2]  /  Toxic [Sit]  /  Protect [Sit]  /  Confuse Ray [Sit]
   [2B] Screen mirror
        Bronzor @ Lum Berry   |   Ability: Heatproof   |   Nature: Relaxed
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Steel Roller [T3]
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Heavy Slam [T3]
   [3A] Mirror staller
        Bronzor @ Leftovers   |   Ability: Levitate   |   Nature: Bold
-       Moves: Toxic [Sit]  /  Protect [Sit]  /  Gyro Ball [T3]  /  Psychic [T4]
+       Moves: Toxic [Sit]  /  Protect [Sit]  /  Expanding Force [T3]  /  Psychic [T4]
   [3B] Screen setter
        Bronzor @ Light Clay   |   Ability: Heatproof   |   Nature: Relaxed
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Gyro Ball [T3]
@@ -481,7 +481,7 @@ Variants: A = Hustle attacker / B = Support (Aurora Veil, Tailwind, Memento)
        Moves: Quick Attack [T1]  /  Mud-Slap [T1]  /  Confide [T1]  /  Icy Wind [T2]
   [1B] Clumsy courier
        Delibird @ Oran Berry   |   Ability: Hustle   |   Nature: Docile
-       Moves: Quick Attack [T1]  /  Mud-Slap [T1]  /  Splash [T1]  /  Pluck [T2]
+       Moves: Quick Attack [T1]  /  Mud-Slap [T1]  /  Tailwind [Sit]  /  Pluck [T2]
   [2A] Hustle courier
        Delibird @ Never-Melt Ice   |   Ability: Hustle   |   Nature: Lonely
        Moves: Pluck [T2]  /  Brutal Swing [T2]  /  Power-Up Punch [T2]  /  Ice Spinner [T3]
@@ -493,7 +493,7 @@ Variants: A = Hustle attacker / B = Support (Aurora Veil, Tailwind, Memento)
        Moves: Ice Spinner [T3]  /  Drill Peck [T3]  /  Brick Break [T3]  /  Ice Shard [T4]
   [3B] Aurora Veil setter
        Delibird @ Light Clay   |   Ability: Insomnia   |   Nature: Jolly
-       Moves: Brave Bird [T4]  /  Aurora Veil [Sit]  /  Tailwind [Sit]  /  Memento [Sit]
+       Moves: Brave Bird [T4]  /  Ice Spinner [T3]  /  Tailwind [Sit]  /  Memento [Sit]
   [4A] Hustle attacker
        Delibird @ Life Orb   |   Ability: Hustle   |   Nature: Jolly
        Moves: Triple Axel [T4]  /  Brave Bird [T4]  /  Ice Shard [T4]  /  Drill Run [T3]
@@ -1057,13 +1057,13 @@ Variants: A = Physical / B = Special (Ice Body)
        Moves: Ice Fang [T2]  /  Bulldoze [T2]  /  Headbutt [T2]  /  Crunch [T3]
   [2B] Haunting face
        Glalie @ Wise Glasses   |   Ability: Ice Body   |   Nature: Rash
-       Moves: Icy Wind [T2]  /  Water Pulse [T2]  /  Round [T2]  /  Hex [T3]
+       Moves: Icy Wind [T2]  /  Water Pulse [T2]  /  Chilling Water [T2]  /  Frost Breath [T3]
   [3A] Spinning striker
        Glalie @ Expert Belt   |   Ability: Inner Focus   |   Nature: Adamant
        Moves: Ice Spinner [T3]  /  Crunch [T3]  /  Earthquake [T4]  /  Self-Destruct [T3]
   [3B] Ice Body staller
        Glalie @ Leftovers   |   Ability: Ice Body   |   Nature: Modest
-       Moves: Substitute [Sit]  /  Protect [Sit]  /  Frost Breath [T3]  /  Hex [T3]
+       Moves: Substitute [Sit]  /  Protect [Sit]  /  Frost Breath [T3]  /  Shadow Ball [T4]
   [4A] Choice Band bomber
        Glalie @ Choice Band   |   Ability: Inner Focus   |   Nature: Jolly
        Moves: Icicle Crash [T4]  /  Earthquake [T4]  /  Ice Shard [T4]  /  Explosion [T4]
@@ -1084,7 +1084,7 @@ Variants: A = Attacker / B = Support (Will-O-Wisp, Destiny Bond, Aurora Veil)
        Moves: Astonish [T1]  /  Powder Snow [T1]  /  Mud-Slap [T1]  /  Draining Kiss [T2]
   [2A] Haunting caster
        Froslass @ Spell Tag   |   Ability: Snow Cloak   |   Nature: Rash
-       Moves: Ominous Wind [T2]  /  Icy Wind [T2]  /  Shock Wave [T2]  /  Hex [T3]
+       Moves: Ominous Wind [T2]  /  Icy Wind [T2]  /  Shock Wave [T2]  /  Frost Breath [T3]
   [2B] Burning wisp
        Froslass @ Sitrus Berry   |   Ability: Cursed Body   |   Nature: Hasty
        Moves: Icy Wind [T2]  /  Confuse Ray [Sit]  /  Will-O-Wisp [Sit]  /  Ominous Wind [T2]
@@ -1303,7 +1303,7 @@ Variants: A = Setup (Swords Dance) / B = Utility attacker (Pickpocket, Choice Sc
        Moves: Swords Dance [T4]  /  Ice Spinner [T3]  /  Night Slash [T3]  /  Low Kick [T3]
   [3B] Priority claw
        Weavile @ Muscle Band   |   Ability: Pickpocket   |   Nature: Jolly
-       Moves: Fake Out [Sit]  /  Lash Out [T3]  /  Ice Spinner [T3]  /  Upper Hand [Sit]
+       Moves: Fake Out [Sit]  /  Knock Off [T4]  /  Ice Spinner [T3]  /  Low Kick [T3]
   [4A] Swords Dance sweeper
        Weavile @ Life Orb   |   Ability: Pressure   |   Nature: Jolly
        Moves: Swords Dance [T4]  /  Triple Axel [T4]  /  Knock Off [T4]  /  Low Kick [T3]
@@ -1537,7 +1537,7 @@ Variants: A = Power attacker (Punching Glove) / B = Setup and bulk (Iron Defense
        Moves: Hone Claws [T2]  /  Brutal Swing [T2]  /  Bulldoze [T2]  /  Zen Headbutt [T3]
   [2B] Screen legs
        Metagross @ Sitrus Berry   |   Ability: Light Metal   |   Nature: Hasty
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Steel Roller [T3]  /  Headbutt [T2]
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Hard Press [T3]  /  Headbutt [T2]
   [3A] Bullet Punch striker
        Metagross @ Muscle Band   |   Ability: Clear Body   |   Nature: Adamant
        Moves: Bullet Punch [T4]  /  Zen Headbutt [T3]  /  Hammer Arm [T3]  /  Ice Punch [T3]
@@ -1627,7 +1627,7 @@ Variants: A = Pure Stall / B = Defensive with utility (paralysis, Iron Defense, 
        Moves: Toxic [Sit]  /  Protect [Sit]  /  Rest [Sit]  /  Heavy Slam [T3]
   [2B] Blocking golem
        Registeel @ Lum Berry   |   Ability: Clear Body   |   Nature: Impish
-       Moves: Thunder Wave [Sit]  /  Rock Tomb [T2]  /  Block [Sit]  /  Steel Roller [T3]
+       Moves: Thunder Wave [Sit]  /  Rock Tomb [T2]  /  Block [Sit]  /  Heavy Slam [T3]
   [3A] Steel staller
        Registeel @ Leftovers   |   Ability: Clear Body   |   Nature: Careful
        Moves: Toxic [Sit]  /  Protect [Sit]  /  Heavy Slam [T3]  /  Seismic Toss [T4]
@@ -1699,5 +1699,5 @@ Variants: A = Special attacker / B = Bulky utility (paralysis, Trick Room)
        Moves: Draco Meteor [T4]  /  Flash Cannon [T4]  /  Fire Blast [T4]  /  Thunderbolt [T4]
   [4B] Trick Room dragon
        Dialga @ Life Orb   |   Ability: Pressure   |   Nature: Quiet
-       Moves: Trick Room [Sit]  /  Draco Meteor [T4]  /  Steel Beam [T4]  /  Fire Blast [T4]
+       Moves: Flash Cannon [T4]  /  Draco Meteor [T4]  /  Steel Beam [T4]  /  Fire Blast [T4]
 

@@ -157,19 +157,19 @@ Variants: A = Physical attacker (Sniper) / B = Utility (Toxic Thread, Baton Pass
        Moves: Bug Bite [T2]  /  Pounce [T2]  /  Thief [T2]  /  Cross Poison [T3]
   [2B] Thread spinner
        Spinarak @ Sitrus Berry   |   Ability: Insomnia   |   Nature: Bold
-       Moves: Toxic Thread [Sit]  /  Electroweb [T2]  /  Bug Bite [T2]  /  Protect [Sit]
+       Moves: Toxic Thread [Sit]  /  Electroweb [T2]  /  Signal Beam [T3]  /  Protect [Sit]
   [3A] Critical spider
        Spinarak @ Scope Lens   |   Ability: Sniper   |   Nature: Adamant
        Moves: Cross Poison [T3]  /  Lunge [T3]  /  Night Slash [T3]  /  Sucker Punch [T4]
   [3B] Thread passer
        Spinarak @ Leftovers   |   Ability: Insomnia   |   Nature: Bold
-       Moves: Toxic Thread [Sit]  /  Lunge [T3]  /  Protect [Sit]  /  Baton Pass [Sit]
+       Moves: Toxic Thread [Sit]  /  Lunge [T3]  /  Protect [Sit]  /  Sludge Wave [T4]
   [4A] Spider attacker
        Spinarak @ Life Orb   |   Ability: Swarm   |   Nature: Adamant
        Moves: Megahorn [T4]  /  Poison Jab [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]
   [4B] Spider support
        Spinarak @ Rocky Helmet   |   Ability: Insomnia   |   Nature: Impish
-       Moves: Toxic Thread [Sit]  /  Leech Life [T4]  /  Knock Off [T4]  /  Baton Pass [Sit]
+       Moves: Toxic Thread [Sit]  /  Leech Life [T4]  /  Knock Off [T4]  /  Megahorn [T4]
 
 ====================================================================================================
 #163 HOOTHOOT  —  Normal/Flying  —  BST 262  —  Category 1
@@ -253,7 +253,7 @@ Variants: A = Setup attacker (Moxie) / B = Utility (Intimidate, trapping)
        Moves: Crunch [T3]  /  Iron Tail [T3]  /  Aqua Tail [T3]  /  Earthquake [T4]
   [3B] Trapping croc
        Sandile @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Jolly
-       Moves: Pursuit [Sit]  /  Crunch [T3]  /  Stomping Tantrum [T3]  /  Taunt [Sit]
+       Moves: Payback [T3]  /  Crunch [T3]  /  Stomping Tantrum [T3]  /  Taunt [Sit]
   [4A] Moxie attacker
        Sandile @ Life Orb   |   Ability: Moxie   |   Nature: Jolly
        Moves: Earthquake [T4]  /  Crunch [T3]  /  Stone Edge [T4]  /  Iron Tail [T3]
@@ -280,7 +280,7 @@ Variants: A = Physical attacker / B = Utility (Will-O-Wisp, Trick Room, Destiny 
        Moves: Will-O-Wisp [Sit]  /  Phantom Force [T3]  /  Confuse Ray [Sit]  /  Spite [Sit]
   [3A] Puppet haunter
        Shuppet @ Spell Tag   |   Ability: Cursed Body   |   Nature: Adamant
-       Moves: Phantom Force [T3]  /  Lash Out [T3]  /  Shadow Sneak [T4]  /  Thunder Wave [Sit]
+       Moves: Phantom Force [T3]  /  Payback [T3]  /  Shadow Sneak [T4]  /  Thunder Wave [Sit]
   [3B] Grudge puppet
        Shuppet @ Mental Herb   |   Ability: Frisk   |   Nature: Relaxed
        Moves: Will-O-Wisp [Sit]  /  Trick Room [Sit]  /  Phantom Force [T3]  /  Destiny Bond [Sit]
@@ -313,7 +313,7 @@ Variants: A = Pure Stall / B = Defensive with utility (Trick Room, Memento)
        Moves: Hex [T3]  /  Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Protect [Sit]
   [3B] Trick Room support
        Duskull @ Mental Herb   |   Ability: Frisk   |   Nature: Relaxed
-       Moves: Trick Room [Sit]  /  Hex [T3]  /  Memento [Sit]  /  Taunt [Sit]
+       Moves: Trick Room [Sit]  /  Shadow Ball [T4]  /  Memento [Sit]  /  Taunt [Sit]
   [4A] Skull wall
        Duskull @ Rocky Helmet   |   Ability: Levitate   |   Nature: Bold
        Moves: Night Shade [T4]  /  Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Haze [Sit]
@@ -370,7 +370,7 @@ Variants: A = Defensive (screens) / B = Offensive (Nasty Plot)
        Moves: Tera Blast [T2]  /  Hex [T3]  /  Confuse Ray [Sit]  /  Protect [Sit]
   [3A] Screen chest
        Gimmighoul @ Light Clay   |   Ability: Rattled   |   Nature: Bold
-       Moves: Hex [T3]  /  Confuse Ray [Sit]  /  Reflect [Sit]  /  Light Screen [Sit]
+       Moves: Shadow Ball [T4]  /  Confuse Ray [Sit]  /  Reflect [Sit]  /  Light Screen [Sit]
   [3B] Nasty Plot chest
        Gimmighoul @ Leftovers   |   Ability: Rattled   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Hex [T3]  /  Confuse Ray [Sit]  /  Substitute [Sit]
@@ -454,7 +454,7 @@ Variants: A = Special attacker / B = Disruptor (sleep, burns, Destiny Bond)
        Moves: Lick [T1]  /  Astonish [T1]  /  Infestation [T1]  /  Ominous Wind [T2]
   [2A] Spectral gas
        Gastly @ Spell Tag   |   Ability: Levitate   |   Nature: Modest
-       Moves: Ominous Wind [T2]  /  Acid Spray [T2]  /  Icy Wind [T2]  /  Hex [T3]
+       Moves: Ominous Wind [T2]  /  Acid Spray [T2]  /  Icy Wind [T2]  /  Dazzling Gleam [T3]
   [2B] Sleep gas
        Gastly @ Sitrus Berry   |   Ability: Levitate   |   Nature: Hasty
        Moves: Hypnosis [T2]  /  Ominous Wind [T2]  /  Destiny Bond [Sit]  /  Will-O-Wisp [Sit]
@@ -463,7 +463,7 @@ Variants: A = Special attacker / B = Disruptor (sleep, burns, Destiny Bond)
        Moves: Hex [T3]  /  Will-O-Wisp [Sit]  /  Sludge Bomb [T4]  /  Pain Split [Sit]
   [3B] Sash disruptor
        Gastly @ Focus Sash   |   Ability: Levitate   |   Nature: Timid
-       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Hex [T3]  /  Shadow Ball [T4]
+       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Dazzling Gleam [T3]  /  Shadow Ball [T4]
   [4A] Nasty Plot sweeper
        Gastly @ Life Orb   |   Ability: Levitate   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Shadow Ball [T4]  /  Sludge Bomb [T4]  /  Thunderbolt [T4]
@@ -508,7 +508,7 @@ Variants: A = Special attacker / B = Utility (burns, Pursuit, priority)
 ----------------------------------------------------------------------------------------------------
   [1A] Dark pup
        Houndour @ (no item)   |   Ability: Flash Fire   |   Nature: Hardy
-       Moves: Ember [T1]  /  Leer [T1]  /  Smog [T1]  /  Howl [T1]
+       Moves: Ember [T1]  /  Leer [T1]  /  Smog [T1]  /  Incinerate [T2]
   [1B] Ember pup
        Houndour @ Oran Berry   |   Ability: Early Bird   |   Nature: Docile
        Moves: Ember [T1]  /  Fire Spin [T1]  /  Odor Sleuth [T1]  /  Bite [T2]
@@ -523,7 +523,7 @@ Variants: A = Special attacker / B = Utility (burns, Pursuit, priority)
        Moves: Dark Pulse [T4]  /  Heat Wave [T3]  /  Will-O-Wisp [Sit]  /  Protect [Sit]
   [3B] Trapping pup
        Houndour @ Focus Sash   |   Ability: Unnerve   |   Nature: Hasty
-       Moves: Will-O-Wisp [Sit]  /  Pursuit [Sit]  /  Crunch [T3]  /  Sucker Punch [T4]
+       Moves: Will-O-Wisp [Sit]  /  Payback [T3]  /  Crunch [T3]  /  Sucker Punch [T4]
   [4A] Nasty Plot sweeper
        Houndour @ Life Orb   |   Ability: Flash Fire   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Fire Blast [T4]  /  Dark Pulse [T4]  /  Sludge Bomb [T4]
@@ -577,19 +577,19 @@ Variants: A = Setup sweeper / B = Priority / trapping attacker
        Moves: Hone Claws [T2]  /  Feint Attack [T2]  /  Aerial Ace [T2]  /  Night Slash [T3]
   [2B] Hunting pawn
        Pawniard @ Black Glasses   |   Ability: Defiant   |   Nature: Naughty
-       Moves: Feint Attack [T2]  /  Screech [T2]  /  Low Sweep [T2]  /  Pursuit [Sit]
+       Moves: Feint Attack [T2]  /  Screech [T2]  /  Low Sweep [T2]  /  Night Slash [T3]
   [3A] Swords Dance pawn
        Pawniard @ Lum Berry   |   Ability: Defiant   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Night Slash [T3]  /  Brick Break [T3]  /  Psycho Cut [T3]
   [3B] Trapping pawn
        Pawniard @ Black Glasses   |   Ability: Inner Focus   |   Nature: Adamant
-       Moves: Pursuit [Sit]  /  Night Slash [T3]  /  X-Scissor [T3]  /  Sucker Punch [T4]
+       Moves: Payback [T3]  /  Night Slash [T3]  /  X-Scissor [T3]  /  Sucker Punch [T4]
   [4A] Swords Dance sweeper
        Pawniard @ Life Orb   |   Ability: Defiant   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Iron Head [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]
   [4B] Choice Band trapper
        Pawniard @ Choice Band   |   Ability: Defiant   |   Nature: Adamant
-       Moves: Knock Off [T4]  /  Iron Head [T4]  /  Sucker Punch [T4]  /  Pursuit [Sit]
+       Moves: Knock Off [T4]  /  Iron Head [T4]  /  Sucker Punch [T4]  /  Night Slash [T3]
 
 ====================================================================================================
 #552 KROKOROK  —  Ground/Dark  —  BST 351  —  Category 3
@@ -613,7 +613,7 @@ Variants: A = Setup attacker (Moxie) / B = Utility (Intimidate, trapping)
        Moves: Crunch [T3]  /  Dragon Claw [T3]  /  Aqua Tail [T3]  /  Earthquake [T4]
   [3B] Trapping croc
        Krokorok @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Jolly
-       Moves: Pursuit [Sit]  /  Lash Out [T3]  /  Stomping Tantrum [T3]  /  Dragon Tail [Sit]
+       Moves: Knock Off [T4]  /  Crunch [T3]  /  Stomping Tantrum [T3]  /  Dragon Tail [Sit]
   [4A] Moxie attacker
        Krokorok @ Life Orb   |   Ability: Moxie   |   Nature: Jolly
        Moves: Earthquake [T4]  /  Knock Off [T4]  /  Stone Edge [T4]  /  Scale Shot [T3]
@@ -673,7 +673,7 @@ Variants: A = Defensive (Curse) / B = Offensive (Belly Drum)
        Moves: Curse [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Rock Climb [T3]
   [3B] Belly Drum cub
        Munchlax @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Brave
-       Moves: Belly Drum [T4]  /  Retaliate [T3]  /  Crunch [T3]  /  Fire Punch [T3]
+       Moves: Belly Drum [T4]  /  Rock Climb [T3]  /  Crunch [T3]  /  Fire Punch [T3]
   [4A] Curse tank
        Munchlax @ Leftovers   |   Ability: Thick Fat   |   Nature: Careful
        Moves: Curse [Sit]  /  Body Slam [T4]  /  Rest [Sit]  /  Sleep Talk [Sit]
@@ -697,13 +697,13 @@ Variants: A = Setup attacker (Sniper) / B = Utility (Toxic Thread, priority)
        Moves: Hone Claws [T2]  /  Bug Bite [T2]  /  Fell Stinger [T2]  /  Cross Poison [T3]
   [2B] Web trapper
        Ariados @ Sitrus Berry   |   Ability: Insomnia   |   Nature: Bold
-       Moves: Toxic Thread [Sit]  /  Spider Web [Sit]  /  Pounce [T2]  /  Baton Pass [Sit]
+       Moves: Toxic Thread [Sit]  /  Spider Web [Sit]  /  Pounce [T2]  /  Hone Claws [T2]
   [3A] Critical spider
        Ariados @ Scope Lens   |   Ability: Sniper   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Cross Poison [T3]  /  Night Slash [T3]  /  X-Scissor [T3]
   [3B] Toxic hunter
        Ariados @ Leftovers   |   Ability: Insomnia   |   Nature: Impish
-       Moves: Toxic Thread [Sit]  /  Lunge [T3]  /  Pursuit [Sit]  /  Sucker Punch [T4]
+       Moves: Toxic Thread [Sit]  /  Lunge [T3]  /  Cross Poison [T3]  /  Sucker Punch [T4]
   [4A] Swords Dance spider
        Ariados @ Leftovers   |   Ability: Swarm   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Megahorn [T4]  /  Poison Jab [T4]  /  Sucker Punch [T4]
@@ -724,16 +724,16 @@ Variants: A = Special attacker / B = Disruptor (sleep, burns, Destiny Bond)
        Moves: Lick [T1]  /  Infestation [T1]  /  Poison Gas [T1]  /  Shadow Punch [T2]
   [2A] Spectral caster
        Haunter @ Spell Tag   |   Ability: Levitate   |   Nature: Modest
-       Moves: Ominous Wind [T2]  /  Acid Spray [T2]  /  Icy Wind [T2]  /  Venoshock [T3]
+       Moves: Ominous Wind [T2]  /  Acid Spray [T2]  /  Icy Wind [T2]  /  Dazzling Gleam [T3]
   [2B] Sleep ghost
        Haunter @ Sitrus Berry   |   Ability: Levitate   |   Nature: Hasty
        Moves: Hypnosis [T2]  /  Ominous Wind [T2]  /  Will-O-Wisp [Sit]  /  Pain Split [Sit]
   [3A] Hex burner
        Haunter @ Black Sludge   |   Ability: Levitate   |   Nature: Modest
-       Moves: Hex [T3]  /  Will-O-Wisp [Sit]  /  Venoshock [T3]  /  Pain Split [Sit]
+       Moves: Hex [T3]  /  Will-O-Wisp [Sit]  /  Sludge Wave [T4]  /  Pain Split [Sit]
   [3B] Sash disruptor
        Haunter @ Focus Sash   |   Ability: Levitate   |   Nature: Timid
-       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Hex [T3]  /  Sludge Bomb [T4]
+       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Dazzling Gleam [T3]  /  Sludge Bomb [T4]
   [4A] Nasty Plot sweeper
        Haunter @ Life Orb   |   Ability: Levitate   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Shadow Ball [T4]  /  Sludge Wave [T4]  /  Focus Blast [T4]
@@ -754,13 +754,13 @@ Variants: A = Physical / B = Special
        Moves: Gust [T1]  /  Twister [T1]  /  Mud-Slap [T1]  /  Confide [T1]
   [2A] Lucky crow
        Murkrow @ Sharp Beak   |   Ability: Super Luck   |   Nature: Lonely
-       Moves: Feint Attack [T2]  /  Aerial Ace [T2]  /  Steel Wing [T2]  /  Assurance [T3]
+       Moves: Feint Attack [T2]  /  Aerial Ace [T2]  /  Steel Wing [T2]  /  Night Slash [T3]
   [2B] Prankster crow
        Murkrow @ Sitrus Berry   |   Ability: Prankster   |   Nature: Mild
        Moves: Air Cutter [T2]  /  Snarl [T2]  /  Icy Wind [T2]  /  Haze [Sit]
   [3A] Super Luck striker
        Murkrow @ Scope Lens   |   Ability: Super Luck   |   Nature: Adamant
-       Moves: Drill Peck [T3]  /  Lash Out [T3]  /  Sucker Punch [T4]  /  Roost [Sit]
+       Moves: Drill Peck [T3]  /  Night Slash [T3]  /  Sucker Punch [T4]  /  Roost [Sit]
   [3B] Nasty Plot crow
        Murkrow @ Wise Glasses   |   Ability: Prankster   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Heat Wave [T3]  /  Psychic Noise [T3]  /  Roost [Sit]
@@ -820,7 +820,7 @@ Variants: A = Moxie attacker / B = Utility (Intimidate, Yawn, Taunt)
        Moves: Yawn [Sit]  /  Taunt [Sit]  /  Snarl [T2]  /  Roar [Sit]
   [3A] Moxie striker
        Mightyena @ Muscle Band   |   Ability: Moxie   |   Nature: Adamant
-       Moves: Crunch [T3]  /  Iron Tail [T3]  /  Retaliate [T3]  /  Sucker Punch [T4]
+       Moves: Crunch [T3]  /  Iron Tail [T3]  /  Strength [T3]  /  Sucker Punch [T4]
   [3B] Intimidate pest
        Mightyena @ Leftovers   |   Ability: Intimidate   |   Nature: Careful
        Moves: Yawn [Sit]  /  Taunt [Sit]  /  Crunch [T3]  /  Super Fang [Sit]
@@ -877,13 +877,13 @@ Variants: A = Defensive (burns, Pain Split) / B = Offensive (special setup)
        Moves: Ominous Wind [T2]  /  Confuse Ray [Sit]  /  Pain Split [Sit]  /  Will-O-Wisp [Sit]
   [2B] Spectral caster
        Misdreavus @ Spell Tag   |   Ability: Levitate   |   Nature: Modest
-       Moves: Ominous Wind [T2]  /  Psybeam [T2]  /  Charge Beam [T2]  /  Hex [T3]
+       Moves: Ominous Wind [T2]  /  Psybeam [T2]  /  Charge Beam [T2]  /  Dazzling Gleam [T3]
   [3A] Ghost burner
        Misdreavus @ Leftovers   |   Ability: Levitate   |   Nature: Bold
        Moves: Hex [T3]  /  Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Taunt [Sit]
   [3B] Calm Mind ghost
        Misdreavus @ Wise Glasses   |   Ability: Levitate   |   Nature: Timid
-       Moves: Calm Mind [T4]  /  Hex [T3]  /  Dazzling Gleam [T3]  /  Pain Split [Sit]
+       Moves: Calm Mind [T4]  /  Hex [T3]  /  Will-O-Wisp [Sit]  /  Pain Split [Sit]
   [4A] Ghost staller
        Misdreavus @ Rocky Helmet   |   Ability: Levitate   |   Nature: Bold
        Moves: Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Night Shade [T4]  /  Taunt [Sit]
@@ -1147,13 +1147,13 @@ Variants: A = Sheer Force attacker / B = Intimidate / Choice attacker
        Moves: Headbutt [T2]  /  Take Down [T2]  /  Rock Tomb [T2]  /  Zen Headbutt [T3]
   [2B] Intimidating bull
        Tauros @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Hasty
-       Moves: Horn Attack [T2]  /  Scary Face [T2]  /  Rock Tomb [T2]  /  Retaliate [T3]
+       Moves: Horn Attack [T2]  /  Scary Face [T2]  /  Rock Tomb [T2]  /  Rock Climb [T3]
   [3A] Sheer Force breaker
        Tauros @ Muscle Band   |   Ability: Sheer Force   |   Nature: Adamant
        Moves: Rock Climb [T3]  /  Zen Headbutt [T3]  /  Iron Tail [T3]  /  Earthquake [T4]
   [3B] Coverage bull
        Tauros @ Expert Belt   |   Ability: Intimidate   |   Nature: Jolly
-       Moves: Retaliate [T3]  /  High Horsepower [T3]  /  Throat Chop [T3]  /  Rock Slide [T4]
+       Moves: Rock Climb [T3]  /  High Horsepower [T3]  /  Throat Chop [T3]  /  Rock Slide [T4]
   [4A] Sheer Force sweeper
        Tauros @ Life Orb   |   Ability: Sheer Force   |   Nature: Jolly
        Moves: Body Slam [T4]  /  Rock Slide [T4]  /  Iron Head [T4]  /  Earthquake [T4]
@@ -1183,7 +1183,7 @@ Variants: A = Defensive (Milk Drink cleric) / B = Offensive
        Moves: Milk Drink [Sit]  /  Heal Bell [Sit]  /  Thunder Wave [Sit]  /  Body Slam [T4]
   [3B] Curse cow
        Miltank @ Muscle Band   |   Ability: Scrappy   |   Nature: Adamant
-       Moves: Curse [Sit]  /  Retaliate [T3]  /  Hammer Arm [T3]  /  Milk Drink [Sit]
+       Moves: Curse [Sit]  /  Double-Edge [T4]  /  Hammer Arm [T3]  /  Milk Drink [Sit]
   [4A] Bulky cleric
        Miltank @ Rocky Helmet   |   Ability: Thick Fat   |   Nature: Careful
        Moves: Body Slam [T4]  /  Seismic Toss [T4]  /  Milk Drink [Sit]  /  Heal Bell [Sit]
@@ -1207,13 +1207,13 @@ Variants: A = Setup sweeper / B = Priority / Choice attacker
        Moves: Hone Claws [T2]  /  Feint Attack [T2]  /  Rock Tomb [T2]  /  X-Scissor [T3]
   [2B] Hunting blade
        Bisharp @ Black Glasses   |   Ability: Defiant   |   Nature: Naughty
-       Moves: Feint Attack [T2]  /  Metal Sound [T2]  /  Low Sweep [T2]  /  Pursuit [Sit]
+       Moves: Feint Attack [T2]  /  Metal Sound [T2]  /  Low Sweep [T2]  /  Throat Chop [T3]
   [3A] Swords Dance blade
        Bisharp @ Muscle Band   |   Ability: Defiant   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Night Slash [T3]  /  Psycho Cut [T3]  /  Low Kick [T3]
   [3B] Priority blade
        Bisharp @ Black Glasses   |   Ability: Inner Focus   |   Nature: Adamant
-       Moves: Pursuit [Sit]  /  Throat Chop [T3]  /  X-Scissor [T3]  /  Sucker Punch [T4]
+       Moves: Night Slash [T3]  /  Throat Chop [T3]  /  X-Scissor [T3]  /  Sucker Punch [T4]
   [4A] Swords Dance sweeper
        Bisharp @ Life Orb   |   Ability: Defiant   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Iron Head [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]
@@ -1240,7 +1240,7 @@ Variants: A = Setup attacker / B = Disruptor (burns, Taunt)
        Moves: Will-O-Wisp [Sit]  /  Confuse Ray [Sit]  /  Ominous Wind [T2]  /  Taunt [Sit]
   [3A] Nasty Plot witch
        Mismagius @ Wise Glasses   |   Ability: Levitate   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Hex [T3]  /  Mystical Fire [T3]  /  Dazzling Gleam [T3]
+       Moves: Nasty Plot [T4]  /  Hex [T3]  /  Will-O-Wisp [Sit]  /  Dazzling Gleam [T3]
   [3B] Burning witch
        Mismagius @ Leftovers   |   Ability: Levitate   |   Nature: Timid
        Moves: Will-O-Wisp [Sit]  /  Hex [T3]  /  Taunt [Sit]  /  Pain Split [Sit]
@@ -1264,7 +1264,7 @@ Variants: A = Special attacker / B = Disruptor
        Moves: Lick [T1]  /  Infestation [T1]  /  Confide [T1]  /  Ominous Wind [T2]
   [2A] Spectral caster
        Gengar @ Spell Tag   |   Ability: Cursed Body   |   Nature: Modest
-       Moves: Ominous Wind [T2]  /  Icy Wind [T2]  /  Psywave [T2]  /  Hex [T3]
+       Moves: Ominous Wind [T2]  /  Icy Wind [T2]  /  Psywave [T2]  /  Acid Spray [T2]
   [2B] Sleep ghost
        Gengar @ Sitrus Berry   |   Ability: Cursed Body   |   Nature: Hasty
        Moves: Hypnosis [T2]  /  Ominous Wind [T2]  /  Will-O-Wisp [Sit]  /  Disable [Sit]
@@ -1273,7 +1273,7 @@ Variants: A = Special attacker / B = Disruptor
        Moves: Sludge Bomb [T4]  /  Hex [T3]  /  Psychic Noise [T3]  /  Will-O-Wisp [Sit]
   [3B] Sash disruptor
        Gengar @ Focus Sash   |   Ability: Cursed Body   |   Nature: Timid
-       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Hex [T3]  /  Shadow Ball [T4]
+       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Psychic Noise [T3]  /  Shadow Ball [T4]
   [4A] Choice Specs nuke
        Gengar @ Choice Specs   |   Ability: Cursed Body   |   Nature: Timid
        Moves: Shadow Ball [T4]  /  Sludge Bomb [T4]  /  Focus Blast [T4]  /  Thunderbolt [T4]
@@ -1333,7 +1333,7 @@ Variants: A = Physical / B = Special
        Moves: Night Slash [T3]  /  Drill Peck [T3]  /  Superpower [T3]  /  Sucker Punch [T4]
   [3B] Nasty Plot boss
        Honchkrow @ Wise Glasses   |   Ability: Insomnia   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Heat Wave [T3]  /  Hex [T3]  /  Roost [Sit]
+       Moves: Nasty Plot [T4]  /  Heat Wave [T3]  /  Psychic Noise [T3]  /  Roost [Sit]
   [4A] Moxie sweeper
        Honchkrow @ Life Orb   |   Ability: Moxie   |   Nature: Adamant
        Moves: Brave Bird [T4]  /  Sucker Punch [T4]  /  Superpower [T3]  /  Roost [Sit]
@@ -1363,7 +1363,7 @@ Variants: A = Setup attacker (Moxie) / B = Choice / trapping attacker
        Moves: Bulk Up [T4]  /  High Horsepower [T3]  /  Darkest Lariat [T3]  /  Superpower [T3]
   [3B] Trapping croc
        Krookodile @ Expert Belt   |   Ability: Intimidate   |   Nature: Jolly
-       Moves: Pursuit [Sit]  /  Throat Chop [T3]  /  High Horsepower [T3]  /  Stone Edge [T4]
+       Moves: Darkest Lariat [T3]  /  Throat Chop [T3]  /  High Horsepower [T3]  /  Stone Edge [T4]
   [4A] Bulk Up sweeper
        Krookodile @ Life Orb   |   Ability: Moxie   |   Nature: Jolly
        Moves: Bulk Up [T4]  /  Earthquake [T4]  /  Knock Off [T4]  /  Stone Edge [T4]
@@ -1453,7 +1453,7 @@ Variants: A = Defensive (Curse) / B = Offensive (Belly Drum, Choice Band)
        Moves: Curse [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Body Slam [T4]
   [3B] Belly Drum giant
        Snorlax @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Brave
-       Moves: Belly Drum [T4]  /  Retaliate [T3]  /  Darkest Lariat [T3]  /  High Horsepower [T3]
+       Moves: Belly Drum [T4]  /  Mega Kick [T3]  /  Darkest Lariat [T3]  /  High Horsepower [T3]
   [4A] Curse tank
        Snorlax @ Leftovers   |   Ability: Thick Fat   |   Nature: Careful
        Moves: Curse [Sit]  /  Body Slam [T4]  /  Earthquake [T4]  /  Rest [Sit]
@@ -1504,13 +1504,13 @@ Variants: A = Special attacker / B = Bulky utility
        Moves: Tackle [T1]  /  Astonish [T1]  /  Charge Beam [T2]   (movepool limit: no other legal move fits this tier)
   [2A] Coin caster
        Gholdengo @ Sitrus Berry   |   Ability: Good as Gold   |   Nature: Modest
-       Moves: Hex [T3]  /  Tera Blast [T2]  /  Metal Sound [T2]  /  Thunder Wave [Sit]
+       Moves: Hex [T3]  /  Charge Beam [T2]  /  Metal Sound [T2]  /  Thunder Wave [Sit]
   [2B] Paralysis golem
        Gholdengo @ Lum Berry   |   Ability: Good as Gold   |   Nature: Bold
        Moves: Hex [T3]  /  Recover [Sit]  /  Thunder Wave [Sit]  /  Confuse Ray [Sit]
   [3A] Nasty Plot golem
        Gholdengo @ Wise Glasses   |   Ability: Good as Gold   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Hex [T3]  /  Dazzling Gleam [T3]  /  Recover [Sit]
+       Moves: Nasty Plot [T4]  /  Hex [T3]  /  Thunder Wave [Sit]  /  Recover [Sit]
   [3B] Hex wall
        Gholdengo @ Leftovers   |   Ability: Good as Gold   |   Nature: Bold
        Moves: Hex [T3]  /  Thunder Wave [Sit]  /  Recover [Sit]  /  Flash Cannon [T4]
@@ -1564,7 +1564,7 @@ Variants: A = Setup sweeper (Grim Neigh) / B = Disruptor (burns, Taunt)
        Moves: Tackle [T1]  /  Tail Whip [T1]  /  Double Kick [T1]  /  Snarl [T2]
   [2A] Spectral steed
        Spectrier @ Spell Tag   |   Ability: Grim Neigh   |   Nature: Modest
-       Moves: Snarl [T2]  /  Mud Shot [T2]  /  Draining Kiss [T2]  /  Hex [T3]
+       Moves: Will-O-Wisp [Sit]  /  Mud Shot [T2]  /  Draining Kiss [T2]  /  Hex [T3]
   [2B] Haunting steed
        Spectrier @ Sitrus Berry   |   Ability: Grim Neigh   |   Nature: Hasty
        Moves: Will-O-Wisp [Sit]  /  Confuse Ray [Sit]  /  Hex [T3]  /  Taunt [Sit]
@@ -1594,7 +1594,7 @@ Variants: A = Special attacker / B = Sleep disruptor (Dark Void)
        Moves: Quick Attack [T1]  /  Confide [T1]  /  Flash [T1]  /  Snarl [T2]
   [2A] Nightmare caster
        Darkrai @ Black Glasses   |   Ability: Bad Dreams   |   Nature: Modest
-       Moves: Snarl [T2]  /  Ominous Wind [T2]  /  Icy Wind [T2]  /  Hex [T3]
+       Moves: Snarl [T2]  /  Ominous Wind [T2]  /  Icy Wind [T2]  /  Swift [T2]
   [2B] Sleep shade
        Darkrai @ Sitrus Berry   |   Ability: Bad Dreams   |   Nature: Hasty
        Moves: Hypnosis [T2]  /  Snarl [T2]  /  Taunt [Sit]  /  Confuse Ray [Sit]
@@ -1666,7 +1666,7 @@ Variants: A = Defensive (burns, phazing) / B = Offensive (Calm Mind)
        Moves: Calm Mind [T4]  /  Hex [T3]  /  Will-O-Wisp [Sit]  /  Rest [Sit]
   [4A] Burning phazer
        Giratina @ Leftovers   |   Ability: Pressure   |   Nature: Careful
-       Moves: Dragon Tail [Sit]  /  Will-O-Wisp [Sit]  /  Shadow Ball [T4]  /  Pain Split [Sit]
+       Moves: Dragon Tail [Sit]  /  Will-O-Wisp [Sit]  /  Poltergeist [T4]  /  Pain Split [Sit]
   [4B] Calm Mind tank
        Giratina @ Leftovers   |   Ability: Telepathy   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Shadow Ball [T4]  /  Dragon Pulse [T4]  /  Pain Split [Sit]
@@ -1684,13 +1684,13 @@ Variants: A = Physical / B = Special
        Moves: Gust [T1]  /  Confide [T1]  /  Snarl [T2]   (movepool limit: no other legal move fits this tier)
   [2A] Talon reaper
        Yveltal @ Sharp Beak   |   Ability: Dark Aura   |   Nature: Lonely
-       Moves: Aerial Ace [T2]  /  Thief [T2]  /  Steel Wing [T2]  /  Lash Out [T3]
+       Moves: Aerial Ace [T2]  /  Thief [T2]  /  Steel Wing [T2]  /  Payback [T3]
   [2B] Pivot reaper
        Yveltal @ Black Glasses   |   Ability: Dark Aura   |   Nature: Mild
        Moves: Snarl [T2]  /  Swift [T2]  /  U-turn [T2]  /  Heat Wave [T3]
   [3A] Dark Aura striker
        Yveltal @ Muscle Band   |   Ability: Dark Aura   |   Nature: Adamant
-       Moves: Lash Out [T3]  /  Shadow Claw [T3]  /  Roost [Sit]  /  Sucker Punch [T4]
+       Moves: Payback [T3]  /  Shadow Claw [T3]  /  Roost [Sit]  /  Sucker Punch [T4]
   [3B] Draining reaper
        Yveltal @ Wise Glasses   |   Ability: Dark Aura   |   Nature: Modest
        Moves: Oblivion Wing [T4]  /  Heat Wave [T3]  /  Roost [Sit]  /  Taunt [Sit]

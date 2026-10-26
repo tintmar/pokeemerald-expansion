@@ -88,7 +88,7 @@ Variants: A = Pure Stall / B = Defensive with utility (Mirror Coat, Light Screen
 ----------------------------------------------------------------------------------------------------
   [1A] Shabby fish
        Feebas @ Oran Berry   |   Ability: Swift Swim   |   Nature: Hardy
-       Moves: Splash [T1]  /  Tackle [T1]  /  Whirlpool [T1]  /  Water Pulse [T2]
+       Moves: Mud Sport [T1]  /  Tackle [T1]  /  Whirlpool [T1]  /  Water Pulse [T2]
   [1B] Drab fish
        Feebas @ (no item)   |   Ability: Oblivious   |   Nature: Docile
        Moves: Tackle [T1]  /  Whirlpool [T1]  /  Mud Sport [T1]  /  Flail [T2]
@@ -103,7 +103,7 @@ Variants: A = Pure Stall / B = Defensive with utility (Mirror Coat, Light Screen
        Moves: Toxic [Sit]  /  Protect [Sit]  /  Brine [T3]  /  Haze [Sit]
   [3B] Mirror Coat fish
        Feebas @ Focus Sash   |   Ability: Adaptability   |   Nature: Timid
-       Moves: Flail [T2]  /  Mirror Coat [Sit]  /  Confuse Ray [Sit]  /  Muddy Water [T3]
+       Moves: Scald [T4]  /  Mirror Coat [Sit]  /  Confuse Ray [Sit]  /  Muddy Water [T3]
   [4A] Scald staller
        Feebas @ Rocky Helmet   |   Ability: Oblivious   |   Nature: Calm
        Moves: Scald [T4]  /  Toxic [Sit]  /  Protect [Sit]  /  Haze [Sit]
@@ -373,7 +373,7 @@ Variants: A = Defensive (Rapid Spin, Rain Dish) / B = Offensive (Shell Smash)
        Moves: Rain Dance [Sit]  /  Aqua Ring [Sit]  /  Protect [Sit]  /  Muddy Water [T3]
   [3B] Shell Smash turtle
        Squirtle @ Wise Glasses   |   Ability: Torrent   |   Nature: Modest
-       Moves: Shell Smash [T4]  /  Muddy Water [T3]  /  Water Pledge [T3]  /  Protect [Sit]
+       Moves: Shell Smash [T4]  /  Muddy Water [T3]  /  Brine [T3]  /  Protect [Sit]
   [4A] Bulky turtle
        Squirtle @ Rocky Helmet   |   Ability: Rain Dish   |   Nature: Bold
        Moves: Scald [T4]  /  Rapid Spin [T2]  /  Toxic [Sit]  /  Protect [Sit]
@@ -523,13 +523,13 @@ Variants: A = Stall (Wish, Hydration) / B = Utility (Heal Pulse, Soak)
        Moves: Rain Dance [Sit]  /  Rest [Sit]  /  Brine [T3]  /  Wish [Sit]
   [3B] Healing fish
        Luvdisc @ Leftovers   |   Ability: Swift Swim   |   Nature: Timid
-       Moves: Wish [Sit]  /  Heal Pulse [Sit]  /  Soak [Sit]  /  Brine [T3]
+       Moves: Wish [Sit]  /  Rest [Sit]  /  Soak [Sit]  /  Brine [T3]
   [4A] Wish staller
        Luvdisc @ Rocky Helmet   |   Ability: Hydration   |   Nature: Calm
        Moves: Wish [Sit]  /  Protect [Sit]  /  Scald [T4]  /  Toxic [Sit]
   [4B] Soak lead
        Luvdisc @ Focus Sash   |   Ability: Swift Swim   |   Nature: Timid
-       Moves: Heal Pulse [Sit]  /  Soak [Sit]  /  Scald [T4]  /  Ice Beam [T4]
+       Moves: Rest [Sit]  /  Soak [Sit]  /  Scald [T4]  /  Ice Beam [T4]
 
 ====================================================================================================
 #072 TENTACOOL  —  Water/Poison  —  BST 335  —  Category 3
@@ -553,7 +553,7 @@ Variants: A = Pure Stall (Toxic) / B = Defensive with utility (Rapid Spin, Haze)
        Moves: Toxic [Sit]  /  Venoshock [T3]  /  Aqua Ring [Sit]  /  Brine [T3]
   [3B] Utility jelly
        Tentacool @ Leftovers   |   Ability: Liquid Ooze   |   Nature: Timid
-       Moves: Haze [Sit]  /  Rapid Spin [T2]  /  Venoshock [T3]  /  Knock Off [T4]
+       Moves: Haze [Sit]  /  Toxic [Sit]  /  Venoshock [T3]  /  Knock Off [T4]
   [4A] Jelly wall
        Tentacool @ Black Sludge   |   Ability: Clear Body   |   Nature: Calm
        Moves: Scald [T4]  /  Toxic [Sit]  /  Haze [Sit]  /  Protect [Sit]
@@ -601,7 +601,7 @@ Variants: A = Pure Stall / B = Defensive with utility (Tailwind, Mirror Coat)
        Moves: Bubble [T1]  /  Tackle [T1]  /  Twister [T1]  /  Supersonic [T1]
   [1B] Gliding ray
        Mantyke @ (no item)   |   Ability: Swift Swim   |   Nature: Docile
-       Moves: Water Gun [T1]  /  Mud-Slap [T1]  /  Splash [T1]  /  Wing Attack [T2]
+       Moves: Water Gun [T1]  /  Mud-Slap [T1]  /  Tailwind [Sit]  /  Wing Attack [T2]
   [2A] Toxic ray
        Mantyke @ Sitrus Berry   |   Ability: Water Absorb   |   Nature: Calm
        Moves: Aqua Ring [Sit]  /  Toxic [Sit]  /  Protect [Sit]  /  Water Pulse [T2]
@@ -691,7 +691,7 @@ Variants: A = Defensive (Aqua Ring, Roar) / B = Offensive (Water Spout, Heavy Sl
        Moves: Water Gun [T1]  /  Growl [T1]  /  Astonish [T1]  /  Defense Curl [T1]
   [1B] Bouncy whale
        Wailmer @ (no item)   |   Ability: Oblivious   |   Nature: Docile
-       Moves: Whirlpool [T1]  /  Rock Smash [T1]  /  Splash [T1]  /  Water Pulse [T2]
+       Moves: Whirlpool [T1]  /  Rock Smash [T1]  /  Growl [T1]  /  Water Pulse [T2]
   [2A] Resting whale
        Wailmer @ Sitrus Berry   |   Ability: Water Veil   |   Nature: Relaxed
        Moves: Water Pulse [T2]  /  Rest [Sit]  /  Toxic [Sit]  /  Protect [Sit]
@@ -727,7 +727,7 @@ Variants: A = Defensive (Rapid Spin, Haze) / B = Offensive (physical Shell Smash
        Moves: Rapid Spin [T2]  /  Flip Turn [T2]  /  Haze [Sit]  /  Toxic [Sit]
   [2B] Pledge caster
        Wartortle @ Mystic Water   |   Ability: Torrent   |   Nature: Mild
-       Moves: Bubble Beam [T2]  /  Icy Wind [T2]  /  Mud Shot [T2]  /  Water Pledge [T3]
+       Moves: Bubble Beam [T2]  /  Icy Wind [T2]  /  Mud Shot [T2]  /  Brine [T3]
   [3A] Bulky spinner
        Wartortle @ Rocky Helmet   |   Ability: Torrent   |   Nature: Bold
        Moves: Brine [T3]  /  Rapid Spin [T2]  /  Toxic [Sit]  /  Protect [Sit]
@@ -1111,13 +1111,13 @@ Variants: A = Pure Stall (Roost, Toxic) / B = Defensive with utility (Defog, Tai
        Moves: Bubble [T1]  /  Tackle [T1]  /  Twister [T1]  /  Wing Attack [T2]
   [1B] Gliding manta
        Mantine @ (no item)   |   Ability: Water Veil   |   Nature: Docile
-       Moves: Water Gun [T1]  /  Supersonic [T1]  /  Splash [T1]  /  Air Cutter [T2]
+       Moves: Water Gun [T1]  /  Supersonic [T1]  /  Defog [Sit]  /  Air Cutter [T2]
   [2A] Roosting manta
        Mantine @ Sitrus Berry   |   Ability: Water Absorb   |   Nature: Calm
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Water Pulse [T2]  /  Haze [Sit]
   [2B] Tailwind manta
        Mantine @ Lum Berry   |   Ability: Swift Swim   |   Nature: Bold
-       Moves: Tailwind [Sit]  /  Defog [Sit]  /  Wing Attack [T2]  /  Icy Wind [T2]
+       Moves: Tailwind [Sit]  /  Defog [Sit]  /  Air Cutter [T2]  /  Icy Wind [T2]
   [3A] Manta staller
        Mantine @ Leftovers   |   Ability: Water Absorb   |   Nature: Calm
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Brine [T3]  /  Haze [Sit]
@@ -1204,7 +1204,7 @@ Variants: A = Defensive (Sturdy, Yawn) / B = Offensive (Rock Head)
        Moves: Tackle [T1]  /  Rock Smash [T1]  /  Mud-Slap [T1]  /  Rock Tomb [T2]
   [2A] Yawning fish
        Relicanth @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Yawn [Sit]  /  Rock Tomb [T2]  /  Water Pulse [T2]  /  Protect [Sit]
+       Moves: Yawn [Sit]  /  Rock Tomb [T2]  /  Aqua Tail [T3]  /  Protect [Sit]
   [2B] Ramming fish
        Relicanth @ Hard Stone   |   Ability: Rock Head   |   Nature: Lonely
        Moves: Take Down [T2]  /  Smack Down [T2]  /  Headbutt [T2]  /  Aqua Tail [T3]
@@ -1261,7 +1261,7 @@ Variants: A = Defensive (huge HP, Rest) / B = Offensive (Water Spout, Heavy Slam
        Moves: Water Gun [T1]  /  Astonish [T1]  /  Growl [T1]  /  Rock Smash [T1]
   [1B] Giant whale
        Wailord @ (no item)   |   Ability: Water Veil   |   Nature: Docile
-       Moves: Whirlpool [T1]  /  Defense Curl [T1]  /  Splash [T1]  /  Headbutt [T2]
+       Moves: Whirlpool [T1]  /  Defense Curl [T1]  /  Growl [T1]  /  Headbutt [T2]
   [2A] Roaring whale
        Wailord @ Sitrus Berry   |   Ability: Pressure   |   Nature: Relaxed
        Moves: Noble Roar [T2]  /  Water Pulse [T2]  /  Rest [Sit]  /  Toxic [Sit]
@@ -1450,7 +1450,7 @@ Variants: A = Setup (Dragon Dance) / B = Sheer Force attacker
        Moves: Flip Turn [T2]  /  Ice Fang [T2]  /  Headbutt [T2]  /  Crunch [T3]
   [3A] Dragon Dance jaw
        Feraligatr @ Expert Belt   |   Ability: Torrent   |   Nature: Adamant
-       Moves: Dragon Dance [T4]  /  Aqua Tail [T3]  /  Lash Out [T3]  /  Low Kick [T3]
+       Moves: Dragon Dance [T4]  /  Aqua Tail [T3]  /  Crunch [T3]  /  Low Kick [T3]
   [3B] Sash jaw
        Feraligatr @ Focus Sash   |   Ability: Sheer Force   |   Nature: Adamant
        Moves: Aqua Tail [T3]  /  Ice Punch [T3]  /  Crunch [T3]  /  Earthquake [T4]
@@ -1483,7 +1483,7 @@ Variants: A = Setup (Dragon Dance, Moxie) / B = Utility (Intimidate, paralysis)
        Moves: Dragon Dance [T4]  /  Aqua Tail [T3]  /  Bounce [T3]  /  Temper Flare [T3]
   [3B] Utility serpent
        Gyarados @ Leftovers   |   Ability: Intimidate   |   Nature: Careful
-       Moves: Thunder Wave [Sit]  /  Taunt [Sit]  /  Waterfall [T4]  /  Lash Out [T3]
+       Moves: Thunder Wave [Sit]  /  Taunt [Sit]  /  Waterfall [T4]  /  Aqua Tail [T3]
   [4A] Dragon Dance sweeper
        Gyarados @ Life Orb   |   Ability: Moxie   |   Nature: Jolly
        Moves: Dragon Dance [T4]  /  Waterfall [T4]  /  Earthquake [T4]  /  Power Whip [T4]
@@ -1531,7 +1531,7 @@ Variants: A = Defensive (Recover, Marvel Scale) / B = Offensive (Competitive)
        Moves: Water Gun [T1]  /  Wrap [T1]  /  Disarming Voice [T1]  /  Twister [T1]
   [1B] Graceful serpent
        Milotic @ (no item)   |   Ability: Competitive   |   Nature: Docile
-       Moves: Tackle [T1]  /  Splash [T1]  /  Water Gun [T1]  /  Dragon Breath [T2]
+       Moves: Tackle [T1]  /  Haze [Sit]  /  Water Gun [T1]  /  Dragon Breath [T2]
   [2A] Recovering serpent
        Milotic @ Sitrus Berry   |   Ability: Marvel Scale   |   Nature: Bold
        Moves: Recover [Sit]  /  Toxic [Sit]  /  Water Pulse [T2]  /  Haze [Sit]

@@ -307,13 +307,13 @@ Variants: A = Setup sweeper / B = Utility attacker (trapping, Taunt)
        Moves: Rock Tomb [T2]  /  Bite [T2]  /  Bulldoze [T2]  /  Scary Face [T2]
   [2B] Screech pupa
        Larvitar @ Sitrus Berry   |   Ability: Sand Veil   |   Nature: Naughty
-       Moves: Rock Tomb [T2]  /  Bite [T2]  /  Screech [T2]  /  Pursuit [Sit]
+       Moves: Rock Tomb [T2]  /  Bite [T2]  /  Screech [T2]  /  Crunch [T3]
   [3A] Dragon Dance pupa
        Larvitar @ Lum Berry   |   Ability: Guts   |   Nature: Adamant
        Moves: Dragon Dance [T4]  /  Rock Blast [T3]  /  Crunch [T3]  /  Stomping Tantrum [T3]
   [3B] Trapping pupa
        Larvitar @ Muscle Band   |   Ability: Guts   |   Nature: Adamant
-       Moves: Rock Blast [T3]  /  Crunch [T3]  /  Pursuit [Sit]  /  Taunt [Sit]
+       Moves: Rock Blast [T3]  /  Crunch [T3]  /  Earthquake [T4]  /  Taunt [Sit]
   [4A] Dragon Dance sweeper
        Larvitar @ Life Orb   |   Ability: Guts   |   Nature: Adamant
        Moves: Dragon Dance [T4]  /  Stone Edge [T4]  /  Earthquake [T4]  /  Crunch [T3]
@@ -364,10 +364,10 @@ Variants: A = Setup sweeper / B = Fast attacker (pivot)
        Moves: Fury Swipes [T1]  /  Karate Chop [T1]  /  Focus Energy [T1]  /  Leer [T1]
   [2A] Power-up monkey
        Mankey @ Black Belt   |   Ability: Defiant   |   Nature: Hasty
-       Moves: Power-Up Punch [T2]  /  Rock Tomb [T2]  /  Assurance [T3]  /  Aerial Ace [T2]
+       Moves: Power-Up Punch [T2]  /  Rock Tomb [T2]  /  Throat Chop [T3]  /  Aerial Ace [T2]
   [2B] Taunting monkey
        Mankey @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Hasty
-       Moves: Low Sweep [T2]  /  Assurance [T3]  /  Taunt [Sit]  /  Encore [Sit]
+       Moves: Low Sweep [T2]  /  Throat Chop [T3]  /  Taunt [Sit]  /  Encore [Sit]
   [3A] Bulk Up monkey
        Mankey @ Lum Berry   |   Ability: Defiant   |   Nature: Jolly
        Moves: Bulk Up [T4]  /  Cross Chop [T3]  /  Throat Chop [T3]  /  Ice Punch [T3]
@@ -934,7 +934,7 @@ Variants: A = Setup sweeper / B = Fast attacker (pivot)
        Moves: Karate Chop [T1]  /  Focus Energy [T1]  /  Scratch [T1]  /  Meditate [T1]
   [2A] Power-up ape
        Primeape @ Black Belt   |   Ability: Defiant   |   Nature: Hasty
-       Moves: Power-Up Punch [T2]  /  Assurance [T3]  /  Aerial Ace [T2]  /  Rock Tomb [T2]
+       Moves: Power-Up Punch [T2]  /  Throat Chop [T3]  /  Aerial Ace [T2]  /  Rock Tomb [T2]
   [2B] Taunting ape
        Primeape @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Hasty
        Moves: Low Sweep [T2]  /  Payback [T3]  /  Taunt [Sit]  /  Encore [Sit]
@@ -1537,7 +1537,7 @@ Variants: A = Truant attacker (recharge-free beams) / B = Bulky utility
        Moves: Headbutt [T2]  /  Take Down [T2]  /  Rock Tomb [T2]  /  Giga Impact [T3]
   [2B] Encore loafer
        Slaking @ Sitrus Berry   |   Ability: Truant   |   Nature: Relaxed
-       Moves: Slack Off [Sit]  /  Yawn [Sit]  /  Encore [Sit]  /  Retaliate [T3]
+       Moves: Slack Off [Sit]  /  Yawn [Sit]  /  Encore [Sit]  /  Take Down [T2]
   [3A] Truant breaker
        Slaking @ Muscle Band   |   Ability: Truant   |   Nature: Adamant
        Moves: Giga Impact [T3]  /  Hammer Arm [T3]  /  Shadow Claw [T3]  /  Earthquake [T4]

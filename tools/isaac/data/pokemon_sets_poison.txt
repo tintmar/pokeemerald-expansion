@@ -133,7 +133,7 @@ Variants: A = Screens and stall / B = Speed support (Tailwind, Encore)
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Encore [Sit]  /  U-turn [T2]
   [3B] Tailwind passer
        Ledyba @ Focus Sash   |   Ability: Rattled   |   Nature: Timid
-       Moves: Tailwind [Sit]  /  Encore [Sit]  /  Baton Pass [Sit]  /  Air Slash [T4]
+       Moves: Tailwind [Sit]  /  Encore [Sit]  /  Reflect [Sit]  /  Air Slash [T4]
   [4A] Encore staller
        Ledyba @ Leftovers   |   Ability: Early Bird   |   Nature: Calm
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Encore [Sit]  /  Bug Buzz [T4]
@@ -250,7 +250,7 @@ Variants: A = Technician attacker / B = Utility (Fake Out, Taunt, Scarf)
        Moves: Fake Out [Sit]  /  U-turn [T2]  /  Hypnosis [T2]  /  Thief [T2]
   [3A] Technician pivot
        Meowth @ Muscle Band   |   Ability: Technician   |   Nature: Jolly
-       Moves: Fake Out [Sit]  /  Assurance [T3]  /  Shadow Claw [T3]  /  U-turn [T2]
+       Moves: Fake Out [Sit]  /  Knock Off [T4]  /  Shadow Claw [T3]  /  U-turn [T2]
   [3B] Taunt lead
        Meowth @ Focus Sash   |   Ability: Unnerve   |   Nature: Timid
        Moves: Taunt [Sit]  /  Fake Out [Sit]  /  Hypnosis [T2]  /  Foul Play [T4]
@@ -343,7 +343,7 @@ Variants: A = Special attacker (Tinted Lens) / B = Support (powders)
        Moves: Signal Beam [T3]  /  Psychic Noise [T3]  /  Venoshock [T3]  /  Toxic [Sit]
   [3B] Sleep passer
        Venonat @ Black Sludge   |   Ability: Compound Eyes   |   Nature: Timid
-       Moves: Sleep Powder [T3]  /  Signal Beam [T3]  /  Morning Sun [Sit]  /  Baton Pass [Sit]
+       Moves: Sleep Powder [T3]  /  Signal Beam [T3]  /  Morning Sun [Sit]  /  Sludge Bomb [T4]
   [4A] Choice Specs bug
        Venonat @ Choice Specs   |   Ability: Tinted Lens   |   Nature: Modest
        Moves: Bug Buzz [T4]  /  Psychic [T4]  /  Sludge Bomb [T4]  /  Giga Drain [T4]
@@ -394,7 +394,7 @@ Variants: A = Special attacker (sun) / B = Support (Leech Seed, Sleep Powder)
        Moves: Tackle [T1]  /  Vine Whip [T1]  /  Sweet Scent [T1]  /  Growl [T1]
   [2A] Leafy caster
        Bulbasaur @ Miracle Seed   |   Ability: Overgrow   |   Nature: Mild
-       Moves: Magical Leaf [T2]  /  Sludge [T2]  /  Work Up [T2]  /  Grass Pledge [T3]
+       Moves: Magical Leaf [T2]  /  Sludge [T2]  /  Work Up [T2]  /  Grass Knot [T3]
   [2B] Seeding sprout
        Bulbasaur @ Sitrus Berry   |   Ability: Chlorophyll   |   Nature: Bold
        Moves: Leech Seed [Sit]  /  Grass Whistle [T2]  /  Magical Leaf [T2]  /  Protect [Sit]
@@ -406,7 +406,7 @@ Variants: A = Special attacker (sun) / B = Support (Leech Seed, Sleep Powder)
        Moves: Sleep Powder [T3]  /  Leech Seed [Sit]  /  Giga Drain [T4]  /  Protect [Sit]
   [4A] Growth sweeper
        Bulbasaur @ Life Orb   |   Ability: Chlorophyll   |   Nature: Modest
-       Moves: Growth [T3]  /  Giga Drain [T4]  /  Sludge Bomb [T4]  /  Weather Ball [T4]
+       Moves: Growth [T3]  /  Giga Drain [T4]  /  Sludge Bomb [T4]  /  Leaf Storm [T4]
   [4B] Bulky seeder
        Bulbasaur @ Leftovers   |   Ability: Overgrow   |   Nature: Calm
        Moves: Sleep Powder [T3]  /  Leech Seed [Sit]  /  Sludge Bomb [T4]  /  Synthesis [Sit]
@@ -454,7 +454,7 @@ Variants: A = Adaptability attacker / B = Support (Wish, Baton Pass)
        Moves: Quick Attack [T1]  /  Double Kick [T1]  /  Sand Attack [T1]  /  Covet [T2]
   [2A] Adaptable pup
        Eevee @ Silk Scarf   |   Ability: Adaptability   |   Nature: Lonely
-       Moves: Work Up [T2]  /  Headbutt [T2]  /  Bite [T2]  /  Retaliate [T3]
+       Moves: Work Up [T2]  /  Headbutt [T2]  /  Bite [T2]  /  Covet [T2]
   [2B] Wishing pup
        Eevee @ Sitrus Berry   |   Ability: Anticipation   |   Nature: Calm
        Moves: Wish [Sit]  /  Protect [Sit]  /  Yawn [Sit]  /  Swift [T2]
@@ -463,7 +463,7 @@ Variants: A = Adaptability attacker / B = Support (Wish, Baton Pass)
        Moves: Double-Edge [T4]  /  Dig [T3]  /  Iron Tail [T3]  /  Bite [T2]
   [3B] Wish passer
        Eevee @ Lum Berry   |   Ability: Anticipation   |   Nature: Calm
-       Moves: Wish [Sit]  /  Baton Pass [Sit]  /  Heal Bell [Sit]  /  Hyper Voice [T4]
+       Moves: Wish [Sit]  /  Yawn [Sit]  /  Heal Bell [Sit]  /  Hyper Voice [T4]
   [4A] Choice Band pup
        Eevee @ Choice Band   |   Ability: Adaptability   |   Nature: Adamant
        Moves: Double-Edge [T4]  /  Dig [T3]  /  Iron Tail [T3]  /  Quick Attack [T1]
@@ -490,7 +490,7 @@ Variants: A = Pure Stall (Will-O-Wisp, Pain Split) / B = Defensive with utility 
        Moves: Haze [Sit]  /  Clear Smog [Sit]  /  Taunt [Sit]  /  Psybeam [T2]
   [3A] Burn staller
        Koffing @ Black Sludge   |   Ability: Levitate   |   Nature: Bold
-       Moves: Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Venoshock [T3]  /  Protect [Sit]
+       Moves: Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Sludge Bomb [T4]  /  Protect [Sit]
   [3B] Anti-setup gas
        Koffing @ Rocky Helmet   |   Ability: Neutralizing Gas   |   Nature: Bold
        Moves: Haze [Sit]  /  Taunt [Sit]  /  Clear Smog [Sit]  /  Destiny Bond [Sit]
@@ -610,16 +610,16 @@ Variants: A = Stall (Roost, Toxic) / B = Utility (screens, Tailwind, Iron Fist)
        Moves: Power-Up Punch [T2]  /  Dizzy Punch [T2]  /  U-turn [T2]  /  Ice Punch [T3]
   [3A] Field cleaner
        Ledian @ Leftovers   |   Ability: Early Bird   |   Nature: Careful
-       Moves: Roost [Sit]  /  Defog [Sit]  /  Acrobatics [T3]  /  Encore [Sit]
+       Moves: Roost [Sit]  /  Defog [Sit]  /  U-turn [T2]  /  Encore [Sit]
   [3B] Screen pivot
        Ledian @ Light Clay   |   Ability: Swarm   |   Nature: Timid
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Tailwind [Sit]  /  U-turn [T2]
   [4A] Encore staller
        Ledian @ Rocky Helmet   |   Ability: Early Bird   |   Nature: Calm
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  Encore [Sit]  /  Acrobatics [T3]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Encore [Sit]  /  U-turn [T2]
   [4B] Tailwind lead
        Ledian @ Focus Sash   |   Ability: Iron Fist   |   Nature: Jolly
-       Moves: Tailwind [Sit]  /  Encore [Sit]  /  Knock Off [T4]  /  Acrobatics [T3]
+       Moves: Tailwind [Sit]  /  Encore [Sit]  /  Knock Off [T4]  /  U-turn [T2]
 
 ====================================================================================================
 #193 YANMA  —  Bug/Flying  —  BST 390  —  Category 3
@@ -793,7 +793,7 @@ Variants: A = Prankster support / B = Tail Glow passer
        Moves: Tailwind [Sit]  /  Encore [Sit]  /  Light Screen [Sit]  /  U-turn [T2]
   [3B] Tail Glow passer
        Volbeat @ Leftovers   |   Ability: Prankster   |   Nature: Bold
-       Moves: Tail Glow [T4]  /  Lunge [T3]  /  Substitute [Sit]  /  Protect [Sit]
+       Moves: Bug Buzz [T4]  /  Lunge [T3]  /  Substitute [Sit]  /  Protect [Sit]
   [4A] Prankster pivot
        Volbeat @ Mental Herb   |   Ability: Prankster   |   Nature: Bold
        Moves: Encore [Sit]  /  Thunder Wave [Sit]  /  Roost [Sit]  /  U-turn [T2]
@@ -850,7 +850,7 @@ Variants: A = Physical (Technician) / B = Special (Nasty Plot)
        Moves: Swift [T2]  /  Water Pulse [T2]  /  Shock Wave [T2]  /  Work Up [T2]
   [3A] Fake Out pivot
        Persian @ Muscle Band   |   Ability: Technician   |   Nature: Jolly
-       Moves: Fake Out [Sit]  /  Lash Out [T3]  /  Seed Bomb [T3]  /  U-turn [T2]
+       Moves: Fake Out [Sit]  /  Knock Off [T4]  /  Seed Bomb [T3]  /  U-turn [T2]
   [3B] Nasty Plot cat
        Persian @ Expert Belt   |   Ability: Unnerve   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Uproar [T3]  /  Petal Dance [T3]  /  Water Pulse [T2]
@@ -934,7 +934,7 @@ Variants: A = Setup (Quiver Dance) / B = Support (Sleep Powder, Toxic)
        Moves: Infestation [T1]  /  Supersonic [T1]  /  Mega Drain [T1]  /  Struggle Bug [T2]
   [2A] Venom caster
        Venomoth @ Poison Barb   |   Ability: Tinted Lens   |   Nature: Mild
-       Moves: Acid Spray [T2]  /  Psybeam [T2]  /  Silver Wind [T2]  /  Venoshock [T3]
+       Moves: Acid Spray [T2]  /  Psybeam [T2]  /  Silver Wind [T2]  /  Signal Beam [T3]
   [2B] Paralysis moth
        Venomoth @ Sitrus Berry   |   Ability: Shield Dust   |   Nature: Hasty
        Moves: Stun Spore [Sit]  /  U-turn [T2]  /  Silver Wind [T2]  /  Morning Sun [Sit]
@@ -973,7 +973,7 @@ Variants: A = Defensive (Roost, Defog, U-turn) / B = Offensive
        Moves: Roost [Sit]  /  Defog [Sit]  /  Haze [Sit]  /  Brave Bird [T4]
   [3B] Pursuit bat
        Golbat @ Muscle Band   |   Ability: Infiltrator   |   Nature: Jolly
-       Moves: Brave Bird [T4]  /  Crunch [T3]  /  Pursuit [Sit]  /  U-turn [T2]
+       Moves: Brave Bird [T4]  /  Crunch [T3]  /  Cross Poison [T3]  /  U-turn [T2]
   [4A] Taunting pivot
        Golbat @ Rocky Helmet   |   Ability: Inner Focus   |   Nature: Impish
        Moves: Roost [Sit]  /  Taunt [Sit]  /  Brave Bird [T4]  /  U-turn [T2]
@@ -997,7 +997,7 @@ Variants: A = Physical (Swords Dance) / B = Special (Venoshock)
        Moves: Coil [T3]  /  Poison Fang [T2]  /  Brutal Swing [T2]  /  Breaking Swipe [T2]
   [2B] Venom caster
        Seviper @ Wise Glasses   |   Ability: Infiltrator   |   Nature: Mild
-       Moves: Snarl [T2]  /  Acid Spray [T2]  /  Swift [T2]  /  Venoshock [T3]
+       Moves: Toxic [Sit]  /  Acid Spray [T2]  /  Swift [T2]  /  Venoshock [T3]
   [3A] Swords Dance snake
        Seviper @ Expert Belt   |   Ability: Shed Skin   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Poison Tail [T2]  /  Night Slash [T3]  /  Seed Bomb [T3]
@@ -1090,7 +1090,7 @@ Variants: A = Defensive (Liquid Ooze, Yawn) / B = Offensive (Gluttony Belch, Ass
        Moves: Power-Up Punch [T2]  /  Headbutt [T2]  /  Bulldoze [T2]  /  Fire Punch [T3]
   [3A] Sticky staller
        Swalot @ Black Sludge   |   Ability: Sticky Hold   |   Nature: Calm
-       Moves: Venoshock [T3]  /  Pain Split [Sit]  /  Yawn [Sit]  /  Encore [Sit]
+       Moves: Sludge Bomb [T4]  /  Pain Split [Sit]  /  Yawn [Sit]  /  Encore [Sit]
   [3B] Belch bag
        Swalot @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Modest
        Moves: Stuff Cheeks [Sit]  /  Belch [T3]  /  Ice Beam [T4]  /  Encore [Sit]
@@ -1099,7 +1099,7 @@ Variants: A = Defensive (Liquid Ooze, Yawn) / B = Offensive (Gluttony Belch, Ass
        Moves: Sludge Bomb [T4]  /  Knock Off [T4]  /  Yawn [Sit]  /  Pain Split [Sit]
   [4B] Assault Vest bag
        Swalot @ Assault Vest   |   Ability: Liquid Ooze   |   Nature: Modest
-       Moves: Sludge Bomb [T4]  /  Ice Beam [T4]  /  Giga Drain [T4]  /  Earthquake [T4]
+       Moves: Sludge Bomb [T4]  /  Ice Beam [T4]  /  Giga Drain [T4]  /  Sludge Wave [T4]
 
 ====================================================================================================
 #110 WEEZING  —  Poison  —  BST 490  —  Category 6
@@ -1183,7 +1183,7 @@ Variants: A = Defensive (Sticky Hold) / B = Offensive (Poison Touch)
        Moves: Toxic [Sit]  /  Protect [Sit]  /  Pain Split [Sit]  /  Gunk Shot [T4]
   [3B] Poison Touch striker
        Muk @ Expert Belt   |   Ability: Poison Touch   |   Nature: Adamant
-       Moves: Gunk Shot [T4]  /  Lash Out [T3]  /  Ice Punch [T3]  /  Self-Destruct [T3]
+       Moves: Gunk Shot [T4]  /  Payback [T3]  /  Ice Punch [T3]  /  Self-Destruct [T3]
   [4A] Bulky pile
        Muk @ Rocky Helmet   |   Ability: Sticky Hold   |   Nature: Careful
        Moves: Poison Jab [T4]  /  Knock Off [T4]  /  Haze [Sit]  /  Pain Split [Sit]
@@ -1297,7 +1297,7 @@ Variants: A = Pure Stall (Encore, Toxic) / B = Utility (Contrary Shell Smash, Po
        Moves: Encore [Sit]  /  Toxic [Sit]  /  Protect [Sit]  /  Rock Tomb [T2]
   [2B] Power Trick shell
        Shuckle @ Lum Berry   |   Ability: Contrary   |   Nature: Relaxed
-       Moves: Power Trick [Sit]  /  Rollout [T2]  /  Bug Bite [T2]  /  Smack Down [T2]
+       Moves: Power Trick [Sit]  /  Rock Blast [T3]  /  Bug Bite [T2]  /  Smack Down [T2]
   [3A] Toxic shell
        Shuckle @ Leftovers   |   Ability: Sturdy   |   Nature: Bold
        Moves: Stone Edge [T4]  /  Toxic [Sit]  /  Protect [Sit]  /  Rest [Sit]
@@ -1354,7 +1354,7 @@ Variants: A = Defensive (Serene Grace, Glare) / B = Offensive (Coil, Calm Mind)
        Moves: Astonish [T1]  /  Defense Curl [T1]  /  Rock Smash [T1]  /  Take Down [T2]
   [2A] Flinching serpent
        Dudunsparce @ Sitrus Berry   |   Ability: Serene Grace   |   Nature: Careful
-       Moves: Glare [Sit]  /  Roost [Sit]  /  Ancient Power [T2]  /  Headbutt [T2]
+       Moves: Glare [Sit]  /  Roost [Sit]  /  Take Down [T2]  /  Headbutt [T2]
   [2B] Rushing serpent
        Dudunsparce @ Muscle Band   |   Ability: Serene Grace   |   Nature: Lonely
        Moves: Headbutt [T2]  /  Bite [T2]  /  Breaking Swipe [T2]  /  Dragon Rush [T3]
@@ -1366,7 +1366,7 @@ Variants: A = Defensive (Serene Grace, Glare) / B = Offensive (Coil, Calm Mind)
        Moves: Coil [T3]  /  Hyper Drill [T4]  /  Dragon Rush [T3]  /  Stomping Tantrum [T3]
   [4A] Serene Grace wall
        Dudunsparce @ Rocky Helmet   |   Ability: Serene Grace   |   Nature: Calm
-       Moves: Roost [Sit]  /  Glare [Sit]  /  Body Slam [T4]  /  Air Slash [T4]
+       Moves: Roost [Sit]  /  Glare [Sit]  /  Boomburst [T4]  /  Air Slash [T4]
   [4B] Calm Mind serpent
        Dudunsparce @ Weakness Policy   |   Ability: Serene Grace   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Boomburst [T4]  /  Earth Power [T4]  /  Roost [Sit]
@@ -1390,7 +1390,7 @@ Variants: A = Defensive (Leech Seed, Synthesis) / B = Offensive (Chlorophyll)
        Moves: Magical Leaf [T2]  /  Sludge [T2]  /  Work Up [T2]  /  Petal Dance [T3]
   [3A] Leech Seed wall
        Venusaur @ Black Sludge   |   Ability: Overgrow   |   Nature: Calm
-       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Giga Drain [T4]  /  Venoshock [T3]
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Giga Drain [T4]  /  Grass Knot [T3]
   [3B] Swords Dance giant
        Venusaur @ Muscle Band   |   Ability: Chlorophyll   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Petal Blizzard [T3]  /  Stomping Tantrum [T3]  /  Synthesis [Sit]
@@ -1417,7 +1417,7 @@ Variants: A = Physical / B = Special
        Moves: Fire Fang [T2]  /  Thunder Fang [T2]  /  Skitter Smack [T2]  /  Fire Lash [T3]
   [2B] Inferno centipede
        Centiskorch @ Sitrus Berry   |   Ability: White Smoke   |   Nature: Mild
-       Moves: Inferno [T2]  /  Struggle Bug [T2]  /  Round [T2]  /  Will-O-Wisp [Sit]
+       Moves: Inferno [T2]  /  Struggle Bug [T2]  /  Mystical Fire [T3]  /  Will-O-Wisp [Sit]
   [3A] Coverage centipede
        Centiskorch @ Expert Belt   |   Ability: Flame Body   |   Nature: Adamant
        Moves: Fire Lash [T3]  /  X-Scissor [T3]  /  Crunch [T3]  /  Power Whip [T4]
@@ -1594,13 +1594,13 @@ Variants: A = Setup (Nasty Plot) / B = Utility (Fake Out, Parting Shot, Trick)
        Moves: Confusion [T1]  /  Scratch [T1]  /  Mud-Slap [T1]  /  Acid Spray [T2]
   [2A] Venom caster
        Munkidori @ Twisted Spoon   |   Ability: Toxic Chain   |   Nature: Rash
-       Moves: Psybeam [T2]  /  Acid Spray [T2]  /  Swift [T2]  /  Venoshock [T3]
+       Moves: Psybeam [T2]  /  Acid Spray [T2]  /  Swift [T2]  /  Psychic Noise [T3]
   [2B] Fake Out monkey
        Munkidori @ Sitrus Berry   |   Ability: Frisk   |   Nature: Hasty
        Moves: U-turn [T2]  /  Fake Out [Sit]  /  Taunt [Sit]  /  Psybeam [T2]
   [3A] Nasty Plot monkey
        Munkidori @ Wise Glasses   |   Ability: Toxic Chain   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Psychic Noise [T3]  /  Venoshock [T3]  /  Hex [T3]
+       Moves: Nasty Plot [T4]  /  Psychic Noise [T3]  /  Toxic [Sit]  /  Hex [T3]
   [3B] Parting Shot lead
        Munkidori @ Focus Sash   |   Ability: Frisk   |   Nature: Timid
        Moves: Fake Out [Sit]  /  Parting Shot [Sit]  /  Taunt [Sit]  /  Psychic Noise [T3]
@@ -1654,13 +1654,13 @@ Variants: A = Special attacker / B = Bulky (Recover, Cosmic Power)
        Moves: Fire Spin [T1]  /  Round [T2]   (movepool limit: no other legal move fits this tier)
   [2A] Venom core
        Eternatus @ Dragon Fang   |   Ability: Pressure   |   Nature: Rash
-       Moves: Round [T2]  /  Tera Blast [T2]  /  Venoshock [T3]  /  Fire Spin [T1]
+       Moves: Round [T2]  /  Tera Blast [T2]  /  Venoshock [T3]  /  Toxic [Sit]
   [2B] Toxic core
        Eternatus @ Sitrus Berry   |   Ability: Pressure   |   Nature: Bold
        Moves: Toxic [Sit]  /  Dragon Tail [Sit]  /  Protect [Sit]  /  Rest [Sit]
   [3A] Meteor Beam core
        Eternatus @ Power Herb   |   Ability: Pressure   |   Nature: Modest
-       Moves: Meteor Beam [T3]  /  Venoshock [T3]  /  Mystical Fire [T3]  /  Dragon Pulse [T4]
+       Moves: Toxic [Sit]  /  Venoshock [T3]  /  Mystical Fire [T3]  /  Dragon Pulse [T4]
   [3B] Recover core
        Eternatus @ Black Sludge   |   Ability: Pressure   |   Nature: Bold
        Moves: Recover [Sit]  /  Toxic [Sit]  /  Venoshock [T3]  /  Dragon Tail [Sit]

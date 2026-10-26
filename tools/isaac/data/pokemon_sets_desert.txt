@@ -46,10 +46,10 @@ Variants: A = Sun attacker (Solar Power) / B = Support (Leech Seed)
        Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Grass Knot [T3]  /  Encore [Sit]
   [4A] Choice Specs seed
        Sunkern @ Choice Specs   |   Ability: Solar Power   |   Nature: Modest
-       Moves: Leaf Storm [T4]  /  Earth Power [T4]  /  Sludge Bomb [T4]  /  Weather Ball [T4]
+       Moves: Leaf Storm [T4]  /  Earth Power [T4]  /  Sludge Bomb [T4]  /  Giga Drain [T4]
   [4B] Growth seed
        Sunkern @ Life Orb   |   Ability: Chlorophyll   |   Nature: Timid
-       Moves: Growth [T3]  /  Giga Drain [T4]  /  Earth Power [T4]  /  Weather Ball [T4]
+       Moves: Growth [T3]  /  Giga Drain [T4]  /  Earth Power [T4]  /  Leaf Storm [T4]
 
 ====================================================================================================
 #280 RALTS  —  Psychic/Fairy  —  BST 198  —  Category 1
@@ -88,10 +88,10 @@ Variants: A = Counter / Mirror Coat stall / B = Utility (Encore, Destiny Bond)
 ----------------------------------------------------------------------------------------------------
   [1A] Bright child
        Wynaut @ (no item)   |   Ability: Shadow Tag   |   Nature: Hardy
-       Moves: Splash [T1]  /  Charm [T2]   (movepool limit: no other legal move fits this tier)
+       Moves: Encore [Sit]  /  Charm [T2]   (movepool limit: no other legal move fits this tier)
   [1B] Smiling child
        Wynaut @ Oran Berry   |   Ability: Telepathy   |   Nature: Docile
-       Moves: Splash [T1]  /  Tickle [T2]   (movepool limit: no other legal move fits this tier)
+       Moves: Encore [Sit]  /  Tickle [T2]   (movepool limit: no other legal move fits this tier)
   [2A] Countering child
        Wynaut @ Sitrus Berry   |   Ability: Shadow Tag   |   Nature: Bold
        Moves: Counter [Sit]  /  Mirror Coat [Sit]  /  Charm [T2]  /  Safeguard [Sit]
@@ -187,7 +187,7 @@ Variants: A = Physical (Hustle) / B = Special
        Moves: Horn Attack [T2]  /  Poison Tail [T2]  /  Hone Claws [T2]  /  Drill Run [T3]
   [2B] Venom caster
        Nidoran-M @ Sitrus Berry   |   Ability: Rivalry   |   Nature: Mild
-       Moves: Water Pulse [T2]  /  Shock Wave [T2]  /  Round [T2]  /  Venoshock [T3]
+       Moves: Toxic [Sit]  /  Shock Wave [T2]  /  Round [T2]  /  Venoshock [T3]
   [3A] Hustle striker
        Nidoran-M @ Muscle Band   |   Ability: Hustle   |   Nature: Adamant
        Moves: Poison Jab [T4]  /  Drill Run [T3]  /  Iron Tail [T3]  /  Shadow Claw [T3]
@@ -274,7 +274,7 @@ Variants: A = Defensive (Rapid Spin, Levitate) / B = Offensive (Calm Mind, Trick
        Moves: Confusion [T1]  /  Flash [T1]  /  Confide [T1]  /  Rapid Spin [T2]
   [2A] Cosmic doll
        Baltoy @ Sitrus Berry   |   Ability: Levitate   |   Nature: Impish
-       Moves: Rapid Spin [T2]  /  Psybeam [T2]  /  Protect [Sit]  /  Cosmic Power [Sit]
+       Moves: Rapid Spin [T2]  /  Zen Headbutt [T3]  /  Protect [Sit]  /  Cosmic Power [Sit]
   [2B] Psychic caster
        Baltoy @ Twisted Spoon   |   Ability: Levitate   |   Nature: Mild
        Moves: Psybeam [T2]  /  Ancient Power [T2]  /  Charge Beam [T2]  /  Extrasensory [T3]
@@ -508,7 +508,7 @@ Variants: A = Setup (Calm Mind) / B = Support (Heal Bell, Trick)
 ----------------------------------------------------------------------------------------------------
   [1A] Bounce pig
        Spoink @ (no item)   |   Ability: Thick Fat   |   Nature: Hardy
-       Moves: Confusion [T1]  /  Splash [T1]  /  Growl [T1]  /  Psybeam [T2]
+       Moves: Confusion [T1]  /  Encore [Sit]  /  Growl [T1]  /  Psybeam [T2]
   [1B] Pearl pig
        Spoink @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
        Moves: Confusion [T1]  /  Flash [T1]  /  Odor Sleuth [T1]  /  Snarl [T2]
@@ -559,7 +559,7 @@ Variants: A = Physical (Swords Dance) / B = Special (Nasty Plot)
        Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Sucker Punch [T4]  /  Drain Punch [T4]
   [4B] Nasty Plot sweeper
        Cacnea @ Expert Belt   |   Ability: Water Absorb   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Energy Ball [T4]  /  Dark Pulse [T4]  /  Drain Punch [T4]
+       Moves: Nasty Plot [T4]  /  Energy Ball [T4]  /  Dark Pulse [T4]  /  Grass Knot [T3]
 
 ====================================================================================================
 #201 UNOWN  —  Psychic  —  BST 336  —  Category 3
@@ -718,10 +718,10 @@ Variants: A = Counter / Mirror Coat stall / B = Utility (Encore, Destiny Bond)
 ----------------------------------------------------------------------------------------------------
   [1A] Patient blob
        Wobbuffet @ (no item)   |   Ability: Shadow Tag   |   Nature: Hardy
-       Moves: Splash [T1]  /  Tickle [T2]   (movepool limit: no other legal move fits this tier)
+       Moves: Encore [Sit]  /  Tickle [T2]   (movepool limit: no other legal move fits this tier)
   [1B] Smiling blob
        Wobbuffet @ Oran Berry   |   Ability: Telepathy   |   Nature: Docile
-       Moves: Splash [T1]  /  Charm [T2]   (movepool limit: no other legal move fits this tier)
+       Moves: Encore [Sit]  /  Charm [T2]   (movepool limit: no other legal move fits this tier)
   [2A] Countering blob
        Wobbuffet @ Sitrus Berry   |   Ability: Shadow Tag   |   Nature: Calm
        Moves: Counter [Sit]  /  Mirror Coat [Sit]  /  Tickle [T2]  /  Encore [Sit]
@@ -784,10 +784,10 @@ Variants: A = Sun form (Forecast) / B = Rain form (Forecast)
        Moves: Ember [T1]  /  Flash [T1]  /  Defense Curl [T1]  /  Swift [T2]
   [2A] Weather caster
        Castform @ Wise Glasses   |   Ability: Forecast   |   Nature: Mild
-       Moves: Work Up [T2]  /  Swift [T2]  /  Water Pulse [T2]  /  Hex [T3]
+       Moves: Work Up [T2]  /  Swift [T2]  /  Water Pulse [T2]  /  Ominous Wind [T2]
   [2B] Rain doll
        Castform @ Mystic Water   |   Ability: Forecast   |   Nature: Rash
-       Moves: Rain Dance [Sit]  /  Swift [T2]  /  Shock Wave [T2]  /  Thunder Wave [Sit]
+       Moves: Work Up [T2]  /  Swift [T2]  /  Shock Wave [T2]  /  Thunder Wave [Sit]
   [3A] Sunny doll
        Castform @ Heat Rock   |   Ability: Forecast   |   Nature: Modest
        Moves: Sunny Day [Sit]  /  Weather Ball [T4]  /  Solar Beam [T3]  /  Hex [T3]
@@ -883,7 +883,7 @@ Variants: A = Sun attacker (Solar Power) / B = Growth and support
        Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Dazzling Gleam [T3]  /  Earth Power [T4]
   [3B] Growth flower
        Sunflora @ Wise Glasses   |   Ability: Chlorophyll   |   Nature: Modest
-       Moves: Growth [T3]  /  Petal Dance [T3]  /  Dazzling Gleam [T3]  /  Weather Ball [T4]
+       Moves: Growth [T3]  /  Petal Dance [T3]  /  Dazzling Gleam [T3]  /  Giga Drain [T4]
   [4A] Solar Power sweeper
        Sunflora @ Life Orb   |   Ability: Solar Power   |   Nature: Modest
        Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Weather Ball [T4]  /  Earth Power [T4]
@@ -979,7 +979,7 @@ Variants: A = Setup (Speed Boost, Swords Dance) / B = Baton Pass support
        Moves: Swords Dance [T4]  /  Leech Life [T4]  /  Night Slash [T3]  /  Protect [Sit]
   [4B] Baton Pass chain
        Ninjask @ Leftovers   |   Ability: Speed Boost   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  Bug Buzz [T4]  /  Protect [Sit]  /  Substitute [Sit]
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Protect [Sit]  /  Baton Pass [Sit]
 
 ====================================================================================================
 #122 MR. MIME  —  Psychic/Fairy  —  BST 460  —  Category 5
@@ -991,7 +991,7 @@ Variants: A = Setup (Nasty Plot, Filter) / B = Support (screens, Trick)
        Moves: Confusion [T1]  /  Pound [T1]  /  Double Slap [T1]  /  Psybeam [T2]
   [1B] Silent mime
        Mr. Mime @ Oran Berry   |   Ability: Soundproof   |   Nature: Docile
-       Moves: Confusion [T1]  /  Meditate [T1]  /  Mud-Slap [T1]  /  Icy Wind [T2]
+       Moves: Confusion [T1]  /  Encore [Sit]  /  Mud-Slap [T1]  /  Icy Wind [T2]
   [2A] Psychic caster
        Mr. Mime @ Twisted Spoon   |   Ability: Filter   |   Nature: Mild
        Moves: Psybeam [T2]  /  Charge Beam [T2]  /  Magical Leaf [T2]  /  Dazzling Gleam [T3]
@@ -1024,7 +1024,7 @@ Variants: A = Defensive (Will-O-Wisp, Morning Sun) / B = Offensive (Rock Polish)
        Moves: Tackle [T1]  /  Sand Tomb [T1]  /  Flash [T1]  /  Rock Tomb [T2]
   [2A] Burning stone
        Solrock @ Sitrus Berry   |   Ability: Levitate   |   Nature: Impish
-       Moves: Rock Tomb [T2]  /  Will-O-Wisp [Sit]  /  Protect [Sit]  /  Ancient Power [T2]
+       Moves: Rock Tomb [T2]  /  Will-O-Wisp [Sit]  /  Protect [Sit]  /  Rock Blast [T3]
   [2B] Striking stone
        Solrock @ Hard Stone   |   Ability: Levitate   |   Nature: Lonely
        Moves: Smack Down [T2]  /  Bulldoze [T2]  /  Rock Tomb [T2]  /  Zen Headbutt [T3]
@@ -1048,7 +1048,7 @@ Variants: A = Defensive (Thick Fat, paralysis) / B = Offensive (Calm Mind)
 ----------------------------------------------------------------------------------------------------
   [1A] Manipulating pig
        Grumpig @ Oran Berry   |   Ability: Thick Fat   |   Nature: Hardy
-       Moves: Confusion [T1]  /  Splash [T1]  /  Growl [T1]  /  Psybeam [T2]
+       Moves: Confusion [T1]  /  Heal Bell [Sit]  /  Growl [T1]  /  Psybeam [T2]
   [1B] Black pearl pig
        Grumpig @ (no item)   |   Ability: Own Tempo   |   Nature: Docile
        Moves: Confusion [T1]  /  Mud-Slap [T1]  /  Odor Sleuth [T1]  /  Snarl [T2]
@@ -1090,7 +1090,7 @@ Variants: A = Physical (Swords Dance) / B = Special and Sand Veil stall
        Moves: Magical Leaf [T2]  /  Leech Seed [Sit]  /  Spiky Shield [Sit]  /  Grass Whistle [T2]
   [3A] Swords Dance scarecrow
        Cacturne @ Expert Belt   |   Ability: Sand Veil   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Lash Out [T3]  /  Superpower [T3]
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Throat Chop [T3]  /  Superpower [T3]
   [3B] Sand Veil staller
        Cacturne @ Leftovers   |   Ability: Sand Veil   |   Nature: Modest
        Moves: Sandstorm [Sit]  /  Leech Seed [Sit]  /  Spiky Shield [Sit]  /  Giga Drain [T4]
@@ -1300,10 +1300,10 @@ Variants: A = Defensive (screens, Rapid Spin) / B = Offensive (Calm Mind)
        Moves: Ancient Power [T2]  /  Charge Beam [T2]  /  Psybeam [T2]  /  Scorching Sands [T3]
   [3A] Screen setter
        Claydol @ Light Clay   |   Ability: Levitate   |   Nature: Impish
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Earthquake [T4]  /  Gyro Ball [T3]
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Earthquake [T4]  /  Drill Run [T3]
   [3B] Coverage idol
        Claydol @ Expert Belt   |   Ability: Levitate   |   Nature: Modest
-       Moves: Earth Power [T4]  /  Extrasensory [T3]  /  Hex [T3]  /  Signal Beam [T3]
+       Moves: Earth Power [T4]  /  Extrasensory [T3]  /  Scorching Sands [T3]  /  Signal Beam [T3]
   [4A] Bulky spinner
        Claydol @ Leftovers   |   Ability: Levitate   |   Nature: Impish
        Moves: Rapid Spin [T2]  /  Earthquake [T4]  /  Toxic [Sit]  /  Psyshock [T4]
@@ -1363,7 +1363,7 @@ Variants: A = Setup (Calm Mind) / B = Support (Will-O-Wisp, Trick, Destiny Bond)
        Moves: Calm Mind [T4]  /  Psychic Noise [T3]  /  Alluring Voice [T3]  /  Mystical Fire [T3]
   [3B] Destiny Bond lead
        Gardevoir @ Focus Sash   |   Ability: Synchronize   |   Nature: Timid
-       Moves: Will-O-Wisp [Sit]  /  Trick [Sit]  /  Destiny Bond [Sit]  /  Dazzling Gleam [T3]
+       Moves: Will-O-Wisp [Sit]  /  Moonblast [T4]  /  Destiny Bond [Sit]  /  Dazzling Gleam [T3]
   [4A] Choice Scarf trickster
        Gardevoir @ Choice Scarf   |   Ability: Trace   |   Nature: Timid
        Moves: Trick [Sit]  /  Moonblast [T4]  /  Psychic [T4]  /  Focus Blast [T4]
@@ -1483,7 +1483,7 @@ Variants: A = Setup (Calm Mind) / B = Utility (Magic Bounce, Wish, Baton Pass)
        Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Dazzling Gleam [T3]  /  Psychic Noise [T3]
   [3B] Magic Bounce passer
        Espeon @ Leftovers   |   Ability: Magic Bounce   |   Nature: Timid
-       Moves: Wish [Sit]  /  Baton Pass [Sit]  /  Psychic Noise [T3]  /  Dazzling Gleam [T3]
+       Moves: Wish [Sit]  /  Psychic [T4]  /  Psychic Noise [T3]  /  Dazzling Gleam [T3]
   [4A] Calm Mind sweeper
        Espeon @ Life Orb   |   Ability: Magic Bounce   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Psychic [T4]  /  Shadow Ball [T4]  /  Dazzling Gleam [T3]
@@ -1669,7 +1669,7 @@ Variants: A = Setup (Swords Dance, Drought) / B = Bulky and special (sun)
        Moves: Swords Dance [T4]  /  Precipice Blades [T4]  /  Stone Edge [T4]  /  Fire Punch [T3]
   [4B] Bulky titan
        Groudon @ Leftovers   |   Ability: Drought   |   Nature: Impish
-       Moves: Earthquake [T4]  /  Lava Plume [T3]  /  Roar [Sit]  /  Will-O-Wisp [Sit]
+       Moves: Earthquake [T4]  /  Precipice Blades [T4]  /  Roar [Sit]  /  Will-O-Wisp [Sit]
 
 ====================================================================================================
 #150 MEWTWO  —  Psychic  —  BST 680  —  Category 9

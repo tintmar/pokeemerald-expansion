@@ -214,7 +214,7 @@ Variants: A = Special attacker / B = Support (sleep, Stun Spore)
        Moves: Absorb [T1]  /  Mud-Slap [T1]  /  Confide [T1]  /  Grass Whistle [T2]
   [2A] Bud caster
        Budew @ Miracle Seed   |   Ability: Natural Cure   |   Nature: Mild
-       Moves: Swift [T2]  /  Round [T2]  /  Cotton Spore [T2]  /  Grass Knot [T3]
+       Moves: Swift [T2]  /  Mud Shot [T2]  /  Cotton Spore [T2]  /  Grass Knot [T3]
   [2B] Paralysis bud
        Budew @ Sitrus Berry   |   Ability: Leaf Guard   |   Nature: Calm
        Moves: Stun Spore [Sit]  /  Synthesis [Sit]  /  Cotton Spore [T2]  /  Petal Dance [T3]
@@ -277,13 +277,13 @@ Variants: A = Setup (sun, Swords Dance) / B = Special and Choice
        Moves: Razor Leaf [T2]  /  Pounce [T2]  /  Thief [T2]  /  Seed Bomb [T3]
   [2B] Venom sprout
        Bellsprout @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Mild
-       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Stun Spore [Sit]  /  Venoshock [T3]
+       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Stun Spore [Sit]  /  Grass Knot [T3]
   [3A] Sun sprout
        Bellsprout @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Adamant
        Moves: Sunny Day [Sit]  /  Swords Dance [T4]  /  Seed Bomb [T3]  /  Lunge [T3]
   [3B] Growth sprout
        Bellsprout @ Wise Glasses   |   Ability: Chlorophyll   |   Nature: Modest
-       Moves: Growth [T3]  /  Grass Knot [T3]  /  Venoshock [T3]  /  Sleep Powder [T3]
+       Moves: Growth [T3]  /  Grass Knot [T3]  /  Sludge Wave [T4]  /  Sleep Powder [T3]
   [4A] Swords Dance sweeper
        Bellsprout @ Life Orb   |   Ability: Chlorophyll   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Power Whip [T4]  /  Sucker Punch [T4]  /  Poison Jab [T4]
@@ -340,13 +340,13 @@ Variants: A = Physical (Unburden) / B = Special
        Moves: Magical Leaf [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Grass Knot [T3]
   [3A] Unburden striker
        Treecko @ Focus Sash   |   Ability: Unburden   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Acrobatics [T3]  /  Low Kick [T3]
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Bullet Seed [T3]  /  Low Kick [T3]
   [3B] Seeding gecko
        Treecko @ Wise Glasses   |   Ability: Overgrow   |   Nature: Modest
-       Moves: Giga Drain [T4]  /  Grass Pledge [T3]  /  Leech Seed [Sit]  /  Substitute [Sit]
+       Moves: Giga Drain [T4]  /  Grass Knot [T3]  /  Leech Seed [Sit]  /  Substitute [Sit]
   [4A] Unburden sweeper
        Treecko @ Sitrus Berry   |   Ability: Unburden   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  Acrobatics [T3]  /  Seed Bomb [T3]  /  Drain Punch [T4]
+       Moves: Swords Dance [T4]  /  Bullet Seed [T3]  /  Seed Bomb [T3]  /  Drain Punch [T4]
   [4B] Special attacker
        Treecko @ Life Orb   |   Ability: Overgrow   |   Nature: Timid
        Moves: Leaf Storm [T4]  /  Giga Drain [T4]  /  Dragon Breath [T2]  /  Synthesis [Sit]
@@ -424,7 +424,7 @@ Variants: A = Sun attacker (Chlorophyll) / B = Support (Strength Sap, Leech Seed
        Moves: Mega Drain [T1]  /  Infestation [T1]  /  Flash [T1]  /  Magical Leaf [T2]
   [2A] Venom caster
        Oddish @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Mild
-       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Round [T2]  /  Venoshock [T3]
+       Moves: Toxic [Sit]  /  Acid Spray [T2]  /  Round [T2]  /  Venoshock [T3]
   [2B] Seeding weed
        Oddish @ Sitrus Berry   |   Ability: Run Away   |   Nature: Bold
        Moves: Stun Spore [Sit]  /  Leech Seed [Sit]  /  Magical Leaf [T2]  /  Moonlight [Sit]
@@ -547,7 +547,7 @@ Variants: A = Pure Stall (Roost, Toxic) / B = Utility and Quiver Dance
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Struggle Bug [T2]  /  Protect [Sit]
   [2B] Venom caster
        Dustox @ Poison Barb   |   Ability: Compound Eyes   |   Nature: Mild
-       Moves: Psybeam [T2]  /  Silver Wind [T2]  /  Air Cutter [T2]  /  Venoshock [T3]
+       Moves: Psybeam [T2]  /  Silver Wind [T2]  /  Air Cutter [T2]  /  Signal Beam [T3]
   [3A] Moth staller
        Dustox @ Black Sludge   |   Ability: Shield Dust   |   Nature: Calm
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Venoshock [T3]  /  Defog [Sit]
@@ -694,7 +694,7 @@ Variants: A = Special attacker (Natural Cure) / B = Support (Aromatherapy, powde
        Moves: Mega Drain [T1]  /  Mud-Slap [T1]  /  Sweet Scent [T1]  /  Razor Leaf [T2]
   [2A] Venom caster
        Roselia @ Miracle Seed   |   Ability: Natural Cure   |   Nature: Mild
-       Moves: Magical Leaf [T2]  /  Swift [T2]  /  Round [T2]  /  Venoshock [T3]
+       Moves: Magical Leaf [T2]  /  Swift [T2]  /  Mud Shot [T2]  /  Extrasensory [T3]
   [2B] Powder rose
        Roselia @ Sitrus Berry   |   Ability: Poison Point   |   Nature: Calm
        Moves: Stun Spore [Sit]  /  Cotton Spore [T2]  /  Grass Whistle [T2]  /  Magical Leaf [T2]
@@ -706,7 +706,7 @@ Variants: A = Special attacker (Natural Cure) / B = Support (Aromatherapy, powde
        Moves: Aromatherapy [Sit]  /  Sleep Powder [T3]  /  Giga Drain [T4]  /  Synthesis [Sit]
   [4A] Choice Specs rose
        Roselia @ Choice Specs   |   Ability: Natural Cure   |   Nature: Timid
-       Moves: Leaf Storm [T4]  /  Sludge Bomb [T4]  /  Shadow Ball [T4]  /  Weather Ball [T4]
+       Moves: Leaf Storm [T4]  /  Sludge Bomb [T4]  /  Shadow Ball [T4]  /  Giga Drain [T4]
   [4B] Bulky rose
        Roselia @ Rocky Helmet   |   Ability: Poison Point   |   Nature: Bold
        Moves: Toxic [Sit]  /  Synthesis [Sit]  /  Sludge Bomb [T4]  /  Leech Seed [Sit]
@@ -757,7 +757,7 @@ Variants: A = Physical (Unburden) / B = Special
        Moves: Grassy Glide [T2]  /  Low Sweep [T2]  /  Aerial Ace [T2]  /  X-Scissor [T3]
   [2B] Leafy caster
        Grovyle @ Sitrus Berry   |   Ability: Unburden   |   Nature: Mild
-       Moves: Magical Leaf [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Grass Pledge [T3]
+       Moves: Magical Leaf [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Grass Knot [T3]
   [3A] Unburden striker
        Grovyle @ Sitrus Berry   |   Ability: Unburden   |   Nature: Jolly
        Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  X-Scissor [T3]  /  Brick Break [T3]
@@ -877,7 +877,7 @@ Variants: A = Protean attacker / B = Bulky utility (Color Change, Recover)
        Moves: Feint Attack [T2]  /  Headbutt [T2]  /  Rock Tomb [T2]  /  Shadow Claw [T3]
   [2B] Recovering swapper
        Kecleon @ Sitrus Berry   |   Ability: Color Change   |   Nature: Calm
-       Moves: Thunder Wave [Sit]  /  Recover [Sit]  /  Mega Kick [T3]  /  Psybeam [T2]
+       Moves: Thunder Wave [Sit]  /  Recover [Sit]  /  Swift [T2]  /  Psybeam [T2]
   [3A] Protean striker
        Kecleon @ Muscle Band   |   Ability: Protean   |   Nature: Adamant
        Moves: Shadow Sneak [T4]  /  Mega Kick [T3]  /  Ice Punch [T3]  /  Fire Punch [T3]
@@ -1189,7 +1189,7 @@ Variants: A = Physical / B = Special (sun)
        Moves: Leaf Blade [T4]  /  Poison Jab [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]
   [4B] Choice Specs flycatcher
        Victreebel @ Choice Specs   |   Ability: Gluttony   |   Nature: Modest
-       Moves: Leaf Storm [T4]  /  Sludge Wave [T4]  /  Weather Ball [T4]  /  Giga Drain [T4]
+       Moves: Leaf Storm [T4]  /  Sludge Wave [T4]  /  Grass Knot [T3]  /  Giga Drain [T4]
 
 ====================================================================================================
 #182 BELLOSSOM  —  Grass  —  BST 490  —  Category 6
@@ -1324,7 +1324,7 @@ Variants: A = Special attacker (Technician, Natural Cure) / B = Support (sleep, 
        Moves: Mega Drain [T1]  /  Sweet Kiss [T1]  /  Mud-Slap [T1]  /  Grass Whistle [T2]
   [2A] Technician caster
        Roserade @ Miracle Seed   |   Ability: Technician   |   Nature: Mild
-       Moves: Magical Leaf [T2]  /  Swift [T2]  /  Round [T2]  /  Venoshock [T3]
+       Moves: Magical Leaf [T2]  /  Swift [T2]  /  Mud Shot [T2]  /  Dazzling Gleam [T3]
   [2B] Powder bouquet
        Roserade @ Sitrus Berry   |   Ability: Poison Point   |   Nature: Calm
        Moves: Stun Spore [Sit]  /  Leech Seed [Sit]  /  Grass Whistle [T2]  /  Magical Leaf [T2]
@@ -1339,7 +1339,7 @@ Variants: A = Special attacker (Technician, Natural Cure) / B = Support (sleep, 
        Moves: Giga Drain [T4]  /  Sludge Bomb [T4]  /  Shadow Ball [T4]  /  Synthesis [Sit]
   [4B] Sleep lead
        Roserade @ Focus Sash   |   Ability: Technician   |   Nature: Timid
-       Moves: Sleep Powder [T3]  /  Leaf Storm [T4]  /  Sludge Bomb [T4]  /  Weather Ball [T4]
+       Moves: Sleep Powder [T3]  /  Leaf Storm [T4]  /  Sludge Bomb [T4]  /  Giga Drain [T4]
 
 ====================================================================================================
 #154 MEGANIUM  —  Grass  —  BST 525  —  Category 7
@@ -1444,7 +1444,7 @@ Variants: A = Setup (Pixilate, Calm Mind) / B = Support (Wish, Heal Bell)
        Moves: Disarming Voice [T1]  /  Baby-Doll Eyes [T1]  /  Quick Attack [T1]  /  Draining Kiss [T2]
   [2A] Pixilate caster
        Sylveon @ Fairy Feather   |   Ability: Pixilate   |   Nature: Mild
-       Moves: Swift [T2]  /  Round [T2]  /  Draining Kiss [T2]  /  Alluring Voice [T3]
+       Moves: Swift [T2]  /  Magical Leaf [T2]  /  Draining Kiss [T2]  /  Alluring Voice [T3]
   [2B] Wishing fox
        Sylveon @ Sitrus Berry   |   Ability: Cute Charm   |   Nature: Calm
        Moves: Wish [Sit]  /  Protect [Sit]  /  Draining Kiss [T2]  /  Yawn [Sit]
@@ -1516,7 +1516,7 @@ Variants: A = Physical (Unburden) / B = Special
        Moves: Substitute [Sit]  /  Leech Seed [Sit]  /  Giga Drain [T4]  /  Shed Tail [Sit]
   [4A] Unburden sweeper
        Sceptile @ Sitrus Berry   |   Ability: Unburden   |   Nature: Jolly
-       Moves: Dragon Dance [T4]  /  Leaf Blade [T4]  /  Earthquake [T4]  /  Acrobatics [T3]
+       Moves: Dragon Dance [T4]  /  Leaf Blade [T4]  /  Earthquake [T4]  /  Seed Bomb [T3]
   [4B] Choice Specs gecko
        Sceptile @ Choice Specs   |   Ability: Overgrow   |   Nature: Timid
        Moves: Leaf Storm [T4]  /  Dragon Pulse [T4]  /  Focus Blast [T4]  /  Giga Drain [T4]

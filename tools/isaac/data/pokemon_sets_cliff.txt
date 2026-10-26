@@ -133,7 +133,7 @@ Variants: A = Sniper attacker / B = Keen Eye attacker
        Moves: Focus Energy [T1]  /  Drill Peck [T3]  /  Drill Run [T3]  /  Double-Edge [T4]
   [3B] Drilling bird
        Spearow @ Muscle Band   |   Ability: Keen Eye   |   Nature: Jolly
-       Moves: Drill Peck [T3]  /  Drill Run [T3]  /  Assurance [T3]  /  U-turn [T2]
+       Moves: Drill Peck [T3]  /  Drill Run [T3]  /  Double-Edge [T4]  /  U-turn [T2]
   [4A] Physical attacker
        Spearow @ Life Orb   |   Ability: Sniper   |   Nature: Jolly
        Moves: Drill Peck [T3]  /  Double-Edge [T4]  /  Drill Run [T3]  /  U-turn [T2]
@@ -214,7 +214,7 @@ Variants: A = Setup (Calm Mind) / B = Support (screens, Trick Room, Heal Bell)
        Moves: Bind [T1]  /  Flash [T1]  /  Confusion [T1]  /  Shock Wave [T2]
   [2A] Psychic caster
        Chingling @ Twisted Spoon   |   Ability: Levitate   |   Nature: Mild
-       Moves: Charge Beam [T2]  /  Icy Wind [T2]  /  Round [T2]  /  Psychic Noise [T3]
+       Moves: Charge Beam [T2]  /  Icy Wind [T2]  /  Swift [T2]  /  Psychic Noise [T3]
   [2B] Cleric bell
        Chingling @ Sitrus Berry   |   Ability: Levitate   |   Nature: Calm
        Moves: Hypnosis [T2]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Extrasensory [T3]
@@ -574,7 +574,7 @@ Variants: A = Unburden attacker / B = Support (Will-O-Wisp, Destiny Bond)
        Moves: Bind [T1]  /  Flash [T1]  /  Mud-Slap [T1]  /  Air Cutter [T2]
   [2A] Haunting caster
        Drifloon @ Spell Tag   |   Ability: Flare Boost   |   Nature: Mild
-       Moves: Ominous Wind [T2]  /  Shock Wave [T2]  /  Psybeam [T2]  /  Hex [T3]
+       Moves: Ominous Wind [T2]  /  Shock Wave [T2]  /  Psybeam [T2]  /  Air Cutter [T2]
   [2B] Burning balloon
        Drifloon @ Sitrus Berry   |   Ability: Aftermath   |   Nature: Calm
        Moves: Will-O-Wisp [Sit]  /  Hypnosis [T2]  /  Ominous Wind [T2]  /  Destiny Bond [Sit]
@@ -697,7 +697,7 @@ Variants: A = Physical (Dragon Dance) / B = Special (Solar Power)
        Moves: Fire Fang [T2]  /  Breaking Swipe [T2]  /  Bite [T2]  /  Temper Flare [T3]
   [2B] Flame caster
        Charmeleon @ Sitrus Berry   |   Ability: Solar Power   |   Nature: Mild
-       Moves: Incinerate [T2]  /  Dragon Breath [T2]  /  Ancient Power [T2]  /  Fire Pledge [T3]
+       Moves: Incinerate [T2]  /  Dragon Breath [T2]  /  Ancient Power [T2]  /  Heat Wave [T3]
   [3A] Dragon Dance claw
        Charmeleon @ Expert Belt   |   Ability: Blaze   |   Nature: Adamant
        Moves: Dragon Dance [T4]  /  Fire Punch [T3]  /  Dragon Claw [T3]  /  Thunder Punch [T3]
@@ -1051,7 +1051,7 @@ Variants: A = Bulky support (Magic Bounce, Roost) / B = Special attacker
        Moves: Peck [T1]  /  Twister [T1]  /  Leer [T1]  /  Air Cutter [T2]
   [1B] Seer bird
        Xatu @ Oran Berry   |   Ability: Early Bird   |   Nature: Docile
-       Moves: Quick Attack [T1]  /  Miracle Eye [T1]  /  Flash [T1]  /  Synchronoise [T2]
+       Moves: Quick Attack [T1]  /  Miracle Eye [T1]  /  Flash [T1]  /  Air Cutter [T2]
   [2A] Future Sight bird
        Xatu @ Twisted Spoon   |   Ability: Synchronize   |   Nature: Mild
        Moves: Air Cutter [T2]  /  Silver Wind [T2]  /  Swift [T2]  /  Future Sight [T3]
@@ -1204,7 +1204,7 @@ Variants: A = Unburden attacker / B = Bulky support (Strength Sap, Will-O-Wisp)
        Moves: Astonish [T1]  /  Mud-Slap [T1]  /  Flash [T1]  /  Hypnosis [T2]
   [2A] Unburden caster
        Drifblim @ Sitrus Berry   |   Ability: Unburden   |   Nature: Mild
-       Moves: Ominous Wind [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Hex [T3]
+       Moves: Ominous Wind [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Shock Wave [T2]
   [2B] Burning blimp
        Drifblim @ Lum Berry   |   Ability: Aftermath   |   Nature: Bold
        Moves: Will-O-Wisp [Sit]  /  Strength Sap [Sit]  /  Ominous Wind [T2]  /  Destiny Bond [Sit]
@@ -1213,7 +1213,7 @@ Variants: A = Unburden attacker / B = Bulky support (Strength Sap, Will-O-Wisp)
        Moves: Strength Sap [Sit]  /  Will-O-Wisp [Sit]  /  Hex [T3]  /  Defog [Sit]
   [3B] Acrobatics blimp
        Drifblim @ Sitrus Berry   |   Ability: Unburden   |   Nature: Adamant
-       Moves: Substitute [Sit]  /  Acrobatics [T3]  /  Phantom Force [T3]  /  Temper Flare [T3]
+       Moves: Substitute [Sit]  /  Return [T4]  /  Phantom Force [T3]  /  Temper Flare [T3]
   [4A] Bulky blimp
        Drifblim @ Rocky Helmet   |   Ability: Aftermath   |   Nature: Calm
        Moves: Strength Sap [Sit]  /  Will-O-Wisp [Sit]  /  Shadow Ball [T4]  /  Tailwind [Sit]
