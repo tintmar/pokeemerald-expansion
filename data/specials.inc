@@ -657,6 +657,8 @@ gSpecials::
 	def_special IsaacOpenShop
 	def_special IsaacKecleonGreeting
 	def_special IsaacBufferFirstBiome
+	def_special IsaacCaptureGuideHasBall
+	def_special IsaacCaptureGuideGaveBall
 	def_special IsaacGetRoomContent
 	def_special IsaacGiveEgg
 	def_special IsaacPickTreasureItem

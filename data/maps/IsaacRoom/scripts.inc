@@ -125,6 +125,38 @@ IsaacRoom_EventScript_WildMon:
 	release
 	end
 
+@ Salle de capture : le personnage de l'entrée donne une Master Ball par étage (voir PlaceCaptureGuide)
+IsaacRoom_EventScript_CaptureGuide::
+	lock
+	faceplayer
+	special IsaacCaptureGuideHasBall
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_CaptureGuideDone
+	msgbox IsaacRoom_Text_CaptureGuideGive, MSGBOX_DEFAULT
+	giveitem ITEM_MASTER_BALL
+	goto_if_eq VAR_0x8007, FALSE, IsaacRoom_EventScript_CaptureGuideBagFull  @ sac plein (message de giveitem)
+	special IsaacCaptureGuideGaveBall
+	msgbox IsaacRoom_Text_CaptureGuideAfter, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_CaptureGuideBagFull::
+	release
+	end
+
+IsaacRoom_EventScript_CaptureGuideDone::
+	msgbox IsaacRoom_Text_CaptureGuideAfter, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_Text_CaptureGuideGive:
+	.string "Wild Pokémon live in this room!\p"
+	.string "Here, take this. It never fails,\n"
+	.string "so save it for the one you want most!$"
+
+IsaacRoom_Text_CaptureGuideAfter:
+	.string "Choose wisely! A Master Ball\n"
+	.string "catches any Pokémon, guaranteed.$"
+
 @ Salles trésor et secrète : un objet spécial ou, dans une salle secrète, le butin de sa table (voir
 @ IsaacPickTreasureItem), donné objet par objet
 IsaacRoom_EventScript_Treasure::

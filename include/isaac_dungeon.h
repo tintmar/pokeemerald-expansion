@@ -25,6 +25,8 @@ void IsaacPrepareTrainerReturn(void);
 void IsaacOpenBossExit(void);
 void IsaacBufferBossName(void);
 void IsaacPrepareWildBattle(void);
+void IsaacCaptureGuideHasBall(void);
+void IsaacCaptureGuideGaveBall(void);
 void IsaacCaptureMonDone(void);
 void IsaacPickTrainerLoot(void);
 void IsaacNextLootItem(void);

@@ -84,12 +84,12 @@
  * Ses Pokémon (nombre et set selon l'étage : sRoomTrainerParties ; catégorie et BST : palier de force de l'étage,
  * sStrengthLevels) sont tirés au hasard dans toutes
  * les lignées du biome, sans doublon (AddTrainerMon). Vaincu, il donne ISAAC_TRAINER_MONEY_PER_FLOOR x
- * la profondeur, et un objet de son butin (IsaacPickTrainerLoot) : à chaque étage, l'un des dresseurs de
- * l'étage donne une Master Ball à la place, à coup sûr si on les bat tous.
+ * la profondeur, et un objet de son butin (IsaacPickTrainerLoot).
  *
  * SALLE DE CAPTURE : des Pokémon sauvages différents du biome se promènent (3 aux étages 1-2, 4 aux étages
  * 3-4, 5 aux étages 5-6), plus forts que les dresseurs de l'étage (sCaptureLevels), au set 2
- * aux étages 1-2, 3 aux étages 3-4 et 4 aux étages 5-6. Leur parler lance le combat, après quoi ils disparaissent. SALLE TRÉSOR : un objet spécial au sol (deux salles
+ * aux étages 1-2, 3 aux étages 3-4 et 4 aux étages 5-6. Leur parler lance le combat, après quoi ils disparaissent.
+ * Un personnage à l'entrée donne une Master Ball (une par étage). SALLE TRÉSOR : un objet spécial au sol (deux salles
  * trésor à partir de ISAAC_TWO_TREASURES_MIN_FLOOR).
  *
  * MINI-CARTE (bouton R dans une salle) : comme Isaac, on voit les salles visitées et celles qui les
@@ -114,13 +114,12 @@
 // Salles nettoyées (dresseur vaincu) : un drapeau par cellule, dans des drapeaux inutilisés du jeu
 #define FLAG_ISAAC_CLEARED_FIRST  FLAG_UNUSED_0x264
 STATIC_ASSERT(FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H - 1 <= FLAG_UNUSED_0x2BB, IsaacClearedFlagsAreUnused);
-// Master Ball déjà donnée par un dresseur de l'étage (juste après les drapeaux des salles)
-#define FLAG_ISAAC_MASTER_BALL_DROPPED  (FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H)
-STATIC_ASSERT(FLAG_ISAAC_MASTER_BALL_DROPPED <= FLAG_UNUSED_0x2BB, IsaacMasterBallFlagIsUnused);
-#define ISAAC_MASTER_BALL_MIN_FLOOR  1  // à partir de cet étage, un dresseur de l'étage donne une Master Ball
+// Master Ball déjà donnée par le personnage de la salle de capture de l'étage (juste après les drapeaux des salles)
+#define FLAG_ISAAC_MASTER_BALL_GIVEN  (FLAG_ISAAC_CLEARED_FIRST + ISAAC_GRID_W * ISAAC_GRID_H)
+STATIC_ASSERT(FLAG_ISAAC_MASTER_BALL_GIVEN <= FLAG_UNUSED_0x2BB, IsaacMasterBallFlagIsUnused);
 // Pokémon de la salle de capture déjà combattus (un drapeau par emplacement, juste après)
 #define CAPTURE_MAX_MONS                5
-#define FLAG_ISAAC_CAPTURE_DONE_FIRST   (FLAG_ISAAC_MASTER_BALL_DROPPED + 1)
+#define FLAG_ISAAC_CAPTURE_DONE_FIRST   (FLAG_ISAAC_MASTER_BALL_GIVEN + 1)
 STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSED_0x2BB, IsaacCaptureFlagsAreUnused);
 
 // Kecleon (boutique) déjà rencontré : pour toute la partie, il ne fait sa blague qu'une fois
@@ -1680,29 +1679,10 @@ u32 IsaacGetTrainerMoney(void)
     return CheckBagHasItem(ITEM_LUCKY_COIN, 1) ? money * 2 : money;
 }
 
-// Dresseurs de l'étage encore à battre, en comptant celui de la salle courante (déjà marquée nettoyée)
-static u32 CountTrainersLeftOnFloor(void)
-{
-    s32 x, y, curX, curY;
-    u32 left = 0;
-
-    GetCurrentCell(&curX, &curY);
-    for (y = 0; y < ISAAC_GRID_H; y++)
-        for (x = 0; x < ISAAC_GRID_W; x++)
-            if (RoomHasTrainer(x, y) && GetRoom(x, y) != ROOM_SECRET && (!IsCleared(x, y) || (x == curX && y == curY)))
-                left++;
-    return left;
-}
-
 // Butin d'un dresseur vaincu, donné objet par objet (IsaacNextLootItem) :
 //  - une Restore Max avec TRAINER_LOOT_MAX_RESTORE_PCT % de chances, et une seconde avec la même chance multipliée par
 //    TRAINER_LOOT_SECOND_PCT_PER_FLOOR % par étage au-delà de l'étage 2 (toujours la même réponse pour une salle) : en
 //    moyenne 0,7 aux étages 1-2, 0,875 à l'étage 3, 1,05 au 4, 1,225 au 5, 1,4 à partir du 6.
-// À partir de ISAAC_MASTER_BALL_MIN_FLOOR, une Master Ball, une seule par étage : tant qu'elle n'est pas tombée, chaque
-// dresseur la donne avec 1 chance sur le nombre de dresseurs encore à battre (1/8, 1/7... 1/1) ; battre tous les
-// dresseurs de l'étage la donne donc à coup sûr. Le dresseur de la salle secrète, qu'on ne peut pas toujours atteindre,
-// n'en fait pas partie (ni pour la donner, ni dans le compte). Elle remplace la Restore Max s'il n'y en a qu'une,
-// sinon elle s'ajoute au butin.
 // En plus, TRAINER_LOOT_RARE_PCT % des dresseurs donnent un butin rare (PickTrainerRareLoot, toujours le même pour une
 // salle) : un objet spécial, une très bonne CT, un objet de combat de la boutique ou un Rappel Max.
 #define TRAINER_LOOT_MAX_RESTORE_PCT       70
@@ -1718,7 +1698,7 @@ static EWRAM_DATA u8 sLootCount = 0;
 void IsaacPickTrainerLoot(void)
 {
     s32 x, y;
-    u32 left, secondPct, heals = 0;
+    u32 secondPct, heals = 0;
 
     GetCurrentCell(&x, &y);
     sLootCount = 0;
@@ -1731,18 +1711,6 @@ void IsaacPickTrainerLoot(void)
         sLoot[sLootCount++] = ITEM_MAX_RESTORE;
     if (RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_RARE_PCT)
         sLoot[sLootCount++] = PickTrainerRareLoot(RoomRandom(x, y, 0x7E58));
-    if (VarGet(VAR_ISAAC_FLOOR) < ISAAC_MASTER_BALL_MIN_FLOOR || FlagGet(FLAG_ISAAC_MASTER_BALL_DROPPED)
-     || GetRoom(x, y) == ROOM_SECRET)
-        return;
-    left = CountTrainersLeftOnFloor();
-    if (left != 0 && Random() % left == 0)
-    {
-        if (heals == 1)
-            sLoot[0] = ITEM_MASTER_BALL;  // la Master Ball remplace le soin
-        else
-            sLoot[sLootCount++] = ITEM_MASTER_BALL;
-        FlagSet(FLAG_ISAAC_MASTER_BALL_DROPPED);
-    }
 }
 
 // Objet suivant du butin (dresseur, salle trésor ou secrète) dans VAR_0x8004 (ITEM_NONE quand il n'y en a plus),
@@ -1892,6 +1860,18 @@ static const s8 sCaptureX[CAPTURE_MAX_MONS] = { ROOM_MID_X - 2, ROOM_MID_X + 2, 
 static const s8 sCaptureY[CAPTURE_MAX_MONS] = { ROOM_MID_Y - 1, ROOM_MID_Y - 1, ROOM_MID_Y + 1, ROOM_MID_Y + 1, ROOM_MID_Y };
 
 static EWRAM_DATA u8 sCaptureSlot = 0;  // Pokémon combattu (IsaacPrepareWildBattle -> IsaacCaptureMonDone)
+
+// Personnage de la salle de capture : VAR_RESULT = TRUE s'il a encore la Master Ball de l'étage à donner
+void IsaacCaptureGuideHasBall(void)
+{
+    gSpecialVar_Result = !FlagGet(FLAG_ISAAC_MASTER_BALL_GIVEN);
+}
+
+// La Master Ball de l'étage a été donnée
+void IsaacCaptureGuideGaveBall(void)
+{
+    FlagSet(FLAG_ISAAC_MASTER_BALL_GIVEN);
+}
 
 // Nombre de Pokémon de la salle de capture : 3 aux étages 1-2, 4 aux étages 3-4, 5 aux étages 5-6
 static u32 GetCaptureMonCount(void)
@@ -2097,6 +2077,29 @@ void IsaacSettleNurse(void)
 
     GetCurrentCell(&x, &y);
     PlaceNurse(x, y, FALSE);
+}
+
+// Personnage de la salle de capture : à l'entrée (la seule porte de ce cul-de-sac), comme l'infirmière une fois
+// arrivée (quelques pas dans la salle, un pas de côté), tourné vers la porte. Il donne une Master Ball par étage.
+static void PlaceCaptureGuide(s32 x, s32 y)
+{
+    struct ObjectEventTemplate *template = GetObjectTemplate(LOCALID_ISAAC_ROOM_CAPTURE_GUIDE);
+    u32 doorDir, inward, sideDir, steps;
+
+    if (template == NULL)
+        return;
+    if (GetRoom(x, y) != ROOM_CAPTURE)
+    {
+        template->x = template->y = -1000;
+        return;
+    }
+    inward = GetBossExitDir(x, y);  // à l'opposé de la porte
+    doorDir = (inward + 2) % ISAAC_DIR_COUNT;
+    steps = GetNurseSteps(doorDir, &sideDir);
+    template->x = sDoorX[doorDir] + steps * sDirDx[inward] + sDirDx[sideDir];
+    template->y = sDoorY[doorDir] + steps * sDirDy[inward] + sDirDy[sideDir];
+    template->movementType = sDirToFaceMovementType[doorDir];
+    VarSet(VAR_OBJ_GFX_ID_B, gIsaacBiomes[ISAAC_BIOME].ocean ? OBJ_EVENT_GFX_SWIMMER_M : OBJ_EVENT_GFX_SCIENTIST_1);
 }
 
 static u32 GetNursePricePerMon(void)
@@ -3242,6 +3245,7 @@ static void SetUpRoomObjects(s32 x, s32 y)
     if (room == ROOM_BOSS && cleared)
         PlaceNurse(x, y, FALSE);
     SetUpCaptureMons(x, y);
+    PlaceCaptureGuide(x, y);
     SetUpRoomContent(x, y);
     if (room == ROOM_BOSS)
         SetUpBoss(x, y, cleared);
@@ -3331,7 +3335,7 @@ static void WarpToNewFloor(u32 floor)
     VarSet(VAR_ISAAC_SEED, Random());
     ClearVisited();
     ClearClearedRooms();
-    FlagClear(FLAG_ISAAC_MASTER_BALL_DROPPED);
+    FlagClear(FLAG_ISAAC_MASTER_BALL_GIVEN);
     for (u32 i = 0; i < CAPTURE_MAX_MONS; i++)
         FlagClear(FLAG_ISAAC_CAPTURE_DONE_FIRST + i);
     for (u32 i = 0; i < SHOP_LIMITED_SLOTS; i++)
