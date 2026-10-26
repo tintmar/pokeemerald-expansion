@@ -1190,14 +1190,14 @@ struct IsaacStrengthLevel
 
 static const struct IsaacStrengthLevel sStrengthLevels[] =
 {
-    { ISAAC_CATEGORY_1, ISAAC_CATEGORY_1,  0, 210 },
-    { ISAAC_CATEGORY_1, ISAAC_CATEGORY_2,  0, 265 },
-    { ISAAC_CATEGORY_2, ISAAC_CATEGORY_2,  0, 330 },
-    { ISAAC_CATEGORY_2, ISAAC_CATEGORY_3,  0, 360 },
-    { ISAAC_CATEGORY_3, ISAAC_CATEGORY_3,  0, 430 },
-    { ISAAC_CATEGORY_3, ISAAC_CATEGORY_4,  0, 455 },
-    { ISAAC_CATEGORY_4, ISAAC_CATEGORY_4,  0, 490 },
-    { ISAAC_CATEGORY_4, ISAAC_CATEGORY_4, 25, 500 },
+    { ISAAC_CATEGORY_1, ISAAC_CATEGORY_2,  0, 210 },
+    { ISAAC_CATEGORY_2, ISAAC_CATEGORY_3,  0, 265 },
+    { ISAAC_CATEGORY_3, ISAAC_CATEGORY_4,  0, 330 },
+    { ISAAC_CATEGORY_4, ISAAC_CATEGORY_5,  0, 360 },
+    { ISAAC_CATEGORY_5, ISAAC_CATEGORY_6,  0, 430 },
+    { ISAAC_CATEGORY_6, ISAAC_CATEGORY_7,  0, 455 },
+    { ISAAC_CATEGORY_7, ISAAC_CATEGORY_7,  0, 490 },
+    { ISAAC_CATEGORY_7, ISAAC_CATEGORY_7, 25, 500 },
 };
 
 #define CAPTURE_LEVEL_AHEAD  2
@@ -1232,7 +1232,7 @@ struct IsaacTrainerParty
 static const struct IsaacTrainerParty sRoomTrainerParties[] =
 {
     { 2,  60, 0, 0, FALSE, 0, 0 },  // étage 1 : pas d'as
-    { 2, 100, 0, 1, TRUE,  0, 0 },  // étage 2 : catégorie 1 en set 2, catégorie 2 en set 1
+    { 2, 100, 0, 1, TRUE,  0, 0 },  // étage 2 : la catégorie la plus faible en set 2, l'autre en set 1
     { 3,  60, 1, 1, FALSE, 2, 0 },
     { 3,  75, 1, 2, FALSE, 1, 0 },
     { 4,  50, 1, 2, FALSE, 2, 0 },
@@ -1246,7 +1246,7 @@ static const struct IsaacTrainerParty sRoomTrainerParties[] =
 // En plus du tableau (voir IsaacBoostTrainerParty et GetIsaacTrainer) :
 //  - objets, un seul par Pokémon : la Pierre brillante de l'as (aceBrilliant, étage 6 : chromatique, meilleure stat
 //    +20 %), puis boosts Omniboosts, un par Pokémon en remontant depuis l'as (as secondaires ensuite) ;
-//  - l'as du dernier étage est un petit légendaire, choisi selon le thème du boss (sBossLegendaries) ;
+//  - l'as du dernier étage est un petit légendaire (catégorie 8) de la liste du biome (PickLegendary) ;
 //  - l'IA est « Smart » à tous les étages ;
 //  - les espèces respectent le plancher de BST du palier de force de l'étage (sStrengthLevels).
 struct IsaacBossParty
@@ -1261,28 +1261,48 @@ struct IsaacBossParty
 
 static const struct IsaacBossParty sBossParties[] =
 {
-    { 3, ISAAC_CATEGORY_1, ISAAC_CATEGORY_1, 0, 1, ISAAC_CATEGORY_2,               1, 0, 0, FALSE },
-    { 4, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 1, 1, ISAAC_CATEGORY_3,               2, 1, 0, FALSE },
-    { 4, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_3,               1, 1, 1, FALSE },
-    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_4,               2, 1, 0, FALSE },
-    { 5, ISAAC_CATEGORY_3, ISAAC_CATEGORY_4, 1, 2, ISAAC_CATEGORY_4,               2, 1, 2, FALSE },
-    { 6, ISAAC_CATEGORY_4, ISAAC_CATEGORY_4, 1, 2, ISAAC_CATEGORY_LEGENDARY_SMALL, 2, 2, 2, TRUE },
+    { 3, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 0, 1, ISAAC_CATEGORY_3,               1, 0, 0, FALSE },
+    { 4, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_5,               2, 1, 0, FALSE },
+    { 4, ISAAC_CATEGORY_4, ISAAC_CATEGORY_5, 1, 1, ISAAC_CATEGORY_6,               1, 1, 1, FALSE },
+    { 5, ISAAC_CATEGORY_5, ISAAC_CATEGORY_6, 1, 1, ISAAC_CATEGORY_7,               2, 1, 0, FALSE },
+    { 5, ISAAC_CATEGORY_6, ISAAC_CATEGORY_7, 1, 2, ISAAC_CATEGORY_7,               2, 1, 2, FALSE },
+    { 6, ISAAC_CATEGORY_7, ISAAC_CATEGORY_7, 1, 2, ISAAC_CATEGORY_LEGENDARY_SMALL, 2, 2, 2, TRUE },
 };
 
-// Petit légendaire de l'as du dernier étage, au thème du biome et de son boss
-// (une case vide reprend le premier, pour tirer à égalité entre ceux qui sont listés)
-static const u16 sBossLegendaries[ISAAC_BIOME_COUNT][3] =
+// Légendaire tiré au hasard (avec des sets) : avec biomeOnly, un de la liste du biome (catégories 8 et 9, ou seulement
+// la 8 avec smallOnly), à défaut ou sinon, n'importe lequel du roster
+static u16 PickLegendary(bool8 biomeOnly, bool8 smallOnly, u32 roll)
 {
-    [ISAAC_BIOME_CAVE]   = { SPECIES_REGIROCK, SPECIES_ZAPDOS_GALAR, SPECIES_REGIROCK }, // Pierre (roche, combat)
-    [ISAAC_BIOME_DARK]   = { SPECIES_DEOXYS,   SPECIES_MOLTRES_GALAR, SPECIES_DEOXYS },  // Spectra (ténèbres)
-    [ISAAC_BIOME_FIRE]   = { SPECIES_MOLTRES,  SPECIES_ENTEI,     SPECIES_RAIKOU },    // Adriane (feu, électrik)
-    [ISAAC_BIOME_ICE]    = { SPECIES_ARTICUNO, SPECIES_REGICE,    SPECIES_REGISTEEL }, // Glacia (glace, acier)
-    [ISAAC_BIOME_POISON] = { SPECIES_MEW,      SPECIES_MEW,       SPECIES_MEW },       // Koga (poison)
-    [ISAAC_BIOME_OCEAN]  = { SPECIES_SUICUNE,  SPECIES_SUICUNE,   SPECIES_SUICUNE },   // Ondine (eau)
-    [ISAAC_BIOME_DESERT] = { SPECIES_JIRACHI,  SPECIES_ARTICUNO_GALAR, SPECIES_DEOXYS }, // Giovanni (sol, psy)
-    [ISAAC_BIOME_CLIFF]  = { SPECIES_LATIAS,   SPECIES_LATIOS,    SPECIES_ZAPDOS },    // Alizée (vol, dragon)
-    [ISAAC_BIOME_FOREST] = { SPECIES_CELEBI,   SPECIES_CELEBI,    SPECIES_CELEBI },    // Erika (plante)
-};
+    const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
+    u16 candidates[64], species;
+    u32 count = 0, i, pass;
+    enum IsaacCategory category;
+
+    for (pass = biomeOnly ? 0 : 1; pass < 2 && count == 0; pass++)
+    {
+        for (i = 0; i < (pass == 0 ? biome->lineCount : IsaacGetRosterCount()) && count < ARRAY_COUNT(candidates); i++)
+        {
+            species = (pass == 0) ? biome->lines[i] : IsaacGetRosterSpecies(i);
+            category = IsaacGetSpeciesCategory(species);
+            if ((category == ISAAC_CATEGORY_LEGENDARY_SMALL || (!smallOnly && category == ISAAC_CATEGORY_LEGENDARY_BIG))
+             && IsaacSpeciesHasSet(species))
+                candidates[count++] = species;
+        }
+    }
+    return count ? candidates[roll % count] : SPECIES_MEW;
+}
+
+// Première espèce du biome qui a des sets : à défaut de tout autre choix
+static u16 GetBiomeFallbackSpecies(void)
+{
+    const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
+    u32 i;
+
+    for (i = 0; i < biome->lineCount; i++)
+        if (IsaacSpeciesHasSet(biome->lines[i]))
+            return biome->lines[i];
+    return SPECIES_MEW;
+}
 
 static const struct IsaacTrainerParty *GetRoomTrainerParty(u32 floor)
 {
@@ -1363,9 +1383,9 @@ static const struct IsaacTrainerType *GetRoomTrainerType(s32 x, s32 y)
 }
 
 // Ajoute un Pokémon à l'équipe du dresseur ou du boss : quel que soit le type de dresseur, une espèce au hasard
-// parmi toutes les lignées du biome, de la catégorie voulue, jamais une espèce déjà dans l'équipe (s'il n'en reste
+// parmi toutes les espèces du biome, de la catégorie voulue, jamais une espèce déjà dans l'équipe (s'il n'en reste
 // aucune de cette catégorie, la plus proche, en dessous d'abord), avec le set voulu (variante 50/50). Le petit
-// légendaire de l'as du boss vient de sBossLegendaries.
+// légendaire de l'as du boss est un de ceux du biome (PickLegendary).
 static void AddTrainerMon(enum IsaacCategory category, u32 tier, u32 seed, u32 minBst)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
@@ -1376,16 +1396,16 @@ static void AddTrainerMon(enum IsaacCategory category, u32 tier, u32 seed, u32 m
 
     if (category >= ISAAC_CATEGORY_LEGENDARY_SMALL)
     {
-        species = sBossLegendaries[ISAAC_BIOME][seed % ARRAY_COUNT(sBossLegendaries[0])];
+        species = PickLegendary(TRUE, category == ISAAC_CATEGORY_LEGENDARY_SMALL, seed);
     }
     else
     {
-        for (delta = 0; delta < ISAAC_CATEGORY_4 && species == SPECIES_NONE; delta++)
+        for (delta = 0; delta < ISAAC_CATEGORY_LAST_REGULAR && species == SPECIES_NONE; delta++)
         {
             for (i = 0; i < 2 && species == SPECIES_NONE; i++)
             {
                 cat = (s32)category + (i == 0 ? -(s32)delta : (s32)delta);
-                if (cat < ISAAC_CATEGORY_1 || cat > ISAAC_CATEGORY_4 || (i == 1 && delta == 0))
+                if (cat < ISAAC_CATEGORY_1 || cat > ISAAC_CATEGORY_LAST_REGULAR || (i == 1 && delta == 0))
                     continue;
                 count = IsaacAddLinesSpeciesOfCategory(biome->lines, biome->lineCount, cat, candidates, 0, ARRAY_COUNT(candidates));
                 // sans les espèces déjà dans l'équipe, ni celles sous le plancher de BST
@@ -1403,7 +1423,7 @@ static void AddTrainerMon(enum IsaacCategory category, u32 tier, u32 seed, u32 m
             }
         }
         if (species == SPECIES_NONE)
-            species = biome->lines[0];
+            species = GetBiomeFallbackSpecies();
     }
     sRoomTrainerMons[sRoomTrainer.partySize] = *IsaacGetSet(species, tier, (seed >> 24) % ISAAC_SET_VARIANTS);
     sRoomTrainerMons[sRoomTrainer.partySize].lvl = ISAAC_MON_LEVEL;
@@ -1437,7 +1457,7 @@ static const struct IsaacTrainerType *GetDuelistType(void)
 
 static u32 GetDuelistCategory(void)
 {
-    return min(GetStrengthLevel(VarGet(VAR_ISAAC_FLOOR))->maxCategory + 1, ISAAC_CATEGORY_4);
+    return min(GetStrengthLevel(VarGet(VAR_ISAAC_FLOOR))->maxCategory + 1, ISAAC_CATEGORY_LAST_REGULAR);
 }
 
 static u32 GetDuelistTier(void)
@@ -1514,7 +1534,7 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
         if (party->tierByCategory)
             tier = max((s32)party->maxTier - (s32)(category - level->minCategory), (s32)party->minTier);
         if (i == count - 1 && party->aceCategory != 0 && category < ISAAC_CATEGORY_LEGENDARY_SMALL)  // l'as
-            category = min(level->maxCategory + party->aceCategory - 1, ISAAC_CATEGORY_4);
+            category = min(level->maxCategory + party->aceCategory - 1, ISAAC_CATEGORY_LAST_REGULAR);
         AddTrainerMon(category, tier, roll, level->minBst);
     }
     return &sRoomTrainer;
@@ -1866,7 +1886,7 @@ static u32 GetCaptureMonCount(void)
 }
 
 // Palier de force de la salle de capture et de l'échangeur : CAPTURE_LEVEL_AHEAD paliers d'avance sur les dresseurs
-// de l'étage (catégorie 2 à l'étage 1... catégorie 4 ou légendaire à l'étage 6)
+// de l'étage (catégories 3-4 à l'étage 1... catégorie 7 ou légendaire à l'étage 6)
 static const struct IsaacStrengthLevel *GetCaptureLevel(void)
 {
     return GetStrengthLevel(VarGet(VAR_ISAAC_FLOOR) + CAPTURE_LEVEL_AHEAD);
@@ -1877,36 +1897,18 @@ static enum IsaacCategory RollCaptureCategory(s32 x, s32 y, u32 slot)
     return RollLevelCategory(GetCaptureLevel(), RoomRandom(x, y, 0xCA70 + slot));
 }
 
-// Une espèce de la catégorie voulue (au plancher de BST du palier de capture) : des lignées du biome, ou un légendaire
-// du roster. Avec biomeLegendary, seulement un légendaire d'un des types du biome (à défaut, un de ceux de son boss,
-// sBossLegendaries) ; sinon n'importe lequel (l'échangeur, qui propose des Pokémon de tous les biomes).
+// Une espèce de la catégorie voulue (au plancher de BST du palier de capture) : des espèces du biome, ou un légendaire
+// (PickLegendary) : de la liste du biome avec biomeLegendary, sinon n'importe lequel (l'échangeur, qui propose des
+// Pokémon de tous les biomes).
 static u16 PickCaptureSpecies(enum IsaacCategory category, u32 roll, bool8 biomeLegendary)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
-    u16 legendaries[32];
-    u32 count = 0, i;
     u16 species;
 
     if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
-    {
-        for (i = 0; i < IsaacGetRosterCount() && count < ARRAY_COUNT(legendaries); i++)
-        {
-            species = IsaacGetRosterSpecies(i);
-            category = IsaacGetSpeciesCategory(species);
-            if (category != ISAAC_CATEGORY_LEGENDARY_SMALL && category != ISAAC_CATEGORY_LEGENDARY_BIG)
-                continue;
-            if (biomeLegendary
-             && GetSpeciesType(species, 0) != biome->types[0] && GetSpeciesType(species, 0) != biome->types[1]
-             && GetSpeciesType(species, 1) != biome->types[0] && GetSpeciesType(species, 1) != biome->types[1])
-                continue;
-            legendaries[count++] = species;
-        }
-        if (count == 0)
-            return sBossLegendaries[ISAAC_BIOME][roll % ARRAY_COUNT(sBossLegendaries[0])];
-        return legendaries[roll % count];
-    }
+        return PickLegendary(biomeLegendary, FALSE, roll);
     species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, GetCaptureLevel()->minBst, roll);
-    return species != SPECIES_NONE ? species : biome->lines[0];
+    return species != SPECIES_NONE ? species : GetBiomeFallbackSpecies();
 }
 
 // Espèces des Pokémon de la salle de capture, toutes différentes (toujours les mêmes pour une salle)
@@ -2462,7 +2464,7 @@ void IsaacKecleonGreeting(void)
 // Les salles normales sans dresseur peuvent accueillir un contenu (un personnage au centre), chacun au plus une
 // fois par étage, dans des salles différentes tirées pour l'étage (GetRoomContent) :
 //  - ROOM_CONTENT_EGG : à l'étage 1 ou 2 (un seul des deux par descente, GetEggFloor), quelqu'un confie un Œuf
-//    d'un Pokémon de n'importe quel biome (set 2), de catégorie 3 à l'étage 1 et 4 à l'étage 2 (le plus fort de plusieurs tirages), qui éclot après ISAAC_EGG_HATCH_ROOMS nouvelles
+//    d'un Pokémon de n'importe quel biome (set 2), de catégorie 5 à l'étage 1 et 7 à l'étage 2 (le plus fort de plusieurs tirages), qui éclot après ISAAC_EGG_HATCH_ROOMS nouvelles
 //    salles visitées (environ deux étages, IsaacTickEggs) ;
 //  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de n'importe quel biome, de la
 //    force de ceux de la salle de capture de l'étage (IsaacPrepareTrade) ;
@@ -2685,7 +2687,7 @@ void IsaacGiveEgg(void)
     seed = RoomRandom(x, y, 0xE66);
     for (i = 0, species = SPECIES_NONE; i < EGG_SPECIES_DRAWS; i++)
     {
-        candidate = PickSpeciesOfAnyBiome(VarGet(VAR_ISAAC_FLOOR) == 1 ? ISAAC_CATEGORY_3 : ISAAC_CATEGORY_4, 0,
+        candidate = PickSpeciesOfAnyBiome(VarGet(VAR_ISAAC_FLOOR) == 1 ? ISAAC_CATEGORY_5 : ISAAC_CATEGORY_7, 0,
                                           SPECIES_NONE, seed ^ (i * 0x9E3779B9));
         if (species == SPECIES_NONE || IsaacGetSpeciesBST(candidate) > IsaacGetSpeciesBST(species))
             species = candidate;

@@ -41,6 +41,12 @@ const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier, u32 variant
     return &sIsaacSets[sIsaacSetIndex[species] - 1][min(tier, ISAAC_SET_TIERS - 1)][variant % ISAAC_SET_VARIANTS];
 }
 
+// L'espèce a-t-elle des sets (isaac_sets.h) ? Celles qui n'en ont pas encore ne sont jamais tirées.
+bool8 IsaacSpeciesHasSet(enum Species species)
+{
+    return species != SPECIES_NONE && species < NUM_SPECIES && sIsaacSetIndex[species] != 0;
+}
+
 // ISAAC_CATEGORY_NONE hors du roster
 enum IsaacCategory IsaacGetSpeciesCategory(enum Species species)
 {
@@ -328,27 +334,17 @@ enum Species IsaacGetEvolution(enum Species species, u32 choice)
     return count ? targets[choice % count] : SPECIES_NONE;
 }
 
-#define ISAAC_MAX_LINE_SPECIES  160  // espèces d'un biome entier (une trentaine de lignées et leurs évolutions)
+#define ISAAC_MAX_LINE_SPECIES  160  // espèces d'un biome entier (56 avec biome_roster.py)
 
-// Toutes les espèces des lignées données (espèces de base et leurs évolutions) ; renvoie leur nombre
+// Espèces des lignées données (les espèces d'un biome, évolutions comprises : isaac_biome_species.h), sans celles
+// qui n'ont pas encore de sets (IsaacSpeciesHasSet) ; renvoie leur nombre
 static u32 GetLinesSpecies(const u16 *lines, u32 lineCount, u16 *out, u32 max)
 {
-    u16 targets[8];
-    u32 count = 0, i, j, k, n;
+    u32 count = 0, i;
 
     for (i = 0; i < lineCount && count < max; i++)
-        out[count++] = lines[i];
-    for (i = 0; i < count; i++)  // la liste s'allonge pendant le parcours
-    {
-        n = GetEvolutions(out[i], targets, ARRAY_COUNT(targets), TRUE);
-        for (j = 0; j < n && count < max; j++)
-        {
-            for (k = 0; k < count && out[k] != targets[j]; k++)
-                ;
-            if (k == count)
-                out[count++] = targets[j];
-        }
-    }
+        if (IsaacSpeciesHasSet(lines[i]))
+            out[count++] = lines[i];
     return count;
 }
 
@@ -397,7 +393,7 @@ static u32 GetLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum Isaac
     {
         for (first = i; first > 0 && bst[first - 1] == bst[i]; first--)
             ;
-        if (ISAAC_CATEGORY_1 + first * 4 / n == category)
+        if (ISAAC_CATEGORY_1 + first * (ISAAC_CATEGORY_LAST_REGULAR - ISAAC_CATEGORY_1 + 1) / n == category)
             out[count++] = species[i];
     }
     return count;
@@ -411,7 +407,7 @@ enum IsaacCategory IsaacGetLinesCategory(const u16 *lines, u32 lineCount, enum S
     u32 category, n, i;
 
     species = IsaacGetSharedFormBase(species);
-    for (category = ISAAC_CATEGORY_1; category <= ISAAC_CATEGORY_4; category++)
+    for (category = ISAAC_CATEGORY_1; category <= ISAAC_CATEGORY_LAST_REGULAR; category++)
     {
         n = GetLinesSpeciesOfCategory(lines, lineCount, category, candidates);
         for (i = 0; i < n; i++)
@@ -976,7 +972,7 @@ static u32 StarterRandom(u32 *state)
 }
 
 // Choix du Montagnard du hub : le Pokémon proposé n° index (0 à ISAAC_STARTER_CHOICES - 1), une espèce
-// différente de catégorie 1 pour chacun, sans type en commun entre eux, avec le set 2 (variante au hasard). Les
+// différente de catégorie 1 ou 2 (BST <= 325, avec des sets) pour chacun, sans type en commun entre eux, avec le set 2 (variante au hasard). Les
 // espèces sont tirées à l'index 0. Mêmes choix tant que la descente n'a pas commencé (StarterRandom).
 void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
 {
@@ -992,7 +988,7 @@ void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
         u32 chosen = 0;
 
         for (i = 0; i < ARRAY_COUNT(sIsaacRoster); i++)
-            if (IsaacGetSpeciesCategory(sIsaacRoster[i]) == ISAAC_CATEGORY_1)
+            if (IsaacGetSpeciesCategory(sIsaacRoster[i]) <= ISAAC_CATEGORY_2 && IsaacSpeciesHasSet(sIsaacRoster[i]))
                 candidates[count++] = sIsaacRoster[i];
         // tirage dans un ordre au hasard, en gardant seulement les espèces sans type commun avec celles déjà prises
         for (i = 0; i < count && chosen < ISAAC_STARTER_CHOICES; i++)

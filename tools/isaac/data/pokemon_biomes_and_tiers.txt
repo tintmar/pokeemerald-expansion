@@ -1,0 +1,1352 @@
+================================================================================================
+POKEMON_BIOMES_AND_TIERS.TXT  —  Roster, Biome assignment, BST and Strength Category (1-9)
+Draft v1 for validation
+================================================================================================
+
+SUMMARY
+------------------------------------------------------------------------------------------------
+Total Pokémon: 504   |   Non-legendary (Cat 1-7): 459   |   Cat 8: 27   |   Cat 9: 18
+Gen 1-3 base roster: 386 (all 386 dex entries)   |   Cross-gen evolution-line members: 36   |   Gen 4+ additions for balance: 82
+
+STRENGTH CATEGORIES
+------------------------------------------------------------------------------------------------
+  Cat 1: BST <= 288                          63 Pokémon total  ->  7 per biome
+  Cat 2: BST 289-325                         72 Pokémon total  ->  8 per biome
+  Cat 3: BST 326-395                         63 Pokémon total  ->  7 per biome
+  Cat 4: BST 396-440                         63 Pokémon total  ->  7 per biome
+  Cat 5: BST 441-481                         63 Pokémon total  ->  7 per biome
+  Cat 6: BST 482-515                         72 Pokémon total  ->  8 per biome
+  Cat 7: BST >= 516                          63 Pokémon total  ->  7 per biome
+  Cat 8: Legendary/Mythical, BST <= 600      27 Pokémon total  ->  3 per biome
+  Cat 9: Legendary, BST > 600                18 Pokémon total  ->  2 per biome
+
+  Cat 1-7 = BST septiles (7 quantile bins) of the non-legendary roster. Ideal bin = 459/7 = 65.6; because
+  every bin must divide evenly across 9 biomes and equal BSTs are never split, bins are 63 or 72 (7 or 8 per
+  biome). Thresholds were seeded from the Gen 1-3 septiles and held fixed while balancing.
+
+DISTRIBUTION MATRIX (Pokémon per Biome x Category)
+------------------------------------------------------------------------------------------------
+  Biome     C1   C2   C3   C4   C5   C6   C7   C8   C9   Total
+  CAVE      7    8    7    7    7    8    7    3    2    56
+  DARK      7    8    7    7    7    8    7    3    2    56
+  FIRE      7    8    7    7    7    8    7    3    2    56
+  ICE       7    8    7    7    7    8    7    3    2    56
+  POISON    7    8    7    7    7    8    7    3    2    56
+  OCEAN     7    8    7    7    7    8    7    3    2    56
+  DESERT    7    8    7    7    7    8    7    3    2    56
+  CLIFF     7    8    7    7    7    8    7    3    2    56
+  FOREST    7    8    7    7    7    8    7    3    2    56
+
+LEGEND
+------------------------------------------------------------------------------------------------
+  Origin:  Base  = Gen 1-3 (#001-#386)
+           Line  = Gen 4+ member of a Gen 1-3 evolution line (e.g. Magnezone, Sylveon, Annihilape)
+           Added = Gen 4+ Pokémon added only to equalise biome x category counts
+  Line:    the evolution family the Pokémon belongs to (families stay in one biome, except branched Eeveelutions
+           and Shedinja, which follow their own types)
+
+DESIGN DECISIONS TO VALIDATE
+------------------------------------------------------------------------------------------------
+  1. Evolution lines: every family is complete (verified by script) and lives in ONE biome, so wild areas show
+     whole lines. Exceptions: Eevee (Normal, any biome) with each Eeveelution in its own type biome, and Shedinja
+     (Dark) split from Nincada/Ninjask.
+  2. Forms: base forms only. Megas, regional variants and evolutions that need a regional pre-evolution are out:
+     Obstagoon, Perrserker, Cursola, Sirfetch'd, Mr. Rime, Runerigus, Sneasler, Overqwil, Clodsire.
+     Non-regional cross-gen evolutions are in (Kleavor, Annihilape, Farigiraf, Dudunsparce, Wyrdeer, Ursaluna...).
+  3. Normal-type rule: Normal Pokémon fill gaps in every biome, capped at 3 per Cat 1-2 cell, 2 per Cat 3-7 cell
+     and 9 per biome, so each biome keeps its type identity.
+  4. Gen 4+ additions (non-legendary, 29 families): chosen by an optimiser that equalises every
+     biome x category cell while adding as few Pokémon as possible, preferring older generations and type/theme fit.
+     Paradox Pokémon and Ultra Beasts were not used (legendary-level stats without the Legendary tag).
+     Families: Bronzor, Buneary, Carnivine, Cubchoo, Darumaka, Dedenne, Deino, Drifloon, Druddigon, Ferroseed,
+     Gible, Gimmighoul, Glameow, Glimmet, Larvesta, Maractus, Pawmi, Pawniard, Riolu, Rookidee,
+     Sandile, Sigilyph, Sizzlipede, Snom, Snover, Stunfisk, Togedemaru, Turtwig, Woobat.
+  5. Category 9 = 2 per biome. Gen 1-3 has only 6; 23 legendaries exceed 600 BST, which cannot split evenly into 9
+     biomes, so 18 were chosen by theme. Left out: Palkia, Koraidon, Miraidon, Solgaleo and Lunala (the last two would
+     also force Cosmog/Cosmoem into Cat 8 at BST 200/400). Arceus (Normal) fills Poison, where Eternatus is the only
+     on-type option. Any of these can be swapped 1-for-1 within a biome.
+  6. Category 8 = 3 per biome: all 15 Gen 1-3 sub-legendaries/mythicals + 12 additions picked to fit biome types
+     (e.g. the Swords of Justice, the Loyal Three for Poison, Darkrai/Marshadow/Spectrier for Dark).
+
+================================================================================================
+BIOME: CAVE  (Victory Road)  —  Types: Rock / Fighting   [56 Pokémon]
+================================================================================================
+  -- Category 1  (BST <= 288)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #236  Tyrogue       Fighting           210   1    2    Base    Tyrogue
+     #173  Cleffa        Fairy              218   1    2    Base    Cleffa
+     #440  Happiny       Normal             220   1    4    Line    Happiny
+     #296  Makuhita      Fighting           237   1    3    Base    Makuhita
+     #235  Smeargle      Normal             250   1    2    Base    Smeargle
+     #287  Slakoth       Normal             280   1    3    Base    Slakoth
+     #307  Meditite      Fighting/Psychic   280   1    3    Base    Meditite
+
+  -- Category 2  (BST 289-325)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #438  Bonsly        Rock               290   2    4    Line    Bonsly
+     #074  Geodude       Rock/Ground        300   2    1    Base    Geodude
+     #246  Larvitar      Rock/Ground        300   2    2    Base    Larvitar
+     #371  Bagon         Dragon             300   2    3    Base    Bagon
+     #056  Mankey        Fighting           305   2    1    Base    Mankey
+     #066  Machop        Fighting           305   2    1    Base    Machop
+     #255  Torchic       Fire               310   2    3    Base    Torchic
+     #035  Clefairy      Fairy              323   2    1    Base    Cleffa
+
+  -- Category 3  (BST 326-395)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #138  Omanyte       Rock/Water         355   3    1    Base    Omanyte
+     #140  Kabuto        Rock/Water         355   3    1    Base    Kabuto
+     #345  Lileep        Rock/Grass         355   3    3    Base    Lileep
+     #347  Anorith       Rock/Bug           355   3    3    Base    Anorith
+     #299  Nosepass      Rock               375   3    3    Base    Nosepass
+     #095  Onix          Rock/Ground        385   3    1    Base    Onix
+     #075  Graveler      Rock/Ground        390   3    1    Base    Geodude
+
+  -- Category 4  (BST 396-440)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #067  Machoke       Fighting           405   4    1    Base    Machop
+     #256  Combusken     Fire/Fighting      405   4    3    Base    Torchic
+     #185  Sudowoodo     Rock               410   4    2    Base    Bonsly
+     #247  Pupitar       Rock/Ground        410   4    2    Base    Larvitar
+     #308  Medicham      Fighting/Psychic   410   4    3    Base    Meditite
+     #372  Shelgon       Dragon             420   4    3    Base    Bagon
+     #288  Vigoroth      Normal             440   4    3    Base    Slakoth
+
+  -- Category 5  (BST 441-481)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #113  Chansey       Normal             450   5    1    Base    Happiny
+     #057  Primeape      Fighting           455   5    1    Base    Mankey
+     #106  Hitmonlee     Fighting           455   5    1    Base    Tyrogue
+     #107  Hitmonchan    Fighting           455   5    1    Base    Tyrogue
+     #237  Hitmontop     Fighting           455   5    2    Base    Tyrogue
+     #337  Lunatone      Rock/Psychic       460   5    3    Base    Lunatone
+     #297  Hariyama      Fighting           474   5    3    Base    Makuhita
+
+  -- Category 6  (BST 482-515)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #036  Clefable      Fairy              483   6    1    Base    Cleffa
+     #076  Golem         Rock/Ground        495   6    1    Base    Geodude
+     #139  Omastar       Rock/Water         495   6    1    Base    Omanyte
+     #141  Kabutops      Rock/Water         495   6    1    Base    Kabuto
+     #346  Cradily       Rock/Grass         495   6    3    Base    Lileep
+     #348  Armaldo       Rock/Bug           495   6    3    Base    Anorith
+     #068  Machamp       Fighting           505   6    1    Base    Machop
+     #208  Steelix       Steel/Ground       510   6    2    Base    Onix
+
+  -- Category 7  (BST >= 516)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #476  Probopass     Rock/Steel         525   7    4    Line    Nosepass
+     #257  Blaziken      Fire/Fighting      530   7    3    Base    Torchic
+     #979  Annihilape    Fighting/Ghost     535   7    9    Line    Mankey
+     #242  Blissey       Normal             540   7    2    Base    Happiny
+     #248  Tyranitar     Rock/Dark          600   7    2    Base    Larvitar
+     #373  Salamence     Dragon/Flying      600   7    3    Base    Bagon
+     #289  Slaking       Normal             670   7    3    Base    Slakoth
+
+  -- Category 8  (Legendary/Mythical, BST <= 600)  [3] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #377  Regirock      Rock               580   8    3    Base    Regirock
+     #638  Cobalion      Steel/Fighting     580   8    5    Added   Cobalion
+     #639  Terrakion     Rock/Fighting      580   8    5    Added   Terrakion
+
+  -- Category 9  (Legendary, BST > 600)  [2] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #889  Zamazenta     Fighting           660   9    8    Added   Zamazenta
+     #486  Regigigas     Normal             670   9    4    Added   Regigigas
+
+================================================================================================
+BIOME: DARK  (Victory Road - Night)  —  Types: Ghost / Dark   [56 Pokémon]
+================================================================================================
+  -- Category 1  (BST <= 288)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #161  Sentret       Normal             215   1    2    Base    Sentret
+     #261  Poochyena     Dark               220   1    3    Base    Poochyena
+     #273  Seedot        Grass              220   1    3    Base    Seedot
+     #292  Shedinja      Bug/Ghost          236   1    3    Base    Nincada
+     #167  Spinarak      Bug/Poison         250   1    2    Base    Spinarak
+     #163  Hoothoot      Normal/Flying      262   1    2    Base    Hoothoot
+     #132  Ditto         Normal             288   1    1    Base    Ditto
+
+  -- Category 2  (BST 289-325)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #551  Sandile       Ground/Dark        292   2    5    Added   Sandile
+     #353  Shuppet       Ghost              295   2    3    Base    Shuppet
+     #355  Duskull       Ghost              295   2    3    Base    Duskull
+     #633  Deino         Dark/Dragon        300   2    5    Added   Deino
+     #999  Gimmighoul    Ghost              300   2    9    Added   Gimmighoul
+     #318  Carvanha      Water/Dark         305   2    3    Base    Carvanha
+     #341  Corphish      Water              308   2    3    Base    Corphish
+     #092  Gastly        Ghost/Poison       310   2    1    Base    Gastly
+
+  -- Category 3  (BST 326-395)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #096  Drowzee       Psychic            328   3    1    Base    Drowzee
+     #228  Houndour      Dark/Fire          330   3    2    Base    Houndour
+     #274  Nuzleaf       Grass/Dark         340   3    3    Base    Seedot
+     #624  Pawniard      Dark/Steel         340   3    5    Added   Pawniard
+     #552  Krokorok      Ground/Dark        351   3    5    Added   Sandile
+     #302  Sableye       Dark/Ghost         380   3    3    Base    Sableye
+     #446  Munchlax      Normal             390   3    4    Line    Munchlax
+
+  -- Category 4  (BST 396-440)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #168  Ariados       Bug/Poison         400   4    2    Base    Spinarak
+     #093  Haunter       Ghost/Poison       405   4    1    Base    Gastly
+     #198  Murkrow       Dark/Flying        405   4    2    Base    Murkrow
+     #162  Furret        Normal             415   4    2    Base    Sentret
+     #262  Mightyena     Dark               420   4    3    Base    Poochyena
+     #634  Zweilous      Dark/Dragon        420   4    5    Added   Deino
+     #200  Misdreavus    Ghost              435   4    2    Base    Misdreavus
+
+  -- Category 5  (BST 441-481)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #164  Noctowl       Normal/Flying      452   5    2    Base    Hoothoot
+     #354  Banette       Ghost              455   5    3    Base    Shuppet
+     #356  Dusclops      Ghost              455   5    3    Base    Duskull
+     #319  Sharpedo      Water/Dark         460   5    3    Base    Carvanha
+     #359  Absol         Dark               465   5    3    Base    Absol
+     #342  Crawdaunt     Water/Dark         468   5    3    Base    Corphish
+     #275  Shiftry       Grass/Dark         480   5    3    Base    Seedot
+
+  -- Category 6  (BST 482-515)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #097  Hypno         Psychic            483   6    1    Base    Drowzee
+     #128  Tauros        Normal             490   6    1    Base    Tauros
+     #241  Miltank       Normal             490   6    2    Base    Miltank
+     #625  Bisharp       Dark/Steel         490   6    5    Added   Pawniard
+     #429  Mismagius     Ghost              495   6    4    Line    Misdreavus
+     #094  Gengar        Ghost/Poison       500   6    1    Base    Gastly
+     #229  Houndoom      Dark/Fire          500   6    2    Base    Houndour
+     #430  Honchkrow     Dark/Flying        505   6    4    Line    Murkrow
+
+  -- Category 7  (BST >= 516)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #553  Krookodile    Ground/Dark        519   7    5    Added   Sandile
+     #197  Umbreon       Dark               525   7    2    Base    Eevee
+     #477  Dusknoir      Ghost              525   7    4    Line    Duskull
+     #143  Snorlax       Normal             540   7    1    Base    Munchlax
+     #983  Kingambit     Dark/Steel         550   7    9    Added   Pawniard
+     #1000  Gholdengo     Steel/Ghost        550   7    9    Added   Gimmighoul
+     #635  Hydreigon     Dark/Dragon        600   7    5    Added   Deino
+
+  -- Category 8  (Legendary/Mythical, BST <= 600)  [3] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #897  Spectrier     Ghost              580   8    8    Added   Spectrier
+     #491  Darkrai       Dark               600   8    4    Added   Darkrai
+     #802  Marshadow     Fighting/Ghost     600   8    7    Added   Marshadow
+
+  -- Category 9  (Legendary, BST > 600)  [2] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #487  Giratina      Ghost/Dragon       680   9    4    Added   Giratina
+     #717  Yveltal       Dark/Flying        680   9    6    Added   Yveltal
+
+================================================================================================
+BIOME: FIRE  (Fiery Path)  —  Types: Fire / Electric   [56 Pokémon]
+================================================================================================
+  -- Category 1  (BST <= 288)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #172  Pichu         Electric           205   1    2    Base    Pichu
+     #174  Igglybuff     Normal/Fairy       210   1    2    Base    Igglybuff
+     #263  Zigzagoon     Normal             240   1    3    Base    Zigzagoon
+     #921  Pawmi         Electric           240   1    9    Added   Pawmi
+     #218  Slugma        Fire               250   1    2    Base    Slugma
+     #039  Jigglypuff    Normal/Fairy       270   1    1    Base    Igglybuff
+     #179  Mareep        Electric           280   1    2    Base    Mareep
+
+  -- Category 2  (BST 289-325)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #309  Electrike     Electric           295   2    3    Base    Electrike
+     #037  Vulpix        Fire               299   2    1    Base    Vulpix
+     #322  Numel         Fire/Ground        305   2    3    Base    Numel
+     #155  Cyndaquil     Fire               309   2    2    Base    Cyndaquil
+     #431  Glameow       Normal             310   2    4    Added   Glameow
+     #554  Darumaka      Fire               315   2    5    Added   Darumaka
+     #025  Pikachu       Electric           320   2    1    Base    Pichu
+     #081  Magnemite     Electric/Steel     325   2    1    Base    Magnemite
+
+  -- Category 3  (BST 326-395)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #100  Voltorb       Electric           330   3    1    Base    Voltorb
+     #058  Growlithe     Fire               350   3    1    Base    Growlithe
+     #922  Pawmo         Electric/Fighting  350   3    9    Added   Pawmi
+     #239  Elekid        Electric           360   3    2    Base    Elekid
+     #327  Spinda        Normal             360   3    3    Base    Spinda
+     #180  Flaaffy       Electric           365   3    2    Base    Mareep
+     #240  Magby         Fire               365   3    2    Base    Magby
+
+  -- Category 4  (BST 396-440)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #156  Quilava       Fire               405   4    2    Base    Cyndaquil
+     #311  Plusle        Electric           405   4    3    Base    Plusle
+     #312  Minun         Electric           405   4    3    Base    Minun
+     #077  Ponyta        Fire               410   4    1    Base    Ponyta
+     #264  Linoone       Normal             420   4    3    Base    Zigzagoon
+     #219  Magcargo      Fire/Rock          430   4    2    Base    Slugma
+     #040  Wigglytuff    Normal/Fairy       435   4    1    Base    Igglybuff
+
+  -- Category 5  (BST 441-481)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #432  Purugly       Normal             452   5    4    Added   Glameow
+     #323  Camerupt      Fire/Ground        460   5    3    Base    Numel
+     #082  Magneton      Electric/Steel     465   5    1    Base    Magnemite
+     #324  Torkoal       Fire               470   5    3    Base    Torkoal
+     #618  Stunfisk      Ground/Electric    471   5    5    Added   Stunfisk
+     #310  Manectric     Electric           475   5    3    Base    Electrike
+     #555  Darmanitan    Fire               480   5    5    Added   Darumaka
+
+  -- Category 6  (BST 482-515)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #026  Raichu        Electric           485   6    1    Base    Pichu
+     #101  Electrode     Electric           490   6    1    Base    Voltorb
+     #125  Electabuzz    Electric           490   6    1    Base    Elekid
+     #923  Pawmot        Electric/Fighting  490   6    9    Added   Pawmi
+     #126  Magmar        Fire               495   6    1    Base    Magby
+     #078  Rapidash      Fire               500   6    1    Base    Ponyta
+     #038  Ninetales     Fire               505   6    1    Base    Vulpix
+     #181  Ampharos      Electric           510   6    2    Base    Mareep
+
+  -- Category 7  (BST >= 516)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #135  Jolteon       Electric           525   7    1    Base    Eevee
+     #136  Flareon       Fire               525   7    1    Base    Eevee
+     #157  Typhlosion    Fire               534   7    2    Base    Cyndaquil
+     #462  Magnezone     Electric/Steel     535   7    4    Line    Magnemite
+     #466  Electivire    Electric           540   7    4    Line    Elekid
+     #467  Magmortar     Fire               540   7    4    Line    Magby
+     #059  Arcanine      Fire               555   7    1    Base    Growlithe
+
+  -- Category 8  (Legendary/Mythical, BST <= 600)  [3] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #146  Moltres       Fire/Flying        580   8    1    Base    Moltres
+     #243  Raikou        Electric           580   8    2    Base    Raikou
+     #244  Entei         Fire               580   8    2    Base    Entei
+
+  -- Category 9  (Legendary, BST > 600)  [2] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #250  Ho-Oh         Fire/Flying        680   9    2    Base    Ho-Oh
+     #643  Reshiram      Dragon/Fire        680   9    5    Added   Reshiram
+
+================================================================================================
+BIOME: ICE  (Shoal Cave)  —  Types: Ice / Steel   [56 Pokémon]
+================================================================================================
+  -- Category 1  (BST <= 288)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #872  Snom          Ice/Bug            185   1    8    Added   Snom
+     #293  Whismur       Normal             240   1    3    Base    Whismur
+     #821  Rookidee      Flying             245   1    8    Added   Rookidee
+     #220  Swinub        Ice/Ground         250   1    2    Base    Swinub
+     #019  Rattata       Normal             253   1    1    Base    Rattata
+     #300  Skitty        Normal             260   1    3    Base    Skitty
+     #447  Riolu         Fighting           285   1    4    Added   Riolu
+
+  -- Category 2  (BST 289-325)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #363  Spheal        Ice/Water          290   2    3    Base    Spheal
+     #361  Snorunt       Ice                300   2    3    Base    Snorunt
+     #374  Beldum        Steel/Psychic      300   2    3    Base    Beldum
+     #436  Bronzor       Steel/Psychic      300   2    4    Added   Bronzor
+     #238  Smoochum      Ice/Psychic        305   2    2    Base    Smoochum
+     #597  Ferroseed     Grass/Steel        305   2    5    Added   Ferroseed
+     #613  Cubchoo       Ice                305   2    5    Added   Cubchoo
+     #086  Seel          Water              325   2    1    Base    Seel
+
+  -- Category 3  (BST 326-395)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #225  Delibird      Ice/Flying         330   3    2    Base    Delibird
+     #304  Aron          Steel/Rock         330   3    3    Base    Aron
+     #459  Snover        Grass/Ice          334   3    4    Added   Snover
+     #294  Loudred       Normal             360   3    3    Base    Whismur
+     #822  Corvisquire   Flying             365   3    8    Added   Rookidee
+     #303  Mawile        Steel/Fairy        380   3    3    Base    Mawile
+     #108  Lickitung     Normal             385   3    1    Base    Lickitung
+
+  -- Category 4  (BST 396-440)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #301  Delcatty      Normal             400   4    3    Base    Skitty
+     #364  Sealeo        Ice/Water          410   4    3    Base    Spheal
+     #020  Raticate      Normal             413   4    1    Base    Rattata
+     #375  Metang        Steel/Psychic      420   4    3    Base    Beldum
+     #215  Sneasel       Dark/Ice           430   4    2    Base    Sneasel
+     #305  Lairon        Steel/Rock         430   4    3    Base    Aron
+     #777  Togedemaru    Electric/Steel     435   4    7    Added   Togedemaru
+
+  -- Category 5  (BST 441-481)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #221  Piloswine     Ice/Ground         450   5    2    Base    Swinub
+     #124  Jynx          Ice/Psychic        455   5    1    Base    Smoochum
+     #227  Skarmory      Steel/Flying       465   5    2    Base    Skarmory
+     #087  Dewgong       Water/Ice          475   5    1    Base    Seel
+     #873  Frosmoth      Ice/Bug            475   5    8    Added   Snom
+     #362  Glalie        Ice                480   5    3    Base    Snorunt
+     #478  Froslass      Ice/Ghost          480   5    4    Line    Snorunt
+
+  -- Category 6  (BST 482-515)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #598  Ferrothorn    Grass/Steel        489   6    5    Added   Ferroseed
+     #295  Exploud       Normal             490   6    3    Base    Whismur
+     #460  Abomasnow     Grass/Ice          494   6    4    Added   Snover
+     #823  Corviknight   Flying/Steel       495   6    8    Added   Rookidee
+     #437  Bronzong      Steel/Psychic      500   6    4    Added   Bronzor
+     #614  Beartic       Ice                505   6    5    Added   Cubchoo
+     #461  Weavile       Dark/Ice           510   6    4    Line    Sneasel
+     #463  Lickilicky    Normal             515   6    4    Line    Lickitung
+
+  -- Category 7  (BST >= 516)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #448  Lucario       Fighting/Steel     525   7    4    Added   Riolu
+     #471  Glaceon       Ice                525   7    4    Line    Eevee
+     #306  Aggron        Steel/Rock         530   7    3    Base    Aron
+     #365  Walrein       Ice/Water          530   7    3    Base    Spheal
+     #473  Mamoswine     Ice/Ground         530   7    4    Line    Swinub
+     #131  Lapras        Water/Ice          535   7    1    Base    Lapras
+     #376  Metagross     Steel/Psychic      600   7    3    Base    Beldum
+
+  -- Category 8  (Legendary/Mythical, BST <= 600)  [3] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #144  Articuno      Ice/Flying         580   8    1    Base    Articuno
+     #378  Regice        Ice                580   8    3    Base    Regice
+     #379  Registeel     Steel              580   8    3    Base    Registeel
+
+  -- Category 9  (Legendary, BST > 600)  [2] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #646  Kyurem        Dragon/Ice         660   9    5    Added   Kyurem
+     #483  Dialga        Steel/Dragon       680   9    4    Added   Dialga
+
+================================================================================================
+BIOME: POISON  (Rusturf Tunnel)  —  Types: Poison / Bug   [56 Pokémon]
+================================================================================================
+  -- Category 1  (BST <= 288)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #010  Caterpie      Bug                195   1    1    Base    Caterpie
+     #011  Metapod       Bug                205   1    1    Base    Caterpie
+     #041  Zubat         Poison/Flying      245   1    1    Base    Zubat
+     #165  Ledyba        Bug/Flying         265   1    2    Base    Ledyba
+     #029  Nidoran-F     Poison             275   1    1    Base    Nidoran-F
+     #046  Paras         Bug/Grass          285   1    1    Base    Paras
+     #023  Ekans         Poison             288   1    1    Base    Ekans
+
+  -- Category 2  (BST 289-325)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #052  Meowth        Normal             290   2    1    Base    Meowth
+     #204  Pineco        Bug                290   2    2    Base    Pineco
+     #316  Gulpin        Poison             302   2    3    Base    Gulpin
+     #048  Venonat       Bug/Poison         305   2    1    Base    Venonat
+     #850  Sizzlipede    Fire/Bug           305   2    8    Added   Sizzlipede
+     #001  Bulbasaur     Grass/Poison       318   2    1    Base    Bulbasaur
+     #088  Grimer        Poison             325   2    1    Base    Grimer
+     #133  Eevee         Normal             325   2    1    Base    Nincada
+
+  -- Category 3  (BST 326-395)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #109  Koffing       Poison             340   3    1    Base    Koffing
+     #969  Glimmet       Rock/Poison        350   3    9    Added   Glimmet
+     #636  Larvesta      Bug/Fire           360   3    5    Added   Larvesta
+     #030  Nidorina      Poison             365   3    1    Base    Nidoran-F
+     #166  Ledian        Bug/Flying         390   3    2    Base    Ledyba
+     #193  Yanma         Bug/Flying         390   3    2    Base    Yanma
+     #012  Butterfree    Bug/Flying         395   3    1    Base    Caterpie
+
+  -- Category 4  (BST 396-440)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #002  Ivysaur       Grass/Poison       405   4    1    Base    Bulbasaur
+     #047  Parasect      Bug/Grass          405   4    1    Base    Paras
+     #206  Dunsparce     Normal             415   4    2    Base    Dunsparce
+     #313  Volbeat       Bug                430   4    3    Base    Volbeat
+     #314  Illumise      Bug                430   4    3    Base    Illumise
+     #053  Persian       Normal             440   4    1    Base    Meowth
+     #211  Qwilfish      Water/Poison       440   4    2    Base    Qwilfish
+
+  -- Category 5  (BST 441-481)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #024  Arbok         Poison             448   5    1    Base    Ekans
+     #049  Venomoth      Bug/Poison         450   5    1    Base    Venonat
+     #042  Golbat        Poison/Flying      455   5    1    Base    Zubat
+     #336  Seviper       Poison             458   5    3    Base    Seviper
+     #205  Forretress    Bug/Steel          465   5    2    Base    Pineco
+     #234  Stantler      Normal             465   5    2    Base    Stantler
+     #317  Swalot        Poison             467   5    3    Base    Gulpin
+
+  -- Category 6  (BST 482-515)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #110  Weezing       Poison             490   6    1    Base    Koffing
+     #115  Kangaskhan    Normal             490   6    1    Base    Kangaskhan
+     #089  Muk           Poison             500   6    1    Base    Grimer
+     #127  Pinsir        Bug                500   6    1    Base    Pinsir
+     #214  Heracross     Bug/Fighting       500   6    2    Base    Heracross
+     #031  Nidoqueen     Poison/Ground      505   6    1    Base    Nidoran-F
+     #213  Shuckle       Bug/Rock           505   6    2    Base    Shuckle
+     #469  Yanmega       Bug/Flying         515   6    4    Line    Yanma
+
+  -- Category 7  (BST >= 516)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #982  Dudunsparce   Normal             520   7    9    Line    Dunsparce
+     #003  Venusaur      Grass/Poison       525   7    1    Base    Bulbasaur
+     #851  Centiskorch   Fire/Bug           525   7    8    Added   Sizzlipede
+     #899  Wyrdeer       Normal/Psychic     525   7    8    Line    Stantler
+     #970  Glimmora      Rock/Poison        525   7    9    Added   Glimmet
+     #169  Crobat        Poison/Flying      535   7    2    Base    Zubat
+     #637  Volcarona     Bug/Fire           550   7    5    Added   Larvesta
+
+  -- Category 8  (Legendary/Mythical, BST <= 600)  [3] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #1014  Okidogi       Poison/Fighting    555   8    9    Added   Okidogi
+     #1015  Munkidori     Poison/Psychic     555   8    9    Added   Munkidori
+     #1016  Fezandipiti   Poison/Fairy       555   8    9    Added   Fezandipiti
+
+  -- Category 9  (Legendary, BST > 600)  [2] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #890  Eternatus     Poison/Dragon      690   9    8    Added   Eternatus
+     #493  Arceus        Normal             720   9    4    Added   Arceus
+
+================================================================================================
+BIOME: OCEAN  (Open Sea)  —  Types: Water   [56 Pokémon]
+================================================================================================
+  -- Category 1  (BST <= 288)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #298  Azurill       Normal/Fairy       190   1    3    Base    Azurill
+     #129  Magikarp      Water              200   1    1    Base    Magikarp
+     #349  Feebas        Water              200   1    3    Base    Feebas
+     #194  Wooper        Water/Ground       210   1    2    Base    Wooper
+     #183  Marill        Water/Fairy        250   1    2    Base    Azurill
+     #283  Surskit       Bug/Water          269   1    3    Base    Surskit
+     #339  Barboach      Water/Ground       288   1    3    Base    Barboach
+
+  -- Category 2  (BST 289-325)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #116  Horsea        Water              295   2    1    Base    Horsea
+     #060  Poliwag       Water              300   2    1    Base    Poliwag
+     #223  Remoraid      Water              300   2    2    Base    Remoraid
+     #090  Shellder      Water              305   2    1    Base    Shellder
+     #007  Squirtle      Water              314   2    1    Base    Squirtle
+     #158  Totodile      Water              314   2    2    Base    Totodile
+     #118  Goldeen       Water              320   2    1    Base    Goldeen
+     #098  Krabby        Water              325   2    1    Base    Krabby
+
+  -- Category 3  (BST 326-395)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #170  Chinchou      Water/Electric     330   3    2    Base    Chinchou
+     #370  Luvdisc       Water              330   3    3    Base    Luvdisc
+     #072  Tentacool     Water/Poison       335   3    1    Base    Tentacool
+     #366  Clamperl      Water              345   3    3    Base    Clamperl
+     #458  Mantyke       Water/Flying       345   3    4    Line    Mantyke
+     #427  Buneary       Normal             350   3    4    Added   Buneary
+     #061  Poliwhirl     Water              385   3    1    Base    Poliwag
+
+  -- Category 4  (BST 396-440)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #320  Wailmer       Water              400   4    3    Base    Wailmer
+     #008  Wartortle     Water              405   4    1    Base    Squirtle
+     #159  Croconaw      Water              405   4    2    Base    Totodile
+     #222  Corsola       Water/Rock         410   4    2    Base    Corsola
+     #184  Azumarill     Water/Fairy        420   4    2    Base    Azurill
+     #195  Quagsire      Water/Ground       430   4    2    Base    Wooper
+     #117  Seadra        Water              440   4    1    Base    Horsea
+
+  -- Category 5  (BST 441-481)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #119  Seaking       Water              450   5    1    Base    Goldeen
+     #284  Masquerain    Bug/Flying         454   5    3    Base    Surskit
+     #171  Lanturn       Water/Electric     460   5    2    Base    Chinchou
+     #340  Whiscash      Water/Ground       468   5    3    Base    Barboach
+     #099  Kingler       Water              475   5    1    Base    Krabby
+     #224  Octillery     Water              480   5    2    Base    Remoraid
+     #428  Lopunny       Normal             480   5    4    Added   Buneary
+
+  -- Category 6  (BST 482-515)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #226  Mantine       Water/Flying       485   6    2    Base    Mantyke
+     #367  Huntail       Water              485   6    3    Base    Clamperl
+     #368  Gorebyss      Water              485   6    3    Base    Clamperl
+     #369  Relicanth     Water/Rock         485   6    3    Base    Relicanth
+     #186  Politoed      Water              500   6    2    Base    Poliwag
+     #321  Wailord       Water              500   6    3    Base    Wailmer
+     #062  Poliwrath     Water/Fighting     510   6    1    Base    Poliwag
+     #073  Tentacruel    Water/Poison       515   6    1    Base    Tentacool
+
+  -- Category 7  (BST >= 516)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #091  Cloyster      Water/Ice          525   7    1    Base    Shellder
+     #134  Vaporeon      Water              525   7    1    Base    Eevee
+     #009  Blastoise     Water              530   7    1    Base    Squirtle
+     #160  Feraligatr    Water              530   7    2    Base    Totodile
+     #130  Gyarados      Water/Flying       540   7    1    Base    Magikarp
+     #230  Kingdra       Water/Dragon       540   7    2    Base    Horsea
+     #350  Milotic       Water              540   7    3    Base    Feebas
+
+  -- Category 8  (Legendary/Mythical, BST <= 600)  [3] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #245  Suicune       Water              580   8    2    Base    Suicune
+     #647  Keldeo        Water/Fighting     580   8    5    Added   Keldeo
+     #490  Manaphy       Water              600   8    4    Added   Manaphy
+
+  -- Category 9  (Legendary, BST > 600)  [2] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #382  Kyogre        Water              670   9    3    Base    Kyogre
+     #249  Lugia         Psychic/Flying     680   9    2    Base    Lugia
+
+================================================================================================
+BIOME: DESERT  (Route 111)  —  Types: Ground / Psychic   [56 Pokémon]
+================================================================================================
+  -- Category 1  (BST <= 288)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #191  Sunkern       Grass              180   1    2    Base    Sunkern
+     #280  Ralts         Psychic/Fairy      198   1    3    Base    Ralts
+     #360  Wynaut        Psychic            260   1    3    Base    Wynaut
+     #050  Diglett       Ground             265   1    1    Base    Diglett
+     #290  Nincada       Bug/Ground         266   1    3    Base    Nincada
+     #032  Nidoran-M     Poison             273   1    1    Base    Nidoran-M
+     #281  Kirlia        Psychic/Fairy      278   1    3    Base    Ralts
+
+  -- Category 2  (BST 289-325)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #027  Sandshrew     Ground             300   2    1    Base    Sandshrew
+     #343  Baltoy        Ground/Psychic     300   2    3    Base    Baltoy
+     #063  Abra          Psychic            310   2    1    Base    Abra
+     #258  Mudkip        Water              310   2    3    Base    Mudkip
+     #439  Mime Jr.      Psychic/Fairy      310   2    4    Line    Mime Jr.
+     #079  Slowpoke      Water/Psychic      315   2    1    Base    Slowpoke
+     #054  Psyduck       Water              320   2    1    Base    Psyduck
+     #104  Cubone        Ground             320   2    1    Base    Cubone
+
+  -- Category 3  (BST 326-395)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #231  Phanpy        Ground             330   3    2    Base    Phanpy
+     #325  Spoink        Psychic            330   3    3    Base    Spoink
+     #331  Cacnea        Grass              335   3    3    Base    Cacnea
+     #201  Unown         Psychic            336   3    2    Base    Unown
+     #120  Staryu        Water              340   3    1    Base    Staryu
+     #111  Rhyhorn       Ground/Rock        345   3    1    Base    Rhyhorn
+     #033  Nidorino      Poison             365   3    1    Base    Nidoran-M
+
+  -- Category 4  (BST 396-440)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #064  Kadabra       Psychic            400   4    1    Base    Abra
+     #202  Wobbuffet     Psychic            405   4    2    Base    Wynaut
+     #259  Marshtomp     Water/Ground       405   4    3    Base    Mudkip
+     #351  Castform      Normal             420   4    3    Base    Castform
+     #051  Dugtrio       Ground             425   4    1    Base    Diglett
+     #105  Marowak       Ground             425   4    1    Base    Cubone
+     #192  Sunflora      Grass              425   4    2    Base    Sunkern
+
+  -- Category 5  (BST 441-481)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #028  Sandslash     Ground             450   5    1    Base    Sandshrew
+     #203  Girafarig     Normal/Psychic     455   5    2    Base    Girafarig
+     #291  Ninjask       Bug/Flying         456   5    3    Base    Nincada
+     #122  Mr. Mime      Psychic/Fairy      460   5    1    Base    Mime Jr.
+     #338  Solrock       Rock/Psychic       460   5    3    Base    Solrock
+     #326  Grumpig       Psychic            470   5    3    Base    Spoink
+     #332  Cacturne      Grass/Dark         475   5    3    Base    Cacnea
+
+  -- Category 6  (BST 482-515)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #112  Rhydon        Ground/Rock        485   6    1    Base    Rhyhorn
+     #080  Slowbro       Water/Psychic      490   6    1    Base    Slowpoke
+     #199  Slowking      Water/Psychic      490   6    2    Base    Slowpoke
+     #055  Golduck       Water              500   6    1    Base    Psyduck
+     #065  Alakazam      Psychic            500   6    1    Base    Abra
+     #232  Donphan       Ground             500   6    2    Base    Phanpy
+     #344  Claydol       Ground/Psychic     500   6    3    Base    Baltoy
+     #034  Nidoking      Poison/Ground      505   6    1    Base    Nidoran-M
+
+  -- Category 7  (BST >= 516)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #282  Gardevoir     Psychic/Fairy      518   7    3    Base    Ralts
+     #475  Gallade       Psychic/Fighting   518   7    4    Line    Ralts
+     #121  Starmie       Water/Psychic      520   7    1    Base    Staryu
+     #981  Farigiraf     Normal/Psychic     520   7    9    Line    Girafarig
+     #196  Espeon        Psychic            525   7    2    Base    Eevee
+     #260  Swampert      Water/Ground       535   7    3    Base    Mudkip
+     #464  Rhyperior     Ground/Rock        535   7    4    Line    Rhyhorn
+
+  -- Category 8  (Legendary/Mythical, BST <= 600)  [3] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #151  Mew           Psychic            600   8    1    Base    Mew
+     #385  Jirachi       Steel/Psychic      600   8    3    Base    Jirachi
+     #386  Deoxys        Psychic            600   8    3    Base    Deoxys
+
+  -- Category 9  (Legendary, BST > 600)  [2] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #383  Groudon       Ground             670   9    3    Base    Groudon
+     #150  Mewtwo        Psychic            680   9    1    Base    Mewtwo
+
+================================================================================================
+BIOME: CLIFF  (Mountain Cliffs)  —  Types: Flying / Dragon   [56 Pokémon]
+================================================================================================
+  -- Category 1  (BST <= 288)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #175  Togepi        Fairy              245   1    2    Base    Togepi
+     #187  Hoppip        Grass/Flying       250   1    2    Base    Hoppip
+     #016  Pidgey        Normal/Flying      251   1    1    Base    Pidgey
+     #021  Spearow       Normal/Flying      262   1    1    Base    Spearow
+     #276  Taillow       Normal/Flying      270   1    3    Base    Taillow
+     #278  Wingull       Water/Flying       270   1    3    Base    Wingull
+     #433  Chingling     Psychic            285   1    4    Line    Chingling
+
+  -- Category 2  (BST 289-325)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #328  Trapinch      Ground             290   2    3    Base    Trapinch
+     #147  Dratini       Dragon             300   2    1    Base    Dratini
+     #443  Gible         Dragon/Ground      300   2    4    Added   Gible
+     #004  Charmander    Fire               309   2    1    Base    Charmander
+     #084  Doduo         Normal/Flying      310   2    1    Base    Doduo
+     #333  Swablu        Normal/Flying      310   2    3    Base    Swablu
+     #177  Natu          Psychic/Flying     320   2    2    Base    Natu
+     #527  Woobat        Psychic/Flying     323   2    5    Added   Woobat
+
+  -- Category 3  (BST 326-395)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #216  Teddiursa     Normal             330   3    2    Base    Teddiursa
+     #188  Skiploom      Grass/Flying       340   3    2    Base    Hoppip
+     #329  Vibrava       Ground/Dragon      340   3    3    Base    Trapinch
+     #425  Drifloon      Ghost/Flying       348   3    4    Added   Drifloon
+     #017  Pidgeotto     Normal/Flying      349   3    1    Base    Pidgey
+     #083  Farfetch’d    Normal/Flying      377   3    1    Base    Farfetch’d
+     #137  Porygon       Normal             395   3    1    Base    Porygon
+
+  -- Category 4  (BST 396-440)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #005  Charmeleon    Fire               405   4    1    Base    Charmander
+     #176  Togetic       Fairy/Flying       405   4    2    Base    Togepi
+     #444  Gabite        Dragon/Ground      410   4    4    Added   Gible
+     #148  Dragonair     Dragon             420   4    1    Base    Dratini
+     #528  Swoobat       Psychic/Flying     425   4    5    Added   Woobat
+     #207  Gligar        Ground/Flying      430   4    2    Base    Gligar
+     #279  Pelipper      Water/Flying       440   4    3    Base    Wingull
+
+  -- Category 5  (BST 441-481)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #022  Fearow        Normal/Flying      442   5    1    Base    Spearow
+     #277  Swellow       Normal/Flying      455   5    3    Base    Taillow
+     #358  Chimecho      Psychic            455   5    3    Base    Chingling
+     #189  Jumpluff      Grass/Flying       460   5    2    Base    Hoppip
+     #085  Dodrio        Normal/Flying      470   5    1    Base    Doduo
+     #178  Xatu          Psychic/Flying     470   5    2    Base    Natu
+     #018  Pidgeot       Normal/Flying      479   5    1    Base    Pidgey
+
+  -- Category 6  (BST 482-515)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #621  Druddigon     Dragon             485   6    5    Added   Druddigon
+     #334  Altaria       Dragon/Flying      490   6    3    Base    Swablu
+     #561  Sigilyph      Psychic/Flying     490   6    5    Added   Sigilyph
+     #426  Drifblim      Ghost/Flying       498   6    4    Added   Drifloon
+     #217  Ursaring      Normal             500   6    2    Base    Teddiursa
+     #472  Gliscor       Ground/Flying      510   6    4    Line    Gligar
+     #142  Aerodactyl    Rock/Flying        515   6    1    Base    Aerodactyl
+     #233  Porygon2      Normal             515   6    2    Base    Porygon
+
+  -- Category 7  (BST >= 516)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #330  Flygon        Ground/Dragon      520   7    3    Base    Trapinch
+     #006  Charizard     Fire/Flying        534   7    1    Base    Charmander
+     #474  Porygon-Z     Normal             535   7    4    Line    Porygon
+     #468  Togekiss      Fairy/Flying       545   7    4    Line    Togepi
+     #901  Ursaluna      Ground/Normal      550   7    8    Line    Teddiursa
+     #149  Dragonite     Dragon/Flying      600   7    1    Base    Dratini
+     #445  Garchomp      Dragon/Ground      600   7    4    Added   Gible
+
+  -- Category 8  (Legendary/Mythical, BST <= 600)  [3] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #145  Zapdos        Electric/Flying    580   8    1    Base    Zapdos
+     #380  Latias        Dragon/Psychic     600   8    3    Base    Latias
+     #381  Latios        Dragon/Psychic     600   8    3    Base    Latios
+
+  -- Category 9  (Legendary, BST > 600)  [2] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #384  Rayquaza      Dragon/Flying      680   9    3    Base    Rayquaza
+     #644  Zekrom        Dragon/Electric    680   9    5    Added   Zekrom
+
+================================================================================================
+BIOME: FOREST  (Petalburg Woods)  —  Types: Grass / Fairy   [56 Pokémon]
+================================================================================================
+  -- Category 1  (BST <= 288)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #013  Weedle        Bug/Poison         195   1    1    Base    Weedle
+     #265  Wurmple       Bug                195   1    3    Base    Wurmple
+     #014  Kakuna        Bug/Poison         205   1    1    Base    Weedle
+     #266  Silcoon       Bug                205   1    3    Base    Wurmple
+     #268  Cascoon       Bug                205   1    3    Base    Wurmple
+     #270  Lotad         Water/Grass        220   1    3    Base    Lotad
+     #406  Budew         Grass/Poison       280   1    4    Line    Budew
+
+  -- Category 2  (BST 289-325)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #285  Shroomish     Grass              295   2    3    Base    Shroomish
+     #069  Bellsprout    Grass/Poison       300   2    1    Base    Bellsprout
+     #209  Snubbull      Fairy              300   2    2    Base    Snubbull
+     #252  Treecko       Grass              310   2    3    Base    Treecko
+     #152  Chikorita     Grass              318   2    2    Base    Chikorita
+     #387  Turtwig       Grass              318   2    4    Added   Turtwig
+     #043  Oddish        Grass/Poison       320   2    1    Base    Oddish
+     #102  Exeggcute     Grass/Psychic      325   2    1    Base    Exeggcute
+
+  -- Category 3  (BST 326-395)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #271  Lombre        Water/Grass        340   3    3    Base    Lotad
+     #190  Aipom         Normal             360   3    2    Base    Aipom
+     #269  Dustox        Bug/Poison         385   3    3    Base    Wurmple
+     #070  Weepinbell    Grass/Poison       390   3    1    Base    Bellsprout
+     #015  Beedrill      Bug/Poison         395   3    1    Base    Weedle
+     #044  Gloom         Grass/Poison       395   3    1    Base    Oddish
+     #267  Beautifly     Bug/Flying         395   3    3    Base    Wurmple
+
+  -- Category 4  (BST 396-440)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #315  Roselia       Grass/Poison       400   4    3    Base    Budew
+     #153  Bayleef       Grass              405   4    2    Base    Chikorita
+     #253  Grovyle       Grass              405   4    3    Base    Treecko
+     #388  Grotle        Grass              405   4    4    Added   Turtwig
+     #702  Dedenne       Electric/Fairy     431   4    6    Added   Dedenne
+     #114  Tangela       Grass              435   4    1    Base    Tangela
+     #352  Kecleon       Normal             440   4    3    Base    Kecleon
+
+  -- Category 5  (BST 441-481)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #210  Granbull      Fairy              450   5    2    Base    Snubbull
+     #455  Carnivine     Grass              454   5    4    Added   Carnivine
+     #335  Zangoose      Normal             458   5    3    Base    Zangoose
+     #286  Breloom       Grass/Fighting     460   5    3    Base    Shroomish
+     #357  Tropius       Grass/Flying       460   5    3    Base    Tropius
+     #556  Maractus      Grass              461   5    5    Added   Maractus
+     #272  Ludicolo      Water/Grass        480   5    3    Base    Lotad
+
+  -- Category 6  (BST 482-515)  [8] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #424  Ambipom       Normal             482   6    4    Line    Aipom
+     #045  Vileplume     Grass/Poison       490   6    1    Base    Oddish
+     #071  Victreebel    Grass/Poison       490   6    1    Base    Bellsprout
+     #182  Bellossom     Grass              490   6    2    Base    Oddish
+     #123  Scyther       Bug/Flying         500   6    1    Base    Scyther
+     #212  Scizor        Bug/Steel          500   6    2    Base    Scyther
+     #900  Kleavor       Bug/Rock           500   6    8    Line    Scyther
+     #407  Roserade      Grass/Poison       515   6    4    Line    Budew
+
+  -- Category 7  (BST >= 516)  [7] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #154  Meganium      Grass              525   7    2    Base    Chikorita
+     #389  Torterra      Grass/Ground       525   7    4    Added   Turtwig
+     #470  Leafeon       Grass              525   7    4    Line    Eevee
+     #700  Sylveon       Fairy              525   7    6    Line    Eevee
+     #103  Exeggutor     Grass/Psychic      530   7    1    Base    Exeggcute
+     #254  Sceptile      Grass              530   7    3    Base    Treecko
+     #465  Tangrowth     Grass              535   7    4    Line    Tangela
+
+  -- Category 8  (Legendary/Mythical, BST <= 600)  [3] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #640  Virizion      Grass/Fighting     580   8    5    Added   Virizion
+     #251  Celebi        Psychic/Grass      600   8    2    Base    Celebi
+     #492  Shaymin       Grass              600   8    4    Added   Shaymin
+
+  -- Category 9  (Legendary, BST > 600)  [2] --
+     Dex   Pokémon       Type               BST   Cat  Gen  Origin  Line
+     #888  Zacian        Fairy              660   9    8    Added   Zacian
+     #716  Xerneas       Fairy              680   9    6    Added   Xerneas
+
+================================================================================================
+MASTER INDEX (National Dex order)
+================================================================================================
+  Dex   Pokémon       Type               BST   Cat  Biome
+  #001  Bulbasaur     Grass/Poison       318   2    POISON
+  #002  Ivysaur       Grass/Poison       405   4    POISON
+  #003  Venusaur      Grass/Poison       525   7    POISON
+  #004  Charmander    Fire               309   2    CLIFF
+  #005  Charmeleon    Fire               405   4    CLIFF
+  #006  Charizard     Fire/Flying        534   7    CLIFF
+  #007  Squirtle      Water              314   2    OCEAN
+  #008  Wartortle     Water              405   4    OCEAN
+  #009  Blastoise     Water              530   7    OCEAN
+  #010  Caterpie      Bug                195   1    POISON
+  #011  Metapod       Bug                205   1    POISON
+  #012  Butterfree    Bug/Flying         395   3    POISON
+  #013  Weedle        Bug/Poison         195   1    FOREST
+  #014  Kakuna        Bug/Poison         205   1    FOREST
+  #015  Beedrill      Bug/Poison         395   3    FOREST
+  #016  Pidgey        Normal/Flying      251   1    CLIFF
+  #017  Pidgeotto     Normal/Flying      349   3    CLIFF
+  #018  Pidgeot       Normal/Flying      479   5    CLIFF
+  #019  Rattata       Normal             253   1    ICE
+  #020  Raticate      Normal             413   4    ICE
+  #021  Spearow       Normal/Flying      262   1    CLIFF
+  #022  Fearow        Normal/Flying      442   5    CLIFF
+  #023  Ekans         Poison             288   1    POISON
+  #024  Arbok         Poison             448   5    POISON
+  #025  Pikachu       Electric           320   2    FIRE
+  #026  Raichu        Electric           485   6    FIRE
+  #027  Sandshrew     Ground             300   2    DESERT
+  #028  Sandslash     Ground             450   5    DESERT
+  #029  Nidoran-F     Poison             275   1    POISON
+  #030  Nidorina      Poison             365   3    POISON
+  #031  Nidoqueen     Poison/Ground      505   6    POISON
+  #032  Nidoran-M     Poison             273   1    DESERT
+  #033  Nidorino      Poison             365   3    DESERT
+  #034  Nidoking      Poison/Ground      505   6    DESERT
+  #035  Clefairy      Fairy              323   2    CAVE
+  #036  Clefable      Fairy              483   6    CAVE
+  #037  Vulpix        Fire               299   2    FIRE
+  #038  Ninetales     Fire               505   6    FIRE
+  #039  Jigglypuff    Normal/Fairy       270   1    FIRE
+  #040  Wigglytuff    Normal/Fairy       435   4    FIRE
+  #041  Zubat         Poison/Flying      245   1    POISON
+  #042  Golbat        Poison/Flying      455   5    POISON
+  #043  Oddish        Grass/Poison       320   2    FOREST
+  #044  Gloom         Grass/Poison       395   3    FOREST
+  #045  Vileplume     Grass/Poison       490   6    FOREST
+  #046  Paras         Bug/Grass          285   1    POISON
+  #047  Parasect      Bug/Grass          405   4    POISON
+  #048  Venonat       Bug/Poison         305   2    POISON
+  #049  Venomoth      Bug/Poison         450   5    POISON
+  #050  Diglett       Ground             265   1    DESERT
+  #051  Dugtrio       Ground             425   4    DESERT
+  #052  Meowth        Normal             290   2    POISON
+  #053  Persian       Normal             440   4    POISON
+  #054  Psyduck       Water              320   2    DESERT
+  #055  Golduck       Water              500   6    DESERT
+  #056  Mankey        Fighting           305   2    CAVE
+  #057  Primeape      Fighting           455   5    CAVE
+  #058  Growlithe     Fire               350   3    FIRE
+  #059  Arcanine      Fire               555   7    FIRE
+  #060  Poliwag       Water              300   2    OCEAN
+  #061  Poliwhirl     Water              385   3    OCEAN
+  #062  Poliwrath     Water/Fighting     510   6    OCEAN
+  #063  Abra          Psychic            310   2    DESERT
+  #064  Kadabra       Psychic            400   4    DESERT
+  #065  Alakazam      Psychic            500   6    DESERT
+  #066  Machop        Fighting           305   2    CAVE
+  #067  Machoke       Fighting           405   4    CAVE
+  #068  Machamp       Fighting           505   6    CAVE
+  #069  Bellsprout    Grass/Poison       300   2    FOREST
+  #070  Weepinbell    Grass/Poison       390   3    FOREST
+  #071  Victreebel    Grass/Poison       490   6    FOREST
+  #072  Tentacool     Water/Poison       335   3    OCEAN
+  #073  Tentacruel    Water/Poison       515   6    OCEAN
+  #074  Geodude       Rock/Ground        300   2    CAVE
+  #075  Graveler      Rock/Ground        390   3    CAVE
+  #076  Golem         Rock/Ground        495   6    CAVE
+  #077  Ponyta        Fire               410   4    FIRE
+  #078  Rapidash      Fire               500   6    FIRE
+  #079  Slowpoke      Water/Psychic      315   2    DESERT
+  #080  Slowbro       Water/Psychic      490   6    DESERT
+  #081  Magnemite     Electric/Steel     325   2    FIRE
+  #082  Magneton      Electric/Steel     465   5    FIRE
+  #083  Farfetch’d    Normal/Flying      377   3    CLIFF
+  #084  Doduo         Normal/Flying      310   2    CLIFF
+  #085  Dodrio        Normal/Flying      470   5    CLIFF
+  #086  Seel          Water              325   2    ICE
+  #087  Dewgong       Water/Ice          475   5    ICE
+  #088  Grimer        Poison             325   2    POISON
+  #089  Muk           Poison             500   6    POISON
+  #090  Shellder      Water              305   2    OCEAN
+  #091  Cloyster      Water/Ice          525   7    OCEAN
+  #092  Gastly        Ghost/Poison       310   2    DARK
+  #093  Haunter       Ghost/Poison       405   4    DARK
+  #094  Gengar        Ghost/Poison       500   6    DARK
+  #095  Onix          Rock/Ground        385   3    CAVE
+  #096  Drowzee       Psychic            328   3    DARK
+  #097  Hypno         Psychic            483   6    DARK
+  #098  Krabby        Water              325   2    OCEAN
+  #099  Kingler       Water              475   5    OCEAN
+  #100  Voltorb       Electric           330   3    FIRE
+  #101  Electrode     Electric           490   6    FIRE
+  #102  Exeggcute     Grass/Psychic      325   2    FOREST
+  #103  Exeggutor     Grass/Psychic      530   7    FOREST
+  #104  Cubone        Ground             320   2    DESERT
+  #105  Marowak       Ground             425   4    DESERT
+  #106  Hitmonlee     Fighting           455   5    CAVE
+  #107  Hitmonchan    Fighting           455   5    CAVE
+  #108  Lickitung     Normal             385   3    ICE
+  #109  Koffing       Poison             340   3    POISON
+  #110  Weezing       Poison             490   6    POISON
+  #111  Rhyhorn       Ground/Rock        345   3    DESERT
+  #112  Rhydon        Ground/Rock        485   6    DESERT
+  #113  Chansey       Normal             450   5    CAVE
+  #114  Tangela       Grass              435   4    FOREST
+  #115  Kangaskhan    Normal             490   6    POISON
+  #116  Horsea        Water              295   2    OCEAN
+  #117  Seadra        Water              440   4    OCEAN
+  #118  Goldeen       Water              320   2    OCEAN
+  #119  Seaking       Water              450   5    OCEAN
+  #120  Staryu        Water              340   3    DESERT
+  #121  Starmie       Water/Psychic      520   7    DESERT
+  #122  Mr. Mime      Psychic/Fairy      460   5    DESERT
+  #123  Scyther       Bug/Flying         500   6    FOREST
+  #124  Jynx          Ice/Psychic        455   5    ICE
+  #125  Electabuzz    Electric           490   6    FIRE
+  #126  Magmar        Fire               495   6    FIRE
+  #127  Pinsir        Bug                500   6    POISON
+  #128  Tauros        Normal             490   6    DARK
+  #129  Magikarp      Water              200   1    OCEAN
+  #130  Gyarados      Water/Flying       540   7    OCEAN
+  #131  Lapras        Water/Ice          535   7    ICE
+  #132  Ditto         Normal             288   1    DARK
+  #133  Eevee         Normal             325   2    POISON
+  #134  Vaporeon      Water              525   7    OCEAN
+  #135  Jolteon       Electric           525   7    FIRE
+  #136  Flareon       Fire               525   7    FIRE
+  #137  Porygon       Normal             395   3    CLIFF
+  #138  Omanyte       Rock/Water         355   3    CAVE
+  #139  Omastar       Rock/Water         495   6    CAVE
+  #140  Kabuto        Rock/Water         355   3    CAVE
+  #141  Kabutops      Rock/Water         495   6    CAVE
+  #142  Aerodactyl    Rock/Flying        515   6    CLIFF
+  #143  Snorlax       Normal             540   7    DARK
+  #144  Articuno      Ice/Flying         580   8    ICE
+  #145  Zapdos        Electric/Flying    580   8    CLIFF
+  #146  Moltres       Fire/Flying        580   8    FIRE
+  #147  Dratini       Dragon             300   2    CLIFF
+  #148  Dragonair     Dragon             420   4    CLIFF
+  #149  Dragonite     Dragon/Flying      600   7    CLIFF
+  #150  Mewtwo        Psychic            680   9    DESERT
+  #151  Mew           Psychic            600   8    DESERT
+  #152  Chikorita     Grass              318   2    FOREST
+  #153  Bayleef       Grass              405   4    FOREST
+  #154  Meganium      Grass              525   7    FOREST
+  #155  Cyndaquil     Fire               309   2    FIRE
+  #156  Quilava       Fire               405   4    FIRE
+  #157  Typhlosion    Fire               534   7    FIRE
+  #158  Totodile      Water              314   2    OCEAN
+  #159  Croconaw      Water              405   4    OCEAN
+  #160  Feraligatr    Water              530   7    OCEAN
+  #161  Sentret       Normal             215   1    DARK
+  #162  Furret        Normal             415   4    DARK
+  #163  Hoothoot      Normal/Flying      262   1    DARK
+  #164  Noctowl       Normal/Flying      452   5    DARK
+  #165  Ledyba        Bug/Flying         265   1    POISON
+  #166  Ledian        Bug/Flying         390   3    POISON
+  #167  Spinarak      Bug/Poison         250   1    DARK
+  #168  Ariados       Bug/Poison         400   4    DARK
+  #169  Crobat        Poison/Flying      535   7    POISON
+  #170  Chinchou      Water/Electric     330   3    OCEAN
+  #171  Lanturn       Water/Electric     460   5    OCEAN
+  #172  Pichu         Electric           205   1    FIRE
+  #173  Cleffa        Fairy              218   1    CAVE
+  #174  Igglybuff     Normal/Fairy       210   1    FIRE
+  #175  Togepi        Fairy              245   1    CLIFF
+  #176  Togetic       Fairy/Flying       405   4    CLIFF
+  #177  Natu          Psychic/Flying     320   2    CLIFF
+  #178  Xatu          Psychic/Flying     470   5    CLIFF
+  #179  Mareep        Electric           280   1    FIRE
+  #180  Flaaffy       Electric           365   3    FIRE
+  #181  Ampharos      Electric           510   6    FIRE
+  #182  Bellossom     Grass              490   6    FOREST
+  #183  Marill        Water/Fairy        250   1    OCEAN
+  #184  Azumarill     Water/Fairy        420   4    OCEAN
+  #185  Sudowoodo     Rock               410   4    CAVE
+  #186  Politoed      Water              500   6    OCEAN
+  #187  Hoppip        Grass/Flying       250   1    CLIFF
+  #188  Skiploom      Grass/Flying       340   3    CLIFF
+  #189  Jumpluff      Grass/Flying       460   5    CLIFF
+  #190  Aipom         Normal             360   3    FOREST
+  #191  Sunkern       Grass              180   1    DESERT
+  #192  Sunflora      Grass              425   4    DESERT
+  #193  Yanma         Bug/Flying         390   3    POISON
+  #194  Wooper        Water/Ground       210   1    OCEAN
+  #195  Quagsire      Water/Ground       430   4    OCEAN
+  #196  Espeon        Psychic            525   7    DESERT
+  #197  Umbreon       Dark               525   7    DARK
+  #198  Murkrow       Dark/Flying        405   4    DARK
+  #199  Slowking      Water/Psychic      490   6    DESERT
+  #200  Misdreavus    Ghost              435   4    DARK
+  #201  Unown         Psychic            336   3    DESERT
+  #202  Wobbuffet     Psychic            405   4    DESERT
+  #203  Girafarig     Normal/Psychic     455   5    DESERT
+  #204  Pineco        Bug                290   2    POISON
+  #205  Forretress    Bug/Steel          465   5    POISON
+  #206  Dunsparce     Normal             415   4    POISON
+  #207  Gligar        Ground/Flying      430   4    CLIFF
+  #208  Steelix       Steel/Ground       510   6    CAVE
+  #209  Snubbull      Fairy              300   2    FOREST
+  #210  Granbull      Fairy              450   5    FOREST
+  #211  Qwilfish      Water/Poison       440   4    POISON
+  #212  Scizor        Bug/Steel          500   6    FOREST
+  #213  Shuckle       Bug/Rock           505   6    POISON
+  #214  Heracross     Bug/Fighting       500   6    POISON
+  #215  Sneasel       Dark/Ice           430   4    ICE
+  #216  Teddiursa     Normal             330   3    CLIFF
+  #217  Ursaring      Normal             500   6    CLIFF
+  #218  Slugma        Fire               250   1    FIRE
+  #219  Magcargo      Fire/Rock          430   4    FIRE
+  #220  Swinub        Ice/Ground         250   1    ICE
+  #221  Piloswine     Ice/Ground         450   5    ICE
+  #222  Corsola       Water/Rock         410   4    OCEAN
+  #223  Remoraid      Water              300   2    OCEAN
+  #224  Octillery     Water              480   5    OCEAN
+  #225  Delibird      Ice/Flying         330   3    ICE
+  #226  Mantine       Water/Flying       485   6    OCEAN
+  #227  Skarmory      Steel/Flying       465   5    ICE
+  #228  Houndour      Dark/Fire          330   3    DARK
+  #229  Houndoom      Dark/Fire          500   6    DARK
+  #230  Kingdra       Water/Dragon       540   7    OCEAN
+  #231  Phanpy        Ground             330   3    DESERT
+  #232  Donphan       Ground             500   6    DESERT
+  #233  Porygon2      Normal             515   6    CLIFF
+  #234  Stantler      Normal             465   5    POISON
+  #235  Smeargle      Normal             250   1    CAVE
+  #236  Tyrogue       Fighting           210   1    CAVE
+  #237  Hitmontop     Fighting           455   5    CAVE
+  #238  Smoochum      Ice/Psychic        305   2    ICE
+  #239  Elekid        Electric           360   3    FIRE
+  #240  Magby         Fire               365   3    FIRE
+  #241  Miltank       Normal             490   6    DARK
+  #242  Blissey       Normal             540   7    CAVE
+  #243  Raikou        Electric           580   8    FIRE
+  #244  Entei         Fire               580   8    FIRE
+  #245  Suicune       Water              580   8    OCEAN
+  #246  Larvitar      Rock/Ground        300   2    CAVE
+  #247  Pupitar       Rock/Ground        410   4    CAVE
+  #248  Tyranitar     Rock/Dark          600   7    CAVE
+  #249  Lugia         Psychic/Flying     680   9    OCEAN
+  #250  Ho-Oh         Fire/Flying        680   9    FIRE
+  #251  Celebi        Psychic/Grass      600   8    FOREST
+  #252  Treecko       Grass              310   2    FOREST
+  #253  Grovyle       Grass              405   4    FOREST
+  #254  Sceptile      Grass              530   7    FOREST
+  #255  Torchic       Fire               310   2    CAVE
+  #256  Combusken     Fire/Fighting      405   4    CAVE
+  #257  Blaziken      Fire/Fighting      530   7    CAVE
+  #258  Mudkip        Water              310   2    DESERT
+  #259  Marshtomp     Water/Ground       405   4    DESERT
+  #260  Swampert      Water/Ground       535   7    DESERT
+  #261  Poochyena     Dark               220   1    DARK
+  #262  Mightyena     Dark               420   4    DARK
+  #263  Zigzagoon     Normal             240   1    FIRE
+  #264  Linoone       Normal             420   4    FIRE
+  #265  Wurmple       Bug                195   1    FOREST
+  #266  Silcoon       Bug                205   1    FOREST
+  #267  Beautifly     Bug/Flying         395   3    FOREST
+  #268  Cascoon       Bug                205   1    FOREST
+  #269  Dustox        Bug/Poison         385   3    FOREST
+  #270  Lotad         Water/Grass        220   1    FOREST
+  #271  Lombre        Water/Grass        340   3    FOREST
+  #272  Ludicolo      Water/Grass        480   5    FOREST
+  #273  Seedot        Grass              220   1    DARK
+  #274  Nuzleaf       Grass/Dark         340   3    DARK
+  #275  Shiftry       Grass/Dark         480   5    DARK
+  #276  Taillow       Normal/Flying      270   1    CLIFF
+  #277  Swellow       Normal/Flying      455   5    CLIFF
+  #278  Wingull       Water/Flying       270   1    CLIFF
+  #279  Pelipper      Water/Flying       440   4    CLIFF
+  #280  Ralts         Psychic/Fairy      198   1    DESERT
+  #281  Kirlia        Psychic/Fairy      278   1    DESERT
+  #282  Gardevoir     Psychic/Fairy      518   7    DESERT
+  #283  Surskit       Bug/Water          269   1    OCEAN
+  #284  Masquerain    Bug/Flying         454   5    OCEAN
+  #285  Shroomish     Grass              295   2    FOREST
+  #286  Breloom       Grass/Fighting     460   5    FOREST
+  #287  Slakoth       Normal             280   1    CAVE
+  #288  Vigoroth      Normal             440   4    CAVE
+  #289  Slaking       Normal             670   7    CAVE
+  #290  Nincada       Bug/Ground         266   1    DESERT
+  #291  Ninjask       Bug/Flying         456   5    DESERT
+  #292  Shedinja      Bug/Ghost          236   1    DARK
+  #293  Whismur       Normal             240   1    ICE
+  #294  Loudred       Normal             360   3    ICE
+  #295  Exploud       Normal             490   6    ICE
+  #296  Makuhita      Fighting           237   1    CAVE
+  #297  Hariyama      Fighting           474   5    CAVE
+  #298  Azurill       Normal/Fairy       190   1    OCEAN
+  #299  Nosepass      Rock               375   3    CAVE
+  #300  Skitty        Normal             260   1    ICE
+  #301  Delcatty      Normal             400   4    ICE
+  #302  Sableye       Dark/Ghost         380   3    DARK
+  #303  Mawile        Steel/Fairy        380   3    ICE
+  #304  Aron          Steel/Rock         330   3    ICE
+  #305  Lairon        Steel/Rock         430   4    ICE
+  #306  Aggron        Steel/Rock         530   7    ICE
+  #307  Meditite      Fighting/Psychic   280   1    CAVE
+  #308  Medicham      Fighting/Psychic   410   4    CAVE
+  #309  Electrike     Electric           295   2    FIRE
+  #310  Manectric     Electric           475   5    FIRE
+  #311  Plusle        Electric           405   4    FIRE
+  #312  Minun         Electric           405   4    FIRE
+  #313  Volbeat       Bug                430   4    POISON
+  #314  Illumise      Bug                430   4    POISON
+  #315  Roselia       Grass/Poison       400   4    FOREST
+  #316  Gulpin        Poison             302   2    POISON
+  #317  Swalot        Poison             467   5    POISON
+  #318  Carvanha      Water/Dark         305   2    DARK
+  #319  Sharpedo      Water/Dark         460   5    DARK
+  #320  Wailmer       Water              400   4    OCEAN
+  #321  Wailord       Water              500   6    OCEAN
+  #322  Numel         Fire/Ground        305   2    FIRE
+  #323  Camerupt      Fire/Ground        460   5    FIRE
+  #324  Torkoal       Fire               470   5    FIRE
+  #325  Spoink        Psychic            330   3    DESERT
+  #326  Grumpig       Psychic            470   5    DESERT
+  #327  Spinda        Normal             360   3    FIRE
+  #328  Trapinch      Ground             290   2    CLIFF
+  #329  Vibrava       Ground/Dragon      340   3    CLIFF
+  #330  Flygon        Ground/Dragon      520   7    CLIFF
+  #331  Cacnea        Grass              335   3    DESERT
+  #332  Cacturne      Grass/Dark         475   5    DESERT
+  #333  Swablu        Normal/Flying      310   2    CLIFF
+  #334  Altaria       Dragon/Flying      490   6    CLIFF
+  #335  Zangoose      Normal             458   5    FOREST
+  #336  Seviper       Poison             458   5    POISON
+  #337  Lunatone      Rock/Psychic       460   5    CAVE
+  #338  Solrock       Rock/Psychic       460   5    DESERT
+  #339  Barboach      Water/Ground       288   1    OCEAN
+  #340  Whiscash      Water/Ground       468   5    OCEAN
+  #341  Corphish      Water              308   2    DARK
+  #342  Crawdaunt     Water/Dark         468   5    DARK
+  #343  Baltoy        Ground/Psychic     300   2    DESERT
+  #344  Claydol       Ground/Psychic     500   6    DESERT
+  #345  Lileep        Rock/Grass         355   3    CAVE
+  #346  Cradily       Rock/Grass         495   6    CAVE
+  #347  Anorith       Rock/Bug           355   3    CAVE
+  #348  Armaldo       Rock/Bug           495   6    CAVE
+  #349  Feebas        Water              200   1    OCEAN
+  #350  Milotic       Water              540   7    OCEAN
+  #351  Castform      Normal             420   4    DESERT
+  #352  Kecleon       Normal             440   4    FOREST
+  #353  Shuppet       Ghost              295   2    DARK
+  #354  Banette       Ghost              455   5    DARK
+  #355  Duskull       Ghost              295   2    DARK
+  #356  Dusclops      Ghost              455   5    DARK
+  #357  Tropius       Grass/Flying       460   5    FOREST
+  #358  Chimecho      Psychic            455   5    CLIFF
+  #359  Absol         Dark               465   5    DARK
+  #360  Wynaut        Psychic            260   1    DESERT
+  #361  Snorunt       Ice                300   2    ICE
+  #362  Glalie        Ice                480   5    ICE
+  #363  Spheal        Ice/Water          290   2    ICE
+  #364  Sealeo        Ice/Water          410   4    ICE
+  #365  Walrein       Ice/Water          530   7    ICE
+  #366  Clamperl      Water              345   3    OCEAN
+  #367  Huntail       Water              485   6    OCEAN
+  #368  Gorebyss      Water              485   6    OCEAN
+  #369  Relicanth     Water/Rock         485   6    OCEAN
+  #370  Luvdisc       Water              330   3    OCEAN
+  #371  Bagon         Dragon             300   2    CAVE
+  #372  Shelgon       Dragon             420   4    CAVE
+  #373  Salamence     Dragon/Flying      600   7    CAVE
+  #374  Beldum        Steel/Psychic      300   2    ICE
+  #375  Metang        Steel/Psychic      420   4    ICE
+  #376  Metagross     Steel/Psychic      600   7    ICE
+  #377  Regirock      Rock               580   8    CAVE
+  #378  Regice        Ice                580   8    ICE
+  #379  Registeel     Steel              580   8    ICE
+  #380  Latias        Dragon/Psychic     600   8    CLIFF
+  #381  Latios        Dragon/Psychic     600   8    CLIFF
+  #382  Kyogre        Water              670   9    OCEAN
+  #383  Groudon       Ground             670   9    DESERT
+  #384  Rayquaza      Dragon/Flying      680   9    CLIFF
+  #385  Jirachi       Steel/Psychic      600   8    DESERT
+  #386  Deoxys        Psychic            600   8    DESERT
+  #387  Turtwig       Grass              318   2    FOREST
+  #388  Grotle        Grass              405   4    FOREST
+  #389  Torterra      Grass/Ground       525   7    FOREST
+  #406  Budew         Grass/Poison       280   1    FOREST
+  #407  Roserade      Grass/Poison       515   6    FOREST
+  #424  Ambipom       Normal             482   6    FOREST
+  #425  Drifloon      Ghost/Flying       348   3    CLIFF
+  #426  Drifblim      Ghost/Flying       498   6    CLIFF
+  #427  Buneary       Normal             350   3    OCEAN
+  #428  Lopunny       Normal             480   5    OCEAN
+  #429  Mismagius     Ghost              495   6    DARK
+  #430  Honchkrow     Dark/Flying        505   6    DARK
+  #431  Glameow       Normal             310   2    FIRE
+  #432  Purugly       Normal             452   5    FIRE
+  #433  Chingling     Psychic            285   1    CLIFF
+  #436  Bronzor       Steel/Psychic      300   2    ICE
+  #437  Bronzong      Steel/Psychic      500   6    ICE
+  #438  Bonsly        Rock               290   2    CAVE
+  #439  Mime Jr.      Psychic/Fairy      310   2    DESERT
+  #440  Happiny       Normal             220   1    CAVE
+  #443  Gible         Dragon/Ground      300   2    CLIFF
+  #444  Gabite        Dragon/Ground      410   4    CLIFF
+  #445  Garchomp      Dragon/Ground      600   7    CLIFF
+  #446  Munchlax      Normal             390   3    DARK
+  #447  Riolu         Fighting           285   1    ICE
+  #448  Lucario       Fighting/Steel     525   7    ICE
+  #455  Carnivine     Grass              454   5    FOREST
+  #458  Mantyke       Water/Flying       345   3    OCEAN
+  #459  Snover        Grass/Ice          334   3    ICE
+  #460  Abomasnow     Grass/Ice          494   6    ICE
+  #461  Weavile       Dark/Ice           510   6    ICE
+  #462  Magnezone     Electric/Steel     535   7    FIRE
+  #463  Lickilicky    Normal             515   6    ICE
+  #464  Rhyperior     Ground/Rock        535   7    DESERT
+  #465  Tangrowth     Grass              535   7    FOREST
+  #466  Electivire    Electric           540   7    FIRE
+  #467  Magmortar     Fire               540   7    FIRE
+  #468  Togekiss      Fairy/Flying       545   7    CLIFF
+  #469  Yanmega       Bug/Flying         515   6    POISON
+  #470  Leafeon       Grass              525   7    FOREST
+  #471  Glaceon       Ice                525   7    ICE
+  #472  Gliscor       Ground/Flying      510   6    CLIFF
+  #473  Mamoswine     Ice/Ground         530   7    ICE
+  #474  Porygon-Z     Normal             535   7    CLIFF
+  #475  Gallade       Psychic/Fighting   518   7    DESERT
+  #476  Probopass     Rock/Steel         525   7    CAVE
+  #477  Dusknoir      Ghost              525   7    DARK
+  #478  Froslass      Ice/Ghost          480   5    ICE
+  #483  Dialga        Steel/Dragon       680   9    ICE
+  #486  Regigigas     Normal             670   9    CAVE
+  #487  Giratina      Ghost/Dragon       680   9    DARK
+  #490  Manaphy       Water              600   8    OCEAN
+  #491  Darkrai       Dark               600   8    DARK
+  #492  Shaymin       Grass              600   8    FOREST
+  #493  Arceus        Normal             720   9    POISON
+  #527  Woobat        Psychic/Flying     323   2    CLIFF
+  #528  Swoobat       Psychic/Flying     425   4    CLIFF
+  #551  Sandile       Ground/Dark        292   2    DARK
+  #552  Krokorok      Ground/Dark        351   3    DARK
+  #553  Krookodile    Ground/Dark        519   7    DARK
+  #554  Darumaka      Fire               315   2    FIRE
+  #555  Darmanitan    Fire               480   5    FIRE
+  #556  Maractus      Grass              461   5    FOREST
+  #561  Sigilyph      Psychic/Flying     490   6    CLIFF
+  #597  Ferroseed     Grass/Steel        305   2    ICE
+  #598  Ferrothorn    Grass/Steel        489   6    ICE
+  #613  Cubchoo       Ice                305   2    ICE
+  #614  Beartic       Ice                505   6    ICE
+  #618  Stunfisk      Ground/Electric    471   5    FIRE
+  #621  Druddigon     Dragon             485   6    CLIFF
+  #624  Pawniard      Dark/Steel         340   3    DARK
+  #625  Bisharp       Dark/Steel         490   6    DARK
+  #633  Deino         Dark/Dragon        300   2    DARK
+  #634  Zweilous      Dark/Dragon        420   4    DARK
+  #635  Hydreigon     Dark/Dragon        600   7    DARK
+  #636  Larvesta      Bug/Fire           360   3    POISON
+  #637  Volcarona     Bug/Fire           550   7    POISON
+  #638  Cobalion      Steel/Fighting     580   8    CAVE
+  #639  Terrakion     Rock/Fighting      580   8    CAVE
+  #640  Virizion      Grass/Fighting     580   8    FOREST
+  #643  Reshiram      Dragon/Fire        680   9    FIRE
+  #644  Zekrom        Dragon/Electric    680   9    CLIFF
+  #646  Kyurem        Dragon/Ice         660   9    ICE
+  #647  Keldeo        Water/Fighting     580   8    OCEAN
+  #700  Sylveon       Fairy              525   7    FOREST
+  #702  Dedenne       Electric/Fairy     431   4    FOREST
+  #716  Xerneas       Fairy              680   9    FOREST
+  #717  Yveltal       Dark/Flying        680   9    DARK
+  #777  Togedemaru    Electric/Steel     435   4    ICE
+  #802  Marshadow     Fighting/Ghost     600   8    DARK
+  #821  Rookidee      Flying             245   1    ICE
+  #822  Corvisquire   Flying             365   3    ICE
+  #823  Corviknight   Flying/Steel       495   6    ICE
+  #850  Sizzlipede    Fire/Bug           305   2    POISON
+  #851  Centiskorch   Fire/Bug           525   7    POISON
+  #872  Snom          Ice/Bug            185   1    ICE
+  #873  Frosmoth      Ice/Bug            475   5    ICE
+  #888  Zacian        Fairy              660   9    FOREST
+  #889  Zamazenta     Fighting           660   9    CAVE
+  #890  Eternatus     Poison/Dragon      690   9    POISON
+  #897  Spectrier     Ghost              580   8    DARK
+  #899  Wyrdeer       Normal/Psychic     525   7    POISON
+  #900  Kleavor       Bug/Rock           500   6    FOREST
+  #901  Ursaluna      Ground/Normal      550   7    CLIFF
+  #921  Pawmi         Electric           240   1    FIRE
+  #922  Pawmo         Electric/Fighting  350   3    FIRE
+  #923  Pawmot        Electric/Fighting  490   6    FIRE
+  #969  Glimmet       Rock/Poison        350   3    POISON
+  #970  Glimmora      Rock/Poison        525   7    POISON
+  #979  Annihilape    Fighting/Ghost     535   7    CAVE
+  #981  Farigiraf     Normal/Psychic     520   7    DESERT
+  #982  Dudunsparce   Normal             520   7    POISON
+  #983  Kingambit     Dark/Steel         550   7    DARK
+  #999  Gimmighoul    Ghost              300   2    DARK
+  #1000  Gholdengo     Steel/Ghost        550   7    DARK
+  #1014  Okidogi       Poison/Fighting    555   8    POISON
+  #1015  Munkidori     Poison/Psychic     555   8    POISON
+  #1016  Fezandipiti   Poison/Fairy       555   8    POISON

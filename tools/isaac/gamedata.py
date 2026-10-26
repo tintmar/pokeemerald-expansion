@@ -124,13 +124,24 @@ _UNOWN_BLOCK = """
         .types = MON_TYPES(TYPE_PSYCHIC),
         .abilities = { ABILITY_LEVITATE, ABILITY_NONE, ABILITY_NONE },
 """
+# Arceus (forme Normal) : ses formes sont décrites par une macro à paramètres (ARCEUS_SPECIES_INFO)
+_ARCEUS_BLOCK = """
+        .baseHP        = 120,
+        .baseAttack    = 120,
+        .baseDefense   = 120,
+        .baseSpeed     = 120,
+        .baseSpAttack  = 120,
+        .baseSpDefense = 120,
+        .types = MON_TYPES(TYPE_NORMAL),
+        .abilities = { ABILITY_MULTITYPE, ABILITY_NONE, ABILITY_NONE },
+"""
 SHORT_NAMES = {'CASTFORM_NORMAL': 'CASTFORM', 'DEOXYS_NORMAL': 'DEOXYS'}  # nom de l'espèce dans le code C
 LEARN_NAMES = {'DEOXYS': 'DEOXYS_NORMAL'}  # nom dans all_learnables.json
 
 MONS = {}
 ORDER = []
 for _name in ROSTER:
-    _b = _UNOWN_BLOCK if _name == 'UNOWN' else _blocks[_name]
+    _b = _UNOWN_BLOCK if _name == 'UNOWN' else _ARCEUS_BLOCK if _name == 'ARCEUS_NORMAL' else _blocks[_name]
     mon = Record()
     mon.name, mon.num = SHORT_NAMES.get(_name, _name), SPECIES_NUM[_name]
     mon.hp, mon.atk, mon.dfn = _stat(_b, 'baseHP'), _stat(_b, 'baseAttack'), _stat(_b, 'baseDefense')

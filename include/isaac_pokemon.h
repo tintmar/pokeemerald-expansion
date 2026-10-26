@@ -12,22 +12,26 @@ struct Pokemon;
 #define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux
 #define ISAAC_MAX_EVOLUTION_CHOICES  8  // évolutions au choix d'une Pierre Évolution (Évoli : 5)
 
-// Catégorie d'un Pokémon selon son BST (tools/isaac/build_categories.py) : quartiles des non légendaires du roster,
-// légendaires à part (IsaacGetSpeciesCategory).
+// Catégorie d'un Pokémon (tools/isaac/build_categories.py, d'après tools/isaac/biome_roster.py) : septiles de BST des
+// non légendaires du roster, légendaires à part (IsaacGetSpeciesCategory).
 // ISAAC_CATEGORIES_PER_BIOME : si TRUE, les dresseurs, boss et Pokémon de la salle de capture utilisent à la place des
-// catégories 1 à 4 recalculées sur les seules espèces du biome (quartiles de BST du biome, voir IsaacPickLineSpecies),
+// catégories 1 à 7 recalculées sur les seules espèces du biome (septiles de BST du biome, voir IsaacPickLineSpecies),
 // où les bornes ci-dessous ne valent plus. Si FALSE, les catégories sont les mêmes partout.
 #define ISAAC_CATEGORIES_PER_BIOME  FALSE
 enum IsaacCategory
 {
     ISAAC_CATEGORY_NONE,
-    ISAAC_CATEGORY_1,                // BST <= 310 (Chenipan, Rattata, Magicarpe...)
-    ISAAC_CATEGORY_2,                // BST <= 405 (Herbizarre, Pikachu, Machopeur...)
-    ISAAC_CATEGORY_3,                // BST <= 479 (Raichu, Golbat, Galegon...)
-    ISAAC_CATEGORY_4,                // au-delà (Florizarre, Tyranocif, Drattak...)
-    ISAAC_CATEGORY_LEGENDARY_SMALL,  // légendaires de BST < 620 (Électhor, Suicune, Mew...)
-    ISAAC_CATEGORY_LEGENDARY_BIG,    // légendaires de BST >= 620 (Mewtwo, Lugia, Rayquaza...)
+    ISAAC_CATEGORY_1,                // BST <= 288 (Chenipan, Rattata, Magicarpe...)
+    ISAAC_CATEGORY_2,                // BST <= 325 (Bulbizarre, Pikachu, Machoc...)
+    ISAAC_CATEGORY_3,                // BST <= 395 (Papilusion, Racaillou, Onix...)
+    ISAAC_CATEGORY_4,                // BST <= 440 (Herbizarre, Machopeur, Draco...)
+    ISAAC_CATEGORY_5,                // BST <= 481 (Arbok, Golbat, Roucarnage...)
+    ISAAC_CATEGORY_6,                // BST <= 515 (Ectoplasma, Mackogneur, Steelix...)
+    ISAAC_CATEGORY_7,                // au-delà (Florizarre, Tyranocif, Dracolosse...)
+    ISAAC_CATEGORY_LEGENDARY_SMALL,  // catégorie 8 : légendaires de BST <= 600 (Électhor, Suicune, Mew...)
+    ISAAC_CATEGORY_LEGENDARY_BIG,    // catégorie 9 : légendaires de BST > 600 (Mewtwo, Lugia, Rayquaza...)
 };
+#define ISAAC_CATEGORY_LAST_REGULAR  ISAAC_CATEGORY_7
 
 // Puissance des Z-moves appris par la CT Z, lancés comme des attaques normales (voir CalcMoveBasePower)
 #define ISAAC_Z_MOVE_POWER  160
@@ -59,7 +63,7 @@ struct IsaacTrainerType
 
 struct IsaacBiome
 {
-    const u16 *lines;  // lignées évolutives du biome (espèce de base)
+    const u16 *lines;  // espèces du biome, évolutions comprises (isaac_biome_species.h)
     u8 lineCount;
     const struct IsaacTrainerType *trainers;
     u8 trainerCount;
@@ -78,6 +82,7 @@ struct IsaacBiome
 extern const struct IsaacBiome gIsaacBiomes[ISAAC_BIOME_COUNT];
 
 const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier, u32 variant);
+bool8 IsaacSpeciesHasSet(enum Species species);
 enum IsaacCategory IsaacGetSpeciesCategory(enum Species species);
 u32 IsaacGetSpeciesBST(enum Species species);
 u32 IsaacGetRosterCount(void);

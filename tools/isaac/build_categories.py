@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 """
-Génère src/data/isaac_categories.h : la catégorie de chaque Pokémon du roster (roster.py) selon son BST
-(total des stats de base), et la liste du roster.
-  - les non légendaires sont répartis en 4 catégories par quartile de BST (calculés sur eux seuls) :
-    BST <= Q1 -> catégorie 1, <= Q2 -> 2, <= Q3 -> 3, au-delà -> 4 ;
-  - les légendaires et fabuleux sont à part : « petits » (BST < 620 : Électhor, Suicune, Mew...) et
-    « grands » (BST >= 620 : Mewtwo, Lugia, Kyogre...).
+Génère src/data/isaac_categories.h : la catégorie de chaque Pokémon du roster (roster.py), et la liste du roster ;
+et src/data/isaac_biome_species.h : les espèces de chaque biome.
+Les catégories viennent de biome_roster.py et sont vérifiées sur le BST (total des stats de base) du jeu :
+  - catégories 1 à 7 : septiles de BST des non légendaires (SEPTILES : BST <= 288 -> 1, ... au-delà de 515 -> 7) ;
+  - catégorie 8 (ISAAC_CATEGORY_LEGENDARY_SMALL) : légendaires et fabuleux de BST <= 600 (Électhor, Suicune, Mew...) ;
+  - catégorie 9 (ISAAC_CATEGORY_LEGENDARY_BIG) : légendaires de BST > 600 (Mewtwo, Lugia, Kyogre...).
 
 Usage : python3 tools/isaac/build_categories.py
 """
-import os, re, statistics, sys
+import os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gamedata as g
 import roster
+import biome_roster
 
-LEGENDARIES = {'ARTICUNO', 'ZAPDOS', 'MOLTRES', 'MEWTWO', 'MEW', 'RAIKOU', 'ENTEI', 'SUICUNE', 'LUGIA', 'HO_OH',
-               'CELEBI', 'REGIROCK', 'REGICE', 'REGISTEEL', 'LATIAS', 'LATIOS', 'KYOGRE', 'GROUDON', 'RAYQUAZA',
-               'JIRACHI', 'DEOXYS'} | set(roster.EXTRA_LEGENDARIES)
-BIG_LEGENDARY_BST = 620
+SEPTILES = (288, 325, 395, 440, 481, 515)
+SMALL_LEGENDARY_MAX_BST = 600
+ENUM_NAMES = {8: 'LEGENDARY_SMALL', 9: 'LEGENDARY_BIG'}
 
 
 def bst(name):
@@ -26,25 +26,29 @@ def bst(name):
     return m.hp + m.atk + m.dfn + m.spa + m.spd + m.spe
 
 
+def bst_category(name):
+    b = bst(name)
+    if name in biome_roster.LEGENDARIES:
+        return 8 if b <= SMALL_LEGENDARY_MAX_BST else 9
+    return 1 + sum(b > t for t in SEPTILES)
+
+
 def main():
-    regular = [n for n in g.ORDER if n not in LEGENDARIES]
-    q1, q2, q3 = statistics.quantiles([bst(n) for n in regular], n=4, method='inclusive')
     categories = {}
     for name in g.ORDER:
-        b = bst(name)
-        if name in LEGENDARIES:
-            categories[name] = 'LEGENDARY_BIG' if b >= BIG_LEGENDARY_BST else 'LEGENDARY_SMALL'
-        else:
-            categories[name] = '1' if b <= q1 else '2' if b <= q2 else '3' if b <= q3 else '4'
+        categories[name] = biome_roster.CATEGORY[name]
+        assert categories[name] == bst_category(name), f'{name} : catégorie {categories[name]}, BST {bst(name)}'
 
     out = ['// Fichier généré par tools/isaac/build_categories.py : ne pas modifier à la main.',
-           '// Catégorie de chaque Pokémon selon son BST : quartiles des non légendaires (BST <= %d, <= %d, <= %d, au-delà),' % (q1, q2, q3),
-           '// légendaires à part (petits : BST < %d, grands : BST >= %d).' % (BIG_LEGENDARY_BST, BIG_LEGENDARY_BST),
+           '// Catégorie de chaque Pokémon (tools/isaac/biome_roster.py) : septiles de BST des non légendaires (BST <= '
+           + ', <= '.join(map(str, SEPTILES)) + ', au-delà),',
+           '// légendaires à part (petits : BST <= %d, grands : au-delà).' % SMALL_LEGENDARY_MAX_BST,
            '',
            'static const u8 sIsaacSpeciesCategories[NUM_SPECIES] =',
            '{']
     for name in g.ORDER:
-        out.append(f'    [SPECIES_{name}] = ISAAC_CATEGORY_{categories[name]},  // BST {bst(name)}')
+        enum = ENUM_NAMES.get(categories[name], str(categories[name]))
+        out.append(f'    [SPECIES_{name}] = ISAAC_CATEGORY_{enum},  // BST {bst(name)}')
     out.append('};')
     out.append('')
     out.append('// Toutes les espèces du roster, dans l\'ordre du Pokédex national')
@@ -57,15 +61,38 @@ def main():
     out.append('// lignée à part) }')
     out.append('static const u16 sIsaacRegionalForms[][2] =')
     out.append('{')
-    for name in g.ORDER:
-        if re.search(r'_(ALOLA|GALAR|HISUI|PALDEA)(_|$)', name):
-            out.append(f'    {{ SPECIES_{name}, SPECIES_{roster.SHARED_FORMS.get(name, "NONE")} }},')
+    forms = [name for name in g.ORDER if re.search(r'_(ALOLA|GALAR|HISUI|PALDEA)(_|$)', name)]
+    for name in forms:
+        out.append(f'    {{ SPECIES_{name}, SPECIES_{roster.SHARED_FORMS.get(name, "NONE")} }},')
+    if not forms:
+        out.append('    { SPECIES_NONE, SPECIES_NONE },  // aucune')
     out.append('};')
     path = os.path.join(g.ROOT, 'src', 'data', 'isaac_categories.h')
     open(path, 'w', encoding='utf-8').write('\n'.join(out) + '\n')
 
-    counts = {c: sum(1 for v in categories.values() if v == c) for c in ('1', '2', '3', '4', 'LEGENDARY_SMALL', 'LEGENDARY_BIG')}
-    print(f'seuils : {q1:.0f} / {q2:.0f} / {q3:.0f}', counts)
+    # Espèces de chaque biome (toutes, évolutions comprises), de la catégorie la plus faible à la plus forte
+    out = ['// Fichier généré par tools/isaac/build_categories.py (d\'après tools/isaac/biome_roster.py) : ne pas modifier',
+           '// à la main. Espèces de chaque biome, de la catégorie 1 à la catégorie 9.', '']
+    for biome, species in biome_roster.BIOMES.items():
+        out.append(f'static const u16 s{biome.capitalize()}Species[] =')
+        out.append('{')
+        for cat in range(1, 10):
+            names = [f'SPECIES_{name},' for name, c in species if c == cat]
+            out.append(f'    // catégorie {cat}')
+            line = '   '
+            for n in names:
+                if len(line) + len(n) + 1 > 118:
+                    out.append(line)
+                    line = '   '
+                line += ' ' + n
+            out.append(line)
+        out.append('};')
+        out.append('')
+    path = os.path.join(g.ROOT, 'src', 'data', 'isaac_biome_species.h')
+    open(path, 'w', encoding='utf-8').write('\n'.join(out))
+
+    counts = {c: sum(1 for v in categories.values() if v == c) for c in range(1, 10)}
+    print(f'{len(g.ORDER)} espèces, par catégorie :', counts)
 
 
 if __name__ == '__main__':

@@ -1,73 +1,26 @@
 """
-Roster du donjon : les 386 premiers Pokémon, plus les espèces des générations suivantes de EXTRA_SPECIES (noms
-des constantes SPECIES_*). Chaque espèce du roster a une catégorie (build_categories.py) et des sets
+Roster du donjon : les espèces de biome_roster.BIOMES (les 386 premiers Pokémon, plus des espèces des générations
+suivantes ; noms des constantes SPECIES_*). Chaque espèce du roster a une catégorie (build_categories.py) et des sets
 (build_sets.py) ; le jeu ne fait apparaître, évoluer ou échanger que des espèces du roster.
 """
+import os, sys
 
-EXTRA_SPECIES = [
-    # Grotte
-    'ANNIHILAPE', 'BONSLY', 'PROBOPASS', 'DUDUNSPARCE_TWO_SEGMENT',
-    'RIOLU', 'LUCARIO', 'TIMBURR', 'GURDURR', 'CONKELDURR', 'ROGGENROLA', 'BOLDORE', 'GIGALITH',
-    'ROCKRUFF', 'LYCANROC_MIDDAY', 'LYCANROC_MIDNIGHT', 'NACLI', 'NACLSTACK', 'GARGANACL',
-    'GEODUDE_ALOLA', 'GRAVELER_ALOLA', 'GOLEM_ALOLA',
-    'FARFETCHD_GALAR', 'SIRFETCHD', 'SNEASEL_HISUI', 'SNEASLER', 'TAUROS_PALDEA_COMBAT',
-    # Grotte hantée
-    'MISMAGIUS', 'DUSKNOIR', 'HONCHKROW', 'SYLVEON', 'LEAFEON', 'GLACEON', 'PORYGON_Z',
-    'LITWICK', 'LAMPENT', 'CHANDELURE', 'ZORUA', 'ZOROARK', 'PAWNIARD', 'BISHARP', 'KINGAMBIT',
-    'DRIFLOON', 'DRIFBLIM', 'SINISTEA_PHONY', 'POLTEAGEIST_PHONY', 'DEINO', 'ZWEILOUS', 'HYDREIGON',
-    'RATTATA_ALOLA', 'RATICATE_ALOLA', 'ZORUA_HISUI', 'ZOROARK_HISUI',
-    'MEOWTH_ALOLA', 'PERSIAN_ALOLA', 'CORSOLA_GALAR', 'CURSOLA', 'ZIGZAGOON_GALAR', 'LINOONE_GALAR', 'OBSTAGOON',
-    # Chemin Ardent
-    'MAGMORTAR', 'ELECTIVIRE', 'MAGNEZONE',
-    'SHINX', 'LUXIO', 'LUXRAY', 'TYNAMO', 'EELEKTRIK', 'EELEKTROSS', 'CHARCADET', 'ARMAROUGE', 'CERULEDGE',
-    'RAICHU_ALOLA', 'GROWLITHE_HISUI', 'ARCANINE_HISUI', 'VOLTORB_HISUI', 'ELECTRODE_HISUI', 'TYPHLOSION_HISUI',
-    'MAROWAK_ALOLA', 'TAUROS_PALDEA_BLAZE',
-    # Grotte gelée
-    'MAMOSWINE', 'FROSLASS', 'URSALUNA', 'WYRDEER', 'MUNCHLAX', 'WEAVILE', 'HAPPINY',
-    'SNOVER', 'ABOMASNOW', 'CUBCHOO', 'BEARTIC', 'VANILLITE', 'VANILLISH', 'VANILLUXE', 'BERGMITE', 'AVALUGG',
-    'BRONZOR', 'BRONZONG', 'KLINK', 'KLANG', 'KLINKLANG', 'FRIGIBAX', 'ARCTIBAX', 'BAXCALIBUR', 'AMAURA', 'AURORUS',
-    'AVALUGG_HISUI',
-    'VULPIX_ALOLA', 'NINETALES_ALOLA', 'SANDSHREW_ALOLA', 'SANDSLASH_ALOLA', 'MEOWTH_GALAR', 'PERRSERKER',
-    'MR_MIME_GALAR', 'MR_RIME',
-    # Tunnel Mérazon
-    'YANMEGA', 'KLEAVOR',
-    'SKORUPI', 'DRAPION', 'CROAGUNK', 'TOXICROAK', 'VENIPEDE', 'WHIRLIPEDE', 'SCOLIPEDE', 'LARVESTA', 'VOLCARONA',
-    'GRIMER_ALOLA', 'MUK_ALOLA', 'WEEZING_GALAR',
-    'QWILFISH_HISUI', 'OVERQWIL', 'WOOPER_PALDEA', 'CLODSIRE',
-    # Océan
-    'MANTYKE', 'TAUROS_PALDEA_AQUA',
-    # Désert
-    'FARIGIRAF', 'CHINGLING', 'RHYPERIOR', 'LICKILICKY',
-    'HIPPOPOTAS', 'HIPPOWDON', 'SANDILE', 'KROKOROK', 'KROOKODILE', 'GIBLE', 'GABITE', 'GARCHOMP',
-    'DRILBUR', 'EXCADRILL', 'SILICOBRA', 'SANDACONDA',
-    'DIGLETT_ALOLA', 'DUGTRIO_ALOLA', 'SLOWPOKE_GALAR', 'SLOWBRO_GALAR', 'SLOWKING_GALAR',
-    # Falaise
-    'GLISCOR',
-    'STARLY', 'STARAVIA', 'STARAPTOR', 'AXEW', 'FRAXURE', 'HAXORUS', 'NOIBAT', 'NOIVERN',
-    'ROOKIDEE', 'CORVISQUIRE', 'CORVIKNIGHT', 'JANGMO_O', 'HAKAMO_O', 'KOMMO_O',
-    # Forêt
-    'BUDEW', 'ROSERADE', 'TANGROWTH', 'TOGEKISS', 'GALLADE', 'MIME_JR', 'AMBIPOM',
-    'FLABEBE_RED', 'FLOETTE_RED', 'FLORGES_RED', 'MORELULL', 'SHIINOTIC', 'PHANTUMP', 'TREVENANT',
-    'HATENNA', 'HATTREM', 'HATTERENE',
-    'EXEGGUTOR_ALOLA', 'PONYTA_GALAR', 'RAPIDASH_GALAR',
-    # Légendaires (listes des boss)
-    'ARTICUNO_GALAR', 'ZAPDOS_GALAR', 'MOLTRES_GALAR',
-]
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import biome_roster
 
-# Légendaires du roster en plus de ceux des 386 (build_categories.py)
-EXTRA_LEGENDARIES = ['ARTICUNO_GALAR', 'ZAPDOS_GALAR', 'MOLTRES_GALAR']
+# Espèces au-delà des 386 premières (gamedata.ROSTER les ajoute aux 386)
+_BASE_FORMS = {'CASTFORM', 'DEOXYS'}  # formes des 386 (CASTFORM_NORMAL, DEOXYS_NORMAL)
+def _extra_species():
+    import re
+    root = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+    nums = dict(re.findall(r'SPECIES_(\w+)\s*=\s*(\d+),', open(os.path.join(root, 'include/constants/species.h')).read()))
+    return [n for n in biome_roster.CATEGORY if n not in _BASE_FORMS and int(nums.get(n, 0)) > 386]
 
-# Formes régionales « à poids partagé » : elles n'ont pas de lignée à elles, le jeu tire l'espèce d'origine puis
-# choisit au hasard entre elle et ses formes (forme -> espèce d'origine). Les autres formes régionales du roster sont
-# des lignées à part dans isaac_biomes.h.
-SHARED_FORMS = {
-    'GEODUDE_ALOLA': 'GEODUDE', 'GRAVELER_ALOLA': 'GRAVELER', 'GOLEM_ALOLA': 'GOLEM',
-    'RATTATA_ALOLA': 'RATTATA', 'RATICATE_ALOLA': 'RATICATE', 'ZORUA_HISUI': 'ZORUA', 'ZOROARK_HISUI': 'ZOROARK',
-    'RAICHU_ALOLA': 'RAICHU', 'GROWLITHE_HISUI': 'GROWLITHE', 'ARCANINE_HISUI': 'ARCANINE',
-    'VOLTORB_HISUI': 'VOLTORB', 'ELECTRODE_HISUI': 'ELECTRODE', 'TYPHLOSION_HISUI': 'TYPHLOSION',
-    'AVALUGG_HISUI': 'AVALUGG', 'GRIMER_ALOLA': 'GRIMER', 'MUK_ALOLA': 'MUK', 'WEEZING_GALAR': 'WEEZING',
-    'DIGLETT_ALOLA': 'DIGLETT', 'DUGTRIO_ALOLA': 'DUGTRIO', 'EXEGGUTOR_ALOLA': 'EXEGGUTOR',
-}
+
+EXTRA_SPECIES = _extra_species()
+# Formes régionales « à poids partagé » : plus aucune dans le roster (le jeu tire l'espèce d'origine puis choisit au
+# hasard entre elle et ses formes, forme -> espèce d'origine)
+SHARED_FORMS = {}
 
 # Attaques que les sets peuvent donner en plus de celles qu'apprend l'espèce : celles du type gagné par les espèces
 # retypées (src/data/pokemon/species_info : Noarfang Spectre, Pharamp Dragon...). Les sets donnent leurs attaques
