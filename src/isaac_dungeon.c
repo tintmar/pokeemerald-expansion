@@ -127,7 +127,7 @@ STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSE
 // Articles de la boutique de l'étage déjà vendus, chacun en un seul exemplaire (voir SHOP_SLOT_*), dans des drapeaux
 // inutilisés du jeu
 #define FLAG_ISAAC_SHOP_SOLD_FIRST  FLAG_UNUSED_0x030
-#define SHOP_LIMITED_SLOTS  14
+#define SHOP_LIMITED_SLOTS  17
 STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED_0x047, IsaacShopFlagsAreUnused);
 
 // Passage vers la salle secrète de l'étage ouvert (sinon ses portes sont fermées par de la roche)
@@ -2426,8 +2426,8 @@ static void SetUpCaptureMons(s32 x, s32 y)
 //    Total Soin ;
 //  - jusqu'à l'étage SHOP_DISCOUNT_CARD_MAX_FLOOR, la Carte de Réduction (si on ne l'a pas déjà) : -SHOP_DISCOUNT_PCT %
 //    sur tous les autres articles jusqu'à la fin de la descente ;
-//  - deux objets de combat de sShopBattleItems et deux CT de sShopTMs (tirés pour la salle), un objet spécial
-//    (IsaacPickSpecialItem).
+//  - trois objets de combat de sShopBattleItems et trois CT de sShopTMs, tous différents (tirés pour la salle), à
+//    SHOP_HELD_TM_PRICE_PCT % de leur prix ; un objet spécial (IsaacPickSpecialItem), et rarement un second, différent.
 // Chacun n'est vraiment en vente qu'avec une chance qui dépend de l'article et de l'étage (sShopSlotPresentPct, tirée
 // pour l'étage, IsShopSlotPresent), en un seul exemplaire.
 // Les prix se comptent en dixièmes de SHOP_PRICE_UNIT_PER_FLOOR x étage (voir sShopPrices) : un étage rapporte de
@@ -2446,9 +2446,12 @@ enum
     SHOP_SLOT_FULL_HEAL,
     SHOP_SLOT_ITEM_1,
     SHOP_SLOT_ITEM_2,
+    SHOP_SLOT_ITEM_3,
     SHOP_SLOT_TM_1,
     SHOP_SLOT_TM_2,
+    SHOP_SLOT_TM_3,
     SHOP_SLOT_SPECIAL,
+    SHOP_SLOT_SPECIAL_2,
     SHOP_SLOT_DISCOUNT_CARD,
 };
 STATIC_ASSERT(SHOP_SLOT_DISCOUNT_CARD + 1 == SHOP_LIMITED_SLOTS, IsaacShopSlotCount);
@@ -2552,15 +2555,47 @@ static const struct IsaacShopPrice sShopPrices[] =
 #define SHOP_DISCOUNT_PCT            20
 #define SHOP_TM_PRICE_TENTHS       12
 #define SHOP_ITEM_PRICE_TENTHS     15
+#define SHOP_HELD_TM_PRICE_PCT     95  // objets de combat et CT : 5 % de moins
 #define SHOP_SPECIAL_PRICE_TENTHS  50  // objet spécial : très cher
 
 static EWRAM_DATA u16 sShopItems[SHOP_LIMITED_SLOTS + 1] = {0};
+
+// Objet n° index (0 à 2) parmi trois objets différents de list (count >= 3), tirés avec roll
+static u16 PickDistinctShopItem(const u16 *list, u32 count, u32 roll, u32 index)
+{
+    u32 first = roll % count, second = (first + 1 + (roll >> 8) % (count - 1)) % count, third, i;
+
+    if (index == 0)
+        return list[first];
+    if (index == 1)
+        return list[second];
+    third = (roll >> 16) % (count - 2);
+    for (i = 0; i < count; i++)
+    {
+        if (i == first || i == second)
+            continue;
+        if (third-- == 0)
+            break;
+    }
+    return list[i];
+}
+
+// Second objet spécial : différent du premier (quelques tirages)
+static u16 PickSecondShopSpecialItem(s32 x, s32 y)
+{
+    u16 first = IsaacPickSpecialItem(RoomRandom(x, y, 0x5495), TRUE), item = first;
+    u32 i;
+
+    for (i = 0; i < 8 && item == first; i++)
+        item = IsaacPickSpecialItem(RoomRandom(x, y, 0x5496 + i), TRUE);
+    return item;
+}
 
 // Article n° slot (SHOP_SLOT_*) de la boutique de la salle courante
 static u16 GetShopSlotItem(u32 slot)
 {
     s32 x, y;
-    u32 roll, first;
+    u32 roll;
 
     GetCurrentCell(&x, &y);
     roll = RoomRandom(x, y, 0x5409);
@@ -2583,20 +2618,17 @@ static u16 GetShopSlotItem(u32 slot)
     case SHOP_SLOT_FULL_HEAL:
         return ITEM_FULL_HEAL;
     case SHOP_SLOT_ITEM_1:
-    case SHOP_SLOT_ITEM_2:  // deux objets différents
-        first = roll % ARRAY_COUNT(sShopBattleItems);
-        if (slot == SHOP_SLOT_ITEM_1)
-            return sShopBattleItems[first];
-        return sShopBattleItems[(first + 1 + (roll >> 8) % (ARRAY_COUNT(sShopBattleItems) - 1)) % ARRAY_COUNT(sShopBattleItems)];
+    case SHOP_SLOT_ITEM_2:
+    case SHOP_SLOT_ITEM_3:  // trois objets différents
+        return PickDistinctShopItem(sShopBattleItems, ARRAY_COUNT(sShopBattleItems), roll, slot - SHOP_SLOT_ITEM_1);
     case SHOP_SLOT_TM_1:
-    case SHOP_SLOT_TM_2:  // deux CT différentes
-        roll = RoomRandom(x, y, 0x5470);
-        first = roll % ARRAY_COUNT(sShopTMs);
-        if (slot == SHOP_SLOT_TM_1)
-            return sShopTMs[first];
-        return sShopTMs[(first + 1 + (roll >> 8) % (ARRAY_COUNT(sShopTMs) - 1)) % ARRAY_COUNT(sShopTMs)];
+    case SHOP_SLOT_TM_2:
+    case SHOP_SLOT_TM_3:  // trois CT différentes
+        return PickDistinctShopItem(sShopTMs, ARRAY_COUNT(sShopTMs), RoomRandom(x, y, 0x5470), slot - SHOP_SLOT_TM_1);
     case SHOP_SLOT_DISCOUNT_CARD:
         return ITEM_DISCOUNT_CARD;
+    case SHOP_SLOT_SPECIAL_2:
+        return PickSecondShopSpecialItem(x, y);
     default:
         return IsaacPickSpecialItem(RoomRandom(x, y, 0x5495), TRUE);
     }
@@ -2624,11 +2656,11 @@ u32 IsaacGetShopPrice(u16 item)
     for (i = 0; i < ARRAY_COUNT(sShopPrices); i++)
         if (sShopPrices[i].item == item)
             return unit * sShopPrices[i].tenths / 10;
-    if (slot == SHOP_SLOT_TM_1 || slot == SHOP_SLOT_TM_2)
-        return unit * SHOP_TM_PRICE_TENTHS / 10;
-    if (slot == SHOP_SLOT_ITEM_1 || slot == SHOP_SLOT_ITEM_2)
-        return unit * SHOP_ITEM_PRICE_TENTHS / 10;
-    if (slot == SHOP_SLOT_SPECIAL)
+    if (slot >= SHOP_SLOT_TM_1 && slot <= SHOP_SLOT_TM_3)
+        return unit * SHOP_TM_PRICE_TENTHS / 10 * SHOP_HELD_TM_PRICE_PCT / 100;
+    if (slot >= SHOP_SLOT_ITEM_1 && slot <= SHOP_SLOT_ITEM_3)
+        return unit * SHOP_ITEM_PRICE_TENTHS / 10 * SHOP_HELD_TM_PRICE_PCT / 100;
+    if (slot == SHOP_SLOT_SPECIAL || slot == SHOP_SLOT_SPECIAL_2)
         return unit * SHOP_SPECIAL_PRICE_TENTHS / 10;
     return GetItemPrice(item);
 }
@@ -2665,9 +2697,12 @@ static const u8 sShopSlotPresentPct[SHOP_LIMITED_SLOTS][6] =
     [SHOP_SLOT_FULL_HEAL]     = { 60, 60, 60, 60, 60, 60 },
     [SHOP_SLOT_ITEM_1]        = { 50, 55, 60, 65, 70, 70 },
     [SHOP_SLOT_ITEM_2]        = { 50, 55, 60, 65, 70, 70 },
+    [SHOP_SLOT_ITEM_3]        = { 50, 55, 60, 65, 70, 70 },
     [SHOP_SLOT_TM_1]          = { 60, 60, 60, 55, 50, 45 },
     [SHOP_SLOT_TM_2]          = { 60, 60, 60, 55, 50, 45 },
+    [SHOP_SLOT_TM_3]          = { 60, 60, 60, 55, 50, 45 },
     [SHOP_SLOT_SPECIAL]       = { 50, 55, 60, 65, 70, 75 },
+    [SHOP_SLOT_SPECIAL_2]     = { 10, 10, 15, 15, 20, 20 },  // second objet spécial : rare
     [SHOP_SLOT_DISCOUNT_CARD] = { 70, 70, 60, 50,  0,  0 },  // jusqu'à SHOP_DISCOUNT_CARD_MAX_FLOOR
 };
 
@@ -2691,6 +2726,8 @@ void IsaacOpenShop(void)
         if (i == SHOP_SLOT_DISCOUNT_CARD
          && (VarGet(VAR_ISAAC_FLOOR) > SHOP_DISCOUNT_CARD_MAX_FLOOR || CheckBagHasItem(ITEM_DISCOUNT_CARD, 1)))
             continue;
+        if (i == SHOP_SLOT_SPECIAL_2 && GetShopSlotItem(i) == GetShopSlotItem(SHOP_SLOT_SPECIAL))
+            continue;  // pas deux fois le même objet spécial
         if (IsShopSlotPresent(i) && !FlagGet(FLAG_ISAAC_SHOP_SOLD_FIRST + i))
             sShopItems[n++] = GetShopSlotItem(i);
     }
