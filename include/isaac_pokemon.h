@@ -11,6 +11,15 @@ struct Pokemon;
 #define ISAAC_STARTER_CHOICES  6  // Pokémon proposés par le Montagnard du hub (écran de l'Usine de Combat)
 #define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux
 #define ISAAC_MOVE_TIER_SITUATIONAL  5  // tier des attaques situationnelles (src/data/isaac_move_tiers.h)
+// Rôle des attaques de statut (sIsaacMoveRoles, src/data/isaac_move_tiers.h)
+#define ISAAC_MOVE_ROLE_SETUP_PHYSICAL  (1 << 0)  // boost d'Attaque (ou de Vitesse)
+#define ISAAC_MOVE_ROLE_SETUP_SPECIAL   (1 << 1)  // boost d'Attaque Spéciale (ou de Vitesse)
+#define ISAAC_MOVE_ROLE_RECOVERY        (1 << 2)
+#define ISAAC_MOVE_ROLE_PROTECTION      (1 << 3)
+#define ISAAC_MOVE_ROLE_STATUS          (1 << 4)  // statut infligé (poison, brûlure, sommeil...)
+#define ISAAC_MOVE_ROLE_COMBO           (1 << 5)  // inutile seule (Blabla Dodo, Dévorêve...) ou perd un tour (Giga Impact)
+#define ISAAC_MOVE_ROLE_DEF_BOOST       (1 << 6)
+#define ISAAC_MOVE_ROLE_OTHER           (1 << 7)
 #define ISAAC_MAX_EVOLUTION_CHOICES  8  // évolutions au choix d'une Pierre Évolution (Évoli : 5)
 
 // Catégorie d'un Pokémon (tools/isaac/build_categories.py, d'après tools/isaac/biome_roster.py) : septiles de BST des
