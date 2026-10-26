@@ -3654,10 +3654,16 @@ static void EndRun(bool8 won)
     SetWarpDestination(MAP_GROUP(MAP_HUB), MAP_NUM(MAP_HUB), WARP_ID_NONE, HUB_RETURN_X, HUB_RETURN_Y);
 }
 
+// Une descente est-elle en cours (du premier étage jusqu'à sa fin) ?
+bool8 IsaacIsRunInProgress(void)
+{
+    return VarGet(VAR_ISAAC_FLOOR) != 0;
+}
+
 // K.O. de toute l'équipe (DoWhiteOut, après la destination du dernier soin) : pendant une descente, elle s'arrête là
 void IsaacOnWhiteOut(void)
 {
-    if (VarGet(VAR_ISAAC_FLOOR) != 0)
+    if (IsaacIsRunInProgress())
         EndRun(FALSE);
 }
 

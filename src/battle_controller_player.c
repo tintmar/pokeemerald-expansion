@@ -313,6 +313,11 @@ static void HandleInputChooseAction(enum BattlerId battler)
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_USE_MOVE, 0);
             break;
         case 1: // Top right
+            if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)  // donjon : pas d'objets contre un dresseur
+            {
+                PlaySE(SE_FAILURE);
+                return;
+            }
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_USE_ITEM, 0);
             break;
         case 2: // Bottom left

@@ -42,6 +42,7 @@ void IsaacOnShopPurchase(u16 item, u16 count);
 void IsaacOpenShop(void);
 void IsaacKecleonGreeting(void);
 void IsaacBufferFirstBiome(void);
+bool8 IsaacIsRunInProgress(void);
 void IsaacOnWhiteOut(void);
 void IsaacBuildAscensionMenu(void);
 void IsaacSetAscension(void);
