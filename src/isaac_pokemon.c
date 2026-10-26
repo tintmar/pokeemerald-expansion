@@ -813,28 +813,50 @@ static bool8 IsMoveInSpeciesSets(enum Species species, u16 move)
 
 // Attaque de tier supérieur pour le Pokémon, s'il était de l'espèce donnée (celle d'après l'évolution le cas échéant).
 // Tier visé : 1 de plus que l'entier le plus proche de la moyenne des tiers de ses attaques (sans les situationnelles ;
-// s'il n'a que des attaques situationnelles, le palier de son set plus 1), 4 au plus. Candidates, que l'espèce peut
-// apprendre (niveau, CT, tuteur) et que le Pokémon ne connaît pas :
-//  - les attaques offensives du tier visé dans la catégorie de son build (celle de la majorité de ses attaques
-//    offensives ; à égalité, sa meilleure stat d'attaque de base), sauf une attaque d'un type qu'il a déjà sans être
-//    d'un tier supérieur à la sienne (seulement s'il n'y a rien d'autre) ;
+// s'il n'a que des attaques situationnelles, le palier de son set plus 1), 4 au plus. Coup de chance : une attaque d'un
+// tier de plus encore (UPGRADE_JACKPOT_RARITY fois plus rare). Candidates, que l'espèce peut apprendre (niveau, CT,
+// tuteur) et que le Pokémon ne connaît pas, jamais une attaque ISAAC_MOVE_ROLE_COMBO (recharge, tour de charge,
+// Mitra-Poing...) :
+//  - les attaques offensives dans la catégorie de son build (celle de la majorité de ses attaques offensives ; à
+//    égalité, ou si la stat de base de cette catégorie est bien plus faible que l'autre, sa meilleure stat d'attaque
+//    de base), ou dans l'autre si les deux stats de base sont proches (mixte) ;
 //  - les attaques de statut du tier visé ou situationnelles qui sont dans les sets de l'espèce (de bonnes attaques pour
-//    elle), d'après leur rôle (sIsaacMoveRoles) : jamais celles qui ne servent qu'en combo (Blabla Dodo...), ni une
-//    seconde attaque d'un rôle qu'il a déjà (deux soins, deux boosts...). Un Pokémon offensif (au moins
-//    UPGRADE_OFFENSIVE_MOVES attaques offensives) ne prend qu'un boost de son build ou un soin (pas Repos).
-//  Jamais d'attaque offensive qui fait perdre un tour (recharge, tour de charge) ni peu fiable (Mitra-Poing, qui
-//  échoue si le Pokémon est touché) : ISAAC_MOVE_ROLE_COMBO, qui ne compte pas non plus parmi les attaques qu'il connaît
-//  pour le coverage et le tier.
-// Tirée au hasard, avec un poids UPGRADE_PRIORITY_WEIGHT (1 sinon) pour une attaque qui apporte du coverage (un type
-// que ses attaques offensives n'ont pas) ou qui est d'un tier supérieur à sa meilleure attaque de son type, et pour un
-// boost de son build ; poids plus fort encore pour une attaque de son type quand il n'en a aucune
-// (UPGRADE_NO_STAB_WEIGHT) ou que la meilleure est de tier faible (UPGRADE_WEAK_STAB_WEIGHT). La puissance brute
-// n'entre jamais en compte : seuls comptent le tier et l'utilité. MOVE_NONE s'il n'y en a pas.
-#define UPGRADE_PRIORITY_WEIGHT   3
-#define UPGRADE_NO_STAB_WEIGHT    10  // aucune attaque offensive de son type : une attaque de son type est très prioritaire
-#define UPGRADE_WEAK_STAB_TIER    3   // sa meilleure attaque de son type est d'un tier plus faible : celle qui la remplace est prioritaire
-#define UPGRADE_WEAK_STAB_WEIGHT  6
+//    elle), plus les boosts de tier 4 de son build même hors de ses sets (Danse Lames, Machination...), sans seconde
+//    attaque d'un rôle qu'il a déjà (deux soins, deux boosts...). Un Pokémon offensif (au moins UPGRADE_OFFENSIVE_MOVES
+//    attaques offensives) ne prend qu'un boost de son build ou un soin (pas Repos).
+// Chaque candidate reçoit un score d'intérêt (ScoreOffensiveUpgrade, ScoreStatusUpgrade), et le tirage se fait avec un
+// poids égal au carré du score : les attaques qui font vraiment plaisir sortent souvent, les autres restent possibles.
+// Le poids des attaques de coverage est divisé par le nombre de candidates de leur type (x 2 / (n + 1)), pour qu'un type
+// riche en attaques (Combat, Normal...) n'écrase pas les autres ; pas celui des attaques de son type, qu'on veut voir
+// souvent.
+// Une attaque offensive sans intérêt (un type qu'il a déjà, sans gain de tier) n'est proposée que s'il n'y a rien
+// d'autre. La puissance brute n'entre jamais en compte : seuls comptent le tier et l'utilité. MOVE_NONE s'il n'y a
+// aucune candidate.
 #define UPGRADE_OFFENSIVE_MOVES   2
+#define UPGRADE_JACKPOT_RARITY    4   // une attaque d'un tier au-dessus du tier visé : 4 fois moins de chances
+#define UPGRADE_MAX_COVERAGE      10  // plafond du score de coverage
+#define UPGRADE_WEAK_STAB_TIER    2   // sa meilleure attaque de son type est de ce tier ou moins : la remplacer presse
+#define UPGRADE_THREAT_TYPES      4   // types des biomes de cet étage et du suivant
+#define UPGRADE_MAX_CANDIDATES    96
+
+// Ce que le Pokémon a déjà, pour juger les candidates
+struct UpgradeContext
+{
+    u16 known[MAX_MON_MOVES];
+    enum Species species;
+    enum Type types[2];
+    uq4_12_t bestEffect[NUMBER_OF_MON_TYPES];  // meilleure efficacité de ses attaques offensives contre chaque type
+    u8 typeTier[NUMBER_OF_MON_TYPES];          // meilleur tier de ses attaques offensives de chaque type (0 : aucune)
+    enum Type threats[UPGRADE_THREAT_TYPES];   // types qu'il va affronter (biomes de cet étage et du suivant)
+    u8 threatCount;
+    u8 offensiveCount;
+    u8 stabTier;                               // meilleur tier de ses attaques de son type (0 : aucune)
+    u32 knownRoles;
+    u32 buildSetup;
+    bool8 wantsPhysical;
+    bool8 mixed;                               // ses deux stats d'attaque de base sont proches
+    bool8 bulky;                               // PV et défenses de base bien au-dessus de son attaque
+};
 
 // Rôle d'une attaque connue (lue sur le Pokémon, donc pas forcément valide) : 0 hors de la table.
 static u32 GetKnownMoveRole(u16 move)
@@ -842,111 +864,266 @@ static u32 GetKnownMoveRole(u16 move)
     return (move < MOVES_COUNT) ? sIsaacMoveRoles[move] : 0;
 }
 
-static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
+static bool8 IsCountedOffensiveMove(u16 move)
 {
-    u16 known[MAX_MON_MOVES], move, picked = MOVE_NONE;
-    u32 setTier = IsaacGetMonSetTier(mon), sum = 0, count = 0, physical = 0, special = 0, i, tier, target, pass;
-    u32 weight, total, bestTier, bestStabTier = 0, knownRoles = 0, role, buildSetup;
-    enum Type types[2], gem = IsaacGetMonGemType(mon), type;
-    bool8 wantsPhysical, covered, offensive;
+    return move != MOVE_NONE && move < MOVES_COUNT && GetMoveCategory(move) != DAMAGE_CATEGORY_STATUS
+        && !(GetKnownMoveRole(move) & ISAAC_MOVE_ROLE_COMBO);
+}
 
-    types[0] = GetSpeciesType(species, 0);
-    types[1] = (gem != TYPE_NONE) ? gem : GetSpeciesType(species, 1);
+static bool8 IsRealType(enum Type type)
+{
+    return type != TYPE_NONE && type != TYPE_MYSTERY && type != TYPE_STELLAR;
+}
+
+static void AddThreatType(struct UpgradeContext *ctx, enum Type type)
+{
+    u32 i;
+
+    for (i = 0; i < ctx->threatCount; i++)
+        if (ctx->threats[i] == type)
+            return;
+    if (ctx->threatCount < UPGRADE_THREAT_TYPES)
+        ctx->threats[ctx->threatCount++] = type;
+}
+
+// Remplit ctx ; renvoie le tier visé
+static u32 InitUpgradeContext(struct UpgradeContext *ctx, struct Pokemon *mon, enum Species species)
+{
+    const struct SpeciesInfo *info = &gSpeciesInfo[species];
+    u32 sum = 0, count = 0, physical = 0, special = 0, i, tier, buildStat, otherStat, target;
+    enum Type gem = IsaacGetMonGemType(mon), type, def;
+    uq4_12_t effect;
+
+    memset(ctx, 0, sizeof(*ctx));
+    ctx->species = species;
+    ctx->types[0] = GetSpeciesType(species, 0);
+    ctx->types[1] = (gem != TYPE_NONE) ? gem : GetSpeciesType(species, 1);
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        known[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
-        tier = GetMoveTierValue(known[i]);
+        ctx->known[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
+        tier = GetMoveTierValue(ctx->known[i]);
         if (tier != 0)
         {
             sum += tier;
             count++;
         }
-        if (known[i] == MOVE_NONE)
+        if (ctx->known[i] == MOVE_NONE)
             continue;
-        if (GetMoveCategory(known[i]) != DAMAGE_CATEGORY_STATUS && !(GetKnownMoveRole(known[i]) & ISAAC_MOVE_ROLE_COMBO)
-         && (GetMoveType(known[i]) == types[0] || GetMoveType(known[i]) == types[1]))
-            bestStabTier = max(bestStabTier, GetMoveTierValue(known[i]));
-        if (GetMoveCategory(known[i]) == DAMAGE_CATEGORY_PHYSICAL)
-            physical++;
-        else if (GetMoveCategory(known[i]) == DAMAGE_CATEGORY_SPECIAL)
-            special++;
-        else
-            knownRoles |= GetKnownMoveRole(known[i]);
-    }
-    target = (count == 0) ? setTier + 2 : (2 * sum + count) / (2 * count) + 1;
-    target = min(target, 4u);
-    if (physical != special)
-        wantsPhysical = physical > special;
-    else
-        wantsPhysical = gSpeciesInfo[species].baseAttack >= gSpeciesInfo[species].baseSpAttack;
-    offensive = (physical + special >= UPGRADE_OFFENSIVE_MOVES);
-    buildSetup = wantsPhysical ? ISAAC_MOVE_ROLE_SETUP_PHYSICAL : ISAAC_MOVE_ROLE_SETUP_SPECIAL;
-    if (knownRoles & (ISAAC_MOVE_ROLE_SETUP_PHYSICAL | ISAAC_MOVE_ROLE_SETUP_SPECIAL))
-        knownRoles |= ISAAC_MOVE_ROLE_SETUP_PHYSICAL | ISAAC_MOVE_ROLE_SETUP_SPECIAL;  // un seul boost
-
-    for (pass = 0, total = 0; pass < 2 && total == 0; pass++)  // ensuite, sans exclure les attaques sans gain
-    {
-        for (move = 1; move < MOVES_COUNT; move++)
+        if (GetMoveCategory(ctx->known[i]) == DAMAGE_CATEGORY_STATUS)
         {
-            tier = sIsaacMoveTiers[move];
-            if (tier == 0)
+            ctx->knownRoles |= GetKnownMoveRole(ctx->known[i]);
+            continue;
+        }
+        if (GetMoveCategory(ctx->known[i]) == DAMAGE_CATEGORY_PHYSICAL)
+            physical++;
+        else
+            special++;
+        if (!IsCountedOffensiveMove(ctx->known[i]))
+            continue;
+        ctx->offensiveCount++;
+        type = GetMoveType(ctx->known[i]);
+        ctx->typeTier[type] = max(ctx->typeTier[type], tier);
+        if (type == ctx->types[0] || type == ctx->types[1])
+            ctx->stabTier = max(ctx->stabTier, tier);
+        for (def = 0; def < NUMBER_OF_MON_TYPES; def++)
+        {
+            if (!IsRealType(def))
                 continue;
-            for (i = 0; i < MAX_MON_MOVES && known[i] != move; i++)
-                ;
-            if (i != MAX_MON_MOVES)
-                continue;
-            weight = 1;
-            if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
-            {
-                role = sIsaacMoveRoles[move];
-                if ((tier != target && tier != ISAAC_MOVE_TIER_SITUATIONAL) || (role & ISAAC_MOVE_ROLE_COMBO)
-                 || (role & knownRoles) || !IsMoveInSpeciesSets(species, move))
-                    continue;
-                if (offensive && (!(role & (buildSetup | ISAAC_MOVE_ROLE_RECOVERY)) || move == MOVE_REST))
-                    continue;
-                if (role & buildSetup)
-                    weight = UPGRADE_PRIORITY_WEIGHT;
-            }
-            else
-            {
-                if (tier != target || (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL) != wantsPhysical
-                 || (sIsaacMoveRoles[move] & ISAAC_MOVE_ROLE_COMBO))
-                    continue;
-                // attaques offensives connues du même type : y en a-t-il, et le meilleur tier
-                type = GetMoveType(move);
-                covered = FALSE;
-                bestTier = 0;
-                for (i = 0; i < MAX_MON_MOVES; i++)
-                {
-                    if (known[i] != MOVE_NONE && GetMoveCategory(known[i]) != DAMAGE_CATEGORY_STATUS
-                     && !(GetKnownMoveRole(known[i]) & ISAAC_MOVE_ROLE_COMBO) && GetMoveType(known[i]) == type)
-                    {
-                        covered = TRUE;
-                        bestTier = max(bestTier, GetMoveTierValue(known[i]));
-                    }
-                }
-                if (!covered)  // coverage, ou première attaque de son type
-                    weight = UPGRADE_PRIORITY_WEIGHT;
-                else if ((type == types[0] || type == types[1]) && tier > bestTier)
-                    weight = UPGRADE_PRIORITY_WEIGHT;  // nette amélioration d'une attaque de son type
-                else if (pass == 0 && tier <= bestTier)
-                    continue;  // pas mieux que ce qu'il a déjà dans ce type
-                if (type == types[0] || type == types[1])
-                {
-                    if (bestStabTier == 0)
-                        weight = UPGRADE_NO_STAB_WEIGHT;
-                    else if (bestStabTier < UPGRADE_WEAK_STAB_TIER && tier > bestStabTier)
-                        weight = max(weight, (u32)UPGRADE_WEAK_STAB_WEIGHT);
-                }
-            }
-            if (!CanSpeciesLearnMove(species, move))
-                continue;
-            total += weight;
-            if (Random() % total < weight)
-                picked = move;
+            effect = GetTypeModifier(type, def);
+            if (effect > ctx->bestEffect[def])
+                ctx->bestEffect[def] = effect;
         }
     }
-    return picked;
+    target = (count == 0) ? IsaacGetMonSetTier(mon) + 2 : (2 * sum + count) / (2 * count) + 1;
+    target = min(target, 4u);
+
+    if (physical != special)
+        ctx->wantsPhysical = physical > special;
+    else
+        ctx->wantsPhysical = info->baseAttack >= info->baseSpAttack;
+    buildStat = ctx->wantsPhysical ? info->baseAttack : info->baseSpAttack;
+    otherStat = ctx->wantsPhysical ? info->baseSpAttack : info->baseAttack;
+    if (3 * buildStat < 2 * otherStat)  // ses attaques ne vont pas avec ses stats (Leuphorie et Damoclès) : sa meilleure stat
+    {
+        ctx->wantsPhysical = !ctx->wantsPhysical;
+        SWAP(buildStat, otherStat, i);
+    }
+    ctx->mixed = (10 * min(buildStat, otherStat) >= 9 * max(buildStat, otherStat));
+    ctx->bulky = (2 * (info->baseHP + info->baseDefense + info->baseSpDefense) >= 5 * max(info->baseAttack, info->baseSpAttack));
+    ctx->buildSetup = ctx->wantsPhysical ? ISAAC_MOVE_ROLE_SETUP_PHYSICAL : ISAAC_MOVE_ROLE_SETUP_SPECIAL;
+    if (ctx->mixed)
+        ctx->buildSetup |= ISAAC_MOVE_ROLE_SETUP_PHYSICAL | ISAAC_MOVE_ROLE_SETUP_SPECIAL;
+    if (ctx->knownRoles & (ISAAC_MOVE_ROLE_SETUP_PHYSICAL | ISAAC_MOVE_ROLE_SETUP_SPECIAL))
+        ctx->knownRoles |= ISAAC_MOVE_ROLE_SETUP_PHYSICAL | ISAAC_MOVE_ROLE_SETUP_SPECIAL;  // un seul boost
+
+    for (i = 0; i < 2; i++)
+    {
+        AddThreatType(ctx, gIsaacBiomes[IsaacGetCurrentBiome()].types[i]);
+        AddThreatType(ctx, gIsaacBiomes[IsaacGetNextBiome()].types[i]);
+    }
+    return target;
+}
+
+// Score d'une attaque offensive de tier tier, 0 si elle n'apporte rien (un type qu'il a déjà, sans gain de tier) :
+//  - attaque de son type (STAB) : très forte s'il n'en a aucune, forte pour le second type d'un double type, sinon
+//    selon le gain de tier sur la meilleure de ce type, plus encore si sa meilleure attaque de son type est faible ;
+//  - coverage réel, d'après la table des types : chaque type qu'aucune de ses attaques ne touche en super efficace et
+//    qu'elle touche en super efficace, et surtout chaque type qui résiste à toutes ses attaques et qu'elle touche au
+//    moins normalement (plafonné à UPGRADE_MAX_COVERAGE) ;
+//  - les types des biomes de cet étage et du suivant qu'elle touche en super efficace, surtout s'il n'a rien contre eux ;
+//  - un petit bonus si elle est dans les sets de l'espèce (une attaque qui lui va bien).
+static u32 ScoreOffensiveUpgrade(const struct UpgradeContext *ctx, u16 move, u32 tier)
+{
+    enum Type type = GetMoveType(move), def;
+    u32 score = 2, coverage = 0, i;
+    uq4_12_t effect;
+
+    if (ctx->typeTier[type] >= tier)
+        return 0;
+    if (type == ctx->types[0] || type == ctx->types[1])
+    {
+        if (ctx->stabTier == 0)
+            score += 12;  // enfin une attaque de son type
+        else if (ctx->typeTier[type] == 0)
+            score += 6;   // son second type
+        else
+            score += 7 * (tier - ctx->typeTier[type]);  // nette amélioration de son attaque de ce type
+        if (ctx->stabTier != 0 && ctx->stabTier <= UPGRADE_WEAK_STAB_TIER)
+            score += 4;
+    }
+    else if (ctx->typeTier[type] != 0)
+    {
+        score += 2 * (tier - ctx->typeTier[type]);  // meilleure version d'une attaque de coverage
+    }
+
+    if (ctx->offensiveCount == 0)
+    {
+        coverage = 4;
+    }
+    else
+    {
+        for (def = 0; def < NUMBER_OF_MON_TYPES; def++)
+        {
+            if (!IsRealType(def))
+                continue;
+            effect = GetTypeModifier(type, def);
+            if (effect >= UQ_4_12(2.0) && ctx->bestEffect[def] < UQ_4_12(2.0))
+                coverage += 2;
+            if (effect >= UQ_4_12(1.0) && ctx->bestEffect[def] < UQ_4_12(1.0))
+                coverage += 3;  // un type qui résistait à tout
+        }
+    }
+    score += min(coverage, (u32)UPGRADE_MAX_COVERAGE);
+
+    for (i = 0; i < ctx->threatCount; i++)
+        if (GetTypeModifier(type, ctx->threats[i]) >= UQ_4_12(2.0))
+            score += (ctx->bestEffect[ctx->threats[i]] >= UQ_4_12(2.0)) ? 1 : 3;
+
+    if (IsMoveInSpeciesSets(ctx->species, move))
+        score += 2;
+    return score;
+}
+
+// Score d'une attaque de statut de tier tier (ISAAC_MOVE_TIER_SITUATIONAL pour une situationnelle), 0 si elle n'est pas
+// candidate :
+// boost de son build (bien plus fort s'il a des attaques pour en profiter), soin (plus fort s'il est bulky), statut
+// infligé, boost de défense (bulky), le reste à peine ; bonus pour une attaque de tier 4
+static u32 ScoreStatusUpgrade(const struct UpgradeContext *ctx, u16 move, u32 tier)
+{
+    u32 role = sIsaacMoveRoles[move], score = 2;
+    bool8 offensive = (ctx->offensiveCount >= UPGRADE_OFFENSIVE_MOVES);
+
+    if ((role & ISAAC_MOVE_ROLE_COMBO) || (role & ctx->knownRoles))
+        return 0;
+    if (move == MOVE_CURSE && (ctx->types[0] == TYPE_GHOST || ctx->types[1] == TYPE_GHOST))
+        return 0;  // pour un Spectre, ce n'est plus un boost
+    if (!IsMoveInSpeciesSets(ctx->species, move) && !((role & ctx->buildSetup) && tier == 4))
+        return 0;
+    if (offensive && (!(role & (ctx->buildSetup | ISAAC_MOVE_ROLE_RECOVERY)) || move == MOVE_REST))
+        return 0;
+    if (tier == 4)
+        score += 3;
+    if (role & ctx->buildSetup)
+        score += (ctx->offensiveCount >= UPGRADE_OFFENSIVE_MOVES) ? 10 : 3;
+    else if (role & (ISAAC_MOVE_ROLE_SETUP_PHYSICAL | ISAAC_MOVE_ROLE_SETUP_SPECIAL))
+        return 0;  // le boost de l'autre build
+    else if (role & ISAAC_MOVE_ROLE_RECOVERY)
+        score += ctx->bulky ? 9 : 6;
+    else if (role & ISAAC_MOVE_ROLE_STATUS)
+        score += 5;
+    else if (role & ISAAC_MOVE_ROLE_DEF_BOOST)
+        score += ctx->bulky ? 5 : 2;
+    else
+        score += 1;
+    return score;
+}
+
+static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
+{
+    struct UpgradeContext ctx;
+    u16 moves[UPGRADE_MAX_CANDIDATES], move, fallback = MOVE_NONE;
+    u32 weights[UPGRADE_MAX_CANDIDATES], count = 0, fallbackTotal = 0, total = 0, roll, tier, rawTier, score, i;
+    u8 typeCount[NUMBER_OF_MON_TYPES] = {0};
+    u32 target = InitUpgradeContext(&ctx, mon, species);
+    bool8 jackpot, physical;
+
+    for (move = 1; move < MOVES_COUNT && count < UPGRADE_MAX_CANDIDATES; move++)
+    {
+        tier = rawTier = sIsaacMoveTiers[move];
+        if (tier == 0 || (sIsaacMoveRoles[move] & ISAAC_MOVE_ROLE_COMBO))
+            continue;
+        for (i = 0; i < MAX_MON_MOVES && ctx.known[i] != move; i++)
+            ;
+        if (i != MAX_MON_MOVES)
+            continue;
+        if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS && tier == ISAAC_MOVE_TIER_SITUATIONAL)
+            tier = target;
+        jackpot = (tier == target + 1);
+        if (tier != target && !jackpot)
+            continue;
+        if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
+        {
+            score = ScoreStatusUpgrade(&ctx, move, rawTier);
+            if (score == 0)
+                continue;
+        }
+        else
+        {
+            physical = (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL);
+            if (physical != ctx.wantsPhysical && !ctx.mixed)
+                continue;
+            score = ScoreOffensiveUpgrade(&ctx, move, tier);
+        }
+        if (!CanSpeciesLearnMove(species, move))
+            continue;
+        if (score == 0)  // sans intérêt : seulement s'il n'y a rien d'autre
+        {
+            if (!jackpot && Random() % ++fallbackTotal == 0)
+                fallback = move;
+            continue;
+        }
+        moves[count] = move;
+        weights[count++] = score * score * (jackpot ? 1 : UPGRADE_JACKPOT_RARITY);
+        if (GetMoveCategory(move) != DAMAGE_CATEGORY_STATUS)
+            typeCount[GetMoveType(move)]++;
+    }
+    if (count == 0)
+        return fallback;
+    // un type de coverage qui a beaucoup d'attaques candidates ne doit pas écraser les autres : poids x 2 / (n + 1)
+    for (i = 0; i < count; i++)
+    {
+        enum Type type = GetMoveType(moves[i]);
+
+        if (GetMoveCategory(moves[i]) != DAMAGE_CATEGORY_STATUS && type != ctx.types[0] && type != ctx.types[1])
+            weights[i] = weights[i] * 2 / (typeCount[type] + 1);
+        total += weights[i];
+    }
+    if (total == 0)
+        return moves[0];
+    roll = Random32() % total;
+    for (i = 0; i + 1 < count && roll >= weights[i]; i++)
+        roll -= weights[i];
+    return moves[i];
 }
 
 // Un cran d'EVs pour le Pokémon n° slot, avec la scène de message (FALSE si ses EVs sont déjà au maximum)
