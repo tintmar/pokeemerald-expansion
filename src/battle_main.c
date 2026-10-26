@@ -3621,6 +3621,8 @@ bool32 EndTurnEvents(void) // Called from Battle Script
     for (u32 i = 0; i < 5; i++)
         gBattleCommunication[i] = 0;
 
+    IsaacRecordActiveTurn();  // donjon : progression par les combats
+
     if (gBattleOutcome != 0)
     {
         gCurrentActionFuncId = B_ACTION_FINISHED;
@@ -5400,11 +5402,11 @@ static void TryEvolvePokemon(void)
             }
         }
     }
-    // Donjon : boss vaincu, le Pokémon qui a fait le plus de K.O. évolue (IsaacPickBossEvolution)
+    // Donjon : dresseur vaincu, évolution ou attaque de tier supérieur du Pokémon le plus actif
+    // (IsaacPickBattleProgression)
     {
         u32 slot;
-        enum Species species = IsaacPickBossEvolution(gBattleOutcome == B_OUTCOME_WON
-                                                   && TRAINER_BATTLE_PARAM.opponentA == TRAINER_ISAAC_BOSS, &slot);
+        enum Species species = IsaacPickBattleProgression(gBattleOutcome == B_OUTCOME_WON, &slot);
 
         if (species != SPECIES_NONE)
         {

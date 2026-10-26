@@ -1773,12 +1773,13 @@ void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party)
         GetCurrentCell(&x, &y);  // l'as du dresseur de salle (sRoomTrainerParties)
         for (n = GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET))->aceBoosts; n != 0; n--)
             IsaacAddOmniboost(&party[sRoomTrainer.partySize - 1]);
+        IsaacProgressionStart(FALSE);
         return;
     }
     if (trainerId != TRAINER_ISAAC_BOSS || !IsIsaacTrainer(trainerId) || sRoomTrainer.partySize == 0)
         return;
     IsaacGoldenHeartStart();  // le Cœur Doré utilisé depuis le sac, s'il y en a un
-    IsaacBossEvolutionStart();
+    IsaacProgressionStart(TRUE);
     // un objet par Pokémon, en remontant depuis l'as
     ace = &party[sRoomTrainer.partySize - 1];
     if (boss->aceBrilliant)

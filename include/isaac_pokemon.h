@@ -10,6 +10,7 @@ struct Pokemon;
 #define ISAAC_SET_VARIANTS  2  // variantes de chaque palier (A, B) : même force, rôles différents
 #define ISAAC_STARTER_CHOICES  6  // Pokémon proposés par le Montagnard du hub (écran de l'Usine de Combat)
 #define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux
+#define ISAAC_MOVE_TIER_SITUATIONAL  5  // tier des attaques situationnelles (src/data/isaac_move_tiers.h)
 #define ISAAC_MAX_EVOLUTION_CHOICES  8  // évolutions au choix d'une Pierre Évolution (Évoli : 5)
 
 // Catégorie d'un Pokémon (tools/isaac/build_categories.py, d'après tools/isaac/biome_roster.py) : septiles de BST des
@@ -113,10 +114,10 @@ bool8 IsaacUseGoldenHeart(void);
 void IsaacGoldenHeartReset(void);
 void IsaacGoldenHeartStart(void);
 void IsaacGoldenHeartEnd(void);
-void IsaacBossEvolutionStart(void);
-void IsaacRecordKO(enum BattlerId fainted);
-enum Species IsaacPickBossEvolution(bool8 won, u32 *outSlot);
-const u8 *IsaacGetEvolutionIntroText(void);
+void IsaacProgressionStart(bool8 boss);
+void IsaacRecordActiveTurn(void);
+enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot);
+const u8 *IsaacGetEvolutionIntroText(bool8 *learnOnly);
 enum Type IsaacGetMonGemType(struct Pokemon *mon);
 void IsaacGetMonTypes(struct Pokemon *mon, enum Type *types);
 bool8 IsaacUseTypeGem(struct Pokemon *mon, enum Type type);

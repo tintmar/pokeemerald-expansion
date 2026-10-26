@@ -32,6 +32,7 @@
 #include "data/isaac_sets.h"
 #include "data/isaac_biomes.h"
 #include "data/isaac_categories.h"
+#include "data/isaac_move_tiers.h"
 
 // NULL si l'espèce n'a pas de sets (hors du roster)
 const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier, u32 variant)
@@ -622,33 +623,65 @@ void IsaacGoldenHeartEnd(void)
 }
 
 // ---------------------------------------------------------------------------
-// Évolution après le boss
+// Progression par les combats
 // ---------------------------------------------------------------------------
 
-// Pendant le combat contre le boss, chaque Pokémon de l'équipe compte les K.O. qu'il inflige. Boss vaincu, celui qui
-// n'est pas à son stade final et en a le plus évolue (à égalité, le premier de l'équipe ; il en faut au moins un ;
-// s'il a plusieurs évolutions, l'une d'elles au hasard).
-static EWRAM_DATA u8 sIsaacBossKOs[PARTY_SIZE] = {0};
-static EWRAM_DATA bool8 sIsaacBossEvolutionPending = FALSE;
-static EWRAM_DATA bool8 sIsaacBossEvolutionIntro = FALSE;
+// Pendant un combat contre un dresseur de salle ou le boss, chaque Pokémon de l'équipe compte ses tours actifs (sur le
+// terrain à la fin du tour). Combat gagné : le Pokémon qui n'est pas à son stade final et en a le plus évolue
+// (sProgressionEvolutionPct % de chances selon l'étage, toujours contre le boss ; s'il a plusieurs évolutions, l'une
+// de celles qui collent le mieux au biome), et apprend en même temps une attaque de tier supérieur pour sa nouvelle
+// espèce (PickUpgradeMove). Sinon, le Pokémon qui a le plus de tours actifs apprend une attaque de tier supérieur
+// (sProgressionMovePct %, toujours contre le boss), dans l'écran de l'évolution mais sans l'animation. Sinon, rien.
+// À égalité, le premier de l'équipe.
+static const u8 sProgressionEvolutionPct[] = { 10, 12, 14, 16, 18, 20 };  // par étage
+static const u8 sProgressionMovePct[]      = { 20, 22, 24, 26, 28, 30 };
 
-// Début du combat contre le boss
-void IsaacBossEvolutionStart(void)
+enum
 {
-    memset(sIsaacBossKOs, 0, sizeof(sIsaacBossKOs));
-    sIsaacBossEvolutionPending = TRUE;
+    PROGRESSION_NONE,
+    PROGRESSION_ROOM,
+    PROGRESSION_BOSS,
+};
+
+enum
+{
+    PROGRESSION_SCENE_NONE,
+    PROGRESSION_SCENE_EVOLUTION,
+    PROGRESSION_SCENE_MOVE,
+};
+
+static EWRAM_DATA u8 sIsaacActiveTurns[PARTY_SIZE] = {0};
+static EWRAM_DATA u8 sIsaacProgressionBattle = PROGRESSION_NONE;
+static EWRAM_DATA u8 sIsaacProgressionScene = PROGRESSION_SCENE_NONE;  // scène d'évolution lancée par la progression
+
+// Attaques à proposer pendant la scène d'évolution en cours (MOVE_NONE : aucune) : celles du set évolué
+// (IsaacPrepareEvolutionMoves), puis l'attaque de tier supérieur de la progression
+static EWRAM_DATA u16 sIsaacEvolutionMoves[MAX_MON_MOVES + 1] = {0};
+static EWRAM_DATA u8 sIsaacEvolutionMoveIndex = 0;
+
+// Début du combat contre un dresseur de salle ou le boss
+void IsaacProgressionStart(bool8 boss)
+{
+    memset(sIsaacActiveTurns, 0, sizeof(sIsaacActiveTurns));
+    sIsaacProgressionBattle = boss ? PROGRESSION_BOSS : PROGRESSION_ROOM;
 }
 
-// Un Pokémon adverse est mis K.O. : le Pokémon du joueur qui attaquait le compte
-void IsaacRecordKO(enum BattlerId fainted)
+// Fin d'un tour (et fin du combat) : chaque Pokémon du joueur sur le terrain compte un tour actif
+void IsaacRecordActiveTurn(void)
 {
+    enum BattlerId battler;
     u32 slot;
 
-    if (!sIsaacBossEvolutionPending || IsOnPlayerSide(fainted) || !IsOnPlayerSide(gBattlerAttacker))
+    if (sIsaacProgressionBattle == PROGRESSION_NONE)
         return;
-    slot = gBattlerPartyIndexes[gBattlerAttacker];
-    if (slot < PARTY_SIZE && sIsaacBossKOs[slot] < 255)
-        sIsaacBossKOs[slot]++;
+    for (battler = 0; battler < gBattlersCount; battler++)
+    {
+        if (!IsOnPlayerSide(battler))
+            continue;
+        slot = gBattlerPartyIndexes[battler];
+        if (slot < PARTY_SIZE && sIsaacActiveTurns[slot] < 255)
+            sIsaacActiveTurns[slot]++;
+    }
 }
 
 // Nombre de types de l'espèce parmi les types principaux du biome courant
@@ -677,51 +710,192 @@ static u32 KeepBiomeEvolutions(u16 *choices, u32 count)
     return n;
 }
 
-// Après le combat (une seule fois) : évolution du Pokémon qui a fait le plus de K.O. contre le boss, s'il a gagné.
-// Renvoie l'espèce visée et sa place dans l'équipe, SPECIES_NONE s'il n'y a rien à faire évoluer.
-enum Species IsaacPickBossEvolution(bool8 won, u32 *outSlot)
+// Tier d'une attaque pour la moyenne du Pokémon (sIsaacMoveTiers) : 0 pour une attaque situationnelle ou sans tier
+// (ignorée)
+static u32 GetMoveTierValue(u16 move)
 {
-    u16 choices[ISAAC_MAX_EVOLUTION_CHOICES];
-    u32 i, best = PARTY_SIZE, count = 0, n;
-    struct Pokemon *mon;
+    u32 tier = (move < MOVES_COUNT) ? sIsaacMoveTiers[move] : 0;
 
-    if (!sIsaacBossEvolutionPending)
+    return (tier == ISAAC_MOVE_TIER_SITUATIONAL) ? 0 : tier;
+}
+
+static bool8 CanSpeciesLearnMove(enum Species species, u16 move)
+{
+    const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
+    u32 i;
+
+    if (CanLearnTeachableMove(species, move))
+        return TRUE;
+    for (i = 0; learnset[i].move != LEVEL_UP_MOVE_END; i++)
+        if (learnset[i].move == move)
+            return TRUE;
+    return FALSE;
+}
+
+// L'attaque est-elle dans un des sets de l'espèce ?
+static bool8 IsMoveInSpeciesSets(enum Species species, u16 move)
+{
+    const struct TrainerMon *set;
+    u32 tier, variant, i;
+
+    for (tier = 0; tier < ISAAC_SET_TIERS; tier++)
+    {
+        for (variant = 0; variant < ISAAC_SET_VARIANTS; variant++)
+        {
+            set = IsaacGetSet(species, tier, variant);
+            if (set == NULL)
+                return FALSE;
+            for (i = 0; i < MAX_MON_MOVES; i++)
+                if (set->moves[i] == move)
+                    return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+// Attaque de tier supérieur pour le Pokémon, s'il était de l'espèce donnée (celle d'après l'évolution le cas échéant).
+// Tier visé : 1 de plus que l'entier le plus proche de la moyenne des tiers de ses attaques (sans les situationnelles ;
+// s'il n'a que des attaques situationnelles, le palier de son set plus 1), 4 au plus. Candidates, que l'espèce peut apprendre (niveau, CT, tuteur) et que le Pokémon ne
+// connaît pas : les attaques offensives du tier visé dans la catégorie de son build (celle de la majorité de ses
+// attaques offensives ; à égalité, sa meilleure stat d'attaque de base), de préférence d'un de ses types ou d'un type
+// que ses attaques n'ont pas encore ; les attaques de statut du tier visé ou situationnelles qui sont dans les sets de
+// l'espèce (de bonnes attaques pour elle). Tirée au hasard ; MOVE_NONE s'il n'y en a pas.
+static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
+{
+    u16 known[MAX_MON_MOVES], move, picked = MOVE_NONE;
+    u32 setTier = IsaacGetMonSetTier(mon), sum = 0, count = 0, physical = 0, special = 0, i, tier, target, n, pass;
+    enum Type types[2], gem = IsaacGetMonGemType(mon);
+    bool8 wantsPhysical, ok;
+
+    types[0] = GetSpeciesType(species, 0);
+    types[1] = (gem != TYPE_NONE) ? gem : GetSpeciesType(species, 1);
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        known[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
+        tier = GetMoveTierValue(known[i]);
+        if (tier != 0)
+        {
+            sum += tier;
+            count++;
+        }
+        if (known[i] != MOVE_NONE && GetMoveCategory(known[i]) == DAMAGE_CATEGORY_PHYSICAL)
+            physical++;
+        else if (known[i] != MOVE_NONE && GetMoveCategory(known[i]) == DAMAGE_CATEGORY_SPECIAL)
+            special++;
+    }
+    target = (count == 0) ? setTier + 2 : (2 * sum + count) / (2 * count) + 1;
+    target = min(target, 4u);
+    if (physical != special)
+        wantsPhysical = physical > special;
+    else
+        wantsPhysical = gSpeciesInfo[species].baseAttack >= gSpeciesInfo[species].baseSpAttack;
+
+    for (pass = 0, n = 0; pass < 2 && n == 0; pass++)  // d'abord les types utiles, puis tous
+    {
+        for (move = 1; move < MOVES_COUNT; move++)
+        {
+            tier = sIsaacMoveTiers[move];
+            if (tier == 0)
+                continue;
+            for (i = 0; i < MAX_MON_MOVES && known[i] != move; i++)
+                ;
+            if (i != MAX_MON_MOVES)
+                continue;
+            if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
+            {
+                ok = (tier == target || tier == ISAAC_MOVE_TIER_SITUATIONAL) && IsMoveInSpeciesSets(species, move);
+            }
+            else
+            {
+                ok = tier == target && (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL) == wantsPhysical;
+                if (ok && pass == 0 && GetMoveType(move) != types[0] && GetMoveType(move) != types[1])
+                {
+                    for (i = 0; i < MAX_MON_MOVES; i++)  // un type que ses attaques offensives n'ont pas
+                        if (known[i] != MOVE_NONE && GetMoveCategory(known[i]) != DAMAGE_CATEGORY_STATUS
+                         && GetMoveType(known[i]) == GetMoveType(move))
+                            ok = FALSE;
+                }
+            }
+            if (ok && CanSpeciesLearnMove(species, move) && Random() % ++n == 0)
+                picked = move;
+        }
+    }
+    return picked;
+}
+
+// Après le combat (une seule fois) : évolution ou attaque de tier supérieur (voir plus haut). Renvoie l'espèce de la
+// scène d'évolution à lancer (celle du Pokémon pour un simple apprentissage) et sa place dans l'équipe, SPECIES_NONE
+// s'il ne se passe rien.
+enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
+{
+    u16 choices[ISAAC_MAX_EVOLUTION_CHOICES], move;
+    u32 i, evolver = PARTY_SIZE, active = PARTY_SIZE, count, floor;
+    bool8 boss = (sIsaacProgressionBattle == PROGRESSION_BOSS);
+    struct Pokemon *mon;
+    enum Species species;
+
+    if (sIsaacProgressionBattle == PROGRESSION_NONE)
         return SPECIES_NONE;
-    sIsaacBossEvolutionPending = FALSE;
+    IsaacRecordActiveTurn();  // le dernier tour, qui finit le combat sans passer par la fin de tour
+    sIsaacProgressionBattle = PROGRESSION_NONE;
     if (!won)
         return SPECIES_NONE;
+    floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sProgressionEvolutionPct)) - 1;
     for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
     {
         mon = &gParties[B_TRAINER_PLAYER][i];
-        if (sIsaacBossKOs[i] == 0 || GetMonData(mon, MON_DATA_IS_EGG)
-         || (best != PARTY_SIZE && sIsaacBossKOs[i] <= sIsaacBossKOs[best]))
+        if (sIsaacActiveTurns[i] == 0 || GetMonData(mon, MON_DATA_IS_EGG))
             continue;
-        n = IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), FALSE, choices, ARRAY_COUNT(choices));
-        if (n == 0)
-            continue;
-        best = i;
-        count = n;
+        if (active == PARTY_SIZE || sIsaacActiveTurns[i] > sIsaacActiveTurns[active])
+            active = i;
+        if ((evolver == PARTY_SIZE || sIsaacActiveTurns[i] > sIsaacActiveTurns[evolver])
+         && IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), FALSE, choices, ARRAY_COUNT(choices)) != 0)
+            evolver = i;
     }
-    if (best == PARTY_SIZE)
-        return SPECIES_NONE;
-    mon = &gParties[B_TRAINER_PLAYER][best];
-    IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), FALSE, choices, ARRAY_COUNT(choices));
-    count = KeepBiomeEvolutions(choices, count);
-    *outSlot = best;
-    i = Random() % count;
-    IsaacPrepareEvolutionMoves(mon, choices[i]);
-    sIsaacBossEvolutionIntro = TRUE;
-    return choices[i];
+    if (evolver != PARTY_SIZE && (boss || Random() % 100 < sProgressionEvolutionPct[floor]))
+    {
+        mon = &gParties[B_TRAINER_PLAYER][evolver];
+        count = IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), FALSE, choices, ARRAY_COUNT(choices));
+        count = KeepBiomeEvolutions(choices, count);
+        species = choices[Random() % count];
+        IsaacPrepareEvolutionMoves(mon, species);
+        sIsaacEvolutionMoves[MAX_MON_MOVES] = PickUpgradeMove(mon, species);
+        sIsaacProgressionScene = PROGRESSION_SCENE_EVOLUTION;
+        *outSlot = evolver;
+        return species;
+    }
+    if (active != PARTY_SIZE && (boss || Random() % 100 < sProgressionMovePct[floor]))
+    {
+        mon = &gParties[B_TRAINER_PLAYER][active];
+        species = GetMonData(mon, MON_DATA_SPECIES);
+        move = PickUpgradeMove(mon, species);
+        if (move != MOVE_NONE)
+        {
+            memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
+            sIsaacEvolutionMoves[MAX_MON_MOVES] = move;
+            sIsaacProgressionScene = PROGRESSION_SCENE_MOVE;
+            *outSlot = active;
+            return species;
+        }
+    }
+    return SPECIES_NONE;
 }
 
-// Début de la scène d'évolution : texte d'annonce, qui explique l'évolution après le boss
-const u8 *IsaacGetEvolutionIntroText(void)
+// Début de la scène d'évolution : texte d'annonce, qui explique la progression après le combat. *learnOnly : la scène
+// ne fait qu'apprendre une attaque (pas d'animation d'évolution).
+const u8 *IsaacGetEvolutionIntroText(bool8 *learnOnly)
 {
-    if (!sIsaacBossEvolutionIntro)
-        return gText_PkmnIsEvolving;
-    sIsaacBossEvolutionIntro = FALSE;
-    return COMPOUND_STRING("{STR_VAR_1} knocked out the most\nPokémon in this fight!\p"
-                           "To reward its efforts…\pWhat? {STR_VAR_1} is evolving!");
+    u32 scene = sIsaacProgressionScene;
+
+    sIsaacProgressionScene = PROGRESSION_SCENE_NONE;
+    *learnOnly = (scene == PROGRESSION_SCENE_MOVE);
+    if (scene == PROGRESSION_SCENE_EVOLUTION)
+        return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
+                               "To reward its efforts…\pWhat? {STR_VAR_1} is evolving!");
+    if (scene == PROGRESSION_SCENE_MOVE)
+        return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
+                               "It gained new experience!");
+    return gText_PkmnIsEvolving;
 }
 
 // ---------------------------------------------------------------------------
@@ -869,11 +1043,7 @@ static const u16 sIsaacEvolutionLearnSpecies[] =
     SPECIES_CASCOON,
 };
 
-// Attaques à proposer pendant l'évolution en cours (MOVE_NONE : aucune)
-static EWRAM_DATA u16 sIsaacEvolutionMoves[MAX_MON_MOVES] = {0};
-static EWRAM_DATA u8 sIsaacEvolutionMoveIndex = 0;
-
-// Avant la scène d'évolution de mon vers target par la Pierre Évolution
+// Avant la scène d'évolution de mon vers target (Pierre Évolution, progression par les combats)
 void IsaacPrepareEvolutionMoves(struct Pokemon *mon, enum Species target)
 {
     enum Species species = GetMonData(mon, MON_DATA_SPECIES);
@@ -887,7 +1057,7 @@ void IsaacPrepareEvolutionMoves(struct Pokemon *mon, enum Species target)
         return;
     set = IsaacGetSet(target, IsaacGetMonSetTier(mon), IsaacGetMonSetVariant(mon));
     if (set != NULL)
-        memcpy(sIsaacEvolutionMoves, set->moves, sizeof(sIsaacEvolutionMoves));
+        memcpy(sIsaacEvolutionMoves, set->moves, sizeof(set->moves));
 }
 
 // Pendant la scène d'évolution, à la place de MonTryLearningNewMoveEvolution : attaque suivante à proposer
@@ -896,7 +1066,7 @@ u16 IsaacTryLearningEvolutionMove(struct Pokemon *mon, bool8 firstMove)
 {
     if (firstMove)
         sIsaacEvolutionMoveIndex = 0;
-    while (sIsaacEvolutionMoveIndex < MAX_MON_MOVES)
+    while (sIsaacEvolutionMoveIndex < ARRAY_COUNT(sIsaacEvolutionMoves))
     {
         gMoveToLearn = sIsaacEvolutionMoves[sIsaacEvolutionMoveIndex++];
         if (gMoveToLearn != MOVE_NONE && !MonKnowsMove(mon, gMoveToLearn))

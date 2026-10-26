@@ -683,9 +683,12 @@ static void Task_EvolutionScene(u8 taskId)
     case EVOSTATE_INTRO_MSG:
         if (!gPaletteFade.active)
         {
-            StringExpandPlaceholders(gStringVar4, IsaacGetEvolutionIntroText());  // donjon : évolution après le boss
+            bool8 learnOnly;
+
+            // donjon : progression par les combats (évolution, ou attaque seule sans l'animation d'évolution)
+            StringExpandPlaceholders(gStringVar4, IsaacGetEvolutionIntroText(&learnOnly));
             BattlePutTextOnWindow(gStringVar4, B_WIN_MSG);
-            gTasks[taskId].tState++;
+            gTasks[taskId].tState = learnOnly ? EVOSTATE_TRY_LEARN_MOVE : gTasks[taskId].tState + 1;
         }
         break;
     case EVOSTATE_INTRO_MON_ANIM:
@@ -798,7 +801,7 @@ static void Task_EvolutionScene(u8 taskId)
         if (!IsTextPrinterActiveOnWindow(0))
         {
             // Donjon : pas d'attaque de niveau apprise en évoluant ; seules quelques espèces apprennent les
-            // attaques de leur set évolué (voir IsaacPrepareEvolutionMoves)
+            // attaques de leur set évolué (voir IsaacPrepareEvolutionMoves), plus l'attaque de la progression
             var = IsaacTryLearningEvolutionMove(mon, gTasks[taskId].tLearnsFirstMove);
             if (var != MOVE_NONE && !gTasks[taskId].tEvoWasStopped)
             {
