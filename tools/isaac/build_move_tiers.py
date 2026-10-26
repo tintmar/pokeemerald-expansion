@@ -21,7 +21,7 @@ def role(rec):
     deux), boost de défense, soin, protection, statut infligé, combo (inutile seule : Blabla Dodo, Dévorêve, Métronome...),
     autre"""
     if rec.cat != 'STATUS':
-        if re.search(r'cannot move next turn|Charges|on turn 1\. Hits turn 2', rec.effect):
+        if re.search(r'cannot move next turn|Charges|on turn 1\. Hits turn 2|Dives underwater|Flies up|Digs underground|Bounces turn 1|Hits two turns after|Fails if the user takes damage|Fails if there is no terrain', rec.effect):
             return 'ISAAC_MOVE_ROLE_COMBO'
         return '0'
     if rec.tags & {'Copy / Random', 'Sleep Combo'}:
