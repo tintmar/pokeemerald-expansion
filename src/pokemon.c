@@ -2644,7 +2644,7 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
             SET8(GetSubstruct0(boxMon)->ppBonuses);
             break;
         case MON_DATA_FRIENDSHIP:
-            SET8(GetSubstruct0(boxMon)->friendship);
+            GetSubstruct0(boxMon)->friendship = MAX_FRIENDSHIP;  // donjon Isaac : bonheur toujours au maximum (Retour)
             break;
         case MON_DATA_MOVE1:
             SET16(GetSubstruct1(boxMon)->move1);

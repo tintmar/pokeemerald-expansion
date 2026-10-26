@@ -60,6 +60,8 @@ def main():
            '{']
     for name, rec in move_tiers.MOVES.items():
         tier = 'ISAAC_MOVE_TIER_SITUATIONAL' if rec.tier == 'SITUATIONAL' else rec.tier
+        if name == 'FRUSTRATION':  # le bonheur est toujours au maximum : Retour la remplace
+            tier = 0
         out.append(f'    [MOVE_{name}] = {tier},')
     out.append('};')
     out.append('')
