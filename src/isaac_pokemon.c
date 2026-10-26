@@ -812,6 +812,12 @@ static bool8 IsMoveInSpeciesSets(enum Species species, u16 move)
 #define UPGRADE_WEAK_STAB_WEIGHT  6
 #define UPGRADE_OFFENSIVE_MOVES   2
 
+// Rôle d'une attaque connue (lue sur le Pokémon, donc pas forcément valide) : 0 hors de la table.
+static u32 GetKnownMoveRole(u16 move)
+{
+    return (move < MOVES_COUNT) ? sIsaacMoveRoles[move] : 0;
+}
+
 static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
 {
     u16 known[MAX_MON_MOVES], move, picked = MOVE_NONE;
@@ -833,15 +839,15 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
         }
         if (known[i] == MOVE_NONE)
             continue;
-        if (GetMoveCategory(known[i]) != DAMAGE_CATEGORY_STATUS && !(sIsaacMoveRoles[known[i]] & ISAAC_MOVE_ROLE_COMBO)
+        if (GetMoveCategory(known[i]) != DAMAGE_CATEGORY_STATUS && !(GetKnownMoveRole(known[i]) & ISAAC_MOVE_ROLE_COMBO)
          && (GetMoveType(known[i]) == types[0] || GetMoveType(known[i]) == types[1]))
             bestStabTier = max(bestStabTier, GetMoveTierValue(known[i]));
         if (GetMoveCategory(known[i]) == DAMAGE_CATEGORY_PHYSICAL)
             physical++;
         else if (GetMoveCategory(known[i]) == DAMAGE_CATEGORY_SPECIAL)
             special++;
-        else if (known[i] < MOVES_COUNT)
-            knownRoles |= sIsaacMoveRoles[known[i]];
+        else
+            knownRoles |= GetKnownMoveRole(known[i]);
     }
     target = (count == 0) ? setTier + 2 : (2 * sum + count) / (2 * count) + 1;
     target = min(target, 4u);
@@ -889,7 +895,7 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
                 for (i = 0; i < MAX_MON_MOVES; i++)
                 {
                     if (known[i] != MOVE_NONE && GetMoveCategory(known[i]) != DAMAGE_CATEGORY_STATUS
-                     && !(sIsaacMoveRoles[known[i]] & ISAAC_MOVE_ROLE_COMBO) && GetMoveType(known[i]) == type)
+                     && !(GetKnownMoveRole(known[i]) & ISAAC_MOVE_ROLE_COMBO) && GetMoveType(known[i]) == type)
                     {
                         covered = TRUE;
                         bestTier = max(bestTier, GetMoveTierValue(known[i]));
