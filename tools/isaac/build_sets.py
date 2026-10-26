@@ -19,12 +19,18 @@ Paliers :
   2. bonnes attaques, objet correct (Baie Sitrus, objet de type, Restes...), EVs à moitié, IVs 20 ;
   3. set compétitif (Orbe Vie, Choix, Restes...), EVs complets, IVs 31. Pas d'Évoluroc.
 
+Les espèces des biomes déjà au nouveau format (biome_sets.py : data/pokemon_sets_<biome>.txt, 4 tiers) remplacent
+leurs anciens sets. Le jeu n'ayant encore que 3 paliers, ils reçoivent les tiers BIOME_GAME_TIERS (1, 2 et 4 : le
+tier 4 est le set compétitif) ; le tier 3 n'est pas encore utilisé. Les anciens sets des espèces sorties du roster
+sont ignorés.
+
 Usage : python3 tools/isaac/build_sets.py [--check]   (--check : vérifie sans écrire le header)
 """
 import os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gamedata as g
+import biome_sets
 
 # EVs du set 3 : PV, Attaque, Défense, Vitesse, Attaque Spé., Défense Spé.
 SPREADS = {
@@ -113,6 +119,10 @@ HAZARD_MOVES = {'STEALTH_ROCK', 'SPIKES', 'TOXIC_SPIKES', 'STICKY_WEB', 'STONE_A
 NERF_EXCLUDED |= HAZARD_MOVES
 ITEM_REPLACEMENTS = {'HEAVY_DUTY_BOOTS': 'LEFTOVERS'}
 HAZARD_MAX_POWER = [60, 70, 90]  # puissance maximale de l'attaque de remplacement, par palier
+
+
+# Tiers des sets de biome_sets.py (0 à 3) donnés aux 3 paliers du jeu
+BIOME_GAME_TIERS = (0, 1, 3)
 
 SET_FILES = ['sets_gen1', 'sets_gen2', 'sets_gen3', 'sets_cave', 'sets_dark', 'sets_fire', 'sets_ice', 'sets_poison',
              'sets_ocean', 'sets_desert', 'sets_cliff', 'sets_forest']
@@ -351,8 +361,7 @@ def load_sets(files):
         except ModuleNotFoundError:
             continue
         for name, lines in mod.SETS.items():
-            if name not in g.MONS:
-                errors.append(f'{name} : espèce inconnue ({module})')
+            if name not in g.MONS or name in biome_sets.SETS:  # hors roster, ou remplacé par les sets du biome
                 continue
             if name in sets:
                 errors.append(f'{name} : défini deux fois')
@@ -379,12 +388,17 @@ def load_all_sets():
             # set 1 : sans objet, A et B peuvent être identiques pour un Pokémon qui n'a presque pas d'attaques
             if tier > 0 and a and b and a['moves'] == b['moves'] and a['item'] == b['item'] and name != 'UNOWN':
                 errors.append(f'{name} (set {tier + 1}) : variantes A et B identiques (attaques et objet)')
-    return {name: [[a, sets_b.get(name, parsed)[tier]] for tier, a in enumerate(parsed)]
-            for name, parsed in sets_a.items()}, len(sets_b)
+    sets = {name: [[a, sets_b.get(name, parsed)[tier]] for tier, a in enumerate(parsed)]
+            for name, parsed in sets_a.items()}
+    errors.extend(biome_sets.ERRORS)
+    for name, tiers in biome_sets.SETS.items():
+        sets[name] = [tiers[t] for t in BIOME_GAME_TIERS]
+    return sets, len(sets_b) + len(biome_sets.SETS)
 
 
 def write_header(sets):
-    out = ['// Fichier généré par tools/isaac/build_sets.py à partir de tools/isaac/sets_gen*.py :',
+    out = ['// Fichier généré par tools/isaac/build_sets.py à partir de tools/isaac/sets_*.py et de',
+           '// tools/isaac/data/pokemon_sets_*.txt (biome_sets.py) :',
            '// ne pas modifier à la main.',
            '// Par Pokémon du roster : 3 paliers, du plus faible (0) au plus fort (2), en deux variantes (A, B).',
            '// sIsaacSetIndex : rang des sets de l\'espèce dans sIsaacSets, plus 1 (0 : pas de sets).',
@@ -436,6 +450,8 @@ def main():
     for e in errors:
         print(e)
     print(f'{len(sets)} espèces, {len(missing)} sans sets, {count_b} avec une variante B, {len(errors)} erreurs')
+    print(f'{len(biome_sets.SETS)} espèces aux sets de biome (data/pokemon_sets_*.txt), '
+          f'{len(biome_sets.WARNINGS)} avertissements (python3 tools/isaac/biome_sets.py)')
     print(f'set 2 : {len(nerf_log)} attaques remplacées (puissance > {TIER2_MAX_POWER})')
     print(f'set 1 : {len(buff_log)} attaques remplacées ou ajoutées (STAB, statut trop faible)')
     print(f'sets 1 et 2 : {len(status_log)} attaques de statut trop fortes remplacées')

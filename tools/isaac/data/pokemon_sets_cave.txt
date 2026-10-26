@@ -1,0 +1,1703 @@
+====================================================================================================
+POKEMON_SETS.TXT  —  BIOME: CAVE (Victory Road) — Rock / Fighting
+56 Pokémon x 8 sets = 448 sets   |   Draft for validation
+====================================================================================================
+
+HOW TO READ
+----------------------------------------------------------------------------------------------------
+  Set tiers (move tiers from moves_by_tier.txt v3, shown in brackets after each move):
+    Tier 1 sets  (early game)     : Tier 1 moves + at most one Tier 2 move. Neutral nature. No item or a basic berry.
+    Tier 2 sets  (early-mid game) : Tier 2 + Situational moves + at most one Tier 3 move. Reasonable but imperfect
+                                    nature (attackers often use Lonely / Hasty / Mild...). Simple items: Sitrus, type boosters...
+    Tier 3 sets  (mid-late game)  : Tier 3 + Situational moves + at most one Tier 4 move. Optimal nature.
+                                    Solid items: Leftovers, Muscle Band, Expert Belt, Rocky Helmet, Lum Berry...
+    Tier 4 sets  (bosses, player) : Best mix of Tier 3, Tier 4 and Situational moves. Competitive items (Life Orb, Choice...).
+    Exception (v3): Tier 3 and Tier 4 sets may use a Tier 2 [Pivot] move (U-turn, Volt Switch, Flip Turn).
+    Entry hazards do not exist in this game (v3), so no set uses them. Eviolite is banned from the game.
+  Set A / Set B follow the Pokémon profile shown under its name:
+    Mixed attacker: A = Physical / B = Special.   Balanced / Bulky: A = Defensive / B = Offensive.
+    Pure Defensive: A = Pure Stall / B = Defensive with utility.
+    Offensive (one attacking stat): A = Setup / power attacker / B = second offensive role (pivot, priority, Choice, utility).
+  Every move is legal for that Pokémon (current or past learnset, incl. pre-evolution moves). Smeargle may use any move
+  (Sketch). Every set was checked by script for move legality, tier rules, ability legality and item rules.
+
+====================================================================================================
+#236 TYROGUE  —  Fighting  —  BST 210  —  Category 1
+Stats 35/35/35/35/35/35  |  Profile: Offensive (physical)
+Variants: A = Physical attacker / B = Support (Fake Out, Counter)
+----------------------------------------------------------------------------------------------------
+  [1A] Little brawler
+       Tyrogue @ (no item)   |   Ability: Guts   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Rock Smash [T1]  /  Focus Energy [T1]  /  Low Sweep [T2]
+  [1B] Scrappy kid
+       Tyrogue @ Oran Berry   |   Ability: Steadfast   |   Nature: Docile
+       Moves: Tackle [T1]  /  Rock Smash [T1]  /  Foresight [T1]  /  Mud-Slap [T1]
+  [2A] Brawler
+       Tyrogue @ Black Belt   |   Ability: Guts   |   Nature: Lonely
+       Moves: Low Sweep [T2]  /  Headbutt [T2]  /  Bulldoze [T2]  /  Brick Break [T3]
+  [2B] Support kid
+       Tyrogue @ Sitrus Berry   |   Ability: Steadfast   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  Rapid Spin [T2]  /  Low Sweep [T2]  /  Headbutt [T2]
+  [3A] Guts brawler
+       Tyrogue @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Brick Break [T3]  /  Strength [T3]  /  Mach Punch [T4]  /  Protect [Sit]
+  [3B] Sash counter
+       Tyrogue @ Focus Sash   |   Ability: Steadfast   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Brick Break [T3]  /  Counter [Sit]  /  Mach Punch [T4]
+  [4A] Guts attacker
+       Tyrogue @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  High Jump Kick [T4]  /  Mach Punch [T4]  /  Rock Slide [T4]
+  [4B] Sash Fake Out lead
+       Tyrogue @ Focus Sash   |   Ability: Steadfast   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  High Jump Kick [T4]  /  Mach Punch [T4]  /  Counter [Sit]
+
+====================================================================================================
+#173 CLEFFA  —  Fairy  —  BST 218  —  Category 1
+Stats 50/25/28/45/55/15  |  Profile: Balanced / Bulky
+Variants: A = Defensive / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Cuddly wall
+       Cleffa @ Oran Berry   |   Ability: Cute Charm   |   Nature: Docile
+       Moves: Pound [T1]  /  Sweet Kiss [T1]  /  Defense Curl [T1]  /  Disarming Voice [T1]
+  [1B] Starry shooter
+       Cleffa @ (no item)   |   Ability: Magic Guard   |   Nature: Bashful
+       Moves: Disarming Voice [T1]  /  Pound [T1]  /  Mud-Slap [T1]  /  Psybeam [T2]
+  [2A] Charm support
+       Cleffa @ Sitrus Berry   |   Ability: Cute Charm   |   Nature: Bold
+       Moves: Draining Kiss [T2]  /  Charm [T2]  /  Wish [Sit]  /  Thunder Wave [Sit]
+  [2B] Fairy caster
+       Cleffa @ Fairy Feather   |   Ability: Magic Guard   |   Nature: Modest
+       Moves: Draining Kiss [T2]  /  Psybeam [T2]  /  Icy Wind [T2]  /  Dazzling Gleam [T3]
+  [3A] Wish support
+       Cleffa @ Leftovers   |   Ability: Magic Guard   |   Nature: Bold
+       Moves: Dazzling Gleam [T3]  /  Wish [Sit]  /  Protect [Sit]  /  Thunder Wave [Sit]
+  [3B] Calm Mind kid
+       Cleffa @ Wise Glasses   |   Ability: Magic Guard   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Dazzling Gleam [T3]  /  Soft-Boiled [Sit]
+  [4A] Magic Guard staller
+       Cleffa @ Rocky Helmet   |   Ability: Magic Guard   |   Nature: Bold
+       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Thunder Wave [Sit]  /  Encore [Sit]
+  [4B] Magic Guard Life Orb
+       Cleffa @ Life Orb   |   Ability: Magic Guard   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Dazzling Gleam [T3]  /  Flamethrower [T4]  /  Soft-Boiled [Sit]
+
+====================================================================================================
+#440 HAPPINY  —  Normal  —  BST 220  —  Category 1
+Stats 100/5/5/15/65/30  |  Profile: Pure Defensive
+Variants: A = Pure Stall / B = Defensive with utility
+----------------------------------------------------------------------------------------------------
+  [1A] Egg wall
+       Happiny @ Oran Berry   |   Ability: Natural Cure   |   Nature: Hardy
+       Moves: Pound [T1]  /  Defense Curl [T1]  /  Sweet Kiss [T1]  /  Flash [T1]
+  [1B] Playful nurse
+       Happiny @ (no item)   |   Ability: Serene Grace   |   Nature: Serious
+       Moves: Disarming Voice [T1]  /  Sweet Kiss [T1]  /  Mud-Slap [T1]  /  Charm [T2]
+  [2A] Toxic stall
+       Happiny @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Charm [T2]  /  Toxic [Sit]  /  Protect [Sit]  /  Water Pulse [T2]
+  [2B] Support nurse
+       Happiny @ Focus Band   |   Ability: Serene Grace   |   Nature: Calm
+       Moves: Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Icy Wind [T2]  /  Light Screen [Sit]
+  [3A] RestTalk staller
+       Happiny @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Seismic Toss [T4]  /  Toxic [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]
+  [3B] Screen support
+       Happiny @ Light Clay   |   Ability: Serene Grace   |   Nature: Calm
+       Moves: Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Light Screen [Sit]  /  Seismic Toss [T4]
+  [4A] Toxic staller
+       Happiny @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Seismic Toss [T4]  /  Toxic [Sit]  /  Protect [Sit]  /  Rest [Sit]
+  [4B] Cleric wall
+       Happiny @ Rocky Helmet   |   Ability: Serene Grace   |   Nature: Calm
+       Moves: Seismic Toss [T4]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Rest [Sit]
+
+====================================================================================================
+#296 MAKUHITA  —  Fighting  —  BST 237  —  Category 1
+Stats 72/60/30/20/30/25  |  Profile: Offensive (physical)
+Variants: A = Power attacker / B = Utility (Fake Out, phazing)
+----------------------------------------------------------------------------------------------------
+  [1A] Sumo trainee
+       Makuhita @ (no item)   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Arm Thrust [T1]  /  Tackle [T1]  /  Focus Energy [T1]  /  Vital Throw [T2]
+  [1B] Sand sumo
+       Makuhita @ Oran Berry   |   Ability: Guts   |   Nature: Docile
+       Moves: Arm Thrust [T1]  /  Sand Attack [T1]  /  Tackle [T1]  /  Force Palm [T2]
+  [2A] Sumo striker
+       Makuhita @ Black Belt   |   Ability: Guts   |   Nature: Lonely
+       Moves: Force Palm [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Cross Chop [T3]
+  [2B] Ring controller
+       Makuhita @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Naughty
+       Moves: Fake Out [Sit]  /  Revenge [T3]  /  Feint Attack [T2]  /  Whirlwind [Sit]
+  [3A] Guts striker
+       Makuhita @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Cross Chop [T3]  /  Ice Punch [T3]  /  Stomping Tantrum [T3]  /  Facade [T4]
+  [3B] Thick Fat pivot
+       Makuhita @ Rocky Helmet   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Fake Out [Sit]  /  Brick Break [T3]  /  Whirlwind [Sit]  /  Bullet Punch [T4]
+  [4A] Guts wallbreaker
+       Makuhita @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Close Combat [T4]  /  Knock Off [T4]  /  Bullet Punch [T4]
+  [4B] Bulky utility
+       Makuhita @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Fake Out [Sit]  /  Drain Punch [T4]  /  Knock Off [T4]  /  Whirlwind [Sit]
+
+====================================================================================================
+#235 SMEARGLE  —  Normal  —  BST 250  —  Category 1
+Stats 55/20/35/20/45/75  |  Profile: Support (Sketch: any move)
+Variants: A = Sleep / status lead / B = Disruptor / Baton Pass
+----------------------------------------------------------------------------------------------------
+  [1A] Doodle lead
+       Smeargle @ (no item)   |   Ability: Own Tempo   |   Nature: Hardy
+       Moves: Fury Swipes [T1]  /  Sand Attack [T1]  /  Poison Powder [T1]  /  Hypnosis [T2]
+  [1B] Technician painter
+       Smeargle @ Oran Berry   |   Ability: Technician   |   Nature: Docile
+       Moves: Fury Swipes [T1]  /  Double Slap [T1]  /  Tail Whip [T1]  /  Supersonic [T1]
+  [2A] Sleep lead
+       Smeargle @ Focus Band   |   Ability: Own Tempo   |   Nature: Hasty
+       Moves: Sing [T2]  /  Fake Out [Sit]  /  Toxic [Sit]  /  Leech Seed [Sit]
+  [2B] Disruptor
+       Smeargle @ Sitrus Berry   |   Ability: Own Tempo   |   Nature: Hasty
+       Moves: Taunt [Sit]  /  Encore [Sit]  /  Thunder Wave [Sit]  /  Icy Wind [T2]
+  [3A] Sleep + status lead
+       Smeargle @ Focus Sash   |   Ability: Own Tempo   |   Nature: Jolly
+       Moves: Sleep Powder [T3]  /  Taunt [Sit]  /  Will-O-Wisp [Sit]  /  Fake Out [Sit]
+  [3B] Annoyer
+       Smeargle @ Lum Berry   |   Ability: Own Tempo   |   Nature: Jolly
+       Moves: Encore [Sit]  /  Taunt [Sit]  /  Thunder Wave [Sit]  /  Whirlwind [Sit]
+  [4A] Spore disruptor lead
+       Smeargle @ Focus Sash   |   Ability: Own Tempo   |   Nature: Jolly
+       Moves: Spore [T4]  /  Fake Out [Sit]  /  Will-O-Wisp [Sit]  /  Destiny Bond [Sit]
+  [4B] Shell Smash passer
+       Smeargle @ White Herb   |   Ability: Own Tempo   |   Nature: Jolly
+       Moves: Spore [T4]  /  Shell Smash [T4]  /  Baton Pass [Sit]  /  Taunt [Sit]
+
+====================================================================================================
+#287 SLAKOTH  —  Normal  —  BST 280  —  Category 1
+Stats 60/60/60/35/35/30  |  Profile: Balanced / Bulky (Truant)
+Variants: A = Defensive / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Lazy wall
+       Slakoth @ Oran Berry   |   Ability: Truant   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Mud-Slap [T1]  /  Confide [T1]  /  Tickle [T2]
+  [1B] Lazy swiper
+       Slakoth @ (no item)   |   Ability: Truant   |   Nature: Docile
+       Moves: Scratch [T1]  /  Metal Claw [T1]  /  Rock Smash [T1]  /  False Swipe [T1]
+  [2A] Sloth staller
+       Slakoth @ Sitrus Berry   |   Ability: Truant   |   Nature: Relaxed
+       Moves: Slack Off [Sit]  /  Yawn [Sit]  /  Encore [Sit]  /  Headbutt [T2]
+  [2B] Sloth slugger
+       Slakoth @ Silk Scarf   |   Ability: Truant   |   Nature: Lonely
+       Moves: Headbutt [T2]  /  Aerial Ace [T2]  /  Rock Tomb [T2]  /  Brick Break [T3]
+  [3A] Lazy staller
+       Slakoth @ Leftovers   |   Ability: Truant   |   Nature: Impish
+       Moves: Slack Off [Sit]  /  Yawn [Sit]  /  Encore [Sit]  /  Crush Claw [T3]
+  [3B] Truant slugger
+       Slakoth @ Muscle Band   |   Ability: Truant   |   Nature: Adamant
+       Moves: Crush Claw [T3]  /  Shadow Claw [T3]  /  Brick Break [T3]  /  Rock Slide [T4]
+  [4A] Truant tank
+       Slakoth @ Leftovers   |   Ability: Truant   |   Nature: Impish
+       Moves: Body Slam [T4]  /  Slack Off [Sit]  /  Yawn [Sit]  /  Toxic [Sit]
+  [4B] Choice Band loafer
+       Slakoth @ Choice Band   |   Ability: Truant   |   Nature: Adamant
+       Moves: Return [T4]  /  Sucker Punch [T4]  /  Rock Slide [T4]  /  Play Rough [T4]
+
+====================================================================================================
+#307 MEDITITE  —  Fighting/Psychic  —  BST 280  —  Category 1
+Stats 30/40/55/40/55/60  |  Profile: Offensive (physical, Pure Power)
+Variants: A = Setup attacker / B = Fast attacker (priority)
+----------------------------------------------------------------------------------------------------
+  [1A] Meditating pupil
+       Meditite @ (no item)   |   Ability: Pure Power   |   Nature: Hardy
+       Moves: Rock Smash [T1]  /  Meditate [T1]  /  Foresight [T1]  /  Force Palm [T2]
+  [1B] Focused pupil
+       Meditite @ Oran Berry   |   Ability: Pure Power   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Meditate [T1]  /  Mud-Slap [T1]  /  Power-Up Punch [T2]
+  [2A] Power-up boxer
+       Meditite @ Black Belt   |   Ability: Pure Power   |   Nature: Lonely
+       Moves: Power-Up Punch [T2]  /  Force Palm [T2]  /  Rock Tomb [T2]  /  Zen Headbutt [T3]
+  [2B] Quick boxer
+       Meditite @ Sitrus Berry   |   Ability: Pure Power   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  Force Palm [T2]  /  Low Sweep [T2]  /  Thief [T2]
+  [3A] Bulk Up boxer
+       Meditite @ Black Belt   |   Ability: Pure Power   |   Nature: Adamant
+       Moves: Brick Break [T3]  /  Zen Headbutt [T3]  /  Ice Punch [T3]  /  Bulk Up [T4]
+  [3B] Sash striker
+       Meditite @ Focus Sash   |   Ability: Pure Power   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Zen Headbutt [T3]  /  Low Kick [T3]  /  Bullet Punch [T4]
+  [4A] Bulk Up sweeper
+       Meditite @ Sitrus Berry   |   Ability: Pure Power   |   Nature: Adamant
+       Moves: Bulk Up [T4]  /  Drain Punch [T4]  /  Zen Headbutt [T3]  /  Bullet Punch [T4]
+  [4B] Life Orb attacker
+       Meditite @ Life Orb   |   Ability: Pure Power   |   Nature: Jolly
+       Moves: High Jump Kick [T4]  /  Zen Headbutt [T3]  /  Bullet Punch [T4]  /  Ice Punch [T3]
+
+====================================================================================================
+#438 BONSLY  —  Rock  —  BST 290  —  Category 2
+Stats 50/80/95/10/45/10  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Sturdy, Counter) / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Rolling pebble
+       Bonsly @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Rock Throw [T1]  /  Defense Curl [T1]  /  Harden [T1]  /  Tearful Look [T1]
+  [1B] Fake tree
+       Bonsly @ (no item)   |   Ability: Rock Head   |   Nature: Docile
+       Moves: Rock Throw [T1]  /  Sand Tomb [T1]  /  Mud-Slap [T1]  /  Rock Tomb [T2]
+  [2A] Toxic sapling
+       Bonsly @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Relaxed
+       Moves: Rock Tomb [T2]  /  Block [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [2B] Rock Head rammer
+       Bonsly @ Hard Stone   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Rock Blast [T3]
+  [3A] Counter tree
+       Bonsly @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Blast [T3]  /  Counter [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [3B] Rock Head rammer
+       Bonsly @ Hard Stone   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Rock Blast [T3]  /  Stomping Tantrum [T3]  /  Brick Break [T3]
+  [4A] Sturdy Counter lead
+       Bonsly @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Slide [T4]  /  Foul Play [T4]  /  Toxic [Sit]  /  Counter [Sit]
+  [4B] Choice Band rammer
+       Bonsly @ Choice Band   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Stone Edge [T4]  /  Earthquake [T4]  /  Sucker Punch [T4]
+
+====================================================================================================
+#074 GEODUDE  —  Rock/Ground  —  BST 300  —  Category 2
+Stats 40/80/100/30/30/20  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Sturdy lead) / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Rollout boulder
+       Geodude @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Defense Curl [T1]  /  Rock Throw [T1]  /  Harden [T1]
+  [1B] Rock thrower
+       Geodude @ (no item)   |   Ability: Rock Head   |   Nature: Docile
+       Moves: Rock Throw [T1]  /  Tackle [T1]  /  Rock Smash [T1]  /  Magnitude [T2]
+  [2A] Toxic boulder
+       Geodude @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Relaxed
+       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Toxic [Sit]  /  Protect [Sit]
+  [2B] Rock Head rammer
+       Geodude @ Soft Sand   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Magnitude [T2]  /  Rock Blast [T3]
+  [3A] Sturdy bomber
+       Geodude @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Blast [T3]  /  Stomping Tantrum [T3]  /  Counter [Sit]  /  Explosion [T4]
+  [3B] Rock Head rammer
+       Geodude @ Muscle Band   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Rock Blast [T3]  /  High Horsepower [T3]  /  Fire Punch [T3]  /  Double-Edge [T4]
+  [4A] Suicide lead
+       Geodude @ Life Orb   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Earthquake [T4]  /  Stone Edge [T4]  /  Sucker Punch [T4]  /  Explosion [T4]
+  [4B] Choice Band rammer
+       Geodude @ Choice Band   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Earthquake [T4]  /  Stone Edge [T4]  /  Fire Punch [T3]
+
+====================================================================================================
+#246 LARVITAR  —  Rock/Ground  —  BST 300  —  Category 2
+Stats 50/64/50/45/50/41  |  Profile: Offensive (physical)
+Variants: A = Setup sweeper / B = Utility attacker (trapping, Taunt)
+----------------------------------------------------------------------------------------------------
+  [1A] Rock pupa
+       Larvitar @ (no item)   |   Ability: Guts   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Rock Throw [T1]  /  Leer [T1]  /  Bite [T2]
+  [1B] Sand pupa
+       Larvitar @ Oran Berry   |   Ability: Sand Veil   |   Nature: Docile
+       Moves: Tackle [T1]  /  Sand Tomb [T1]  /  Mud-Slap [T1]  /  Rock Throw [T1]
+  [2A] Biting pupa
+       Larvitar @ Hard Stone   |   Ability: Guts   |   Nature: Lonely
+       Moves: Rock Tomb [T2]  /  Bite [T2]  /  Bulldoze [T2]  /  Scary Face [T2]
+  [2B] Screech pupa
+       Larvitar @ Sitrus Berry   |   Ability: Sand Veil   |   Nature: Naughty
+       Moves: Rock Tomb [T2]  /  Bite [T2]  /  Screech [T2]  /  Pursuit [Sit]
+  [3A] Dragon Dance pupa
+       Larvitar @ Lum Berry   |   Ability: Guts   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Rock Blast [T3]  /  Crunch [T3]  /  Stomping Tantrum [T3]
+  [3B] Trapping pupa
+       Larvitar @ Muscle Band   |   Ability: Guts   |   Nature: Adamant
+       Moves: Rock Blast [T3]  /  Crunch [T3]  /  Pursuit [Sit]  /  Taunt [Sit]
+  [4A] Dragon Dance sweeper
+       Larvitar @ Life Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Stone Edge [T4]  /  Earthquake [T4]  /  Crunch [T3]
+  [4B] Guts attacker
+       Larvitar @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Stone Edge [T4]  /  Earthquake [T4]  /  Crunch [T3]
+
+====================================================================================================
+#371 BAGON  —  Dragon  —  BST 300  —  Category 2
+Stats 45/75/60/40/30/50  |  Profile: Offensive (physical)
+Variants: A = Setup sweeper / B = Wallbreaker
+----------------------------------------------------------------------------------------------------
+  [1A] Headbutting hatchling
+       Bagon @ (no item)   |   Ability: Rock Head   |   Nature: Hardy
+       Moves: Rock Smash [T1]  /  Leer [T1]  /  Ember [T1]  /  Bite [T2]
+  [1B] Dragon breather
+       Bagon @ Oran Berry   |   Ability: Sheer Force   |   Nature: Docile
+       Moves: Twister [T1]  /  Ember [T1]  /  Fire Spin [T1]  /  Focus Energy [T1]
+  [2A] Rock Head rammer
+       Bagon @ Dragon Fang   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Take Down [T2]  /  Fire Fang [T2]  /  Dragon Claw [T3]
+  [2B] Sheer Force biter
+       Bagon @ Sitrus Berry   |   Ability: Sheer Force   |   Nature: Naughty
+       Moves: Dragon Breath [T2]  /  Bite [T2]  /  Fire Fang [T2]  /  Thunder Fang [T2]
+  [3A] Dragon Dance hatchling
+       Bagon @ Dragon Fang   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Crunch [T3]  /  Brick Break [T3]
+  [3B] Rock Head breaker
+       Bagon @ Muscle Band   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Dragon Rush [T3]  /  Crunch [T3]  /  Brick Break [T3]
+  [4A] Dragon Dance sweeper
+       Bagon @ Lum Berry   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Double-Edge [T4]  /  Iron Head [T4]
+  [4B] Sheer Force breaker
+       Bagon @ Life Orb   |   Ability: Sheer Force   |   Nature: Adamant
+       Moves: Dragon Rush [T3]  /  Crunch [T3]  /  Iron Head [T4]  /  Rock Slide [T4]
+
+====================================================================================================
+#056 MANKEY  —  Fighting  —  BST 305  —  Category 2
+Stats 40/80/35/35/45/70  |  Profile: Offensive (physical)
+Variants: A = Setup sweeper / B = Fast attacker (pivot)
+----------------------------------------------------------------------------------------------------
+  [1A] Pig monkey
+       Mankey @ (no item)   |   Ability: Vital Spirit   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Karate Chop [T1]  /  Leer [T1]  /  Low Sweep [T2]
+  [1B] Angry monkey
+       Mankey @ Oran Berry   |   Ability: Anger Point   |   Nature: Docile
+       Moves: Fury Swipes [T1]  /  Karate Chop [T1]  /  Focus Energy [T1]  /  Leer [T1]
+  [2A] Power-up monkey
+       Mankey @ Black Belt   |   Ability: Defiant   |   Nature: Hasty
+       Moves: Power-Up Punch [T2]  /  Rock Tomb [T2]  /  Assurance [T3]  /  Aerial Ace [T2]
+  [2B] Taunting monkey
+       Mankey @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Hasty
+       Moves: Low Sweep [T2]  /  Assurance [T3]  /  Taunt [Sit]  /  Encore [Sit]
+  [3A] Bulk Up monkey
+       Mankey @ Lum Berry   |   Ability: Defiant   |   Nature: Jolly
+       Moves: Bulk Up [T4]  /  Cross Chop [T3]  /  Throat Chop [T3]  /  Ice Punch [T3]
+  [3B] Sash pivot monkey
+       Mankey @ Focus Sash   |   Ability: Vital Spirit   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Cross Chop [T3]  /  Night Slash [T3]  /  Encore [Sit]
+  [4A] Bulk Up sweeper
+       Mankey @ Life Orb   |   Ability: Defiant   |   Nature: Jolly
+       Moves: Bulk Up [T4]  /  Drain Punch [T4]  /  Rock Slide [T4]  /  Throat Chop [T3]
+  [4B] Scarf attacker
+       Mankey @ Choice Scarf   |   Ability: Defiant   |   Nature: Jolly
+       Moves: Close Combat [T4]  /  U-turn [T2]  /  Gunk Shot [T4]  /  Stone Edge [T4]
+
+====================================================================================================
+#066 MACHOP  —  Fighting  —  BST 305  —  Category 2
+Stats 70/80/50/35/35/35  |  Profile: Offensive (physical)
+Variants: A = Power attacker (No Guard) / B = Guts attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Gym trainee
+       Machop @ (no item)   |   Ability: Guts   |   Nature: Hardy
+       Moves: Karate Chop [T1]  /  Leer [T1]  /  Focus Energy [T1]  /  Low Sweep [T2]
+  [1B] Lucky puncher
+       Machop @ Oran Berry   |   Ability: No Guard   |   Nature: Docile
+       Moves: Karate Chop [T1]  /  Rock Smash [T1]  /  Meditate [T1]  /  Dynamic Punch [T2]
+  [2A] No Guard puncher
+       Machop @ Black Belt   |   Ability: No Guard   |   Nature: Lonely
+       Moves: Dynamic Punch [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Payback [T3]
+  [2B] Counter-puncher
+       Machop @ Sitrus Berry   |   Ability: Guts   |   Nature: Naughty
+       Moves: Revenge [T3]  /  Bulldoze [T2]  /  Thief [T2]  /  Encore [Sit]
+  [3A] No Guard chopper
+       Machop @ Expert Belt   |   Ability: No Guard   |   Nature: Adamant
+       Moves: Cross Chop [T3]  /  Ice Punch [T3]  /  Thunder Punch [T3]  /  Bullet Punch [T4]
+  [3B] Guts brawler
+       Machop @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Brick Break [T3]  /  Fire Punch [T3]  /  Protect [Sit]
+  [4A] No Guard attacker
+       Machop @ Life Orb   |   Ability: No Guard   |   Nature: Adamant
+       Moves: Close Combat [T4]  /  Knock Off [T4]  /  Bullet Punch [T4]  /  Rock Slide [T4]
+  [4B] Guts Bulk Up
+       Machop @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Bulk Up [T4]  /  Facade [T4]  /  Close Combat [T4]  /  Knock Off [T4]
+
+====================================================================================================
+#255 TORCHIC  —  Fire  —  BST 310  —  Category 2
+Stats 45/60/40/70/50/45  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Chick scrapper
+       Torchic @ (no item)   |   Ability: Blaze   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Peck [T1]  /  Growl [T1]  /  Flame Charge [T2]
+  [1B] Ember chick
+       Torchic @ Oran Berry   |   Ability: Blaze   |   Nature: Docile
+       Moves: Ember [T1]  /  Growl [T1]  /  Sand Attack [T1]  /  Flame Burst [T2]
+  [2A] Speedy chick
+       Torchic @ Charcoal   |   Ability: Speed Boost   |   Nature: Lonely
+       Moves: Flame Charge [T2]  /  Aerial Ace [T2]  /  Rock Tomb [T2]  /  Slash [T3]
+  [2B] Fire spitter
+       Torchic @ Sitrus Berry   |   Ability: Speed Boost   |   Nature: Mild
+       Moves: Flame Burst [T2]  /  Swift [T2]  /  Work Up [T2]  /  Heat Wave [T3]
+  [3A] Swords Dance chick
+       Torchic @ Muscle Band   |   Ability: Speed Boost   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Temper Flare [T3]  /  Night Slash [T3]  /  Low Kick [T3]
+  [3B] Speed Boost passer
+       Torchic @ Leftovers   |   Ability: Speed Boost   |   Nature: Modest
+       Moves: Protect [Sit]  /  Heat Wave [T3]  /  Baton Pass [Sit]  /  Will-O-Wisp [Sit]
+  [4A] Speed Boost sweeper
+       Torchic @ Life Orb   |   Ability: Speed Boost   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Flare Blitz [T4]  /  Low Kick [T3]  /  Protect [Sit]
+  [4B] Speed Boost relay
+       Torchic @ Leftovers   |   Ability: Speed Boost   |   Nature: Timid
+       Moves: Protect [Sit]  /  Fire Blast [T4]  /  Substitute [Sit]  /  Baton Pass [Sit]
+
+====================================================================================================
+#035 CLEFAIRY  —  Fairy  —  BST 323  —  Category 2
+Stats 70/45/48/60/65/35  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Magic Guard) / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Moon fairy
+       Clefairy @ Oran Berry   |   Ability: Cute Charm   |   Nature: Hardy
+       Moves: Pound [T1]  /  Growl [T1]  /  Sweet Kiss [T1]  /  Defense Curl [T1]
+  [1B] Singing fairy
+       Clefairy @ (no item)   |   Ability: Magic Guard   |   Nature: Docile
+       Moves: Disarming Voice [T1]  /  Water Gun [T1]  /  Sweet Kiss [T1]  /  Psybeam [T2]
+  [2A] Moonlight healer
+       Clefairy @ Sitrus Berry   |   Ability: Magic Guard   |   Nature: Bold
+       Moves: Draining Kiss [T2]  /  Moonlight [Sit]  /  Thunder Wave [Sit]  /  Charm [T2]
+  [2B] Fairy caster
+       Clefairy @ Fairy Feather   |   Ability: Cute Charm   |   Nature: Modest
+       Moves: Draining Kiss [T2]  /  Psybeam [T2]  /  Icy Wind [T2]  /  Charge Beam [T2]
+  [3A] Magic Guard cleric
+       Clefairy @ Rocky Helmet   |   Ability: Magic Guard   |   Nature: Bold
+       Moves: Moonblast [T4]  /  Soft-Boiled [Sit]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]
+  [3B] Calm Mind fairy
+       Clefairy @ Leftovers   |   Ability: Magic Guard   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Dazzling Gleam [T3]  /  Mystical Fire [T3]  /  Soft-Boiled [Sit]
+  [4A] Utility wall
+       Clefairy @ Leftovers   |   Ability: Magic Guard   |   Nature: Bold
+       Moves: Moonblast [T4]  /  Soft-Boiled [Sit]  /  Knock Off [T4]  /  Encore [Sit]
+  [4B] Magic Guard Life Orb
+       Clefairy @ Life Orb   |   Ability: Magic Guard   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Moonblast [T4]  /  Flamethrower [T4]  /  Soft-Boiled [Sit]
+
+====================================================================================================
+#138 OMANYTE  —  Rock/Water  —  BST 355  —  Category 3
+Stats 35/40/100/90/55/35  |  Profile: Balanced / Bulky
+Variants: A = Defensive (status, Haze) / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Shell guard
+       Omanyte @ Oran Berry   |   Ability: Shell Armor   |   Nature: Hardy
+       Moves: Water Gun [T1]  /  Withdraw [T1]  /  Leer [T1]  /  Bind [T1]
+  [1B] Spiral shooter
+       Omanyte @ (no item)   |   Ability: Swift Swim   |   Nature: Docile
+       Moves: Water Gun [T1]  /  Rock Throw [T1]  /  Supersonic [T1]  /  Ancient Power [T2]
+  [2A] Toxic fossil
+       Omanyte @ Sitrus Berry   |   Ability: Shell Armor   |   Nature: Bold
+       Moves: Bubble Beam [T2]  /  Toxic [Sit]  /  Protect [Sit]  /  Haze [Sit]
+  [2B] Fossil caster
+       Omanyte @ Mystic Water   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Water Pulse [T2]  /  Ancient Power [T2]  /  Icy Wind [T2]  /  Muddy Water [T3]
+  [3A] Toxic wall
+       Omanyte @ Leftovers   |   Ability: Shell Armor   |   Nature: Bold
+       Moves: Scald [T4]  /  Haze [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [3B] Rain fossil
+       Omanyte @ Damp Rock   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Ice Beam [T4]  /  Protect [Sit]
+  [4A] Bulky fossil
+       Omanyte @ Rocky Helmet   |   Ability: Shell Armor   |   Nature: Bold
+       Moves: Scald [T4]  /  Ice Beam [T4]  /  Knock Off [T4]  /  Haze [Sit]
+  [4B] Shell Smash sweeper
+       Omanyte @ White Herb   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Shell Smash [T4]  /  Hydro Pump [T4]  /  Ice Beam [T4]  /  Earth Power [T4]
+
+====================================================================================================
+#140 KABUTO  —  Rock/Water  —  BST 355  —  Category 3
+Stats 30/80/90/55/45/55  |  Profile: Offensive (physical)
+Variants: A = Setup attacker / B = Priority attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Shell scratcher
+       Kabuto @ (no item)   |   Ability: Battle Armor   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Rock Throw [T1]  /  Harden [T1]  /  Mud-Slap [T1]
+  [1B] Draining fossil
+       Kabuto @ Oran Berry   |   Ability: Swift Swim   |   Nature: Docile
+       Moves: Water Gun [T1]  /  Mega Drain [T1]  /  Sand Attack [T1]  /  Ancient Power [T2]
+  [2A] Claw fossil
+       Kabuto @ Hard Stone   |   Ability: Swift Swim   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Rock Tomb [T2]  /  Aerial Ace [T2]  /  Slash [T3]
+  [2B] Spinning fossil
+       Kabuto @ Sitrus Berry   |   Ability: Battle Armor   |   Nature: Naughty
+       Moves: Rapid Spin [T2]  /  Rock Tomb [T2]  /  Mud Shot [T2]  /  Toxic [Sit]
+  [3A] Rock Polish fossil
+       Kabuto @ Lum Berry   |   Ability: Swift Swim   |   Nature: Adamant
+       Moves: Rock Polish [Sit]  /  Rock Blast [T3]  /  Slash [T3]  /  Waterfall [T4]
+  [3B] Fossil striker
+       Kabuto @ Muscle Band   |   Ability: Battle Armor   |   Nature: Adamant
+       Moves: Rock Blast [T3]  /  Dig [T3]  /  Slash [T3]  /  Aqua Jet [T4]
+  [4A] Rock Polish sweeper
+       Kabuto @ Life Orb   |   Ability: Swift Swim   |   Nature: Adamant
+       Moves: Rock Polish [Sit]  /  Stone Edge [T4]  /  Liquidation [T4]  /  Knock Off [T4]
+  [4B] Choice Band fossil
+       Kabuto @ Choice Band   |   Ability: Battle Armor   |   Nature: Adamant
+       Moves: Rock Slide [T4]  /  Aqua Jet [T4]  /  Knock Off [T4]  /  Leech Life [T4]
+
+====================================================================================================
+#345 LILEEP  —  Rock/Grass  —  BST 355  —  Category 3
+Stats 66/41/77/61/87/23  |  Profile: Balanced / Bulky
+Variants: A = Defensive / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Sea lily
+       Lileep @ Oran Berry   |   Ability: Suction Cups   |   Nature: Hardy
+       Moves: Mega Drain [T1]  /  Wrap [T1]  /  Acid [T1]  /  String Shot [T1]
+  [1B] Tentacle fossil
+       Lileep @ (no item)   |   Ability: Storm Drain   |   Nature: Docile
+       Moves: Astonish [T1]  /  Acid [T1]  /  Mega Drain [T1]  /  Ancient Power [T2]
+  [2A] Rooted fossil
+       Lileep @ Sitrus Berry   |   Ability: Suction Cups   |   Nature: Calm
+       Moves: Ancient Power [T2]  /  Recover [Sit]  /  Toxic [Sit]  /  Confuse Ray [Sit]
+  [2B] Fossil caster
+       Lileep @ Miracle Seed   |   Ability: Storm Drain   |   Nature: Modest
+       Moves: Ancient Power [T2]  /  Mud Shot [T2]  /  Grass Knot [T3]  /  Tickle [T2]
+  [3A] Stockpile wall
+       Lileep @ Leftovers   |   Ability: Suction Cups   |   Nature: Calm
+       Moves: Grass Knot [T3]  /  Recover [Sit]  /  Toxic [Sit]  /  Stockpile [Sit]
+  [3B] Fossil caster
+       Lileep @ Wise Glasses   |   Ability: Storm Drain   |   Nature: Modest
+       Moves: Grass Knot [T3]  /  Brine [T3]  /  Sludge Bomb [T4]  /  Recover [Sit]
+  [4A] Big Root staller
+       Lileep @ Big Root   |   Ability: Suction Cups   |   Nature: Calm
+       Moves: Giga Drain [T4]  /  Recover [Sit]  /  Toxic [Sit]  /  Confuse Ray [Sit]
+  [4B] Bulky attacker
+       Lileep @ Life Orb   |   Ability: Storm Drain   |   Nature: Modest
+       Moves: Giga Drain [T4]  /  Earth Power [T4]  /  Sludge Bomb [T4]  /  Recover [Sit]
+
+====================================================================================================
+#347 ANORITH  —  Rock/Bug  —  BST 355  —  Category 3
+Stats 45/95/50/40/50/75  |  Profile: Offensive (physical)
+Variants: A = Setup sweeper / B = Utility attacker (Knock Off, priority)
+----------------------------------------------------------------------------------------------------
+  [1A] Claw fossil
+       Anorith @ (no item)   |   Ability: Battle Armor   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Harden [T1]  /  String Shot [T1]  /  Bug Bite [T2]
+  [1B] Old shrimp
+       Anorith @ Oran Berry   |   Ability: Swift Swim   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Rock Smash [T1]  /  Water Gun [T1]  /  Sand Attack [T1]
+  [2A] Slasher fossil
+       Anorith @ Silver Powder   |   Ability: Battle Armor   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Bug Bite [T2]  /  Rock Tomb [T2]  /  X-Scissor [T3]
+  [2B] Spinning fossil
+       Anorith @ Sitrus Berry   |   Ability: Swift Swim   |   Nature: Hasty
+       Moves: Rapid Spin [T2]  /  Rock Tomb [T2]  /  Bug Bite [T2]  /  Screech [T2]
+  [3A] Swords Dance fossil
+       Anorith @ Muscle Band   |   Ability: Battle Armor   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Rock Blast [T3]  /  Brick Break [T3]
+  [3B] Coverage fossil
+       Anorith @ Expert Belt   |   Ability: Swift Swim   |   Nature: Jolly
+       Moves: Rock Blast [T3]  /  Cross Poison [T3]  /  Brick Break [T3]  /  Knock Off [T4]
+  [4A] Swords Dance sweeper
+       Anorith @ Life Orb   |   Ability: Battle Armor   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Rock Slide [T4]  /  Aqua Jet [T4]
+  [4B] Choice Band fossil
+       Anorith @ Choice Band   |   Ability: Swift Swim   |   Nature: Jolly
+       Moves: Knock Off [T4]  /  Rock Slide [T4]  /  Aqua Jet [T4]  /  Brick Break [T3]
+
+====================================================================================================
+#299 NOSEPASS  —  Rock  —  BST 375  —  Category 3
+Stats 30/45/135/45/90/30  |  Profile: Pure Defensive
+Variants: A = Pure Stall / B = Defensive with utility (Magnet Pull trapping, paralysis)
+----------------------------------------------------------------------------------------------------
+  [1A] Compass rock
+       Nosepass @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Harden [T1]  /  Defense Curl [T1]  /  Rock Throw [T1]
+  [1B] Magnetic rock
+       Nosepass @ (no item)   |   Ability: Magnet Pull   |   Nature: Docile
+       Moves: Rock Throw [T1]  /  Sand Tomb [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]
+  [2A] Status wall
+       Nosepass @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Bold
+       Moves: Rock Tomb [T2]  /  Thunder Wave [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [2B] Paralysis compass
+       Nosepass @ Hard Stone   |   Ability: Magnet Pull   |   Nature: Relaxed
+       Moves: Rock Tomb [T2]  /  Spark [T2]  /  Thunder Wave [Sit]  /  Block [Sit]
+  [3A] Status wall
+       Nosepass @ Leftovers   |   Ability: Sturdy   |   Nature: Bold
+       Moves: Body Press [T4]  /  Thunder Wave [Sit]  /  Toxic [Sit]  /  Pain Split [Sit]
+  [3B] Magnet wall
+       Nosepass @ Rocky Helmet   |   Ability: Magnet Pull   |   Nature: Relaxed
+       Moves: Rock Blast [T3]  /  Discharge [T3]  /  Thunder Wave [Sit]  /  Pain Split [Sit]
+  [4A] Iron Defense staller
+       Nosepass @ Leftovers   |   Ability: Sturdy   |   Nature: Bold
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Rest [Sit]  /  Sleep Talk [Sit]
+  [4B] Steel trapper
+       Nosepass @ Air Balloon   |   Ability: Magnet Pull   |   Nature: Relaxed
+       Moves: Volt Switch [T2]  /  Power Gem [T4]  /  Thunder Wave [Sit]  /  Pain Split [Sit]
+
+====================================================================================================
+#095 ONIX  —  Rock/Ground  —  BST 385  —  Category 3
+Stats 35/45/160/30/45/70  |  Profile: Defensive (physical)
+Variants: A = Defensive lead (phazing, Explosion) / B = Offensive (Rock Head)
+----------------------------------------------------------------------------------------------------
+  [1A] Rock snake
+       Onix @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Bind [T1]  /  Harden [T1]  /  Rock Throw [T1]  /  Tackle [T1]
+  [1B] Burrowing snake
+       Onix @ (no item)   |   Ability: Rock Head   |   Nature: Docile
+       Moves: Rock Throw [T1]  /  Sand Tomb [T1]  /  Twister [T1]  /  Smack Down [T2]
+  [2A] Phazing snake
+       Onix @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Roar [Sit]  /  Toxic [Sit]  /  Screech [T2]
+  [2B] Ramming snake
+       Onix @ Hard Stone   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Iron Tail [T3]
+  [3A] Sturdy phazer
+       Onix @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Blast [T3]  /  Dragon Tail [Sit]  /  Toxic [Sit]  /  Explosion [T4]
+  [3B] Rock Head snake
+       Onix @ Hard Stone   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Head Smash [T4]  /  Drill Run [T3]  /  Iron Tail [T3]  /  Rock Polish [Sit]
+  [4A] Sturdy lead
+       Onix @ Red Card   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Stone Edge [T4]  /  Earthquake [T4]  /  Dragon Tail [Sit]  /  Explosion [T4]
+  [4B] Dragon Dance snake
+       Onix @ Life Orb   |   Ability: Rock Head   |   Nature: Jolly
+       Moves: Dragon Dance [T4]  /  Head Smash [T4]  /  Earthquake [T4]  /  Iron Head [T4]
+
+====================================================================================================
+#075 GRAVELER  —  Rock/Ground  —  BST 390  —  Category 3
+Stats 55/95/115/45/45/35  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Sturdy, Counter) / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Rolling boulder
+       Graveler @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Rock Throw [T1]  /  Defense Curl [T1]  /  Sand Attack [T1]  /  Mud-Slap [T1]
+  [1B] Rock Head brute
+       Graveler @ (no item)   |   Ability: Rock Head   |   Nature: Docile
+       Moves: Tackle [T1]  /  Rock Throw [T1]  /  Rock Smash [T1]  /  Take Down [T2]
+  [2A] Stubborn boulder
+       Graveler @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Relaxed
+       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Scary Face [T2]  /  Protect [Sit]
+  [2B] Rock Head rammer
+       Graveler @ Soft Sand   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Magnitude [T2]  /  Fire Punch [T3]
+  [3A] Sturdy Counter boulder
+       Graveler @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Blast [T3]  /  High Horsepower [T3]  /  Counter [Sit]  /  Toxic [Sit]
+  [3B] Rock Head rammer
+       Graveler @ Hard Stone   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Rock Blast [T3]  /  High Horsepower [T3]  /  Thunder Punch [T3]
+  [4A] Sturdy bomber lead
+       Graveler @ Life Orb   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Earthquake [T4]  /  Rock Slide [T4]  /  Explosion [T4]  /  Sucker Punch [T4]
+  [4B] Rock Polish sweeper
+       Graveler @ Weakness Policy   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Rock Polish [Sit]  /  Double-Edge [T4]  /  Earthquake [T4]  /  Stone Edge [T4]
+
+====================================================================================================
+#067 MACHOKE  —  Fighting  —  BST 405  —  Category 4
+Stats 80/100/70/50/60/45  |  Profile: Offensive (physical)
+Variants: A = No Guard attacker / B = Guts attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Belted brawler
+       Machoke @ (no item)   |   Ability: No Guard   |   Nature: Hardy
+       Moves: Karate Chop [T1]  /  Focus Energy [T1]  /  Leer [T1]  /  Vital Throw [T2]
+  [1B] Heavy lifter
+       Machoke @ Oran Berry   |   Ability: Guts   |   Nature: Docile
+       Moves: Karate Chop [T1]  /  Rock Smash [T1]  /  Meditate [T1]  /  Mud-Slap [T1]
+  [2A] No Guard puncher
+       Machoke @ Black Belt   |   Ability: No Guard   |   Nature: Lonely
+       Moves: Dynamic Punch [T2]  /  Rock Tomb [T2]  /  Headbutt [T2]  /  Ice Punch [T3]
+  [2B] Power-up lifter
+       Machoke @ Sitrus Berry   |   Ability: Guts   |   Nature: Naughty
+       Moves: Power-Up Punch [T2]  /  Rock Tomb [T2]  /  Payback [T3]  /  Encore [Sit]
+  [3A] No Guard chopper
+       Machoke @ Black Belt   |   Ability: No Guard   |   Nature: Adamant
+       Moves: Cross Chop [T3]  /  Stomping Tantrum [T3]  /  Fire Punch [T3]  /  Knock Off [T4]
+  [3B] Guts brawler
+       Machoke @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Superpower [T3]  /  Ice Punch [T3]  /  Detect [Sit]
+  [4A] Assault Vest attacker
+       Machoke @ Assault Vest   |   Ability: No Guard   |   Nature: Adamant
+       Moves: Close Combat [T4]  /  Knock Off [T4]  /  Bullet Punch [T4]  /  Ice Punch [T3]
+  [4B] Guts wallbreaker
+       Machoke @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Close Combat [T4]  /  Knock Off [T4]  /  Bullet Punch [T4]
+
+====================================================================================================
+#256 COMBUSKEN  —  Fire/Fighting  —  BST 405  —  Category 4
+Stats 60/85/60/85/60/55  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Kicking chick
+       Combusken @ (no item)   |   Ability: Blaze   |   Nature: Hardy
+       Moves: Double Kick [T1]  /  Peck [T1]  /  Quick Attack [T1]  /  Flame Charge [T2]
+  [1B] Ember fighter
+       Combusken @ Oran Berry   |   Ability: Blaze   |   Nature: Docile
+       Moves: Ember [T1]  /  Fire Spin [T1]  /  Growl [T1]  /  Flame Burst [T2]
+  [2A] Blaze kicker
+       Combusken @ Charcoal   |   Ability: Speed Boost   |   Nature: Lonely
+       Moves: Flame Charge [T2]  /  Low Sweep [T2]  /  Aerial Ace [T2]  /  Blaze Kick [T3]
+  [2B] Fire caster
+       Combusken @ Sitrus Berry   |   Ability: Speed Boost   |   Nature: Mild
+       Moves: Flame Burst [T2]  /  Swift [T2]  /  Feather Dance [T2]  /  Heat Wave [T3]
+  [3A] Swords Dance kicker
+       Combusken @ Lum Berry   |   Ability: Speed Boost   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Blaze Kick [T3]  /  Sky Uppercut [T3]  /  Protect [Sit]
+  [3B] Speed Boost caster
+       Combusken @ Charcoal   |   Ability: Speed Boost   |   Nature: Modest
+       Moves: Protect [Sit]  /  Heat Wave [T3]  /  Vacuum Wave [T4]  /  Will-O-Wisp [Sit]
+  [4A] Speed Boost sweeper
+       Combusken @ Life Orb   |   Ability: Speed Boost   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Flare Blitz [T4]  /  Close Combat [T4]  /  Protect [Sit]
+  [4B] Special Speed Boost
+       Combusken @ Expert Belt   |   Ability: Speed Boost   |   Nature: Modest
+       Moves: Protect [Sit]  /  Fire Blast [T4]  /  Focus Blast [T4]  /  Vacuum Wave [T4]
+
+====================================================================================================
+#185 SUDOWOODO  —  Rock  —  BST 410  —  Category 4
+Stats 70/100/115/30/65/30  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Sturdy, Counter) / B = Offensive (Rock Head)
+----------------------------------------------------------------------------------------------------
+  [1A] Crying tree
+       Sudowoodo @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Rock Throw [T1]  /  Harden [T1]  /  Tearful Look [T1]  /  Mud-Slap [T1]
+  [1B] Imitation tree
+       Sudowoodo @ (no item)   |   Ability: Rock Head   |   Nature: Docile
+       Moves: Rock Throw [T1]  /  Sand Tomb [T1]  /  Mud-Slap [T1]  /  Slam [T2]
+  [2A] Toxic tree
+       Sudowoodo @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Toxic [Sit]  /  Block [Sit]  /  Protect [Sit]
+  [2B] Rock Head rammer
+       Sudowoodo @ Hard Stone   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Feint Attack [T2]  /  High Horsepower [T3]
+  [3A] Sturdy Counter tree
+       Sudowoodo @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Blast [T3]  /  Toxic [Sit]  /  Counter [Sit]  /  Sucker Punch [T4]
+  [3B] Head Smash breaker
+       Sudowoodo @ Muscle Band   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Head Smash [T4]  /  Hammer Arm [T3]  /  High Horsepower [T3]  /  Fire Punch [T3]
+  [4A] Sturdy tank
+       Sudowoodo @ Leftovers   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Stone Edge [T4]  /  Body Press [T4]  /  Sucker Punch [T4]  /  Toxic [Sit]
+  [4B] Choice Band breaker
+       Sudowoodo @ Choice Band   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Head Smash [T4]  /  Wood Hammer [T4]  /  Earthquake [T4]  /  Sucker Punch [T4]
+
+====================================================================================================
+#247 PUPITAR  —  Rock/Ground  —  BST 410  —  Category 4
+Stats 70/84/70/65/70/51  |  Profile: Offensive (physical)
+Variants: A = Setup sweeper / B = Utility attacker (Taunt)
+----------------------------------------------------------------------------------------------------
+  [1A] Armored pupa
+       Pupitar @ (no item)   |   Ability: Shed Skin   |   Nature: Hardy
+       Moves: Rock Throw [T1]  /  Rock Smash [T1]  /  Leer [T1]  /  Stomp [T2]
+  [1B] Rocket pupa
+       Pupitar @ Oran Berry   |   Ability: Shed Skin   |   Nature: Docile
+       Moves: Tackle [T1]  /  Mud-Slap [T1]  /  Sand Tomb [T1]  /  Focus Energy [T1]
+  [2A] Rocket rammer
+       Pupitar @ Hard Stone   |   Ability: Shed Skin   |   Nature: Lonely
+       Moves: Rock Tomb [T2]  /  Chip Away [T2]  /  Bulldoze [T2]  /  Crunch [T3]
+  [2B] Screech pupa
+       Pupitar @ Sitrus Berry   |   Ability: Shed Skin   |   Nature: Naughty
+       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Screech [T2]  /  Payback [T3]
+  [3A] Dragon Dance pupa
+       Pupitar @ Lum Berry   |   Ability: Shed Skin   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Rock Blast [T3]  /  High Horsepower [T3]  /  Crunch [T3]
+  [3B] Taunt pupa
+       Pupitar @ Muscle Band   |   Ability: Shed Skin   |   Nature: Adamant
+       Moves: Rock Blast [T3]  /  Stomping Tantrum [T3]  /  Crunch [T3]  /  Taunt [Sit]
+  [4A] Dragon Dance sweeper
+       Pupitar @ Weakness Policy   |   Ability: Shed Skin   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Stone Edge [T4]  /  Earthquake [T4]  /  Iron Head [T4]
+  [4B] Taunt attacker
+       Pupitar @ Life Orb   |   Ability: Shed Skin   |   Nature: Adamant
+       Moves: Stone Edge [T4]  /  Earthquake [T4]  /  Crunch [T3]  /  Taunt [Sit]
+
+====================================================================================================
+#308 MEDICHAM  —  Fighting/Psychic  —  BST 410  —  Category 4
+Stats 60/60/75/60/75/80  |  Profile: Offensive (physical, Pure Power)
+Variants: A = Setup attacker / B = Fast attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Meditating fighter
+       Medicham @ (no item)   |   Ability: Pure Power   |   Nature: Hardy
+       Moves: Rock Smash [T1]  /  Meditate [T1]  /  Mud-Slap [T1]  /  Low Sweep [T2]
+  [1B] Focused fighter
+       Medicham @ Oran Berry   |   Ability: Pure Power   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Meditate [T1]  /  Foresight [T1]  /  Power-Up Punch [T2]
+  [2A] Power-up boxer
+       Medicham @ Black Belt   |   Ability: Pure Power   |   Nature: Lonely
+       Moves: Power-Up Punch [T2]  /  Rock Tomb [T2]  /  Headbutt [T2]  /  Zen Headbutt [T3]
+  [2B] Quick striker
+       Medicham @ Twisted Spoon   |   Ability: Pure Power   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  Force Palm [T2]  /  Thief [T2]  /  Psycho Cut [T3]
+  [3A] Bulk Up kicker
+       Medicham @ Expert Belt   |   Ability: Pure Power   |   Nature: Adamant
+       Moves: Bulk Up [T4]  /  Axe Kick [T3]  /  Zen Headbutt [T3]  /  Thunder Punch [T3]
+  [3B] Priority striker
+       Medicham @ Expert Belt   |   Ability: Pure Power   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Zen Headbutt [T3]  /  Ice Punch [T3]  /  Bullet Punch [T4]
+  [4A] Bulk Up sweeper
+       Medicham @ Punching Glove   |   Ability: Pure Power   |   Nature: Adamant
+       Moves: Bulk Up [T4]  /  Drain Punch [T4]  /  Zen Headbutt [T3]  /  Bullet Punch [T4]
+  [4B] Choice Band attacker
+       Medicham @ Choice Band   |   Ability: Pure Power   |   Nature: Jolly
+       Moves: High Jump Kick [T4]  /  Zen Headbutt [T3]  /  Ice Punch [T3]  /  Bullet Punch [T4]
+
+====================================================================================================
+#372 SHELGON  —  Dragon  —  BST 420  —  Category 4
+Stats 65/95/100/60/50/50  |  Profile: Balanced / Bulky
+Variants: A = Defensive / B = Offensive (setup)
+----------------------------------------------------------------------------------------------------
+  [1A] Shelled dragon
+       Shelgon @ Oran Berry   |   Ability: Rock Head   |   Nature: Hardy
+       Moves: Defense Curl [T1]  /  Leer [T1]  /  Ember [T1]  /  Headbutt [T2]
+  [1B] Dragon breather
+       Shelgon @ (no item)   |   Ability: Overcoat   |   Nature: Docile
+       Moves: Twister [T1]  /  Fire Spin [T1]  /  Ember [T1]  /  Leer [T1]
+  [2A] Wish shell
+       Shelgon @ Sitrus Berry   |   Ability: Overcoat   |   Nature: Impish
+       Moves: Dragon Breath [T2]  /  Wish [Sit]  /  Protect [Sit]  /  Roar [Sit]
+  [2B] Rock Head rammer
+       Shelgon @ Dragon Fang   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Fire Fang [T2]  /  Thunder Fang [T2]  /  Dragon Claw [T3]
+  [3A] Wish phazer
+       Shelgon @ Sitrus Berry   |   Ability: Overcoat   |   Nature: Impish
+       Moves: Dragon Claw [T3]  /  Wish [Sit]  /  Protect [Sit]  /  Dragon Tail [Sit]
+  [3B] Dragon Dance shell
+       Shelgon @ Dragon Fang   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Crunch [T3]  /  Temper Flare [T3]
+  [4A] Wish staller
+       Shelgon @ Rocky Helmet   |   Ability: Overcoat   |   Nature: Impish
+       Moves: Dragon Tail [Sit]  /  Toxic [Sit]  /  Wish [Sit]  /  Protect [Sit]
+  [4B] Dragon Dance sweeper
+       Shelgon @ Life Orb   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Double-Edge [T4]  /  Iron Head [T4]
+
+====================================================================================================
+#288 VIGOROTH  —  Normal  —  BST 440  —  Category 4
+Stats 80/80/80/55/55/90  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Slack Off, Encore) / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Restless ape
+       Vigoroth @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Mud-Slap [T1]  /  Focus Energy [T1]  /  Tickle [T2]
+  [1B] Wild swiper
+       Vigoroth @ (no item)   |   Ability: Vital Spirit   |   Nature: Docile
+       Moves: Fury Swipes [T1]  /  Metal Claw [T1]  /  Rock Smash [T1]  /  Headbutt [T2]
+  [2A] Encore pest
+       Vigoroth @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Careful
+       Moves: Slack Off [Sit]  /  Yawn [Sit]  /  Encore [Sit]  /  Chip Away [T2]
+  [2B] Frenzied swiper
+       Vigoroth @ Silk Scarf   |   Ability: Vital Spirit   |   Nature: Hasty
+       Moves: Hone Claws [T2]  /  Headbutt [T2]  /  Low Sweep [T2]  /  Shadow Claw [T3]
+  [3A] Encore pest
+       Vigoroth @ Leftovers   |   Ability: Vital Spirit   |   Nature: Impish
+       Moves: Slack Off [Sit]  /  Knock Off [T4]  /  Encore [Sit]  /  Toxic [Sit]
+  [3B] Bulk Up brawler
+       Vigoroth @ Muscle Band   |   Ability: Vital Spirit   |   Nature: Jolly
+       Moves: Bulk Up [T4]  /  Rock Climb [T3]  /  Shadow Claw [T3]  /  Brick Break [T3]
+  [4A] Bulk Up tank
+       Vigoroth @ Rocky Helmet   |   Ability: Vital Spirit   |   Nature: Impish
+       Moves: Slack Off [Sit]  /  Knock Off [T4]  /  Bulk Up [T4]  /  Body Slam [T4]
+  [4B] Life Orb attacker
+       Vigoroth @ Life Orb   |   Ability: Vital Spirit   |   Nature: Jolly
+       Moves: Return [T4]  /  Earthquake [T4]  /  Knock Off [T4]  /  Sucker Punch [T4]
+
+====================================================================================================
+#113 CHANSEY  —  Normal  —  BST 450  —  Category 5
+Stats 250/5/5/35/105/50  |  Profile: Pure Defensive
+Variants: A = Pure Stall / B = Defensive with utility (cleric, screens)
+----------------------------------------------------------------------------------------------------
+  [1A] Egg nurse
+       Chansey @ Oran Berry   |   Ability: Natural Cure   |   Nature: Hardy
+       Moves: Pound [T1]  /  Growl [T1]  /  Sweet Kiss [T1]  /  Defense Curl [T1]
+  [1B] Lucky nurse
+       Chansey @ (no item)   |   Ability: Serene Grace   |   Nature: Docile
+       Moves: Double Slap [T1]  /  Disarming Voice [T1]  /  Sweet Kiss [T1]  /  Sing [T2]
+  [2A] Toxic nurse
+       Chansey @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Toxic [Sit]  /  Protect [Sit]  /  Charm [T2]  /  Psywave [T2]
+  [2B] Support nurse
+       Chansey @ Lum Berry   |   Ability: Serene Grace   |   Nature: Calm
+       Moves: Bubble Beam [T2]  /  Thunder Wave [Sit]  /  Wish [Sit]  /  Heal Bell [Sit]
+  [3A] Toxic staller
+       Chansey @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Tri Attack [T3]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [3B] Cleric nurse
+       Chansey @ Leftovers   |   Ability: Serene Grace   |   Nature: Calm
+       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]
+  [4A] Seismic Toss wall
+       Chansey @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [4B] Screen cleric
+       Chansey @ Light Clay   |   Ability: Natural Cure   |   Nature: Calm
+       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Heal Bell [Sit]  /  Light Screen [Sit]
+
+====================================================================================================
+#057 PRIMEAPE  —  Fighting  —  BST 455  —  Category 5
+Stats 65/105/60/60/70/95  |  Profile: Offensive (physical)
+Variants: A = Setup sweeper / B = Fast attacker (pivot)
+----------------------------------------------------------------------------------------------------
+  [1A] Furious ape
+       Primeape @ (no item)   |   Ability: Vital Spirit   |   Nature: Hardy
+       Moves: Karate Chop [T1]  /  Fury Swipes [T1]  /  Leer [T1]  /  Low Sweep [T2]
+  [1B] Raging ape
+       Primeape @ Oran Berry   |   Ability: Anger Point   |   Nature: Docile
+       Moves: Karate Chop [T1]  /  Focus Energy [T1]  /  Scratch [T1]  /  Meditate [T1]
+  [2A] Power-up ape
+       Primeape @ Black Belt   |   Ability: Defiant   |   Nature: Hasty
+       Moves: Power-Up Punch [T2]  /  Assurance [T3]  /  Aerial Ace [T2]  /  Rock Tomb [T2]
+  [2B] Taunting ape
+       Primeape @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Hasty
+       Moves: Low Sweep [T2]  /  Payback [T3]  /  Taunt [Sit]  /  Encore [Sit]
+  [3A] Bulk Up ape
+       Primeape @ Black Belt   |   Ability: Defiant   |   Nature: Jolly
+       Moves: Bulk Up [T4]  /  Cross Chop [T3]  /  Throat Chop [T3]  /  Stomping Tantrum [T3]
+  [3B] Pivot ape
+       Primeape @ Expert Belt   |   Ability: Vital Spirit   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Cross Chop [T3]  /  Ice Punch [T3]  /  Night Slash [T3]
+  [4A] Bulk Up ape
+       Primeape @ Sitrus Berry   |   Ability: Defiant   |   Nature: Jolly
+       Moves: Bulk Up [T4]  /  Drain Punch [T4]  /  Rage Fist [T4]  /  Stone Edge [T4]
+  [4B] Scarf attacker
+       Primeape @ Choice Scarf   |   Ability: Defiant   |   Nature: Jolly
+       Moves: Close Combat [T4]  /  U-turn [T2]  /  Stone Edge [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#106 HITMONLEE  —  Fighting  —  BST 455  —  Category 5
+Stats 50/120/53/35/110/87  |  Profile: Offensive (physical)
+Variants: A = Setup / Unburden sweeper / B = Wallbreaker (Reckless)
+----------------------------------------------------------------------------------------------------
+  [1A] Kick trainee
+       Hitmonlee @ (no item)   |   Ability: Limber   |   Nature: Hardy
+       Moves: Double Kick [T1]  /  Rock Smash [T1]  /  Meditate [T1]  /  Rolling Kick [T2]
+  [1B] Reckless kicker
+       Hitmonlee @ Oran Berry   |   Ability: Reckless   |   Nature: Docile
+       Moves: Double Kick [T1]  /  Tackle [T1]  /  Focus Energy [T1]  /  Foresight [T1]
+  [2A] Jump kicker
+       Hitmonlee @ Black Belt   |   Ability: Reckless   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Rolling Kick [T2]  /  Rock Tomb [T2]  /  Jump Kick [T3]
+  [2B] Counter kicker
+       Hitmonlee @ Sitrus Berry   |   Ability: Limber   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  Revenge [T3]  /  Rock Tomb [T2]  /  Bulldoze [T2]
+  [3A] Bulk Up kicker
+       Hitmonlee @ Lum Berry   |   Ability: Limber   |   Nature: Adamant
+       Moves: Bulk Up [T4]  /  Brick Break [T3]  /  Blaze Kick [T3]  /  Throat Chop [T3]
+  [3B] Reckless kicker
+       Hitmonlee @ Muscle Band   |   Ability: Reckless   |   Nature: Jolly
+       Moves: Jump Kick [T3]  /  Blaze Kick [T3]  /  Lunge [T3]  /  Mach Punch [T4]
+  [4A] Unburden sweeper
+       Hitmonlee @ White Herb   |   Ability: Unburden   |   Nature: Jolly
+       Moves: Close Combat [T4]  /  Knock Off [T4]  /  Stone Edge [T4]  /  Mach Punch [T4]
+  [4B] Choice Band breaker
+       Hitmonlee @ Choice Band   |   Ability: Reckless   |   Nature: Adamant
+       Moves: High Jump Kick [T4]  /  Knock Off [T4]  /  Stone Edge [T4]  /  Mach Punch [T4]
+
+====================================================================================================
+#107 HITMONCHAN  —  Fighting  —  BST 455  —  Category 5
+Stats 50/105/79/35/110/76  |  Profile: Bulky attacker
+Variants: A = Bulky attacker (Drain Punch, Assault Vest) / B = Offensive (Iron Fist)
+----------------------------------------------------------------------------------------------------
+  [1A] Boxing trainee
+       Hitmonchan @ (no item)   |   Ability: Keen Eye   |   Nature: Hardy
+       Moves: Comet Punch [T1]  /  Rock Smash [T1]  /  Leer [T1]  /  Foresight [T1]
+  [1B] Iron Fist rookie
+       Hitmonchan @ Oran Berry   |   Ability: Iron Fist   |   Nature: Docile
+       Moves: Comet Punch [T1]  /  Rock Smash [T1]  /  Focus Energy [T1]  /  Mega Punch [T2]
+  [2A] Spinning boxer
+       Hitmonchan @ Sitrus Berry   |   Ability: Inner Focus   |   Nature: Impish
+       Moves: Rapid Spin [T2]  /  Revenge [T3]  /  Rock Tomb [T2]  /  Detect [Sit]
+  [2B] Power-up boxer
+       Hitmonchan @ Black Belt   |   Ability: Iron Fist   |   Nature: Lonely
+       Moves: Power-Up Punch [T2]  /  Mega Punch [T2]  /  Rock Tomb [T2]  /  Ice Punch [T3]
+  [3A] Bulky boxer
+       Hitmonchan @ Rocky Helmet   |   Ability: Inner Focus   |   Nature: Careful
+       Moves: Drain Punch [T4]  /  Ice Punch [T3]  /  Toxic [Sit]  /  Detect [Sit]
+  [3B] Elemental boxer
+       Hitmonchan @ Expert Belt   |   Ability: Iron Fist   |   Nature: Adamant
+       Moves: Sky Uppercut [T3]  /  Ice Punch [T3]  /  Thunder Punch [T3]  /  Mach Punch [T4]
+  [4A] Assault Vest boxer
+       Hitmonchan @ Assault Vest   |   Ability: Iron Fist   |   Nature: Careful
+       Moves: Drain Punch [T4]  /  Ice Punch [T3]  /  Knock Off [T4]  /  Mach Punch [T4]
+  [4B] Bulk Up boxer
+       Hitmonchan @ Life Orb   |   Ability: Iron Fist   |   Nature: Adamant
+       Moves: Bulk Up [T4]  /  Drain Punch [T4]  /  Thunder Punch [T3]  /  Mach Punch [T4]
+
+====================================================================================================
+#237 HITMONTOP  —  Fighting  —  BST 455  —  Category 5
+Stats 50/95/95/35/110/70  |  Profile: Balanced / Bulky
+Variants: A = Defensive utility (Intimidate, Fake Out) / B = Offensive (Technician)
+----------------------------------------------------------------------------------------------------
+  [1A] Spinning trainee
+       Hitmontop @ Oran Berry   |   Ability: Intimidate   |   Nature: Hardy
+       Moves: Rock Smash [T1]  /  Triple Kick [T1]  /  Focus Energy [T1]  /  Quick Attack [T1]
+  [1B] Technician top
+       Hitmontop @ (no item)   |   Ability: Technician   |   Nature: Docile
+       Moves: Triple Kick [T1]  /  Quick Attack [T1]  /  Tackle [T1]  /  Rolling Kick [T2]
+  [2A] Fake Out spinner
+       Hitmontop @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Impish
+       Moves: Fake Out [Sit]  /  Rapid Spin [T2]  /  Revenge [T3]  /  Detect [Sit]
+  [2B] Technician kicker
+       Hitmontop @ Black Belt   |   Ability: Technician   |   Nature: Lonely
+       Moves: Rolling Kick [T2]  /  Aerial Ace [T2]  /  Brutal Swing [T2]  /  Bulldoze [T2]
+  [3A] Intimidate support
+       Hitmontop @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Impish
+       Moves: Fake Out [Sit]  /  Brick Break [T3]  /  Toxic [Sit]  /  Detect [Sit]
+  [3B] Technician breaker
+       Hitmontop @ Muscle Band   |   Ability: Technician   |   Nature: Adamant
+       Moves: Brick Break [T3]  /  Ice Spinner [T3]  /  Drill Run [T3]  /  Bullet Punch [T4]
+  [4A] Intimidate support
+       Hitmontop @ Rocky Helmet   |   Ability: Intimidate   |   Nature: Impish
+       Moves: Fake Out [Sit]  /  Close Combat [T4]  /  Sucker Punch [T4]  /  Toxic [Sit]
+  [4B] Technician priority
+       Hitmontop @ Life Orb   |   Ability: Technician   |   Nature: Adamant
+       Moves: Close Combat [T4]  /  Triple Axel [T4]  /  Mach Punch [T4]  /  Bullet Punch [T4]
+
+====================================================================================================
+#337 LUNATONE  —  Rock/Psychic  —  BST 460  —  Category 5
+Stats 90/55/65/95/85/70  |  Profile: Balanced / Bulky
+Variants: A = Defensive (screens, status) / B = Offensive (special setup)
+----------------------------------------------------------------------------------------------------
+  [1A] Moon rock
+       Lunatone @ Oran Berry   |   Ability: Levitate   |   Nature: Hardy
+       Moves: Harden [T1]  /  Confusion [T1]  /  Rock Throw [T1]  /  Defense Curl [T1]
+  [1B] Hypnotic moon
+       Lunatone @ (no item)   |   Ability: Levitate   |   Nature: Docile
+       Moves: Confusion [T1]  /  Rock Throw [T1]  /  Tackle [T1]  /  Hypnosis [T2]
+  [2A] Moonlight wall
+       Lunatone @ Sitrus Berry   |   Ability: Levitate   |   Nature: Bold
+       Moves: Ancient Power [T2]  /  Moonlight [Sit]  /  Toxic [Sit]  /  Light Screen [Sit]
+  [2B] Hypnotic caster
+       Lunatone @ Twisted Spoon   |   Ability: Levitate   |   Nature: Modest
+       Moves: Hypnosis [T2]  /  Ancient Power [T2]  /  Icy Wind [T2]  /  Future Sight [T3]
+  [3A] Screen moon
+       Lunatone @ Light Clay   |   Ability: Levitate   |   Nature: Bold
+       Moves: Psychic [T4]  /  Moonlight [Sit]  /  Toxic [Sit]  /  Reflect [Sit]
+  [3B] Calm Mind moon
+       Lunatone @ Expert Belt   |   Ability: Levitate   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Signal Beam [T3]  /  Moonlight [Sit]
+  [4A] Bulky moon
+       Lunatone @ Leftovers   |   Ability: Levitate   |   Nature: Bold
+       Moves: Psyshock [T4]  /  Ice Beam [T4]  /  Moonlight [Sit]  /  Toxic [Sit]
+  [4B] Nasty Plot sweeper
+       Lunatone @ Life Orb   |   Ability: Levitate   |   Nature: Modest
+       Moves: Nasty Plot [T4]  /  Power Gem [T4]  /  Psychic [T4]  /  Ice Beam [T4]
+
+====================================================================================================
+#297 HARIYAMA  —  Fighting  —  BST 474  —  Category 5
+Stats 144/120/60/40/60/50  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Thick Fat) / B = Offensive (Guts)
+----------------------------------------------------------------------------------------------------
+  [1A] Sumo champion
+       Hariyama @ Oran Berry   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Arm Thrust [T1]  /  Sand Attack [T1]  /  Focus Energy [T1]  /  Tackle [T1]
+  [1B] Slapping sumo
+       Hariyama @ (no item)   |   Ability: Guts   |   Nature: Docile
+       Moves: Arm Thrust [T1]  /  Tackle [T1]  /  Whirlpool [T1]  /  Force Palm [T2]
+  [2A] Paralysis combo
+       Hariyama @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Careful
+       Moves: Force Palm [T2]  /  Smelling Salts [T2]  /  Whirlwind [Sit]  /  Fake Out [Sit]
+  [2B] Revenge sumo
+       Hariyama @ Black Belt   |   Ability: Guts   |   Nature: Lonely
+       Moves: Revenge [T3]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Feint Attack [T2]
+  [3A] Bulky phazer
+       Hariyama @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Careful
+       Moves: Drain Punch [T4]  /  Whirlwind [Sit]  /  Fake Out [Sit]  /  Stomping Tantrum [T3]
+  [3B] Guts sumo
+       Hariyama @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Cross Chop [T3]  /  Ice Punch [T3]  /  Heavy Slam [T3]
+  [4A] Bulk Up tank
+       Hariyama @ Punching Glove   |   Ability: Thick Fat   |   Nature: Careful
+       Moves: Bulk Up [T4]  /  Drain Punch [T4]  /  Knock Off [T4]  /  Bullet Punch [T4]
+  [4B] Guts wallbreaker
+       Hariyama @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Close Combat [T4]  /  Knock Off [T4]  /  Headlong Rush [T4]
+
+====================================================================================================
+#036 CLEFABLE  —  Fairy  —  BST 483  —  Category 6
+Stats 95/70/73/95/90/60  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Unaware) / B = Offensive (Calm Mind)
+----------------------------------------------------------------------------------------------------
+  [1A] Moon guardian
+       Clefable @ Oran Berry   |   Ability: Cute Charm   |   Nature: Hardy
+       Moves: Double Slap [T1]  /  Growl [T1]  /  Sweet Kiss [T1]  /  Defense Curl [T1]
+  [1B] Moonlight singer
+       Clefable @ (no item)   |   Ability: Magic Guard   |   Nature: Docile
+       Moves: Disarming Voice [T1]  /  Water Gun [T1]  /  Sweet Kiss [T1]  /  Draining Kiss [T2]
+  [2A] Unaware healer
+       Clefable @ Sitrus Berry   |   Ability: Unaware   |   Nature: Bold
+       Moves: Draining Kiss [T2]  /  Moonlight [Sit]  /  Toxic [Sit]  /  Charm [T2]
+  [2B] Fairy caster
+       Clefable @ Fairy Feather   |   Ability: Magic Guard   |   Nature: Modest
+       Moves: Draining Kiss [T2]  /  Icy Wind [T2]  /  Charge Beam [T2]  /  Mystical Fire [T3]
+  [3A] Unaware cleric
+       Clefable @ Leftovers   |   Ability: Unaware   |   Nature: Bold
+       Moves: Dazzling Gleam [T3]  /  Soft-Boiled [Sit]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]
+  [3B] Calm Mind fairy
+       Clefable @ Expert Belt   |   Ability: Magic Guard   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Alluring Voice [T3]  /  Mystical Fire [T3]  /  Soft-Boiled [Sit]
+  [4A] Unaware utility wall
+       Clefable @ Rocky Helmet   |   Ability: Unaware   |   Nature: Bold
+       Moves: Moonblast [T4]  /  Moonlight [Sit]  /  Knock Off [T4]  /  Thunder Wave [Sit]
+  [4B] Magic Guard Calm Mind
+       Clefable @ Life Orb   |   Ability: Magic Guard   |   Nature: Bold
+       Moves: Calm Mind [T4]  /  Moonblast [T4]  /  Flamethrower [T4]  /  Soft-Boiled [Sit]
+
+====================================================================================================
+#076 GOLEM  —  Rock/Ground  —  BST 495  —  Category 6
+Stats 80/120/130/55/65/45  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Sturdy, phazing) / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Megaton boulder
+       Golem @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Rock Throw [T1]  /  Defense Curl [T1]  /  Harden [T1]  /  Mud-Slap [T1]
+  [1B] Rock Head brute
+       Golem @ (no item)   |   Ability: Rock Head   |   Nature: Docile
+       Moves: Tackle [T1]  /  Rock Throw [T1]  /  Rock Smash [T1]  /  Take Down [T2]
+  [2A] Phazing boulder
+       Golem @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Relaxed
+       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Roar [Sit]  /  Toxic [Sit]
+  [2B] Rock Head rammer
+       Golem @ Soft Sand   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Magnitude [T2]  /  Hammer Arm [T3]
+  [3A] Sturdy phazer
+       Golem @ Shell Bell   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Blast [T3]  /  High Horsepower [T3]  /  Roar [Sit]  /  Counter [Sit]
+  [3B] Rock Head breaker
+       Golem @ Muscle Band   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Rock Blast [T3]  /  High Horsepower [T3]  /  Heavy Slam [T3]
+  [4A] Sturdy bomber lead
+       Golem @ Air Balloon   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Earthquake [T4]  /  Stone Edge [T4]  /  Explosion [T4]  /  Counter [Sit]
+  [4B] Choice Band breaker
+       Golem @ Choice Band   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Earthquake [T4]  /  Stone Edge [T4]  /  Sucker Punch [T4]
+
+====================================================================================================
+#139 OMASTAR  —  Rock/Water  —  BST 495  —  Category 6
+Stats 70/60/125/115/70/55  |  Profile: Balanced / Bulky
+Variants: A = Defensive (status, Haze) / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Spiral guard
+       Omastar @ Oran Berry   |   Ability: Shell Armor   |   Nature: Hardy
+       Moves: Water Gun [T1]  /  Withdraw [T1]  /  Leer [T1]  /  Constrict [T1]
+  [1B] Spiral shooter
+       Omastar @ (no item)   |   Ability: Swift Swim   |   Nature: Docile
+       Moves: Water Gun [T1]  /  Rock Throw [T1]  /  Supersonic [T1]  /  Bubble Beam [T2]
+  [2A] Toxic fossil
+       Omastar @ Sitrus Berry   |   Ability: Shell Armor   |   Nature: Bold
+       Moves: Ancient Power [T2]  /  Toxic [Sit]  /  Protect [Sit]  /  Haze [Sit]
+  [2B] Fossil caster
+       Omastar @ Mystic Water   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Bubble Beam [T2]  /  Ancient Power [T2]  /  Mud Shot [T2]  /  Brine [T3]
+  [3A] Bulky fossil
+       Omastar @ Light Clay   |   Ability: Shell Armor   |   Nature: Bold
+       Moves: Scald [T4]  /  Haze [Sit]  /  Toxic [Sit]  /  Reflect [Sit]
+  [3B] Rain fossil
+       Omastar @ Wise Glasses   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Meteor Beam [T3]  /  Ice Beam [T4]
+  [4A] Bulky utility fossil
+       Omastar @ Leftovers   |   Ability: Shell Armor   |   Nature: Bold
+       Moves: Scald [T4]  /  Ice Beam [T4]  /  Knock Off [T4]  /  Toxic [Sit]
+  [4B] Shell Smash sweeper
+       Omastar @ White Herb   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Shell Smash [T4]  /  Hydro Pump [T4]  /  Ice Beam [T4]  /  Earth Power [T4]
+
+====================================================================================================
+#141 KABUTOPS  —  Rock/Water  —  BST 495  —  Category 6
+Stats 60/115/105/65/70/80  |  Profile: Offensive (physical)
+Variants: A = Setup sweeper / B = Pivot / priority attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Scythe fossil
+       Kabutops @ (no item)   |   Ability: Battle Armor   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Harden [T1]  /  Leer [T1]  /  Aerial Ace [T2]
+  [1B] Draining fossil
+       Kabutops @ Oran Berry   |   Ability: Swift Swim   |   Nature: Docile
+       Moves: Water Gun [T1]  /  Mega Drain [T1]  /  Rock Throw [T1]  /  Ancient Power [T2]
+  [2A] Claw fossil
+       Kabutops @ Hard Stone   |   Ability: Swift Swim   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Rock Tomb [T2]  /  Aerial Ace [T2]  /  Razor Shell [T3]
+  [2B] Spinning fossil
+       Kabutops @ Sitrus Berry   |   Ability: Battle Armor   |   Nature: Naughty
+       Moves: Rapid Spin [T2]  /  Smack Down [T2]  /  Water Pulse [T2]  /  Confuse Ray [Sit]
+  [3A] Swords Dance fossil
+       Kabutops @ Muscle Band   |   Ability: Swift Swim   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Aqua Tail [T3]  /  Rock Blast [T3]  /  Superpower [T3]
+  [3B] Pivot fossil
+       Kabutops @ Muscle Band   |   Ability: Battle Armor   |   Nature: Adamant
+       Moves: Flip Turn [T2]  /  Rock Blast [T3]  /  X-Scissor [T3]  /  Aqua Jet [T4]
+  [4A] Swords Dance sweeper
+       Kabutops @ Life Orb   |   Ability: Swift Swim   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Stone Edge [T4]  /  Liquidation [T4]  /  Aqua Jet [T4]
+  [4B] Pivot fossil
+       Kabutops @ Choice Band   |   Ability: Battle Armor   |   Nature: Adamant
+       Moves: Flip Turn [T2]  /  Knock Off [T4]  /  Stone Edge [T4]  /  Aqua Jet [T4]
+
+====================================================================================================
+#346 CRADILY  —  Rock/Grass  —  BST 495  —  Category 6
+Stats 86/81/97/81/107/43  |  Profile: Balanced / Bulky
+Variants: A = Defensive / B = Offensive (setup)
+----------------------------------------------------------------------------------------------------
+  [1A] Barnacle lily
+       Cradily @ Oran Berry   |   Ability: Suction Cups   |   Nature: Hardy
+       Moves: Constrict [T1]  /  Acid [T1]  /  Mega Drain [T1]  /  Astonish [T1]
+  [1B] Tentacle lily
+       Cradily @ (no item)   |   Ability: Storm Drain   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Acid [T1]  /  Infestation [T1]  /  Ancient Power [T2]
+  [2A] Rooted fossil
+       Cradily @ Sitrus Berry   |   Ability: Suction Cups   |   Nature: Calm
+       Moves: Ancient Power [T2]  /  Ingrain [Sit]  /  Toxic [Sit]  /  Confuse Ray [Sit]
+  [2B] Fossil brawler
+       Cradily @ Hard Stone   |   Ability: Storm Drain   |   Nature: Lonely
+       Moves: Rock Tomb [T2]  /  Mud Shot [T2]  /  Tickle [T2]  /  Bullet Seed [T3]
+  [3A] Leech Seed wall
+       Cradily @ Big Root   |   Ability: Suction Cups   |   Nature: Calm
+       Moves: Rock Blast [T3]  /  Recover [Sit]  /  Leech Seed [Sit]  /  Toxic [Sit]
+  [3B] Swords Dance lily
+       Cradily @ Muscle Band   |   Ability: Storm Drain   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Rock Blast [T3]  /  Dig [T3]
+  [4A] Bulky special wall
+       Cradily @ Leftovers   |   Ability: Suction Cups   |   Nature: Calm
+       Moves: Giga Drain [T4]  /  Sludge Bomb [T4]  /  Recover [Sit]  /  Toxic [Sit]
+  [4B] Swords Dance sweeper
+       Cradily @ Life Orb   |   Ability: Storm Drain   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Power Whip [T4]  /  Stone Edge [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#348 ARMALDO  —  Rock/Bug  —  BST 495  —  Category 6
+Stats 75/125/100/70/80/45  |  Profile: Balanced / Bulky
+Variants: A = Defensive utility (Knock Off, status) / B = Offensive (setup)
+----------------------------------------------------------------------------------------------------
+  [1A] Plate fossil
+       Armaldo @ Oran Berry   |   Ability: Battle Armor   |   Nature: Hardy
+       Moves: Harden [T1]  /  Scratch [T1]  /  Metal Claw [T1]  /  String Shot [T1]
+  [1B] Ancient shrimp
+       Armaldo @ (no item)   |   Ability: Swift Swim   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Water Gun [T1]  /  Rock Smash [T1]  /  Bug Bite [T2]
+  [2A] Spinning fossil
+       Armaldo @ Sitrus Berry   |   Ability: Battle Armor   |   Nature: Impish
+       Moves: Rapid Spin [T2]  /  Rock Tomb [T2]  /  Toxic [Sit]  /  Protect [Sit]
+  [2B] Slasher fossil
+       Armaldo @ Silver Powder   |   Ability: Swift Swim   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Bug Bite [T2]  /  Rock Tomb [T2]  /  Crush Claw [T3]
+  [3A] Bulky utility fossil
+       Armaldo @ Rocky Helmet   |   Ability: Battle Armor   |   Nature: Impish
+       Moves: X-Scissor [T3]  /  Knock Off [T4]  /  Toxic [Sit]  /  Protect [Sit]
+  [3B] Swords Dance fossil
+       Armaldo @ Muscle Band   |   Ability: Swift Swim   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Rock Blast [T3]  /  Aqua Tail [T3]
+  [4A] Bulky utility fossil
+       Armaldo @ Leftovers   |   Ability: Battle Armor   |   Nature: Impish
+       Moves: Stone Edge [T4]  /  Knock Off [T4]  /  Toxic [Sit]  /  Protect [Sit]
+  [4B] Swords Dance sweeper
+       Armaldo @ Life Orb   |   Ability: Swift Swim   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Stone Edge [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#068 MACHAMP  —  Fighting  —  BST 505  —  Category 6
+Stats 90/130/80/65/85/55  |  Profile: Offensive (physical)
+Variants: A = No Guard attacker / B = Guts attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Four-armed trainee
+       Machamp @ (no item)   |   Ability: No Guard   |   Nature: Hardy
+       Moves: Karate Chop [T1]  /  Leer [T1]  /  Meditate [T1]  /  Submission [T2]
+  [1B] Gutsy lifter
+       Machamp @ Oran Berry   |   Ability: Guts   |   Nature: Docile
+       Moves: Karate Chop [T1]  /  Rock Smash [T1]  /  Foresight [T1]  /  Focus Energy [T1]
+  [2A] No Guard puncher
+       Machamp @ Black Belt   |   Ability: No Guard   |   Nature: Lonely
+       Moves: Dynamic Punch [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Thunder Punch [T3]
+  [2B] Revenge lifter
+       Machamp @ Sitrus Berry   |   Ability: Guts   |   Nature: Naughty
+       Moves: Revenge [T3]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Scary Face [T2]
+  [3A] No Guard chopper
+       Machamp @ Scope Lens   |   Ability: No Guard   |   Nature: Adamant
+       Moves: Cross Chop [T3]  /  Darkest Lariat [T3]  /  Ice Punch [T3]  /  Bullet Punch [T4]
+  [3B] Guts brawler
+       Machamp @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Cross Chop [T3]  /  Stomping Tantrum [T3]  /  Detect [Sit]
+  [4A] No Guard wallbreaker
+       Machamp @ Life Orb   |   Ability: No Guard   |   Nature: Adamant
+       Moves: Close Combat [T4]  /  Stone Edge [T4]  /  Knock Off [T4]  /  Bullet Punch [T4]
+  [4B] Guts wallbreaker
+       Machamp @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Close Combat [T4]  /  Knock Off [T4]  /  Bullet Punch [T4]
+
+====================================================================================================
+#208 STEELIX  —  Steel/Ground  —  BST 510  —  Category 6
+Stats 75/85/200/55/65/30  |  Profile: Balanced / Bulky
+Variants: A = Defensive (phazing, status) / B = Offensive (Sheer Force)
+----------------------------------------------------------------------------------------------------
+  [1A] Iron snake
+       Steelix @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Bind [T1]  /  Harden [T1]  /  Defense Curl [T1]  /  Tackle [T1]
+  [1B] Burrowing snake
+       Steelix @ (no item)   |   Ability: Sheer Force   |   Nature: Docile
+       Moves: Rock Throw [T1]  /  Twister [T1]  /  Sand Tomb [T1]  /  Mud-Slap [T1]
+  [2A] Phazing snake
+       Steelix @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Bulldoze [T2]  /  Roar [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [2B] Sheer Force snake
+       Steelix @ Metal Coat   |   Ability: Sheer Force   |   Nature: Lonely
+       Moves: Iron Tail [T3]  /  Bulldoze [T2]  /  Rock Tomb [T2]  /  Brutal Swing [T2]
+  [3A] Phazing wall
+       Steelix @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Heavy Slam [T3]  /  Stomping Tantrum [T3]  /  Roar [Sit]  /  Toxic [Sit]
+  [3B] Sheer Force breaker
+       Steelix @ Muscle Band   |   Ability: Sheer Force   |   Nature: Adamant
+       Moves: Iron Tail [T3]  /  Crunch [T3]  /  Stomping Tantrum [T3]  /  Rock Slide [T4]
+  [4A] Phazing wall
+       Steelix @ Leftovers   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Heavy Slam [T3]  /  Earthquake [T4]  /  Dragon Tail [Sit]  /  Toxic [Sit]
+  [4B] Dragon Dance tank
+       Steelix @ Life Orb   |   Ability: Sheer Force   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Iron Head [T4]  /  Earthquake [T4]  /  Rock Slide [T4]
+
+====================================================================================================
+#476 PROBOPASS  —  Rock/Steel  —  BST 525  —  Category 7
+Stats 60/55/145/75/150/40  |  Profile: Pure Defensive
+Variants: A = Pure Stall / B = Defensive with utility (Magnet Pull, pivot)
+----------------------------------------------------------------------------------------------------
+  [1A] Compass wall
+       Probopass @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Harden [T1]  /  Rock Throw [T1]  /  Sand Tomb [T1]  /  Mud-Slap [T1]
+  [1B] Magnetic nose
+       Probopass @ (no item)   |   Ability: Magnet Pull   |   Nature: Docile
+       Moves: Rock Throw [T1]  /  Tackle [T1]  /  Mud-Slap [T1]  /  Spark [T2]
+  [2A] Status wall
+       Probopass @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Calm
+       Moves: Ancient Power [T2]  /  Thunder Wave [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [2B] Taunting compass
+       Probopass @ Hard Stone   |   Ability: Magnet Pull   |   Nature: Bold
+       Moves: Ancient Power [T2]  /  Shock Wave [T2]  /  Taunt [Sit]  /  Thunder Wave [Sit]
+  [3A] Iron staller
+       Probopass @ Leftovers   |   Ability: Sturdy   |   Nature: Calm
+       Moves: Flash Cannon [T4]  /  Pain Split [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [3B] Pivot wall
+       Probopass @ Magnet   |   Ability: Magnet Pull   |   Nature: Bold
+       Moves: Discharge [T3]  /  Thunder Wave [Sit]  /  Volt Switch [T2]  /  Flash Cannon [T4]
+  [4A] Iron Defense staller
+       Probopass @ Leftovers   |   Ability: Sturdy   |   Nature: Calm
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Pain Split [Sit]  /  Toxic [Sit]
+  [4B] Steel trapper
+       Probopass @ Assault Vest   |   Ability: Magnet Pull   |   Nature: Bold
+       Moves: Volt Switch [T2]  /  Flash Cannon [T4]  /  Earth Power [T4]  /  Power Gem [T4]
+
+====================================================================================================
+#257 BLAZIKEN  —  Fire/Fighting  —  BST 530  —  Category 7
+Stats 80/120/70/110/70/80  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Blazing kicker
+       Blaziken @ (no item)   |   Ability: Blaze   |   Nature: Hardy
+       Moves: Double Kick [T1]  /  Peck [T1]  /  Focus Energy [T1]  /  Flame Charge [T2]
+  [1B] Ember fighter
+       Blaziken @ Oran Berry   |   Ability: Blaze   |   Nature: Docile
+       Moves: Ember [T1]  /  Sand Attack [T1]  /  Fire Spin [T1]  /  Incinerate [T2]
+  [2A] Speed Boost kicker
+       Blaziken @ Charcoal   |   Ability: Speed Boost   |   Nature: Lonely
+       Moves: Flame Charge [T2]  /  Rock Tomb [T2]  /  Aerial Ace [T2]  /  Sky Uppercut [T3]
+  [2B] Fire caster
+       Blaziken @ Sitrus Berry   |   Ability: Speed Boost   |   Nature: Mild
+       Moves: Flame Burst [T2]  /  Swift [T2]  /  Work Up [T2]  /  Scorching Sands [T3]
+  [3A] Swords Dance kicker
+       Blaziken @ Muscle Band   |   Ability: Speed Boost   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Blaze Kick [T3]  /  Superpower [T3]  /  Protect [Sit]
+  [3B] Speed Boost caster
+       Blaziken @ Wise Glasses   |   Ability: Speed Boost   |   Nature: Modest
+       Moves: Protect [Sit]  /  Heat Wave [T3]  /  Scorching Sands [T3]  /  Focus Blast [T4]
+  [4A] Speed Boost sweeper
+       Blaziken @ Life Orb   |   Ability: Speed Boost   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Flare Blitz [T4]  /  Close Combat [T4]  /  Protect [Sit]
+  [4B] Special Speed Boost
+       Blaziken @ Life Orb   |   Ability: Speed Boost   |   Nature: Timid
+       Moves: Protect [Sit]  /  Fire Blast [T4]  /  Focus Blast [T4]  /  Vacuum Wave [T4]
+
+====================================================================================================
+#979 ANNIHILAPE  —  Fighting/Ghost  —  BST 535  —  Category 7
+Stats 110/115/80/50/90/90  |  Profile: Bulky attacker
+Variants: A = Bulky setup (Rage Fist) / B = Offensive (Choice Scarf)
+----------------------------------------------------------------------------------------------------
+  [1A] Raging spirit
+       Annihilape @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Hardy
+       Moves: Karate Chop [T1]  /  Scratch [T1]  /  Leer [T1]  /  Fury Swipes [T1]
+  [1B] Wrathful ape
+       Annihilape @ (no item)   |   Ability: Defiant   |   Nature: Docile
+       Moves: Karate Chop [T1]  /  Focus Energy [T1]  /  Pay Day [T1]  /  Low Sweep [T2]
+  [2A] Taunting ape
+       Annihilape @ Sitrus Berry   |   Ability: Inner Focus   |   Nature: Careful
+       Moves: Low Sweep [T2]  /  Taunt [Sit]  /  Encore [Sit]  /  Toxic [Sit]
+  [2B] Power-up ape
+       Annihilape @ Spell Tag   |   Ability: Defiant   |   Nature: Hasty
+       Moves: Power-Up Punch [T2]  /  Rock Tomb [T2]  /  Thief [T2]  /  Shadow Claw [T3]
+  [3A] Bulk Up ape
+       Annihilape @ Lum Berry   |   Ability: Defiant   |   Nature: Careful
+       Moves: Bulk Up [T4]  /  Brick Break [T3]  /  Shadow Claw [T3]  /  Taunt [Sit]
+  [3B] Pivot ape
+       Annihilape @ Expert Belt   |   Ability: Defiant   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Cross Chop [T3]  /  Shadow Claw [T3]  /  Ice Punch [T3]
+  [4A] Rage Fist tank
+       Annihilape @ Leftovers   |   Ability: Defiant   |   Nature: Careful
+       Moves: Bulk Up [T4]  /  Rage Fist [T4]  /  Drain Punch [T4]  /  Taunt [Sit]
+  [4B] Scarf Final Gambit
+       Annihilape @ Choice Scarf   |   Ability: Defiant   |   Nature: Jolly
+       Moves: Final Gambit [Sit]  /  Close Combat [T4]  /  Rage Fist [T4]  /  U-turn [T2]
+
+====================================================================================================
+#242 BLISSEY  —  Normal  —  BST 540  —  Category 7
+Stats 255/10/10/75/135/55  |  Profile: Pure Defensive
+Variants: A = Pure Stall / B = Defensive with utility
+----------------------------------------------------------------------------------------------------
+  [1A] Happy nurse
+       Blissey @ Oran Berry   |   Ability: Natural Cure   |   Nature: Hardy
+       Moves: Pound [T1]  /  Tail Whip [T1]  /  Defense Curl [T1]  /  Sweet Kiss [T1]
+  [1B] Lucky nurse
+       Blissey @ (no item)   |   Ability: Serene Grace   |   Nature: Docile
+       Moves: Double Slap [T1]  /  Disarming Voice [T1]  /  Sweet Kiss [T1]  /  Sweet Scent [T1]
+  [2A] Wish nurse
+       Blissey @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Toxic [Sit]  /  Protect [Sit]  /  Wish [Sit]  /  Charge Beam [T2]
+  [2B] Support nurse
+       Blissey @ Lum Berry   |   Ability: Serene Grace   |   Nature: Calm
+       Moves: Icy Wind [T2]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Light Screen [Sit]
+  [3A] Classic staller
+       Blissey @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [3B] Serene cleric
+       Blissey @ Lum Berry   |   Ability: Serene Grace   |   Nature: Calm
+       Moves: Tri Attack [T3]  /  Soft-Boiled [Sit]  /  Heal Bell [Sit]  /  Thunder Wave [Sit]
+  [4A] Special wall
+       Blissey @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Seismic Toss [T4]  /  Soft-Boiled [Sit]  /  Toxic [Sit]  /  Heal Bell [Sit]
+  [4B] Calm Mind tank
+       Blissey @ Leftovers   |   Ability: Natural Cure   |   Nature: Calm
+       Moves: Calm Mind [T4]  /  Ice Beam [T4]  /  Flamethrower [T4]  /  Soft-Boiled [Sit]
+
+====================================================================================================
+#248 TYRANITAR  —  Rock/Dark  —  BST 600  —  Category 7
+Stats 100/134/110/95/100/61  |  Profile: Balanced / Bulky
+Variants: A = Defensive (sand, status) / B = Offensive (Dragon Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Armored tyrant
+       Tyranitar @ Oran Berry   |   Ability: Sand Stream   |   Nature: Hardy
+       Moves: Rock Throw [T1]  /  Leer [T1]  /  Sand Tomb [T1]  /  Tackle [T1]
+  [1B] Biting tyrant
+       Tyranitar @ (no item)   |   Ability: Unnerve   |   Nature: Docile
+       Moves: Rock Throw [T1]  /  Rock Smash [T1]  /  Focus Energy [T1]  /  Bite [T2]
+  [2A] Sand phazer
+       Tyranitar @ Sitrus Berry   |   Ability: Sand Stream   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Payback [T3]  /  Roar [Sit]  /  Toxic [Sit]
+  [2B] Rampaging tyrant
+       Tyranitar @ Hard Stone   |   Ability: Unnerve   |   Nature: Lonely
+       Moves: Rock Tomb [T2]  /  Bite [T2]  /  Bulldoze [T2]  /  Thrash [T3]
+  [3A] Sand tank
+       Tyranitar @ Rocky Helmet   |   Ability: Sand Stream   |   Nature: Careful
+       Moves: Stone Edge [T4]  /  Crunch [T3]  /  Thunder Wave [Sit]  /  Roar [Sit]
+  [3B] Dragon Dance tyrant
+       Tyranitar @ Muscle Band   |   Ability: Unnerve   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Rock Blast [T3]  /  Crunch [T3]  /  High Horsepower [T3]
+  [4A] Specially defensive tank
+       Tyranitar @ Leftovers   |   Ability: Sand Stream   |   Nature: Careful
+       Moves: Stone Edge [T4]  /  Knock Off [T4]  /  Thunder Wave [Sit]  /  Earthquake [T4]
+  [4B] Dragon Dance sweeper
+       Tyranitar @ Life Orb   |   Ability: Unnerve   |   Nature: Jolly
+       Moves: Dragon Dance [T4]  /  Stone Edge [T4]  /  Knock Off [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#373 SALAMENCE  —  Dragon/Flying  —  BST 600  —  Category 7
+Stats 95/135/80/110/80/100  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Young dragon
+       Salamence @ (no item)   |   Ability: Intimidate   |   Nature: Hardy
+       Moves: Rock Smash [T1]  /  Leer [T1]  /  Focus Energy [T1]  /  Bite [T2]
+  [1B] Fire-breathing dragon
+       Salamence @ Oran Berry   |   Ability: Moxie   |   Nature: Docile
+       Moves: Twister [T1]  /  Ember [T1]  /  Fire Spin [T1]  /  Leer [T1]
+  [2A] Moxie claw
+       Salamence @ Dragon Fang   |   Ability: Moxie   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Fire Fang [T2]  /  Aerial Ace [T2]  /  Dragon Claw [T3]
+  [2B] Fire breather
+       Salamence @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Mild
+       Moves: Dragon Breath [T2]  /  Incinerate [T2]  /  Scary Face [T2]  /  Heat Wave [T3]
+  [3A] Dragon Dance dragon
+       Salamence @ Muscle Band   |   Ability: Moxie   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Crunch [T3]  /  Iron Tail [T3]
+  [3B] Bulky special dragon
+       Salamence @ Wise Glasses   |   Ability: Intimidate   |   Nature: Modest
+       Moves: Dragon Pulse [T4]  /  Heat Wave [T3]  /  Roost [Sit]  /  Dragon Tail [Sit]
+  [4A] Moxie sweeper
+       Salamence @ Life Orb   |   Ability: Moxie   |   Nature: Jolly
+       Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Earthquake [T4]  /  Iron Head [T4]
+  [4B] Choice Specs nuke
+       Salamence @ Choice Specs   |   Ability: Intimidate   |   Nature: Modest
+       Moves: Draco Meteor [T4]  /  Fire Blast [T4]  /  Hydro Pump [T4]  /  Hurricane [T4]
+
+====================================================================================================
+#289 SLAKING  —  Normal  —  BST 670  —  Category 7
+Stats 150/160/100/95/65/100  |  Profile: Offensive (Truant)
+Variants: A = Truant attacker (recharge-free beams) / B = Bulky utility
+----------------------------------------------------------------------------------------------------
+  [1A] Idle giant
+       Slaking @ (no item)   |   Ability: Truant   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Metal Claw [T1]  /  Rock Smash [T1]  /  Headbutt [T2]
+  [1B] Lazy giant
+       Slaking @ Oran Berry   |   Ability: Truant   |   Nature: Docile
+       Moves: Scratch [T1]  /  Mud-Slap [T1]  /  Confide [T1]  /  Covet [T2]
+  [2A] Giga Impact loafer
+       Slaking @ Silk Scarf   |   Ability: Truant   |   Nature: Lonely
+       Moves: Headbutt [T2]  /  Take Down [T2]  /  Rock Tomb [T2]  /  Giga Impact [T3]
+  [2B] Encore loafer
+       Slaking @ Sitrus Berry   |   Ability: Truant   |   Nature: Relaxed
+       Moves: Slack Off [Sit]  /  Yawn [Sit]  /  Encore [Sit]  /  Retaliate [T3]
+  [3A] Truant breaker
+       Slaking @ Muscle Band   |   Ability: Truant   |   Nature: Adamant
+       Moves: Giga Impact [T3]  /  Hammer Arm [T3]  /  Shadow Claw [T3]  /  Earthquake [T4]
+  [3B] Bulky loafer
+       Slaking @ Rocky Helmet   |   Ability: Truant   |   Nature: Careful
+       Moves: Slack Off [Sit]  /  Encore [Sit]  /  Toxic [Sit]  /  Body Slam [T4]
+  [4A] Choice Band Truant
+       Slaking @ Choice Band   |   Ability: Truant   |   Nature: Adamant
+       Moves: Giga Impact [T3]  /  Earthquake [T4]  /  Knock Off [T4]  /  Fire Punch [T3]
+  [4B] Bulky Truant
+       Slaking @ Leftovers   |   Ability: Truant   |   Nature: Adamant
+       Moves: Return [T4]  /  Slack Off [Sit]  /  Knock Off [T4]  /  Encore [Sit]
+
+====================================================================================================
+#377 REGIROCK  —  Rock  —  BST 580  —  Category 8
+Stats 80/100/200/50/100/50  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Body Press, status) / B = Offensive (Curse)
+----------------------------------------------------------------------------------------------------
+  [1A] Rock colossus
+       Regirock @ Oran Berry   |   Ability: Clear Body   |   Nature: Hardy
+       Moves: Rock Throw [T1]  /  Defense Curl [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]
+  [1B] Sturdy colossus
+       Regirock @ (no item)   |   Ability: Sturdy   |   Nature: Docile
+       Moves: Rock Throw [T1]  /  Rock Smash [T1]  /  Sand Tomb [T1]  /  Stomp [T2]
+  [2A] Status colossus
+       Regirock @ Sitrus Berry   |   Ability: Clear Body   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Thunder Wave [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [2B] Rock puncher
+       Regirock @ Hard Stone   |   Ability: Sturdy   |   Nature: Lonely
+       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Power-Up Punch [T2]  /  Rock Blast [T3]
+  [3A] Physical wall
+       Regirock @ Rocky Helmet   |   Ability: Clear Body   |   Nature: Impish
+       Moves: Rock Blast [T3]  /  Thunder Wave [Sit]  /  Body Press [T4]  /  Toxic [Sit]
+  [3B] Curse colossus
+       Regirock @ Muscle Band   |   Ability: Sturdy   |   Nature: Adamant
+       Moves: Curse [Sit]  /  Rock Blast [T3]  /  Stomping Tantrum [T3]  /  Rest [Sit]
+  [4A] Iron Defense wall
+       Regirock @ Leftovers   |   Ability: Clear Body   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Stone Edge [T4]  /  Rest [Sit]
+  [4B] Curse tank
+       Regirock @ Leftovers   |   Ability: Sturdy   |   Nature: Adamant
+       Moves: Curse [Sit]  /  Stone Edge [T4]  /  Drain Punch [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#638 COBALION  —  Steel/Fighting  —  BST 580  —  Category 8
+Stats 91/90/129/90/72/108  |  Profile: Balanced / Bulky
+Variants: A = Defensive utility / B = Offensive (setup)
+----------------------------------------------------------------------------------------------------
+  [1A] Iron guardian
+       Cobalion @ Oran Berry   |   Ability: Justified   |   Nature: Hardy
+       Moves: Metal Claw [T1]  /  Leer [T1]  /  Double Kick [T1]  /  Quick Attack [T1]
+  [1B] Clanging guardian
+       Cobalion @ (no item)   |   Ability: Justified   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Rock Smash [T1]  /  False Swipe [T1]  /  Metal Sound [T2]
+  [2A] Utility guardian
+       Cobalion @ Sitrus Berry   |   Ability: Justified   |   Nature: Impish
+       Moves: Revenge [T3]  /  Thunder Wave [Sit]  /  Roar [Sit]  /  Protect [Sit]
+  [2B] Sharpened guardian
+       Cobalion @ Metal Coat   |   Ability: Justified   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Take Down [T2]  /  Aerial Ace [T2]  /  Smart Strike [T3]
+  [3A] Pivot guardian
+       Cobalion @ Sitrus Berry   |   Ability: Justified   |   Nature: Impish
+       Moves: Sacred Sword [T3]  /  Volt Switch [T2]  /  Thunder Wave [Sit]  /  Iron Head [T4]
+  [3B] Swords Dance guardian
+       Cobalion @ Muscle Band   |   Ability: Justified   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Sacred Sword [T3]  /  Smart Strike [T3]  /  Zen Headbutt [T3]
+  [4A] Iron Defense pivot
+       Cobalion @ Leftovers   |   Ability: Justified   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Iron Head [T4]  /  Volt Switch [T2]
+  [4B] Swords Dance sweeper
+       Cobalion @ Life Orb   |   Ability: Justified   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Close Combat [T4]  /  Iron Head [T4]  /  Stone Edge [T4]
+
+====================================================================================================
+#639 TERRAKION  —  Rock/Fighting  —  BST 580  —  Category 8
+Stats 91/129/90/72/90/108  |  Profile: Offensive (physical)
+Variants: A = Setup sweeper / B = Wallbreaker
+----------------------------------------------------------------------------------------------------
+  [1A] Cave guardian
+       Terrakion @ (no item)   |   Ability: Justified   |   Nature: Hardy
+       Moves: Double Kick [T1]  /  Quick Attack [T1]  /  Leer [T1]  /  Rock Tomb [T2]
+  [1B] Charging guardian
+       Terrakion @ Oran Berry   |   Ability: Justified   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Quick Attack [T1]  /  Leer [T1]  /  Take Down [T2]
+  [2A] Sword trainee
+       Terrakion @ Hard Stone   |   Ability: Justified   |   Nature: Lonely
+       Moves: Work Up [T2]  /  Rock Tomb [T2]  /  Aerial Ace [T2]  /  Sacred Sword [T3]
+  [2B] Swift guardian
+       Terrakion @ Black Belt   |   Ability: Justified   |   Nature: Hasty
+       Moves: Rock Tomb [T2]  /  Revenge [T3]  /  Aerial Ace [T2]  /  Bulldoze [T2]
+  [3A] Swords Dance guardian
+       Terrakion @ Muscle Band   |   Ability: Justified   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Sacred Sword [T3]  /  Rock Blast [T3]  /  Stomping Tantrum [T3]
+  [3B] Coverage breaker
+       Terrakion @ Expert Belt   |   Ability: Justified   |   Nature: Jolly
+       Moves: Sacred Sword [T3]  /  X-Scissor [T3]  /  High Horsepower [T3]  /  Stone Edge [T4]
+  [4A] Swords Dance sweeper
+       Terrakion @ Life Orb   |   Ability: Justified   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Close Combat [T4]  /  Stone Edge [T4]  /  Earthquake [T4]
+  [4B] Choice Scarf cleaner
+       Terrakion @ Choice Scarf   |   Ability: Justified   |   Nature: Jolly
+       Moves: Close Combat [T4]  /  Stone Edge [T4]  /  Earthquake [T4]  /  Iron Head [T4]
+
+====================================================================================================
+#889 ZAMAZENTA  —  Fighting  —  BST 660  —  Category 9
+Stats 92/120/115/80/115/138  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Iron Defense + Body Press) / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Shield pup
+       Zamazenta @ (no item)   |   Ability: Dauntless Shield   |   Nature: Hardy
+       Moves: Metal Claw [T1]  /  Quick Attack [T1]  /  Howl [T1]  /  Bite [T2]
+  [1B] Loyal shield
+       Zamazenta @ Oran Berry   |   Ability: Dauntless Shield   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Quick Attack [T1]  /  Focus Energy [T1]  /  Fire Fang [T2]
+  [2A] Guarding shield
+       Zamazenta @ Sitrus Berry   |   Ability: Dauntless Shield   |   Nature: Impish
+       Moves: Revenge [T3]  /  Scary Face [T2]  /  Roar [Sit]  /  Protect [Sit]
+  [2B] Biting shield
+       Zamazenta @ Black Belt   |   Ability: Dauntless Shield   |   Nature: Hasty
+       Moves: Bite [T2]  /  Fire Fang [T2]  /  Ice Fang [T2]  /  Brick Break [T3]
+  [3A] Iron wall
+       Zamazenta @ Rocky Helmet   |   Ability: Dauntless Shield   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Crunch [T3]  /  Roar [Sit]
+  [3B] Shield brawler
+       Zamazenta @ Expert Belt   |   Ability: Dauntless Shield   |   Nature: Jolly
+       Moves: Close Combat [T4]  /  Crunch [T3]  /  Heavy Slam [T3]  /  Dig [T3]
+  [4A] Body Press wall
+       Zamazenta @ Leftovers   |   Ability: Dauntless Shield   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Heavy Slam [T3]  /  Rest [Sit]
+  [4B] Fast wallbreaker
+       Zamazenta @ Life Orb   |   Ability: Dauntless Shield   |   Nature: Jolly
+       Moves: Close Combat [T4]  /  Play Rough [T4]  /  Stone Edge [T4]  /  Psychic Fangs [T4]
+
+====================================================================================================
+#486 REGIGIGAS  —  Normal  —  BST 670  —  Category 9
+Stats 110/160/110/80/110/100  |  Profile: Bulky attacker (Slow Start)
+Variants: A = Stall while Slow Start runs / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Dormant colossus
+       Regigigas @ Oran Berry   |   Ability: Slow Start   |   Nature: Hardy
+       Moves: Pound [T1]  /  Foresight [T1]  /  Rock Smash [T1]  /  Mud-Slap [T1]
+  [1B] Waking colossus
+       Regigigas @ (no item)   |   Ability: Slow Start   |   Nature: Docile
+       Moves: Pound [T1]  /  Rock Smash [T1]  /  Confide [T1]  /  Mega Punch [T2]
+  [2A] Stalling colossus
+       Regigigas @ Sitrus Berry   |   Ability: Slow Start   |   Nature: Careful
+       Moves: Thunder Wave [Sit]  /  Confuse Ray [Sit]  /  Protect [Sit]  /  Headbutt [T2]
+  [2B] Brawling colossus
+       Regigigas @ Silk Scarf   |   Ability: Slow Start   |   Nature: Lonely
+       Moves: Dizzy Punch [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Ice Punch [T3]
+  [3A] Substitute staller
+       Regigigas @ Leftovers   |   Ability: Slow Start   |   Nature: Careful
+       Moves: Confuse Ray [Sit]  /  Thunder Wave [Sit]  /  Protect [Sit]  /  Rock Climb [T3]
+  [3B] Patient brawler
+       Regigigas @ Muscle Band   |   Ability: Slow Start   |   Nature: Adamant
+       Moves: Substitute [Sit]  /  Protect [Sit]  /  Rock Climb [T3]  /  Earthquake [T4]
+  [4A] Paralysis tank
+       Regigigas @ Rocky Helmet   |   Ability: Slow Start   |   Nature: Careful
+       Moves: Body Slam [T4]  /  Knock Off [T4]  /  Thunder Wave [Sit]  /  Protect [Sit]
+  [4B] Substitute sweeper
+       Regigigas @ Leftovers   |   Ability: Slow Start   |   Nature: Adamant
+       Moves: Substitute [Sit]  /  Protect [Sit]  /  Return [T4]  /  Earthquake [T4]
+

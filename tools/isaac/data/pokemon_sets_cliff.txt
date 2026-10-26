@@ -1,0 +1,1703 @@
+====================================================================================================
+POKEMON_SETS.TXT  —  BIOME: CLIFF (Mountain Cliffs) — Flying / Dragon
+56 Pokémon x 8 sets = 448 sets   |   Draft for validation
+====================================================================================================
+
+HOW TO READ
+----------------------------------------------------------------------------------------------------
+  Set tiers (move tiers from moves_by_tier.txt v3, shown in brackets after each move):
+    Tier 1 sets  (early game)     : Tier 1 moves + at most one Tier 2 move. Neutral nature. No item or a basic berry.
+    Tier 2 sets  (early-mid game) : Tier 2 + Situational moves + at most one Tier 3 move. Reasonable but imperfect
+                                    nature (attackers often use Lonely / Hasty / Mild...). Simple items: Sitrus, type boosters...
+    Tier 3 sets  (mid-late game)  : Tier 3 + Situational moves + at most one Tier 4 move. Optimal nature.
+                                    Solid items: Leftovers, Muscle Band, Expert Belt, Rocky Helmet, Lum Berry...
+    Tier 4 sets  (bosses, player) : Best mix of Tier 3, Tier 4 and Situational moves. Competitive items (Life Orb, Choice...).
+    Exception (v3): Tier 3 and Tier 4 sets may use a Tier 2 [Pivot] move (U-turn, Volt Switch, Flip Turn).
+    Entry hazards do not exist in this game (v3), so no set uses them. Eviolite is banned from the game.
+  Set A / Set B follow the Pokémon profile shown under its name:
+    Mixed attacker: A = Physical / B = Special.   Balanced / Bulky: A = Defensive / B = Offensive.
+    Pure Defensive: A = Pure Stall / B = Defensive with utility.
+    Offensive (one attacking stat): A = Setup / power attacker / B = second offensive role (pivot, priority, Choice, utility).
+  Every move is legal for that Pokémon (current or past learnset, incl. pre-evolution moves). Smeargle may use any move
+  (Sketch). Every set was checked by script for move legality, tier rules, ability legality and item rules.
+
+====================================================================================================
+#175 TOGEPI  —  Fairy  —  BST 245  —  Category 1
+Stats 35/20/65/40/65/20  |  Profile: Pure Defensive (support)
+Variants: A = Stall (Wish, Soft-Boiled) / B = Utility (Serene Grace, screens, Nasty Plot)
+----------------------------------------------------------------------------------------------------
+  [1A] Spike ball
+       Togepi @ Oran Berry   |   Ability: Serene Grace   |   Nature: Hardy
+       Moves: Pound [T1]  /  Sweet Kiss [T1]  /  Growl [T1]  /  Draining Kiss [T2]
+  [1B] Egg baby
+       Togepi @ (no item)   |   Ability: Hustle   |   Nature: Docile
+       Moves: Peck [T1]  /  Pound [T1]  /  Defense Curl [T1]  /  Headbutt [T2]
+  [2A] Wishing egg
+       Togepi @ Sitrus Berry   |   Ability: Serene Grace   |   Nature: Bold
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Draining Kiss [T2]  /  Yawn [Sit]
+  [2B] Lucky egg
+       Togepi @ Lum Berry   |   Ability: Super Luck   |   Nature: Calm
+       Moves: Encore [Sit]  /  Ancient Power [T2]  /  Charm [T2]  /  Thunder Wave [Sit]
+  [3A] Cleric egg
+       Togepi @ Leftovers   |   Ability: Serene Grace   |   Nature: Bold
+       Moves: Soft-Boiled [Sit]  /  Heal Bell [Sit]  /  Dazzling Gleam [T3]  /  Thunder Wave [Sit]
+  [3B] Nasty Plot egg
+       Togepi @ Wise Glasses   |   Ability: Serene Grace   |   Nature: Modest
+       Moves: Nasty Plot [T4]  /  Dazzling Gleam [T3]  /  Extrasensory [T3]  /  Mystical Fire [T3]
+  [4A] Wish wall
+       Togepi @ Rocky Helmet   |   Ability: Serene Grace   |   Nature: Bold
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Seismic Toss [T4]  /  Encore [Sit]
+  [4B] Screen egg
+       Togepi @ Light Clay   |   Ability: Super Luck   |   Nature: Calm
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Wish [Sit]  /  Dazzling Gleam [T3]
+
+====================================================================================================
+#187 HOPPIP  —  Grass/Flying  —  BST 250  —  Category 1
+Stats 35/35/40/35/55/50  |  Profile: Pure Defensive (support)
+Variants: A = Stall (Leech Seed, Strength Sap) / B = Utility (sleep, Encore, Memento)
+----------------------------------------------------------------------------------------------------
+  [1A] Cottonweed
+       Hoppip @ (no item)   |   Ability: Chlorophyll   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Absorb [T1]  /  Fairy Wind [T1]  /  Poison Powder [T1]
+  [1B] Floating weed
+       Hoppip @ Oran Berry   |   Ability: Infiltrator   |   Nature: Docile
+       Moves: Confusion [T1]  /  Mega Drain [T1]  /  Tail Whip [T1]  /  Magical Leaf [T2]
+  [2A] Seeding weed
+       Hoppip @ Sitrus Berry   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Cotton Spore [T2]  /  Magical Leaf [T2]  /  Protect [Sit]
+  [2B] Pivot weed
+       Hoppip @ Lum Berry   |   Ability: Infiltrator   |   Nature: Timid
+       Moves: U-turn [T2]  /  Charm [T2]  /  Stun Spore [Sit]  /  Encore [Sit]
+  [3A] Strength Sap weed
+       Hoppip @ Leftovers   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Sleep Powder [T3]  /  Strength Sap [Sit]  /  Pollen Puff [T3]
+  [3B] Memento lead
+       Hoppip @ Focus Sash   |   Ability: Chlorophyll   |   Nature: Jolly
+       Moves: Sleep Powder [T3]  /  Encore [Sit]  /  Memento [Sit]  /  U-turn [T2]
+  [4A] Bulky weed
+       Hoppip @ Rocky Helmet   |   Ability: Infiltrator   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Strength Sap [Sit]  /  Giga Drain [T4]  /  Encore [Sit]
+  [4B] Swords Dance weed
+       Hoppip @ Life Orb   |   Ability: Chlorophyll   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Bounce [T3]  /  Leech Seed [Sit]
+
+====================================================================================================
+#016 PIDGEY  —  Normal/Flying  —  BST 251  —  Category 1
+Stats 40/45/40/35/35/56  |  Profile: Offensive (physical)
+Variants: A = Attacker / B = Support (Tailwind, Defog, Roost)
+----------------------------------------------------------------------------------------------------
+  [1A] Tiny bird
+       Pidgey @ (no item)   |   Ability: Keen Eye   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Gust [T1]  /  Sand Attack [T1]  /  Wing Attack [T2]
+  [1B] Feathered bird
+       Pidgey @ Oran Berry   |   Ability: Big Pecks   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Twister [T1]  /  Mud-Slap [T1]  /  Feather Dance [T2]
+  [2A] Winged striker
+       Pidgey @ Sharp Beak   |   Ability: Big Pecks   |   Nature: Lonely
+       Moves: Steel Wing [T2]  /  Wing Attack [T2]  /  Feint Attack [T2]  /  Work Up [T2]
+  [2B] Pivot bird
+       Pidgey @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Feather Dance [T2]  /  Roost [Sit]  /  Whirlwind [Sit]
+  [3A] Diving bird
+       Pidgey @ Muscle Band   |   Ability: Big Pecks   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Fly [T3]  /  Feint Attack [T2]  /  U-turn [T2]
+  [3B] Tailwind support
+       Pidgey @ Leftovers   |   Ability: Keen Eye   |   Nature: Timid
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Tailwind [Sit]  /  Heat Wave [T3]
+  [4A] Physical attacker
+       Pidgey @ Life Orb   |   Ability: Big Pecks   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Double-Edge [T4]  /  U-turn [T2]  /  Roost [Sit]
+  [4B] Tailwind lead
+       Pidgey @ Focus Sash   |   Ability: Tangled Feet   |   Nature: Timid
+       Moves: Hurricane [T4]  /  Heat Wave [T3]  /  Tailwind [Sit]  /  U-turn [T2]
+
+====================================================================================================
+#021 SPEAROW  —  Normal/Flying  —  BST 262  —  Category 1
+Stats 40/60/30/31/31/70  |  Profile: Offensive (physical)
+Variants: A = Sniper attacker / B = Keen Eye attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Fiery bird
+       Spearow @ (no item)   |   Ability: Keen Eye   |   Nature: Hardy
+       Moves: Peck [T1]  /  Leer [T1]  /  Fury Attack [T1]  /  Pluck [T2]
+  [1B] Sniping bird
+       Spearow @ Oran Berry   |   Ability: Sniper   |   Nature: Docile
+       Moves: Peck [T1]  /  Focus Energy [T1]  /  Growl [T1]  /  Aerial Ace [T2]
+  [2A] Critical bird
+       Spearow @ Scope Lens   |   Ability: Sniper   |   Nature: Lonely
+       Moves: Focus Energy [T1]  /  Pluck [T2]  /  Thief [T2]  /  Drill Peck [T3]
+  [2B] Pursuit bird
+       Spearow @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Feather Dance [T2]  /  Scary Face [T2]  /  Pursuit [Sit]
+  [3A] Focus Energy sniper
+       Spearow @ Scope Lens   |   Ability: Sniper   |   Nature: Jolly
+       Moves: Focus Energy [T1]  /  Drill Peck [T3]  /  Drill Run [T3]  /  Double-Edge [T4]
+  [3B] Drilling bird
+       Spearow @ Muscle Band   |   Ability: Keen Eye   |   Nature: Jolly
+       Moves: Drill Peck [T3]  /  Drill Run [T3]  /  Assurance [T3]  /  U-turn [T2]
+  [4A] Physical attacker
+       Spearow @ Life Orb   |   Ability: Sniper   |   Nature: Jolly
+       Moves: Drill Peck [T3]  /  Double-Edge [T4]  /  Drill Run [T3]  /  U-turn [T2]
+  [4B] Choice Band bird
+       Spearow @ Choice Band   |   Ability: Keen Eye   |   Nature: Jolly
+       Moves: Drill Peck [T3]  /  Return [T4]  /  Drill Run [T3]  /  U-turn [T2]
+
+====================================================================================================
+#276 TAILLOW  —  Normal/Flying  —  BST 270  —  Category 1
+Stats 40/55/30/30/30/85  |  Profile: Offensive (physical, fast)
+Variants: A = Guts attacker / B = Scrappy attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Tiny swallow
+       Taillow @ (no item)   |   Ability: Guts   |   Nature: Hardy
+       Moves: Peck [T1]  /  Quick Attack [T1]  /  Growl [T1]  /  Wing Attack [T2]
+  [1B] Scrappy swallow
+       Taillow @ Oran Berry   |   Ability: Scrappy   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Focus Energy [T1]  /  Supersonic [T1]  /  Pluck [T2]
+  [2A] Guts swallow
+       Taillow @ Sharp Beak   |   Ability: Guts   |   Nature: Lonely
+       Moves: Wing Attack [T2]  /  Steel Wing [T2]  /  U-turn [T2]  /  Reversal [T3]
+  [2B] Pivot swallow
+       Taillow @ Sitrus Berry   |   Ability: Scrappy   |   Nature: Hasty
+       Moves: Feather Dance [T2]  /  U-turn [T2]  /  Roost [Sit]  /  Pluck [T2]
+  [3A] Guts striker
+       Taillow @ Flame Orb   |   Ability: Guts   |   Nature: Jolly
+       Moves: Facade [T4]  /  Fly [T3]  /  Quick Attack [T1]  /  U-turn [T2]
+  [3B] Endeavor swallow
+       Taillow @ Muscle Band   |   Ability: Scrappy   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Reversal [T3]  /  Quick Attack [T1]  /  Endeavor [Sit]
+  [4A] Guts sweeper
+       Taillow @ Toxic Orb   |   Ability: Guts   |   Nature: Jolly
+       Moves: Facade [T4]  /  Brave Bird [T4]  /  Quick Attack [T1]  /  U-turn [T2]
+  [4B] Choice Band swallow
+       Taillow @ Choice Band   |   Ability: Scrappy   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Double-Edge [T4]  /  U-turn [T2]  /  Quick Attack [T1]
+
+====================================================================================================
+#278 WINGULL  —  Water/Flying  —  BST 270  —  Category 1
+Stats 40/30/30/55/30/85  |  Profile: Offensive (special)
+Variants: A = Rain attacker / B = Utility (Defog, Roost, U-turn)
+----------------------------------------------------------------------------------------------------
+  [1A] Seagull
+       Wingull @ (no item)   |   Ability: Keen Eye   |   Nature: Hardy
+       Moves: Water Gun [T1]  /  Gust [T1]  /  Growl [T1]  /  Supersonic [T1]
+  [1B] Hydrated gull
+       Wingull @ Oran Berry   |   Ability: Hydration   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Twister [T1]  /  Whirlpool [T1]  /  Water Pulse [T2]
+  [2A] Brine caster
+       Wingull @ Mystic Water   |   Ability: Rain Dish   |   Nature: Mild
+       Moves: Water Pulse [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Brine [T3]
+  [2B] Pivot gull
+       Wingull @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Timid
+       Moves: U-turn [T2]  /  Roost [Sit]  /  Feather Dance [T2]  /  Chilling Water [T2]
+  [3A] Rain setter
+       Wingull @ Damp Rock   |   Ability: Rain Dish   |   Nature: Modest
+       Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Roost [Sit]  /  Hurricane [T4]
+  [3B] Field cleaner
+       Wingull @ Leftovers   |   Ability: Hydration   |   Nature: Timid
+       Moves: Defog [Sit]  /  Roost [Sit]  /  Brine [T3]  /  U-turn [T2]
+  [4A] Choice Specs gull
+       Wingull @ Choice Specs   |   Ability: Rain Dish   |   Nature: Modest
+       Moves: Hydro Pump [T4]  /  Hurricane [T4]  /  Ice Beam [T4]  /  U-turn [T2]
+  [4B] Bulky gull
+       Wingull @ Rocky Helmet   |   Ability: Keen Eye   |   Nature: Timid
+       Moves: Scald [T4]  /  Roost [Sit]  /  Defog [Sit]  /  Knock Off [T4]
+
+====================================================================================================
+#433 CHINGLING  —  Psychic  —  BST 285  —  Category 1
+Stats 45/30/50/65/50/45  |  Profile: Offensive (special)
+Variants: A = Setup (Calm Mind) / B = Support (screens, Trick Room, Heal Bell)
+----------------------------------------------------------------------------------------------------
+  [1A] Bell baby
+       Chingling @ (no item)   |   Ability: Levitate   |   Nature: Hardy
+       Moves: Astonish [T1]  /  Confusion [T1]  /  Wrap [T1]  /  Growl [T1]
+  [1B] Jingling baby
+       Chingling @ Oran Berry   |   Ability: Levitate   |   Nature: Docile
+       Moves: Bind [T1]  /  Flash [T1]  /  Confusion [T1]  /  Shock Wave [T2]
+  [2A] Psychic caster
+       Chingling @ Twisted Spoon   |   Ability: Levitate   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Icy Wind [T2]  /  Round [T2]  /  Psychic Noise [T3]
+  [2B] Cleric bell
+       Chingling @ Sitrus Berry   |   Ability: Levitate   |   Nature: Calm
+       Moves: Hypnosis [T2]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Swift [T2]
+  [3A] Stored Power bell
+       Chingling @ Wise Glasses   |   Ability: Levitate   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Dazzling Gleam [T3]  /  Recover [Sit]
+  [3B] Screen setter
+       Chingling @ Light Clay   |   Ability: Levitate   |   Nature: Bold
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Heal Bell [Sit]  /  Psychic Noise [T3]
+  [4A] Calm Mind bell
+       Chingling @ Leftovers   |   Ability: Levitate   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Psyshock [T4]  /  Shadow Ball [T4]  /  Recover [Sit]
+  [4B] Trick Room bell
+       Chingling @ Mental Herb   |   Ability: Levitate   |   Nature: Relaxed
+       Moves: Trick Room [Sit]  /  Yawn [Sit]  /  Heal Bell [Sit]  /  Psychic [T4]
+
+====================================================================================================
+#328 TRAPINCH  —  Ground  —  BST 290  —  Category 2
+Stats 45/100/45/45/45/10  |  Profile: Offensive (physical, slow)
+Variants: A = Sheer Force attacker / B = Arena Trap attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Ant pit
+       Trapinch @ (no item)   |   Ability: Hyper Cutter   |   Nature: Hardy
+       Moves: Sand Tomb [T1]  /  Quick Attack [T1]  /  Astonish [T1]  /  Bite [T2]
+  [1B] Sandy pit
+       Trapinch @ Oran Berry   |   Ability: Sheer Force   |   Nature: Docile
+       Moves: Mud-Slap [T1]  /  Rock Smash [T1]  /  Focus Energy [T1]  /  Bulldoze [T2]
+  [2A] Biting pit
+       Trapinch @ Soft Sand   |   Ability: Sheer Force   |   Nature: Lonely
+       Moves: Bite [T2]  /  Bulldoze [T2]  /  Rock Tomb [T2]  /  Crunch [T3]
+  [2B] Trapping pit
+       Trapinch @ Sitrus Berry   |   Ability: Arena Trap   |   Nature: Brave
+       Moves: Bug Bite [T2]  /  Feint Attack [T2]  /  Bulldoze [T2]  /  Superpower [T3]
+  [3A] First Impression pit
+       Trapinch @ Muscle Band   |   Ability: Sheer Force   |   Nature: Brave
+       Moves: Crunch [T3]  /  Dig [T3]  /  Superpower [T3]  /  First Impression [T4]
+  [3B] Sash pit
+       Trapinch @ Focus Sash   |   Ability: Arena Trap   |   Nature: Brave
+       Moves: Superpower [T3]  /  Dig [T3]  /  Crunch [T3]  /  Earthquake [T4]
+  [4A] Sheer Force attacker
+       Trapinch @ Life Orb   |   Ability: Sheer Force   |   Nature: Brave
+       Moves: Earthquake [T4]  /  Rock Slide [T4]  /  Crunch [T3]  /  First Impression [T4]
+  [4B] Choice Band pit
+       Trapinch @ Choice Band   |   Ability: Arena Trap   |   Nature: Adamant
+       Moves: Earthquake [T4]  /  Stone Edge [T4]  /  First Impression [T4]  /  Superpower [T3]
+
+====================================================================================================
+#147 DRATINI  —  Dragon  —  BST 300  —  Category 2
+Stats 41/64/45/50/50/50  |  Profile: Offensive (physical)
+Variants: A = Setup (Dragon Dance) / B = Special and bulky
+----------------------------------------------------------------------------------------------------
+  [1A] Little dragon
+       Dratini @ (no item)   |   Ability: Shed Skin   |   Nature: Hardy
+       Moves: Wrap [T1]  /  Leer [T1]  /  Twister [T1]  /  Water Gun [T1]
+  [1B] Scaled dragon
+       Dratini @ Oran Berry   |   Ability: Marvel Scale   |   Nature: Docile
+       Moves: Supersonic [T1]  /  Bind [T1]  /  Fire Spin [T1]  /  Dragon Breath [T2]
+  [2A] Slamming dragon
+       Dratini @ Dragon Fang   |   Ability: Shed Skin   |   Nature: Lonely
+       Moves: Breaking Swipe [T2]  /  Slam [T2]  /  Headbutt [T2]  /  Aqua Tail [T3]
+  [2B] Paralysis dragon
+       Dratini @ Sitrus Berry   |   Ability: Marvel Scale   |   Nature: Mild
+       Moves: Dragon Breath [T2]  /  Bubble Beam [T2]  /  Shock Wave [T2]  /  Thunder Wave [Sit]
+  [3A] Dragon Dance dragon
+       Dratini @ Muscle Band   |   Ability: Shed Skin   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Aqua Tail [T3]  /  Dragon Rush [T3]  /  Iron Tail [T3]
+  [3B] Shed Skin rester
+       Dratini @ Leftovers   |   Ability: Shed Skin   |   Nature: Modest
+       Moves: Rest [Sit]  /  Dragon Tail [Sit]  /  Haze [Sit]  /  Toxic [Sit]
+  [4A] Dragon Dance sweeper
+       Dratini @ Life Orb   |   Ability: Shed Skin   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Extreme Speed [T4]  /  Waterfall [T4]
+  [4B] Choice Specs dragon
+       Dratini @ Choice Specs   |   Ability: Marvel Scale   |   Nature: Modest
+       Moves: Draco Meteor [T4]  /  Fire Blast [T4]  /  Ice Beam [T4]  /  Thunderbolt [T4]
+
+====================================================================================================
+#443 GIBLE  —  Dragon/Ground  —  BST 300  —  Category 2
+Stats 58/70/45/40/45/42  |  Profile: Offensive (physical)
+Variants: A = Setup (Swords Dance) / B = Bulky (Rough Skin)
+----------------------------------------------------------------------------------------------------
+  [1A] Land shark
+       Gible @ (no item)   |   Ability: Sand Veil   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Sand Tomb [T1]  /  Metal Claw [T1]  /  Bite [T2]
+  [1B] Rough shark
+       Gible @ Oran Berry   |   Ability: Rough Skin   |   Nature: Docile
+       Moves: Mud-Slap [T1]  /  Twister [T1]  /  Rock Smash [T1]  /  Dragon Breath [T2]
+  [2A] Clawing shark
+       Gible @ Dragon Fang   |   Ability: Rough Skin   |   Nature: Lonely
+       Moves: Bite [T2]  /  Bulldoze [T2]  /  Fire Fang [T2]  /  Dragon Claw [T3]
+  [2B] Phazing shark
+       Gible @ Sitrus Berry   |   Ability: Rough Skin   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Roar [Sit]  /  Protect [Sit]
+  [3A] Swords Dance shark
+       Gible @ Muscle Band   |   Ability: Sand Veil   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Dragon Claw [T3]  /  Dig [T3]  /  Shadow Claw [T3]
+  [3B] Rough Skin shark
+       Gible @ Rocky Helmet   |   Ability: Rough Skin   |   Nature: Jolly
+       Moves: Dragon Rush [T3]  /  Earthquake [T4]  /  Dragon Tail [Sit]  /  Toxic [Sit]
+  [4A] Swords Dance sweeper
+       Gible @ Life Orb   |   Ability: Rough Skin   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Earthquake [T4]  /  Outrage [T4]  /  Stone Edge [T4]
+  [4B] Sash shark
+       Gible @ Focus Sash   |   Ability: Sand Veil   |   Nature: Jolly
+       Moves: Earthquake [T4]  /  Dragon Claw [T3]  /  Stone Edge [T4]  /  Iron Head [T4]
+
+====================================================================================================
+#004 CHARMANDER  —  Fire  —  BST 309  —  Category 2
+Stats 39/52/43/60/50/65  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special (Solar Power)
+----------------------------------------------------------------------------------------------------
+  [1A] Flame lizard
+       Charmander @ (no item)   |   Ability: Blaze   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Ember [T1]  /  Growl [T1]  /  Metal Claw [T1]
+  [1B] Sunny lizard
+       Charmander @ Oran Berry   |   Ability: Solar Power   |   Nature: Docile
+       Moves: Ember [T1]  /  Smokescreen [T1]  /  Fire Spin [T1]  /  Dragon Breath [T2]
+  [2A] Fanged lizard
+       Charmander @ Charcoal   |   Ability: Blaze   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Bite [T2]  /  Flame Charge [T2]  /  Fire Punch [T3]
+  [2B] Flame caster
+       Charmander @ Sitrus Berry   |   Ability: Solar Power   |   Nature: Mild
+       Moves: Flame Burst [T2]  /  Dragon Breath [T2]  /  Air Cutter [T2]  /  Heat Wave [T3]
+  [3A] Swords Dance lizard
+       Charmander @ Muscle Band   |   Ability: Blaze   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Fire Punch [T3]  /  Thunder Punch [T3]  /  Dragon Claw [T3]
+  [3B] Sun lizard
+       Charmander @ Heat Rock   |   Ability: Solar Power   |   Nature: Modest
+       Moves: Sunny Day [Sit]  /  Heat Wave [T3]  /  Dragon Pulse [T4]  /  Will-O-Wisp [Sit]
+  [4A] Dragon Dance lizard
+       Charmander @ Life Orb   |   Ability: Blaze   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Flare Blitz [T4]  /  Outrage [T4]  /  Thunder Punch [T3]
+  [4B] Choice Specs lizard
+       Charmander @ Choice Specs   |   Ability: Solar Power   |   Nature: Timid
+       Moves: Fire Blast [T4]  /  Dragon Pulse [T4]  /  Focus Blast [T4]  /  Heat Wave [T3]
+
+====================================================================================================
+#084 DODUO  —  Normal/Flying  —  BST 310  —  Category 2
+Stats 35/85/45/35/35/75  |  Profile: Offensive (physical, fast)
+Variants: A = Attacker / B = Support (Feather Dance, Roost)
+----------------------------------------------------------------------------------------------------
+  [1A] Twin bird
+       Doduo @ (no item)   |   Ability: Early Bird   |   Nature: Hardy
+       Moves: Peck [T1]  /  Fury Attack [T1]  /  Growl [T1]  /  Pluck [T2]
+  [1B] Running bird
+       Doduo @ Oran Berry   |   Ability: Run Away   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Supersonic [T1]  /  Peck [T1]  /  Double Hit [T2]
+  [2A] Pecking bird
+       Doduo @ Sharp Beak   |   Ability: Early Bird   |   Nature: Lonely
+       Moves: Pluck [T2]  /  Double Hit [T2]  /  Feint Attack [T2]  /  Drill Peck [T3]
+  [2B] Support bird
+       Doduo @ Sitrus Berry   |   Ability: Tangled Feet   |   Nature: Hasty
+       Moves: Feather Dance [T2]  /  Roost [Sit]  /  Pluck [T2]  /  Haze [Sit]
+  [3A] Coverage bird
+       Doduo @ Muscle Band   |   Ability: Early Bird   |   Nature: Jolly
+       Moves: Drill Peck [T3]  /  Jump Kick [T3]  /  Throat Chop [T3]  /  Knock Off [T4]
+  [3B] Endeavor bird
+       Doduo @ Focus Sash   |   Ability: Tangled Feet   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Jump Kick [T3]  /  Endeavor [Sit]  /  Quick Attack [T1]
+  [4A] Swords Dance bird
+       Doduo @ Life Orb   |   Ability: Early Bird   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Brave Bird [T4]  /  Double-Edge [T4]  /  Knock Off [T4]
+  [4B] Choice Band bird
+       Doduo @ Choice Band   |   Ability: Run Away   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Double-Edge [T4]  /  Knock Off [T4]  /  Jump Kick [T3]
+
+====================================================================================================
+#333 SWABLU  —  Normal/Flying  —  BST 310  —  Category 2
+Stats 45/40/60/40/75/50  |  Profile: Pure Defensive (support)
+Variants: A = Stall (Roost, Cotton Guard) / B = Utility (Heal Bell, Perish Song, Tailwind)
+----------------------------------------------------------------------------------------------------
+  [1A] Cotton bird
+       Swablu @ Oran Berry   |   Ability: Natural Cure   |   Nature: Hardy
+       Moves: Peck [T1]  /  Growl [T1]  /  Astonish [T1]  /  Disarming Voice [T1]
+  [1B] Singing bird
+       Swablu @ (no item)   |   Ability: Cloud Nine   |   Nature: Docile
+       Moves: Fury Attack [T1]  /  Twister [T1]  /  Mud-Slap [T1]  /  Sing [T2]
+  [2A] Cotton Guard bird
+       Swablu @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Air Cutter [T2]  /  Cotton Guard [Sit]
+  [2B] Haze bird
+       Swablu @ Lum Berry   |   Ability: Cloud Nine   |   Nature: Calm
+       Moves: Sing [T2]  /  Haze [Sit]  /  Dragon Breath [T2]  /  Feather Dance [T2]
+  [3A] Cotton staller
+       Swablu @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Roost [Sit]  /  Cotton Guard [Sit]  /  Dazzling Gleam [T3]  /  Toxic [Sit]
+  [3B] Perish bird
+       Swablu @ Mental Herb   |   Ability: Cloud Nine   |   Nature: Calm
+       Moves: Heal Bell [Sit]  /  Perish Song [Sit]  /  Haze [Sit]  /  Heat Wave [T3]
+  [4A] Bulky bird
+       Swablu @ Rocky Helmet   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Moonblast [T4]  /  Toxic [Sit]
+  [4B] Tailwind lead
+       Swablu @ Focus Sash   |   Ability: Natural Cure   |   Nature: Timid
+       Moves: Tailwind [Sit]  /  Heal Bell [Sit]  /  Hurricane [T4]  /  Haze [Sit]
+
+====================================================================================================
+#177 NATU  —  Psychic/Flying  —  BST 320  —  Category 2
+Stats 40/50/45/70/45/70  |  Profile: Offensive (special)
+Variants: A = Attacker (Calm Mind) / B = Support (Magic Bounce, Wish, Roost)
+----------------------------------------------------------------------------------------------------
+  [1A] Tiny bird
+       Natu @ (no item)   |   Ability: Synchronize   |   Nature: Hardy
+       Moves: Peck [T1]  /  Leer [T1]  /  Quick Attack [T1]  /  Twister [T1]
+  [1B] Staring bird
+       Natu @ Oran Berry   |   Ability: Early Bird   |   Nature: Docile
+       Moves: Peck [T1]  /  Miracle Eye [T1]  /  Flash [T1]  /  Air Cutter [T2]
+  [2A] Psychic caster
+       Natu @ Twisted Spoon   |   Ability: Synchronize   |   Nature: Mild
+       Moves: Air Cutter [T2]  /  Ominous Wind [T2]  /  Silver Wind [T2]  /  Expanding Force [T3]
+  [2B] Bouncing pivot
+       Natu @ Sitrus Berry   |   Ability: Magic Bounce   |   Nature: Timid
+       Moves: U-turn [T2]  /  Thunder Wave [Sit]  /  Roost [Sit]  /  Wish [Sit]
+  [3A] Stored Power bird
+       Natu @ Wise Glasses   |   Ability: Magic Bounce   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Heat Wave [T3]  /  Roost [Sit]
+  [3B] Magic Bounce support
+       Natu @ Leftovers   |   Ability: Magic Bounce   |   Nature: Timid
+       Moves: Roost [Sit]  /  Wish [Sit]  /  Thunder Wave [Sit]  /  Heat Wave [T3]
+  [4A] Calm Mind sweeper
+       Natu @ Life Orb   |   Ability: Magic Bounce   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Psychic [T4]  /  Air Slash [T4]  /  Heat Wave [T3]
+  [4B] Bulky pivot
+       Natu @ Rocky Helmet   |   Ability: Magic Bounce   |   Nature: Timid
+       Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Night Shade [T4]  /  U-turn [T2]
+
+====================================================================================================
+#527 WOOBAT  —  Psychic/Flying  —  BST 323  —  Category 2
+Stats 65/45/43/55/43/72  |  Profile: Offensive (special)
+Variants: A = Setup (Simple Calm Mind) / B = Utility (Unaware, Roost, Defog)
+----------------------------------------------------------------------------------------------------
+  [1A] Bat
+       Woobat @ (no item)   |   Ability: Unaware   |   Nature: Hardy
+       Moves: Confusion [T1]  /  Gust [T1]  /  Supersonic [T1]  /  Air Cutter [T2]
+  [1B] Clumsy bat
+       Woobat @ Oran Berry   |   Ability: Klutz   |   Nature: Docile
+       Moves: Confusion [T1]  /  Flash [T1]  /  Odor Sleuth [T1]  /  Heart Stamp [T2]
+  [2A] Simple caster
+       Woobat @ Twisted Spoon   |   Ability: Simple   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Air Cutter [T2]  /  Swift [T2]  /  Expanding Force [T3]
+  [2B] Pivot bat
+       Woobat @ Sitrus Berry   |   Ability: Unaware   |   Nature: Timid
+       Moves: U-turn [T2]  /  Roost [Sit]  /  Thunder Wave [Sit]  /  Air Cutter [T2]
+  [3A] Simple Calm Mind bat
+       Woobat @ Wise Glasses   |   Ability: Simple   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Heat Wave [T3]  /  Roost [Sit]
+  [3B] Unaware bat
+       Woobat @ Leftovers   |   Ability: Unaware   |   Nature: Bold
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Heat Wave [T3]  /  Defog [Sit]
+  [4A] Simple sweeper
+       Woobat @ Life Orb   |   Ability: Simple   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Psychic [T4]  /  Air Slash [T4]  /  Shadow Ball [T4]
+  [4B] Bulky bat
+       Woobat @ Rocky Helmet   |   Ability: Unaware   |   Nature: Timid
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Psychic [T4]  /  Taunt [Sit]
+
+====================================================================================================
+#216 TEDDIURSA  —  Normal  —  BST 330  —  Category 3
+Stats 60/80/50/50/50/40  |  Profile: Offensive (physical)
+Variants: A = Quick Feet attacker / B = Setup (Belly Drum, Choice)
+----------------------------------------------------------------------------------------------------
+  [1A] Little bear
+       Teddiursa @ (no item)   |   Ability: Pickup   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Lick [T1]  /  Leer [T1]  /  Fury Swipes [T1]
+  [1B] Quick bear
+       Teddiursa @ Oran Berry   |   Ability: Quick Feet   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Baby-Doll Eyes [T1]  /  Rock Smash [T1]  /  Covet [T2]
+  [2A] Brawling bear
+       Teddiursa @ Silk Scarf   |   Ability: Pickup   |   Nature: Lonely
+       Moves: Chip Away [T2]  /  Feint Attack [T2]  /  Power-Up Punch [T2]  /  Crunch [T3]
+  [2B] Sweet bear
+       Teddiursa @ Sitrus Berry   |   Ability: Honey Gather   |   Nature: Hasty
+       Moves: Fake Tears [T2]  /  Charm [T2]  /  Covet [T2]  /  Yawn [Sit]
+  [3A] Quick Feet bear
+       Teddiursa @ Flame Orb   |   Ability: Quick Feet   |   Nature: Adamant
+       Moves: Facade [T4]  /  Crunch [T3]  /  Low Kick [T3]  /  Fire Punch [T3]
+  [3B] Belly Drum bear
+       Teddiursa @ Sitrus Berry   |   Ability: Pickup   |   Nature: Adamant
+       Moves: Belly Drum [T4]  /  Crunch [T3]  /  Ice Punch [T3]  /  Thrash [T3]
+  [4A] Quick Feet sweeper
+       Teddiursa @ Toxic Orb   |   Ability: Quick Feet   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Facade [T4]  /  Close Combat [T4]  /  Crunch [T3]
+  [4B] Choice Band bear
+       Teddiursa @ Choice Band   |   Ability: Pickup   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Close Combat [T4]  /  Gunk Shot [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#188 SKIPLOOM  —  Grass/Flying  —  BST 340  —  Category 3
+Stats 55/45/50/45/65/80  |  Profile: Pure Defensive (support)
+Variants: A = Stall (Strength Sap, Leech Seed) / B = Utility (sleep, Tailwind, sun)
+----------------------------------------------------------------------------------------------------
+  [1A] Cottonweed
+       Skiploom @ (no item)   |   Ability: Leaf Guard   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Absorb [T1]  /  Sweet Scent [T1]  /  Silver Wind [T2]
+  [1B] Sunny weed
+       Skiploom @ Oran Berry   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Fairy Wind [T1]  /  Mega Drain [T1]  /  Growl [T1]  /  Cotton Spore [T2]
+  [2A] Cleric weed
+       Skiploom @ Sitrus Berry   |   Ability: Infiltrator   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Magical Leaf [T2]  /  Encore [Sit]  /  Aromatherapy [Sit]
+  [2B] Tailwind weed
+       Skiploom @ Lum Berry   |   Ability: Chlorophyll   |   Nature: Timid
+       Moves: U-turn [T2]  /  Stun Spore [Sit]  /  Charm [T2]  /  Tailwind [Sit]
+  [3A] Strength Sap staller
+       Skiploom @ Leftovers   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Strength Sap [Sit]  /  Leech Seed [Sit]  /  Pollen Puff [T3]  /  Protect [Sit]
+  [3B] Sleep lead
+       Skiploom @ Focus Sash   |   Ability: Infiltrator   |   Nature: Jolly
+       Moves: Sleep Powder [T3]  /  Tailwind [Sit]  /  Encore [Sit]  /  U-turn [T2]
+  [4A] Bulky weed
+       Skiploom @ Rocky Helmet   |   Ability: Infiltrator   |   Nature: Bold
+       Moves: Strength Sap [Sit]  /  Encore [Sit]  /  Giga Drain [T4]  /  U-turn [T2]
+  [4B] Sun setter
+       Skiploom @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Jolly
+       Moves: Sunny Day [Sit]  /  Sleep Powder [T3]  /  Giga Drain [T4]  /  Memento [Sit]
+
+====================================================================================================
+#329 VIBRAVA  —  Ground/Dragon  —  BST 340  —  Category 3
+Stats 50/70/50/50/50/70  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special and support (Defog, Tailwind)
+----------------------------------------------------------------------------------------------------
+  [1A] Vibration bug
+       Vibrava @ (no item)   |   Ability: Levitate   |   Nature: Hardy
+       Moves: Sand Tomb [T1]  /  Gust [T1]  /  Quick Attack [T1]  /  Bite [T2]
+  [1B] Humming bug
+       Vibrava @ Oran Berry   |   Ability: Levitate   |   Nature: Docile
+       Moves: Mud-Slap [T1]  /  Twister [T1]  /  Supersonic [T1]  /  Dragon Breath [T2]
+  [2A] Clawing bug
+       Vibrava @ Soft Sand   |   Ability: Levitate   |   Nature: Lonely
+       Moves: Bulldoze [T2]  /  Bug Bite [T2]  /  Bite [T2]  /  Dragon Claw [T3]
+  [2B] Pivot bug
+       Vibrava @ Sitrus Berry   |   Ability: Levitate   |   Nature: Timid
+       Moves: U-turn [T2]  /  Dragon Breath [T2]  /  Mud Shot [T2]  /  Roost [Sit]
+  [3A] Physical bug
+       Vibrava @ Muscle Band   |   Ability: Levitate   |   Nature: Jolly
+       Moves: Dragon Claw [T3]  /  Dig [T3]  /  Superpower [T3]  /  Earthquake [T4]
+  [3B] Tailwind support
+       Vibrava @ Leftovers   |   Ability: Levitate   |   Nature: Timid
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Tailwind [Sit]  /  Dragon Pulse [T4]
+  [4A] Physical attacker
+       Vibrava @ Life Orb   |   Ability: Levitate   |   Nature: Jolly
+       Moves: Earthquake [T4]  /  Outrage [T4]  /  Stone Edge [T4]  /  U-turn [T2]
+  [4B] Choice Specs bug
+       Vibrava @ Choice Specs   |   Ability: Levitate   |   Nature: Modest
+       Moves: Draco Meteor [T4]  /  Earth Power [T4]  /  Boomburst [T4]  /  Bug Buzz [T4]
+
+====================================================================================================
+#425 DRIFLOON  —  Ghost/Flying  —  BST 348  —  Category 3
+Stats 90/50/34/60/44/70  |  Profile: Offensive (special)
+Variants: A = Unburden attacker / B = Support (Will-O-Wisp, Destiny Bond)
+----------------------------------------------------------------------------------------------------
+  [1A] Balloon
+       Drifloon @ (no item)   |   Ability: Aftermath   |   Nature: Hardy
+       Moves: Astonish [T1]  /  Gust [T1]  /  Constrict [T1]  /  Ominous Wind [T2]
+  [1B] Floating balloon
+       Drifloon @ Oran Berry   |   Ability: Unburden   |   Nature: Docile
+       Moves: Bind [T1]  /  Flash [T1]  /  Mud-Slap [T1]  /  Air Cutter [T2]
+  [2A] Haunting caster
+       Drifloon @ Spell Tag   |   Ability: Flare Boost   |   Nature: Mild
+       Moves: Ominous Wind [T2]  /  Shock Wave [T2]  /  Psybeam [T2]  /  Hex [T3]
+  [2B] Burning balloon
+       Drifloon @ Sitrus Berry   |   Ability: Aftermath   |   Nature: Calm
+       Moves: Will-O-Wisp [Sit]  /  Hypnosis [T2]  /  Ominous Wind [T2]  /  Destiny Bond [Sit]
+  [3A] Unburden balloon
+       Drifloon @ Sitrus Berry   |   Ability: Unburden   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Hex [T3]  /  Will-O-Wisp [Sit]  /  Substitute [Sit]
+  [3B] Aftermath balloon
+       Drifloon @ Rocky Helmet   |   Ability: Aftermath   |   Nature: Bold
+       Moves: Will-O-Wisp [Sit]  /  Destiny Bond [Sit]  /  Hex [T3]  /  Pain Split [Sit]
+  [4A] Unburden sweeper
+       Drifloon @ Sitrus Berry   |   Ability: Unburden   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Shadow Ball [T4]  /  Thunderbolt [T4]  /  Substitute [Sit]
+  [4B] Bulky balloon
+       Drifloon @ Leftovers   |   Ability: Aftermath   |   Nature: Timid
+       Moves: Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Shadow Ball [T4]  /  Defog [Sit]
+
+====================================================================================================
+#017 PIDGEOTTO  —  Normal/Flying  —  BST 349  —  Category 3
+Stats 63/60/55/50/50/71  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special and support
+----------------------------------------------------------------------------------------------------
+  [1A] Bird
+       Pidgeotto @ (no item)   |   Ability: Keen Eye   |   Nature: Hardy
+       Moves: Gust [T1]  /  Quick Attack [T1]  /  Tackle [T1]  /  Air Cutter [T2]
+  [1B] Pecking bird
+       Pidgeotto @ Oran Berry   |   Ability: Big Pecks   |   Nature: Docile
+       Moves: Twister [T1]  /  Sand Attack [T1]  /  Foresight [T1]  /  Wing Attack [T2]
+  [2A] Diving bird
+       Pidgeotto @ Sharp Beak   |   Ability: Big Pecks   |   Nature: Lonely
+       Moves: Pluck [T2]  /  Headbutt [T2]  /  Feint Attack [T2]  /  Fly [T3]
+  [2B] Gust caster
+       Pidgeotto @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Timid
+       Moves: Air Cutter [T2]  /  Ominous Wind [T2]  /  Feather Dance [T2]  /  Heat Wave [T3]
+  [3A] Brave bird
+       Pidgeotto @ Expert Belt   |   Ability: Big Pecks   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Fly [T3]  /  U-turn [T2]  /  Roost [Sit]
+  [3B] Field cleaner
+       Pidgeotto @ Rocky Helmet   |   Ability: Keen Eye   |   Nature: Timid
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Whirlwind [Sit]  /  Air Slash [T4]
+  [4A] Choice Band bird
+       Pidgeotto @ Choice Band   |   Ability: Big Pecks   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Return [T4]  /  U-turn [T2]  /  Facade [T4]
+  [4B] Special attacker
+       Pidgeotto @ Life Orb   |   Ability: Keen Eye   |   Nature: Timid
+       Moves: Hurricane [T4]  /  Heat Wave [T3]  /  Roost [Sit]  /  U-turn [T2]
+
+====================================================================================================
+#083 FARFETCH’D  —  Normal/Flying  —  BST 377  —  Category 3
+Stats 52/90/55/58/62/60  |  Profile: Offensive (physical)
+Variants: A = Setup (Defiant, Swords Dance) / B = Inner Focus attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Wild duck
+       Farfetch’d @ (no item)   |   Ability: Inner Focus   |   Nature: Hardy
+       Moves: Peck [T1]  /  Leer [T1]  /  Fury Attack [T1]  /  Razor Leaf [T2]
+  [1B] Leek duck
+       Farfetch’d @ Oran Berry   |   Ability: Keen Eye   |   Nature: Docile
+       Moves: False Swipe [T1]  /  Sand Attack [T1]  /  Gust [T1]  /  Aerial Ace [T2]
+  [2A] Slashing duck
+       Farfetch’d @ Sharp Beak   |   Ability: Defiant   |   Nature: Lonely
+       Moves: Dual Wingbeat [T2]  /  Razor Leaf [T2]  /  Brutal Swing [T2]  /  Night Slash [T3]
+  [2B] Pivot duck
+       Farfetch’d @ Sitrus Berry   |   Ability: Inner Focus   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Feather Dance [T2]  /  Covet [T2]  /  Roost [Sit]
+  [3A] Swords Dance duck
+       Farfetch’d @ Muscle Band   |   Ability: Defiant   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Night Slash [T3]  /  Iron Tail [T3]  /  Fly [T3]
+  [3B] Sash duck
+       Farfetch’d @ Focus Sash   |   Ability: Inner Focus   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Night Slash [T3]  /  Throat Chop [T3]  /  Revenge [T3]
+  [4A] Swords Dance sweeper
+       Farfetch’d @ Life Orb   |   Ability: Defiant   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Brave Bird [T4]  /  Leaf Blade [T4]  /  Knock Off [T4]
+  [4B] Choice Band duck
+       Farfetch’d @ Choice Band   |   Ability: Inner Focus   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Leaf Blade [T4]  /  Close Combat [T4]  /  Knock Off [T4]
+
+====================================================================================================
+#137 PORYGON  —  Normal  —  BST 395  —  Category 3
+Stats 65/60/70/85/75/40  |  Profile: Offensive (special)
+Variants: A = Attacker (Download) / B = Bulky support (Recover, paralysis)
+----------------------------------------------------------------------------------------------------
+  [1A] Virtual pokemon
+       Porygon @ (no item)   |   Ability: Download   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Sharpen [T1]  /  Psybeam [T2]
+  [1B] Tracing program
+       Porygon @ Oran Berry   |   Ability: Trace   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Defense Curl [T1]  /  Confide [T1]  /  Charge Beam [T2]
+  [2A] Download caster
+       Porygon @ Twisted Spoon   |   Ability: Download   |   Nature: Mild
+       Moves: Psybeam [T2]  /  Charge Beam [T2]  /  Icy Wind [T2]  /  Tri Attack [T3]
+  [2B] Recovering program
+       Porygon @ Sitrus Berry   |   Ability: Trace   |   Nature: Bold
+       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Psybeam [T2]  /  Shock Wave [T2]
+  [3A] Coverage program
+       Porygon @ Wise Glasses   |   Ability: Download   |   Nature: Modest
+       Moves: Tri Attack [T3]  /  Discharge [T3]  /  Signal Beam [T3]  /  Ice Beam [T4]
+  [3B] Bulky program
+       Porygon @ Leftovers   |   Ability: Trace   |   Nature: Bold
+       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Tri Attack [T3]  /  Discharge [T3]
+  [4A] Special attacker
+       Porygon @ Life Orb   |   Ability: Analytic   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Ice Beam [T4]  /  Psychic [T4]  /  Shadow Ball [T4]
+  [4B] Foul Play wall
+       Porygon @ Rocky Helmet   |   Ability: Trace   |   Nature: Bold
+       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Foul Play [T4]  /  Ice Beam [T4]
+
+====================================================================================================
+#005 CHARMELEON  —  Fire  —  BST 405  —  Category 4
+Stats 58/64/58/80/65/80  |  Profile: Mixed attacker
+Variants: A = Physical (Dragon Dance) / B = Special (Solar Power)
+----------------------------------------------------------------------------------------------------
+  [1A] Flame claw
+       Charmeleon @ (no item)   |   Ability: Blaze   |   Nature: Hardy
+       Moves: Ember [T1]  /  Scratch [T1]  /  Smokescreen [T1]  /  Fire Fang [T2]
+  [1B] Sunny claw
+       Charmeleon @ Oran Berry   |   Ability: Solar Power   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Growl [T1]  /  Fire Spin [T1]  /  Flame Burst [T2]
+  [2A] Tempered claw
+       Charmeleon @ Charcoal   |   Ability: Blaze   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Breaking Swipe [T2]  /  Bite [T2]  /  Temper Flare [T3]
+  [2B] Flame caster
+       Charmeleon @ Sitrus Berry   |   Ability: Solar Power   |   Nature: Mild
+       Moves: Incinerate [T2]  /  Dragon Breath [T2]  /  Ancient Power [T2]  /  Fire Pledge [T3]
+  [3A] Dragon Dance claw
+       Charmeleon @ Expert Belt   |   Ability: Blaze   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Fire Punch [T3]  /  Dragon Claw [T3]  /  Thunder Punch [T3]
+  [3B] Burning caster
+       Charmeleon @ Wise Glasses   |   Ability: Solar Power   |   Nature: Timid
+       Moves: Heat Wave [T3]  /  Will-O-Wisp [Sit]  /  Dragon Breath [T2]  /  Focus Blast [T4]
+  [4A] Choice Band claw
+       Charmeleon @ Choice Band   |   Ability: Blaze   |   Nature: Adamant
+       Moves: Flare Blitz [T4]  /  Outrage [T4]  /  Thunder Punch [T3]  /  Rock Slide [T4]
+  [4B] Sun sweeper
+       Charmeleon @ Heat Rock   |   Ability: Solar Power   |   Nature: Timid
+       Moves: Sunny Day [Sit]  /  Fire Blast [T4]  /  Weather Ball [T4]  /  Dragon Pulse [T4]
+
+====================================================================================================
+#176 TOGETIC  —  Fairy/Flying  —  BST 405  —  Category 4
+Stats 55/40/85/80/105/40  |  Profile: Pure Defensive (support)
+Variants: A = Stall (Roost, Wish) / B = Utility (Serene Grace, Nasty Plot)
+----------------------------------------------------------------------------------------------------
+  [1A] Happiness bird
+       Togetic @ Oran Berry   |   Ability: Serene Grace   |   Nature: Hardy
+       Moves: Fairy Wind [T1]  /  Peck [T1]  /  Growl [T1]  /  Air Cutter [T2]
+  [1B] Lucky bird
+       Togetic @ (no item)   |   Ability: Hustle   |   Nature: Docile
+       Moves: Pound [T1]  /  Twister [T1]  /  Sweet Kiss [T1]  /  Ancient Power [T2]
+  [2A] Cleric bird
+       Togetic @ Sitrus Berry   |   Ability: Serene Grace   |   Nature: Bold
+       Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Air Cutter [T2]  /  Heal Bell [Sit]
+  [2B] Wishing bird
+       Togetic @ Lum Berry   |   Ability: Super Luck   |   Nature: Calm
+       Moves: Draining Kiss [T2]  /  Ancient Power [T2]  /  Encore [Sit]  /  Wish [Sit]
+  [3A] Field cleaner
+       Togetic @ Leftovers   |   Ability: Serene Grace   |   Nature: Bold
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Dazzling Gleam [T3]  /  Thunder Wave [Sit]
+  [3B] Nasty Plot bird
+       Togetic @ Wise Glasses   |   Ability: Serene Grace   |   Nature: Modest
+       Moves: Nasty Plot [T4]  /  Dazzling Gleam [T3]  /  Heat Wave [T3]  /  Roost [Sit]
+  [4A] Tailwind support
+       Togetic @ Rocky Helmet   |   Ability: Serene Grace   |   Nature: Calm
+       Moves: Wish [Sit]  /  Roost [Sit]  /  Tailwind [Sit]  /  Dazzling Gleam [T3]
+  [4B] Nasty Plot sweeper
+       Togetic @ Life Orb   |   Ability: Serene Grace   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Psyshock [T4]  /  Flamethrower [T4]  /  Shadow Ball [T4]
+
+====================================================================================================
+#444 GABITE  —  Dragon/Ground  —  BST 410  —  Category 4
+Stats 68/90/65/50/55/82  |  Profile: Offensive (physical)
+Variants: A = Setup (sand, Swords Dance) / B = Bulky (Rough Skin)
+----------------------------------------------------------------------------------------------------
+  [1A] Cave shark
+       Gabite @ (no item)   |   Ability: Rough Skin   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Twister [T1]  /  Sand Tomb [T1]  /  Dragon Breath [T2]
+  [1B] Sandy shark
+       Gabite @ Oran Berry   |   Ability: Sand Veil   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]  /  Dual Chop [T2]
+  [2A] Clawing shark
+       Gabite @ Dragon Fang   |   Ability: Sand Veil   |   Nature: Lonely
+       Moves: Breaking Swipe [T2]  /  Bulldoze [T2]  /  Thunder Fang [T2]  /  Dragon Claw [T3]
+  [2B] Phazing shark
+       Gabite @ Sitrus Berry   |   Ability: Rough Skin   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Dragon Tail [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+  [3A] Sand shark
+       Gabite @ Smooth Rock   |   Ability: Sand Veil   |   Nature: Adamant
+       Moves: Sandstorm [Sit]  /  Swords Dance [T4]  /  Dragon Claw [T3]  /  Dig [T3]
+  [3B] Physical shark
+       Gabite @ Muscle Band   |   Ability: Rough Skin   |   Nature: Jolly
+       Moves: Dragon Claw [T3]  /  Dig [T3]  /  Crunch [T3]  /  Earthquake [T4]
+  [4A] Rough Skin wall
+       Gabite @ Rocky Helmet   |   Ability: Rough Skin   |   Nature: Jolly
+       Moves: Earthquake [T4]  /  Dragon Tail [Sit]  /  Toxic [Sit]  /  Stone Edge [T4]
+  [4B] Choice Scarf shark
+       Gabite @ Choice Scarf   |   Ability: Sand Veil   |   Nature: Jolly
+       Moves: Outrage [T4]  /  Earthquake [T4]  /  Stone Edge [T4]  /  Iron Head [T4]
+
+====================================================================================================
+#148 DRAGONAIR  —  Dragon  —  BST 420  —  Category 4
+Stats 61/84/65/70/70/70  |  Profile: Offensive (physical)
+Variants: A = Setup (Dragon Dance, Marvel Scale) / B = Special and bulky
+----------------------------------------------------------------------------------------------------
+  [1A] Graceful dragon
+       Dragonair @ (no item)   |   Ability: Marvel Scale   |   Nature: Hardy
+       Moves: Wrap [T1]  /  Water Gun [T1]  /  Twister [T1]  /  Leer [T1]
+  [1B] Shedding dragon
+       Dragonair @ Oran Berry   |   Ability: Shed Skin   |   Nature: Docile
+       Moves: Supersonic [T1]  /  Whirlpool [T1]  /  Bind [T1]  /  Slam [T2]
+  [2A] Rushing dragon
+       Dragonair @ Dragon Fang   |   Ability: Marvel Scale   |   Nature: Lonely
+       Moves: Breaking Swipe [T2]  /  Headbutt [T2]  /  Take Down [T2]  /  Dragon Rush [T3]
+  [2B] Paralysis dragon
+       Dragonair @ Sitrus Berry   |   Ability: Shed Skin   |   Nature: Calm
+       Moves: Thunder Wave [Sit]  /  Dragon Breath [T2]  /  Chilling Water [T2]  /  Haze [Sit]
+  [3A] Marvel Scale dancer
+       Dragonair @ Toxic Orb   |   Ability: Marvel Scale   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Dragon Rush [T3]  /  Aqua Tail [T3]  /  Iron Tail [T3]
+  [3B] RestTalk dragon
+       Dragonair @ Leftovers   |   Ability: Shed Skin   |   Nature: Bold
+       Moves: Rest [Sit]  /  Sleep Talk [Sit]  /  Dragon Tail [Sit]  /  Thunder Wave [Sit]
+  [4A] Dragon Dance sweeper
+       Dragonair @ Weakness Policy   |   Ability: Shed Skin   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Extreme Speed [T4]  /  Iron Head [T4]
+  [4B] Special attacker
+       Dragonair @ Life Orb   |   Ability: Marvel Scale   |   Nature: Modest
+       Moves: Draco Meteor [T4]  /  Thunderbolt [T4]  /  Fire Blast [T4]  /  Ice Beam [T4]
+
+====================================================================================================
+#528 SWOOBAT  —  Psychic/Flying  —  BST 425  —  Category 4
+Stats 67/57/55/77/55/114  |  Profile: Offensive (special, fast)
+Variants: A = Setup (Simple) / B = Utility (Unaware, Trick)
+----------------------------------------------------------------------------------------------------
+  [1A] Courting bat
+       Swoobat @ (no item)   |   Ability: Simple   |   Nature: Hardy
+       Moves: Gust [T1]  /  Confusion [T1]  /  Supersonic [T1]  /  Heart Stamp [T2]
+  [1B] Heart bat
+       Swoobat @ Oran Berry   |   Ability: Unaware   |   Nature: Docile
+       Moves: Flash [T1]  /  Confusion [T1]  /  Odor Sleuth [T1]  /  Air Cutter [T2]
+  [2A] Simple caster
+       Swoobat @ Twisted Spoon   |   Ability: Simple   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Air Cutter [T2]  /  Shock Wave [T2]  /  Stored Power [T3]
+  [2B] Charming pivot
+       Swoobat @ Sitrus Berry   |   Ability: Unaware   |   Nature: Timid
+       Moves: U-turn [T2]  /  Thunder Wave [Sit]  /  Charm [T2]  /  Air Cutter [T2]
+  [3A] Stored Power bat
+       Swoobat @ Leftovers   |   Ability: Simple   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Amnesia [Sit]  /  Stored Power [T3]  /  Roost [Sit]
+  [3B] Taunt lead
+       Swoobat @ Focus Sash   |   Ability: Unaware   |   Nature: Timid
+       Moves: Taunt [Sit]  /  Thunder Wave [Sit]  /  Heat Wave [T3]  /  U-turn [T2]
+  [4A] Simple sweeper
+       Swoobat @ Weakness Policy   |   Ability: Simple   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Psychic [T4]  /  Air Slash [T4]  /  Roost [Sit]
+  [4B] Choice Scarf trickster
+       Swoobat @ Choice Scarf   |   Ability: Unaware   |   Nature: Timid
+       Moves: Trick [Sit]  /  Psychic [T4]  /  Air Slash [T4]  /  Heat Wave [T3]
+
+====================================================================================================
+#207 GLIGAR  —  Ground/Flying  —  BST 430  —  Category 4
+Stats 65/75/105/35/65/85  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Immunity, Roost) / B = Offensive (Swords Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Fly scorpion
+       Gligar @ Oran Berry   |   Ability: Hyper Cutter   |   Nature: Hardy
+       Moves: Poison Sting [T1]  /  Quick Attack [T1]  /  Harden [T1]  /  Wing Attack [T2]
+  [1B] Gliding scorpion
+       Gligar @ (no item)   |   Ability: Immunity   |   Nature: Docile
+       Moves: Sand Attack [T1]  /  Metal Claw [T1]  /  Mud-Slap [T1]  /  Bulldoze [T2]
+  [2A] Pivot scorpion
+       Gligar @ Sitrus Berry   |   Ability: Immunity   |   Nature: Impish
+       Moves: U-turn [T2]  /  Roost [Sit]  /  Toxic [Sit]  /  Bulldoze [T2]
+  [2B] Fanged scorpion
+       Gligar @ Soft Sand   |   Ability: Hyper Cutter   |   Nature: Lonely
+       Moves: Bulldoze [T2]  /  Fire Fang [T2]  /  Ice Fang [T2]  /  Night Slash [T3]
+  [3A] Immunity staller
+       Gligar @ Leftovers   |   Ability: Immunity   |   Nature: Impish
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  High Horsepower [T3]  /  U-turn [T2]
+  [3B] Swords Dance scorpion
+       Gligar @ Muscle Band   |   Ability: Hyper Cutter   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  High Horsepower [T3]  /  Night Slash [T3]  /  X-Scissor [T3]
+  [4A] Bulky scorpion
+       Gligar @ Rocky Helmet   |   Ability: Immunity   |   Nature: Impish
+       Moves: Roost [Sit]  /  Earthquake [T4]  /  Knock Off [T4]  /  Defog [Sit]
+  [4B] Swords Dance sweeper
+       Gligar @ Life Orb   |   Ability: Hyper Cutter   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Earthquake [T4]  /  Stone Edge [T4]  /  Knock Off [T4]
+
+====================================================================================================
+#279 PELIPPER  —  Water/Flying  —  BST 440  —  Category 4
+Stats 60/50/100/95/70/65  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Drizzle, Roost, U-turn) / B = Offensive (rain)
+----------------------------------------------------------------------------------------------------
+  [1A] Water bird
+       Pelipper @ Oran Berry   |   Ability: Keen Eye   |   Nature: Hardy
+       Moves: Water Gun [T1]  /  Gust [T1]  /  Supersonic [T1]  /  Wing Attack [T2]
+  [1B] Rainy bird
+       Pelipper @ (no item)   |   Ability: Rain Dish   |   Nature: Docile
+       Moves: Twister [T1]  /  Whirlpool [T1]  /  Growl [T1]  /  Water Pulse [T2]
+  [2A] Drizzle pivot
+       Pelipper @ Sitrus Berry   |   Ability: Drizzle   |   Nature: Bold
+       Moves: Roost [Sit]  /  U-turn [T2]  /  Water Pulse [T2]  /  Tailwind [Sit]
+  [2B] Rain caster
+       Pelipper @ Mystic Water   |   Ability: Drizzle   |   Nature: Mild
+       Moves: Water Pulse [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Muddy Water [T3]
+  [3A] Rain setter
+       Pelipper @ Damp Rock   |   Ability: Drizzle   |   Nature: Bold
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Brine [T3]  /  U-turn [T2]
+  [3B] Rain attacker
+       Pelipper @ Wise Glasses   |   Ability: Drizzle   |   Nature: Modest
+       Moves: Hurricane [T4]  /  Muddy Water [T3]  /  Roost [Sit]  /  U-turn [T2]
+  [4A] Bulky Drizzle
+       Pelipper @ Rocky Helmet   |   Ability: Drizzle   |   Nature: Bold
+       Moves: Scald [T4]  /  Roost [Sit]  /  U-turn [T2]  /  Knock Off [T4]
+  [4B] Choice Specs Drizzle
+       Pelipper @ Choice Specs   |   Ability: Drizzle   |   Nature: Modest
+       Moves: Hydro Pump [T4]  /  Hurricane [T4]  /  Weather Ball [T4]  /  Ice Beam [T4]
+
+====================================================================================================
+#022 FEAROW  —  Normal/Flying  —  BST 442  —  Category 5
+Stats 65/90/65/61/61/100  |  Profile: Offensive (physical, fast)
+Variants: A = Sniper attacker / B = Keen Eye utility (Roost, Tailwind)
+----------------------------------------------------------------------------------------------------
+  [1A] Beak bird
+       Fearow @ (no item)   |   Ability: Sniper   |   Nature: Hardy
+       Moves: Peck [T1]  /  Fury Attack [T1]  /  Focus Energy [T1]  /  Leer [T1]
+  [1B] Keen beak
+       Fearow @ Oran Berry   |   Ability: Keen Eye   |   Nature: Docile
+       Moves: Astonish [T1]  /  Growl [T1]  /  Quick Attack [T1]  /  Aerial Ace [T2]
+  [2A] Critical beak
+       Fearow @ Scope Lens   |   Ability: Sniper   |   Nature: Lonely
+       Moves: Focus Energy [T1]  /  Steel Wing [T2]  /  Feint Attack [T2]  /  Drill Run [T3]
+  [2B] Pivot beak
+       Fearow @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Scary Face [T2]  /  Feather Dance [T2]  /  Roost [Sit]
+  [3A] Focus Energy sniper
+       Fearow @ Scope Lens   |   Ability: Sniper   |   Nature: Jolly
+       Moves: Focus Energy [T1]  /  Drill Peck [T3]  /  Throat Chop [T3]  /  Return [T4]
+  [3B] Drilling beak
+       Fearow @ Expert Belt   |   Ability: Keen Eye   |   Nature: Jolly
+       Moves: Drill Peck [T3]  /  Drill Run [T3]  /  Roost [Sit]  /  U-turn [T2]
+  [4A] Choice Scarf beak
+       Fearow @ Choice Scarf   |   Ability: Sniper   |   Nature: Jolly
+       Moves: Drill Peck [T3]  /  Double-Edge [T4]  /  Drill Run [T3]  /  U-turn [T2]
+  [4B] Tailwind beak
+       Fearow @ Leftovers   |   Ability: Keen Eye   |   Nature: Jolly
+       Moves: Tailwind [Sit]  /  Roost [Sit]  /  Drill Peck [T3]  /  Double-Edge [T4]
+
+====================================================================================================
+#277 SWELLOW  —  Normal/Flying  —  BST 455  —  Category 5
+Stats 60/85/60/75/50/125  |  Profile: Mixed attacker
+Variants: A = Physical (Guts) / B = Special (Scrappy Boomburst)
+----------------------------------------------------------------------------------------------------
+  [1A] Swallow
+       Swellow @ (no item)   |   Ability: Guts   |   Nature: Hardy
+       Moves: Peck [T1]  /  Growl [T1]  /  Quick Attack [T1]  /  Pluck [T2]
+  [1B] Scrappy swallow
+       Swellow @ Oran Berry   |   Ability: Scrappy   |   Nature: Docile
+       Moves: Twister [T1]  /  Supersonic [T1]  /  Focus Energy [T1]  /  Wing Attack [T2]
+  [2A] Guts swallow
+       Swellow @ Sharp Beak   |   Ability: Guts   |   Nature: Lonely
+       Moves: Wing Attack [T2]  /  Steel Wing [T2]  /  Work Up [T2]  /  Reversal [T3]
+  [2B] Gust caster
+       Swellow @ Wise Glasses   |   Ability: Scrappy   |   Nature: Mild
+       Moves: Air Cutter [T2]  /  Ominous Wind [T2]  /  Swift [T2]  /  Heat Wave [T3]
+  [3A] Guts striker
+       Swellow @ Flame Orb   |   Ability: Guts   |   Nature: Jolly
+       Moves: Facade [T4]  /  Fly [T3]  /  Reversal [T3]  /  U-turn [T2]
+  [3B] Boomburst swallow
+       Swellow @ Expert Belt   |   Ability: Scrappy   |   Nature: Timid
+       Moves: Boomburst [T4]  /  Heat Wave [T3]  /  Air Cutter [T2]  /  U-turn [T2]
+  [4A] Guts sweeper
+       Swellow @ Flame Orb   |   Ability: Guts   |   Nature: Jolly
+       Moves: Facade [T4]  /  Brave Bird [T4]  /  Roost [Sit]  /  U-turn [T2]
+  [4B] Choice Specs swallow
+       Swellow @ Choice Specs   |   Ability: Scrappy   |   Nature: Timid
+       Moves: Boomburst [T4]  /  Hurricane [T4]  /  Heat Wave [T3]  /  U-turn [T2]
+
+====================================================================================================
+#358 CHIMECHO  —  Psychic  —  BST 455  —  Category 5
+Stats 75/50/80/95/90/65  |  Profile: Pure Defensive (support)
+Variants: A = Stall (Heal Bell, Wish, Recover) / B = Utility (screens, Healing Wish) and Calm Mind
+----------------------------------------------------------------------------------------------------
+  [1A] Wind chime
+       Chimecho @ Oran Berry   |   Ability: Levitate   |   Nature: Hardy
+       Moves: Astonish [T1]  /  Wrap [T1]  /  Disarming Voice [T1]  /  Confusion [T1]
+  [1B] Ringing chime
+       Chimecho @ (no item)   |   Ability: Levitate   |   Nature: Docile
+       Moves: Bind [T1]  /  Growl [T1]  /  Defense Curl [T1]  /  Psybeam [T2]
+  [2A] Cleric chime
+       Chimecho @ Sitrus Berry   |   Ability: Levitate   |   Nature: Calm
+       Moves: Heal Bell [Sit]  /  Yawn [Sit]  /  Psybeam [T2]  /  Protect [Sit]
+  [2B] Psychic caster
+       Chimecho @ Twisted Spoon   |   Ability: Levitate   |   Nature: Mild
+       Moves: Psybeam [T2]  /  Draining Kiss [T2]  /  Charge Beam [T2]  /  Extrasensory [T3]
+  [3A] Wish cleric
+       Chimecho @ Leftovers   |   Ability: Levitate   |   Nature: Calm
+       Moves: Heal Bell [Sit]  /  Wish [Sit]  /  Psychic Noise [T3]  /  Protect [Sit]
+  [3B] Screen setter
+       Chimecho @ Light Clay   |   Ability: Levitate   |   Nature: Bold
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Healing Wish [Sit]  /  Psychic Noise [T3]
+  [4A] Bulky cleric
+       Chimecho @ Rocky Helmet   |   Ability: Levitate   |   Nature: Calm
+       Moves: Recover [Sit]  /  Psychic [T4]  /  Heal Bell [Sit]  /  Thunder Wave [Sit]
+  [4B] Calm Mind chime
+       Chimecho @ Life Orb   |   Ability: Levitate   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Psyshock [T4]  /  Shadow Ball [T4]  /  Dazzling Gleam [T3]
+
+====================================================================================================
+#189 JUMPLUFF  —  Grass/Flying  —  BST 460  —  Category 5
+Stats 75/55/70/55/95/110  |  Profile: Pure Defensive (support, fast)
+Variants: A = Stall (Strength Sap, Leech Seed) / B = Utility (sleep, Tailwind, Swords Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Cottonweed
+       Jumpluff @ (no item)   |   Ability: Chlorophyll   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Fairy Wind [T1]  /  Tail Whip [T1]  /  Silver Wind [T2]
+  [1B] Drifting weed
+       Jumpluff @ Oran Berry   |   Ability: Infiltrator   |   Nature: Docile
+       Moves: Tackle [T1]  /  Mega Drain [T1]  /  Poison Powder [T1]  /  Magical Leaf [T2]
+  [2A] Seeding weed
+       Jumpluff @ Sitrus Berry   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Cotton Spore [T2]  /  Encore [Sit]  /  Magical Leaf [T2]
+  [2B] Tailwind weed
+       Jumpluff @ Lum Berry   |   Ability: Chlorophyll   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Stun Spore [Sit]  /  Tailwind [Sit]  /  Aerial Ace [T2]
+  [3A] Strength Sap staller
+       Jumpluff @ Leftovers   |   Ability: Infiltrator   |   Nature: Bold
+       Moves: Strength Sap [Sit]  /  Encore [Sit]  /  Pollen Puff [T3]  /  Substitute [Sit]
+  [3B] Sleep lead
+       Jumpluff @ Focus Sash   |   Ability: Chlorophyll   |   Nature: Jolly
+       Moves: Sleep Powder [T3]  /  Tailwind [Sit]  /  Memento [Sit]  /  U-turn [T2]
+  [4A] Swords Dance weed
+       Jumpluff @ Life Orb   |   Ability: Infiltrator   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Bounce [T3]  /  Strength Sap [Sit]
+  [4B] Bulky weed
+       Jumpluff @ Rocky Helmet   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Strength Sap [Sit]  /  Giga Drain [T4]  /  U-turn [T2]
+
+====================================================================================================
+#085 DODRIO  —  Normal/Flying  —  BST 470  —  Category 5
+Stats 60/110/70/60/60/110  |  Profile: Offensive (physical, fast)
+Variants: A = Setup (Swords Dance) / B = Support and Choice
+----------------------------------------------------------------------------------------------------
+  [1A] Triple bird
+       Dodrio @ (no item)   |   Ability: Early Bird   |   Nature: Hardy
+       Moves: Peck [T1]  /  Quick Attack [T1]  /  Supersonic [T1]  /  Double Hit [T2]
+  [1B] Dizzy bird
+       Dodrio @ Oran Berry   |   Ability: Tangled Feet   |   Nature: Docile
+       Moves: Fury Attack [T1]  /  Growl [T1]  /  Mud-Slap [T1]  /  Pluck [T2]
+  [2A] Kicking bird
+       Dodrio @ Sharp Beak   |   Ability: Early Bird   |   Nature: Lonely
+       Moves: Pluck [T2]  /  Double Hit [T2]  /  Pounce [T2]  /  Jump Kick [T3]
+  [2B] Support bird
+       Dodrio @ Sitrus Berry   |   Ability: Run Away   |   Nature: Hasty
+       Moves: Feather Dance [T2]  /  Scary Face [T2]  /  Roost [Sit]  /  Pluck [T2]
+  [3A] Swords Dance bird
+       Dodrio @ Muscle Band   |   Ability: Early Bird   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Drill Peck [T3]  /  Drill Run [T3]  /  Jump Kick [T3]
+  [3B] Taunt bird
+       Dodrio @ Leftovers   |   Ability: Tangled Feet   |   Nature: Jolly
+       Moves: Taunt [Sit]  /  Roost [Sit]  /  Drill Peck [T3]  /  Throat Chop [T3]
+  [4A] Swords Dance sweeper
+       Dodrio @ Life Orb   |   Ability: Early Bird   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Brave Bird [T4]  /  Knock Off [T4]  /  Jump Kick [T3]
+  [4B] Choice Scarf bird
+       Dodrio @ Choice Scarf   |   Ability: Run Away   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Double-Edge [T4]  /  Knock Off [T4]  /  Drill Run [T3]
+
+====================================================================================================
+#178 XATU  —  Psychic/Flying  —  BST 470  —  Category 5
+Stats 65/75/70/95/70/95  |  Profile: Offensive (special)
+Variants: A = Bulky support (Magic Bounce, Roost) / B = Special attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Mystic bird
+       Xatu @ (no item)   |   Ability: Synchronize   |   Nature: Hardy
+       Moves: Peck [T1]  /  Twister [T1]  /  Leer [T1]  /  Air Cutter [T2]
+  [1B] Seer bird
+       Xatu @ Oran Berry   |   Ability: Early Bird   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Miracle Eye [T1]  /  Flash [T1]  /  Ominous Wind [T2]
+  [2A] Future Sight bird
+       Xatu @ Twisted Spoon   |   Ability: Synchronize   |   Nature: Mild
+       Moves: Air Cutter [T2]  /  Silver Wind [T2]  /  Swift [T2]  /  Future Sight [T3]
+  [2B] Bouncing pivot
+       Xatu @ Sitrus Berry   |   Ability: Magic Bounce   |   Nature: Bold
+       Moves: Roost [Sit]  /  U-turn [T2]  /  Thunder Wave [Sit]  /  Feather Dance [T2]
+  [3A] Magic Bounce wall
+       Xatu @ Leftovers   |   Ability: Magic Bounce   |   Nature: Bold
+       Moves: Roost [Sit]  /  Heat Wave [T3]  /  Night Shade [T4]  /  Thunder Wave [Sit]
+  [3B] Psychic caster
+       Xatu @ Wise Glasses   |   Ability: Synchronize   |   Nature: Timid
+       Moves: Expanding Force [T3]  /  Heat Wave [T3]  /  Signal Beam [T3]  /  Air Slash [T4]
+  [4A] Bulky bird
+       Xatu @ Rocky Helmet   |   Ability: Magic Bounce   |   Nature: Bold
+       Moves: Roost [Sit]  /  Psychic [T4]  /  Defog [Sit]  /  Thunder Wave [Sit]
+  [4B] Choice Specs bird
+       Xatu @ Choice Specs   |   Ability: Magic Bounce   |   Nature: Timid
+       Moves: Psychic [T4]  /  Air Slash [T4]  /  Heat Wave [T3]  /  Shadow Ball [T4]
+
+====================================================================================================
+#018 PIDGEOT  —  Normal/Flying  —  BST 479  —  Category 5
+Stats 83/80/75/70/70/101  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Bird
+       Pidgeot @ (no item)   |   Ability: Keen Eye   |   Nature: Hardy
+       Moves: Twister [T1]  /  Quick Attack [T1]  /  Sand Attack [T1]  /  Pluck [T2]
+  [1B] Proud bird
+       Pidgeot @ Oran Berry   |   Ability: Big Pecks   |   Nature: Docile
+       Moves: Gust [T1]  /  Mud-Slap [T1]  /  Foresight [T1]  /  Air Cutter [T2]
+  [2A] Swooping bird
+       Pidgeot @ Sharp Beak   |   Ability: Big Pecks   |   Nature: Lonely
+       Moves: Wing Attack [T2]  /  Steel Wing [T2]  /  Feint Attack [T2]  /  Fly [T3]
+  [2B] Gust caster
+       Pidgeot @ Wise Glasses   |   Ability: Keen Eye   |   Nature: Mild
+       Moves: Air Cutter [T2]  /  Ominous Wind [T2]  /  Swift [T2]  /  Heat Wave [T3]
+  [3A] Sash bird
+       Pidgeot @ Focus Sash   |   Ability: Big Pecks   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Quick Attack [T1]  /  U-turn [T2]  /  Roost [Sit]
+  [3B] Hurricane bird
+       Pidgeot @ Leftovers   |   Ability: Keen Eye   |   Nature: Timid
+       Moves: Heat Wave [T3]  /  Roost [Sit]  /  Defog [Sit]  /  Hurricane [T4]
+  [4A] Choice Scarf bird
+       Pidgeot @ Choice Scarf   |   Ability: Big Pecks   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  Double-Edge [T4]  /  U-turn [T2]  /  Facade [T4]
+  [4B] Choice Specs bird
+       Pidgeot @ Choice Specs   |   Ability: Tangled Feet   |   Nature: Timid
+       Moves: Hurricane [T4]  /  Heat Wave [T3]  /  Air Slash [T4]  /  U-turn [T2]
+
+====================================================================================================
+#621 DRUDDIGON  —  Dragon  —  BST 485  —  Category 6
+Stats 77/120/90/60/90/48  |  Profile: Offensive (physical)
+Variants: A = Sheer Force attacker / B = Bulky (Rough Skin, Glare)
+----------------------------------------------------------------------------------------------------
+  [1A] Cave dragon
+       Druddigon @ (no item)   |   Ability: Rough Skin   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Leer [T1]  /  Metal Claw [T1]  /  Bite [T2]
+  [1B] Breaker dragon
+       Druddigon @ Oran Berry   |   Ability: Mold Breaker   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Confide [T1]  /  Metal Claw [T1]  /  Chip Away [T2]
+  [2A] Sheer Force fangs
+       Druddigon @ Dragon Fang   |   Ability: Sheer Force   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Thunder Fang [T2]  /  Poison Tail [T2]  /  Dragon Claw [T3]
+  [2B] Glaring dragon
+       Druddigon @ Sitrus Berry   |   Ability: Rough Skin   |   Nature: Impish
+       Moves: Glare [Sit]  /  Dragon Tail [Sit]  /  Rock Tomb [T2]  /  Protect [Sit]
+  [3A] Sheer Force puncher
+       Druddigon @ Muscle Band   |   Ability: Sheer Force   |   Nature: Adamant
+       Moves: Fire Punch [T3]  /  Thunder Punch [T3]  /  Crunch [T3]  /  Gunk Shot [T4]
+  [3B] Rough Skin wall
+       Druddigon @ Rocky Helmet   |   Ability: Rough Skin   |   Nature: Impish
+       Moves: Glare [Sit]  /  Dragon Tail [Sit]  /  Taunt [Sit]  /  Crunch [T3]
+  [4A] Sheer Force attacker
+       Druddigon @ Life Orb   |   Ability: Sheer Force   |   Nature: Adamant
+       Moves: Outrage [T4]  /  Fire Punch [T3]  /  Sucker Punch [T4]  /  Gunk Shot [T4]
+  [4B] Bulky dragon
+       Druddigon @ Leftovers   |   Ability: Rough Skin   |   Nature: Careful
+       Moves: Glare [Sit]  /  Dragon Tail [Sit]  /  Outrage [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#334 ALTARIA  —  Dragon/Flying  —  BST 490  —  Category 6
+Stats 75/70/90/70/105/80  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Roost, Will-O-Wisp) / B = Offensive (Dragon Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Humming dragon
+       Altaria @ Oran Berry   |   Ability: Natural Cure   |   Nature: Hardy
+       Moves: Peck [T1]  /  Twister [T1]  /  Growl [T1]  /  Dragon Breath [T2]
+  [1B] Singing dragon
+       Altaria @ (no item)   |   Ability: Cloud Nine   |   Nature: Docile
+       Moves: Fury Attack [T1]  /  Disarming Voice [T1]  /  Astonish [T1]  /  Sing [T2]
+  [2A] Burning cloud
+       Altaria @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Roost [Sit]  /  Will-O-Wisp [Sit]  /  Dragon Breath [T2]  /  Defog [Sit]
+  [2B] Clawing cloud
+       Altaria @ Dragon Fang   |   Ability: Cloud Nine   |   Nature: Lonely
+       Moves: Breaking Swipe [T2]  /  Dual Wingbeat [T2]  /  Hone Claws [T2]  /  Dragon Claw [T3]
+  [3A] Cleric cloud
+       Altaria @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Roost [Sit]  /  Will-O-Wisp [Sit]  /  Dazzling Gleam [T3]  /  Heal Bell [Sit]
+  [3B] Dragon Dance cloud
+       Altaria @ Muscle Band   |   Ability: Cloud Nine   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Fly [T3]  /  Iron Tail [T3]
+  [4A] Bulky cloud
+       Altaria @ Rocky Helmet   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Dragon Pulse [T4]  /  Haze [Sit]
+  [4B] Dragon Dance sweeper
+       Altaria @ Life Orb   |   Ability: Natural Cure   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Earthquake [T4]  /  Roost [Sit]
+
+====================================================================================================
+#561 SIGILYPH  —  Psychic/Flying  —  BST 490  —  Category 6
+Stats 72/58/80/103/80/97  |  Profile: Offensive (special)
+Variants: A = Setup (Magic Guard Calm Mind) / B = Support (Wonder Skin, screens) and Tinted Lens
+----------------------------------------------------------------------------------------------------
+  [1A] Avianoid
+       Sigilyph @ (no item)   |   Ability: Wonder Skin   |   Nature: Hardy
+       Moves: Gust [T1]  /  Confusion [T1]  /  Miracle Eye [T1]  /  Psybeam [T2]
+  [1B] Guardian bird
+       Sigilyph @ Oran Berry   |   Ability: Magic Guard   |   Nature: Docile
+       Moves: Confusion [T1]  /  Flash [T1]  /  Gust [T1]  /  Air Cutter [T2]
+  [2A] Tinted caster
+       Sigilyph @ Twisted Spoon   |   Ability: Tinted Lens   |   Nature: Mild
+       Moves: Psybeam [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Expanding Force [T3]
+  [2B] Screen bird
+       Sigilyph @ Sitrus Berry   |   Ability: Wonder Skin   |   Nature: Bold
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Psybeam [T2]  /  Air Cutter [T2]
+  [3A] Stored Power bird
+       Sigilyph @ Wise Glasses   |   Ability: Magic Guard   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Heat Wave [T3]  /  Roost [Sit]
+  [3B] Screen setter
+       Sigilyph @ Light Clay   |   Ability: Wonder Skin   |   Nature: Bold
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Roost [Sit]  /  Psychic [T4]
+  [4A] Magic Guard sweeper
+       Sigilyph @ Life Orb   |   Ability: Magic Guard   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Psyshock [T4]  /  Air Slash [T4]  /  Roost [Sit]
+  [4B] Choice Specs bird
+       Sigilyph @ Choice Specs   |   Ability: Tinted Lens   |   Nature: Timid
+       Moves: Psychic [T4]  /  Air Slash [T4]  /  Heat Wave [T3]  /  Shadow Ball [T4]
+
+====================================================================================================
+#426 DRIFBLIM  —  Ghost/Flying  —  BST 498  —  Category 6
+Stats 150/80/44/90/54/80  |  Profile: Mixed attacker
+Variants: A = Unburden attacker / B = Bulky support (Strength Sap, Will-O-Wisp)
+----------------------------------------------------------------------------------------------------
+  [1A] Blimp
+       Drifblim @ (no item)   |   Ability: Unburden   |   Nature: Hardy
+       Moves: Constrict [T1]  /  Focus Energy [T1]  /  Gust [T1]  /  Shock Wave [T2]
+  [1B] Floating blimp
+       Drifblim @ Oran Berry   |   Ability: Flare Boost   |   Nature: Docile
+       Moves: Astonish [T1]  /  Mud-Slap [T1]  /  Flash [T1]  /  Hypnosis [T2]
+  [2A] Unburden caster
+       Drifblim @ Sitrus Berry   |   Ability: Unburden   |   Nature: Mild
+       Moves: Ominous Wind [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Hex [T3]
+  [2B] Burning blimp
+       Drifblim @ Lum Berry   |   Ability: Aftermath   |   Nature: Bold
+       Moves: Will-O-Wisp [Sit]  /  Strength Sap [Sit]  /  Ominous Wind [T2]  /  Destiny Bond [Sit]
+  [3A] Strength Sap blimp
+       Drifblim @ Leftovers   |   Ability: Aftermath   |   Nature: Bold
+       Moves: Strength Sap [Sit]  /  Will-O-Wisp [Sit]  /  Hex [T3]  /  Defog [Sit]
+  [3B] Acrobatics blimp
+       Drifblim @ Sitrus Berry   |   Ability: Unburden   |   Nature: Adamant
+       Moves: Substitute [Sit]  /  Acrobatics [T3]  /  Phantom Force [T3]  /  Temper Flare [T3]
+  [4A] Bulky blimp
+       Drifblim @ Rocky Helmet   |   Ability: Aftermath   |   Nature: Calm
+       Moves: Strength Sap [Sit]  /  Will-O-Wisp [Sit]  /  Shadow Ball [T4]  /  Tailwind [Sit]
+  [4B] Unburden sweeper
+       Drifblim @ Weakness Policy   |   Ability: Unburden   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Shadow Ball [T4]  /  Air Slash [T4]  /  Thunderbolt [T4]
+
+====================================================================================================
+#217 URSARING  —  Normal  —  BST 500  —  Category 6
+Stats 90/130/75/75/75/55  |  Profile: Offensive (physical)
+Variants: A = Guts attacker / B = Setup (Bulk Up, Quick Feet)
+----------------------------------------------------------------------------------------------------
+  [1A] Hibernator
+       Ursaring @ (no item)   |   Ability: Guts   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Leer [T1]  /  Lick [T1]  /  Headbutt [T2]
+  [1B] Quick bear
+       Ursaring @ Oran Berry   |   Ability: Quick Feet   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Rock Smash [T1]  /  Baby-Doll Eyes [T1]  /  Covet [T2]
+  [2A] Guts bear
+       Ursaring @ Silk Scarf   |   Ability: Guts   |   Nature: Lonely
+       Moves: Chip Away [T2]  /  Power-Up Punch [T2]  /  Feint Attack [T2]  /  Hammer Arm [T3]
+  [2B] Yawning bear
+       Ursaring @ Sitrus Berry   |   Ability: Unnerve   |   Nature: Impish
+       Moves: Yawn [Sit]  /  Roar [Sit]  /  Headbutt [T2]  /  Protect [Sit]
+  [3A] Guts striker
+       Ursaring @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Hammer Arm [T3]  /  Night Slash [T3]  /  Shadow Claw [T3]
+  [3B] Bulk Up bear
+       Ursaring @ Leftovers   |   Ability: Unnerve   |   Nature: Adamant
+       Moves: Bulk Up [T4]  /  Crunch [T3]  /  High Horsepower [T3]  /  Rest [Sit]
+  [4A] Guts attacker
+       Ursaring @ Toxic Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Close Combat [T4]  /  Crunch [T3]  /  Earthquake [T4]
+  [4B] Quick Feet sweeper
+       Ursaring @ Flame Orb   |   Ability: Quick Feet   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Facade [T4]  /  Close Combat [T4]  /  Gunk Shot [T4]
+
+====================================================================================================
+#472 GLISCOR  —  Ground/Flying  —  BST 510  —  Category 6
+Stats 75/95/125/45/75/95  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Poison Heal) / B = Offensive (Poison Heal Swords Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Fang scorpion
+       Gliscor @ Oran Berry   |   Ability: Hyper Cutter   |   Nature: Hardy
+       Moves: Poison Sting [T1]  /  Quick Attack [T1]  /  Sand Tomb [T1]  /  Bulldoze [T2]
+  [1B] Gliding scorpion
+       Gliscor @ (no item)   |   Ability: Sand Veil   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Harden [T1]  /  Mud-Slap [T1]  /  Wing Attack [T2]
+  [2A] Pivot scorpion
+       Gliscor @ Sitrus Berry   |   Ability: Sand Veil   |   Nature: Impish
+       Moves: U-turn [T2]  /  Bulldoze [T2]  /  Roost [Sit]  /  Toxic [Sit]
+  [2B] Honing scorpion
+       Gliscor @ Soft Sand   |   Ability: Hyper Cutter   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Bulldoze [T2]  /  Ice Fang [T2]  /  High Horsepower [T3]
+  [3A] Poison Heal staller
+       Gliscor @ Toxic Orb   |   Ability: Poison Heal   |   Nature: Impish
+       Moves: Protect [Sit]  /  Toxic [Sit]  /  High Horsepower [T3]  /  Knock Off [T4]
+  [3B] Poison Heal dancer
+       Gliscor @ Toxic Orb   |   Ability: Poison Heal   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  High Horsepower [T3]  /  Night Slash [T3]  /  Protect [Sit]
+  [4A] Poison Heal wall
+       Gliscor @ Toxic Orb   |   Ability: Poison Heal   |   Nature: Impish
+       Moves: Protect [Sit]  /  Earthquake [T4]  /  Knock Off [T4]  /  Taunt [Sit]
+  [4B] Poison Heal sweeper
+       Gliscor @ Toxic Orb   |   Ability: Poison Heal   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Earthquake [T4]  /  Facade [T4]  /  Protect [Sit]
+
+====================================================================================================
+#142 AERODACTYL  —  Rock/Flying  —  BST 515  —  Category 6
+Stats 80/105/65/60/75/130  |  Profile: Offensive (physical, fast)
+Variants: A = Attacker (Rock Head) / B = Utility (Taunt, Tailwind)
+----------------------------------------------------------------------------------------------------
+  [1A] Fossil wing
+       Aerodactyl @ (no item)   |   Ability: Rock Head   |   Nature: Hardy
+       Moves: Rock Throw [T1]  /  Supersonic [T1]  /  Twister [T1]  /  Bite [T2]
+  [1B] Ancient wing
+       Aerodactyl @ Oran Berry   |   Ability: Pressure   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Foresight [T1]  /  Confide [T1]  /  Wing Attack [T2]
+  [2A] Fanged wing
+       Aerodactyl @ Hard Stone   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Rock Tomb [T2]  /  Wing Attack [T2]  /  Fire Fang [T2]  /  Crunch [T3]
+  [2B] Tailwind wing
+       Aerodactyl @ Sitrus Berry   |   Ability: Unnerve   |   Nature: Hasty
+       Moves: Tailwind [Sit]  /  Roost [Sit]  /  Rock Tomb [T2]  /  Taunt [Sit]
+  [3A] Rock Head striker
+       Aerodactyl @ Muscle Band   |   Ability: Rock Head   |   Nature: Jolly
+       Moves: Double-Edge [T4]  /  Rock Blast [T3]  /  Aqua Tail [T3]  /  Crunch [T3]
+  [3B] Tailwind lead
+       Aerodactyl @ Focus Sash   |   Ability: Pressure   |   Nature: Jolly
+       Moves: Taunt [Sit]  /  Tailwind [Sit]  /  Rock Blast [T3]  /  Roar [Sit]
+  [4A] Dragon Dance sweeper
+       Aerodactyl @ Life Orb   |   Ability: Rock Head   |   Nature: Jolly
+       Moves: Dragon Dance [T4]  /  Stone Edge [T4]  /  Earthquake [T4]  /  Double-Edge [T4]
+  [4B] Choice Band wing
+       Aerodactyl @ Choice Band   |   Ability: Unnerve   |   Nature: Jolly
+       Moves: Stone Edge [T4]  /  Earthquake [T4]  /  Double-Edge [T4]  /  Psychic Fangs [T4]
+
+====================================================================================================
+#233 PORYGON2  —  Normal  —  BST 515  —  Category 6
+Stats 85/80/90/105/95/60  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Recover, Trace) / B = Offensive (Download, Trick Room)
+----------------------------------------------------------------------------------------------------
+  [1A] Upgraded program
+       Porygon2 @ Oran Berry   |   Ability: Download   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Defense Curl [T1]  /  Psybeam [T2]
+  [1B] Tracing program
+       Porygon2 @ (no item)   |   Ability: Trace   |   Nature: Docile
+       Moves: Sharpen [T1]  /  Flash [T1]  /  Tackle [T1]  /  Shock Wave [T2]
+  [2A] Recovering program
+       Porygon2 @ Sitrus Berry   |   Ability: Trace   |   Nature: Bold
+       Moves: Recover [Sit]  /  Toxic [Sit]  /  Icy Wind [T2]  /  Eerie Impulse [T2]
+  [2B] Trick Room program
+       Porygon2 @ Twisted Spoon   |   Ability: Download   |   Nature: Quiet
+       Moves: Trick Room [Sit]  /  Psybeam [T2]  /  Charge Beam [T2]  /  Tri Attack [T3]
+  [3A] Bulky program
+       Porygon2 @ Leftovers   |   Ability: Trace   |   Nature: Calm
+       Moves: Recover [Sit]  /  Toxic [Sit]  /  Tri Attack [T3]  /  Signal Beam [T3]
+  [3B] Trick Room caster
+       Porygon2 @ Wise Glasses   |   Ability: Download   |   Nature: Quiet
+       Moves: Trick Room [Sit]  /  Tri Attack [T3]  /  Discharge [T3]  /  Ice Beam [T4]
+  [4A] Paralysis wall
+       Porygon2 @ Rocky Helmet   |   Ability: Trace   |   Nature: Bold
+       Moves: Recover [Sit]  /  Ice Beam [T4]  /  Thunder Wave [Sit]  /  Shadow Ball [T4]
+  [4B] Trick Room attacker
+       Porygon2 @ Life Orb   |   Ability: Download   |   Nature: Quiet
+       Moves: Trick Room [Sit]  /  Ice Beam [T4]  /  Thunderbolt [T4]  /  Psychic [T4]
+
+====================================================================================================
+#330 FLYGON  —  Ground/Dragon  —  BST 520  —  Category 7
+Stats 80/100/80/80/80/100  |  Profile: Mixed attacker
+Variants: A = Physical (Dragon Dance) / B = Special and utility
+----------------------------------------------------------------------------------------------------
+  [1A] Desert spirit
+       Flygon @ (no item)   |   Ability: Levitate   |   Nature: Hardy
+       Moves: Sand Tomb [T1]  /  Gust [T1]  /  Quick Attack [T1]  /  Dragon Breath [T2]
+  [1B] Mystic dragon
+       Flygon @ Oran Berry   |   Ability: Levitate   |   Nature: Docile
+       Moves: Mud-Slap [T1]  /  Twister [T1]  /  Supersonic [T1]  /  Bite [T2]
+  [2A] Punching dragon
+       Flygon @ Soft Sand   |   Ability: Levitate   |   Nature: Lonely
+       Moves: Mega Punch [T2]  /  Breaking Swipe [T2]  /  Bulldoze [T2]  /  Fire Punch [T3]
+  [2B] Sand caster
+       Flygon @ Dragon Fang   |   Ability: Levitate   |   Nature: Mild
+       Moves: Dragon Breath [T2]  /  Mud Shot [T2]  /  Air Cutter [T2]  /  Scorching Sands [T3]
+  [3A] Dragon Dance dragon
+       Flygon @ Expert Belt   |   Ability: Levitate   |   Nature: Jolly
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Dig [T3]  /  Fire Punch [T3]
+  [3B] Tailwind support
+       Flygon @ Leftovers   |   Ability: Levitate   |   Nature: Timid
+       Moves: Roost [Sit]  /  Tailwind [Sit]  /  Psychic Noise [T3]  /  Scorching Sands [T3]
+  [4A] Dragon Dance sweeper
+       Flygon @ Life Orb   |   Ability: Levitate   |   Nature: Jolly
+       Moves: Dragon Dance [T4]  /  Earthquake [T4]  /  Outrage [T4]  /  Fire Punch [T3]
+  [4B] Choice Scarf dragon
+       Flygon @ Choice Scarf   |   Ability: Levitate   |   Nature: Jolly
+       Moves: Earthquake [T4]  /  Outrage [T4]  /  U-turn [T2]  /  Stone Edge [T4]
+
+====================================================================================================
+#006 CHARIZARD  —  Fire/Flying  —  BST 534  —  Category 7
+Stats 78/84/78/109/85/100  |  Profile: Mixed attacker
+Variants: A = Physical (Dragon Dance) / B = Special (Solar Power)
+----------------------------------------------------------------------------------------------------
+  [1A] Flame dragon
+       Charizard @ (no item)   |   Ability: Blaze   |   Nature: Hardy
+       Moves: Ember [T1]  /  Scratch [T1]  /  Twister [T1]  /  Wing Attack [T2]
+  [1B] Sunny dragon
+       Charizard @ Oran Berry   |   Ability: Solar Power   |   Nature: Docile
+       Moves: Fire Spin [T1]  /  Growl [T1]  /  Smokescreen [T1]  /  Air Cutter [T2]
+  [2A] Kicking dragon
+       Charizard @ Charcoal   |   Ability: Blaze   |   Nature: Lonely
+       Moves: Flame Charge [T2]  /  Wing Attack [T2]  /  Breaking Swipe [T2]  /  Blaze Kick [T3]
+  [2B] Inferno caster
+       Charizard @ Sitrus Berry   |   Ability: Solar Power   |   Nature: Mild
+       Moves: Inferno [T2]  /  Air Cutter [T2]  /  Ancient Power [T2]  /  Mystical Fire [T3]
+  [3A] Dragon Dance flame
+       Charizard @ Muscle Band   |   Ability: Blaze   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Blaze Kick [T3]  /  Thunder Punch [T3]  /  Dragon Claw [T3]
+  [3B] Sun setter
+       Charizard @ Heat Rock   |   Ability: Solar Power   |   Nature: Timid
+       Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Heat Wave [T3]  /  Air Slash [T4]
+  [4A] Dragon Dance sweeper
+       Charizard @ Life Orb   |   Ability: Blaze   |   Nature: Jolly
+       Moves: Dragon Dance [T4]  /  Flare Blitz [T4]  /  Earthquake [T4]  /  Roost [Sit]
+  [4B] Choice Specs flame
+       Charizard @ Choice Specs   |   Ability: Solar Power   |   Nature: Timid
+       Moves: Fire Blast [T4]  /  Hurricane [T4]  /  Focus Blast [T4]  /  Air Slash [T4]
+
+====================================================================================================
+#474 PORYGON-Z  —  Normal  —  BST 535  —  Category 7
+Stats 85/80/70/135/75/90  |  Profile: Offensive (special)
+Variants: A = Setup (Adaptability, Nasty Plot) / B = Download speed (Agility, Choice)
+----------------------------------------------------------------------------------------------------
+  [1A] Glitched program
+       Porygon-Z @ (no item)   |   Ability: Adaptability   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Sharpen [T1]  /  Swift [T2]
+  [1B] Downloading program
+       Porygon-Z @ Oran Berry   |   Ability: Download   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Flash [T1]  /  Defense Curl [T1]  /  Psybeam [T2]
+  [2A] Adaptability caster
+       Porygon-Z @ Silk Scarf   |   Ability: Adaptability   |   Nature: Mild
+       Moves: Swift [T2]  /  Charge Beam [T2]  /  Icy Wind [T2]  /  Tri Attack [T3]
+  [2B] Agility program
+       Porygon-Z @ Sitrus Berry   |   Ability: Download   |   Nature: Rash
+       Moves: Psybeam [T2]  /  Shock Wave [T2]  /  Electroweb [T2]  /  Agility [Sit]
+  [3A] Nasty Plot program
+       Porygon-Z @ Wise Glasses   |   Ability: Adaptability   |   Nature: Modest
+       Moves: Nasty Plot [T4]  /  Tri Attack [T3]  /  Discharge [T3]  /  Signal Beam [T3]
+  [3B] Agility sash
+       Porygon-Z @ Focus Sash   |   Ability: Download   |   Nature: Timid
+       Moves: Agility [Sit]  /  Tri Attack [T3]  /  Discharge [T3]  /  Uproar [T3]
+  [4A] Nasty Plot sweeper
+       Porygon-Z @ Life Orb   |   Ability: Adaptability   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Tri Attack [T3]  /  Shadow Ball [T4]  /  Thunderbolt [T4]
+  [4B] Choice Specs program
+       Porygon-Z @ Choice Specs   |   Ability: Adaptability   |   Nature: Timid
+       Moves: Tri Attack [T3]  /  Ice Beam [T4]  /  Thunderbolt [T4]  /  Shadow Ball [T4]
+
+====================================================================================================
+#468 TOGEKISS  —  Fairy/Flying  —  BST 545  —  Category 7
+Stats 85/50/95/120/115/80  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Serene Grace, Roost) / B = Offensive (Nasty Plot, Trick)
+----------------------------------------------------------------------------------------------------
+  [1A] Jubilee bird
+       Togekiss @ Oran Berry   |   Ability: Serene Grace   |   Nature: Hardy
+       Moves: Peck [T1]  /  Fairy Wind [T1]  /  Growl [T1]  /  Air Cutter [T2]
+  [1B] Kissing bird
+       Togekiss @ (no item)   |   Ability: Hustle   |   Nature: Docile
+       Moves: Pound [T1]  /  Sweet Kiss [T1]  /  Twister [T1]  /  Draining Kiss [T2]
+  [2A] Paralysis bird
+       Togekiss @ Sitrus Berry   |   Ability: Serene Grace   |   Nature: Bold
+       Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Draining Kiss [T2]  /  Defog [Sit]
+  [2B] Lucky caster
+       Togekiss @ Fairy Feather   |   Ability: Super Luck   |   Nature: Mild
+       Moves: Draining Kiss [T2]  /  Air Cutter [T2]  /  Ancient Power [T2]  /  Extrasensory [T3]
+  [3A] Paraflinch bird
+       Togekiss @ Leftovers   |   Ability: Serene Grace   |   Nature: Bold
+       Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Air Slash [T4]  /  Heal Bell [Sit]
+  [3B] Nasty Plot bird
+       Togekiss @ Wise Glasses   |   Ability: Serene Grace   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Dazzling Gleam [T3]  /  Extrasensory [T3]  /  Roost [Sit]
+  [4A] Wish wall
+       Togekiss @ Rocky Helmet   |   Ability: Serene Grace   |   Nature: Calm
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Air Slash [T4]  /  Thunder Wave [Sit]
+  [4B] Choice Scarf trickster
+       Togekiss @ Choice Scarf   |   Ability: Serene Grace   |   Nature: Timid
+       Moves: Trick [Sit]  /  Air Slash [T4]  /  Aura Sphere [T4]  /  Fire Blast [T4]
+
+====================================================================================================
+#901 URSALUNA  —  Ground/Normal  —  BST 550  —  Category 7
+Stats 130/140/105/45/80/50  |  Profile: Offensive (physical, bulky)
+Variants: A = Guts attacker / B = Bulky (Bulletproof, Assault Vest)
+----------------------------------------------------------------------------------------------------
+  [1A] Peat bear
+       Ursaluna @ (no item)   |   Ability: Guts   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Fury Swipes [T1]  /  Leer [T1]  /  Headbutt [T2]
+  [1B] Muddy bear
+       Ursaluna @ Oran Berry   |   Ability: Bulletproof   |   Nature: Docile
+       Moves: Lick [T1]  /  Metal Claw [T1]  /  Play Nice [T1]  /  Bulldoze [T2]
+  [2A] Guts bear
+       Ursaluna @ Soft Sand   |   Ability: Guts   |   Nature: Lonely
+       Moves: Bulldoze [T2]  /  Power-Up Punch [T2]  /  Feint Attack [T2]  /  High Horsepower [T3]
+  [2B] Yawning bear
+       Ursaluna @ Sitrus Berry   |   Ability: Bulletproof   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Yawn [Sit]  /  Roar [Sit]  /  Mega Punch [T2]
+  [3A] Guts striker
+       Ursaluna @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  High Horsepower [T3]  /  Crunch [T3]  /  Fire Punch [T3]
+  [3B] Bulk Up rester
+       Ursaluna @ Leftovers   |   Ability: Bulletproof   |   Nature: Careful
+       Moves: Bulk Up [T4]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  High Horsepower [T3]
+  [4A] Guts sweeper
+       Ursaluna @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Facade [T4]  /  Headlong Rush [T4]  /  Close Combat [T4]
+  [4B] Assault Vest bear
+       Ursaluna @ Assault Vest   |   Ability: Bulletproof   |   Nature: Adamant
+       Moves: Headlong Rush [T4]  /  Body Slam [T4]  /  Drain Punch [T4]  /  Play Rough [T4]
+
+====================================================================================================
+#149 DRAGONITE  —  Dragon/Flying  —  BST 600  —  Category 7
+Stats 91/134/95/100/100/80  |  Profile: Offensive (physical)
+Variants: A = Setup (Dragon Dance, Multiscale) / B = Bulky (Roost) and Choice
+----------------------------------------------------------------------------------------------------
+  [1A] Sea dragon
+       Dragonite @ (no item)   |   Ability: Inner Focus   |   Nature: Hardy
+       Moves: Wrap [T1]  /  Leer [T1]  /  Twister [T1]  /  Water Gun [T1]
+  [1B] Kind dragon
+       Dragonite @ Oran Berry   |   Ability: Multiscale   |   Nature: Docile
+       Moves: Supersonic [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]  /  Wing Attack [T2]
+  [2A] Rushing dragon
+       Dragonite @ Dragon Fang   |   Ability: Multiscale   |   Nature: Lonely
+       Moves: Breaking Swipe [T2]  /  Wing Attack [T2]  /  Slam [T2]  /  Dragon Rush [T3]
+  [2B] Phazing dragon
+       Dragonite @ Sitrus Berry   |   Ability: Multiscale   |   Nature: Impish
+       Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Dragon Tail [Sit]  /  Headbutt [T2]
+  [3A] Dragon Dance dragon
+       Dragonite @ Muscle Band   |   Ability: Multiscale   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Fire Punch [T3]  /  Ice Spinner [T3]
+  [3B] Multiscale cleric
+       Dragonite @ Leftovers   |   Ability: Multiscale   |   Nature: Careful
+       Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Dragon Tail [Sit]  /  Heal Bell [Sit]
+  [4A] Dragon Dance sweeper
+       Dragonite @ Life Orb   |   Ability: Multiscale   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Extreme Speed [T4]  /  Earthquake [T4]  /  Roost [Sit]
+  [4B] Choice Band dragon
+       Dragonite @ Choice Band   |   Ability: Inner Focus   |   Nature: Adamant
+       Moves: Extreme Speed [T4]  /  Outrage [T4]  /  Earthquake [T4]  /  Fire Punch [T3]
+
+====================================================================================================
+#445 GARCHOMP  —  Dragon/Ground  —  BST 600  —  Category 7
+Stats 108/130/95/80/85/102  |  Profile: Offensive (physical)
+Variants: A = Setup (Swords Dance) / B = Sand and Choice attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Mach dragon
+       Garchomp @ (no item)   |   Ability: Rough Skin   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Sand Tomb [T1]  /  Twister [T1]  /  Bite [T2]
+  [1B] Sandy dragon
+       Garchomp @ Oran Berry   |   Ability: Sand Veil   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Whirlpool [T1]  /  Mud-Slap [T1]  /  Dual Chop [T2]
+  [2A] Clawing dragon
+       Garchomp @ Dragon Fang   |   Ability: Rough Skin   |   Nature: Lonely
+       Moves: Breaking Swipe [T2]  /  Fire Fang [T2]  /  Bulldoze [T2]  /  Dragon Claw [T3]
+  [2B] Phazing dragon
+       Garchomp @ Sitrus Berry   |   Ability: Rough Skin   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Roar [Sit]  /  Dragon Tail [Sit]  /  Protect [Sit]
+  [3A] Swords Dance dragon
+       Garchomp @ Muscle Band   |   Ability: Rough Skin   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Dragon Claw [T3]  /  Dig [T3]  /  Crunch [T3]
+  [3B] Sand dragon
+       Garchomp @ Smooth Rock   |   Ability: Sand Veil   |   Nature: Jolly
+       Moves: Sandstorm [Sit]  /  Dragon Claw [T3]  /  Stomping Tantrum [T3]  /  Earthquake [T4]
+  [4A] Loaded Dice dragon
+       Garchomp @ Loaded Dice   |   Ability: Rough Skin   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Scale Shot [T3]  /  Earthquake [T4]  /  Stone Edge [T4]
+  [4B] Choice Band dragon
+       Garchomp @ Choice Band   |   Ability: Rough Skin   |   Nature: Jolly
+       Moves: Outrage [T4]  /  Earthquake [T4]  /  Stone Edge [T4]  /  Poison Jab [T4]
+
+====================================================================================================
+#145 ZAPDOS  —  Electric/Flying  —  BST 580  —  Category 8
+Stats 90/90/85/125/90/100  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Roost, Static, Defog) / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Thunder bird
+       Zapdos @ Oran Berry   |   Ability: Static   |   Nature: Hardy
+       Moves: Peck [T1]  /  Thunder Shock [T1]  /  Leer [T1]  /  Twister [T1]
+  [1B] Storm bird
+       Zapdos @ (no item)   |   Ability: Pressure   |   Nature: Docile
+       Moves: Mud-Slap [T1]  /  Rock Smash [T1]  /  Flash [T1]  /  Shock Wave [T2]
+  [2A] Static pivot
+       Zapdos @ Sitrus Berry   |   Ability: Static   |   Nature: Bold
+       Moves: Roost [Sit]  /  Volt Switch [T2]  /  Thunder Wave [Sit]  /  Air Cutter [T2]
+  [2B] Charging caster
+       Zapdos @ Magnet   |   Ability: Pressure   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Air Cutter [T2]  /  Ancient Power [T2]  /  Discharge [T3]
+  [3A] Static wall
+       Zapdos @ Leftovers   |   Ability: Static   |   Nature: Bold
+       Moves: Roost [Sit]  /  Discharge [T3]  /  Heat Wave [T3]  /  Defog [Sit]
+  [3B] Agility bird
+       Zapdos @ Wise Glasses   |   Ability: Pressure   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Heat Wave [T3]  /  Volt Switch [T2]  /  Agility [Sit]
+  [4A] Bulky pivot
+       Zapdos @ Rocky Helmet   |   Ability: Static   |   Nature: Bold
+       Moves: Roost [Sit]  /  Thunderbolt [T4]  /  Volt Switch [T2]  /  Defog [Sit]
+  [4B] Choice Specs bird
+       Zapdos @ Choice Specs   |   Ability: Pressure   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Hurricane [T4]  /  Heat Wave [T3]  /  Volt Switch [T2]
+
+====================================================================================================
+#380 LATIAS  —  Dragon/Psychic  —  BST 600  —  Category 8
+Stats 80/80/90/110/130/110  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Recover, Wish) / B = Offensive (Calm Mind)
+----------------------------------------------------------------------------------------------------
+  [1A] Eon maiden
+       Latias @ (no item)   |   Ability: Levitate   |   Nature: Hardy
+       Moves: Confusion [T1]  /  Twister [T1]  /  Sweet Kiss [T1]  /  Disarming Voice [T1]
+  [1B] Gliding maiden
+       Latias @ Oran Berry   |   Ability: Levitate   |   Nature: Docile
+       Moves: Whirlpool [T1]  /  Mud-Slap [T1]  /  Flash [T1]  /  Dragon Breath [T2]
+  [2A] Wishing maiden
+       Latias @ Sitrus Berry   |   Ability: Levitate   |   Nature: Calm
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Dragon Breath [T2]  /  Thunder Wave [Sit]
+  [2B] Dragon caster
+       Latias @ Dragon Fang   |   Ability: Levitate   |   Nature: Mild
+       Moves: Dragon Breath [T2]  /  Draining Kiss [T2]  /  Icy Wind [T2]  /  Mystical Fire [T3]
+  [3A] Recovering maiden
+       Latias @ Leftovers   |   Ability: Levitate   |   Nature: Calm
+       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Defog [Sit]  /  Mist Ball [T4]
+  [3B] Stored Power maiden
+       Latias @ Wise Glasses   |   Ability: Levitate   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Mystical Fire [T3]  /  Recover [Sit]
+  [4A] Healing maiden
+       Latias @ Rocky Helmet   |   Ability: Levitate   |   Nature: Bold
+       Moves: Recover [Sit]  /  Wish [Sit]  /  Mist Ball [T4]  /  Healing Wish [Sit]
+  [4B] Calm Mind sweeper
+       Latias @ Life Orb   |   Ability: Levitate   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Dragon Pulse [T4]  /  Psyshock [T4]  /  Recover [Sit]
+
+====================================================================================================
+#381 LATIOS  —  Dragon/Psychic  —  BST 600  —  Category 8
+Stats 80/90/80/130/110/110  |  Profile: Offensive (special)
+Variants: A = Setup (Calm Mind) / B = Attacker (Draco Meteor, Choice)
+----------------------------------------------------------------------------------------------------
+  [1A] Eon knight
+       Latios @ (no item)   |   Ability: Levitate   |   Nature: Hardy
+       Moves: Confusion [T1]  /  Twister [T1]  /  Mud-Slap [T1]  /  Water Pulse [T2]
+  [1B] Gliding knight
+       Latios @ Oran Berry   |   Ability: Levitate   |   Nature: Docile
+       Moves: Whirlpool [T1]  /  Flash [T1]  /  Confide [T1]  /  Dragon Breath [T2]
+  [2A] Dragon caster
+       Latios @ Dragon Fang   |   Ability: Levitate   |   Nature: Mild
+       Moves: Dragon Breath [T2]  /  Icy Wind [T2]  /  Shock Wave [T2]  /  Psychic Noise [T3]
+  [2B] Pivot knight
+       Latios @ Sitrus Berry   |   Ability: Levitate   |   Nature: Timid
+       Moves: Flip Turn [T2]  /  Thunder Wave [Sit]  /  Dragon Breath [T2]  /  Roost [Sit]
+  [3A] Calm Mind knight
+       Latios @ Wise Glasses   |   Ability: Levitate   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Psychic Noise [T3]  /  Mystical Fire [T3]  /  Recover [Sit]
+  [3B] Draco knight
+       Latios @ Expert Belt   |   Ability: Levitate   |   Nature: Timid
+       Moves: Draco Meteor [T4]  /  Psychic Noise [T3]  /  Mystical Fire [T3]  /  Grass Knot [T3]
+  [4A] Calm Mind sweeper
+       Latios @ Life Orb   |   Ability: Levitate   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Luster Purge [T4]  /  Aura Sphere [T4]  /  Recover [Sit]
+  [4B] Choice Specs knight
+       Latios @ Choice Specs   |   Ability: Levitate   |   Nature: Timid
+       Moves: Draco Meteor [T4]  /  Luster Purge [T4]  /  Aura Sphere [T4]  /  Ice Beam [T4]
+
+====================================================================================================
+#384 RAYQUAZA  —  Dragon/Flying  —  BST 680  —  Category 9
+Stats 105/150/90/150/90/95  |  Profile: Mixed attacker
+Variants: A = Physical (Dragon Dance) / B = Special and Choice
+----------------------------------------------------------------------------------------------------
+  [1A] Sky high
+       Rayquaza @ (no item)   |   Ability: Air Lock   |   Nature: Hardy
+       Moves: Twister [T1]  /  Bind [T1]  /  Rock Smash [T1]  /  Breaking Swipe [T2]
+  [1B] Ozone dragon
+       Rayquaza @ Oran Berry   |   Ability: Air Lock   |   Nature: Docile
+       Moves: Whirlpool [T1]  /  Mud-Slap [T1]  /  Confide [T1]  /  Ancient Power [T2]
+  [2A] Clawing dragon
+       Rayquaza @ Dragon Fang   |   Ability: Air Lock   |   Nature: Lonely
+       Moves: Breaking Swipe [T2]  /  Aerial Ace [T2]  /  Rock Tomb [T2]  /  Dragon Claw [T3]
+  [2B] Coverage caster
+       Rayquaza @ Wise Glasses   |   Ability: Air Lock   |   Nature: Mild
+       Moves: Icy Wind [T2]  /  Incinerate [T2]  /  Water Pulse [T2]  /  Shock Wave [T2]
+  [3A] Dragon Dance dragon
+       Rayquaza @ Muscle Band   |   Ability: Air Lock   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Iron Tail [T3]  /  Crunch [T3]
+  [3B] Meteor Beam dragon
+       Rayquaza @ Power Herb   |   Ability: Air Lock   |   Nature: Modest
+       Moves: Meteor Beam [T3]  /  Draco Meteor [T4]  /  Uproar [T3]  /  Icy Wind [T2]
+  [4A] Dragon Dance sweeper
+       Rayquaza @ Life Orb   |   Ability: Air Lock   |   Nature: Jolly
+       Moves: Dragon Dance [T4]  /  Dragon Ascent [T4]  /  Earthquake [T4]  /  Extreme Speed [T4]
+  [4B] Choice Band dragon
+       Rayquaza @ Choice Band   |   Ability: Air Lock   |   Nature: Adamant
+       Moves: Dragon Ascent [T4]  /  Outrage [T4]  /  Extreme Speed [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#644 ZEKROM  —  Dragon/Electric  —  BST 680  —  Category 9
+Stats 100/150/120/120/100/90  |  Profile: Offensive (physical)
+Variants: A = Setup (Dragon Dance) / B = Attacker (Bolt Strike, Choice)
+----------------------------------------------------------------------------------------------------
+  [1A] Deep black
+       Zekrom @ (no item)   |   Ability: Teravolt   |   Nature: Hardy
+       Moves: Rock Smash [T1]  /  Flash [T1]  /  Confide [T1]  /  Thunder Fang [T2]
+  [1B] Thunder dragon
+       Zekrom @ Oran Berry   |   Ability: Teravolt   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Flash [T1]  /  Confide [T1]  /  Dragon Breath [T2]
+  [2A] Honing dragon
+       Zekrom @ Magnet   |   Ability: Teravolt   |   Nature: Lonely
+       Moves: Thunder Fang [T2]  /  Breaking Swipe [T2]  /  Hone Claws [T2]  /  Supercell Slam [T3]
+  [2B] Charging dragon
+       Zekrom @ Dragon Fang   |   Ability: Teravolt   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Dragon Breath [T2]  /  Shock Wave [T2]  /  Volt Switch [T2]
+  [3A] Dragon Dance dragon
+       Zekrom @ Muscle Band   |   Ability: Teravolt   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Supercell Slam [T3]  /  Crunch [T3]
+  [3B] Bolt Strike dragon
+       Zekrom @ Expert Belt   |   Ability: Teravolt   |   Nature: Adamant
+       Moves: Bolt Strike [T4]  /  Dragon Claw [T3]  /  Brick Break [T3]  /  Volt Switch [T2]
+  [4A] Dragon Dance sweeper
+       Zekrom @ Life Orb   |   Ability: Teravolt   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Bolt Strike [T4]  /  Outrage [T4]  /  Roost [Sit]
+  [4B] Choice Band dragon
+       Zekrom @ Choice Band   |   Ability: Teravolt   |   Nature: Adamant
+       Moves: Bolt Strike [T4]  /  Outrage [T4]  /  Volt Switch [T2]  /  Stone Edge [T4]
+

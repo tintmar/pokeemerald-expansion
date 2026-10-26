@@ -1,0 +1,1703 @@
+====================================================================================================
+POKEMON_SETS.TXT  —  BIOME: FIRE (Fiery Path) — Fire / Electric
+56 Pokémon x 8 sets = 448 sets   |   Draft for validation
+====================================================================================================
+
+HOW TO READ
+----------------------------------------------------------------------------------------------------
+  Set tiers (move tiers from moves_by_tier.txt v3, shown in brackets after each move):
+    Tier 1 sets  (early game)     : Tier 1 moves + at most one Tier 2 move. Neutral nature. No item or a basic berry.
+    Tier 2 sets  (early-mid game) : Tier 2 + Situational moves + at most one Tier 3 move. Reasonable but imperfect
+                                    nature (attackers often use Lonely / Hasty / Mild...). Simple items: Sitrus, type boosters...
+    Tier 3 sets  (mid-late game)  : Tier 3 + Situational moves + at most one Tier 4 move. Optimal nature.
+                                    Solid items: Leftovers, Muscle Band, Expert Belt, Rocky Helmet, Lum Berry...
+    Tier 4 sets  (bosses, player) : Best mix of Tier 3, Tier 4 and Situational moves. Competitive items (Life Orb, Choice...).
+    Exception (v3): Tier 3 and Tier 4 sets may use a Tier 2 [Pivot] move (U-turn, Volt Switch, Flip Turn).
+    Entry hazards do not exist in this game (v3), so no set uses them. Eviolite is banned from the game.
+  Set A / Set B follow the Pokémon profile shown under its name:
+    Mixed attacker: A = Physical / B = Special.   Balanced / Bulky: A = Defensive / B = Offensive.
+    Pure Defensive: A = Pure Stall / B = Defensive with utility.
+    Offensive (one attacking stat): A = Setup / power attacker / B = second offensive role (pivot, priority, Choice, utility).
+  Every move is legal for that Pokémon (current or past learnset, incl. pre-evolution moves). Smeargle may use any move
+  (Sketch). Every set was checked by script for move legality, tier rules, ability legality and item rules.
+
+====================================================================================================
+#172 PICHU  —  Electric  —  BST 205  —  Category 1
+Stats 20/40/15/35/35/60  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Tiny mouse
+       Pichu @ (no item)   |   Ability: Static   |   Nature: Hardy
+       Moves: Double Slap [T1]  /  Tail Whip [T1]  /  Sweet Kiss [T1]  /  Nuzzle [T2]
+  [1B] Spark mouse
+       Pichu @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Tail Whip [T1]  /  Disarming Voice [T1]  /  Charm [T2]
+  [2A] Paralysis pest
+       Pichu @ Magnet   |   Ability: Static   |   Nature: Lonely
+       Moves: Fake Out [Sit]  /  Nuzzle [T2]  /  Headbutt [T2]  /  Thunder Punch [T3]
+  [2B] Static caster
+       Pichu @ Sitrus Berry   |   Ability: Lightning Rod   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Electroweb [T2]  /  Swift [T2]  /  Electro Ball [T3]
+  [3A] Sash striker
+       Pichu @ Focus Sash   |   Ability: Static   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Thunder Punch [T3]  /  Iron Tail [T3]  /  Volt Tackle [T4]
+  [3B] Nasty Plot mouse
+       Pichu @ Wise Glasses   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Electro Ball [T3]  /  Grass Knot [T3]  /  Protect [Sit]
+  [4A] Volt Tackle attacker
+       Pichu @ Life Orb   |   Ability: Static   |   Nature: Jolly
+       Moves: Volt Tackle [T4]  /  Fake Out [Sit]  /  Play Rough [T4]  /  Iron Tail [T3]
+  [4B] Sash caster
+       Pichu @ Focus Sash   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Thunderbolt [T4]  /  Surf [T4]  /  Encore [Sit]
+
+====================================================================================================
+#174 IGGLYBUFF  —  Normal/Fairy  —  BST 210  —  Category 1
+Stats 90/30/15/40/20/15  |  Profile: Balanced / Bulky
+Variants: A = Defensive support / B = Offensive (special, Competitive)
+----------------------------------------------------------------------------------------------------
+  [1A] Balloon baby
+       Igglybuff @ Oran Berry   |   Ability: Cute Charm   |   Nature: Hardy
+       Moves: Pound [T1]  /  Defense Curl [T1]  /  Sweet Kiss [T1]  /  Disarming Voice [T1]
+  [1B] Singing baby
+       Igglybuff @ (no item)   |   Ability: Competitive   |   Nature: Docile
+       Moves: Disarming Voice [T1]  /  Pound [T1]  /  Flash [T1]  /  Sing [T2]
+  [2A] Lullaby support
+       Igglybuff @ Sitrus Berry   |   Ability: Cute Charm   |   Nature: Bold
+       Moves: Sing [T2]  /  Charm [T2]  /  Wish [Sit]  /  Draining Kiss [T2]
+  [2B] Fairy caster
+       Igglybuff @ Fairy Feather   |   Ability: Competitive   |   Nature: Modest
+       Moves: Draining Kiss [T2]  /  Icy Wind [T2]  /  Shock Wave [T2]  /  Dazzling Gleam [T3]
+  [3A] Wish support
+       Igglybuff @ Leftovers   |   Ability: Cute Charm   |   Nature: Bold
+       Moves: Dazzling Gleam [T3]  /  Wish [Sit]  /  Protect [Sit]  /  Thunder Wave [Sit]
+  [3B] Competitive singer
+       Igglybuff @ Wise Glasses   |   Ability: Competitive   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Alluring Voice [T3]  /  Grass Knot [T3]  /  Protect [Sit]
+  [4A] Wish wall
+       Igglybuff @ Rocky Helmet   |   Ability: Cute Charm   |   Nature: Bold
+       Moves: Seismic Toss [T4]  /  Wish [Sit]  /  Protect [Sit]  /  Thunder Wave [Sit]
+  [4B] Competitive attacker
+       Igglybuff @ Life Orb   |   Ability: Competitive   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Flamethrower [T4]  /  Psychic [T4]
+
+====================================================================================================
+#263 ZIGZAGOON  —  Normal  —  BST 240  —  Category 1
+Stats 38/30/41/30/41/60  |  Profile: Offensive (physical)
+Variants: A = Belly Drum sweeper / B = Utility (Super Fang, Trick)
+----------------------------------------------------------------------------------------------------
+  [1A] Zigzag raccoon
+       Zigzagoon @ (no item)   |   Ability: Pickup   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Growl [T1]  /  Tail Whip [T1]  /  Sand Attack [T1]
+  [1B] Curious raccoon
+       Zigzagoon @ Oran Berry   |   Ability: Quick Feet   |   Nature: Docile
+       Moves: Tackle [T1]  /  Odor Sleuth [T1]  /  Baby-Doll Eyes [T1]  /  Headbutt [T2]
+  [2A] Sharp raccoon
+       Zigzagoon @ Silk Scarf   |   Ability: Gluttony   |   Nature: Lonely
+       Moves: Headbutt [T2]  /  Hone Claws [T2]  /  Thief [T2]  /  Pin Missile [T3]
+  [2B] Pest raccoon
+       Zigzagoon @ Sitrus Berry   |   Ability: Pickup   |   Nature: Hasty
+       Moves: Super Fang [Sit]  /  Thunder Wave [Sit]  /  Headbutt [T2]  /  Charm [T2]
+  [3A] Belly Drum raccoon
+       Zigzagoon @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Adamant
+       Moves: Belly Drum [T4]  /  Retaliate [T3]  /  Seed Bomb [T3]  /  Protect [Sit]
+  [3B] Sash pest
+       Zigzagoon @ Focus Sash   |   Ability: Pickup   |   Nature: Jolly
+       Moves: Super Fang [Sit]  /  Thunder Wave [Sit]  /  Tail Slap [T3]  /  Extreme Speed [T4]
+  [4A] Belly Drum sweeper
+       Zigzagoon @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Adamant
+       Moves: Belly Drum [T4]  /  Extreme Speed [T4]  /  Seed Bomb [T3]  /  Protect [Sit]
+  [4B] Scarf Trick raccoon
+       Zigzagoon @ Choice Scarf   |   Ability: Quick Feet   |   Nature: Jolly
+       Moves: Trick [Sit]  /  Double-Edge [T4]  /  Gunk Shot [T4]  /  Super Fang [Sit]
+
+====================================================================================================
+#921 PAWMI  —  Electric  —  BST 240  —  Category 1
+Stats 45/50/20/40/25/60  |  Profile: Offensive (physical)
+Variants: A = Physical attacker (Iron Fist) / B = Support (Fake Out, pivot, Super Fang)
+----------------------------------------------------------------------------------------------------
+  [1A] Spark mouse
+       Pawmi @ (no item)   |   Ability: Iron Fist   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Quick Attack [T1]  /  Growl [T1]  /  Spark [T2]
+  [1B] Static mouse
+       Pawmi @ Oran Berry   |   Ability: Static   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Metal Claw [T1]  /  Sweet Kiss [T1]  /  Nuzzle [T2]
+  [2A] Electric brawler
+       Pawmi @ Magnet   |   Ability: Iron Fist   |   Nature: Lonely
+       Moves: Spark [T2]  /  Bite [T2]  /  Slam [T2]  /  Dig [T3]
+  [2B] Pivot mouse
+       Pawmi @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Hasty
+       Moves: Nuzzle [T2]  /  Volt Switch [T2]  /  Fake Out [Sit]  /  Encore [Sit]
+  [3A] Iron Fist mouse
+       Pawmi @ Focus Sash   |   Ability: Iron Fist   |   Nature: Jolly
+       Moves: Mach Punch [T4]  /  Crunch [T3]  /  Dig [T3]  /  Agility [Sit]
+  [3B] Support mouse
+       Pawmi @ Lum Berry   |   Ability: Natural Cure   |   Nature: Jolly
+       Moves: Volt Switch [T2]  /  Fake Out [Sit]  /  Encore [Sit]  /  Super Fang [Sit]
+  [4A] Iron Fist attacker
+       Pawmi @ Life Orb   |   Ability: Iron Fist   |   Nature: Jolly
+       Moves: Wild Charge [T4]  /  Mach Punch [T4]  /  Crunch [T3]  /  Play Rough [T4]
+  [4B] Sash support
+       Pawmi @ Focus Sash   |   Ability: Natural Cure   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Volt Switch [T2]  /  Super Fang [Sit]  /  Wild Charge [T4]
+
+====================================================================================================
+#218 SLUGMA  —  Fire  —  BST 250  —  Category 1
+Stats 40/40/40/70/40/20  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Recover, burns) / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Lava slug
+       Slugma @ Oran Berry   |   Ability: Magma Armor   |   Nature: Hardy
+       Moves: Ember [T1]  /  Harden [T1]  /  Smog [T1]  /  Smokescreen [T1]
+  [1B] Molten slug
+       Slugma @ (no item)   |   Ability: Flame Body   |   Nature: Docile
+       Moves: Ember [T1]  /  Rock Throw [T1]  /  Fire Spin [T1]  /  Flame Burst [T2]
+  [2A] Burning slug
+       Slugma @ Sitrus Berry   |   Ability: Flame Body   |   Nature: Bold
+       Moves: Incinerate [T2]  /  Recover [Sit]  /  Will-O-Wisp [Sit]  /  Yawn [Sit]
+  [2B] Magma caster
+       Slugma @ Charcoal   |   Ability: Weak Armor   |   Nature: Modest
+       Moves: Flame Burst [T2]  /  Ancient Power [T2]  /  Mud Shot [T2]  /  Lava Plume [T3]
+  [3A] Lava wall
+       Slugma @ Leftovers   |   Ability: Flame Body   |   Nature: Bold
+       Moves: Lava Plume [T3]  /  Recover [Sit]  /  Yawn [Sit]  /  Clear Smog [Sit]
+  [3B] Magma attacker
+       Slugma @ Leftovers   |   Ability: Weak Armor   |   Nature: Modest
+       Moves: Heat Wave [T3]  /  Earth Power [T4]  /  Recover [Sit]  /  Stockpile [Sit]
+  [4A] Flame Body wall
+       Slugma @ Rocky Helmet   |   Ability: Flame Body   |   Nature: Bold
+       Moves: Flamethrower [T4]  /  Recover [Sit]  /  Clear Smog [Sit]  /  Yawn [Sit]
+  [4B] Molten attacker
+       Slugma @ Life Orb   |   Ability: Weak Armor   |   Nature: Modest
+       Moves: Fire Blast [T4]  /  Earth Power [T4]  /  Power Gem [T4]  /  Recover [Sit]
+
+====================================================================================================
+#039 JIGGLYPUFF  —  Normal/Fairy  —  BST 270  —  Category 1
+Stats 115/45/20/45/25/20  |  Profile: Balanced / Bulky
+Variants: A = Defensive support / B = Offensive (special, Competitive)
+----------------------------------------------------------------------------------------------------
+  [1A] Balloon singer
+       Jigglypuff @ Oran Berry   |   Ability: Cute Charm   |   Nature: Hardy
+       Moves: Pound [T1]  /  Double Slap [T1]  /  Defense Curl [T1]  /  Sweet Kiss [T1]
+  [1B] Lullaby singer
+       Jigglypuff @ (no item)   |   Ability: Competitive   |   Nature: Docile
+       Moves: Disarming Voice [T1]  /  Water Gun [T1]  /  Play Nice [T1]  /  Sing [T2]
+  [2A] Sleep singer
+       Jigglypuff @ Sitrus Berry   |   Ability: Cute Charm   |   Nature: Bold
+       Moves: Sing [T2]  /  Draining Kiss [T2]  /  Wish [Sit]  /  Protect [Sit]
+  [2B] Fairy caster
+       Jigglypuff @ Fairy Feather   |   Ability: Competitive   |   Nature: Modest
+       Moves: Draining Kiss [T2]  /  Bubble Beam [T2]  /  Charge Beam [T2]  /  Alluring Voice [T3]
+  [3A] Cleric balloon
+       Jigglypuff @ Leftovers   |   Ability: Cute Charm   |   Nature: Bold
+       Moves: Dazzling Gleam [T3]  /  Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]
+  [3B] Competitive singer
+       Jigglypuff @ Wise Glasses   |   Ability: Competitive   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Psychic Noise [T3]
+  [4A] Wish cleric
+       Jigglypuff @ Rocky Helmet   |   Ability: Cute Charm   |   Nature: Bold
+       Moves: Seismic Toss [T4]  /  Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]
+  [4B] Choice Specs singer
+       Jigglypuff @ Choice Specs   |   Ability: Competitive   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Fire Blast [T4]  /  Ice Beam [T4]
+
+====================================================================================================
+#179 MAREEP  —  Electric  —  BST 280  —  Category 1
+Stats 55/40/40/65/45/35  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Cotton Guard) / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Wool sheep
+       Mareep @ Oran Berry   |   Ability: Static   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Growl [T1]  /  Defense Curl [T1]  /  Thunder Shock [T1]
+  [1B] Static sheep
+       Mareep @ (no item)   |   Ability: Plus   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Sand Attack [T1]  /  Flash [T1]  /  Charge Beam [T2]
+  [2A] Cotton sheep
+       Mareep @ Sitrus Berry   |   Ability: Static   |   Nature: Bold
+       Moves: Electroweb [T2]  /  Cotton Spore [T2]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]
+  [2B] Charged sheep
+       Mareep @ Magnet   |   Ability: Plus   |   Nature: Modest
+       Moves: Charge Beam [T2]  /  Swift [T2]  /  Volt Switch [T2]  /  Discharge [T3]
+  [3A] Cotton Guard sheep
+       Mareep @ Leftovers   |   Ability: Static   |   Nature: Bold
+       Moves: Discharge [T3]  /  Cotton Guard [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]
+  [3B] Coverage sheep
+       Mareep @ Magnet   |   Ability: Plus   |   Nature: Modest
+       Moves: Discharge [T3]  /  Dazzling Gleam [T3]  /  Signal Beam [T3]  /  Power Gem [T4]
+  [4A] Cotton Guard wall
+       Mareep @ Rocky Helmet   |   Ability: Static   |   Nature: Bold
+       Moves: Thunderbolt [T4]  /  Cotton Guard [Sit]  /  Rest [Sit]  /  Heal Bell [Sit]
+  [4B] Choice Specs sheep
+       Mareep @ Choice Specs   |   Ability: Plus   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Power Gem [T4]  /  Dazzling Gleam [T3]  /  Volt Switch [T2]
+
+====================================================================================================
+#309 ELECTRIKE  —  Electric  —  BST 295  —  Category 2
+Stats 40/45/40/65/40/65  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Physical / utility attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Lightning pup
+       Electrike @ (no item)   |   Ability: Static   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Leer [T1]  /  Howl [T1]  /  Spark [T2]
+  [1B] Static pup
+       Electrike @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
+       Moves: Tackle [T1]  /  Quick Attack [T1]  /  Odor Sleuth [T1]  /  Shock Wave [T2]
+  [2A] Charged pup
+       Electrike @ Magnet   |   Ability: Lightning Rod   |   Nature: Modest
+       Moves: Charge Beam [T2]  /  Flame Burst [T2]  /  Snarl [T2]  /  Discharge [T3]
+  [2B] Fang pup
+       Electrike @ Sitrus Berry   |   Ability: Static   |   Nature: Lonely
+       Moves: Thunder Fang [T2]  /  Bite [T2]  /  Fire Fang [T2]  /  Volt Switch [T2]
+  [3A] Pivot caster
+       Electrike @ Expert Belt   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Electro Ball [T3]  /  Signal Beam [T3]  /  Flamethrower [T4]  /  Volt Switch [T2]
+  [3B] Sash biter
+       Electrike @ Focus Sash   |   Ability: Static   |   Nature: Jolly
+       Moves: Thunder Wave [Sit]  /  Volt Switch [T2]  /  Crunch [T3]  /  Psychic Fangs [T4]
+  [4A] Lightning sweeper
+       Electrike @ Life Orb   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Flamethrower [T4]  /  Volt Switch [T2]  /  Protect [Sit]
+  [4B] Choice Band pup
+       Electrike @ Choice Band   |   Ability: Static   |   Nature: Jolly
+       Moves: Wild Charge [T4]  /  Psychic Fangs [T4]  /  Crunch [T3]  /  Double-Edge [T4]
+
+====================================================================================================
+#037 VULPIX  —  Fire  —  BST 299  —  Category 2
+Stats 38/41/40/50/65/65  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Utility (sun, burns, Healing Wish)
+----------------------------------------------------------------------------------------------------
+  [1A] Six-tailed fox
+       Vulpix @ (no item)   |   Ability: Flash Fire   |   Nature: Hardy
+       Moves: Ember [T1]  /  Tail Whip [T1]  /  Quick Attack [T1]  /  Baby-Doll Eyes [T1]
+  [1B] Sunny fox
+       Vulpix @ Oran Berry   |   Ability: Drought   |   Nature: Docile
+       Moves: Ember [T1]  /  Fire Spin [T1]  /  Howl [T1]  /  Flame Burst [T2]
+  [2A] Flame caster
+       Vulpix @ Charcoal   |   Ability: Flash Fire   |   Nature: Modest
+       Moves: Flame Burst [T2]  /  Ominous Wind [T2]  /  Snarl [T2]  /  Extrasensory [T3]
+  [2B] Trickster fox
+       Vulpix @ Sitrus Berry   |   Ability: Drought   |   Nature: Hasty
+       Moves: Hypnosis [T2]  /  Confuse Ray [Sit]  /  Will-O-Wisp [Sit]  /  Incinerate [T2]
+  [3A] Nasty Plot fox
+       Vulpix @ Wise Glasses   |   Ability: Flash Fire   |   Nature: Modest
+       Moves: Nasty Plot [T4]  /  Heat Wave [T3]  /  Extrasensory [T3]  /  Hex [T3]
+  [3B] Sun burner
+       Vulpix @ Heat Rock   |   Ability: Drought   |   Nature: Timid
+       Moves: Will-O-Wisp [Sit]  /  Hex [T3]  /  Encore [Sit]  /  Mystical Fire [T3]
+  [4A] Nasty Plot sweeper
+       Vulpix @ Life Orb   |   Ability: Flash Fire   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Fire Blast [T4]  /  Energy Ball [T4]  /  Dark Pulse [T4]
+  [4B] Sun support
+       Vulpix @ Heat Rock   |   Ability: Drought   |   Nature: Timid
+       Moves: Will-O-Wisp [Sit]  /  Flamethrower [T4]  /  Encore [Sit]  /  Healing Wish [Sit]
+
+====================================================================================================
+#322 NUMEL  —  Fire/Ground  —  BST 305  —  Category 2
+Stats 60/60/40/65/45/35  |  Profile: Mixed attacker (Simple)
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Numb camel
+       Numel @ (no item)   |   Ability: Oblivious   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Growl [T1]  /  Focus Energy [T1]  /  Stomp [T2]
+  [1B] Ember camel
+       Numel @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
+       Moves: Ember [T1]  /  Fire Spin [T1]  /  Mud-Slap [T1]  /  Flame Burst [T2]
+  [2A] Simple charger
+       Numel @ Soft Sand   |   Ability: Simple   |   Nature: Lonely
+       Moves: Flame Charge [T2]  /  Bulldoze [T2]  /  Stomp [T2]  /  Rock Tomb [T2]
+  [2B] Magma caster
+       Numel @ Charcoal   |   Ability: Simple   |   Nature: Mild
+       Moves: Flame Burst [T2]  /  Mud Bomb [T2]  /  Ancient Power [T2]  /  Lava Plume [T3]
+  [3A] Simple Curse
+       Numel @ Muscle Band   |   Ability: Simple   |   Nature: Adamant
+       Moves: Curse [Sit]  /  High Horsepower [T3]  /  Temper Flare [T3]  /  Rest [Sit]
+  [3B] Simple Growth
+       Numel @ White Herb   |   Ability: Simple   |   Nature: Modest
+       Moves: Growth [T3]  /  Lava Plume [T3]  /  Scorching Sands [T3]  /  Earth Power [T4]
+  [4A] Simple Curse sweeper
+       Numel @ Life Orb   |   Ability: Simple   |   Nature: Adamant
+       Moves: Curse [Sit]  /  Earthquake [T4]  /  Flare Blitz [T4]  /  Rock Slide [T4]
+  [4B] Simple Growth sweeper
+       Numel @ Leftovers   |   Ability: Simple   |   Nature: Modest
+       Moves: Growth [T3]  /  Fire Blast [T4]  /  Earth Power [T4]  /  Protect [Sit]
+
+====================================================================================================
+#155 CYNDAQUIL  —  Fire  —  BST 309  —  Category 2
+Stats 39/52/43/60/50/65  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Fire mouse
+       Cyndaquil @ (no item)   |   Ability: Blaze   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Leer [T1]  /  Quick Attack [T1]  /  Flame Wheel [T2]
+  [1B] Smoky mouse
+       Cyndaquil @ Oran Berry   |   Ability: Flash Fire   |   Nature: Docile
+       Moves: Ember [T1]  /  Smokescreen [T1]  /  Leer [T1]  /  Flame Burst [T2]
+  [2A] Rolling mouse
+       Cyndaquil @ Charcoal   |   Ability: Blaze   |   Nature: Lonely
+       Moves: Flame Wheel [T2]  /  Aerial Ace [T2]  /  Headbutt [T2]  /  Crush Claw [T3]
+  [2B] Flame caster
+       Cyndaquil @ Sitrus Berry   |   Ability: Flash Fire   |   Nature: Mild
+       Moves: Flame Burst [T2]  /  Swift [T2]  /  Work Up [T2]  /  Extrasensory [T3]
+  [3A] Flare Blitz mouse
+       Cyndaquil @ Muscle Band   |   Ability: Blaze   |   Nature: Adamant
+       Moves: Temper Flare [T3]  /  Crush Claw [T3]  /  Dig [T3]  /  Flare Blitz [T4]
+  [3B] Burning caster
+       Cyndaquil @ Charcoal   |   Ability: Flash Fire   |   Nature: Modest
+       Moves: Heat Wave [T3]  /  Extrasensory [T3]  /  Will-O-Wisp [Sit]  /  Protect [Sit]
+  [4A] Physical attacker
+       Cyndaquil @ Life Orb   |   Ability: Blaze   |   Nature: Jolly
+       Moves: Flare Blitz [T4]  /  Wild Charge [T4]  /  Iron Head [T4]  /  Play Rough [T4]
+  [4B] Scarf Eruption
+       Cyndaquil @ Choice Scarf   |   Ability: Flash Fire   |   Nature: Timid
+       Moves: Eruption [T4]  /  Fire Blast [T4]  /  Extrasensory [T3]  /  Overheat [T4]
+
+====================================================================================================
+#431 GLAMEOW  —  Normal  —  BST 310  —  Category 2
+Stats 49/55/42/42/37/85  |  Profile: Offensive (physical)
+Variants: A = Physical attacker / B = Utility (Fake Out, pivot)
+----------------------------------------------------------------------------------------------------
+  [1A] Catty kitten
+       Glameow @ (no item)   |   Ability: Limber   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Growl [T1]  /  Fury Swipes [T1]  /  Quick Attack [T1]
+  [1B] Sly kitten
+       Glameow @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
+       Moves: Scratch [T1]  /  Sand Attack [T1]  /  Tail Whip [T1]  /  Fake Tears [T2]
+  [2A] Clawing cat
+       Glameow @ Silk Scarf   |   Ability: Keen Eye   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Headbutt [T2]  /  Feint Attack [T2]  /  Slash [T3]
+  [2B] Pivot cat
+       Glameow @ Sitrus Berry   |   Ability: Own Tempo   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  U-turn [T2]  /  Hypnosis [T2]  /  Charm [T2]
+  [3A] Striking cat
+       Glameow @ Muscle Band   |   Ability: Keen Eye   |   Nature: Jolly
+       Moves: Slash [T3]  /  Shadow Claw [T3]  /  Iron Tail [T3]  /  Sucker Punch [T4]
+  [3B] Sash pest
+       Glameow @ Focus Sash   |   Ability: Own Tempo   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  U-turn [T2]  /  Taunt [Sit]  /  Super Fang [Sit]
+  [4A] Life Orb attacker
+       Glameow @ Life Orb   |   Ability: Keen Eye   |   Nature: Jolly
+       Moves: Return [T4]  /  Knock Off [T4]  /  Sucker Punch [T4]  /  Play Rough [T4]
+  [4B] Choice Scarf pivot
+       Glameow @ Choice Scarf   |   Ability: Own Tempo   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Return [T4]  /  Knock Off [T4]  /  Play Rough [T4]
+
+====================================================================================================
+#554 DARUMAKA  —  Fire  —  BST 315  —  Category 2
+Stats 70/90/45/15/45/50  |  Profile: Offensive (physical, Hustle)
+Variants: A = Hustle attacker / B = Utility (pivot, Yawn, Belly Drum)
+----------------------------------------------------------------------------------------------------
+  [1A] Zen charm
+       Darumaka @ (no item)   |   Ability: Hustle   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Rock Smash [T1]  /  Focus Energy [T1]  /  Flame Wheel [T2]
+  [1B] Ember doll
+       Darumaka @ Oran Berry   |   Ability: Inner Focus   |   Nature: Docile
+       Moves: Tackle [T1]  /  Ember [T1]  /  Fire Spin [T1]  /  Headbutt [T2]
+  [2A] Hustle doll
+       Darumaka @ Charcoal   |   Ability: Hustle   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Headbutt [T2]  /  Rock Tomb [T2]  /  Zen Headbutt [T3]
+  [2B] Pivot doll
+       Darumaka @ Sitrus Berry   |   Ability: Inner Focus   |   Nature: Naughty
+       Moves: U-turn [T2]  /  Yawn [Sit]  /  Flame Wheel [T2]  /  Taunt [Sit]
+  [3A] Hustle brawler
+       Darumaka @ Muscle Band   |   Ability: Hustle   |   Nature: Adamant
+       Moves: Fire Punch [T3]  /  Superpower [T3]  /  Zen Headbutt [T3]  /  Flare Blitz [T4]
+  [3B] Sash pivot
+       Darumaka @ Focus Sash   |   Ability: Inner Focus   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Fire Punch [T3]  /  Yawn [Sit]  /  Encore [Sit]
+  [4A] Choice Band doll
+       Darumaka @ Choice Band   |   Ability: Hustle   |   Nature: Adamant
+       Moves: Flare Blitz [T4]  /  Superpower [T3]  /  U-turn [T2]  /  Rock Slide [T4]
+  [4B] Belly Drum doll
+       Darumaka @ Sitrus Berry   |   Ability: Inner Focus   |   Nature: Adamant
+       Moves: Belly Drum [T4]  /  Flare Blitz [T4]  /  Superpower [T3]  /  Rock Slide [T4]
+
+====================================================================================================
+#025 PIKACHU  —  Electric  —  BST 320  —  Category 2
+Stats 35/55/40/50/50/90  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Electric mouse
+       Pikachu @ (no item)   |   Ability: Static   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Tail Whip [T1]  /  Double Kick [T1]  /  Spark [T2]
+  [1B] Cheek sparker
+       Pikachu @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Growl [T1]  /  Sweet Kiss [T1]  /  Electroweb [T2]
+  [2A] Iron Tail mouse
+       Pikachu @ Magnet   |   Ability: Static   |   Nature: Lonely
+       Moves: Fake Out [Sit]  /  Spark [T2]  /  Slam [T2]  /  Iron Tail [T3]
+  [2B] Pivot caster
+       Pikachu @ Sitrus Berry   |   Ability: Lightning Rod   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Draining Kiss [T2]  /  Volt Switch [T2]  /  Electro Ball [T3]
+  [3A] Light Ball striker
+       Pikachu @ Light Ball   |   Ability: Static   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Thunder Punch [T3]  /  Brick Break [T3]  /  Volt Tackle [T4]
+  [3B] Light Ball caster
+       Pikachu @ Light Ball   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Electro Ball [T3]  /  Grass Knot [T3]  /  Signal Beam [T3]
+  [4A] Volt Tackle attacker
+       Pikachu @ Light Ball   |   Ability: Static   |   Nature: Jolly
+       Moves: Volt Tackle [T4]  /  Extreme Speed [T4]  /  Iron Tail [T3]  /  Knock Off [T4]
+  [4B] Nasty Plot sweeper
+       Pikachu @ Light Ball   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Thunderbolt [T4]  /  Surf [T4]  /  Grass Knot [T3]
+
+====================================================================================================
+#081 MAGNEMITE  —  Electric/Steel  —  BST 325  —  Category 2
+Stats 25/35/70/95/55/45  |  Profile: Offensive (special)
+Variants: A = Special attacker (Analytic) / B = Utility (Magnet Pull, pivot)
+----------------------------------------------------------------------------------------------------
+  [1A] Magnet orb
+       Magnemite @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Supersonic [T1]  /  Flash [T1]
+  [1B] Floating magnet
+       Magnemite @ (no item)   |   Ability: Magnet Pull   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Supersonic [T1]  /  Flash [T1]  /  Mirror Shot [T2]
+  [2A] Analytic caster
+       Magnemite @ Magnet   |   Ability: Analytic   |   Nature: Modest
+       Moves: Charge Beam [T2]  /  Mirror Shot [T2]  /  Electroweb [T2]  /  Discharge [T3]
+  [2B] Paralysis magnet
+       Magnemite @ Sitrus Berry   |   Ability: Magnet Pull   |   Nature: Bold
+       Moves: Thunder Wave [Sit]  /  Volt Switch [T2]  /  Mirror Shot [T2]  /  Protect [Sit]
+  [3A] Analytic magnet
+       Magnemite @ Magnet   |   Ability: Analytic   |   Nature: Modest
+       Moves: Discharge [T3]  /  Flash Cannon [T4]  /  Signal Beam [T3]  /  Protect [Sit]
+  [3B] Steel trapper
+       Magnemite @ Air Balloon   |   Ability: Magnet Pull   |   Nature: Bold
+       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Discharge [T3]  /  Explosion [T4]
+  [4A] Analytic attacker
+       Magnemite @ Life Orb   |   Ability: Analytic   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Flash Cannon [T4]  /  Volt Switch [T2]  /  Protect [Sit]
+  [4B] Choice Specs trapper
+       Magnemite @ Choice Specs   |   Ability: Magnet Pull   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Flash Cannon [T4]  /  Volt Switch [T2]  /  Steel Beam [T4]
+
+====================================================================================================
+#100 VOLTORB  —  Electric  —  BST 330  —  Category 3
+Stats 40/30/50/55/55/100  |  Profile: Offensive (special, fast)
+Variants: A = Special attacker / B = Support (screens, Explosion)
+----------------------------------------------------------------------------------------------------
+  [1A] Ball bomb
+       Voltorb @ (no item)   |   Ability: Static   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Flash [T1]  /  Spark [T2]
+  [1B] Rolling bomb
+       Voltorb @ Oran Berry   |   Ability: Soundproof   |   Nature: Docile
+       Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Confide [T1]  /  Shock Wave [T2]
+  [2A] Charged ball
+       Voltorb @ Magnet   |   Ability: Static   |   Nature: Rash
+       Moves: Charge Beam [T2]  /  Swift [T2]  /  Electroweb [T2]  /  Electro Ball [T3]
+  [2B] Screen ball
+       Voltorb @ Sitrus Berry   |   Ability: Aftermath   |   Nature: Hasty
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Thunder Wave [Sit]  /  Volt Switch [T2]
+  [3A] Fast pivot
+       Voltorb @ Focus Sash   |   Ability: Static   |   Nature: Timid
+       Moves: Electro Ball [T3]  /  Signal Beam [T3]  /  Volt Switch [T2]  /  Taunt [Sit]
+  [3B] Screen bomb
+       Voltorb @ Light Clay   |   Ability: Aftermath   |   Nature: Timid
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Volt Switch [T2]  /  Self-Destruct [T3]
+  [4A] Taunt pivot
+       Voltorb @ Life Orb   |   Ability: Static   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Volt Switch [T2]  /  Foul Play [T4]  /  Taunt [Sit]
+  [4B] Screen bomber lead
+       Voltorb @ Light Clay   |   Ability: Aftermath   |   Nature: Timid
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Taunt [Sit]  /  Explosion [T4]
+
+====================================================================================================
+#058 GROWLITHE  —  Fire  —  BST 350  —  Category 3
+Stats 55/70/45/70/50/60  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Puppy guard
+       Growlithe @ (no item)   |   Ability: Intimidate   |   Nature: Hardy
+       Moves: Leer [T1]  /  Howl [T1]  /  Double Kick [T1]  /  Flame Wheel [T2]
+  [1B] Ember puppy
+       Growlithe @ Oran Berry   |   Ability: Flash Fire   |   Nature: Docile
+       Moves: Ember [T1]  /  Leer [T1]  /  Odor Sleuth [T1]  /  Flame Burst [T2]
+  [2A] Fang puppy
+       Growlithe @ Charcoal   |   Ability: Intimidate   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Bite [T2]  /  Thunder Fang [T2]  /  Retaliate [T3]
+  [2B] Flame caster
+       Growlithe @ Sitrus Berry   |   Ability: Flash Fire   |   Nature: Mild
+       Moves: Flame Burst [T2]  /  Snarl [T2]  /  Dragon Breath [T2]  /  Heat Wave [T3]
+  [3A] Loyal striker
+       Growlithe @ Muscle Band   |   Ability: Intimidate   |   Nature: Adamant
+       Moves: Temper Flare [T3]  /  Crunch [T3]  /  Iron Tail [T3]  /  Close Combat [T4]
+  [3B] Burning guard
+       Growlithe @ Leftovers   |   Ability: Flash Fire   |   Nature: Modest
+       Moves: Heat Wave [T3]  /  Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Roar [Sit]
+  [4A] Physical attacker
+       Growlithe @ Life Orb   |   Ability: Intimidate   |   Nature: Adamant
+       Moves: Flare Blitz [T4]  /  Close Combat [T4]  /  Wild Charge [T4]  /  Psychic Fangs [T4]
+  [4B] Sun caster
+       Growlithe @ Heat Rock   |   Ability: Flash Fire   |   Nature: Timid
+       Moves: Sunny Day [Sit]  /  Fire Blast [T4]  /  Morning Sun [Sit]  /  Will-O-Wisp [Sit]
+
+====================================================================================================
+#922 PAWMO  —  Electric/Fighting  —  BST 350  —  Category 3
+Stats 60/75/40/50/40/85  |  Profile: Offensive (physical, Iron Fist)
+Variants: A = Physical attacker / B = Support (Fake Out, pivot, Wish)
+----------------------------------------------------------------------------------------------------
+  [1A] Mouse boxer
+       Pawmo @ (no item)   |   Ability: Iron Fist   |   Nature: Hardy
+       Moves: Arm Thrust [T1]  /  Quick Attack [T1]  /  Growl [T1]  /  Spark [T2]
+  [1B] Static boxer
+       Pawmo @ Oran Berry   |   Ability: Natural Cure   |   Nature: Docile
+       Moves: Scratch [T1]  /  Metal Claw [T1]  /  Thunder Shock [T1]  /  Nuzzle [T2]
+  [2A] Iron Fist boxer
+       Pawmo @ Black Belt   |   Ability: Iron Fist   |   Nature: Lonely
+       Moves: Spark [T2]  /  Low Sweep [T2]  /  Bite [T2]  /  Thunder Punch [T3]
+  [2B] Support boxer
+       Pawmo @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Hasty
+       Moves: Nuzzle [T2]  /  Volt Switch [T2]  /  Fake Out [Sit]  /  Wish [Sit]
+  [3A] Punching boxer
+       Pawmo @ Muscle Band   |   Ability: Iron Fist   |   Nature: Jolly
+       Moves: Thunder Punch [T3]  /  Low Kick [T3]  /  Crunch [T3]  /  Mach Punch [T4]
+  [3B] Sash support
+       Pawmo @ Focus Sash   |   Ability: Volt Absorb   |   Nature: Jolly
+       Moves: Volt Switch [T2]  /  Fake Out [Sit]  /  Thunder Punch [T3]  /  Wish [Sit]
+  [4A] Iron Fist attacker
+       Pawmo @ Life Orb   |   Ability: Iron Fist   |   Nature: Jolly
+       Moves: Wild Charge [T4]  /  Mach Punch [T4]  /  Knock Off [T4]  /  Thunder Punch [T3]
+  [4B] Pivot support
+       Pawmo @ Rocky Helmet   |   Ability: Natural Cure   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Volt Switch [T2]  /  Knock Off [T4]  /  Super Fang [Sit]
+
+====================================================================================================
+#239 ELEKID  —  Electric  —  BST 360  —  Category 3
+Stats 45/63/37/65/55/95  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Spark kid
+       Elekid @ (no item)   |   Ability: Static   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Karate Chop [T1]  /  Leer [T1]  /  Meditate [T1]
+  [1B] Static kid
+       Elekid @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Leer [T1]  /  Flash [T1]  /  Shock Wave [T2]
+  [2A] Punching kid
+       Elekid @ Magnet   |   Ability: Static   |   Nature: Lonely
+       Moves: Power-Up Punch [T2]  /  Headbutt [T2]  /  Dual Chop [T2]  /  Thunder Punch [T3]
+  [2B] Charged kid
+       Elekid @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Electroweb [T2]  /  Swift [T2]  /  Signal Beam [T3]
+  [3A] Elemental puncher
+       Elekid @ Focus Sash   |   Ability: Static   |   Nature: Jolly
+       Moves: Thunder Punch [T3]  /  Ice Punch [T3]  /  Fire Punch [T3]  /  Brick Break [T3]
+  [3B] Fast caster
+       Elekid @ Wise Glasses   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Electro Ball [T3]  /  Signal Beam [T3]  /  Thunder Wave [Sit]  /  Focus Blast [T4]
+  [4A] Physical attacker
+       Elekid @ Life Orb   |   Ability: Static   |   Nature: Jolly
+       Moves: Wild Charge [T4]  /  Ice Punch [T3]  /  Cross Chop [T3]  /  Knock Off [T4]
+  [4B] Choice Specs kid
+       Elekid @ Choice Specs   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Focus Blast [T4]  /  Psychic [T4]  /  Volt Switch [T2]
+
+====================================================================================================
+#327 SPINDA  —  Normal  —  BST 360  —  Category 3
+Stats 60/60/60/60/60/60  |  Profile: Physical (Contrary) / Support
+Variants: A = Contrary attacker / B = Support (Teeter Dance, Encore, Wish)
+----------------------------------------------------------------------------------------------------
+  [1A] Spot panda
+       Spinda @ (no item)   |   Ability: Own Tempo   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Defense Curl [T1]  /  Rock Smash [T1]  /  Dizzy Punch [T2]
+  [1B] Wobbly panda
+       Spinda @ Oran Berry   |   Ability: Tangled Feet   |   Nature: Docile
+       Moves: Tackle [T1]  /  Flash [T1]  /  Mud-Slap [T1]  /  Psybeam [T2]
+  [2A] Contrary panda
+       Spinda @ Silk Scarf   |   Ability: Contrary   |   Nature: Lonely
+       Moves: Dizzy Punch [T2]  /  Power-Up Punch [T2]  /  Feint Attack [T2]  /  Superpower [T3]
+  [2B] Dizzy support
+       Spinda @ Sitrus Berry   |   Ability: Own Tempo   |   Nature: Mild
+       Moves: Hypnosis [T2]  /  Psybeam [T2]  /  Teeter Dance [Sit]  /  Wish [Sit]
+  [3A] Superpower panda
+       Spinda @ Muscle Band   |   Ability: Contrary   |   Nature: Adamant
+       Moves: Superpower [T3]  /  Ice Punch [T3]  /  Thunder Punch [T3]  /  Sucker Punch [T4]
+  [3B] Teeter support
+       Spinda @ Leftovers   |   Ability: Own Tempo   |   Nature: Relaxed
+       Moves: Teeter Dance [Sit]  /  Encore [Sit]  /  Wish [Sit]  /  Psycho Cut [T3]
+  [4A] Contrary sweeper
+       Spinda @ Life Orb   |   Ability: Contrary   |   Nature: Adamant
+       Moves: Superpower [T3]  /  Double-Edge [T4]  /  Sucker Punch [T4]  /  Ice Punch [T3]
+  [4B] Confusion support
+       Spinda @ Rocky Helmet   |   Ability: Own Tempo   |   Nature: Relaxed
+       Moves: Teeter Dance [Sit]  /  Encore [Sit]  /  Wish [Sit]  /  Seismic Toss [T4]
+
+====================================================================================================
+#180 FLAAFFY  —  Electric  —  BST 365  —  Category 3
+Stats 70/55/55/80/60/45  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Cotton Guard, screens) / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Wool sheep
+       Flaaffy @ Oran Berry   |   Ability: Static   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Sand Attack [T1]  /  Cotton Spore [T2]
+  [1B] Pink sheep
+       Flaaffy @ (no item)   |   Ability: Plus   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Flash [T1]  /  Odor Sleuth [T1]  /  Charge Beam [T2]
+  [2A] Support sheep
+       Flaaffy @ Sitrus Berry   |   Ability: Static   |   Nature: Bold
+       Moves: Electroweb [T2]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Light Screen [Sit]
+  [2B] Charged sheep
+       Flaaffy @ Magnet   |   Ability: Plus   |   Nature: Modest
+       Moves: Charge Beam [T2]  /  Swift [T2]  /  Volt Switch [T2]  /  Signal Beam [T3]
+  [3A] Cotton Guard phazer
+       Flaaffy @ Leftovers   |   Ability: Static   |   Nature: Bold
+       Moves: Discharge [T3]  /  Cotton Guard [Sit]  /  Heal Bell [Sit]  /  Roar [Sit]
+  [3B] Agility sheep
+       Flaaffy @ Lum Berry   |   Ability: Plus   |   Nature: Modest
+       Moves: Agility [Sit]  /  Discharge [T3]  /  Dazzling Gleam [T3]  /  Power Gem [T4]
+  [4A] Dual screen setter
+       Flaaffy @ Light Clay   |   Ability: Static   |   Nature: Bold
+       Moves: Thunderbolt [T4]  /  Light Screen [Sit]  /  Reflect [Sit]  /  Volt Switch [T2]
+  [4B] Agility sweeper
+       Flaaffy @ Life Orb   |   Ability: Plus   |   Nature: Modest
+       Moves: Agility [Sit]  /  Thunderbolt [T4]  /  Power Gem [T4]  /  Dazzling Gleam [T3]
+
+====================================================================================================
+#240 MAGBY  —  Fire  —  BST 365  —  Category 3
+Stats 45/75/37/70/55/83  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Live coal
+       Magby @ (no item)   |   Ability: Flame Body   |   Nature: Hardy
+       Moves: Karate Chop [T1]  /  Leer [T1]  /  Focus Energy [T1]  /  Flame Wheel [T2]
+  [1B] Smoky coal
+       Magby @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
+       Moves: Ember [T1]  /  Smog [T1]  /  Smokescreen [T1]  /  Flame Burst [T2]
+  [2A] Fire boxer
+       Magby @ Charcoal   |   Ability: Flame Body   |   Nature: Lonely
+       Moves: Power-Up Punch [T2]  /  Feint Attack [T2]  /  Headbutt [T2]  /  Fire Punch [T3]
+  [2B] Flame caster
+       Magby @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Mild
+       Moves: Burning Jealousy [T2]  /  Acid Spray [T2]  /  Confuse Ray [Sit]  /  Lava Plume [T3]
+  [3A] Punching coal
+       Magby @ Muscle Band   |   Ability: Flame Body   |   Nature: Jolly
+       Moves: Fire Punch [T3]  /  Thunder Punch [T3]  /  Cross Chop [T3]  /  Mach Punch [T4]
+  [3B] Burning caster
+       Magby @ Charcoal   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Heat Wave [T3]  /  Will-O-Wisp [Sit]  /  Clear Smog [Sit]  /  Psychic [T4]
+  [4A] Belly Drum coal
+       Magby @ Sitrus Berry   |   Ability: Flame Body   |   Nature: Jolly
+       Moves: Belly Drum [T4]  /  Flare Blitz [T4]  /  Mach Punch [T4]  /  Thunder Punch [T3]
+  [4B] Special attacker
+       Magby @ Life Orb   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Fire Blast [T4]  /  Psychic [T4]  /  Will-O-Wisp [Sit]  /  Clear Smog [Sit]
+
+====================================================================================================
+#156 QUILAVA  —  Fire  —  BST 405  —  Category 4
+Stats 58/64/58/80/65/80  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Volcano mouse
+       Quilava @ (no item)   |   Ability: Blaze   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Double Kick [T1]  /  Quick Attack [T1]  /  Flame Wheel [T2]
+  [1B] Ember mouse
+       Quilava @ Oran Berry   |   Ability: Flash Fire   |   Nature: Docile
+       Moves: Ember [T1]  /  Fire Spin [T1]  /  Leer [T1]  /  Swift [T2]
+  [2A] Charging mouse
+       Quilava @ Charcoal   |   Ability: Blaze   |   Nature: Lonely
+       Moves: Flame Charge [T2]  /  Aerial Ace [T2]  /  Submission [T2]  /  Temper Flare [T3]
+  [2B] Lava caster
+       Quilava @ Sitrus Berry   |   Ability: Flash Fire   |   Nature: Mild
+       Moves: Burning Jealousy [T2]  /  Swift [T2]  /  Work Up [T2]  /  Lava Plume [T3]
+  [3A] Flare Blitz mouse
+       Quilava @ Muscle Band   |   Ability: Blaze   |   Nature: Adamant
+       Moves: Temper Flare [T3]  /  Zen Headbutt [T3]  /  Brick Break [T3]  /  Flare Blitz [T4]
+  [3B] Burning caster
+       Quilava @ Wise Glasses   |   Ability: Flash Fire   |   Nature: Modest
+       Moves: Lava Plume [T3]  /  Extrasensory [T3]  /  Will-O-Wisp [Sit]  /  Fire Blast [T4]
+  [4A] Physical attacker
+       Quilava @ Life Orb   |   Ability: Blaze   |   Nature: Jolly
+       Moves: Flare Blitz [T4]  /  Wild Charge [T4]  /  Zen Headbutt [T3]  /  Iron Head [T4]
+  [4B] Sun Eruption
+       Quilava @ Heat Rock   |   Ability: Flash Fire   |   Nature: Timid
+       Moves: Sunny Day [Sit]  /  Eruption [T4]  /  Extrasensory [T3]  /  Will-O-Wisp [Sit]
+
+====================================================================================================
+#311 PLUSLE  —  Electric  —  BST 405  —  Category 4
+Stats 60/50/40/85/75/95  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Support (Encore, Wish, Baton Pass)
+----------------------------------------------------------------------------------------------------
+  [1A] Cheering bunny
+       Plusle @ (no item)   |   Ability: Plus   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Growl [T1]  /  Sweet Kiss [T1]  /  Spark [T2]
+  [1B] Sparky bunny
+       Plusle @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Tearful Look [T1]  /  Flash [T1]  /  Shock Wave [T2]
+  [2A] Charged cheerer
+       Plusle @ Magnet   |   Ability: Plus   |   Nature: Modest
+       Moves: Charge Beam [T2]  /  Electroweb [T2]  /  Swift [T2]  /  Electro Ball [T3]
+  [2B] Support cheerer
+       Plusle @ Sitrus Berry   |   Ability: Lightning Rod   |   Nature: Hasty
+       Moves: Nuzzle [T2]  /  Encore [Sit]  /  Wish [Sit]  /  Charm [T2]
+  [3A] Nasty Plot cheerer
+       Plusle @ Magnet   |   Ability: Plus   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Electro Ball [T3]  /  Grass Knot [T3]  /  Signal Beam [T3]
+  [3B] Wish cheerer
+       Plusle @ Leftovers   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Encore [Sit]  /  Wish [Sit]  /  Protect [Sit]  /  Discharge [T3]
+  [4A] Nasty Plot sweeper
+       Plusle @ Life Orb   |   Ability: Plus   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Thunderbolt [T4]  /  Grass Knot [T3]  /  Encore [Sit]
+  [4B] Nasty Plot passer
+       Plusle @ Leftovers   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Baton Pass [Sit]  /  Substitute [Sit]  /  Thunderbolt [T4]
+
+====================================================================================================
+#312 MINUN  —  Electric  —  BST 405  —  Category 4
+Stats 60/40/50/75/85/95  |  Profile: Offensive (special, bulky)
+Variants: A = Special attacker / B = Support (Wish, screens)
+----------------------------------------------------------------------------------------------------
+  [1A] Cheering bunny
+       Minun @ (no item)   |   Ability: Minus   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Growl [T1]  /  Play Nice [T1]  /  Spark [T2]
+  [1B] Static bunny
+       Minun @ Oran Berry   |   Ability: Volt Absorb   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Sweet Kiss [T1]  /  Mud-Slap [T1]  /  Nuzzle [T2]
+  [2A] Charged cheerer
+       Minun @ Magnet   |   Ability: Minus   |   Nature: Modest
+       Moves: Charge Beam [T2]  /  Shock Wave [T2]  /  Swift [T2]  /  Signal Beam [T3]
+  [2B] Screen cheerer
+       Minun @ Sitrus Berry   |   Ability: Volt Absorb   |   Nature: Calm
+       Moves: Wish [Sit]  /  Encore [Sit]  /  Electroweb [T2]  /  Light Screen [Sit]
+  [3A] Nasty Plot cheerer
+       Minun @ Wise Glasses   |   Ability: Minus   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Discharge [T3]  /  Alluring Voice [T3]  /  Grass Knot [T3]
+  [3B] Wish wall
+       Minun @ Leftovers   |   Ability: Volt Absorb   |   Nature: Calm
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Thunder Wave [Sit]  /  Discharge [T3]
+  [4A] Nasty Plot sweeper
+       Minun @ Life Orb   |   Ability: Minus   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Thunderbolt [T4]  /  Grass Knot [T3]  /  Alluring Voice [T3]
+  [4B] Screen support
+       Minun @ Light Clay   |   Ability: Volt Absorb   |   Nature: Calm
+       Moves: Light Screen [Sit]  /  Encore [Sit]  /  Wish [Sit]  /  Thunderbolt [T4]
+
+====================================================================================================
+#077 PONYTA  —  Fire  —  BST 410  —  Category 4
+Stats 50/85/55/65/65/90  |  Profile: Offensive (physical)
+Variants: A = Physical attacker / B = Utility (burns, Morning Sun)
+----------------------------------------------------------------------------------------------------
+  [1A] Fire pony
+       Ponyta @ (no item)   |   Ability: Flash Fire   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Tail Whip [T1]  /  Double Kick [T1]  /  Flame Wheel [T2]
+  [1B] Galloping pony
+       Ponyta @ Oran Berry   |   Ability: Run Away   |   Nature: Docile
+       Moves: Ember [T1]  /  Growl [T1]  /  Quick Attack [T1]  /  Stomp [T2]
+  [2A] Charging pony
+       Ponyta @ Charcoal   |   Ability: Flash Fire   |   Nature: Lonely
+       Moves: Flame Charge [T2]  /  Stomp [T2]  /  Take Down [T2]  /  High Horsepower [T3]
+  [2B] Burning pony
+       Ponyta @ Sitrus Berry   |   Ability: Flame Body   |   Nature: Hasty
+       Moves: Flame Wheel [T2]  /  Hypnosis [T2]  /  Charm [T2]  /  Will-O-Wisp [Sit]
+  [3A] Flare Blitz pony
+       Ponyta @ Muscle Band   |   Ability: Flash Fire   |   Nature: Jolly
+       Moves: Flare Blitz [T4]  /  High Horsepower [T3]  /  Low Kick [T3]  /  Agility [Sit]
+  [3B] Burning wall
+       Ponyta @ Rocky Helmet   |   Ability: Flame Body   |   Nature: Jolly
+       Moves: Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  High Horsepower [T3]  /  Flare Blitz [T4]
+  [4A] Agility sweeper
+       Ponyta @ Life Orb   |   Ability: Flash Fire   |   Nature: Jolly
+       Moves: Agility [Sit]  /  Flare Blitz [T4]  /  Wild Charge [T4]  /  High Horsepower [T3]
+  [4B] Choice Band pony
+       Ponyta @ Choice Band   |   Ability: Flash Fire   |   Nature: Jolly
+       Moves: Flare Blitz [T4]  /  Wild Charge [T4]  /  Play Rough [T4]  /  Low Kick [T3]
+
+====================================================================================================
+#264 LINOONE  —  Normal  —  BST 420  —  Category 4
+Stats 78/70/61/50/61/100  |  Profile: Offensive (physical)
+Variants: A = Belly Drum sweeper / B = Quick Feet / Choice attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Rushing raccoon
+       Linoone @ (no item)   |   Ability: Pickup   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Growl [T1]  /  Fury Swipes [T1]  /  Tail Whip [T1]
+  [1B] Swift raccoon
+       Linoone @ Oran Berry   |   Ability: Quick Feet   |   Nature: Docile
+       Moves: Tackle [T1]  /  Sand Attack [T1]  /  Odor Sleuth [T1]  /  Headbutt [T2]
+  [2A] Slashing raccoon
+       Linoone @ Silk Scarf   |   Ability: Gluttony   |   Nature: Lonely
+       Moves: Headbutt [T2]  /  Hone Claws [T2]  /  Take Down [T2]  /  Slash [T3]
+  [2B] Pest raccoon
+       Linoone @ Sitrus Berry   |   Ability: Pickup   |   Nature: Hasty
+       Moves: Super Fang [Sit]  /  Thunder Wave [Sit]  /  Icy Wind [T2]  /  Covet [T2]
+  [3A] Belly Drum raccoon
+       Linoone @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Adamant
+       Moves: Belly Drum [T4]  /  Retaliate [T3]  /  Seed Bomb [T3]  /  Throat Chop [T3]
+  [3B] Quick Feet raccoon
+       Linoone @ Flame Orb   |   Ability: Quick Feet   |   Nature: Jolly
+       Moves: Facade [T4]  /  Shadow Claw [T3]  /  Seed Bomb [T3]  /  Protect [Sit]
+  [4A] Belly Drum sweeper
+       Linoone @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Adamant
+       Moves: Belly Drum [T4]  /  Extreme Speed [T4]  /  Seed Bomb [T3]  /  Throat Chop [T3]
+  [4B] Choice Band raccoon
+       Linoone @ Choice Band   |   Ability: Pickup   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Extreme Speed [T4]  /  Gunk Shot [T4]  /  Play Rough [T4]
+
+====================================================================================================
+#219 MAGCARGO  —  Fire/Rock  —  BST 430  —  Category 4
+Stats 60/50/120/90/80/30  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Recover) / B = Offensive (Shell Smash)
+----------------------------------------------------------------------------------------------------
+  [1A] Lava snail
+       Magcargo @ Oran Berry   |   Ability: Magma Armor   |   Nature: Hardy
+       Moves: Ember [T1]  /  Harden [T1]  /  Smog [T1]  /  Rock Throw [T1]
+  [1B] Magma snail
+       Magcargo @ (no item)   |   Ability: Flame Body   |   Nature: Docile
+       Moves: Ember [T1]  /  Smokescreen [T1]  /  Sand Tomb [T1]  /  Ancient Power [T2]
+  [2A] Burning snail
+       Magcargo @ Sitrus Berry   |   Ability: Flame Body   |   Nature: Bold
+       Moves: Flame Burst [T2]  /  Recover [Sit]  /  Will-O-Wisp [Sit]  /  Rock Tomb [T2]
+  [2B] Magma caster
+       Magcargo @ Hard Stone   |   Ability: Weak Armor   |   Nature: Modest
+       Moves: Ancient Power [T2]  /  Flame Burst [T2]  /  Mud Shot [T2]  /  Scorching Sands [T3]
+  [3A] Lava wall
+       Magcargo @ Leftovers   |   Ability: Flame Body   |   Nature: Bold
+       Moves: Lava Plume [T3]  /  Recover [Sit]  /  Toxic [Sit]  /  Power Gem [T4]
+  [3B] Shell Smash snail
+       Magcargo @ White Herb   |   Ability: Weak Armor   |   Nature: Modest
+       Moves: Shell Smash [T4]  /  Lava Plume [T3]  /  Scorching Sands [T3]  /  Protect [Sit]
+  [4A] Flame Body wall
+       Magcargo @ Rocky Helmet   |   Ability: Flame Body   |   Nature: Bold
+       Moves: Flamethrower [T4]  /  Recover [Sit]  /  Clear Smog [Sit]  /  Toxic [Sit]
+  [4B] Shell Smash sweeper
+       Magcargo @ White Herb   |   Ability: Weak Armor   |   Nature: Modest
+       Moves: Shell Smash [T4]  /  Fire Blast [T4]  /  Earth Power [T4]  /  Power Gem [T4]
+
+====================================================================================================
+#040 WIGGLYTUFF  —  Normal/Fairy  —  BST 435  —  Category 4
+Stats 140/70/45/85/50/45  |  Profile: Balanced / Bulky
+Variants: A = Defensive support / B = Offensive (special, Competitive)
+----------------------------------------------------------------------------------------------------
+  [1A] Balloon diva
+       Wigglytuff @ Oran Berry   |   Ability: Cute Charm   |   Nature: Hardy
+       Moves: Pound [T1]  /  Play Nice [T1]  /  Defense Curl [T1]  /  Disarming Voice [T1]
+  [1B] Singing diva
+       Wigglytuff @ (no item)   |   Ability: Competitive   |   Nature: Docile
+       Moves: Disarming Voice [T1]  /  Water Gun [T1]  /  Flash [T1]  /  Draining Kiss [T2]
+  [2A] Lullaby diva
+       Wigglytuff @ Sitrus Berry   |   Ability: Cute Charm   |   Nature: Bold
+       Moves: Sing [T2]  /  Charm [T2]  /  Wish [Sit]  /  Bubble Beam [T2]
+  [2B] Fairy caster
+       Wigglytuff @ Fairy Feather   |   Ability: Competitive   |   Nature: Modest
+       Moves: Draining Kiss [T2]  /  Icy Wind [T2]  /  Magical Leaf [T2]  /  Dazzling Gleam [T3]
+  [3A] Cleric diva
+       Wigglytuff @ Leftovers   |   Ability: Cute Charm   |   Nature: Bold
+       Moves: Alluring Voice [T3]  /  Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]
+  [3B] Competitive diva
+       Wigglytuff @ Wise Glasses   |   Ability: Competitive   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Expanding Force [T3]
+  [4A] Wish wall
+       Wigglytuff @ Leftovers   |   Ability: Cute Charm   |   Nature: Bold
+       Moves: Seismic Toss [T4]  /  Encore [Sit]  /  Wish [Sit]  /  Protect [Sit]
+  [4B] Competitive attacker
+       Wigglytuff @ Life Orb   |   Ability: Competitive   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Fire Blast [T4]  /  Focus Blast [T4]
+
+====================================================================================================
+#432 PURUGLY  —  Normal  —  BST 452  —  Category 5
+Stats 71/82/64/64/59/112  |  Profile: Offensive (physical)
+Variants: A = Physical attacker / B = Utility (Fake Out, pivot, Taunt)
+----------------------------------------------------------------------------------------------------
+  [1A] Tiger cat
+       Purugly @ (no item)   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Quick Attack [T1]  /  Sand Attack [T1]  /  Feint Attack [T2]
+  [1B] Bossy cat
+       Purugly @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
+       Moves: Scratch [T1]  /  Tail Whip [T1]  /  Flash [T1]  /  Fake Tears [T2]
+  [2A] Clawing cat
+       Purugly @ Silk Scarf   |   Ability: Defiant   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Headbutt [T2]  /  Aerial Ace [T2]  /  Slash [T3]
+  [2B] Pivot cat
+       Purugly @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  U-turn [T2]  /  Hypnosis [T2]  /  Taunt [Sit]
+  [3A] Defiant brawler
+       Purugly @ Muscle Band   |   Ability: Defiant   |   Nature: Jolly
+       Moves: Retaliate [T3]  /  Throat Chop [T3]  /  Stomping Tantrum [T3]  /  Sucker Punch [T4]
+  [3B] Thick Fat pivot
+       Purugly @ Leftovers   |   Ability: Thick Fat   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  U-turn [T2]  /  Taunt [Sit]  /  Foul Play [T4]
+  [4A] Defiant attacker
+       Purugly @ Life Orb   |   Ability: Defiant   |   Nature: Jolly
+       Moves: Body Slam [T4]  /  Knock Off [T4]  /  Sucker Punch [T4]  /  U-turn [T2]
+  [4B] Choice Band cat
+       Purugly @ Choice Band   |   Ability: Thick Fat   |   Nature: Jolly
+       Moves: Return [T4]  /  Knock Off [T4]  /  U-turn [T2]  /  Sucker Punch [T4]
+
+====================================================================================================
+#323 CAMERUPT  —  Fire/Ground  —  BST 460  —  Category 5
+Stats 70/100/70/105/75/40  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special (Trick Room)
+----------------------------------------------------------------------------------------------------
+  [1A] Eruption camel
+       Camerupt @ (no item)   |   Ability: Magma Armor   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Growl [T1]  /  Focus Energy [T1]  /  Stomp [T2]
+  [1B] Magma camel
+       Camerupt @ Oran Berry   |   Ability: Solid Rock   |   Nature: Docile
+       Moves: Ember [T1]  /  Fire Spin [T1]  /  Mud-Slap [T1]  /  Flame Burst [T2]
+  [2A] Charging camel
+       Camerupt @ Soft Sand   |   Ability: Anger Point   |   Nature: Lonely
+       Moves: Flame Charge [T2]  /  Bulldoze [T2]  /  Rock Tomb [T2]  /  High Horsepower [T3]
+  [2B] Lava caster
+       Camerupt @ Charcoal   |   Ability: Solid Rock   |   Nature: Mild
+       Moves: Incinerate [T2]  /  Mud Shot [T2]  /  Ancient Power [T2]  /  Scorching Sands [T3]
+  [3A] Rock Polish camel
+       Camerupt @ Muscle Band   |   Ability: Solid Rock   |   Nature: Brave
+       Moves: Rock Polish [Sit]  /  Temper Flare [T3]  /  High Horsepower [T3]  /  Rock Slide [T4]
+  [3B] Eruption camel
+       Camerupt @ Charcoal   |   Ability: Solid Rock   |   Nature: Quiet
+       Moves: Eruption [T4]  /  Scorching Sands [T3]  /  Yawn [Sit]  /  Protect [Sit]
+  [4A] Rock Polish sweeper
+       Camerupt @ Life Orb   |   Ability: Solid Rock   |   Nature: Brave
+       Moves: Rock Polish [Sit]  /  Earthquake [T4]  /  Flare Blitz [T4]  /  Rock Slide [T4]
+  [4B] Trick Room nuke
+       Camerupt @ Choice Specs   |   Ability: Solid Rock   |   Nature: Quiet
+       Moves: Eruption [T4]  /  Fire Blast [T4]  /  Earth Power [T4]  /  Flash Cannon [T4]
+
+====================================================================================================
+#082 MAGNETON  —  Electric/Steel  —  BST 465  —  Category 5
+Stats 50/60/95/120/70/70  |  Profile: Offensive (special)
+Variants: A = Special attacker (Analytic) / B = Utility (Magnet Pull, pivot)
+----------------------------------------------------------------------------------------------------
+  [1A] Triple magnet
+       Magneton @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Thunder Shock [T1]  /  Supersonic [T1]  /  Tackle [T1]  /  Spark [T2]
+  [1B] Linked magnets
+       Magneton @ (no item)   |   Ability: Magnet Pull   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Flash [T1]  /  Confide [T1]  /  Magnet Bomb [T2]
+  [2A] Analytic caster
+       Magneton @ Magnet   |   Ability: Analytic   |   Nature: Modest
+       Moves: Charge Beam [T2]  /  Mirror Shot [T2]  /  Shock Wave [T2]  /  Tri Attack [T3]
+  [2B] Paralysis magnet
+       Magneton @ Sitrus Berry   |   Ability: Magnet Pull   |   Nature: Bold
+       Moves: Thunder Wave [Sit]  /  Volt Switch [T2]  /  Metal Sound [T2]  /  Mirror Shot [T2]
+  [3A] Analytic magnet
+       Magneton @ Wise Glasses   |   Ability: Analytic   |   Nature: Modest
+       Moves: Discharge [T3]  /  Tri Attack [T3]  /  Signal Beam [T3]  /  Flash Cannon [T4]
+  [3B] Steel trapper
+       Magneton @ Air Balloon   |   Ability: Magnet Pull   |   Nature: Bold
+       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Discharge [T3]  /  Light Screen [Sit]
+  [4A] Analytic attacker
+       Magneton @ Life Orb   |   Ability: Analytic   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Flash Cannon [T4]  /  Tri Attack [T3]  /  Volt Switch [T2]
+  [4B] Choice Scarf trapper
+       Magneton @ Choice Scarf   |   Ability: Magnet Pull   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Flash Cannon [T4]  /  Volt Switch [T2]  /  Tri Attack [T3]
+
+====================================================================================================
+#324 TORKOAL  —  Fire  —  BST 470  —  Category 5
+Stats 70/85/140/85/70/20  |  Profile: Balanced / Bulky (Drought)
+Variants: A = Defensive (sun, burns) / B = Offensive (sun, Shell Smash)
+----------------------------------------------------------------------------------------------------
+  [1A] Coal tortoise
+       Torkoal @ Oran Berry   |   Ability: White Smoke   |   Nature: Hardy
+       Moves: Ember [T1]  /  Withdraw [T1]  /  Smokescreen [T1]  /  Smog [T1]
+  [1B] Smoky tortoise
+       Torkoal @ (no item)   |   Ability: Shell Armor   |   Nature: Docile
+       Moves: Ember [T1]  /  Fire Spin [T1]  /  Rock Smash [T1]  /  Flame Wheel [T2]
+  [2A] Sun tortoise
+       Torkoal @ Sitrus Berry   |   Ability: Drought   |   Nature: Relaxed
+       Moves: Flame Burst [T2]  /  Will-O-Wisp [Sit]  /  Yawn [Sit]  /  Rapid Spin [T2]
+  [2B] Sun caster
+       Torkoal @ Charcoal   |   Ability: Drought   |   Nature: Quiet
+       Moves: Flame Burst [T2]  /  Ancient Power [T2]  /  Burning Jealousy [T2]  /  Lava Plume [T3]
+  [3A] Sun wall
+       Torkoal @ Heat Rock   |   Ability: Drought   |   Nature: Bold
+       Moves: Lava Plume [T3]  /  Will-O-Wisp [Sit]  /  Yawn [Sit]  /  Body Press [T4]
+  [3B] Sun cannon
+       Torkoal @ Heat Rock   |   Ability: Drought   |   Nature: Quiet
+       Moves: Heat Wave [T3]  /  Solar Beam [T3]  /  Scorching Sands [T3]  /  Shell Smash [T4]
+  [4A] Drought wall
+       Torkoal @ Heat Rock   |   Ability: Drought   |   Nature: Bold
+       Moves: Flamethrower [T4]  /  Will-O-Wisp [Sit]  /  Yawn [Sit]  /  Body Press [T4]
+  [4B] Shell Smash sun sweeper
+       Torkoal @ White Herb   |   Ability: Drought   |   Nature: Quiet
+       Moves: Shell Smash [T4]  /  Eruption [T4]  /  Earth Power [T4]  /  Solar Beam [T3]
+
+====================================================================================================
+#618 STUNFISK  —  Ground/Electric  —  BST 471  —  Category 5
+Stats 109/66/84/81/99/32  |  Profile: Balanced / Bulky
+Variants: A = Defensive (paralysis, Pain Split) / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Trap fish
+       Stunfisk @ Oran Berry   |   Ability: Static   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Mud-Slap [T1]  /  Thunder Shock [T1]  /  Water Gun [T1]
+  [1B] Mud fish
+       Stunfisk @ (no item)   |   Ability: Limber   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Mud Sport [T1]  /  Astonish [T1]  /  Mud Bomb [T2]
+  [2A] Paralysis trap
+       Stunfisk @ Sitrus Berry   |   Ability: Static   |   Nature: Bold
+       Moves: Mud Shot [T2]  /  Electroweb [T2]  /  Yawn [Sit]  /  Thunder Wave [Sit]
+  [2B] Mud caster
+       Stunfisk @ Soft Sand   |   Ability: Sand Veil   |   Nature: Modest
+       Moves: Mud Bomb [T2]  /  Shock Wave [T2]  /  Water Pulse [T2]  /  Discharge [T3]
+  [3A] Bulky trap
+       Stunfisk @ Leftovers   |   Ability: Static   |   Nature: Bold
+       Moves: Discharge [T3]  /  Pain Split [Sit]  /  Yawn [Sit]  /  Foul Play [T4]
+  [3B] Mud cannon
+       Stunfisk @ Shell Bell   |   Ability: Static   |   Nature: Modest
+       Moves: Discharge [T3]  /  Muddy Water [T3]  /  Uproar [T3]  /  Earth Power [T4]
+  [4A] Static wall
+       Stunfisk @ Rocky Helmet   |   Ability: Static   |   Nature: Bold
+       Moves: Earth Power [T4]  /  Foul Play [T4]  /  Pain Split [Sit]  /  Yawn [Sit]
+  [4B] Assault Vest trap
+       Stunfisk @ Assault Vest   |   Ability: Static   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Earth Power [T4]  /  Sludge Bomb [T4]  /  Scald [T4]
+
+====================================================================================================
+#310 MANECTRIC  —  Electric  —  BST 475  —  Category 5
+Stats 70/75/60/105/60/105  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Pivot (Volt Switch)
+----------------------------------------------------------------------------------------------------
+  [1A] Discharge hound
+       Manectric @ (no item)   |   Ability: Static   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Leer [T1]  /  Odor Sleuth [T1]  /  Thunder Fang [T2]
+  [1B] Thunder hound
+       Manectric @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
+       Moves: Tackle [T1]  /  Howl [T1]  /  Flash [T1]  /  Charge Beam [T2]
+  [2A] Lightning caster
+       Manectric @ Magnet   |   Ability: Lightning Rod   |   Nature: Modest
+       Moves: Shock Wave [T2]  /  Flame Burst [T2]  /  Swift [T2]  /  Signal Beam [T3]
+  [2B] Pivot hound
+       Manectric @ Sitrus Berry   |   Ability: Static   |   Nature: Hasty
+       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Snarl [T2]  /  Roar [Sit]
+  [3A] Fast caster
+       Manectric @ Wise Glasses   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Electro Ball [T3]  /  Signal Beam [T3]  /  Flamethrower [T4]  /  Thunder Wave [Sit]
+  [3B] Static pivot
+       Manectric @ Rocky Helmet   |   Ability: Static   |   Nature: Timid
+       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Discharge [T3]  /  Roar [Sit]
+  [4A] Lightning sweeper
+       Manectric @ Life Orb   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Flamethrower [T4]  /  Hyper Voice [T4]  /  Volt Switch [T2]
+  [4B] Choice Specs pivot
+       Manectric @ Choice Specs   |   Ability: Static   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Overheat [T4]  /  Volt Switch [T2]  /  Signal Beam [T3]
+
+====================================================================================================
+#555 DARMANITAN  —  Fire  —  BST 480  —  Category 5
+Stats 105/140/55/30/55/95  |  Profile: Offensive (physical, Sheer Force)
+Variants: A = Sheer Force attacker / B = Choice / pivot attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Blazing doll
+       Darmanitan @ (no item)   |   Ability: Sheer Force   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Rock Smash [T1]  /  Focus Energy [T1]  /  Flame Wheel [T2]
+  [1B] Fire doll
+       Darmanitan @ Oran Berry   |   Ability: Sheer Force   |   Nature: Docile
+       Moves: Tackle [T1]  /  Ember [T1]  /  Fire Spin [T1]  /  Headbutt [T2]
+  [2A] Sheer Force brawler
+       Darmanitan @ Charcoal   |   Ability: Sheer Force   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Rock Tomb [T2]  /  Headbutt [T2]  /  Fire Punch [T3]
+  [2B] Pivot brawler
+       Darmanitan @ Sitrus Berry   |   Ability: Sheer Force   |   Nature: Naughty
+       Moves: U-turn [T2]  /  Bite [T2]  /  Bulldoze [T2]  /  Taunt [Sit]
+  [3A] Sheer Force breaker
+       Darmanitan @ Muscle Band   |   Ability: Sheer Force   |   Nature: Adamant
+       Moves: Fire Punch [T3]  /  Zen Headbutt [T3]  /  Brick Break [T3]  /  Rock Slide [T4]
+  [3B] Sash pivot
+       Darmanitan @ Focus Sash   |   Ability: Sheer Force   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Fire Punch [T3]  /  Superpower [T3]  /  Taunt [Sit]
+  [4A] Sheer Force Life Orb
+       Darmanitan @ Life Orb   |   Ability: Sheer Force   |   Nature: Adamant
+       Moves: Fire Punch [T3]  /  Rock Slide [T4]  /  Iron Head [T4]  /  Earthquake [T4]
+  [4B] Choice Scarf attacker
+       Darmanitan @ Choice Scarf   |   Ability: Sheer Force   |   Nature: Jolly
+       Moves: Flare Blitz [T4]  /  U-turn [T2]  /  Rock Slide [T4]  /  Superpower [T3]
+
+====================================================================================================
+#026 RAICHU  —  Electric  —  BST 485  —  Category 6
+Stats 60/90/55/90/80/110  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Mouse warrior
+       Raichu @ (no item)   |   Ability: Static   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Double Kick [T1]  /  Tail Whip [T1]  /  Spark [T2]
+  [1B] Thunder mouse
+       Raichu @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Growl [T1]  /  Disarming Voice [T1]  /  Electroweb [T2]
+  [2A] Paralysis brawler
+       Raichu @ Magnet   |   Ability: Static   |   Nature: Lonely
+       Moves: Nuzzle [T2]  /  Spark [T2]  /  Slam [T2]  /  Brick Break [T3]
+  [2B] Pivot caster
+       Raichu @ Sitrus Berry   |   Ability: Lightning Rod   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Volt Switch [T2]  /  Draining Kiss [T2]  /  Discharge [T3]
+  [3A] Volt Tackle striker
+       Raichu @ Muscle Band   |   Ability: Static   |   Nature: Jolly
+       Moves: Thunder Punch [T3]  /  Brick Break [T3]  /  Iron Tail [T3]  /  Volt Tackle [T4]
+  [3B] Nasty Plot mouse
+       Raichu @ Wise Glasses   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Discharge [T3]  /  Grass Knot [T3]  /  Alluring Voice [T3]
+  [4A] Physical sweeper
+       Raichu @ Life Orb   |   Ability: Static   |   Nature: Jolly
+       Moves: Volt Tackle [T4]  /  Extreme Speed [T4]  /  Knock Off [T4]  /  Brick Break [T3]
+  [4B] Sash Nasty Plot
+       Raichu @ Focus Sash   |   Ability: Lightning Rod   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Thunderbolt [T4]  /  Focus Blast [T4]  /  Grass Knot [T3]
+
+====================================================================================================
+#101 ELECTRODE  —  Electric  —  BST 490  —  Category 6
+Stats 60/50/70/80/80/150  |  Profile: Offensive (special, fastest)
+Variants: A = Special attacker / B = Support (screens, Explosion)
+----------------------------------------------------------------------------------------------------
+  [1A] Ball bomb
+       Electrode @ (no item)   |   Ability: Soundproof   |   Nature: Hardy
+       Moves: Thunder Shock [T1]  /  Confide [T1]  /  Tackle [T1]  /  Shock Wave [T2]
+  [1B] Sparking bomb
+       Electrode @ Oran Berry   |   Ability: Aftermath   |   Nature: Docile
+       Moves: Tackle [T1]  /  Flash [T1]  /  Confide [T1]  /  Electroweb [T2]
+  [2A] Charged bomb
+       Electrode @ Magnet   |   Ability: Static   |   Nature: Rash
+       Moves: Charge Beam [T2]  /  Swift [T2]  /  Screech [T2]  /  Signal Beam [T3]
+  [2B] Screen bomb
+       Electrode @ Sitrus Berry   |   Ability: Aftermath   |   Nature: Hasty
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Thunder Wave [Sit]  /  Taunt [Sit]
+  [3A] Speed caster
+       Electrode @ Magnet   |   Ability: Static   |   Nature: Timid
+       Moves: Electro Ball [T3]  /  Signal Beam [T3]  /  Taunt [Sit]  /  Foul Play [T4]
+  [3B] Screen bomber
+       Electrode @ Light Clay   |   Ability: Aftermath   |   Nature: Timid
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Taunt [Sit]  /  Explosion [T4]
+  [4A] Pivot attacker
+       Electrode @ Life Orb   |   Ability: Static   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Volt Switch [T2]  /  Signal Beam [T3]  /  Foul Play [T4]
+  [4B] Paralysis lead
+       Electrode @ Focus Sash   |   Ability: Aftermath   |   Nature: Timid
+       Moves: Thunder Wave [Sit]  /  Taunt [Sit]  /  Volt Switch [T2]  /  Explosion [T4]
+
+====================================================================================================
+#125 ELECTABUZZ  —  Electric  —  BST 490  —  Category 6
+Stats 65/83/57/95/85/105  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Electric brawler
+       Electabuzz @ (no item)   |   Ability: Static   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Karate Chop [T1]  /  Leer [T1]  /  Rock Smash [T1]
+  [1B] Static brawler
+       Electabuzz @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Leer [T1]  /  Meditate [T1]  /  Shock Wave [T2]
+  [2A] Thunder boxer
+       Electabuzz @ Magnet   |   Ability: Static   |   Nature: Lonely
+       Moves: Power-Up Punch [T2]  /  Mega Punch [T2]  /  Thief [T2]  /  Thunder Punch [T3]
+  [2B] Charged caster
+       Electabuzz @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Shock Wave [T2]  /  Screech [T2]  /  Discharge [T3]
+  [3A] Elemental boxer
+       Electabuzz @ Muscle Band   |   Ability: Static   |   Nature: Jolly
+       Moves: Thunder Punch [T3]  /  Ice Punch [T3]  /  Cross Chop [T3]  /  Knock Off [T4]
+  [3B] Coverage caster
+       Electabuzz @ Expert Belt   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Discharge [T3]  /  Signal Beam [T3]  /  Thunder Wave [Sit]  /  Psychic [T4]
+  [4A] Bulk Up boxer
+       Electabuzz @ Life Orb   |   Ability: Static   |   Nature: Jolly
+       Moves: Bulk Up [T4]  /  Wild Charge [T4]  /  Ice Punch [T3]  /  Cross Chop [T3]
+  [4B] Special attacker
+       Electabuzz @ Life Orb   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Focus Blast [T4]  /  Psychic [T4]  /  Volt Switch [T2]
+
+====================================================================================================
+#923 PAWMOT  —  Electric/Fighting  —  BST 490  —  Category 6
+Stats 70/115/70/70/60/105  |  Profile: Offensive (physical, Iron Fist)
+Variants: A = Iron Fist attacker / B = Support (Revival Blessing)
+----------------------------------------------------------------------------------------------------
+  [1A] Hands-on mouse
+       Pawmot @ (no item)   |   Ability: Iron Fist   |   Nature: Hardy
+       Moves: Arm Thrust [T1]  /  Quick Attack [T1]  /  Scratch [T1]  /  Spark [T2]
+  [1B] Healing mouse
+       Pawmot @ Oran Berry   |   Ability: Natural Cure   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Metal Claw [T1]  /  Growl [T1]  /  Nuzzle [T2]
+  [2A] Iron Fist brawler
+       Pawmot @ Black Belt   |   Ability: Iron Fist   |   Nature: Lonely
+       Moves: Thunder Fang [T2]  /  Low Sweep [T2]  /  Slam [T2]  /  Fire Punch [T3]
+  [2B] Support brawler
+       Pawmot @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Hasty
+       Moves: Nuzzle [T2]  /  Volt Switch [T2]  /  Fake Out [Sit]  /  Wish [Sit]
+  [3A] Punching champion
+       Pawmot @ Muscle Band   |   Ability: Iron Fist   |   Nature: Jolly
+       Moves: Thunder Punch [T3]  /  Ice Punch [T3]  /  Throat Chop [T3]  /  Mach Punch [T4]
+  [3B] Revival support
+       Pawmot @ Leftovers   |   Ability: Natural Cure   |   Nature: Jolly
+       Moves: Volt Switch [T2]  /  Fake Out [Sit]  /  Revival Blessing [Sit]  /  Thunder Punch [T3]
+  [4A] Iron Fist sweeper
+       Pawmot @ Punching Glove   |   Ability: Iron Fist   |   Nature: Jolly
+       Moves: Double Shock [T4]  /  Close Combat [T4]  /  Mach Punch [T4]  /  Ice Punch [T3]
+  [4B] Sash reviver
+       Pawmot @ Focus Sash   |   Ability: Volt Absorb   |   Nature: Jolly
+       Moves: Revival Blessing [Sit]  /  Fake Out [Sit]  /  Volt Switch [T2]  /  Close Combat [T4]
+
+====================================================================================================
+#126 MAGMAR  —  Fire  —  BST 495  —  Category 6
+Stats 65/95/57/100/85/93  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Spitfire
+       Magmar @ (no item)   |   Ability: Flame Body   |   Nature: Hardy
+       Moves: Karate Chop [T1]  /  Smokescreen [T1]  /  Focus Energy [T1]  /  Flame Wheel [T2]
+  [1B] Smoky spitfire
+       Magmar @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
+       Moves: Ember [T1]  /  Smog [T1]  /  Leer [T1]  /  Flame Burst [T2]
+  [2A] Fire boxer
+       Magmar @ Charcoal   |   Ability: Flame Body   |   Nature: Lonely
+       Moves: Power-Up Punch [T2]  /  Feint Attack [T2]  /  Mega Punch [T2]  /  Fire Punch [T3]
+  [2B] Flame caster
+       Magmar @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Mild
+       Moves: Flame Burst [T2]  /  Confuse Ray [Sit]  /  Clear Smog [Sit]  /  Lava Plume [T3]
+  [3A] Punching spitfire
+       Magmar @ Muscle Band   |   Ability: Flame Body   |   Nature: Jolly
+       Moves: Fire Punch [T3]  /  Thunder Punch [T3]  /  Low Kick [T3]  /  Knock Off [T4]
+  [3B] Burning caster
+       Magmar @ Expert Belt   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Heat Wave [T3]  /  Scorching Sands [T3]  /  Will-O-Wisp [Sit]  /  Focus Blast [T4]
+  [4A] Physical attacker
+       Magmar @ Life Orb   |   Ability: Flame Body   |   Nature: Jolly
+       Moves: Flare Blitz [T4]  /  Mach Punch [T4]  /  Thunder Punch [T3]  /  Knock Off [T4]
+  [4B] Choice Specs spitfire
+       Magmar @ Choice Specs   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Fire Blast [T4]  /  Focus Blast [T4]  /  Psychic [T4]  /  Scorching Sands [T3]
+
+====================================================================================================
+#078 RAPIDASH  —  Fire  —  BST 500  —  Category 6
+Stats 65/100/70/80/80/105  |  Profile: Offensive (physical)
+Variants: A = Physical attacker (setup) / B = Utility (burns) / Choice
+----------------------------------------------------------------------------------------------------
+  [1A] Fire horse
+       Rapidash @ (no item)   |   Ability: Flash Fire   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Tail Whip [T1]  /  Fury Attack [T1]  /  Flame Wheel [T2]
+  [1B] Galloping horse
+       Rapidash @ Oran Berry   |   Ability: Run Away   |   Nature: Docile
+       Moves: Ember [T1]  /  Growl [T1]  /  Quick Attack [T1]  /  Stomp [T2]
+  [2A] Charging horse
+       Rapidash @ Charcoal   |   Ability: Flash Fire   |   Nature: Lonely
+       Moves: Flame Charge [T2]  /  Stomp [T2]  /  Take Down [T2]  /  Smart Strike [T3]
+  [2B] Burning horse
+       Rapidash @ Sitrus Berry   |   Ability: Flame Body   |   Nature: Hasty
+       Moves: Flame Wheel [T2]  /  Hypnosis [T2]  /  Will-O-Wisp [Sit]  /  Morning Sun [Sit]
+  [3A] Agility horse
+       Rapidash @ Muscle Band   |   Ability: Flash Fire   |   Nature: Jolly
+       Moves: Flare Blitz [T4]  /  High Horsepower [T3]  /  Smart Strike [T3]  /  Agility [Sit]
+  [3B] Burning wall
+       Rapidash @ Rocky Helmet   |   Ability: Flame Body   |   Nature: Jolly
+       Moves: Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Drill Run [T3]  /  Megahorn [T4]
+  [4A] Swords Dance sweeper
+       Rapidash @ Life Orb   |   Ability: Flash Fire   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Flare Blitz [T4]  /  Wild Charge [T4]  /  High Horsepower [T3]
+  [4B] Choice Band horse
+       Rapidash @ Choice Band   |   Ability: Flame Body   |   Nature: Jolly
+       Moves: Flare Blitz [T4]  /  Wild Charge [T4]  /  Megahorn [T4]  /  Play Rough [T4]
+
+====================================================================================================
+#038 NINETALES  —  Fire  —  BST 505  —  Category 6
+Stats 73/76/75/81/100/100  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Sun support (Drought, burns)
+----------------------------------------------------------------------------------------------------
+  [1A] Nine-tailed fox
+       Ninetales @ (no item)   |   Ability: Flash Fire   |   Nature: Hardy
+       Moves: Ember [T1]  /  Howl [T1]  /  Tackle [T1]  /  Feint Attack [T2]
+  [1B] Sunny fox
+       Ninetales @ Oran Berry   |   Ability: Drought   |   Nature: Docile
+       Moves: Ember [T1]  /  Fire Spin [T1]  /  Tail Whip [T1]  /  Flame Burst [T2]
+  [2A] Mystic fox
+       Ninetales @ Charcoal   |   Ability: Flash Fire   |   Nature: Modest
+       Moves: Burning Jealousy [T2]  /  Ominous Wind [T2]  /  Snarl [T2]  /  Hex [T3]
+  [2B] Trickster fox
+       Ninetales @ Sitrus Berry   |   Ability: Drought   |   Nature: Hasty
+       Moves: Will-O-Wisp [Sit]  /  Confuse Ray [Sit]  /  Hypnosis [T2]  /  Flame Burst [T2]
+  [3A] Nasty Plot fox
+       Ninetales @ Wise Glasses   |   Ability: Flash Fire   |   Nature: Modest
+       Moves: Nasty Plot [T4]  /  Heat Wave [T3]  /  Extrasensory [T3]  /  Scorching Sands [T3]
+  [3B] Sun burner
+       Ninetales @ Heat Rock   |   Ability: Drought   |   Nature: Timid
+       Moves: Will-O-Wisp [Sit]  /  Hex [T3]  /  Pain Split [Sit]  /  Solar Beam [T3]
+  [4A] Drought sweeper
+       Ninetales @ Life Orb   |   Ability: Drought   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Fire Blast [T4]  /  Solar Beam [T3]  /  Psyshock [T4]
+  [4B] Sun support
+       Ninetales @ Heat Rock   |   Ability: Drought   |   Nature: Timid
+       Moves: Will-O-Wisp [Sit]  /  Flamethrower [T4]  /  Roar [Sit]  /  Healing Wish [Sit]
+
+====================================================================================================
+#181 AMPHAROS  —  Electric  —  BST 510  —  Category 6
+Stats 90/75/85/115/90/55  |  Profile: Balanced / Bulky
+Variants: A = Defensive (cleric, phazing) / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Light sheep
+       Ampharos @ Oran Berry   |   Ability: Static   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Growl [T1]  /  Defense Curl [T1]
+  [1B] Beacon sheep
+       Ampharos @ (no item)   |   Ability: Plus   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Flash [T1]  /  Sand Attack [T1]  /  Charge Beam [T2]
+  [2A] Support beacon
+       Ampharos @ Sitrus Berry   |   Ability: Static   |   Nature: Bold
+       Moves: Electroweb [T2]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Reflect [Sit]
+  [2B] Beacon caster
+       Ampharos @ Magnet   |   Ability: Plus   |   Nature: Modest
+       Moves: Shock Wave [T2]  /  Swift [T2]  /  Charge Beam [T2]  /  Dazzling Gleam [T3]
+  [3A] Cotton Guard beacon
+       Ampharos @ Leftovers   |   Ability: Static   |   Nature: Bold
+       Moves: Discharge [T3]  /  Heal Bell [Sit]  /  Dragon Tail [Sit]  /  Cotton Guard [Sit]
+  [3B] Coverage beacon
+       Ampharos @ Wise Glasses   |   Ability: Plus   |   Nature: Modest
+       Moves: Discharge [T3]  /  Signal Beam [T3]  /  Dazzling Gleam [T3]  /  Dragon Pulse [T4]
+  [4A] Bulky cleric
+       Ampharos @ Leftovers   |   Ability: Static   |   Nature: Calm
+       Moves: Thunderbolt [T4]  /  Heal Bell [Sit]  /  Dragon Tail [Sit]  /  Volt Switch [T2]
+  [4B] Assault Vest beacon
+       Ampharos @ Assault Vest   |   Ability: Plus   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Dragon Pulse [T4]  /  Focus Blast [T4]  /  Volt Switch [T2]
+
+====================================================================================================
+#135 JOLTEON  —  Electric  —  BST 525  —  Category 7
+Stats 65/65/60/110/95/130  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Support (Wish, Baton Pass)
+----------------------------------------------------------------------------------------------------
+  [1A] Lightning fox
+       Jolteon @ (no item)   |   Ability: Volt Absorb   |   Nature: Hardy
+       Moves: Thunder Shock [T1]  /  Tail Whip [T1]  /  Quick Attack [T1]  /  Double Kick [T1]
+  [1B] Spiky fox
+       Jolteon @ Oran Berry   |   Ability: Quick Feet   |   Nature: Docile
+       Moves: Tackle [T1]  /  Sand Attack [T1]  /  Growl [T1]  /  Swift [T2]
+  [2A] Charged fox
+       Jolteon @ Magnet   |   Ability: Volt Absorb   |   Nature: Modest
+       Moves: Charge Beam [T2]  /  Swift [T2]  /  Electroweb [T2]  /  Discharge [T3]
+  [2B] Pivot fox
+       Jolteon @ Sitrus Berry   |   Ability: Volt Absorb   |   Nature: Hasty
+       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Wish [Sit]  /  Charm [T2]
+  [3A] Speed caster
+       Jolteon @ Magnet   |   Ability: Volt Absorb   |   Nature: Timid
+       Moves: Electro Ball [T3]  /  Signal Beam [T3]  /  Alluring Voice [T3]  /  Shadow Ball [T4]
+  [3B] Wish cleric
+       Jolteon @ Leftovers   |   Ability: Volt Absorb   |   Nature: Timid
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]  /  Discharge [T3]
+  [4A] Lightning sweeper
+       Jolteon @ Life Orb   |   Ability: Volt Absorb   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Shadow Ball [T4]  /  Volt Switch [T2]  /  Hyper Voice [T4]
+  [4B] Calm Mind passer
+       Jolteon @ Leftovers   |   Ability: Volt Absorb   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Baton Pass [Sit]  /  Substitute [Sit]  /  Thunderbolt [T4]
+
+====================================================================================================
+#136 FLAREON  —  Fire  —  BST 525  —  Category 7
+Stats 65/130/60/95/110/65  |  Profile: Offensive (physical)
+Variants: A = Guts attacker / B = Bulky special support (Wish, burns)
+----------------------------------------------------------------------------------------------------
+  [1A] Flame fox
+       Flareon @ (no item)   |   Ability: Flash Fire   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Tail Whip [T1]  /  Quick Attack [T1]  /  Fire Fang [T2]
+  [1B] Fluffy fox
+       Flareon @ Oran Berry   |   Ability: Guts   |   Nature: Docile
+       Moves: Tackle [T1]  /  Sand Attack [T1]  /  Growl [T1]  /  Flame Charge [T2]
+  [2A] Biting fox
+       Flareon @ Charcoal   |   Ability: Guts   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Bite [T2]  /  Headbutt [T2]  /  Temper Flare [T3]
+  [2B] Wish fox
+       Flareon @ Sitrus Berry   |   Ability: Flash Fire   |   Nature: Calm
+       Moves: Incinerate [T2]  /  Will-O-Wisp [Sit]  /  Wish [Sit]  /  Protect [Sit]
+  [3A] Guts fox
+       Flareon @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Temper Flare [T3]  /  Superpower [T3]  /  Protect [Sit]
+  [3B] Burning cleric
+       Flareon @ Leftovers   |   Ability: Flash Fire   |   Nature: Calm
+       Moves: Lava Plume [T3]  /  Wish [Sit]  /  Protect [Sit]  /  Will-O-Wisp [Sit]
+  [4A] Guts attacker
+       Flareon @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Flare Blitz [T4]  /  Facade [T4]  /  Superpower [T3]  /  Iron Tail [T3]
+  [4B] Wish cleric
+       Flareon @ Leftovers   |   Ability: Flash Fire   |   Nature: Calm
+       Moves: Flamethrower [T4]  /  Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]
+
+====================================================================================================
+#157 TYPHLOSION  —  Fire  —  BST 534  —  Category 7
+Stats 78/84/78/109/85/100  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special (Eruption)
+----------------------------------------------------------------------------------------------------
+  [1A] Volcano beast
+       Typhlosion @ (no item)   |   Ability: Blaze   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Leer [T1]  /  Fury Swipes [T1]  /  Flame Wheel [T2]
+  [1B] Smoky volcano
+       Typhlosion @ Oran Berry   |   Ability: Flash Fire   |   Nature: Docile
+       Moves: Ember [T1]  /  Smokescreen [T1]  /  Defense Curl [T1]  /  Flame Burst [T2]
+  [2A] Flame brawler
+       Typhlosion @ Charcoal   |   Ability: Blaze   |   Nature: Lonely
+       Moves: Flame Charge [T2]  /  Aerial Ace [T2]  /  Headbutt [T2]  /  Fire Punch [T3]
+  [2B] Lava caster
+       Typhlosion @ Sitrus Berry   |   Ability: Flash Fire   |   Nature: Mild
+       Moves: Flame Burst [T2]  /  Swift [T2]  /  Work Up [T2]  /  Scorching Sands [T3]
+  [3A] Punching volcano
+       Typhlosion @ Muscle Band   |   Ability: Blaze   |   Nature: Adamant
+       Moves: Fire Punch [T3]  /  Thunder Punch [T3]  /  Zen Headbutt [T3]  /  Earthquake [T4]
+  [3B] Coverage caster
+       Typhlosion @ Wise Glasses   |   Ability: Flash Fire   |   Nature: Modest
+       Moves: Heat Wave [T3]  /  Extrasensory [T3]  /  Scorching Sands [T3]  /  Focus Blast [T4]
+  [4A] Physical attacker
+       Typhlosion @ Life Orb   |   Ability: Blaze   |   Nature: Adamant
+       Moves: Flare Blitz [T4]  /  Earthquake [T4]  /  Wild Charge [T4]  /  Play Rough [T4]
+  [4B] Choice Specs Eruption
+       Typhlosion @ Choice Specs   |   Ability: Flash Fire   |   Nature: Timid
+       Moves: Eruption [T4]  /  Fire Blast [T4]  /  Focus Blast [T4]  /  Shadow Ball [T4]
+
+====================================================================================================
+#462 MAGNEZONE  —  Electric/Steel  —  BST 535  —  Category 7
+Stats 70/70/115/130/90/60  |  Profile: Offensive (special)
+Variants: A = Special attacker (Analytic) / B = Utility (Magnet Pull, Iron Defense)
+----------------------------------------------------------------------------------------------------
+  [1A] Magnet UFO
+       Magnezone @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Thunder Shock [T1]  /  Supersonic [T1]  /  Flash [T1]  /  Spark [T2]
+  [1B] Floating magnet
+       Magnezone @ (no item)   |   Ability: Magnet Pull   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Tackle [T1]  /  Confide [T1]  /  Mirror Shot [T2]
+  [2A] Analytic caster
+       Magnezone @ Magnet   |   Ability: Analytic   |   Nature: Modest
+       Moves: Charge Beam [T2]  /  Mirror Shot [T2]  /  Electroweb [T2]  /  Signal Beam [T3]
+  [2B] Screen magnet
+       Magnezone @ Sitrus Berry   |   Ability: Magnet Pull   |   Nature: Bold
+       Moves: Thunder Wave [Sit]  /  Volt Switch [T2]  /  Light Screen [Sit]  /  Mirror Shot [T2]
+  [3A] Analytic magnet
+       Magnezone @ Shell Bell   |   Ability: Analytic   |   Nature: Modest
+       Moves: Discharge [T3]  /  Tri Attack [T3]  /  Flash Cannon [T4]  /  Thunder Wave [Sit]
+  [3B] Steel trapper
+       Magnezone @ Air Balloon   |   Ability: Magnet Pull   |   Nature: Bold
+       Moves: Volt Switch [T2]  /  Iron Defense [Sit]  /  Body Press [T4]  /  Discharge [T3]
+  [4A] Choice Specs magnet
+       Magnezone @ Choice Specs   |   Ability: Analytic   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Flash Cannon [T4]  /  Volt Switch [T2]  /  Tri Attack [T3]
+  [4B] Iron Defense trapper
+       Magnezone @ Leftovers   |   Ability: Magnet Pull   |   Nature: Bold
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Thunderbolt [T4]  /  Flash Cannon [T4]
+
+====================================================================================================
+#466 ELECTIVIRE  —  Electric  —  BST 540  —  Category 7
+Stats 75/123/67/95/85/95  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Thunderbolt brawler
+       Electivire @ (no item)   |   Ability: Motor Drive   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Karate Chop [T1]  /  Meditate [T1]  /  Mega Punch [T2]
+  [1B] Static brawler
+       Electivire @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Leer [T1]  /  Flash [T1]  /  Charge Beam [T2]
+  [2A] Thunder boxer
+       Electivire @ Magnet   |   Ability: Motor Drive   |   Nature: Lonely
+       Moves: Power-Up Punch [T2]  /  Mega Punch [T2]  /  Thief [T2]  /  Thunder Punch [T3]
+  [2B] Charged caster
+       Electivire @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Electroweb [T2]  /  Swift [T2]  /  Signal Beam [T3]
+  [3A] Elemental boxer
+       Electivire @ Muscle Band   |   Ability: Motor Drive   |   Nature: Adamant
+       Moves: Thunder Punch [T3]  /  Ice Punch [T3]  /  Cross Chop [T3]  /  Earthquake [T4]
+  [3B] Coverage caster
+       Electivire @ Wise Glasses   |   Ability: Vital Spirit   |   Nature: Modest
+       Moves: Discharge [T3]  /  Signal Beam [T3]  /  Thunder Wave [Sit]  /  Flamethrower [T4]
+  [4A] Physical sweeper
+       Electivire @ Life Orb   |   Ability: Motor Drive   |   Nature: Jolly
+       Moves: Wild Charge [T4]  /  Ice Punch [T3]  /  Cross Chop [T3]  /  Earthquake [T4]
+  [4B] Coverage attacker
+       Electivire @ Expert Belt   |   Ability: Vital Spirit   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Flamethrower [T4]  /  Focus Blast [T4]  /  Psychic [T4]
+
+====================================================================================================
+#467 MAGMORTAR  —  Fire  —  BST 540  —  Category 7
+Stats 75/95/67/125/95/83  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Disruptor (burns, Taunt)
+----------------------------------------------------------------------------------------------------
+  [1A] Blast cannon
+       Magmortar @ (no item)   |   Ability: Flame Body   |   Nature: Hardy
+       Moves: Ember [T1]  /  Leer [T1]  /  Smog [T1]  /  Smokescreen [T1]
+  [1B] Ember cannon
+       Magmortar @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
+       Moves: Ember [T1]  /  Fire Spin [T1]  /  Karate Chop [T1]  /  Flame Burst [T2]
+  [2A] Flame caster
+       Magmortar @ Charcoal   |   Ability: Flame Body   |   Nature: Modest
+       Moves: Flame Burst [T2]  /  Acid Spray [T2]  /  Confuse Ray [Sit]  /  Mystical Fire [T3]
+  [2B] Burning cannon
+       Magmortar @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Hasty
+       Moves: Will-O-Wisp [Sit]  /  Taunt [Sit]  /  Confuse Ray [Sit]  /  Flame Burst [T2]
+  [3A] Coverage cannon
+       Magmortar @ Wise Glasses   |   Ability: Flame Body   |   Nature: Modest
+       Moves: Heat Wave [T3]  /  Scorching Sands [T3]  /  Will-O-Wisp [Sit]  /  Thunderbolt [T4]
+  [3B] Taunt cannon
+       Magmortar @ Leftovers   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Will-O-Wisp [Sit]  /  Taunt [Sit]  /  Lava Plume [T3]  /  Focus Blast [T4]
+  [4A] Choice Specs cannon
+       Magmortar @ Choice Specs   |   Ability: Flame Body   |   Nature: Modest
+       Moves: Fire Blast [T4]  /  Thunderbolt [T4]  /  Focus Blast [T4]  /  Psychic [T4]
+  [4B] Disruptive attacker
+       Magmortar @ Life Orb   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Fire Blast [T4]  /  Thunderbolt [T4]  /  Will-O-Wisp [Sit]  /  Taunt [Sit]
+
+====================================================================================================
+#059 ARCANINE  —  Fire  —  BST 555  —  Category 7
+Stats 90/110/80/100/80/95  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Intimidate, burns) / B = Offensive (physical)
+----------------------------------------------------------------------------------------------------
+  [1A] Legendary dog
+       Arcanine @ Oran Berry   |   Ability: Intimidate   |   Nature: Hardy
+       Moves: Leer [T1]  /  Howl [T1]  /  Ember [T1]  /  Bite [T2]
+  [1B] Loyal dog
+       Arcanine @ (no item)   |   Ability: Flash Fire   |   Nature: Docile
+       Moves: Double Kick [T1]  /  Ember [T1]  /  Odor Sleuth [T1]  /  Flame Wheel [T2]
+  [2A] Burning guard dog
+       Arcanine @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Impish
+       Moves: Will-O-Wisp [Sit]  /  Roar [Sit]  /  Morning Sun [Sit]  /  Flame Wheel [T2]
+  [2B] Fang dog
+       Arcanine @ Charcoal   |   Ability: Justified   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Thunder Fang [T2]  /  Take Down [T2]  /  Crunch [T3]
+  [3A] Intimidate wall
+       Arcanine @ Leftovers   |   Ability: Intimidate   |   Nature: Impish
+       Moves: Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Roar [Sit]  /  Flare Blitz [T4]
+  [3B] Extreme Speed dog
+       Arcanine @ Muscle Band   |   Ability: Intimidate   |   Nature: Adamant
+       Moves: Temper Flare [T3]  /  Crunch [T3]  /  Superpower [T3]  /  Extreme Speed [T4]
+  [4A] Intimidate support
+       Arcanine @ Rocky Helmet   |   Ability: Intimidate   |   Nature: Impish
+       Moves: Flare Blitz [T4]  /  Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Extreme Speed [T4]
+  [4B] Choice Band dog
+       Arcanine @ Choice Band   |   Ability: Intimidate   |   Nature: Adamant
+       Moves: Flare Blitz [T4]  /  Extreme Speed [T4]  /  Close Combat [T4]  /  Wild Charge [T4]
+
+====================================================================================================
+#146 MOLTRES  —  Fire/Flying  —  BST 580  —  Category 8
+Stats 90/100/90/125/85/90  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Bulky utility (burns, Roost, pivot)
+----------------------------------------------------------------------------------------------------
+  [1A] Flame bird
+       Moltres @ (no item)   |   Ability: Pressure   |   Nature: Hardy
+       Moves: Ember [T1]  /  Gust [T1]  /  Leer [T1]  /  Peck [T1]
+  [1B] Burning wings
+       Moltres @ Oran Berry   |   Ability: Flame Body   |   Nature: Docile
+       Moves: Ember [T1]  /  Fire Spin [T1]  /  Twister [T1]  /  Wing Attack [T2]
+  [2A] Flame caster
+       Moltres @ Charcoal   |   Ability: Flame Body   |   Nature: Modest
+       Moves: Air Cutter [T2]  /  Incinerate [T2]  /  Ancient Power [T2]  /  Heat Wave [T3]
+  [2B] Pivot phoenix
+       Moltres @ Sitrus Berry   |   Ability: Pressure   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Will-O-Wisp [Sit]  /  Roost [Sit]  /  Air Cutter [T2]
+  [3A] Storm phoenix
+       Moltres @ Sharp Beak   |   Ability: Flame Body   |   Nature: Modest
+       Moves: Heat Wave [T3]  /  Scorching Sands [T3]  /  Roost [Sit]  /  Hurricane [T4]
+  [3B] Burning wall
+       Moltres @ Leftovers   |   Ability: Flame Body   |   Nature: Bold
+       Moves: Will-O-Wisp [Sit]  /  Roost [Sit]  /  Defog [Sit]  /  Mystical Fire [T3]
+  [4A] Choice Specs phoenix
+       Moltres @ Choice Specs   |   Ability: Flame Body   |   Nature: Timid
+       Moves: Fire Blast [T4]  /  Hurricane [T4]  /  Scorching Sands [T3]  /  U-turn [T2]
+  [4B] Flame Body pivot
+       Moltres @ Rocky Helmet   |   Ability: Flame Body   |   Nature: Bold
+       Moves: Flamethrower [T4]  /  Roost [Sit]  /  Will-O-Wisp [Sit]  /  U-turn [T2]
+
+====================================================================================================
+#243 RAIKOU  —  Electric  —  BST 580  —  Category 8
+Stats 90/85/75/115/100/115  |  Profile: Offensive (special)
+Variants: A = Calm Mind sweeper / B = Pivot attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Thunder beast
+       Raikou @ (no item)   |   Ability: Pressure   |   Nature: Hardy
+       Moves: Thunder Shock [T1]  /  Leer [T1]  /  Quick Attack [T1]  /  Howl [T1]
+  [1B] Storm beast
+       Raikou @ Oran Berry   |   Ability: Inner Focus   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Rock Smash [T1]  /  Mud-Slap [T1]  /  Spark [T2]
+  [2A] Charged beast
+       Raikou @ Magnet   |   Ability: Inner Focus   |   Nature: Modest
+       Moves: Charge Beam [T2]  /  Snarl [T2]  /  Shock Wave [T2]  /  Extrasensory [T3]
+  [2B] Pivot beast
+       Raikou @ Sitrus Berry   |   Ability: Pressure   |   Nature: Hasty
+       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Bite [T2]  /  Roar [Sit]
+  [3A] Calm Mind beast
+       Raikou @ Leftovers   |   Ability: Inner Focus   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Discharge [T3]  /  Extrasensory [T3]  /  Substitute [Sit]
+  [3B] Fast pivot
+       Raikou @ Expert Belt   |   Ability: Pressure   |   Nature: Timid
+       Moves: Volt Switch [T2]  /  Electro Ball [T3]  /  Signal Beam [T3]  /  Thunder Wave [Sit]
+  [4A] Calm Mind sweeper
+       Raikou @ Leftovers   |   Ability: Inner Focus   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Thunderbolt [T4]  /  Scald [T4]  /  Substitute [Sit]
+  [4B] Choice Specs pivot
+       Raikou @ Choice Specs   |   Ability: Pressure   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Volt Switch [T2]  /  Shadow Ball [T4]  /  Scald [T4]
+
+====================================================================================================
+#244 ENTEI  —  Fire  —  BST 580  —  Category 8
+Stats 115/115/85/90/75/100  |  Profile: Offensive (physical)
+Variants: A = Physical attacker (Sacred Fire) / B = Special attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Volcano beast
+       Entei @ (no item)   |   Ability: Pressure   |   Nature: Hardy
+       Moves: Leer [T1]  /  Howl [T1]  /  Rock Smash [T1]  /  Flame Wheel [T2]
+  [1B] Ember beast
+       Entei @ Oran Berry   |   Ability: Inner Focus   |   Nature: Docile
+       Moves: Ember [T1]  /  Fire Spin [T1]  /  Smokescreen [T1]  /  Incinerate [T2]
+  [2A] Fang beast
+       Entei @ Charcoal   |   Ability: Inner Focus   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Stomp [T2]  /  Bite [T2]  /  Crush Claw [T3]
+  [2B] Lava caster
+       Entei @ Sitrus Berry   |   Ability: Pressure   |   Nature: Mild
+       Moves: Incinerate [T2]  /  Snarl [T2]  /  Swift [T2]  /  Lava Plume [T3]
+  [3A] Sacred Fire beast
+       Entei @ Muscle Band   |   Ability: Inner Focus   |   Nature: Adamant
+       Moves: Sacred Fire [T4]  /  Crunch [T3]  /  Iron Tail [T3]  /  Stomping Tantrum [T3]
+  [3B] Calm Mind beast
+       Entei @ Leftovers   |   Ability: Pressure   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Heat Wave [T3]  /  Extrasensory [T3]  /  Scorching Sands [T3]
+  [4A] Choice Band beast
+       Entei @ Choice Band   |   Ability: Inner Focus   |   Nature: Adamant
+       Moves: Sacred Fire [T4]  /  Extreme Speed [T4]  /  Stone Edge [T4]  /  Iron Head [T4]
+  [4B] Choice Scarf Eruption
+       Entei @ Choice Scarf   |   Ability: Pressure   |   Nature: Timid
+       Moves: Eruption [T4]  /  Fire Blast [T4]  /  Shadow Ball [T4]  /  Extrasensory [T3]
+
+====================================================================================================
+#250 HO-OH  —  Fire/Flying  —  BST 680  —  Category 9
+Stats 106/130/90/110/154/90  |  Profile: Balanced / Bulky (Regenerator)
+Variants: A = Defensive (Sacred Fire, Recover) / B = Offensive (physical)
+----------------------------------------------------------------------------------------------------
+  [1A] Rainbow bird
+       Ho-Oh @ Oran Berry   |   Ability: Pressure   |   Nature: Hardy
+       Moves: Gust [T1]  /  Fire Spin [T1]  /  Twister [T1]  /  Mud-Slap [T1]
+  [1B] Sacred bird
+       Ho-Oh @ (no item)   |   Ability: Regenerator   |   Nature: Docile
+       Moves: Gust [T1]  /  Rock Smash [T1]  /  Flash [T1]  /  Aerial Ace [T2]
+  [2A] Regenerating bird
+       Ho-Oh @ Sitrus Berry   |   Ability: Regenerator   |   Nature: Careful
+       Moves: Incinerate [T2]  /  Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
+  [2B] Diving bird
+       Ho-Oh @ Sharp Beak   |   Ability: Pressure   |   Nature: Lonely
+       Moves: Aerial Ace [T2]  /  Flame Charge [T2]  /  Steel Wing [T2]  /  Fly [T3]
+  [3A] Sacred Fire wall
+       Ho-Oh @ Leftovers   |   Ability: Regenerator   |   Nature: Careful
+       Moves: Sacred Fire [T4]  /  Recover [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
+  [3B] Bulky striker
+       Ho-Oh @ Muscle Band   |   Ability: Regenerator   |   Nature: Adamant
+       Moves: Brave Bird [T4]  /  Zen Headbutt [T3]  /  Roost [Sit]  /  Toxic [Sit]
+  [4A] Regenerator tank
+       Ho-Oh @ Rocky Helmet   |   Ability: Regenerator   |   Nature: Careful
+       Moves: Sacred Fire [T4]  /  Brave Bird [T4]  /  Recover [Sit]  /  Toxic [Sit]
+  [4B] Choice Band phoenix
+       Ho-Oh @ Choice Band   |   Ability: Regenerator   |   Nature: Adamant
+       Moves: Sacred Fire [T4]  /  Brave Bird [T4]  /  Earthquake [T4]  /  Iron Head [T4]
+
+====================================================================================================
+#643 RESHIRAM  —  Dragon/Fire  —  BST 680  —  Category 9
+Stats 100/120/100/150/120/90  |  Profile: Mixed attacker
+Variants: A = Special / B = Physical (Dragon Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Vast white dragon
+       Reshiram @ (no item)   |   Ability: Turboblaze   |   Nature: Hardy
+       Moves: Fire Spin [T1]  /  Rock Smash [T1]  /  Confide [T1]  /  Dragon Breath [T2]
+  [1B] Flame dragon
+       Reshiram @ Oran Berry   |   Ability: Turboblaze   |   Nature: Docile
+       Moves: Fire Spin [T1]  /  Rock Smash [T1]  /  Confide [T1]  /  Fire Fang [T2]
+  [2A] Truth caster
+       Reshiram @ Dragon Fang   |   Ability: Turboblaze   |   Nature: Modest
+       Moves: Dragon Breath [T2]  /  Incinerate [T2]  /  Ancient Power [T2]  /  Extrasensory [T3]
+  [2B] Clawing dragon
+       Reshiram @ Charcoal   |   Ability: Turboblaze   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Breaking Swipe [T2]  /  Hone Claws [T2]  /  Dragon Claw [T3]
+  [3A] Blue Flare dragon
+       Reshiram @ Wise Glasses   |   Ability: Turboblaze   |   Nature: Modest
+       Moves: Blue Flare [T4]  /  Heat Wave [T3]  /  Extrasensory [T3]  /  Roost [Sit]
+  [3B] Dragon Dance dragon
+       Reshiram @ Muscle Band   |   Ability: Turboblaze   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Crunch [T3]  /  Heat Crash [T3]
+  [4A] Choice Specs dragon
+       Reshiram @ Choice Specs   |   Ability: Turboblaze   |   Nature: Modest
+       Moves: Blue Flare [T4]  /  Draco Meteor [T4]  /  Earth Power [T4]  /  Focus Blast [T4]
+  [4B] Dragon Dance sweeper
+       Reshiram @ Life Orb   |   Ability: Turboblaze   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Flare Blitz [T4]  /  Stone Edge [T4]
+

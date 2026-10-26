@@ -1,0 +1,1703 @@
+====================================================================================================
+POKEMON_SETS.TXT  —  BIOME: FOREST (Petalburg Woods) — Grass / Fairy
+56 Pokémon x 8 sets = 448 sets   |   Draft for validation
+====================================================================================================
+
+HOW TO READ
+----------------------------------------------------------------------------------------------------
+  Set tiers (move tiers from moves_by_tier.txt v3, shown in brackets after each move):
+    Tier 1 sets  (early game)     : Tier 1 moves + at most one Tier 2 move. Neutral nature. No item or a basic berry.
+    Tier 2 sets  (early-mid game) : Tier 2 + Situational moves + at most one Tier 3 move. Reasonable but imperfect
+                                    nature (attackers often use Lonely / Hasty / Mild...). Simple items: Sitrus, type boosters...
+    Tier 3 sets  (mid-late game)  : Tier 3 + Situational moves + at most one Tier 4 move. Optimal nature.
+                                    Solid items: Leftovers, Muscle Band, Expert Belt, Rocky Helmet, Lum Berry...
+    Tier 4 sets  (bosses, player) : Best mix of Tier 3, Tier 4 and Situational moves. Competitive items (Life Orb, Choice...).
+    Exception (v3): Tier 3 and Tier 4 sets may use a Tier 2 [Pivot] move (U-turn, Volt Switch, Flip Turn).
+    Entry hazards do not exist in this game (v3), so no set uses them. Eviolite is banned from the game.
+  Set A / Set B follow the Pokémon profile shown under its name:
+    Mixed attacker: A = Physical / B = Special.   Balanced / Bulky: A = Defensive / B = Offensive.
+    Pure Defensive: A = Pure Stall / B = Defensive with utility.
+    Offensive (one attacking stat): A = Setup / power attacker / B = second offensive role (pivot, priority, Choice, utility).
+  Every move is legal for that Pokémon (current or past learnset, incl. pre-evolution moves). Smeargle may use any move
+  (Sketch). Every set was checked by script for move legality, tier rules, ability legality and item rules.
+
+====================================================================================================
+#013 WEEDLE  —  Bug/Poison  —  BST 195  —  Category 1
+Stats 40/35/30/20/20/50  |  Profile: Offensive (tiny movepool)
+Variants: A = Physical (Bug Bite, Poison Sting) / B = Speed control (Electroweb)
+----------------------------------------------------------------------------------------------------
+  [1A] Hairy bug
+       Weedle @ (no item)   |   Ability: Shield Dust   |   Nature: Hardy
+       Moves: Poison Sting [T1]  /  String Shot [T1]  /  Bug Bite [T2]   (movepool limit: no other legal move fits this tier)
+  [1B] Stinging bug
+       Weedle @ Oran Berry   |   Ability: Run Away   |   Nature: Docile
+       Moves: Poison Sting [T1]  /  String Shot [T1]  /  Electroweb [T2]   (movepool limit: no other legal move fits this tier)
+  [2A] Barbed bug
+       Weedle @ Poison Barb   |   Ability: Shield Dust   |   Nature: Lonely
+       Moves: Bug Bite [T2]  /  Electroweb [T2]  /  Poison Sting [T1]  /  String Shot [T1]
+  [2B] Webbing bug
+       Weedle @ Sitrus Berry   |   Ability: Run Away   |   Nature: Hasty
+       Moves: Electroweb [T2]  /  Bug Bite [T2]  /  String Shot [T1]   (movepool limit: no other legal move fits this tier)
+  [3A] Sash bug
+       Weedle @ Focus Sash   |   Ability: Shield Dust   |   Nature: Jolly
+       Moves: Bug Bite [T2]  /  Poison Sting [T1]  /  Electroweb [T2]  /  String Shot [T1]
+  [3B] Biting bug
+       Weedle @ Muscle Band   |   Ability: Run Away   |   Nature: Adamant
+       Moves: Bug Bite [T2]  /  Poison Sting [T1]  /  Electroweb [T2]   (movepool limit: no other legal move fits this tier)
+  [4A] Choice Band bug
+       Weedle @ Choice Band   |   Ability: Shield Dust   |   Nature: Jolly
+       Moves: Bug Bite [T2]  /  Poison Sting [T1]  /  Electroweb [T2]   (movepool limit: no other legal move fits this tier)
+  [4B] Web lead
+       Weedle @ Focus Sash   |   Ability: Run Away   |   Nature: Hasty
+       Moves: String Shot [T1]  /  Electroweb [T2]  /  Bug Bite [T2]  /  Poison Sting [T1]
+
+====================================================================================================
+#265 WURMPLE  —  Bug  —  BST 195  —  Category 1
+Stats 45/45/35/20/30/20  |  Profile: Offensive (tiny movepool)
+Variants: A = Physical (Bug Bite) / B = Speed control (Electroweb, String Shot)
+----------------------------------------------------------------------------------------------------
+  [1A] Worm
+       Wurmple @ (no item)   |   Ability: Shield Dust   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Poison Sting [T1]  /  String Shot [T1]  /  Bug Bite [T2]
+  [1B] Running worm
+       Wurmple @ Oran Berry   |   Ability: Run Away   |   Nature: Docile
+       Moves: Tackle [T1]  /  String Shot [T1]  /  Poison Sting [T1]  /  Electroweb [T2]
+  [2A] Biting worm
+       Wurmple @ Silver Powder   |   Ability: Shield Dust   |   Nature: Lonely
+       Moves: Bug Bite [T2]  /  Electroweb [T2]  /  Tackle [T1]  /  Poison Sting [T1]
+  [2B] Webbing worm
+       Wurmple @ Sitrus Berry   |   Ability: Run Away   |   Nature: Mild
+       Moves: Electroweb [T2]  /  Bug Bite [T2]  /  String Shot [T1]  /  Tackle [T1]
+  [3A] Striking worm
+       Wurmple @ Muscle Band   |   Ability: Shield Dust   |   Nature: Adamant
+       Moves: Bug Bite [T2]  /  Electroweb [T2]  /  Tackle [T1]  /  Poison Sting [T1]
+  [3B] Sash worm
+       Wurmple @ Focus Sash   |   Ability: Run Away   |   Nature: Jolly
+       Moves: Bug Bite [T2]  /  Electroweb [T2]  /  String Shot [T1]  /  Poison Sting [T1]
+  [4A] Choice Band worm
+       Wurmple @ Choice Band   |   Ability: Shield Dust   |   Nature: Adamant
+       Moves: Bug Bite [T2]  /  Tackle [T1]  /  Poison Sting [T1]  /  Electroweb [T2]
+  [4B] Slowing worm
+       Wurmple @ Leftovers   |   Ability: Run Away   |   Nature: Timid
+       Moves: Electroweb [T2]  /  String Shot [T1]  /  Bug Bite [T2]  /  Tackle [T1]
+
+====================================================================================================
+#014 KAKUNA  —  Bug/Poison  —  BST 205  —  Category 1
+Stats 45/25/50/25/25/35  |  Profile: Pure Defensive (tiny movepool)
+Variants: A = Pure Stall (Iron Defense) / B = Defensive with utility
+----------------------------------------------------------------------------------------------------
+  [1A] Cocoon
+       Kakuna @ Oran Berry   |   Ability: Shed Skin   |   Nature: Hardy
+       Moves: Harden [T1]  /  Poison Sting [T1]  /  String Shot [T1]  /  Bug Bite [T2]
+  [1B] Sticky cocoon
+       Kakuna @ (no item)   |   Ability: Shed Skin   |   Nature: Docile
+       Moves: Harden [T1]  /  Poison Sting [T1]  /  String Shot [T1]  /  Electroweb [T2]
+  [2A] Iron cocoon
+       Kakuna @ Sitrus Berry   |   Ability: Shed Skin   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Electroweb [T2]  /  Poison Sting [T1]
+  [2B] Hard cocoon
+       Kakuna @ Lum Berry   |   Ability: Shed Skin   |   Nature: Bold
+       Moves: Iron Defense [Sit]  /  Electroweb [T2]  /  Bug Bite [T2]  /  Harden [T1]
+  [3A] Sludge cocoon
+       Kakuna @ Black Sludge   |   Ability: Shed Skin   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Electroweb [T2]  /  Poison Sting [T1]
+  [3B] Spiky cocoon
+       Kakuna @ Rocky Helmet   |   Ability: Shed Skin   |   Nature: Bold
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  String Shot [T1]  /  Harden [T1]
+  [4A] Bulky cocoon
+       Kakuna @ Black Sludge   |   Ability: Shed Skin   |   Nature: Relaxed
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Electroweb [T2]  /  String Shot [T1]
+  [4B] Helmet cocoon
+       Kakuna @ Rocky Helmet   |   Ability: Shed Skin   |   Nature: Careful
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Poison Sting [T1]  /  Electroweb [T2]
+
+====================================================================================================
+#266 SILCOON  —  Bug  —  BST 205  —  Category 1
+Stats 50/35/55/25/25/15  |  Profile: Pure Defensive (tiny movepool)
+Variants: A = Pure Stall (Iron Defense) / B = Defensive with utility
+----------------------------------------------------------------------------------------------------
+  [1A] Silk cocoon
+       Silcoon @ Oran Berry   |   Ability: Shed Skin   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Harden [T1]  /  String Shot [T1]  /  Bug Bite [T2]
+  [1B] White cocoon
+       Silcoon @ (no item)   |   Ability: Shed Skin   |   Nature: Docile
+       Moves: Tackle [T1]  /  Poison Sting [T1]  /  Harden [T1]  /  Electroweb [T2]
+  [2A] Iron cocoon
+       Silcoon @ Sitrus Berry   |   Ability: Shed Skin   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Electroweb [T2]  /  Tackle [T1]
+  [2B] Webbing cocoon
+       Silcoon @ Lum Berry   |   Ability: Shed Skin   |   Nature: Bold
+       Moves: Iron Defense [Sit]  /  Electroweb [T2]  /  Bug Bite [T2]  /  String Shot [T1]
+  [3A] Cocoon staller
+       Silcoon @ Leftovers   |   Ability: Shed Skin   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Electroweb [T2]  /  Tackle [T1]
+  [3B] Spiky cocoon
+       Silcoon @ Rocky Helmet   |   Ability: Shed Skin   |   Nature: Bold
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Harden [T1]  /  Poison Sting [T1]
+  [4A] Bulky cocoon
+       Silcoon @ Leftovers   |   Ability: Shed Skin   |   Nature: Relaxed
+       Moves: Iron Defense [Sit]  /  Electroweb [T2]  /  Bug Bite [T2]  /  String Shot [T1]
+  [4B] Helmet cocoon
+       Silcoon @ Rocky Helmet   |   Ability: Shed Skin   |   Nature: Careful
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Electroweb [T2]  /  Harden [T1]
+
+====================================================================================================
+#268 CASCOON  —  Bug  —  BST 205  —  Category 1
+Stats 50/35/55/25/25/15  |  Profile: Pure Defensive (tiny movepool)
+Variants: A = Pure Stall (Iron Defense) / B = Defensive with utility
+----------------------------------------------------------------------------------------------------
+  [1A] Purple cocoon
+       Cascoon @ (no item)   |   Ability: Shed Skin   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Harden [T1]  /  Poison Sting [T1]  /  Bug Bite [T2]
+  [1B] Hidden cocoon
+       Cascoon @ Oran Berry   |   Ability: Shed Skin   |   Nature: Docile
+       Moves: String Shot [T1]  /  Harden [T1]  /  Tackle [T1]  /  Electroweb [T2]
+  [2A] Iron cocoon
+       Cascoon @ Sitrus Berry   |   Ability: Shed Skin   |   Nature: Bold
+       Moves: Iron Defense [Sit]  /  Electroweb [T2]  /  Bug Bite [T2]  /  Harden [T1]
+  [2B] Biting cocoon
+       Cascoon @ Lum Berry   |   Ability: Shed Skin   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Tackle [T1]  /  Poison Sting [T1]
+  [3A] Cocoon staller
+       Cascoon @ Leftovers   |   Ability: Shed Skin   |   Nature: Bold
+       Moves: Iron Defense [Sit]  /  Electroweb [T2]  /  Bug Bite [T2]  /  String Shot [T1]
+  [3B] Spiky cocoon
+       Cascoon @ Rocky Helmet   |   Ability: Shed Skin   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Electroweb [T2]  /  Poison Sting [T1]
+  [4A] Bulky cocoon
+       Cascoon @ Leftovers   |   Ability: Shed Skin   |   Nature: Careful
+       Moves: Iron Defense [Sit]  /  Bug Bite [T2]  /  Electroweb [T2]  /  Tackle [T1]
+  [4B] Helmet cocoon
+       Cascoon @ Rocky Helmet   |   Ability: Shed Skin   |   Nature: Relaxed
+       Moves: Iron Defense [Sit]  /  Electroweb [T2]  /  Bug Bite [T2]  /  Harden [T1]
+
+====================================================================================================
+#270 LOTAD  —  Water/Grass  —  BST 220  —  Category 1
+Stats 40/30/30/40/50/30  |  Profile: Offensive (special)
+Variants: A = Rain attacker (Swift Swim) / B = Support (Rain Dish, Leech Seed)
+----------------------------------------------------------------------------------------------------
+  [1A] Water weed
+       Lotad @ (no item)   |   Ability: Swift Swim   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Water Gun [T1]  /  Growl [T1]  /  Astonish [T1]
+  [1B] Floating weed
+       Lotad @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
+       Moves: Bubble [T1]  /  Mega Drain [T1]  /  Disarming Voice [T1]  /  Magical Leaf [T2]
+  [2A] Rain caster
+       Lotad @ Mystic Water   |   Ability: Swift Swim   |   Nature: Mild
+       Moves: Bubble Beam [T2]  /  Magical Leaf [T2]  /  Icy Wind [T2]  /  Muddy Water [T3]
+  [2B] Seeding weed
+       Lotad @ Sitrus Berry   |   Ability: Rain Dish   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Water Pulse [T2]  /  Protect [Sit]  /  Magical Leaf [T2]
+  [3A] Rain setter
+       Lotad @ Damp Rock   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Grass Knot [T3]  /  Giga Drain [T4]
+  [3B] Rain Dish staller
+       Lotad @ Leftovers   |   Ability: Rain Dish   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Rain Dance [Sit]  /  Protect [Sit]  /  Muddy Water [T3]
+  [4A] Rain sweeper
+       Lotad @ Life Orb   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Rain Dance [Sit]  /  Scald [T4]  /  Giga Drain [T4]  /  Ice Beam [T4]
+  [4B] Bulky weed
+       Lotad @ Rocky Helmet   |   Ability: Rain Dish   |   Nature: Calm
+       Moves: Leech Seed [Sit]  /  Scald [T4]  /  Protect [Sit]  /  Synthesis [Sit]
+
+====================================================================================================
+#406 BUDEW  —  Grass/Poison  —  BST 280  —  Category 1
+Stats 40/30/35/50/70/55  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Support (sleep, Stun Spore)
+----------------------------------------------------------------------------------------------------
+  [1A] Bud
+       Budew @ (no item)   |   Ability: Natural Cure   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Mega Drain [T1]  /  Mud-Slap [T1]  /  Flash [T1]
+  [1B] Sleepy bud
+       Budew @ Oran Berry   |   Ability: Poison Point   |   Nature: Docile
+       Moves: Absorb [T1]  /  Mud-Slap [T1]  /  Confide [T1]  /  Grass Whistle [T2]
+  [2A] Bud caster
+       Budew @ Miracle Seed   |   Ability: Natural Cure   |   Nature: Mild
+       Moves: Swift [T2]  /  Round [T2]  /  Cotton Spore [T2]  /  Grass Knot [T3]
+  [2B] Paralysis bud
+       Budew @ Sitrus Berry   |   Ability: Leaf Guard   |   Nature: Calm
+       Moves: Stun Spore [Sit]  /  Synthesis [Sit]  /  Cotton Spore [T2]  /  Swift [T2]
+  [3A] Growth bud
+       Budew @ Wise Glasses   |   Ability: Natural Cure   |   Nature: Modest
+       Moves: Growth [T3]  /  Grass Knot [T3]  /  Extrasensory [T3]  /  Sludge Bomb [T4]
+  [3B] Venoshock bud
+       Budew @ Black Sludge   |   Ability: Poison Point   |   Nature: Calm
+       Moves: Sleep Powder [T3]  /  Toxic [Sit]  /  Venoshock [T3]  /  Synthesis [Sit]
+  [4A] Special attacker
+       Budew @ Life Orb   |   Ability: Natural Cure   |   Nature: Timid
+       Moves: Leaf Storm [T4]  /  Sludge Bomb [T4]  /  Shadow Ball [T4]  /  Energy Ball [T4]
+  [4B] Sleep support
+       Budew @ Rocky Helmet   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Sleep Powder [T3]  /  Giga Drain [T4]  /  Synthesis [Sit]  /  Toxic [Sit]
+
+====================================================================================================
+#285 SHROOMISH  —  Grass  —  BST 295  —  Category 2
+Stats 60/40/60/40/60/35  |  Profile: Pure Defensive
+Variants: A = Pure Stall (Poison Heal) / B = Defensive with utility (Spore, Quick Feet)
+----------------------------------------------------------------------------------------------------
+  [1A] Mushroom
+       Shroomish @ Oran Berry   |   Ability: Effect Spore   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Tackle [T1]  /  Poison Powder [T1]  /  Headbutt [T2]
+  [1B] Quick mushroom
+       Shroomish @ (no item)   |   Ability: Quick Feet   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  False Swipe [T1]  /  Flash [T1]  /  Pounce [T2]
+  [2A] Spore mushroom
+       Shroomish @ Sitrus Berry   |   Ability: Effect Spore   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Stun Spore [Sit]  /  Magical Leaf [T2]  /  Protect [Sit]
+  [2B] Slapping mushroom
+       Shroomish @ Lum Berry   |   Ability: Quick Feet   |   Nature: Impish
+       Moves: Headbutt [T2]  /  Wake-Up Slap [T2]  /  Stun Spore [Sit]  /  Pounce [T2]
+  [3A] Poison Heal staller
+       Shroomish @ Toxic Orb   |   Ability: Poison Heal   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Protect [Sit]  /  Substitute [Sit]  /  Seed Bomb [T3]
+  [3B] Spore mushroom
+       Shroomish @ Rocky Helmet   |   Ability: Effect Spore   |   Nature: Careful
+       Moves: Spore [T4]  /  Leech Seed [Sit]  /  Seed Bomb [T3]  /  Synthesis [Sit]
+  [4A] Poison Heal wall
+       Shroomish @ Toxic Orb   |   Ability: Poison Heal   |   Nature: Impish
+       Moves: Spore [T4]  /  Leech Seed [Sit]  /  Substitute [Sit]  /  Drain Punch [T4]
+  [4B] Quick Feet mushroom
+       Shroomish @ Flame Orb   |   Ability: Quick Feet   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Facade [T4]  /  Seed Bomb [T3]  /  Drain Punch [T4]
+
+====================================================================================================
+#069 BELLSPROUT  —  Grass/Poison  —  BST 300  —  Category 2
+Stats 50/75/35/70/30/40  |  Profile: Offensive (physical)
+Variants: A = Setup (sun, Swords Dance) / B = Special and Choice
+----------------------------------------------------------------------------------------------------
+  [1A] Flower sprout
+       Bellsprout @ (no item)   |   Ability: Chlorophyll   |   Nature: Hardy
+       Moves: Vine Whip [T1]  /  Wrap [T1]  /  Poison Powder [T1]  /  Razor Leaf [T2]
+  [1B] Hungry sprout
+       Bellsprout @ Oran Berry   |   Ability: Gluttony   |   Nature: Docile
+       Moves: Acid [T1]  /  Mega Drain [T1]  /  Sweet Scent [T1]  /  Slam [T2]
+  [2A] Leafy sprout
+       Bellsprout @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Lonely
+       Moves: Razor Leaf [T2]  /  Pounce [T2]  /  Thief [T2]  /  Seed Bomb [T3]
+  [2B] Venom sprout
+       Bellsprout @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Stun Spore [Sit]  /  Venoshock [T3]
+  [3A] Sun sprout
+       Bellsprout @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Adamant
+       Moves: Sunny Day [Sit]  /  Swords Dance [T4]  /  Seed Bomb [T3]  /  Lunge [T3]
+  [3B] Growth sprout
+       Bellsprout @ Wise Glasses   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Growth [T3]  /  Grass Knot [T3]  /  Venoshock [T3]  /  Sleep Powder [T3]
+  [4A] Swords Dance sweeper
+       Bellsprout @ Life Orb   |   Ability: Chlorophyll   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Power Whip [T4]  /  Sucker Punch [T4]  /  Poison Jab [T4]
+  [4B] Choice Band sprout
+       Bellsprout @ Choice Band   |   Ability: Gluttony   |   Nature: Adamant
+       Moves: Power Whip [T4]  /  Knock Off [T4]  /  Poison Jab [T4]  /  Sucker Punch [T4]
+
+====================================================================================================
+#209 SNUBBULL  —  Fairy  —  BST 300  —  Category 2
+Stats 60/80/50/40/40/30  |  Profile: Offensive (physical)
+Variants: A = Attacker (Intimidate) / B = Support (Heal Bell, paralysis)
+----------------------------------------------------------------------------------------------------
+  [1A] Fairy pup
+       Snubbull @ (no item)   |   Ability: Intimidate   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Lick [T1]  /  Tail Whip [T1]  /  Bite [T2]
+  [1B] Timid pup
+       Snubbull @ Oran Berry   |   Ability: Rattled   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Growl [T1]  /  Leer [T1]  /  Headbutt [T2]
+  [2A] Fang pup
+       Snubbull @ Muscle Band   |   Ability: Intimidate   |   Nature: Lonely
+       Moves: Bite [T2]  /  Fire Fang [T2]  /  Ice Fang [T2]  /  Thunder Fang [T2]
+  [2B] Cleric pup
+       Snubbull @ Sitrus Berry   |   Ability: Run Away   |   Nature: Impish
+       Moves: Charm [T2]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]  /  Headbutt [T2]
+  [3A] Elemental pup
+       Snubbull @ Expert Belt   |   Ability: Intimidate   |   Nature: Adamant
+       Moves: Play Rough [T4]  /  Crunch [T3]  /  Fire Punch [T3]  /  Thunder Punch [T3]
+  [3B] Bulky cleric
+       Snubbull @ Leftovers   |   Ability: Intimidate   |   Nature: Careful
+       Moves: Heal Bell [Sit]  /  Thunder Wave [Sit]  /  Roar [Sit]  /  Crunch [T3]
+  [4A] Bulk Up pup
+       Snubbull @ Life Orb   |   Ability: Intimidate   |   Nature: Adamant
+       Moves: Bulk Up [T4]  /  Play Rough [T4]  /  Close Combat [T4]  /  Earthquake [T4]
+  [4B] Choice Band pup
+       Snubbull @ Choice Band   |   Ability: Intimidate   |   Nature: Adamant
+       Moves: Play Rough [T4]  /  Close Combat [T4]  /  Earthquake [T4]  /  Psychic Fangs [T4]
+
+====================================================================================================
+#252 TREECKO  —  Grass  —  BST 310  —  Category 2
+Stats 40/45/35/65/55/70  |  Profile: Mixed attacker
+Variants: A = Physical (Unburden) / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Wood gecko
+       Treecko @ (no item)   |   Ability: Overgrow   |   Nature: Hardy
+       Moves: Pound [T1]  /  Leafage [T1]  /  Leer [T1]  /  Absorb [T1]
+  [1B] Quick gecko
+       Treecko @ Oran Berry   |   Ability: Unburden   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Mega Drain [T1]  /  Double Kick [T1]  /  Magical Leaf [T2]
+  [2A] Unburden gecko
+       Treecko @ Sitrus Berry   |   Ability: Unburden   |   Nature: Lonely
+       Moves: Grassy Glide [T2]  /  Aerial Ace [T2]  /  Breaking Swipe [T2]  /  Seed Bomb [T3]
+  [2B] Leafy caster
+       Treecko @ Miracle Seed   |   Ability: Overgrow   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Grass Knot [T3]
+  [3A] Unburden striker
+       Treecko @ Focus Sash   |   Ability: Unburden   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Acrobatics [T3]  /  Low Kick [T3]
+  [3B] Seeding gecko
+       Treecko @ Wise Glasses   |   Ability: Overgrow   |   Nature: Modest
+       Moves: Giga Drain [T4]  /  Grass Pledge [T3]  /  Leech Seed [Sit]  /  Substitute [Sit]
+  [4A] Unburden sweeper
+       Treecko @ Sitrus Berry   |   Ability: Unburden   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Acrobatics [T3]  /  Seed Bomb [T3]  /  Drain Punch [T4]
+  [4B] Special attacker
+       Treecko @ Life Orb   |   Ability: Overgrow   |   Nature: Timid
+       Moves: Leaf Storm [T4]  /  Giga Drain [T4]  /  Dragon Breath [T2]  /  Synthesis [Sit]
+
+====================================================================================================
+#152 CHIKORITA  —  Grass  —  BST 318  —  Category 2
+Stats 45/49/65/49/65/45  |  Profile: Balanced / Bulky
+Variants: A = Defensive (screens, Leech Seed) / B = Offensive (Swords Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Leaf pokemon
+       Chikorita @ Oran Berry   |   Ability: Overgrow   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Growl [T1]  /  Vine Whip [T1]  /  Poison Powder [T1]
+  [1B] Guarded leaf
+       Chikorita @ (no item)   |   Ability: Leaf Guard   |   Nature: Docile
+       Moves: Mud-Slap [T1]  /  Sweet Scent [T1]  /  Tackle [T1]  /  Razor Leaf [T2]
+  [2A] Screen leaf
+       Chikorita @ Sitrus Berry   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Magical Leaf [T2]  /  Synthesis [Sit]
+  [2B] Seed leaf
+       Chikorita @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
+       Moves: Razor Leaf [T2]  /  Headbutt [T2]  /  Work Up [T2]  /  Seed Bomb [T3]
+  [3A] Screen setter
+       Chikorita @ Light Clay   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Leech Seed [Sit]  /  Grass Knot [T3]
+  [3B] Swords Dance leaf
+       Chikorita @ Muscle Band   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Iron Tail [T3]  /  Synthesis [Sit]
+  [4A] Leech Seed wall
+       Chikorita @ Leftovers   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Giga Drain [T4]  /  Toxic [Sit]
+  [4B] Swords Dance sweeper
+       Chikorita @ Life Orb   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Body Slam [T4]  /  Synthesis [Sit]
+
+====================================================================================================
+#387 TURTWIG  —  Grass  —  BST 318  —  Category 2
+Stats 55/68/64/45/55/31  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Leech Seed, Stockpile) / B = Offensive (Shell Smash)
+----------------------------------------------------------------------------------------------------
+  [1A] Tiny leaf turtle
+       Turtwig @ Oran Berry   |   Ability: Overgrow   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Withdraw [T1]  /  Absorb [T1]  /  Razor Leaf [T2]
+  [1B] Shelled turtle
+       Turtwig @ (no item)   |   Ability: Shell Armor   |   Nature: Docile
+       Moves: Sand Tomb [T1]  /  Mega Drain [T1]  /  Rock Smash [T1]  /  Bite [T2]
+  [2A] Stockpile turtle
+       Turtwig @ Sitrus Berry   |   Ability: Shell Armor   |   Nature: Impish
+       Moves: Leech Seed [Sit]  /  Stockpile [Sit]  /  Razor Leaf [T2]  /  Protect [Sit]
+  [2B] Biting turtle
+       Turtwig @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
+       Moves: Razor Leaf [T2]  /  Bite [T2]  /  Bulldoze [T2]  /  Seed Bomb [T3]
+  [3A] Leech Seed turtle
+       Turtwig @ Leftovers   |   Ability: Shell Armor   |   Nature: Impish
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Seed Bomb [T3]  /  Toxic [Sit]
+  [3B] Shell Smash turtle
+       Turtwig @ White Herb   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Shell Smash [T4]  /  Seed Bomb [T3]  /  Crunch [T3]  /  Superpower [T3]
+  [4A] Bulky turtle
+       Turtwig @ Rocky Helmet   |   Ability: Shell Armor   |   Nature: Impish
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Iron Head [T4]  /  Toxic [Sit]
+  [4B] Sash smasher
+       Turtwig @ Focus Sash   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Shell Smash [T4]  /  Seed Bomb [T3]  /  Iron Head [T4]  /  Superpower [T3]
+
+====================================================================================================
+#043 ODDISH  —  Grass/Poison  —  BST 320  —  Category 2
+Stats 45/50/55/75/65/30  |  Profile: Offensive (special)
+Variants: A = Sun attacker (Chlorophyll) / B = Support (Strength Sap, Leech Seed)
+----------------------------------------------------------------------------------------------------
+  [1A] Weed
+       Oddish @ (no item)   |   Ability: Chlorophyll   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Acid [T1]  /  Poison Powder [T1]  /  Sweet Scent [T1]
+  [1B] Walking weed
+       Oddish @ Oran Berry   |   Ability: Run Away   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Infestation [T1]  /  Flash [T1]  /  Magical Leaf [T2]
+  [2A] Venom caster
+       Oddish @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Round [T2]  /  Venoshock [T3]
+  [2B] Seeding weed
+       Oddish @ Sitrus Berry   |   Ability: Run Away   |   Nature: Bold
+       Moves: Stun Spore [Sit]  /  Leech Seed [Sit]  /  Magical Leaf [T2]  /  Moonlight [Sit]
+  [3A] Sun weed
+       Oddish @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Sludge Bomb [T4]  /  Sleep Powder [T3]
+  [3B] Strength Sap weed
+       Oddish @ Black Sludge   |   Ability: Run Away   |   Nature: Bold
+       Moves: Strength Sap [Sit]  /  Leech Seed [Sit]  /  Venoshock [T3]  /  Toxic [Sit]
+  [4A] Growth sweeper
+       Oddish @ Life Orb   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Growth [T3]  /  Giga Drain [T4]  /  Sludge Bomb [T4]  /  Moonblast [T4]
+  [4B] Bulky weed
+       Oddish @ Rocky Helmet   |   Ability: Run Away   |   Nature: Calm
+       Moves: Strength Sap [Sit]  /  Sleep Powder [T3]  /  Giga Drain [T4]  /  Sludge Bomb [T4]
+
+====================================================================================================
+#102 EXEGGCUTE  —  Grass/Psychic  —  BST 325  —  Category 2
+Stats 60/40/80/60/45/40  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Harvest Sitrus, Leech Seed) / B = Offensive (sun, Trick Room)
+----------------------------------------------------------------------------------------------------
+  [1A] Egg cluster
+       Exeggcute @ Oran Berry   |   Ability: Harvest   |   Nature: Hardy
+       Moves: Barrage [T1]  /  Confusion [T1]  /  Absorb [T1]  /  Poison Powder [T1]
+  [1B] Sunny eggs
+       Exeggcute @ (no item)   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Sweet Scent [T1]  /  Infestation [T1]  /  Psybeam [T2]
+  [2A] Harvest eggs
+       Exeggcute @ Sitrus Berry   |   Ability: Harvest   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Psybeam [T2]  /  Hypnosis [T2]  /  Protect [Sit]
+  [2B] Trick Room eggs
+       Exeggcute @ Twisted Spoon   |   Ability: Chlorophyll   |   Nature: Quiet
+       Moves: Trick Room [Sit]  /  Psybeam [T2]  /  Ancient Power [T2]  /  Extrasensory [T3]
+  [3A] Harvest staller
+       Exeggcute @ Sitrus Berry   |   Ability: Harvest   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Moonlight [Sit]  /  Psychic Noise [T3]  /  Protect [Sit]
+  [3B] Sun eggs
+       Exeggcute @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Extrasensory [T3]  /  Sleep Powder [T3]
+  [4A] Harvest wall
+       Exeggcute @ Sitrus Berry   |   Ability: Harvest   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Giga Drain [T4]  /  Psychic [T4]  /  Synthesis [Sit]
+  [4B] Trick Room bomber
+       Exeggcute @ Life Orb   |   Ability: Harvest   |   Nature: Quiet
+       Moves: Trick Room [Sit]  /  Psychic [T4]  /  Giga Drain [T4]  /  Explosion [T4]
+
+====================================================================================================
+#271 LOMBRE  —  Water/Grass  —  BST 340  —  Category 3
+Stats 60/50/50/60/70/50  |  Profile: Mixed attacker
+Variants: A = Special (Swift Swim) / B = Physical (Fake Out)
+----------------------------------------------------------------------------------------------------
+  [1A] Jolly weed
+       Lombre @ (no item)   |   Ability: Swift Swim   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Water Gun [T1]  /  Astonish [T1]  /  Fury Swipes [T1]
+  [1B] Carefree weed
+       Lombre @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
+       Moves: Bubble [T1]  /  Growl [T1]  /  Mega Drain [T1]  /  Razor Leaf [T2]
+  [2A] Rain caster
+       Lombre @ Mystic Water   |   Ability: Swift Swim   |   Nature: Mild
+       Moves: Water Pulse [T2]  /  Magical Leaf [T2]  /  Mud Shot [T2]  /  Grass Knot [T3]
+  [2B] Punching weed
+       Lombre @ Miracle Seed   |   Ability: Own Tempo   |   Nature: Lonely
+       Moves: Power-Up Punch [T2]  /  Razor Leaf [T2]  /  Headbutt [T2]  /  Ice Punch [T3]
+  [3A] Rain setter
+       Lombre @ Damp Rock   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Grass Knot [T3]  /  Ice Beam [T4]
+  [3B] Fake Out weed
+       Lombre @ Expert Belt   |   Ability: Rain Dish   |   Nature: Adamant
+       Moves: Fake Out [Sit]  /  Seed Bomb [T3]  /  Ice Punch [T3]  /  Drain Punch [T4]
+  [4A] Choice Specs weed
+       Lombre @ Choice Specs   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Hydro Pump [T4]  /  Giga Drain [T4]  /  Ice Beam [T4]  /  Hyper Voice [T4]
+  [4B] Bulky weed
+       Lombre @ Rocky Helmet   |   Ability: Rain Dish   |   Nature: Calm
+       Moves: Leech Seed [Sit]  /  Scald [T4]  /  Synthesis [Sit]  /  Knock Off [T4]
+
+====================================================================================================
+#190 AIPOM  —  Normal  —  BST 360  —  Category 3
+Stats 55/70/55/40/55/85  |  Profile: Offensive (physical, fast)
+Variants: A = Skill Link attacker / B = Utility (Fake Out, U-turn)
+----------------------------------------------------------------------------------------------------
+  [1A] Long tail
+       Aipom @ (no item)   |   Ability: Skill Link   |   Nature: Hardy
+       Moves: Double Slap [T1]  /  Fury Swipes [T1]  /  Tail Whip [T1]  /  Double Hit [T2]
+  [1B] Picking tail
+       Aipom @ Oran Berry   |   Ability: Pickup   |   Nature: Docile
+       Moves: Scratch [T1]  /  Astonish [T1]  /  Sand Attack [T1]  /  Covet [T2]
+  [2A] Skill Link tail
+       Aipom @ Silk Scarf   |   Ability: Skill Link   |   Nature: Lonely
+       Moves: Double Hit [T2]  /  Low Sweep [T2]  /  Hone Claws [T2]  /  Tail Slap [T3]
+  [2B] Pivot tail
+       Aipom @ Sitrus Berry   |   Ability: Pickup   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  U-turn [T2]  /  Thief [T2]  /  Screech [T2]
+  [3A] Tail Slap striker
+       Aipom @ Expert Belt   |   Ability: Skill Link   |   Nature: Jolly
+       Moves: Tail Slap [T3]  /  Fake Out [Sit]  /  Low Kick [T3]  /  Knock Off [T4]
+  [3B] Fake Out lead
+       Aipom @ Focus Sash   |   Ability: Pickup   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Taunt [Sit]  /  U-turn [T2]  /  Seed Bomb [T3]
+  [4A] Skill Link attacker
+       Aipom @ Life Orb   |   Ability: Skill Link   |   Nature: Jolly
+       Moves: Tail Slap [T3]  /  Fake Out [Sit]  /  Knock Off [T4]  /  Low Kick [T3]
+  [4B] Choice Band tail
+       Aipom @ Choice Band   |   Ability: Pickup   |   Nature: Jolly
+       Moves: Double-Edge [T4]  /  Knock Off [T4]  /  U-turn [T2]  /  Gunk Shot [T4]
+
+====================================================================================================
+#269 DUSTOX  —  Bug/Poison  —  BST 385  —  Category 3
+Stats 60/50/70/50/90/65  |  Profile: Pure Defensive
+Variants: A = Pure Stall (Roost, Toxic) / B = Utility and Quiver Dance
+----------------------------------------------------------------------------------------------------
+  [1A] Poison moth
+       Dustox @ Oran Berry   |   Ability: Shield Dust   |   Nature: Hardy
+       Moves: Confusion [T1]  /  Gust [T1]  /  Poison Powder [T1]  /  Silver Wind [T2]
+  [1B] Staring moth
+       Dustox @ (no item)   |   Ability: Compound Eyes   |   Nature: Docile
+       Moves: Poison Sting [T1]  /  Tackle [T1]  /  Harden [T1]  /  Psybeam [T2]
+  [2A] Toxic moth
+       Dustox @ Sitrus Berry   |   Ability: Shield Dust   |   Nature: Calm
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Struggle Bug [T2]  /  Protect [Sit]
+  [2B] Venom caster
+       Dustox @ Poison Barb   |   Ability: Compound Eyes   |   Nature: Mild
+       Moves: Psybeam [T2]  /  Silver Wind [T2]  /  Air Cutter [T2]  /  Venoshock [T3]
+  [3A] Moth staller
+       Dustox @ Black Sludge   |   Ability: Shield Dust   |   Nature: Calm
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Venoshock [T3]  /  Defog [Sit]
+  [3B] Screen moth
+       Dustox @ Light Clay   |   Ability: Shield Dust   |   Nature: Bold
+       Moves: Light Screen [Sit]  /  Moonlight [Sit]  /  Signal Beam [T3]  /  Roost [Sit]
+  [4A] Bulky moth
+       Dustox @ Rocky Helmet   |   Ability: Shield Dust   |   Nature: Calm
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Sludge Bomb [T4]  /  U-turn [T2]
+  [4B] Quiver Dance moth
+       Dustox @ Leftovers   |   Ability: Compound Eyes   |   Nature: Modest
+       Moves: Quiver Dance [T4]  /  Bug Buzz [T4]  /  Sludge Bomb [T4]  /  Roost [Sit]
+
+====================================================================================================
+#070 WEEPINBELL  —  Grass/Poison  —  BST 390  —  Category 3
+Stats 65/90/50/85/45/55  |  Profile: Offensive (physical)
+Variants: A = Setup (sun, Swords Dance) / B = Support and attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Flycatcher
+       Weepinbell @ (no item)   |   Ability: Gluttony   |   Nature: Hardy
+       Moves: Vine Whip [T1]  /  Bind [T1]  /  Acid [T1]  /  Razor Leaf [T2]
+  [1B] Sunny flycatcher
+       Weepinbell @ Oran Berry   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Wrap [T1]  /  Sweet Scent [T1]  /  Mega Drain [T1]  /  Bug Bite [T2]
+  [2A] Lunging flycatcher
+       Weepinbell @ Poison Barb   |   Ability: Gluttony   |   Nature: Lonely
+       Moves: Razor Leaf [T2]  /  Pounce [T2]  /  Slam [T2]  /  Lunge [T3]
+  [2B] Sleep caster
+       Weepinbell @ Sitrus Berry   |   Ability: Chlorophyll   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Swift [T2]  /  Sleep Powder [T3]
+  [3A] Swords Dance flycatcher
+       Weepinbell @ Muscle Band   |   Ability: Chlorophyll   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Lunge [T3]  /  Sleep Powder [T3]
+  [3B] Venoshock flycatcher
+       Weepinbell @ Black Sludge   |   Ability: Gluttony   |   Nature: Modest
+       Moves: Strength Sap [Sit]  /  Venoshock [T3]  /  Toxic [Sit]  /  Grass Knot [T3]
+  [4A] Sun sweeper
+       Weepinbell @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Adamant
+       Moves: Sunny Day [Sit]  /  Swords Dance [T4]  /  Power Whip [T4]  /  Sucker Punch [T4]
+  [4B] Swords Dance sweeper
+       Weepinbell @ Life Orb   |   Ability: Gluttony   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Power Whip [T4]  /  Poison Jab [T4]  /  Knock Off [T4]
+
+====================================================================================================
+#015 BEEDRILL  —  Bug/Poison  —  BST 395  —  Category 3
+Stats 65/90/40/45/80/75  |  Profile: Offensive (physical, fast)
+Variants: A = Setup (Swords Dance) / B = Sniper attacker and Choice
+----------------------------------------------------------------------------------------------------
+  [1A] Poison bee
+       Beedrill @ (no item)   |   Ability: Swarm   |   Nature: Hardy
+       Moves: Twineedle [T1]  /  Fury Attack [T1]  /  Poison Sting [T1]  /  Bug Bite [T2]
+  [1B] Sniping bee
+       Beedrill @ Oran Berry   |   Ability: Sniper   |   Nature: Docile
+       Moves: Peck [T1]  /  Focus Energy [T1]  /  Harden [T1]  /  Fell Stinger [T2]
+  [2A] Slashing bee
+       Beedrill @ Poison Barb   |   Ability: Swarm   |   Nature: Lonely
+       Moves: Bug Bite [T2]  /  Fell Stinger [T2]  /  Brutal Swing [T2]  /  X-Scissor [T3]
+  [2B] Pivot bee
+       Beedrill @ Sitrus Berry   |   Ability: Sniper   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Agility [Sit]  /  Bug Bite [T2]  /  Thief [T2]
+  [3A] Swords Dance bee
+       Beedrill @ Muscle Band   |   Ability: Swarm   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Drill Run [T3]  /  Throat Chop [T3]
+  [3B] Critical bee
+       Beedrill @ Scope Lens   |   Ability: Sniper   |   Nature: Jolly
+       Moves: Focus Energy [T1]  /  X-Scissor [T3]  /  Pin Missile [T3]  /  Poison Jab [T4]
+  [4A] Swords Dance sweeper
+       Beedrill @ Life Orb   |   Ability: Swarm   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Poison Jab [T4]  /  X-Scissor [T3]  /  Knock Off [T4]
+  [4B] Choice Band bee
+       Beedrill @ Choice Band   |   Ability: Sniper   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Poison Jab [T4]  /  Knock Off [T4]  /  Drill Run [T3]
+
+====================================================================================================
+#044 GLOOM  —  Grass/Poison  —  BST 395  —  Category 3
+Stats 60/65/70/85/75/40  |  Profile: Offensive (special)
+Variants: A = Attacker (Chlorophyll, Growth) / B = Support (Strength Sap, Leech Seed)
+----------------------------------------------------------------------------------------------------
+  [1A] Smelly weed
+       Gloom @ (no item)   |   Ability: Stench   |   Nature: Hardy
+       Moves: Acid [T1]  /  Absorb [T1]  /  Poison Powder [T1]  /  Flash [T1]
+  [1B] Drooling weed
+       Gloom @ Oran Berry   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Sweet Scent [T1]  /  Infestation [T1]  /  Acid Spray [T2]
+  [2A] Pollen caster
+       Gloom @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Charm [T2]  /  Pollen Puff [T3]
+  [2B] Seeding weed
+       Gloom @ Sitrus Berry   |   Ability: Stench   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Moonlight [Sit]  /  Tickle [T2]  /  Razor Leaf [T2]
+  [3A] Growth weed
+       Gloom @ Wise Glasses   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Growth [T3]  /  Grass Knot [T3]  /  Dazzling Gleam [T3]  /  Sludge Bomb [T4]
+  [3B] Strength Sap weed
+       Gloom @ Black Sludge   |   Ability: Stench   |   Nature: Bold
+       Moves: Strength Sap [Sit]  /  Sleep Powder [T3]  /  Pollen Puff [T3]  /  Toxic [Sit]
+  [4A] Sun sweeper
+       Gloom @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Sludge Bomb [T4]  /  Moonblast [T4]
+  [4B] Bulky weed
+       Gloom @ Leftovers   |   Ability: Stench   |   Nature: Calm
+       Moves: Strength Sap [Sit]  /  Leech Seed [Sit]  /  Giga Drain [T4]  /  Moonblast [T4]
+
+====================================================================================================
+#267 BEAUTIFLY  —  Bug/Flying  —  BST 395  —  Category 3
+Stats 60/70/50/100/50/65  |  Profile: Offensive (special)
+Variants: A = Setup (Quiver Dance) / B = Support (Stun Spore, Tailwind)
+----------------------------------------------------------------------------------------------------
+  [1A] Butterfly
+       Beautifly @ (no item)   |   Ability: Swarm   |   Nature: Hardy
+       Moves: Gust [T1]  /  Absorb [T1]  /  Tackle [T1]  /  Silver Wind [T2]
+  [1B] Rival butterfly
+       Beautifly @ Oran Berry   |   Ability: Rivalry   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Twister [T1]  /  String Shot [T1]  /  Air Cutter [T2]
+  [2A] Swarm caster
+       Beautifly @ Silver Powder   |   Ability: Swarm   |   Nature: Mild
+       Moves: Silver Wind [T2]  /  Air Cutter [T2]  /  Struggle Bug [T2]  /  Signal Beam [T3]
+  [2B] Paralysis butterfly
+       Beautifly @ Sitrus Berry   |   Ability: Rivalry   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Stun Spore [Sit]  /  Morning Sun [Sit]  /  Air Cutter [T2]
+  [3A] Quiver Dance butterfly
+       Beautifly @ Wise Glasses   |   Ability: Swarm   |   Nature: Modest
+       Moves: Quiver Dance [T4]  /  Signal Beam [T3]  /  Air Cutter [T2]  /  Morning Sun [Sit]
+  [3B] Tailwind lead
+       Beautifly @ Focus Sash   |   Ability: Rivalry   |   Nature: Timid
+       Moves: Stun Spore [Sit]  /  Tailwind [Sit]  /  Signal Beam [T3]  /  U-turn [T2]
+  [4A] Quiver Dance sweeper
+       Beautifly @ Life Orb   |   Ability: Swarm   |   Nature: Modest
+       Moves: Quiver Dance [T4]  /  Bug Buzz [T4]  /  Giga Drain [T4]  /  Psychic [T4]
+  [4B] Support butterfly
+       Beautifly @ Leftovers   |   Ability: Rivalry   |   Nature: Timid
+       Moves: Morning Sun [Sit]  /  Defog [Sit]  /  Bug Buzz [T4]  /  Stun Spore [Sit]
+
+====================================================================================================
+#315 ROSELIA  —  Grass/Poison  —  BST 400  —  Category 4
+Stats 50/60/45/100/80/65  |  Profile: Offensive (special)
+Variants: A = Special attacker (Natural Cure) / B = Support (Aromatherapy, powders)
+----------------------------------------------------------------------------------------------------
+  [1A] Thorn rose
+       Roselia @ (no item)   |   Ability: Natural Cure   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Poison Sting [T1]  /  Sweet Kiss [T1]  /  Magical Leaf [T2]
+  [1B] Poison rose
+       Roselia @ Oran Berry   |   Ability: Poison Point   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Mud-Slap [T1]  /  Sweet Scent [T1]  /  Razor Leaf [T2]
+  [2A] Venom caster
+       Roselia @ Miracle Seed   |   Ability: Natural Cure   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Swift [T2]  /  Round [T2]  /  Venoshock [T3]
+  [2B] Powder rose
+       Roselia @ Sitrus Berry   |   Ability: Poison Point   |   Nature: Calm
+       Moves: Stun Spore [Sit]  /  Cotton Spore [T2]  /  Grass Whistle [T2]  /  Magical Leaf [T2]
+  [3A] Growth rose
+       Roselia @ Wise Glasses   |   Ability: Natural Cure   |   Nature: Modest
+       Moves: Growth [T3]  /  Petal Dance [T3]  /  Extrasensory [T3]  /  Sludge Bomb [T4]
+  [3B] Cleric rose
+       Roselia @ Black Sludge   |   Ability: Natural Cure   |   Nature: Calm
+       Moves: Aromatherapy [Sit]  /  Sleep Powder [T3]  /  Giga Drain [T4]  /  Synthesis [Sit]
+  [4A] Choice Specs rose
+       Roselia @ Choice Specs   |   Ability: Natural Cure   |   Nature: Timid
+       Moves: Leaf Storm [T4]  /  Sludge Bomb [T4]  /  Shadow Ball [T4]  /  Weather Ball [T4]
+  [4B] Bulky rose
+       Roselia @ Rocky Helmet   |   Ability: Poison Point   |   Nature: Bold
+       Moves: Toxic [Sit]  /  Synthesis [Sit]  /  Sludge Bomb [T4]  /  Leech Seed [Sit]
+
+====================================================================================================
+#153 BAYLEEF  —  Grass  —  BST 405  —  Category 4
+Stats 60/62/80/63/80/60  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Leech Seed, Aromatherapy) / B = Offensive (Swords Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Spicy leaf
+       Bayleef @ (no item)   |   Ability: Leaf Guard   |   Nature: Hardy
+       Moves: Vine Whip [T1]  /  Tackle [T1]  /  Sweet Scent [T1]  /  Magical Leaf [T2]
+  [1B] Leaf pokemon
+       Bayleef @ Oran Berry   |   Ability: Overgrow   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Growl [T1]  /  Mud-Slap [T1]  /  Razor Leaf [T2]
+  [2A] Cleric leaf
+       Bayleef @ Sitrus Berry   |   Ability: Leaf Guard   |   Nature: Calm
+       Moves: Aromatherapy [Sit]  /  Leech Seed [Sit]  /  Magical Leaf [T2]  /  Protect [Sit]
+  [2B] Stomping leaf
+       Bayleef @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
+       Moves: Grassy Glide [T2]  /  Headbutt [T2]  /  Work Up [T2]  /  Stomping Tantrum [T3]
+  [3A] Leech Seed cleric
+       Bayleef @ Leftovers   |   Ability: Leaf Guard   |   Nature: Calm
+       Moves: Leech Seed [Sit]  /  Aromatherapy [Sit]  /  Seed Bomb [T3]  /  Synthesis [Sit]
+  [3B] Swords Dance leaf
+       Bayleef @ Expert Belt   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Stomping Tantrum [T3]  /  Iron Tail [T3]
+  [4A] Bulky leaf
+       Bayleef @ Rocky Helmet   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Knock Off [T4]  /  Giga Drain [T4]
+  [4B] Choice Band leaf
+       Bayleef @ Choice Band   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Knock Off [T4]  /  Seed Bomb [T3]  /  Stomping Tantrum [T3]
+
+====================================================================================================
+#253 GROVYLE  —  Grass  —  BST 405  —  Category 4
+Stats 50/65/45/85/65/95  |  Profile: Mixed attacker
+Variants: A = Physical (Unburden) / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Wood gecko
+       Grovyle @ (no item)   |   Ability: Unburden   |   Nature: Hardy
+       Moves: Leafage [T1]  /  Quick Attack [T1]  /  Pound [T1]  /  Leer [T1]
+  [1B] Forest gecko
+       Grovyle @ Oran Berry   |   Ability: Overgrow   |   Nature: Docile
+       Moves: Absorb [T1]  /  Mega Drain [T1]  /  Double Kick [T1]  /  False Swipe [T1]
+  [2A] Slashing gecko
+       Grovyle @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
+       Moves: Grassy Glide [T2]  /  Low Sweep [T2]  /  Aerial Ace [T2]  /  X-Scissor [T3]
+  [2B] Leafy caster
+       Grovyle @ Sitrus Berry   |   Ability: Unburden   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Grass Pledge [T3]
+  [3A] Unburden striker
+       Grovyle @ Sitrus Berry   |   Ability: Unburden   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Acrobatics [T3]  /  X-Scissor [T3]  /  Brick Break [T3]
+  [3B] Leaf Storm gecko
+       Grovyle @ Wise Glasses   |   Ability: Overgrow   |   Nature: Timid
+       Moves: Leaf Storm [T4]  /  Grass Knot [T3]  /  Dragon Breath [T2]  /  Synthesis [Sit]
+  [4A] Swords Dance sweeper
+       Grovyle @ Life Orb   |   Ability: Overgrow   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Leaf Blade [T4]  /  Drain Punch [T4]  /  X-Scissor [T3]
+  [4B] Sash gecko
+       Grovyle @ Focus Sash   |   Ability: Unburden   |   Nature: Timid
+       Moves: Leaf Storm [T4]  /  Vacuum Wave [T4]  /  Energy Ball [T4]  /  Synthesis [Sit]
+
+====================================================================================================
+#388 GROTLE  —  Grass  —  BST 405  —  Category 4
+Stats 75/89/85/55/65/36  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Leech Seed, Curse) / B = Offensive (Shell Smash, Swords Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Grove turtle
+       Grotle @ (no item)   |   Ability: Shell Armor   |   Nature: Hardy
+       Moves: Rock Smash [T1]  /  Mud-Slap [T1]  /  Mega Drain [T1]  /  Bite [T2]
+  [1B] Leafy turtle
+       Grotle @ Oran Berry   |   Ability: Overgrow   |   Nature: Docile
+       Moves: Tackle [T1]  /  Sand Tomb [T1]  /  Confide [T1]  /  Razor Leaf [T2]
+  [2A] Seeding turtle
+       Grotle @ Sitrus Berry   |   Ability: Shell Armor   |   Nature: Impish
+       Moves: Leech Seed [Sit]  /  Bulldoze [T2]  /  Protect [Sit]  /  Razor Leaf [T2]
+  [2B] Crunching turtle
+       Grotle @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
+       Moves: Bulldoze [T2]  /  Bite [T2]  /  Smack Down [T2]  /  Crunch [T3]
+  [3A] Curse turtle
+       Grotle @ Leftovers   |   Ability: Shell Armor   |   Nature: Impish
+       Moves: Curse [Sit]  /  Seed Bomb [T3]  /  Heavy Slam [T3]  /  Synthesis [Sit]
+  [3B] Swords Dance turtle
+       Grotle @ Muscle Band   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Crunch [T3]  /  Rock Climb [T3]
+  [4A] Bulky turtle
+       Grotle @ Rocky Helmet   |   Ability: Shell Armor   |   Nature: Impish
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Body Slam [T4]  /  Toxic [Sit]
+  [4B] Shell Smash turtle
+       Grotle @ White Herb   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Shell Smash [T4]  /  Seed Bomb [T3]  /  Crunch [T3]  /  Iron Head [T4]
+
+====================================================================================================
+#702 DEDENNE  —  Electric/Fairy  —  BST 431  —  Category 4
+Stats 67/58/57/81/67/101  |  Profile: Offensive (special, fast)
+Variants: A = Special attacker / B = Support (Cheek Pouch, Nuzzle, Super Fang)
+----------------------------------------------------------------------------------------------------
+  [1A] Antenna mouse
+       Dedenne @ (no item)   |   Ability: Cheek Pouch   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Tail Whip [T1]  /  Nuzzle [T2]
+  [1B] Cute mouse
+       Dedenne @ Oran Berry   |   Ability: Pickup   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Tearful Look [T1]  /  Flash [T1]  /  Draining Kiss [T2]
+  [2A] Plus caster
+       Dedenne @ Magnet   |   Ability: Plus   |   Nature: Mild
+       Moves: Charge Beam [T2]  /  Draining Kiss [T2]  /  Shock Wave [T2]  /  Dazzling Gleam [T3]
+  [2B] Cheek Pouch mouse
+       Dedenne @ Sitrus Berry   |   Ability: Cheek Pouch   |   Nature: Timid
+       Moves: Nuzzle [T2]  /  Parabolic Charge [T2]  /  Volt Switch [T2]  /  Super Fang [Sit]
+  [3A] Coverage mouse
+       Dedenne @ Wise Glasses   |   Ability: Plus   |   Nature: Timid
+       Moves: Discharge [T3]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Thunderbolt [T4]
+  [3B] Support mouse
+       Dedenne @ Leftovers   |   Ability: Cheek Pouch   |   Nature: Timid
+       Moves: Thunder Wave [Sit]  /  Super Fang [Sit]  /  Dazzling Gleam [T3]  /  Volt Switch [T2]
+  [4A] Choice Specs mouse
+       Dedenne @ Choice Specs   |   Ability: Plus   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Volt Switch [T2]
+  [4B] Agility sweeper
+       Dedenne @ Life Orb   |   Ability: Cheek Pouch   |   Nature: Timid
+       Moves: Agility [Sit]  /  Thunderbolt [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]
+
+====================================================================================================
+#114 TANGELA  —  Grass  —  BST 435  —  Category 4
+Stats 65/55/115/100/40/60  |  Profile: Pure Defensive
+Variants: A = Pure Stall (Regenerator, Leech Seed) / B = Utility (sleep, Knock Off) and sun
+----------------------------------------------------------------------------------------------------
+  [1A] Vine ball
+       Tangela @ Oran Berry   |   Ability: Leaf Guard   |   Nature: Hardy
+       Moves: Vine Whip [T1]  /  Bind [T1]  /  Absorb [T1]  /  Poison Powder [T1]
+  [1B] Tangled ball
+       Tangela @ (no item)   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Constrict [T1]  /  Confusion [T1]  /  Mega Drain [T1]  /  Sweet Scent [T1]
+  [2A] Regenerating vines
+       Tangela @ Sitrus Berry   |   Ability: Regenerator   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Stun Spore [Sit]  /  Ancient Power [T2]  /  Protect [Sit]
+  [2B] Rooted vines
+       Tangela @ Lum Berry   |   Ability: Leaf Guard   |   Nature: Relaxed
+       Moves: Slam [T2]  /  Tickle [T2]  /  Stun Spore [Sit]  /  Ingrain [Sit]
+  [3A] Leech Seed staller
+       Tangela @ Leftovers   |   Ability: Regenerator   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Sleep Powder [T3]  /  Giga Drain [T4]  /  Synthesis [Sit]
+  [3B] Sun vines
+       Tangela @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Growth [T3]  /  Sludge Bomb [T4]
+  [4A] Regenerator wall
+       Tangela @ Rocky Helmet   |   Ability: Regenerator   |   Nature: Bold
+       Moves: Giga Drain [T4]  /  Knock Off [T4]  /  Sleep Powder [T3]  /  Synthesis [Sit]
+  [4B] Pain Split vines
+       Tangela @ Leftovers   |   Ability: Regenerator   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Knock Off [T4]  /  Power Whip [T4]  /  Pain Split [Sit]
+
+====================================================================================================
+#352 KECLEON  —  Normal  —  BST 440  —  Category 4
+Stats 60/90/70/60/120/40  |  Profile: Offensive (physical)
+Variants: A = Protean attacker / B = Bulky utility (Color Change, Recover)
+----------------------------------------------------------------------------------------------------
+  [1A] Color swapper
+       Kecleon @ (no item)   |   Ability: Color Change   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Lick [T1]  /  Tail Whip [T1]  /  Feint Attack [T2]
+  [1B] Shifting swapper
+       Kecleon @ Oran Berry   |   Ability: Protean   |   Nature: Docile
+       Moves: Astonish [T1]  /  Fury Swipes [T1]  /  Bind [T1]  /  Dizzy Punch [T2]
+  [2A] Protean brawler
+       Kecleon @ Silk Scarf   |   Ability: Protean   |   Nature: Lonely
+       Moves: Feint Attack [T2]  /  Power-Up Punch [T2]  /  Rock Tomb [T2]  /  Shadow Claw [T3]
+  [2B] Recovering swapper
+       Kecleon @ Sitrus Berry   |   Ability: Color Change   |   Nature: Calm
+       Moves: Thunder Wave [Sit]  /  Recover [Sit]  /  Feint Attack [T2]  /  Psybeam [T2]
+  [3A] Protean striker
+       Kecleon @ Muscle Band   |   Ability: Protean   |   Nature: Adamant
+       Moves: Shadow Sneak [T4]  /  Brick Break [T3]  /  Ice Punch [T3]  /  Fire Punch [T3]
+  [3B] Bulky swapper
+       Kecleon @ Leftovers   |   Ability: Color Change   |   Nature: Careful
+       Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Knock Off [T4]  /  Shadow Claw [T3]
+  [4A] Protean attacker
+       Kecleon @ Life Orb   |   Ability: Protean   |   Nature: Adamant
+       Moves: Shadow Sneak [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]  /  Drain Punch [T4]
+  [4B] Choice Scarf trickster
+       Kecleon @ Choice Scarf   |   Ability: Protean   |   Nature: Jolly
+       Moves: Trick [Sit]  /  Knock Off [T4]  /  Drain Punch [T4]  /  Return [T4]
+
+====================================================================================================
+#210 GRANBULL  —  Fairy  —  BST 450  —  Category 5
+Stats 90/120/75/60/60/45  |  Profile: Offensive (physical)
+Variants: A = Attacker (Intimidate, Quick Feet) / B = Bulky support (Heal Bell, paralysis)
+----------------------------------------------------------------------------------------------------
+  [1A] Fairy bulldog
+       Granbull @ (no item)   |   Ability: Intimidate   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Lick [T1]  /  Growl [T1]  /  Headbutt [T2]
+  [1B] Quick bulldog
+       Granbull @ Oran Berry   |   Ability: Quick Feet   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Leer [T1]  /  Tail Whip [T1]  /  Bite [T2]
+  [2A] Punching bulldog
+       Granbull @ Black Belt   |   Ability: Intimidate   |   Nature: Lonely
+       Moves: Low Sweep [T2]  /  Power-Up Punch [T2]  /  Fire Fang [T2]  /  Crunch [T3]
+  [2B] Charming bulldog
+       Granbull @ Sitrus Berry   |   Ability: Rattled   |   Nature: Impish
+       Moves: Charm [T2]  /  Roar [Sit]  /  Bite [T2]  /  Thunder Wave [Sit]
+  [3A] Quick Feet bulldog
+       Granbull @ Flame Orb   |   Ability: Quick Feet   |   Nature: Adamant
+       Moves: Facade [T4]  /  Crunch [T3]  /  Superpower [T3]  /  Ice Punch [T3]
+  [3B] Bulk Up rester
+       Granbull @ Leftovers   |   Ability: Intimidate   |   Nature: Careful
+       Moves: Bulk Up [T4]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Crunch [T3]
+  [4A] Bulky bulldog
+       Granbull @ Rocky Helmet   |   Ability: Intimidate   |   Nature: Adamant
+       Moves: Play Rough [T4]  /  Earthquake [T4]  /  Thunder Wave [Sit]  /  Heal Bell [Sit]
+  [4B] Quick Feet sweeper
+       Granbull @ Toxic Orb   |   Ability: Quick Feet   |   Nature: Adamant
+       Moves: Bulk Up [T4]  /  Facade [T4]  /  Close Combat [T4]  /  Play Rough [T4]
+
+====================================================================================================
+#455 CARNIVINE  —  Grass  —  BST 454  —  Category 5
+Stats 74/100/72/90/72/46  |  Profile: Offensive (physical)
+Variants: A = Setup (Swords Dance) / B = Support (sleep, Leech Seed)
+----------------------------------------------------------------------------------------------------
+  [1A] Bug catcher
+       Carnivine @ (no item)   |   Ability: Levitate   |   Nature: Hardy
+       Moves: Vine Whip [T1]  /  Bind [T1]  /  Sweet Scent [T1]  /  Bite [T2]
+  [1B] Floating trap
+       Carnivine @ Oran Berry   |   Ability: Levitate   |   Nature: Docile
+       Moves: Infestation [T1]  /  Mud-Slap [T1]  /  Flash [T1]  /  Razor Leaf [T2]
+  [2A] Crunching trap
+       Carnivine @ Miracle Seed   |   Ability: Levitate   |   Nature: Lonely
+       Moves: Razor Leaf [T2]  /  Bite [T2]  /  Bug Bite [T2]  /  Crunch [T3]
+  [2B] Seeding trap
+       Carnivine @ Sitrus Berry   |   Ability: Levitate   |   Nature: Impish
+       Moves: Leech Seed [Sit]  /  Stun Spore [Sit]  /  Grass Whistle [T2]  /  Slam [T2]
+  [3A] Swords Dance trap
+       Carnivine @ Muscle Band   |   Ability: Levitate   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Crunch [T3]  /  Sleep Powder [T3]
+  [3B] Sleep trap
+       Carnivine @ Leftovers   |   Ability: Levitate   |   Nature: Impish
+       Moves: Sleep Powder [T3]  /  Leech Seed [Sit]  /  Seed Bomb [T3]  /  Synthesis [Sit]
+  [4A] Swords Dance sweeper
+       Carnivine @ Life Orb   |   Ability: Levitate   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Power Whip [T4]  /  Knock Off [T4]  /  Synthesis [Sit]
+  [4B] Bulky trap
+       Carnivine @ Rocky Helmet   |   Ability: Levitate   |   Nature: Careful
+       Moves: Leech Seed [Sit]  /  Knock Off [T4]  /  Power Whip [T4]  /  Synthesis [Sit]
+
+====================================================================================================
+#335 ZANGOOSE  —  Normal  —  BST 458  —  Category 5
+Stats 73/115/60/60/60/90  |  Profile: Offensive (physical, fast)
+Variants: A = Toxic Boost attacker / B = Immunity attacker (Swords Dance, Choice)
+----------------------------------------------------------------------------------------------------
+  [1A] Cat ferret
+       Zangoose @ (no item)   |   Ability: Immunity   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Quick Attack [T1]  /  Leer [T1]  /  Fury Swipes [T1]
+  [1B] Toxic ferret
+       Zangoose @ Oran Berry   |   Ability: Toxic Boost   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Double Kick [T1]  /  Defense Curl [T1]  /  Hone Claws [T2]
+  [2A] Clawing ferret
+       Zangoose @ Silk Scarf   |   Ability: Immunity   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Double Hit [T2]  /  Low Sweep [T2]  /  Crush Claw [T3]
+  [2B] Taunting ferret
+       Zangoose @ Sitrus Berry   |   Ability: Immunity   |   Nature: Hasty
+       Moves: Thunder Wave [Sit]  /  Thief [T2]  /  Taunt [Sit]  /  Headbutt [T2]
+  [3A] Toxic Boost striker
+       Zangoose @ Toxic Orb   |   Ability: Toxic Boost   |   Nature: Adamant
+       Moves: Facade [T4]  /  Night Slash [T3]  /  Brick Break [T3]  /  Quick Attack [T1]
+  [3B] Swords Dance ferret
+       Zangoose @ Muscle Band   |   Ability: Immunity   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Crush Claw [T3]  /  Brick Break [T3]  /  Night Slash [T3]
+  [4A] Toxic Boost sweeper
+       Zangoose @ Toxic Orb   |   Ability: Toxic Boost   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Facade [T4]  /  Close Combat [T4]  /  Knock Off [T4]
+  [4B] Choice Band ferret
+       Zangoose @ Choice Band   |   Ability: Immunity   |   Nature: Jolly
+       Moves: Double-Edge [T4]  /  Close Combat [T4]  /  Knock Off [T4]  /  Gunk Shot [T4]
+
+====================================================================================================
+#286 BRELOOM  —  Grass/Fighting  —  BST 460  —  Category 5
+Stats 60/130/80/60/60/70  |  Profile: Offensive (physical)
+Variants: A = Technician attacker (Spore) / B = Poison Heal attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Mushroom fighter
+       Breloom @ (no item)   |   Ability: Effect Spore   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Absorb [T1]  /  Poison Powder [T1]  /  Force Palm [T2]
+  [1B] Technician fighter
+       Breloom @ Oran Berry   |   Ability: Technician   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Absorb [T1]  /  False Swipe [T1]  /  Low Sweep [T2]
+  [2A] Technician striker
+       Breloom @ Black Belt   |   Ability: Technician   |   Nature: Lonely
+       Moves: Force Palm [T2]  /  Low Sweep [T2]  /  Pounce [T2]  /  Bullet Seed [T3]
+  [2B] Spore fighter
+       Breloom @ Sitrus Berry   |   Ability: Effect Spore   |   Nature: Impish
+       Moves: Stun Spore [Sit]  /  Leech Seed [Sit]  /  Force Palm [T2]  /  Wake-Up Slap [T2]
+  [3A] Spore striker
+       Breloom @ Muscle Band   |   Ability: Technician   |   Nature: Adamant
+       Moves: Spore [T4]  /  Bullet Seed [T3]  /  Low Kick [T3]  /  Sky Uppercut [T3]
+  [3B] Poison Heal fighter
+       Breloom @ Toxic Orb   |   Ability: Poison Heal   |   Nature: Impish
+       Moves: Leech Seed [Sit]  /  Substitute [Sit]  /  Seed Bomb [T3]  /  Drain Punch [T4]
+  [4A] Technician sweeper
+       Breloom @ Life Orb   |   Ability: Technician   |   Nature: Jolly
+       Moves: Spore [T4]  /  Bullet Seed [T3]  /  Mach Punch [T4]  /  Rock Slide [T4]
+  [4B] Poison Heal sweeper
+       Breloom @ Toxic Orb   |   Ability: Poison Heal   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Drain Punch [T4]  /  Mach Punch [T4]
+
+====================================================================================================
+#357 TROPIUS  —  Grass/Flying  —  BST 460  —  Category 5
+Stats 99/68/83/72/87/51  |  Profile: Pure Defensive
+Variants: A = Pure Stall (Harvest Sitrus) / B = Utility and sun Dragon Dance
+----------------------------------------------------------------------------------------------------
+  [1A] Fruit dino
+       Tropius @ Oran Berry   |   Ability: Harvest   |   Nature: Hardy
+       Moves: Gust [T1]  /  Leer [T1]  /  Twister [T1]  /  Razor Leaf [T2]
+  [1B] Sunny dino
+       Tropius @ (no item)   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Sweet Scent [T1]  /  Rock Smash [T1]  /  Mud-Slap [T1]  /  Magical Leaf [T2]
+  [2A] Harvest dino
+       Tropius @ Sitrus Berry   |   Ability: Harvest   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Roost [Sit]  /  Leaf Tornado [T2]  /  Protect [Sit]
+  [2B] Leafy caster
+       Tropius @ Miracle Seed   |   Ability: Solar Power   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Air Cutter [T2]  /  Leaf Tornado [T2]  /  Grass Knot [T3]
+  [3A] Harvest staller
+       Tropius @ Sitrus Berry   |   Ability: Harvest   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Roost [Sit]  /  Protect [Sit]  /  Air Slash [T4]
+  [3B] Sun dancer
+       Tropius @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Adamant
+       Moves: Sunny Day [Sit]  /  Dragon Dance [T4]  /  Seed Bomb [T3]  /  Dragon Hammer [T3]
+  [4A] Harvest wall
+       Tropius @ Sitrus Berry   |   Ability: Harvest   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Giga Drain [T4]  /  Air Slash [T4]
+  [4B] Calm Mind dino
+       Tropius @ Leftovers   |   Ability: Harvest   |   Nature: Calm
+       Moves: Calm Mind [T4]  /  Giga Drain [T4]  /  Air Slash [T4]  /  Roost [Sit]
+
+====================================================================================================
+#556 MARACTUS  —  Grass  —  BST 461  —  Category 5
+Stats 75/86/67/106/67/60  |  Profile: Mixed attacker
+Variants: A = Special (sun) / B = Physical and support (Spiky Shield)
+----------------------------------------------------------------------------------------------------
+  [1A] Cactus dancer
+       Maractus @ (no item)   |   Ability: Water Absorb   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Peck [T1]  /  Sweet Scent [T1]  /  Needle Arm [T2]
+  [1B] Draining cactus
+       Maractus @ Oran Berry   |   Ability: Storm Drain   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Confide [T1]  /  Peck [T1]  /  Grassy Glide [T2]
+  [2A] Needle cactus
+       Maractus @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Lonely
+       Moves: Needle Arm [T2]  /  Aerial Ace [T2]  /  Screech [T2]  /  Seed Bomb [T3]
+  [2B] Spiky cactus
+       Maractus @ Sitrus Berry   |   Ability: Water Absorb   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Spiky Shield [Sit]  /  Cotton Spore [T2]  /  Needle Arm [T2]
+  [3A] Sun cactus
+       Maractus @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Sunny Day [Sit]  /  Growth [T3]  /  Solar Beam [T3]  /  Weather Ball [T4]
+  [3B] Cotton Guard cactus
+       Maractus @ Leftovers   |   Ability: Storm Drain   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Spiky Shield [Sit]  /  Cotton Guard [Sit]  /  Giga Drain [T4]
+  [4A] Special attacker
+       Maractus @ Life Orb   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Leaf Storm [T4]  /  Hyper Voice [T4]  /  Giga Drain [T4]  /  Synthesis [Sit]
+  [4B] Choice Band cactus
+       Maractus @ Choice Band   |   Ability: Water Absorb   |   Nature: Adamant
+       Moves: Wood Hammer [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]  /  Drain Punch [T4]
+
+====================================================================================================
+#272 LUDICOLO  —  Water/Grass  —  BST 480  —  Category 5
+Stats 80/70/70/90/100/70  |  Profile: Mixed attacker
+Variants: A = Special (Swift Swim) / B = Physical (Fake Out, Swords Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Carefree dancer
+       Ludicolo @ (no item)   |   Ability: Swift Swim   |   Nature: Hardy
+       Moves: Bubble [T1]  /  Absorb [T1]  /  Growl [T1]  /  Astonish [T1]
+  [1B] Dancing duck
+       Ludicolo @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
+       Moves: Water Gun [T1]  /  Fury Swipes [T1]  /  Mega Drain [T1]  /  Water Pulse [T2]
+  [2A] Rain caster
+       Ludicolo @ Mystic Water   |   Ability: Swift Swim   |   Nature: Mild
+       Moves: Chilling Water [T2]  /  Magical Leaf [T2]  /  Icy Wind [T2]  /  Grass Knot [T3]
+  [2B] Fake Out dancer
+       Ludicolo @ Miracle Seed   |   Ability: Own Tempo   |   Nature: Lonely
+       Moves: Fake Out [Sit]  /  Power-Up Punch [T2]  /  Razor Leaf [T2]  /  Ice Punch [T3]
+  [3A] Rain setter
+       Ludicolo @ Damp Rock   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Grass Knot [T3]  /  Focus Blast [T4]
+  [3B] Swords Dance dancer
+       Ludicolo @ Muscle Band   |   Ability: Swift Swim   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Ice Punch [T3]  /  Rock Climb [T3]
+  [4A] Rain sweeper
+       Ludicolo @ Life Orb   |   Ability: Swift Swim   |   Nature: Modest
+       Moves: Hydro Pump [T4]  /  Giga Drain [T4]  /  Ice Beam [T4]  /  Focus Blast [T4]
+  [4B] Rain Dish staller
+       Ludicolo @ Leftovers   |   Ability: Rain Dish   |   Nature: Calm
+       Moves: Leech Seed [Sit]  /  Scald [T4]  /  Giga Drain [T4]  /  Protect [Sit]
+
+====================================================================================================
+#424 AMBIPOM  —  Normal  —  BST 482  —  Category 6
+Stats 75/100/66/60/66/115  |  Profile: Offensive (physical, fast)
+Variants: A = Technician attacker / B = Skill Link and utility
+----------------------------------------------------------------------------------------------------
+  [1A] Long tail
+       Ambipom @ (no item)   |   Ability: Technician   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Double Slap [T1]  /  Sand Attack [T1]  /  Covet [T2]
+  [1B] Picking tail
+       Ambipom @ Oran Berry   |   Ability: Pickup   |   Nature: Docile
+       Moves: Astonish [T1]  /  Tail Whip [T1]  /  Fury Swipes [T1]  /  Swift [T2]
+  [2A] Technician tail
+       Ambipom @ Silk Scarf   |   Ability: Technician   |   Nature: Lonely
+       Moves: Double Hit [T2]  /  Dual Chop [T2]  /  Hone Claws [T2]  /  Low Kick [T3]
+  [2B] Pivot tail
+       Ambipom @ Sitrus Berry   |   Ability: Pickup   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  U-turn [T2]  /  Taunt [Sit]  /  Thief [T2]
+  [3A] Technician striker
+       Ambipom @ Expert Belt   |   Ability: Technician   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Tail Slap [T3]  /  Low Kick [T3]  /  Knock Off [T4]
+  [3B] Skill Link tail
+       Ambipom @ Muscle Band   |   Ability: Skill Link   |   Nature: Jolly
+       Moves: Tail Slap [T3]  /  Fake Out [Sit]  /  Triple Axel [T4]  /  Low Kick [T3]
+  [4A] Technician attacker
+       Ambipom @ Life Orb   |   Ability: Technician   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Knock Off [T4]  /  Low Kick [T3]  /  Triple Axel [T4]
+  [4B] Choice Scarf tail
+       Ambipom @ Choice Scarf   |   Ability: Pickup   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Knock Off [T4]  /  Double-Edge [T4]  /  Triple Axel [T4]
+
+====================================================================================================
+#045 VILEPLUME  —  Grass/Poison  —  BST 490  —  Category 6
+Stats 75/80/85/110/90/50  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Strength Sap, Aromatherapy) / B = Offensive (sun, Growth)
+----------------------------------------------------------------------------------------------------
+  [1A] Flower
+       Vileplume @ Oran Berry   |   Ability: Effect Spore   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Acid [T1]  /  Poison Powder [T1]  /  Infestation [T1]
+  [1B] Sunny flower
+       Vileplume @ (no item)   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Flash [T1]  /  Sweet Scent [T1]  /  Razor Leaf [T2]
+  [2A] Spore flower
+       Vileplume @ Sitrus Berry   |   Ability: Effect Spore   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Stun Spore [Sit]  /  Magical Leaf [T2]  /  Moonlight [Sit]
+  [2B] Petal caster
+       Vileplume @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Round [T2]  /  Petal Dance [T3]
+  [3A] Cleric flower
+       Vileplume @ Black Sludge   |   Ability: Effect Spore   |   Nature: Bold
+       Moves: Strength Sap [Sit]  /  Aromatherapy [Sit]  /  Pollen Puff [T3]  /  Sleep Powder [T3]
+  [3B] Sun flower
+       Vileplume @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Weather Ball [T4]  /  Growth [T3]
+  [4A] Bulky flower
+       Vileplume @ Rocky Helmet   |   Ability: Effect Spore   |   Nature: Bold
+       Moves: Strength Sap [Sit]  /  Giga Drain [T4]  /  Sludge Bomb [T4]  /  Sleep Powder [T3]
+  [4B] Growth sweeper
+       Vileplume @ Life Orb   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Growth [T3]  /  Giga Drain [T4]  /  Sludge Wave [T4]  /  Moonblast [T4]
+
+====================================================================================================
+#071 VICTREEBEL  —  Grass/Poison  —  BST 490  —  Category 6
+Stats 80/105/65/100/70/70  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special (sun)
+----------------------------------------------------------------------------------------------------
+  [1A] Flycatcher
+       Victreebel @ (no item)   |   Ability: Chlorophyll   |   Nature: Hardy
+       Moves: Vine Whip [T1]  /  Wrap [T1]  /  Sweet Scent [T1]  /  Pounce [T2]
+  [1B] Hungry flycatcher
+       Victreebel @ Oran Berry   |   Ability: Gluttony   |   Nature: Docile
+       Moves: Acid [T1]  /  Bind [T1]  /  Poison Powder [T1]  /  Leaf Tornado [T2]
+  [2A] Lunging flycatcher
+       Victreebel @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Lonely
+       Moves: Razor Leaf [T2]  /  Bug Bite [T2]  /  Thief [T2]  /  Lunge [T3]
+  [2B] Encore caster
+       Victreebel @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Encore [Sit]  /  Grass Knot [T3]
+  [3A] Sun flycatcher
+       Victreebel @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Sunny Day [Sit]  /  Growth [T3]  /  Solar Beam [T3]  /  Weather Ball [T4]
+  [3B] Swords Dance flycatcher
+       Victreebel @ Muscle Band   |   Ability: Gluttony   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Lunge [T3]  /  Strength Sap [Sit]
+  [4A] Choice Band flycatcher
+       Victreebel @ Choice Band   |   Ability: Chlorophyll   |   Nature: Adamant
+       Moves: Leaf Blade [T4]  /  Poison Jab [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]
+  [4B] Choice Specs flycatcher
+       Victreebel @ Choice Specs   |   Ability: Gluttony   |   Nature: Modest
+       Moves: Leaf Storm [T4]  /  Sludge Wave [T4]  /  Weather Ball [T4]  /  Giga Drain [T4]
+
+====================================================================================================
+#182 BELLOSSOM  —  Grass  —  BST 490  —  Category 6
+Stats 75/80/95/90/100/50  |  Profile: Offensive (special)
+Variants: A = Setup (Quiver Dance) / B = Support (Healer, Strength Sap) and sun
+----------------------------------------------------------------------------------------------------
+  [1A] Flower dancer
+       Bellossom @ (no item)   |   Ability: Healer   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Acid [T1]  /  Sweet Scent [T1]  /  Magical Leaf [T2]
+  [1B] Sunny dancer
+       Bellossom @ Oran Berry   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Poison Powder [T1]  /  Flash [T1]  /  Charm [T2]
+  [2A] Petal caster
+       Bellossom @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Trailblaze [T2]  /  Dazzling Gleam [T3]
+  [2B] Healer dancer
+       Bellossom @ Sitrus Berry   |   Ability: Healer   |   Nature: Calm
+       Moves: Leech Seed [Sit]  /  Moonlight [Sit]  /  Stun Spore [Sit]  /  Encore [Sit]
+  [3A] Quiver Dance dancer
+       Bellossom @ Wise Glasses   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Quiver Dance [T4]  /  Grass Knot [T3]  /  Dazzling Gleam [T3]  /  Strength Sap [Sit]
+  [3B] Strength Sap dancer
+       Bellossom @ Leftovers   |   Ability: Healer   |   Nature: Calm
+       Moves: Strength Sap [Sit]  /  Leech Seed [Sit]  /  Pollen Puff [T3]  /  Encore [Sit]
+  [4A] Quiver Dance sweeper
+       Bellossom @ Life Orb   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Quiver Dance [T4]  /  Giga Drain [T4]  /  Moonblast [T4]  /  Strength Sap [Sit]
+  [4B] Sun dancer
+       Bellossom @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Adamant
+       Moves: Sunny Day [Sit]  /  Swords Dance [T4]  /  Leaf Blade [T4]  /  Triple Axel [T4]
+
+====================================================================================================
+#123 SCYTHER  —  Bug/Flying  —  BST 500  —  Category 6
+Stats 70/110/80/55/80/105  |  Profile: Offensive (physical, fast)
+Variants: A = Setup (Technician, Swords Dance) / B = Utility (U-turn, Defog) and Choice
+----------------------------------------------------------------------------------------------------
+  [1A] Mantis
+       Scyther @ (no item)   |   Ability: Technician   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Leer [T1]  /  Focus Energy [T1]  /  Wing Attack [T2]
+  [1B] Swarming mantis
+       Scyther @ Oran Berry   |   Ability: Swarm   |   Nature: Docile
+       Moves: False Swipe [T1]  /  Rock Smash [T1]  /  Confide [T1]  /  Bug Bite [T2]
+  [2A] Technician mantis
+       Scyther @ Silver Powder   |   Ability: Technician   |   Nature: Lonely
+       Moves: Dual Wingbeat [T2]  /  Double Hit [T2]  /  Bug Bite [T2]  /  Night Slash [T3]
+  [2B] Pivot mantis
+       Scyther @ Sitrus Berry   |   Ability: Steadfast   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Agility [Sit]  /  Aerial Ace [T2]  /  Roost [Sit]
+  [3A] Swords Dance mantis
+       Scyther @ Muscle Band   |   Ability: Technician   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Dual Wingbeat [T2]  /  X-Scissor [T3]  /  Brick Break [T3]
+  [3B] Defog mantis
+       Scyther @ Focus Sash   |   Ability: Steadfast   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Defog [Sit]  /  Roost [Sit]  /  Night Slash [T3]
+  [4A] Swords Dance sweeper
+       Scyther @ Life Orb   |   Ability: Technician   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Close Combat [T4]  /  Knock Off [T4]
+  [4B] Choice Band mantis
+       Scyther @ Choice Band   |   Ability: Technician   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Close Combat [T4]  /  Knock Off [T4]  /  Double-Edge [T4]
+
+====================================================================================================
+#212 SCIZOR  —  Bug/Steel  —  BST 500  —  Category 6
+Stats 70/130/100/55/80/65  |  Profile: Offensive (physical)
+Variants: A = Technician attacker (Bullet Punch) / B = Bulky pivot (Roost, Defog)
+----------------------------------------------------------------------------------------------------
+  [1A] Pincer
+       Scizor @ (no item)   |   Ability: Technician   |   Nature: Hardy
+       Moves: Metal Claw [T1]  /  Quick Attack [T1]  /  Leer [T1]  /  Bug Bite [T2]
+  [1B] Steel pincer
+       Scizor @ Oran Berry   |   Ability: Light Metal   |   Nature: Docile
+       Moves: False Swipe [T1]  /  Sand Tomb [T1]  /  Focus Energy [T1]  /  Steel Wing [T2]
+  [2A] Technician pincer
+       Scizor @ Metal Coat   |   Ability: Technician   |   Nature: Lonely
+       Moves: Bug Bite [T2]  /  Double Hit [T2]  /  Steel Wing [T2]  /  X-Scissor [T3]
+  [2B] Pivot pincer
+       Scizor @ Sitrus Berry   |   Ability: Swarm   |   Nature: Impish
+       Moves: U-turn [T2]  /  Roost [Sit]  /  Steel Wing [T2]  /  Defog [Sit]
+  [3A] Bullet Punch pincer
+       Scizor @ Muscle Band   |   Ability: Technician   |   Nature: Adamant
+       Moves: Bullet Punch [T4]  /  X-Scissor [T3]  /  Superpower [T3]  /  Night Slash [T3]
+  [3B] Bulky pivot
+       Scizor @ Leftovers   |   Ability: Light Metal   |   Nature: Impish
+       Moves: Roost [Sit]  /  Defog [Sit]  /  U-turn [T2]  /  Hard Press [T3]
+  [4A] Swords Dance sweeper
+       Scizor @ Life Orb   |   Ability: Technician   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Bullet Punch [T4]  /  Close Combat [T4]  /  Knock Off [T4]
+  [4B] Choice Band pincer
+       Scizor @ Choice Band   |   Ability: Technician   |   Nature: Adamant
+       Moves: Bullet Punch [T4]  /  U-turn [T2]  /  Knock Off [T4]  /  Superpower [T3]
+
+====================================================================================================
+#900 KLEAVOR  —  Bug/Rock  —  BST 500  —  Category 6
+Stats 70/135/95/45/70/85  |  Profile: Offensive (physical)
+Variants: A = Setup (Sharpness, Swords Dance) / B = Sheer Force attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Axe mantis
+       Kleavor @ (no item)   |   Ability: Swarm   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Leer [T1]  /  Rock Smash [T1]  /  Stone Axe [T2]
+  [1B] Strong mantis
+       Kleavor @ Oran Berry   |   Ability: Sheer Force   |   Nature: Docile
+       Moves: False Swipe [T1]  /  Focus Energy [T1]  /  Confide [T1]  /  Bug Bite [T2]
+  [2A] Sharp mantis
+       Kleavor @ Hard Stone   |   Ability: Sharpness   |   Nature: Lonely
+       Moves: Stone Axe [T2]  /  Bug Bite [T2]  /  Aerial Ace [T2]  /  X-Scissor [T3]
+  [2B] Pivot mantis
+       Kleavor @ Sitrus Berry   |   Ability: Sheer Force   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Smack Down [T2]  /  U-turn [T2]  /  Defog [Sit]
+  [3A] Sharpness mantis
+       Kleavor @ Muscle Band   |   Ability: Sharpness   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Night Slash [T3]  /  Psycho Cut [T3]
+  [3B] Sash mantis
+       Kleavor @ Focus Sash   |   Ability: Sheer Force   |   Nature: Jolly
+       Moves: Rock Slide [T4]  /  Lunge [T3]  /  Brick Break [T3]  /  U-turn [T2]
+  [4A] Sharpness sweeper
+       Kleavor @ Life Orb   |   Ability: Sharpness   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Close Combat [T4]  /  Night Slash [T3]
+  [4B] Choice Band mantis
+       Kleavor @ Choice Band   |   Ability: Sheer Force   |   Nature: Adamant
+       Moves: Stone Edge [T4]  /  Close Combat [T4]  /  Knock Off [T4]  /  U-turn [T2]
+
+====================================================================================================
+#407 ROSERADE  —  Grass/Poison  —  BST 515  —  Category 6
+Stats 60/70/65/125/105/90  |  Profile: Offensive (special)
+Variants: A = Special attacker (Technician, Natural Cure) / B = Support (sleep, Toxic)
+----------------------------------------------------------------------------------------------------
+  [1A] Bouquet
+       Roserade @ (no item)   |   Ability: Natural Cure   |   Nature: Hardy
+       Moves: Absorb [T1]  /  Poison Sting [T1]  /  Sweet Scent [T1]  /  Magical Leaf [T2]
+  [1B] Technician bouquet
+       Roserade @ Oran Berry   |   Ability: Technician   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Sweet Kiss [T1]  /  Mud-Slap [T1]  /  Grass Whistle [T2]
+  [2A] Technician caster
+       Roserade @ Miracle Seed   |   Ability: Technician   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Swift [T2]  /  Round [T2]  /  Venoshock [T3]
+  [2B] Powder bouquet
+       Roserade @ Sitrus Berry   |   Ability: Poison Point   |   Nature: Calm
+       Moves: Stun Spore [Sit]  /  Leech Seed [Sit]  /  Grass Whistle [T2]  /  Magical Leaf [T2]
+  [3A] Petal Dance bouquet
+       Roserade @ Wise Glasses   |   Ability: Natural Cure   |   Nature: Modest
+       Moves: Petal Dance [T3]  /  Dazzling Gleam [T3]  /  Extrasensory [T3]  /  Sludge Bomb [T4]
+  [3B] Venoshock bouquet
+       Roserade @ Black Sludge   |   Ability: Natural Cure   |   Nature: Calm
+       Moves: Toxic [Sit]  /  Venoshock [T3]  /  Synthesis [Sit]  /  Giga Drain [T4]
+  [4A] Special attacker
+       Roserade @ Life Orb   |   Ability: Natural Cure   |   Nature: Timid
+       Moves: Giga Drain [T4]  /  Sludge Bomb [T4]  /  Shadow Ball [T4]  /  Synthesis [Sit]
+  [4B] Sleep lead
+       Roserade @ Focus Sash   |   Ability: Technician   |   Nature: Timid
+       Moves: Sleep Powder [T3]  /  Leaf Storm [T4]  /  Sludge Bomb [T4]  /  Weather Ball [T4]
+
+====================================================================================================
+#154 MEGANIUM  —  Grass  —  BST 525  —  Category 7
+Stats 80/82/100/83/100/80  |  Profile: Balanced / Bulky
+Variants: A = Defensive (screens, Aromatherapy) / B = Offensive (Swords Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Herb dino
+       Meganium @ Oran Berry   |   Ability: Overgrow   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Vine Whip [T1]  /  Growl [T1]  /  Sweet Scent [T1]
+  [1B] Guarded dino
+       Meganium @ (no item)   |   Ability: Leaf Guard   |   Nature: Docile
+       Moves: Mud-Slap [T1]  /  Rock Smash [T1]  /  Poison Powder [T1]  /  Magical Leaf [T2]
+  [2A] Screen dino
+       Meganium @ Sitrus Berry   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Razor Leaf [T2]  /  Aromatherapy [Sit]
+  [2B] Petal dino
+       Meganium @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
+       Moves: Razor Leaf [T2]  /  Bulldoze [T2]  /  Headbutt [T2]  /  Petal Blizzard [T3]
+  [3A] Screen setter
+       Meganium @ Light Clay   |   Ability: Leaf Guard   |   Nature: Bold
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Dragon Tail [Sit]  /  Synthesis [Sit]
+  [3B] Swords Dance dino
+       Meganium @ Expert Belt   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Petal Blizzard [T3]  /  Stomping Tantrum [T3]  /  Rock Climb [T3]
+  [4A] Cleric dino
+       Meganium @ Leftovers   |   Ability: Leaf Guard   |   Nature: Calm
+       Moves: Aromatherapy [Sit]  /  Leech Seed [Sit]  /  Giga Drain [T4]  /  Synthesis [Sit]
+  [4B] Swords Dance sweeper
+       Meganium @ Life Orb   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Petal Blizzard [T3]  /  Earthquake [T4]  /  Knock Off [T4]
+
+====================================================================================================
+#389 TORTERRA  —  Grass/Ground  —  BST 525  —  Category 7
+Stats 95/109/105/75/85/56  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Leech Seed, Iron Defense) / B = Offensive (Shell Smash)
+----------------------------------------------------------------------------------------------------
+  [1A] Continent turtle
+       Torterra @ Oran Berry   |   Ability: Overgrow   |   Nature: Hardy
+       Moves: Sand Tomb [T1]  /  Withdraw [T1]  /  Absorb [T1]  /  Bite [T2]
+  [1B] Grove turtle
+       Torterra @ (no item)   |   Ability: Shell Armor   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Tackle [T1]  /  Mega Drain [T1]  /  Bulldoze [T2]
+  [2A] Stockpile turtle
+       Torterra @ Sitrus Berry   |   Ability: Shell Armor   |   Nature: Impish
+       Moves: Stockpile [Sit]  /  Rock Tomb [T2]  /  Razor Leaf [T2]  /  Protect [Sit]
+  [2B] Stomping turtle
+       Torterra @ Soft Sand   |   Ability: Overgrow   |   Nature: Lonely
+       Moves: Bulldoze [T2]  /  Bite [T2]  /  Grassy Glide [T2]  /  High Horsepower [T3]
+  [3A] Leech Seed turtle
+       Torterra @ Leftovers   |   Ability: Shell Armor   |   Nature: Impish
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  High Horsepower [T3]  /  Toxic [Sit]
+  [3B] Shell Smash turtle
+       Torterra @ White Herb   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Shell Smash [T4]  /  Seed Bomb [T3]  /  High Horsepower [T3]  /  Rock Blast [T3]
+  [4A] Iron Defense turtle
+       Torterra @ Rocky Helmet   |   Ability: Shell Armor   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Synthesis [Sit]  /  Earthquake [T4]
+  [4B] Shell Smash sweeper
+       Torterra @ White Herb   |   Ability: Overgrow   |   Nature: Adamant
+       Moves: Shell Smash [T4]  /  Wood Hammer [T4]  /  Headlong Rush [T4]  /  Stone Edge [T4]
+
+====================================================================================================
+#470 LEAFEON  —  Grass  —  BST 525  —  Category 7
+Stats 65/110/130/60/65/95  |  Profile: Offensive (physical)
+Variants: A = Setup (Swords Dance) / B = Support (Wish, Heal Bell) and Choice
+----------------------------------------------------------------------------------------------------
+  [1A] Verdant fox
+       Leafeon @ (no item)   |   Ability: Leaf Guard   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Quick Attack [T1]  /  Tail Whip [T1]  /  Razor Leaf [T2]
+  [1B] Sunny fox
+       Leafeon @ Oran Berry   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Double Kick [T1]  /  Sand Attack [T1]  /  Growl [T1]  /  Magical Leaf [T2]
+  [2A] Slashing fox
+       Leafeon @ Miracle Seed   |   Ability: Leaf Guard   |   Nature: Lonely
+       Moves: Razor Leaf [T2]  /  Bite [T2]  /  Aerial Ace [T2]  /  X-Scissor [T3]
+  [2B] Wishing fox
+       Leafeon @ Sitrus Berry   |   Ability: Chlorophyll   |   Nature: Calm
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Grass Whistle [T2]  /  Magical Leaf [T2]
+  [3A] Swords Dance fox
+       Leafeon @ Muscle Band   |   Ability: Leaf Guard   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  X-Scissor [T3]  /  Iron Tail [T3]
+  [3B] Cleric fox
+       Leafeon @ Leftovers   |   Ability: Leaf Guard   |   Nature: Impish
+       Moves: Wish [Sit]  /  Heal Bell [Sit]  /  Synthesis [Sit]  /  Knock Off [T4]
+  [4A] Swords Dance sweeper
+       Leafeon @ Life Orb   |   Ability: Chlorophyll   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Leaf Blade [T4]  /  Knock Off [T4]  /  Double-Edge [T4]
+  [4B] Choice Band fox
+       Leafeon @ Choice Band   |   Ability: Leaf Guard   |   Nature: Jolly
+       Moves: Leaf Blade [T4]  /  Knock Off [T4]  /  Double-Edge [T4]  /  X-Scissor [T3]
+
+====================================================================================================
+#700 SYLVEON  —  Fairy  —  BST 525  —  Category 7
+Stats 95/65/65/110/130/60  |  Profile: Offensive (special)
+Variants: A = Setup (Pixilate, Calm Mind) / B = Support (Wish, Heal Bell)
+----------------------------------------------------------------------------------------------------
+  [1A] Ribbon fox
+       Sylveon @ (no item)   |   Ability: Pixilate   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Fairy Wind [T1]  /  Tail Whip [T1]  /  Swift [T2]
+  [1B] Charming fox
+       Sylveon @ Oran Berry   |   Ability: Cute Charm   |   Nature: Docile
+       Moves: Disarming Voice [T1]  /  Baby-Doll Eyes [T1]  /  Quick Attack [T1]  /  Draining Kiss [T2]
+  [2A] Pixilate caster
+       Sylveon @ Fairy Feather   |   Ability: Pixilate   |   Nature: Mild
+       Moves: Swift [T2]  /  Round [T2]  /  Draining Kiss [T2]  /  Alluring Voice [T3]
+  [2B] Wishing fox
+       Sylveon @ Sitrus Berry   |   Ability: Cute Charm   |   Nature: Calm
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Draining Kiss [T2]  /  Yawn [Sit]
+  [3A] Calm Mind fox
+       Sylveon @ Wise Glasses   |   Ability: Pixilate   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Alluring Voice [T3]  /  Mystical Fire [T3]  /  Wish [Sit]
+  [3B] Wish cleric
+       Sylveon @ Leftovers   |   Ability: Cute Charm   |   Nature: Calm
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]  /  Dazzling Gleam [T3]
+  [4A] Choice Specs fox
+       Sylveon @ Choice Specs   |   Ability: Pixilate   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Psyshock [T4]  /  Shadow Ball [T4]  /  Mystical Fire [T3]
+  [4B] Bulky Calm Mind
+       Sylveon @ Rocky Helmet   |   Ability: Pixilate   |   Nature: Bold
+       Moves: Calm Mind [T4]  /  Hyper Voice [T4]  /  Wish [Sit]  /  Protect [Sit]
+
+====================================================================================================
+#103 EXEGGUTOR  —  Grass/Psychic  —  BST 530  —  Category 7
+Stats 95/95/85/125/75/55  |  Profile: Offensive (special)
+Variants: A = Sun attacker (Chlorophyll) / B = Harvest and Trick Room
+----------------------------------------------------------------------------------------------------
+  [1A] Coconut
+       Exeggutor @ (no item)   |   Ability: Harvest   |   Nature: Hardy
+       Moves: Barrage [T1]  /  Confusion [T1]  /  Absorb [T1]  /  Stomp [T2]
+  [1B] Sunny coconut
+       Exeggutor @ Oran Berry   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Poison Powder [T1]  /  Sweet Scent [T1]  /  Psybeam [T2]
+  [2A] Psychic caster
+       Exeggutor @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Psybeam [T2]  /  Ancient Power [T2]  /  Extrasensory [T3]
+  [2B] Harvest coconut
+       Exeggutor @ Sitrus Berry   |   Ability: Harvest   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Hypnosis [T2]  /  Magical Leaf [T2]  /  Protect [Sit]
+  [3A] Sun coconut
+       Exeggutor @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Psychic Noise [T3]  /  Sleep Powder [T3]
+  [3B] Trick Room coconut
+       Exeggutor @ Sitrus Berry   |   Ability: Harvest   |   Nature: Quiet
+       Moves: Trick Room [Sit]  /  Leech Seed [Sit]  /  Psychic Noise [T3]  /  Giga Drain [T4]
+  [4A] Growth sweeper
+       Exeggutor @ Life Orb   |   Ability: Chlorophyll   |   Nature: Modest
+       Moves: Growth [T3]  /  Giga Drain [T4]  /  Psychic [T4]  /  Sludge Bomb [T4]
+  [4B] Trick Room bomber
+       Exeggutor @ Sitrus Berry   |   Ability: Harvest   |   Nature: Brave
+       Moves: Trick Room [Sit]  /  Wood Hammer [T4]  /  Zen Headbutt [T3]  /  Explosion [T4]
+
+====================================================================================================
+#254 SCEPTILE  —  Grass  —  BST 530  —  Category 7
+Stats 70/85/65/105/85/120  |  Profile: Mixed attacker
+Variants: A = Physical (Unburden) / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Forest gecko
+       Sceptile @ (no item)   |   Ability: Overgrow   |   Nature: Hardy
+       Moves: Leafage [T1]  /  Double Kick [T1]  /  Leer [T1]  /  Rock Smash [T1]
+  [1B] Quick gecko
+       Sceptile @ Oran Berry   |   Ability: Unburden   |   Nature: Docile
+       Moves: False Swipe [T1]  /  Mega Drain [T1]  /  Mud-Slap [T1]  /  Dual Chop [T2]
+  [2A] Unburden gecko
+       Sceptile @ Sitrus Berry   |   Ability: Unburden   |   Nature: Lonely
+       Moves: Grassy Glide [T2]  /  Breaking Swipe [T2]  /  Low Sweep [T2]  /  Night Slash [T3]
+  [2B] Leafy caster
+       Sceptile @ Miracle Seed   |   Ability: Overgrow   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Grass Knot [T3]
+  [3A] Swords Dance gecko
+       Sceptile @ Muscle Band   |   Ability: Overgrow   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Dragon Claw [T3]  /  Brick Break [T3]
+  [3B] Shed Tail gecko
+       Sceptile @ Leftovers   |   Ability: Unburden   |   Nature: Timid
+       Moves: Substitute [Sit]  /  Leech Seed [Sit]  /  Giga Drain [T4]  /  Shed Tail [Sit]
+  [4A] Unburden sweeper
+       Sceptile @ Sitrus Berry   |   Ability: Unburden   |   Nature: Jolly
+       Moves: Dragon Dance [T4]  /  Leaf Blade [T4]  /  Earthquake [T4]  /  Acrobatics [T3]
+  [4B] Choice Specs gecko
+       Sceptile @ Choice Specs   |   Ability: Overgrow   |   Nature: Timid
+       Moves: Leaf Storm [T4]  /  Dragon Pulse [T4]  /  Focus Blast [T4]  /  Giga Drain [T4]
+
+====================================================================================================
+#465 TANGROWTH  —  Grass  —  BST 535  —  Category 7
+Stats 100/100/125/110/50/50  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Regenerator) / B = Offensive (sun, Assault Vest)
+----------------------------------------------------------------------------------------------------
+  [1A] Vine giant
+       Tangrowth @ Oran Berry   |   Ability: Leaf Guard   |   Nature: Hardy
+       Moves: Vine Whip [T1]  /  Constrict [T1]  /  Bind [T1]  /  Absorb [T1]
+  [1B] Sunny giant
+       Tangrowth @ (no item)   |   Ability: Chlorophyll   |   Nature: Docile
+       Moves: Mega Drain [T1]  /  Confusion [T1]  /  Sweet Scent [T1]  /  Ancient Power [T2]
+  [2A] Rooted giant
+       Tangrowth @ Sitrus Berry   |   Ability: Regenerator   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Rock Tomb [T2]  /  Stun Spore [Sit]  /  Ingrain [Sit]
+  [2B] Slamming giant
+       Tangrowth @ Miracle Seed   |   Ability: Leaf Guard   |   Nature: Lonely
+       Moves: Slam [T2]  /  Brutal Swing [T2]  /  Bulldoze [T2]  /  Seed Bomb [T3]
+  [3A] Regenerator staller
+       Tangrowth @ Leftovers   |   Ability: Regenerator   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Sleep Powder [T3]  /  Seed Bomb [T3]  /  Synthesis [Sit]
+  [3B] Sun giant
+       Tangrowth @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Brave
+       Moves: Sunny Day [Sit]  /  Swords Dance [T4]  /  Seed Bomb [T3]  /  Stomping Tantrum [T3]
+  [4A] Regenerator wall
+       Tangrowth @ Rocky Helmet   |   Ability: Regenerator   |   Nature: Relaxed
+       Moves: Power Whip [T4]  /  Knock Off [T4]  /  Earthquake [T4]  /  Synthesis [Sit]
+  [4B] Assault Vest giant
+       Tangrowth @ Assault Vest   |   Ability: Regenerator   |   Nature: Sassy
+       Moves: Giga Drain [T4]  /  Knock Off [T4]  /  Sludge Bomb [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#640 VIRIZION  —  Grass/Fighting  —  BST 580  —  Category 8
+Stats 91/90/72/90/129/108  |  Profile: Mixed attacker
+Variants: A = Physical (Swords Dance) / B = Special (Calm Mind)
+----------------------------------------------------------------------------------------------------
+  [1A] Grassland knight
+       Virizion @ (no item)   |   Ability: Justified   |   Nature: Hardy
+       Moves: Double Kick [T1]  /  Leer [T1]  /  Quick Attack [T1]  /  Magical Leaf [T2]
+  [1B] Swift knight
+       Virizion @ Oran Berry   |   Ability: Justified   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  False Swipe [T1]  /  Flash [T1]  /  Grassy Glide [T2]
+  [2A] Sword knight
+       Virizion @ Black Belt   |   Ability: Justified   |   Nature: Lonely
+       Moves: Grassy Glide [T2]  /  Aerial Ace [T2]  /  Work Up [T2]  /  Sacred Sword [T3]
+  [2B] Leafy caster
+       Virizion @ Miracle Seed   |   Ability: Justified   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Swift [T2]  /  Work Up [T2]  /  Grass Knot [T3]
+  [3A] Swords Dance knight
+       Virizion @ Muscle Band   |   Ability: Justified   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Sacred Sword [T3]  /  Seed Bomb [T3]  /  Zen Headbutt [T3]
+  [3B] Calm Mind knight
+       Virizion @ Wise Glasses   |   Ability: Justified   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Grass Knot [T3]  /  Synthesis [Sit]  /  Substitute [Sit]
+  [4A] Swords Dance sweeper
+       Virizion @ Life Orb   |   Ability: Justified   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Leaf Blade [T4]  /  Close Combat [T4]  /  Stone Edge [T4]
+  [4B] Calm Mind sweeper
+       Virizion @ Leftovers   |   Ability: Justified   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Giga Drain [T4]  /  Aura Sphere [T4]  /  Synthesis [Sit]
+
+====================================================================================================
+#251 CELEBI  —  Psychic/Grass  —  BST 600  —  Category 8
+Stats 100/100/100/100/100/100  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Recover, Leech Seed) / B = Offensive (Nasty Plot)
+----------------------------------------------------------------------------------------------------
+  [1A] Time traveler
+       Celebi @ Oran Berry   |   Ability: Natural Cure   |   Nature: Hardy
+       Moves: Confusion [T1]  /  Sweet Scent [T1]  /  Mud-Slap [T1]  /  Magical Leaf [T2]
+  [1B] Forest guardian
+       Celebi @ (no item)   |   Ability: Natural Cure   |   Nature: Docile
+       Moves: Confusion [T1]  /  Defense Curl [T1]  /  Flash [T1]  /  Ancient Power [T2]
+  [2A] Seeding pivot
+       Celebi @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Recover [Sit]  /  U-turn [T2]  /  Magical Leaf [T2]
+  [2B] Pollen caster
+       Celebi @ Miracle Seed   |   Ability: Natural Cure   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Ancient Power [T2]  /  Silver Wind [T2]  /  Pollen Puff [T3]
+  [3A] Cleric guardian
+       Celebi @ Leftovers   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Recover [Sit]  /  Psychic [T4]  /  Heal Bell [Sit]
+  [3B] Nasty Plot guardian
+       Celebi @ Wise Glasses   |   Ability: Natural Cure   |   Nature: Modest
+       Moves: Nasty Plot [T4]  /  Pollen Puff [T3]  /  Expanding Force [T3]  /  Dazzling Gleam [T3]
+  [4A] Bulky pivot
+       Celebi @ Rocky Helmet   |   Ability: Natural Cure   |   Nature: Bold
+       Moves: Leech Seed [Sit]  /  Recover [Sit]  /  Giga Drain [T4]  /  U-turn [T2]
+  [4B] Nasty Plot sweeper
+       Celebi @ Life Orb   |   Ability: Natural Cure   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Leaf Storm [T4]  /  Psychic [T4]  /  Earth Power [T4]
+
+====================================================================================================
+#492 SHAYMIN  —  Grass  —  BST 600  —  Category 8
+Stats 100/100/100/100/100/100  |  Profile: Offensive (special)
+Variants: A = Special attacker (Seed Flare) / B = Support (Leech Seed, Healing Wish)
+----------------------------------------------------------------------------------------------------
+  [1A] Gratitude hedgehog
+       Shaymin @ (no item)   |   Ability: Natural Cure   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Disarming Voice [T1]  /  Sweet Kiss [T1]  /  Magical Leaf [T2]
+  [1B] Flower hedgehog
+       Shaymin @ Oran Berry   |   Ability: Natural Cure   |   Nature: Docile
+       Moves: Mud-Slap [T1]  /  Flash [T1]  /  Defense Curl [T1]  /  Air Cutter [T2]
+  [2A] Leafy caster
+       Shaymin @ Miracle Seed   |   Ability: Natural Cure   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Air Cutter [T2]  /  Ominous Wind [T2]  /  Grass Knot [T3]
+  [2B] Cleric hedgehog
+       Shaymin @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Calm
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Magical Leaf [T2]  /  Aromatherapy [Sit]
+  [3A] Growth hedgehog
+       Shaymin @ Wise Glasses   |   Ability: Natural Cure   |   Nature: Modest
+       Moves: Growth [T3]  /  Grass Knot [T3]  /  Dazzling Gleam [T3]  /  Earth Power [T4]
+  [3B] Healing hedgehog
+       Shaymin @ Leftovers   |   Ability: Natural Cure   |   Nature: Calm
+       Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Healing Wish [Sit]  /  Dazzling Gleam [T3]
+  [4A] Choice Specs hedgehog
+       Shaymin @ Choice Specs   |   Ability: Natural Cure   |   Nature: Timid
+       Moves: Seed Flare [T4]  /  Earth Power [T4]  /  Air Slash [T4]  /  Psychic [T4]
+  [4B] Growth sweeper
+       Shaymin @ Life Orb   |   Ability: Natural Cure   |   Nature: Timid
+       Moves: Growth [T3]  /  Seed Flare [T4]  /  Earth Power [T4]  /  Synthesis [Sit]
+
+====================================================================================================
+#888 ZACIAN  —  Fairy  —  BST 660  —  Category 9
+Stats 92/120/115/80/115/138  |  Profile: Offensive (physical, fast)
+Variants: A = Setup (Swords Dance) / B = Attacker (Intrepid Sword, Choice)
+----------------------------------------------------------------------------------------------------
+  [1A] Warrior wolf
+       Zacian @ (no item)   |   Ability: Intrepid Sword   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Metal Claw [T1]  /  Howl [T1]  /  Bite [T2]
+  [1B] Sword wolf
+       Zacian @ Oran Berry   |   Ability: Intrepid Sword   |   Nature: Docile
+       Moves: False Swipe [T1]  /  Focus Energy [T1]  /  Quick Attack [T1]  /  Fire Fang [T2]
+  [2A] Fang wolf
+       Zacian @ Muscle Band   |   Ability: Intrepid Sword   |   Nature: Lonely
+       Moves: Bite [T2]  /  Ice Fang [T2]  /  Thunder Fang [T2]  /  Sacred Sword [T3]
+  [2B] Roaring wolf
+       Zacian @ Sitrus Berry   |   Ability: Intrepid Sword   |   Nature: Hasty
+       Moves: Noble Roar [T2]  /  Bite [T2]  /  Fire Fang [T2]  /  Take Down [T2]
+  [3A] Swords Dance wolf
+       Zacian @ Expert Belt   |   Ability: Intrepid Sword   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Sacred Sword [T3]  /  Crunch [T3]  /  Psycho Cut [T3]
+  [3B] Sash wolf
+       Zacian @ Focus Sash   |   Ability: Intrepid Sword   |   Nature: Jolly
+       Moves: Play Rough [T4]  /  Sacred Sword [T3]  /  Crunch [T3]  /  Quick Attack [T1]
+  [4A] Swords Dance sweeper
+       Zacian @ Life Orb   |   Ability: Intrepid Sword   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Play Rough [T4]  /  Close Combat [T4]  /  Iron Head [T4]
+  [4B] Choice Band wolf
+       Zacian @ Choice Band   |   Ability: Intrepid Sword   |   Nature: Jolly
+       Moves: Play Rough [T4]  /  Close Combat [T4]  /  Iron Head [T4]  /  Psychic Fangs [T4]
+
+====================================================================================================
+#716 XERNEAS  —  Fairy  —  BST 680  —  Category 9
+Stats 126/131/95/131/98/99  |  Profile: Offensive (special)
+Variants: A = Setup (Geomancy, Calm Mind) / B = Attacker (Fairy Aura)
+----------------------------------------------------------------------------------------------------
+  [1A] Life deer
+       Xerneas @ (no item)   |   Ability: Fairy Aura   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Flash [T1]  /  Confide [T1]  /  Draining Kiss [T2]
+  [1B] Rainbow deer
+       Xerneas @ Oran Berry   |   Ability: Fairy Aura   |   Nature: Docile
+       Moves: Tackle [T1]  /  Flash [T1]  /  Confide [T1]  /  Aurora Beam [T2]
+  [2A] Fairy caster
+       Xerneas @ Fairy Feather   |   Ability: Fairy Aura   |   Nature: Mild
+       Moves: Draining Kiss [T2]  /  Aurora Beam [T2]  /  Swift [T2]  /  Dazzling Gleam [T3]
+  [2B] Cleric deer
+       Xerneas @ Sitrus Berry   |   Ability: Fairy Aura   |   Nature: Calm
+       Moves: Draining Kiss [T2]  /  Aromatherapy [Sit]  /  Roar [Sit]  /  Thunder Wave [Sit]
+  [3A] Calm Mind deer
+       Xerneas @ Wise Glasses   |   Ability: Fairy Aura   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Rest [Sit]
+  [3B] Physical deer
+       Xerneas @ Expert Belt   |   Ability: Fairy Aura   |   Nature: Adamant
+       Moves: Horn Leech [T4]  /  Night Slash [T3]  /  Zen Headbutt [T3]  /  Smart Strike [T3]
+  [4A] Geomancy deer
+       Xerneas @ Power Herb   |   Ability: Fairy Aura   |   Nature: Modest
+       Moves: Geomancy [T4]  /  Moonblast [T4]  /  Focus Blast [T4]  /  Thunderbolt [T4]
+  [4B] Choice Specs deer
+       Xerneas @ Choice Specs   |   Ability: Fairy Aura   |   Nature: Timid
+       Moves: Moonblast [T4]  /  Focus Blast [T4]  /  Thunderbolt [T4]  /  Psyshock [T4]
+

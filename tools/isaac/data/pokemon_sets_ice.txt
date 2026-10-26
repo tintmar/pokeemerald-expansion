@@ -1,0 +1,1703 @@
+====================================================================================================
+POKEMON_SETS.TXT  —  BIOME: ICE (Shoal Cave) — Ice / Steel
+56 Pokémon x 8 sets = 448 sets   |   Draft for validation
+====================================================================================================
+
+HOW TO READ
+----------------------------------------------------------------------------------------------------
+  Set tiers (move tiers from moves_by_tier.txt v3, shown in brackets after each move):
+    Tier 1 sets  (early game)     : Tier 1 moves + at most one Tier 2 move. Neutral nature. No item or a basic berry.
+    Tier 2 sets  (early-mid game) : Tier 2 + Situational moves + at most one Tier 3 move. Reasonable but imperfect
+                                    nature (attackers often use Lonely / Hasty / Mild...). Simple items: Sitrus, type boosters...
+    Tier 3 sets  (mid-late game)  : Tier 3 + Situational moves + at most one Tier 4 move. Optimal nature.
+                                    Solid items: Leftovers, Muscle Band, Expert Belt, Rocky Helmet, Lum Berry...
+    Tier 4 sets  (bosses, player) : Best mix of Tier 3, Tier 4 and Situational moves. Competitive items (Life Orb, Choice...).
+    Exception (v3): Tier 3 and Tier 4 sets may use a Tier 2 [Pivot] move (U-turn, Volt Switch, Flip Turn).
+    Entry hazards do not exist in this game (v3), so no set uses them. Eviolite is banned from the game.
+  Set A / Set B follow the Pokémon profile shown under its name:
+    Mixed attacker: A = Physical / B = Special.   Balanced / Bulky: A = Defensive / B = Offensive.
+    Pure Defensive: A = Pure Stall / B = Defensive with utility.
+    Offensive (one attacking stat): A = Setup / power attacker / B = second offensive role (pivot, priority, Choice, utility).
+  Every move is legal for that Pokémon (current or past learnset, incl. pre-evolution moves). Smeargle may use any move
+  (Sketch). Every set was checked by script for move legality, tier rules, ability legality and item rules.
+
+====================================================================================================
+#872 SNOM  —  Ice/Bug  —  BST 185  —  Category 1
+Stats 30/25/35/45/30/20  |  Profile: Offensive (tiny movepool)
+Variants: A = Special (Mirror Coat tricks) / B = Physical
+----------------------------------------------------------------------------------------------------
+  [1A] Frost larva
+       Snom @ (no item)   |   Ability: Shield Dust   |   Nature: Hardy
+       Moves: Powder Snow [T1]  /  Fairy Wind [T1]  /  Struggle Bug [T2]   (movepool limit: no other legal move fits this tier)
+  [1B] Icy worm
+       Snom @ Oran Berry   |   Ability: Ice Scales   |   Nature: Docile
+       Moves: Powder Snow [T1]  /  Fairy Wind [T1]  /  Icy Wind [T2]   (movepool limit: no other legal move fits this tier)
+  [2A] Mirror larva
+       Snom @ Never-Melt Ice   |   Ability: Ice Scales   |   Nature: Modest
+       Moves: Icy Wind [T2]  /  Struggle Bug [T2]  /  Protect [Sit]  /  Mirror Coat [Sit]
+  [2B] Biting larva
+       Snom @ Silver Powder   |   Ability: Shield Dust   |   Nature: Lonely
+       Moves: Bug Bite [T2]  /  Skitter Smack [T2]  /  Lunge [T3]  /  Protect [Sit]
+  [3A] Sash larva
+       Snom @ Focus Sash   |   Ability: Ice Scales   |   Nature: Modest
+       Moves: Bug Buzz [T4]  /  Mirror Coat [Sit]  /  Protect [Sit]  /  Substitute [Sit]
+  [3B] Icicle larva
+       Snom @ Muscle Band   |   Ability: Shield Dust   |   Nature: Adamant
+       Moves: Lunge [T3]  /  Icicle Spear [T3]  /  Protect [Sit]  /  Facade [T4]
+  [4A] Ice Scales staller
+       Snom @ Leftovers   |   Ability: Ice Scales   |   Nature: Modest
+       Moves: Bug Buzz [T4]  /  Substitute [Sit]  /  Protect [Sit]  /  Rest [Sit]
+  [4B] Larva attacker
+       Snom @ Life Orb   |   Ability: Shield Dust   |   Nature: Adamant
+       Moves: Lunge [T3]  /  Icicle Spear [T3]  /  Facade [T4]  /  Protect [Sit]
+
+====================================================================================================
+#293 WHISMUR  —  Normal  —  BST 240  —  Category 1
+Stats 64/51/23/51/23/28  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Whisper
+       Whismur @ (no item)   |   Ability: Soundproof   |   Nature: Hardy
+       Moves: Pound [T1]  /  Astonish [T1]  /  Howl [T1]  /  Stomp [T2]
+  [1B] Shy whisper
+       Whismur @ Oran Berry   |   Ability: Rattled   |   Nature: Docile
+       Moves: Pound [T1]  /  Disarming Voice [T1]  /  Supersonic [T1]  /  Icy Wind [T2]
+  [2A] Stomping whisper
+       Whismur @ Silk Scarf   |   Ability: Soundproof   |   Nature: Lonely
+       Moves: Stomp [T2]  /  Mega Punch [T2]  /  Screech [T2]  /  Ice Punch [T3]
+  [2B] Loud whisper
+       Whismur @ Sitrus Berry   |   Ability: Rattled   |   Nature: Mild
+       Moves: Water Pulse [T2]  /  Icy Wind [T2]  /  Shock Wave [T2]  /  Uproar [T3]
+  [3A] Elemental puncher
+       Whismur @ Muscle Band   |   Ability: Soundproof   |   Nature: Adamant
+       Moves: Ice Punch [T3]  /  Fire Punch [T3]  /  Thunder Punch [T3]  /  Retaliate [T3]
+  [3B] Booming whisper
+       Whismur @ Wise Glasses   |   Ability: Rattled   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Extrasensory [T3]  /  Protect [Sit]  /  Roar [Sit]
+  [4A] Physical attacker
+       Whismur @ Life Orb   |   Ability: Soundproof   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Ice Punch [T3]  /  Fire Punch [T3]  /  Thunder Punch [T3]
+  [4B] Choice Specs shouter
+       Whismur @ Choice Specs   |   Ability: Rattled   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Ice Beam [T4]  /  Fire Blast [T4]  /  Shadow Ball [T4]
+
+====================================================================================================
+#821 ROOKIDEE  —  Flying  —  BST 245  —  Category 1
+Stats 38/47/35/33/35/57  |  Profile: Offensive (physical)
+Variants: A = Physical attacker / B = Utility (pivot, Defog, Taunt)
+----------------------------------------------------------------------------------------------------
+  [1A] Tiny bird
+       Rookidee @ (no item)   |   Ability: Keen Eye   |   Nature: Hardy
+       Moves: Peck [T1]  /  Leer [T1]  /  Fury Attack [T1]  /  Sand Attack [T1]
+  [1B] Brave chick
+       Rookidee @ Oran Berry   |   Ability: Big Pecks   |   Nature: Docile
+       Moves: Peck [T1]  /  Focus Energy [T1]  /  Rock Smash [T1]  /  Pluck [T2]
+  [2A] Pecking chick
+       Rookidee @ Sharp Beak   |   Ability: Keen Eye   |   Nature: Lonely
+       Moves: Pluck [T2]  /  Hone Claws [T2]  /  Thief [T2]  /  Drill Peck [T3]
+  [2B] Pivot chick
+       Rookidee @ Sitrus Berry   |   Ability: Unnerve   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Fake Tears [T2]  /  Roost [Sit]  /  Taunt [Sit]
+  [3A] Feisty chick
+       Rookidee @ Muscle Band   |   Ability: Keen Eye   |   Nature: Jolly
+       Moves: Drill Peck [T3]  /  Retaliate [T3]  /  Assurance [T3]  /  Facade [T4]
+  [3B] Sash utility
+       Rookidee @ Focus Sash   |   Ability: Unnerve   |   Nature: Jolly
+       Moves: U-turn [T2]  /  Taunt [Sit]  /  Defog [Sit]  /  Roost [Sit]
+  [4A] Brave Bird chick
+       Rookidee @ Life Orb   |   Ability: Big Pecks   |   Nature: Jolly
+       Moves: Brave Bird [T4]  /  U-turn [T2]  /  Roost [Sit]  /  Facade [T4]
+  [4B] Taunt utility
+       Rookidee @ Leftovers   |   Ability: Unnerve   |   Nature: Jolly
+       Moves: Taunt [Sit]  /  Roost [Sit]  /  Brave Bird [T4]  /  Defog [Sit]
+
+====================================================================================================
+#220 SWINUB  —  Ice/Ground  —  BST 250  —  Category 1
+Stats 50/50/40/30/30/50  |  Profile: Offensive (physical)
+Variants: A = Physical attacker / B = Utility (Endeavor, priority)
+----------------------------------------------------------------------------------------------------
+  [1A] Pig piglet
+       Swinub @ (no item)   |   Ability: Oblivious   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Powder Snow [T1]  /  Mud-Slap [T1]  /  Odor Sleuth [T1]
+  [1B] Snowy piglet
+       Swinub @ Oran Berry   |   Ability: Thick Fat   |   Nature: Docile
+       Moves: Tackle [T1]  /  Sand Tomb [T1]  /  Defense Curl [T1]  /  Ice Fang [T2]
+  [2A] Frosty piglet
+       Swinub @ Never-Melt Ice   |   Ability: Thick Fat   |   Nature: Lonely
+       Moves: Ice Fang [T2]  /  Bulldoze [T2]  /  Bite [T2]  /  Avalanche [T3]
+  [2B] Snow piglet
+       Swinub @ Sitrus Berry   |   Ability: Snow Cloak   |   Nature: Naughty
+       Moves: Icy Wind [T2]  /  Mud Shot [T2]  /  Rock Tomb [T2]  /  Snowscape [Sit]
+  [3A] Icicle piglet
+       Swinub @ Muscle Band   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Icicle Spear [T3]  /  High Horsepower [T3]  /  Superpower [T3]  /  Ice Shard [T4]
+  [3B] Sash Endeavor
+       Swinub @ Focus Sash   |   Ability: Oblivious   |   Nature: Adamant
+       Moves: Avalanche [T3]  /  Stomping Tantrum [T3]  /  Endeavor [Sit]  /  Ice Shard [T4]
+  [4A] Piglet attacker
+       Swinub @ Life Orb   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Icicle Crash [T4]  /  Earthquake [T4]  /  Ice Shard [T4]  /  Stone Edge [T4]
+  [4B] Sash Endeavor lead
+       Swinub @ Focus Sash   |   Ability: Oblivious   |   Nature: Adamant
+       Moves: Endeavor [Sit]  /  Ice Shard [T4]  /  Earthquake [T4]  /  Icicle Crash [T4]
+
+====================================================================================================
+#019 RATTATA  —  Normal  —  BST 253  —  Category 1
+Stats 30/56/35/25/35/72  |  Profile: Offensive (physical)
+Variants: A = Guts attacker / B = Utility (Super Fang, pivot)
+----------------------------------------------------------------------------------------------------
+  [1A] Street rat
+       Rattata @ (no item)   |   Ability: Run Away   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Tail Whip [T1]  /  Quick Attack [T1]  /  Focus Energy [T1]
+  [1B] Biting rat
+       Rattata @ Oran Berry   |   Ability: Hustle   |   Nature: Docile
+       Moves: Tackle [T1]  /  Fury Swipes [T1]  /  Defense Curl [T1]  /  Bite [T2]
+  [2A] Hyper Fang rat
+       Rattata @ Silk Scarf   |   Ability: Guts   |   Nature: Lonely
+       Moves: Bite [T2]  /  Headbutt [T2]  /  Flame Wheel [T2]  /  Hyper Fang [T3]
+  [2B] Pest rat
+       Rattata @ Sitrus Berry   |   Ability: Hustle   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Super Fang [Sit]  /  Screech [T2]  /  Thief [T2]
+  [3A] Guts rat
+       Rattata @ Flame Orb   |   Ability: Guts   |   Nature: Jolly
+       Moves: Facade [T4]  /  Crunch [T3]  /  Zen Headbutt [T3]  /  Protect [Sit]
+  [3B] Sash pest
+       Rattata @ Focus Sash   |   Ability: Hustle   |   Nature: Jolly
+       Moves: Super Fang [Sit]  /  U-turn [T2]  /  Taunt [Sit]  /  Sucker Punch [T4]
+  [4A] Guts attacker
+       Rattata @ Flame Orb   |   Ability: Guts   |   Nature: Jolly
+       Moves: Facade [T4]  /  Sucker Punch [T4]  /  U-turn [T2]  /  Wild Charge [T4]
+  [4B] Kamikaze rat
+       Rattata @ Focus Sash   |   Ability: Run Away   |   Nature: Jolly
+       Moves: Super Fang [Sit]  /  Final Gambit [Sit]  /  U-turn [T2]  /  Sucker Punch [T4]
+
+====================================================================================================
+#300 SKITTY  —  Normal  —  BST 260  —  Category 1
+Stats 50/45/45/35/35/50  |  Profile: Support
+Variants: A = Support (Wish, cleric, Fake Out) / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Kitten
+       Skitty @ (no item)   |   Ability: Cute Charm   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Growl [T1]  /  Tail Whip [T1]  /  Double Slap [T1]
+  [1B] Singing kitten
+       Skitty @ Oran Berry   |   Ability: Wonder Skin   |   Nature: Docile
+       Moves: Disarming Voice [T1]  /  Foresight [T1]  /  Tackle [T1]  /  Sing [T2]
+  [2A] Lullaby kitten
+       Skitty @ Sitrus Berry   |   Ability: Cute Charm   |   Nature: Calm
+       Moves: Sing [T2]  /  Charm [T2]  /  Wish [Sit]  /  Fake Out [Sit]
+  [2B] Wake-Up combo
+       Skitty @ Silk Scarf   |   Ability: Wonder Skin   |   Nature: Lonely
+       Moves: Sing [T2]  /  Wake-Up Slap [T2]  /  Headbutt [T2]  /  Feint Attack [T2]
+  [3A] Cleric kitten
+       Skitty @ Leftovers   |   Ability: Wonder Skin   |   Nature: Calm
+       Moves: Wish [Sit]  /  Heal Bell [Sit]  /  Fake Out [Sit]  /  Thunder Wave [Sit]
+  [3B] Priority kitten
+       Skitty @ Muscle Band   |   Ability: Cute Charm   |   Nature: Adamant
+       Moves: Fake Out [Sit]  /  Zen Headbutt [T3]  /  Iron Tail [T3]  /  Sucker Punch [T4]
+  [4A] Calm Mind passer
+       Skitty @ Leftovers   |   Ability: Wonder Skin   |   Nature: Calm
+       Moves: Calm Mind [T4]  /  Wish [Sit]  /  Baton Pass [Sit]  /  Hyper Voice [T4]
+  [4B] Kitten attacker
+       Skitty @ Life Orb   |   Ability: Cute Charm   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Double-Edge [T4]  /  Sucker Punch [T4]  /  Wild Charge [T4]
+
+====================================================================================================
+#447 RIOLU  —  Fighting  —  BST 285  —  Category 1
+Stats 40/70/40/35/40/60  |  Profile: Offensive (physical)
+Variants: A = Setup attacker / B = Priority / Choice attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Aura pup
+       Riolu @ (no item)   |   Ability: Steadfast   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Foresight [T1]  /  Rock Smash [T1]  /  Howl [T1]
+  [1B] Emanation pup
+       Riolu @ Oran Berry   |   Ability: Inner Focus   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Metal Claw [T1]  /  Mud-Slap [T1]  /  Force Palm [T2]
+  [2A] Aura brawler
+       Riolu @ Black Belt   |   Ability: Inner Focus   |   Nature: Lonely
+       Moves: Force Palm [T2]  /  Bite [T2]  /  Aerial Ace [T2]  /  Brick Break [T3]
+  [2B] Prankster pup
+       Riolu @ Sitrus Berry   |   Ability: Prankster   |   Nature: Hasty
+       Moves: Low Sweep [T2]  /  Screech [T2]  /  Roar [Sit]  /  Bite [T2]
+  [3A] Swords Dance pup
+       Riolu @ Muscle Band   |   Ability: Steadfast   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Brick Break [T3]  /  Crunch [T3]  /  Ice Punch [T3]
+  [3B] Sash striker
+       Riolu @ Focus Sash   |   Ability: Inner Focus   |   Nature: Jolly
+       Moves: Sky Uppercut [T3]  /  Crunch [T3]  /  Ice Punch [T3]  /  Bullet Punch [T4]
+  [4A] Swords Dance sweeper
+       Riolu @ Life Orb   |   Ability: Steadfast   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Close Combat [T4]  /  Meteor Mash [T4]  /  Bullet Punch [T4]
+  [4B] Choice Band pup
+       Riolu @ Choice Band   |   Ability: Inner Focus   |   Nature: Jolly
+       Moves: Close Combat [T4]  /  Meteor Mash [T4]  /  Crunch [T3]  /  Bullet Punch [T4]
+
+====================================================================================================
+#363 SPHEAL  —  Ice/Water  —  BST 290  —  Category 2
+Stats 70/40/50/55/50/25  |  Profile: Balanced / Bulky
+Variants: A = Defensive (hail stall) / B = Offensive (Belly Drum)
+----------------------------------------------------------------------------------------------------
+  [1A] Clap seal
+       Spheal @ Oran Berry   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Powder Snow [T1]  /  Growl [T1]  /  Defense Curl [T1]  /  Water Gun [T1]
+  [1B] Rolling seal
+       Spheal @ (no item)   |   Ability: Ice Body   |   Nature: Docile
+       Moves: Water Gun [T1]  /  Powder Snow [T1]  /  Rock Smash [T1]  /  Aurora Beam [T2]
+  [2A] Hail seal
+       Spheal @ Sitrus Berry   |   Ability: Ice Body   |   Nature: Bold
+       Moves: Aurora Beam [T2]  /  Water Pulse [T2]  /  Protect [Sit]  /  Hail [Sit]
+  [2B] Bumping seal
+       Spheal @ Never-Melt Ice   |   Ability: Thick Fat   |   Nature: Lonely
+       Moves: Headbutt [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Aqua Tail [T3]
+  [3A] Ice Body staller
+       Spheal @ Icy Rock   |   Ability: Ice Body   |   Nature: Bold
+       Moves: Hail [Sit]  /  Frost Breath [T3]  /  Protect [Sit]  /  Toxic [Sit]
+  [3B] Belly Drum seal
+       Spheal @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Belly Drum [T4]  /  Aqua Tail [T3]  /  Iron Tail [T3]  /  Strength [T3]
+  [4A] Bulky seal
+       Spheal @ Leftovers   |   Ability: Ice Body   |   Nature: Bold
+       Moves: Ice Beam [T4]  /  Surf [T4]  /  Protect [Sit]  /  Toxic [Sit]
+  [4B] Belly Drum sweeper
+       Spheal @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Belly Drum [T4]  /  Waterfall [T4]  /  Earthquake [T4]  /  Rock Slide [T4]
+
+====================================================================================================
+#361 SNORUNT  —  Ice  —  BST 300  —  Category 2
+Stats 50/50/50/50/50/50  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Snow hat
+       Snorunt @ (no item)   |   Ability: Inner Focus   |   Nature: Hardy
+       Moves: Astonish [T1]  /  Leer [T1]  /  Powder Snow [T1]  /  Ice Fang [T2]
+  [1B] Snowy hat
+       Snorunt @ Oran Berry   |   Ability: Ice Body   |   Nature: Docile
+       Moves: Powder Snow [T1]  /  Leer [T1]  /  Flash [T1]  /  Icy Wind [T2]
+  [2A] Biting hat
+       Snorunt @ Never-Melt Ice   |   Ability: Inner Focus   |   Nature: Lonely
+       Moves: Ice Fang [T2]  /  Bite [T2]  /  Headbutt [T2]  /  Ice Spinner [T3]
+  [2B] Frost caster
+       Snorunt @ Sitrus Berry   |   Ability: Ice Body   |   Nature: Mild
+       Moves: Icy Wind [T2]  /  Water Pulse [T2]  /  Chilling Water [T2]  /  Frost Breath [T3]
+  [3A] Ice Shard hat
+       Snorunt @ Muscle Band   |   Ability: Inner Focus   |   Nature: Adamant
+       Moves: Ice Spinner [T3]  /  Crunch [T3]  /  Avalanche [T3]  /  Ice Shard [T4]
+  [3B] Snow caster
+       Snorunt @ Icy Rock   |   Ability: Ice Body   |   Nature: Modest
+       Moves: Snowscape [Sit]  /  Frost Breath [T3]  /  Hex [T3]  /  Blizzard [T4]
+  [4A] Physical attacker
+       Snorunt @ Life Orb   |   Ability: Inner Focus   |   Nature: Jolly
+       Moves: Icicle Crash [T4]  /  Crunch [T3]  /  Ice Shard [T4]  /  Double-Edge [T4]
+  [4B] Ice Body staller
+       Snorunt @ Leftovers   |   Ability: Ice Body   |   Nature: Timid
+       Moves: Substitute [Sit]  /  Protect [Sit]  /  Ice Beam [T4]  /  Shadow Ball [T4]
+
+====================================================================================================
+#374 BELDUM  —  Steel/Psychic  —  BST 300  —  Category 2
+Stats 40/55/80/35/60/30  |  Profile: Offensive (physical, tiny movepool)
+Variants: A = Clear Body attacker / B = Light Metal (Iron Defense)
+----------------------------------------------------------------------------------------------------
+  [1A] Iron ball
+       Beldum @ (no item)   |   Ability: Clear Body   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Take Down [T2]   (movepool limit: no other legal move fits this tier)
+  [1B] Floating iron
+       Beldum @ Oran Berry   |   Ability: Light Metal   |   Nature: Docile
+       Moves: Tackle [T1]  /  Headbutt [T2]   (movepool limit: no other legal move fits this tier)
+  [2A] Magnetic rammer
+       Beldum @ Metal Coat   |   Ability: Clear Body   |   Nature: Lonely
+       Moves: Headbutt [T2]  /  Take Down [T2]  /  Zen Headbutt [T3]  /  Iron Defense [Sit]
+  [2B] Iron wall
+       Beldum @ Sitrus Berry   |   Ability: Light Metal   |   Nature: Impish
+       Moves: Headbutt [T2]  /  Take Down [T2]  /  Iron Defense [Sit]   (movepool limit: no other legal move fits this tier)
+  [3A] Iron striker
+       Beldum @ Muscle Band   |   Ability: Clear Body   |   Nature: Adamant
+       Moves: Zen Headbutt [T3]  /  Iron Head [T4]  /  Iron Defense [Sit]   (movepool limit: no other legal move fits this tier)
+  [3B] Iron Defense ball
+       Beldum @ Leftovers   |   Ability: Light Metal   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Zen Headbutt [T3]  /  Iron Head [T4]   (movepool limit: no other legal move fits this tier)
+  [4A] Iron attacker
+       Beldum @ Life Orb   |   Ability: Clear Body   |   Nature: Adamant
+       Moves: Iron Head [T4]  /  Zen Headbutt [T3]  /  Iron Defense [Sit]   (movepool limit: no other legal move fits this tier)
+  [4B] Helmet ball
+       Beldum @ Rocky Helmet   |   Ability: Light Metal   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Iron Head [T4]  /  Zen Headbutt [T3]   (movepool limit: no other legal move fits this tier)
+
+====================================================================================================
+#436 BRONZOR  —  Steel/Psychic  —  BST 300  —  Category 2
+Stats 57/24/86/24/86/23  |  Profile: Pure Defensive
+Variants: A = Pure Stall / B = Defensive with utility (Trick Room, screens)
+----------------------------------------------------------------------------------------------------
+  [1A] Bronze mirror
+       Bronzor @ Oran Berry   |   Ability: Levitate   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Confusion [T1]  /  Flash [T1]  /  Confide [T1]
+  [1B] Hypnotic mirror
+       Bronzor @ (no item)   |   Ability: Heatproof   |   Nature: Docile
+       Moves: Confusion [T1]  /  Tackle [T1]  /  Flash [T1]  /  Hypnosis [T2]
+  [2A] Toxic mirror
+       Bronzor @ Sitrus Berry   |   Ability: Levitate   |   Nature: Bold
+       Moves: Psywave [T2]  /  Toxic [Sit]  /  Protect [Sit]  /  Confuse Ray [Sit]
+  [2B] Screen mirror
+       Bronzor @ Lum Berry   |   Ability: Heatproof   |   Nature: Relaxed
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Feint Attack [T2]
+  [3A] Mirror staller
+       Bronzor @ Leftovers   |   Ability: Levitate   |   Nature: Bold
+       Moves: Toxic [Sit]  /  Protect [Sit]  /  Gyro Ball [T3]  /  Psychic [T4]
+  [3B] Screen setter
+       Bronzor @ Light Clay   |   Ability: Heatproof   |   Nature: Relaxed
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Gyro Ball [T3]
+  [4A] Mirror wall
+       Bronzor @ Leftovers   |   Ability: Levitate   |   Nature: Bold
+       Moves: Flash Cannon [T4]  /  Psychic [T4]  /  Toxic [Sit]  /  Protect [Sit]
+  [4B] Trick Room support
+       Bronzor @ Light Clay   |   Ability: Heatproof   |   Nature: Relaxed
+       Moves: Trick Room [Sit]  /  Reflect [Sit]  /  Light Screen [Sit]  /  Psyshock [T4]
+
+====================================================================================================
+#238 SMOOCHUM  —  Ice/Psychic  —  BST 305  —  Category 2
+Stats 45/30/15/85/65/65  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Support (Aurora Veil, Fake Out)
+----------------------------------------------------------------------------------------------------
+  [1A] Kiss baby
+       Smoochum @ (no item)   |   Ability: Oblivious   |   Nature: Hardy
+       Moves: Powder Snow [T1]  /  Confusion [T1]  /  Pound [T1]  /  Sweet Kiss [T1]
+  [1B] Frosty kiss
+       Smoochum @ Oran Berry   |   Ability: Forewarn   |   Nature: Docile
+       Moves: Pound [T1]  /  Lick [T1]  /  Miracle Eye [T1]  /  Icy Wind [T2]
+  [2A] Frost caster
+       Smoochum @ Never-Melt Ice   |   Ability: Hydration   |   Nature: Modest
+       Moves: Icy Wind [T2]  /  Draining Kiss [T2]  /  Water Pulse [T2]  /  Frost Breath [T3]
+  [2B] Sleep support
+       Smoochum @ Sitrus Berry   |   Ability: Forewarn   |   Nature: Hasty
+       Moves: Sing [T2]  /  Fake Out [Sit]  /  Light Screen [Sit]  /  Icy Wind [T2]
+  [3A] Nasty Plot kiss
+       Smoochum @ Wise Glasses   |   Ability: Hydration   |   Nature: Modest
+       Moves: Nasty Plot [T4]  /  Frost Breath [T3]  /  Stored Power [T3]  /  Signal Beam [T3]
+  [3B] Aurora Veil setter
+       Smoochum @ Light Clay   |   Ability: Forewarn   |   Nature: Timid
+       Moves: Hail [Sit]  /  Aurora Veil [Sit]  /  Encore [Sit]  /  Frost Breath [T3]
+  [4A] Nasty Plot sweeper
+       Smoochum @ Life Orb   |   Ability: Hydration   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Ice Beam [T4]  /  Psychic [T4]  /  Shadow Ball [T4]
+  [4B] Aurora Veil lead
+       Smoochum @ Light Clay   |   Ability: Forewarn   |   Nature: Timid
+       Moves: Hail [Sit]  /  Aurora Veil [Sit]  /  Fake Out [Sit]  /  Ice Beam [T4]
+
+====================================================================================================
+#597 FERROSEED  —  Grass/Steel  —  BST 305  —  Category 2
+Stats 44/50/91/24/86/10  |  Profile: Pure Defensive
+Variants: A = Pure Stall (Leech Seed) / B = Defensive with utility (paralysis, Knock Off)
+----------------------------------------------------------------------------------------------------
+  [1A] Thorn seed
+       Ferroseed @ Oran Berry   |   Ability: Iron Barbs   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Harden [T1]  /  Metal Claw [T1]  /  Rock Smash [T1]
+  [1B] Spiky seed
+       Ferroseed @ (no item)   |   Ability: Iron Barbs   |   Nature: Docile
+       Moves: Tackle [T1]  /  Metal Claw [T1]  /  Flash [T1]  /  Mirror Shot [T2]
+  [2A] Leech seed
+       Ferroseed @ Sitrus Berry   |   Ability: Iron Barbs   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Protect [Sit]  /  Toxic [Sit]  /  Mirror Shot [T2]
+  [2B] Paralysis seed
+       Ferroseed @ Metal Coat   |   Ability: Iron Barbs   |   Nature: Impish
+       Moves: Thunder Wave [Sit]  /  Ingrain [Sit]  /  Acid Spray [T2]  /  Gyro Ball [T3]
+  [3A] Leech Seed staller
+       Ferroseed @ Leftovers   |   Ability: Iron Barbs   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Protect [Sit]  /  Gyro Ball [T3]  /  Toxic [Sit]
+  [3B] Iron Barbs wall
+       Ferroseed @ Rocky Helmet   |   Ability: Iron Barbs   |   Nature: Impish
+       Moves: Gyro Ball [T3]  /  Thunder Wave [Sit]  /  Bullet Seed [T3]  /  Knock Off [T4]
+  [4A] Iron Defense staller
+       Ferroseed @ Leftovers   |   Ability: Iron Barbs   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Protect [Sit]  /  Gyro Ball [T3]  /  Iron Defense [Sit]
+  [4B] Helmet seed
+       Ferroseed @ Rocky Helmet   |   Ability: Iron Barbs   |   Nature: Relaxed
+       Moves: Gyro Ball [T3]  /  Knock Off [T4]  /  Thunder Wave [Sit]  /  Leech Seed [Sit]
+
+====================================================================================================
+#613 CUBCHOO  —  Ice  —  BST 305  —  Category 2
+Stats 55/70/40/60/40/40  |  Profile: Mixed attacker
+Variants: A = Physical (Slush Rush) / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Chill cub
+       Cubchoo @ (no item)   |   Ability: Snow Cloak   |   Nature: Hardy
+       Moves: Fury Swipes [T1]  /  Growl [T1]  /  Metal Claw [T1]  /  Ice Fang [T2]
+  [1B] Runny-nose cub
+       Cubchoo @ Oran Berry   |   Ability: Rattled   |   Nature: Docile
+       Moves: Powder Snow [T1]  /  Growl [T1]  /  Play Nice [T1]  /  Icy Wind [T2]
+  [2A] Clawing cub
+       Cubchoo @ Never-Melt Ice   |   Ability: Slush Rush   |   Nature: Lonely
+       Moves: Ice Fang [T2]  /  Rock Tomb [T2]  /  Power-Up Punch [T2]  /  Night Slash [T3]
+  [2B] Frost caster
+       Cubchoo @ Sitrus Berry   |   Ability: Snow Cloak   |   Nature: Mild
+       Moves: Icy Wind [T2]  /  Water Pulse [T2]  /  Mud Shot [T2]  /  Frost Breath [T3]
+  [3A] Slush Rush cub
+       Cubchoo @ Icy Rock   |   Ability: Slush Rush   |   Nature: Adamant
+       Moves: Snowscape [Sit]  /  Icicle Spear [T3]  /  Night Slash [T3]  /  Play Rough [T4]
+  [3B] Ice caster
+       Cubchoo @ Wise Glasses   |   Ability: Snow Cloak   |   Nature: Modest
+       Moves: Frost Breath [T3]  /  Brine [T3]  /  Grass Knot [T3]  /  Ice Beam [T4]
+  [4A] Slush Rush sweeper
+       Cubchoo @ Life Orb   |   Ability: Slush Rush   |   Nature: Adamant
+       Moves: Snowscape [Sit]  /  Icicle Spear [T3]  /  Play Rough [T4]  /  Liquidation [T4]
+  [4B] Choice Specs cub
+       Cubchoo @ Choice Specs   |   Ability: Snow Cloak   |   Nature: Modest
+       Moves: Ice Beam [T4]  /  Blizzard [T4]  /  Surf [T4]  /  Grass Knot [T3]
+
+====================================================================================================
+#086 SEEL  —  Water  —  BST 325  —  Category 2
+Stats 65/45/55/45/70/45  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Encore, status) / B = Offensive (physical)
+----------------------------------------------------------------------------------------------------
+  [1A] Sea lion pup
+       Seel @ Oran Berry   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Water Gun [T1]  /  Growl [T1]  /  Peck [T1]  /  Lick [T1]
+  [1B] Icy pup
+       Seel @ (no item)   |   Ability: Hydration   |   Nature: Docile
+       Moves: Water Gun [T1]  /  Pay Day [T1]  /  Whirlpool [T1]  /  Aurora Beam [T2]
+  [2A] Encore pup
+       Seel @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Calm
+       Moves: Aurora Beam [T2]  /  Encore [Sit]  /  Protect [Sit]  /  Toxic [Sit]
+  [2B] Pivot pup
+       Seel @ Mystic Water   |   Ability: Hydration   |   Nature: Lonely
+       Moves: Flip Turn [T2]  /  Headbutt [T2]  /  Fake Out [Sit]  /  Ice Spinner [T3]
+  [3A] Toxic pup
+       Seel @ Leftovers   |   Ability: Thick Fat   |   Nature: Calm
+       Moves: Muddy Water [T3]  /  Encore [Sit]  /  Protect [Sit]  /  Toxic [Sit]
+  [3B] Aqua Jet pup
+       Seel @ Muscle Band   |   Ability: Hydration   |   Nature: Adamant
+       Moves: Aqua Tail [T3]  /  Ice Spinner [T3]  /  Iron Tail [T3]  /  Aqua Jet [T4]
+  [4A] Bulky pup
+       Seel @ Leftovers   |   Ability: Thick Fat   |   Nature: Calm
+       Moves: Surf [T4]  /  Ice Beam [T4]  /  Encore [Sit]  /  Protect [Sit]
+  [4B] Physical attacker
+       Seel @ Life Orb   |   Ability: Hydration   |   Nature: Adamant
+       Moves: Triple Axel [T4]  /  Waterfall [T4]  /  Megahorn [T4]  /  Aqua Jet [T4]
+
+====================================================================================================
+#225 DELIBIRD  —  Ice/Flying  —  BST 330  —  Category 3
+Stats 45/55/45/65/45/75  |  Profile: Offensive (physical, frail)
+Variants: A = Hustle attacker / B = Support (Aurora Veil, Tailwind, Memento)
+----------------------------------------------------------------------------------------------------
+  [1A] Gift courier
+       Delibird @ (no item)   |   Ability: Vital Spirit   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Mud-Slap [T1]  /  Confide [T1]  /  Icy Wind [T2]
+  [1B] Clumsy courier
+       Delibird @ Oran Berry   |   Ability: Hustle   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Mud-Slap [T1]  /  Splash [T1]  /  Pluck [T2]
+  [2A] Hustle courier
+       Delibird @ Never-Melt Ice   |   Ability: Hustle   |   Nature: Lonely
+       Moves: Pluck [T2]  /  Brutal Swing [T2]  /  Power-Up Punch [T2]  /  Ice Spinner [T3]
+  [2B] Spinning helper
+       Delibird @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Hasty
+       Moves: Icy Wind [T2]  /  Feather Dance [T2]  /  Rapid Spin [T2]  /  Fake Out [Sit]
+  [3A] Ice Shard courier
+       Delibird @ Muscle Band   |   Ability: Hustle   |   Nature: Adamant
+       Moves: Ice Spinner [T3]  /  Drill Peck [T3]  /  Brick Break [T3]  /  Ice Shard [T4]
+  [3B] Aurora Veil setter
+       Delibird @ Light Clay   |   Ability: Insomnia   |   Nature: Jolly
+       Moves: Snowscape [Sit]  /  Aurora Veil [Sit]  /  Tailwind [Sit]  /  Memento [Sit]
+  [4A] Hustle attacker
+       Delibird @ Life Orb   |   Ability: Hustle   |   Nature: Jolly
+       Moves: Triple Axel [T4]  /  Brave Bird [T4]  /  Ice Shard [T4]  /  Drill Run [T3]
+  [4B] Suicide lead
+       Delibird @ Focus Sash   |   Ability: Vital Spirit   |   Nature: Timid
+       Moves: Fake Out [Sit]  /  Tailwind [Sit]  /  Freeze-Dry [T4]  /  Memento [Sit]
+
+====================================================================================================
+#304 ARON  —  Steel/Rock  —  BST 330  —  Category 3
+Stats 50/70/100/40/40/30  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Iron Defense) / B = Offensive (Rock Head)
+----------------------------------------------------------------------------------------------------
+  [1A] Iron pup
+       Aron @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Metal Claw [T1]  /  Harden [T1]  /  Rock Tomb [T2]
+  [1B] Headstrong pup
+       Aron @ (no item)   |   Ability: Rock Head   |   Nature: Docile
+       Moves: Tackle [T1]  /  Metal Claw [T1]  /  Rock Smash [T1]  /  Headbutt [T2]
+  [2A] Sturdy pup
+       Aron @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Relaxed
+       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Iron Defense [Sit]  /  Roar [Sit]
+  [2B] Recoil pup
+       Aron @ Hard Stone   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Iron Tail [T3]
+  [3A] Iron wall
+       Aron @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Heavy Slam [T3]  /  Iron Defense [Sit]  /  Body Press [T4]  /  Roar [Sit]
+  [3B] Head Smash pup
+       Aron @ Expert Belt   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Head Smash [T4]  /  Iron Tail [T3]  /  Dig [T3]  /  Superpower [T3]
+  [4A] Body Press tank
+       Aron @ Leftovers   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Iron Head [T4]  /  Rest [Sit]
+  [4B] Choice Band rammer
+       Aron @ Choice Band   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Head Smash [T4]  /  Iron Head [T4]  /  Earthquake [T4]  /  Double-Edge [T4]
+
+====================================================================================================
+#459 SNOVER  —  Grass/Ice  —  BST 334  —  Category 3
+Stats 60/62/50/62/60/40  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special (snow)
+----------------------------------------------------------------------------------------------------
+  [1A] Frosted tree
+       Snover @ (no item)   |   Ability: Snow Warning   |   Nature: Hardy
+       Moves: Leafage [T1]  /  Powder Snow [T1]  /  Leer [T1]  /  Razor Leaf [T2]
+  [1B] Quiet tree
+       Snover @ Oran Berry   |   Ability: Soundproof   |   Nature: Docile
+       Moves: Powder Snow [T1]  /  Leafage [T1]  /  Flash [T1]  /  Icy Wind [T2]
+  [2A] Snowy brawler
+       Snover @ Never-Melt Ice   |   Ability: Snow Warning   |   Nature: Lonely
+       Moves: Razor Leaf [T2]  /  Headbutt [T2]  /  Leech Seed [Sit]  /  Ice Punch [T3]
+  [2B] Seeding caster
+       Snover @ Miracle Seed   |   Ability: Snow Warning   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Icy Wind [T2]  /  Water Pulse [T2]  /  Leech Seed [Sit]
+  [3A] Icicle striker
+       Snover @ Muscle Band   |   Ability: Snow Warning   |   Nature: Adamant
+       Moves: Icicle Spear [T3]  /  Seed Bomb [T3]  /  Iron Tail [T3]  /  Ice Shard [T4]
+  [3B] Snow setter
+       Snover @ Icy Rock   |   Ability: Snow Warning   |   Nature: Modest
+       Moves: Blizzard [T4]  /  Grass Knot [T3]  /  Leech Seed [Sit]  /  Protect [Sit]
+  [4A] Swords Dance tree
+       Snover @ Life Orb   |   Ability: Snow Warning   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Wood Hammer [T4]  /  Icicle Spear [T3]  /  Ice Shard [T4]
+  [4B] Snow staller
+       Snover @ Leftovers   |   Ability: Snow Warning   |   Nature: Modest
+       Moves: Blizzard [T4]  /  Giga Drain [T4]  /  Leech Seed [Sit]  /  Protect [Sit]
+
+====================================================================================================
+#294 LOUDRED  —  Normal  —  BST 360  —  Category 3
+Stats 84/71/43/71/43/48  |  Profile: Mixed attacker
+Variants: A = Physical (Scrappy) / B = Special (Soundproof)
+----------------------------------------------------------------------------------------------------
+  [1A] Loud kid
+       Loudred @ (no item)   |   Ability: Scrappy   |   Nature: Hardy
+       Moves: Pound [T1]  /  Rock Smash [T1]  /  Howl [T1]  /  Headbutt [T2]
+  [1B] Shouting kid
+       Loudred @ Oran Berry   |   Ability: Soundproof   |   Nature: Docile
+       Moves: Disarming Voice [T1]  /  Astonish [T1]  /  Supersonic [T1]  /  Round [T2]
+  [2A] Scrappy brawler
+       Loudred @ Silk Scarf   |   Ability: Scrappy   |   Nature: Lonely
+       Moves: Headbutt [T2]  /  Bite [T2]  /  Power-Up Punch [T2]  /  Fire Punch [T3]
+  [2B] Noisy caster
+       Loudred @ Sitrus Berry   |   Ability: Soundproof   |   Nature: Rash
+       Moves: Round [T2]  /  Icy Wind [T2]  /  Incinerate [T2]  /  Shock Wave [T2]
+  [3A] Scrappy puncher
+       Loudred @ Muscle Band   |   Ability: Scrappy   |   Nature: Adamant
+       Moves: Body Slam [T4]  /  Hammer Arm [T3]  /  Fire Punch [T3]  /  Ice Punch [T3]
+  [3B] Uproar caster
+       Loudred @ Wise Glasses   |   Ability: Soundproof   |   Nature: Modest
+       Moves: Uproar [T3]  /  Extrasensory [T3]  /  Flamethrower [T4]  /  Taunt [Sit]
+  [4A] Physical attacker
+       Loudred @ Life Orb   |   Ability: Scrappy   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Earthquake [T4]  /  Fire Punch [T3]  /  Ice Punch [T3]
+  [4B] Choice Specs speaker
+       Loudred @ Choice Specs   |   Ability: Soundproof   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Fire Blast [T4]  /  Ice Beam [T4]  /  Shadow Ball [T4]
+
+====================================================================================================
+#822 CORVISQUIRE  —  Flying  —  BST 365  —  Category 3
+Stats 68/67/55/43/55/77  |  Profile: Offensive (physical)
+Variants: A = Physical attacker / B = Support (Defog, Tailwind, Roost)
+----------------------------------------------------------------------------------------------------
+  [1A] Raven chick
+       Corvisquire @ (no item)   |   Ability: Keen Eye   |   Nature: Hardy
+       Moves: Peck [T1]  /  Fury Attack [T1]  /  Leer [T1]  /  Rock Smash [T1]
+  [1B] Pecking raven
+       Corvisquire @ Oran Berry   |   Ability: Big Pecks   |   Nature: Docile
+       Moves: Peck [T1]  /  Sand Attack [T1]  /  Focus Energy [T1]  /  Pluck [T2]
+  [2A] Honing raven
+       Corvisquire @ Sharp Beak   |   Ability: Big Pecks   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Pluck [T2]  /  Thief [T2]  /  Drill Peck [T3]
+  [2B] Tailwind scout
+       Corvisquire @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Tailwind [Sit]  /  Defog [Sit]  /  Roost [Sit]
+  [3A] Raven striker
+       Corvisquire @ Muscle Band   |   Ability: Big Pecks   |   Nature: Adamant
+       Moves: Drill Peck [T3]  /  Payback [T3]  /  Revenge [T3]  /  Brave Bird [T4]
+  [3B] Field cleaner
+       Corvisquire @ Leftovers   |   Ability: Unnerve   |   Nature: Jolly
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Taunt [Sit]  /  Drill Peck [T3]
+  [4A] Choice Band raven
+       Corvisquire @ Choice Band   |   Ability: Big Pecks   |   Nature: Adamant
+       Moves: Brave Bird [T4]  /  Drill Peck [T3]  /  Payback [T3]  /  U-turn [T2]
+  [4B] Nasty Plot raven
+       Corvisquire @ Life Orb   |   Ability: Unnerve   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Hurricane [T4]  /  Air Slash [T4]  /  Roost [Sit]
+
+====================================================================================================
+#303 MAWILE  —  Steel/Fairy  —  BST 380  —  Category 3
+Stats 50/85/85/55/55/50  |  Profile: Offensive (physical)
+Variants: A = Setup (Intimidate) / B = Sheer Force attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Deceiving jaw
+       Mawile @ (no item)   |   Ability: Intimidate   |   Nature: Hardy
+       Moves: Vise Grip [T1]  /  Fairy Wind [T1]  /  Growl [T1]  /  Bite [T2]
+  [1B] Charming jaw
+       Mawile @ Oran Berry   |   Ability: Hyper Cutter   |   Nature: Docile
+       Moves: Vise Grip [T1]  /  Astonish [T1]  /  Rock Smash [T1]  /  Draining Kiss [T2]
+  [2A] Intimidating jaw
+       Mawile @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Lonely
+       Moves: Feint Attack [T2]  /  Fire Fang [T2]  /  Ice Fang [T2]  /  Strength [T3]
+  [2B] Sheer Force fangs
+       Mawile @ Metal Coat   |   Ability: Sheer Force   |   Nature: Naughty
+       Moves: Fire Fang [T2]  /  Ice Fang [T2]  /  Thunder Fang [T2]  /  Headbutt [T2]
+  [3A] Swords Dance jaw
+       Mawile @ Muscle Band   |   Ability: Intimidate   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Crunch [T3]  /  Ice Punch [T3]  /  Brick Break [T3]
+  [3B] Sheer Force puncher
+       Mawile @ Expert Belt   |   Ability: Sheer Force   |   Nature: Adamant
+       Moves: Iron Head [T4]  /  Crunch [T3]  /  Ice Punch [T3]  /  Thunder Punch [T3]
+  [4A] Swords Dance deceiver
+       Mawile @ Leftovers   |   Ability: Intimidate   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Play Rough [T4]  /  Iron Head [T4]  /  Sucker Punch [T4]
+  [4B] Sheer Force attacker
+       Mawile @ Life Orb   |   Ability: Sheer Force   |   Nature: Adamant
+       Moves: Iron Head [T4]  /  Play Rough [T4]  /  Sucker Punch [T4]  /  Ice Punch [T3]
+
+====================================================================================================
+#108 LICKITUNG  —  Normal  —  BST 385  —  Category 3
+Stats 90/55/75/60/75/30  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Wish cleric) / B = Offensive (Belly Drum / Swords Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Licking tongue
+       Lickitung @ Oran Berry   |   Ability: Own Tempo   |   Nature: Hardy
+       Moves: Lick [T1]  /  Supersonic [T1]  /  Defense Curl [T1]  /  Rock Smash [T1]
+  [1B] Slobbering tongue
+       Lickitung @ (no item)   |   Ability: Oblivious   |   Nature: Docile
+       Moves: Lick [T1]  /  Water Gun [T1]  /  Acid [T1]  /  Headbutt [T2]
+  [2A] Wish tongue
+       Lickitung @ Sitrus Berry   |   Ability: Own Tempo   |   Nature: Relaxed
+       Moves: Stomp [T2]  /  Wish [Sit]  /  Protect [Sit]  /  Toxic [Sit]
+  [2B] Slamming tongue
+       Lickitung @ Silk Scarf   |   Ability: Oblivious   |   Nature: Lonely
+       Moves: Power-Up Punch [T2]  /  Slam [T2]  /  Bulldoze [T2]  /  Brutal Swing [T2]
+  [3A] Wish cleric
+       Lickitung @ Leftovers   |   Ability: Own Tempo   |   Nature: Careful
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]  /  Body Slam [T4]
+  [3B] Belly Drum tongue
+       Lickitung @ Sitrus Berry   |   Ability: Oblivious   |   Nature: Adamant
+       Moves: Belly Drum [T4]  /  Rock Climb [T3]  /  Stomping Tantrum [T3]  /  Fire Punch [T3]
+  [4A] Bulky wisher
+       Lickitung @ Rocky Helmet   |   Ability: Own Tempo   |   Nature: Careful
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Body Slam [T4]  /  Knock Off [T4]
+  [4B] Swords Dance tongue
+       Lickitung @ Life Orb   |   Ability: Oblivious   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Double-Edge [T4]  /  Earthquake [T4]  /  Knock Off [T4]
+
+====================================================================================================
+#301 DELCATTY  —  Normal  —  BST 400  —  Category 4
+Stats 70/65/65/55/55/90  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Wish cleric, Wonder Skin) / B = Offensive (Normalize, Calm Mind)
+----------------------------------------------------------------------------------------------------
+  [1A] Prim cat
+       Delcatty @ Oran Berry   |   Ability: Cute Charm   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Sweet Kiss [T1]  /  Tail Whip [T1]  /  Sing [T2]
+  [1B] Slapping cat
+       Delcatty @ (no item)   |   Ability: Normalize   |   Nature: Docile
+       Moves: Double Slap [T1]  /  Disarming Voice [T1]  /  Growl [T1]  /  Pay Day [T1]
+  [2A] Wish cat
+       Delcatty @ Sitrus Berry   |   Ability: Wonder Skin   |   Nature: Calm
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]  /  Headbutt [T2]
+  [2B] Normalize brawler
+       Delcatty @ Silk Scarf   |   Ability: Normalize   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  Headbutt [T2]  /  Wake-Up Slap [T2]  /  Covet [T2]
+  [3A] Wonder Skin cleric
+       Delcatty @ Leftovers   |   Ability: Wonder Skin   |   Nature: Calm
+       Moves: Wish [Sit]  /  Heal Bell [Sit]  /  Thunder Wave [Sit]  /  Body Slam [T4]
+  [3B] Normalize striker
+       Delcatty @ Muscle Band   |   Ability: Normalize   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Iron Tail [T3]  /  Zen Headbutt [T3]  /  Sucker Punch [T4]
+  [4A] Bulky cleric
+       Delcatty @ Leftovers   |   Ability: Wonder Skin   |   Nature: Calm
+       Moves: Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]  /  Hyper Voice [T4]
+  [4B] Calm Mind cat
+       Delcatty @ Life Orb   |   Ability: Cute Charm   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Hyper Voice [T4]  /  Thunderbolt [T4]  /  Shadow Ball [T4]
+
+====================================================================================================
+#364 SEALEO  —  Ice/Water  —  BST 410  —  Category 4
+Stats 90/60/70/75/70/45  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Ice Body stall) / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Ball seal
+       Sealeo @ Oran Berry   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Water Gun [T1]  /  Powder Snow [T1]  /  Defense Curl [T1]  /  Rock Smash [T1]
+  [1B] Whirlpool seal
+       Sealeo @ (no item)   |   Ability: Ice Body   |   Nature: Docile
+       Moves: Whirlpool [T1]  /  Powder Snow [T1]  /  Growl [T1]  /  Aurora Beam [T2]
+  [2A] Yawning seal
+       Sealeo @ Sitrus Berry   |   Ability: Ice Body   |   Nature: Calm
+       Moves: Aurora Beam [T2]  /  Water Pulse [T2]  /  Yawn [Sit]  /  Protect [Sit]
+  [2B] Juggling seal
+       Sealeo @ Mystic Water   |   Ability: Thick Fat   |   Nature: Lonely
+       Moves: Headbutt [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Aqua Tail [T3]
+  [3A] Aqua Ring staller
+       Sealeo @ Leftovers   |   Ability: Thick Fat   |   Nature: Calm
+       Moves: Aqua Ring [Sit]  /  Protect [Sit]  /  Toxic [Sit]  /  Frost Breath [T3]
+  [3B] Encore caster
+       Sealeo @ Wise Glasses   |   Ability: Ice Body   |   Nature: Modest
+       Moves: Surf [T4]  /  Frost Breath [T3]  /  Signal Beam [T3]  /  Encore [Sit]
+  [4A] Hail staller
+       Sealeo @ Icy Rock   |   Ability: Ice Body   |   Nature: Bold
+       Moves: Hail [Sit]  /  Ice Beam [T4]  /  Toxic [Sit]  /  Protect [Sit]
+  [4B] Curse rester
+       Sealeo @ Leftovers   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Curse [Sit]  /  Rest [Sit]  /  Waterfall [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#020 RATICATE  —  Normal  —  BST 413  —  Category 4
+Stats 55/81/60/50/70/97  |  Profile: Offensive (physical, fast)
+Variants: A = Guts attacker / B = Hustle utility (Super Fang)
+----------------------------------------------------------------------------------------------------
+  [1A] Gnawing rat
+       Raticate @ (no item)   |   Ability: Guts   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Quick Attack [T1]  /  Tail Whip [T1]  /  Bite [T2]
+  [1B] Scurrying rat
+       Raticate @ Oran Berry   |   Ability: Run Away   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Fury Swipes [T1]  /  Focus Energy [T1]  /  Water Gun [T1]
+  [2A] Fang rat
+       Raticate @ Silk Scarf   |   Ability: Guts   |   Nature: Lonely
+       Moves: Headbutt [T2]  /  Bite [T2]  /  Flame Wheel [T2]  /  Hyper Fang [T3]
+  [2B] Super Fang pivot
+       Raticate @ Sitrus Berry   |   Ability: Hustle   |   Nature: Hasty
+       Moves: U-turn [T2]  /  Super Fang [Sit]  /  Pluck [T2]  /  Thunder Wave [Sit]
+  [3A] Guts rat
+       Raticate @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
+       Moves: Facade [T4]  /  Crunch [T3]  /  Stomping Tantrum [T3]  /  Iron Tail [T3]
+  [3B] Hustle fang
+       Raticate @ Muscle Band   |   Ability: Hustle   |   Nature: Jolly
+       Moves: Super Fang [Sit]  /  Hyper Fang [T3]  /  Throat Chop [T3]  /  U-turn [T2]
+  [4A] Swords Dance Guts
+       Raticate @ Toxic Orb   |   Ability: Guts   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Facade [T4]  /  Sucker Punch [T4]  /  Stomping Tantrum [T3]
+  [4B] Choice Band rat
+       Raticate @ Choice Band   |   Ability: Hustle   |   Nature: Jolly
+       Moves: Double-Edge [T4]  /  Sucker Punch [T4]  /  U-turn [T2]  /  Wild Charge [T4]
+
+====================================================================================================
+#375 METANG  —  Steel/Psychic  —  BST 420  —  Category 4
+Stats 60/75/100/55/80/50  |  Profile: Balanced / Bulky
+Variants: A = Defensive (screens, Iron Defense) / B = Offensive (Meteor Mash)
+----------------------------------------------------------------------------------------------------
+  [1A] Iron claw
+       Metang @ Oran Berry   |   Ability: Clear Body   |   Nature: Hardy
+       Moves: Metal Claw [T1]  /  Confusion [T1]  /  Defense Curl [T1]  /  Headbutt [T2]
+  [1B] Floating claw
+       Metang @ (no item)   |   Ability: Light Metal   |   Nature: Docile
+       Moves: Tackle [T1]  /  Confusion [T1]  /  Metal Claw [T1]  /  Miracle Eye [T1]
+  [2A] Screen claw
+       Metang @ Sitrus Berry   |   Ability: Clear Body   |   Nature: Relaxed
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Rock Tomb [T2]  /  Zen Headbutt [T3]
+  [2B] Psychic puncher
+       Metang @ Metal Coat   |   Ability: Light Metal   |   Nature: Lonely
+       Moves: Headbutt [T2]  /  Power-Up Punch [T2]  /  Bulldoze [T2]  /  Zen Headbutt [T3]
+  [3A] Screen bomber
+       Metang @ Light Clay   |   Ability: Clear Body   |   Nature: Impish
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Gyro Ball [T3]  /  Explosion [T4]
+  [3B] Elemental puncher
+       Metang @ Expert Belt   |   Ability: Clear Body   |   Nature: Adamant
+       Moves: Meteor Mash [T4]  /  Zen Headbutt [T3]  /  Ice Punch [T3]  /  Thunder Punch [T3]
+  [4A] Iron Defense tank
+       Metang @ Rocky Helmet   |   Ability: Clear Body   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Meteor Mash [T4]  /  Earthquake [T4]  /  Rest [Sit]
+  [4B] Agility sweeper
+       Metang @ Life Orb   |   Ability: Clear Body   |   Nature: Adamant
+       Moves: Agility [Sit]  /  Meteor Mash [T4]  /  Zen Headbutt [T3]  /  Earthquake [T4]
+
+====================================================================================================
+#215 SNEASEL  —  Dark/Ice  —  BST 430  —  Category 4
+Stats 55/95/55/35/75/115  |  Profile: Offensive (physical, fast)
+Variants: A = Setup (Swords Dance) / B = Utility attacker (Fake Out, Pickpocket)
+----------------------------------------------------------------------------------------------------
+  [1A] Sharp claw
+       Sneasel @ (no item)   |   Ability: Inner Focus   |   Nature: Hardy
+       Moves: Scratch [T1]  /  Quick Attack [T1]  /  Leer [T1]  /  Bite [T2]
+  [1B] Sly claw
+       Sneasel @ Oran Berry   |   Ability: Keen Eye   |   Nature: Docile
+       Moves: Fury Swipes [T1]  /  Metal Claw [T1]  /  Quick Attack [T1]  /  Feint Attack [T2]
+  [2A] Honing claw
+       Sneasel @ Never-Melt Ice   |   Ability: Inner Focus   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Feint Attack [T2]  /  Low Sweep [T2]  /  Ice Punch [T3]
+  [2B] Thieving claw
+       Sneasel @ Sitrus Berry   |   Ability: Pickpocket   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  Thief [T2]  /  Icy Wind [T2]  /  Taunt [Sit]
+  [3A] Swords Dance claw
+       Sneasel @ Muscle Band   |   Ability: Inner Focus   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Ice Punch [T3]  /  Throat Chop [T3]  /  Brick Break [T3]
+  [3B] Fake Out lead
+       Sneasel @ Focus Sash   |   Ability: Pickpocket   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Ice Shard [T4]  /  Throat Chop [T3]  /  Low Kick [T3]
+  [4A] Swords Dance sweeper
+       Sneasel @ Life Orb   |   Ability: Inner Focus   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Icicle Crash [T4]  /  Knock Off [T4]  /  Ice Shard [T4]
+  [4B] Choice Band claw
+       Sneasel @ Choice Band   |   Ability: Pickpocket   |   Nature: Jolly
+       Moves: Triple Axel [T4]  /  Knock Off [T4]  /  Ice Shard [T4]  /  Low Kick [T3]
+
+====================================================================================================
+#305 LAIRON  —  Steel/Rock  —  BST 430  —  Category 4
+Stats 60/90/140/50/50/40  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Heavy Metal, Metal Burst) / B = Offensive (Rock Polish)
+----------------------------------------------------------------------------------------------------
+  [1A] Iron armor
+       Lairon @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Metal Claw [T1]  /  Harden [T1]  /  Sand Tomb [T1]  /  Rock Smash [T1]
+  [1B] Heavy armor
+       Lairon @ (no item)   |   Ability: Heavy Metal   |   Nature: Docile
+       Moves: Tackle [T1]  /  Metal Claw [T1]  /  Defense Curl [T1]  /  Headbutt [T2]
+  [2A] Sturdy armor
+       Lairon @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Headbutt [T2]  /  Iron Defense [Sit]  /  Heavy Slam [T3]
+  [2B] Ramming armor
+       Lairon @ Hard Stone   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Stomp [T2]  /  Iron Tail [T3]
+  [3A] Heavy Metal wall
+       Lairon @ Leftovers   |   Ability: Heavy Metal   |   Nature: Impish
+       Moves: Heavy Slam [T3]  /  Rock Blast [T3]  /  Toxic [Sit]  /  Protect [Sit]
+  [3B] Rock Polish rammer
+       Lairon @ Muscle Band   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Rock Polish [Sit]  /  Head Smash [T4]  /  Iron Tail [T3]  /  Dig [T3]
+  [4A] Metal Burst wall
+       Lairon @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Metal Burst [Sit]  /  Iron Head [T4]  /  Rock Slide [T4]  /  Roar [Sit]
+  [4B] Rock Polish sweeper
+       Lairon @ Life Orb   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Rock Polish [Sit]  /  Head Smash [T4]  /  Iron Head [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#777 TOGEDEMARU  —  Electric/Steel  —  BST 435  —  Category 4
+Stats 65/98/63/40/73/96  |  Profile: Offensive (physical)
+Variants: A = Attacker / B = Support (Nuzzle, Encore, Spiky Shield)
+----------------------------------------------------------------------------------------------------
+  [1A] Spiky ball
+       Togedemaru @ (no item)   |   Ability: Iron Barbs   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Thunder Shock [T1]  /  Twineedle [T1]  /  Defense Curl [T1]
+  [1B] Rod ball
+       Togedemaru @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
+       Moves: Thunder Shock [T1]  /  Disarming Voice [T1]  /  Tackle [T1]  /  Spark [T2]
+  [2A] Zing ball
+       Togedemaru @ Magnet   |   Ability: Iron Barbs   |   Nature: Lonely
+       Moves: Spark [T2]  /  Fell Stinger [T2]  /  Thief [T2]  /  Zing Zap [T3]
+  [2B] Nuzzle pivot
+       Togedemaru @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Hasty
+       Moves: Nuzzle [T2]  /  U-turn [T2]  /  Encore [Sit]  /  Spiky Shield [Sit]
+  [3A] Zing Zap striker
+       Togedemaru @ Muscle Band   |   Ability: Lightning Rod   |   Nature: Jolly
+       Moves: Zing Zap [T3]  /  Iron Head [T4]  /  U-turn [T2]  /  Zen Headbutt [T3]
+  [3B] Spiky annoyer
+       Togedemaru @ Rocky Helmet   |   Ability: Iron Barbs   |   Nature: Jolly
+       Moves: Nuzzle [T2]  /  Spiky Shield [Sit]  /  Encore [Sit]  /  Zing Zap [T3]
+  [4A] Physical attacker
+       Togedemaru @ Life Orb   |   Ability: Iron Barbs   |   Nature: Jolly
+       Moves: Zing Zap [T3]  /  Iron Head [T4]  /  U-turn [T2]  /  Poison Jab [T4]
+  [4B] Balloon lead
+       Togedemaru @ Air Balloon   |   Ability: Sturdy   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Nuzzle [T2]  /  U-turn [T2]  /  Iron Head [T4]
+
+====================================================================================================
+#221 PILOSWINE  —  Ice/Ground  —  BST 450  —  Category 5
+Stats 100/100/80/60/60/50  |  Profile: Offensive (physical, bulky)
+Variants: A = Power attacker / B = Bulky utility (Thick Fat, Roar)
+----------------------------------------------------------------------------------------------------
+  [1A] Shaggy swine
+       Piloswine @ (no item)   |   Ability: Oblivious   |   Nature: Hardy
+       Moves: Powder Snow [T1]  /  Mud-Slap [T1]  /  Tackle [T1]  /  Ice Fang [T2]
+  [1B] Woolly swine
+       Piloswine @ Oran Berry   |   Ability: Thick Fat   |   Nature: Docile
+       Moves: Tackle [T1]  /  Sand Tomb [T1]  /  Powder Snow [T1]  /  Defense Curl [T1]
+  [2A] Icicle swine
+       Piloswine @ Never-Melt Ice   |   Ability: Thick Fat   |   Nature: Lonely
+       Moves: Ice Fang [T2]  /  Bulldoze [T2]  /  Rock Tomb [T2]  /  Icicle Spear [T3]
+  [2B] Bulky swine
+       Piloswine @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Impish
+       Moves: Ice Fang [T2]  /  Bulldoze [T2]  /  Roar [Sit]  /  Protect [Sit]
+  [3A] Tusked striker
+       Piloswine @ Expert Belt   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Icicle Spear [T3]  /  High Horsepower [T3]  /  Superpower [T3]  /  Ice Shard [T4]
+  [3B] Avalanche wall
+       Piloswine @ Rocky Helmet   |   Ability: Thick Fat   |   Nature: Impish
+       Moves: Avalanche [T3]  /  High Horsepower [T3]  /  Roar [Sit]  /  Toxic [Sit]
+  [4A] Physical attacker
+       Piloswine @ Life Orb   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Icicle Crash [T4]  /  Earthquake [T4]  /  Ice Shard [T4]  /  Stone Edge [T4]
+  [4B] Assault Vest swine
+       Piloswine @ Assault Vest   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Earthquake [T4]  /  Icicle Crash [T4]  /  Ice Shard [T4]  /  Superpower [T3]
+
+====================================================================================================
+#124 JYNX  —  Ice/Psychic  —  BST 455  —  Category 5
+Stats 65/50/35/115/95/95  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Support (Lovely Kiss, Taunt, Trick)
+----------------------------------------------------------------------------------------------------
+  [1A] Humming dancer
+       Jynx @ (no item)   |   Ability: Dry Skin   |   Nature: Hardy
+       Moves: Powder Snow [T1]  /  Confusion [T1]  /  Water Gun [T1]  /  Icy Wind [T2]
+  [1B] Kissing dancer
+       Jynx @ Oran Berry   |   Ability: Forewarn   |   Nature: Docile
+       Moves: Double Slap [T1]  /  Lick [T1]  /  Sweet Kiss [T1]  /  Confusion [T1]
+  [2A] Psychic caster
+       Jynx @ Twisted Spoon   |   Ability: Dry Skin   |   Nature: Rash
+       Moves: Icy Wind [T2]  /  Bubble Beam [T2]  /  Draining Kiss [T2]  /  Expanding Force [T3]
+  [2B] Kiss support
+       Jynx @ Sitrus Berry   |   Ability: Forewarn   |   Nature: Hasty
+       Moves: Lovely Kiss [T3]  /  Encore [Sit]  /  Fake Tears [T2]  /  Draining Kiss [T2]
+  [3A] Frost caster
+       Jynx @ Wise Glasses   |   Ability: Dry Skin   |   Nature: Modest
+       Moves: Frost Breath [T3]  /  Psyshock [T4]  /  Signal Beam [T3]  /  Grass Knot [T3]
+  [3B] Perish dancer
+       Jynx @ Mental Herb   |   Ability: Oblivious   |   Nature: Timid
+       Moves: Lovely Kiss [T3]  /  Taunt [Sit]  /  Perish Song [Sit]  /  Frost Breath [T3]
+  [4A] Nasty Plot sweeper
+       Jynx @ Life Orb   |   Ability: Dry Skin   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Ice Beam [T4]  /  Psychic [T4]  /  Focus Blast [T4]
+  [4B] Choice Scarf trickster
+       Jynx @ Choice Scarf   |   Ability: Forewarn   |   Nature: Timid
+       Moves: Trick [Sit]  /  Ice Beam [T4]  /  Psychic [T4]  /  Focus Blast [T4]
+
+====================================================================================================
+#227 SKARMORY  —  Steel/Flying  —  BST 465  —  Category 5
+Stats 65/80/140/40/70/70  |  Profile: Pure Defensive
+Variants: A = Pure Stall / B = Defensive with utility (Defog, Taunt, Tailwind)
+----------------------------------------------------------------------------------------------------
+  [1A] Armored chick
+       Skarmory @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Peck [T1]  /  Metal Claw [T1]  /  Leer [T1]  /  Sand Attack [T1]
+  [1B] Steel chick
+       Skarmory @ (no item)   |   Ability: Keen Eye   |   Nature: Docile
+       Moves: Fury Attack [T1]  /  Metal Claw [T1]  /  Twister [T1]  /  Sand Tomb [T1]
+  [2A] Steel staller
+       Skarmory @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Steel Wing [T2]  /  Roost [Sit]  /  Whirlwind [Sit]  /  Toxic [Sit]
+  [2B] Taunting bird
+       Skarmory @ Lum Berry   |   Ability: Keen Eye   |   Nature: Impish
+       Moves: Steel Wing [T2]  /  Pluck [T2]  /  Taunt [Sit]  /  Tailwind [Sit]
+  [3A] Phazing staller
+       Skarmory @ Leftovers   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Toxic [Sit]  /  Drill Peck [T3]
+  [3B] Field cleaner
+       Skarmory @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Impish
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Taunt [Sit]  /  Body Press [T4]
+  [4A] Iron Defense wall
+       Skarmory @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Iron Defense [Sit]  /  Body Press [T4]
+  [4B] Tailwind support
+       Skarmory @ Leftovers   |   Ability: Sturdy   |   Nature: Careful
+       Moves: Roost [Sit]  /  Tailwind [Sit]  /  Brave Bird [T4]  /  Taunt [Sit]
+
+====================================================================================================
+#087 DEWGONG  —  Water/Ice  —  BST 475  —  Category 5
+Stats 90/70/80/70/95/70  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Encore, Hydration Rest) / B = Offensive
+----------------------------------------------------------------------------------------------------
+  [1A] Sea lion
+       Dewgong @ Oran Berry   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Water Gun [T1]  /  Lick [T1]  /  Growl [T1]  /  Aurora Beam [T2]
+  [1B] Playful lion
+       Dewgong @ (no item)   |   Ability: Hydration   |   Nature: Docile
+       Moves: Peck [T1]  /  Pay Day [T1]  /  Whirlpool [T1]  /  Headbutt [T2]
+  [2A] Encore lion
+       Dewgong @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Calm
+       Moves: Chilling Water [T2]  /  Aurora Beam [T2]  /  Encore [Sit]  /  Toxic [Sit]
+  [2B] Singing lion
+       Dewgong @ Never-Melt Ice   |   Ability: Hydration   |   Nature: Rash
+       Moves: Bubble Beam [T2]  /  Aurora Beam [T2]  /  Water Pulse [T2]  /  Alluring Voice [T3]
+  [3A] Hydration rester
+       Dewgong @ Damp Rock   |   Ability: Hydration   |   Nature: Calm
+       Moves: Rain Dance [Sit]  /  Rest [Sit]  /  Muddy Water [T3]  /  Frost Breath [T3]
+  [3B] Horned striker
+       Dewgong @ Expert Belt   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Ice Spinner [T3]  /  Aqua Tail [T3]  /  Drill Run [T3]  /  Ice Shard [T4]
+  [4A] Bulky lion
+       Dewgong @ Leftovers   |   Ability: Thick Fat   |   Nature: Calm
+       Moves: Surf [T4]  /  Knock Off [T4]  /  Encore [Sit]  /  Toxic [Sit]
+  [4B] Choice Specs lion
+       Dewgong @ Choice Specs   |   Ability: Thick Fat   |   Nature: Modest
+       Moves: Hydro Pump [T4]  /  Ice Beam [T4]  /  Alluring Voice [T3]  /  Signal Beam [T3]
+
+====================================================================================================
+#873 FROSMOTH  —  Ice/Bug  —  BST 475  —  Category 5
+Stats 70/65/60/125/90/65  |  Profile: Offensive (special)
+Variants: A = Setup (Quiver Dance) / B = Support (Aurora Veil, Tailwind)
+----------------------------------------------------------------------------------------------------
+  [1A] Frost moth
+       Frosmoth @ (no item)   |   Ability: Shield Dust   |   Nature: Hardy
+       Moves: Powder Snow [T1]  /  Fairy Wind [T1]  /  Infestation [T1]  /  Struggle Bug [T2]
+  [1B] Scaled moth
+       Frosmoth @ Oran Berry   |   Ability: Ice Scales   |   Nature: Docile
+       Moves: Powder Snow [T1]  /  Fairy Wind [T1]  /  Infestation [T1]  /  Icy Wind [T2]
+  [2A] Glittering moth
+       Frosmoth @ Silver Powder   |   Ability: Ice Scales   |   Nature: Modest
+       Moves: Aurora Beam [T2]  /  Struggle Bug [T2]  /  Feather Dance [T2]  /  Dazzling Gleam [T3]
+  [2B] Powder support
+       Frosmoth @ Sitrus Berry   |   Ability: Shield Dust   |   Nature: Bold
+       Moves: U-turn [T2]  /  Icy Wind [T2]  /  Stun Spore [Sit]  /  Feather Dance [T2]
+  [3A] Quiver Dance moth
+       Frosmoth @ Leftovers   |   Ability: Ice Scales   |   Nature: Modest
+       Moves: Quiver Dance [T4]  /  Dazzling Gleam [T3]  /  Aurora Beam [T2]  /  Protect [Sit]
+  [3B] Aurora Veil setter
+       Frosmoth @ Light Clay   |   Ability: Ice Scales   |   Nature: Timid
+       Moves: Snowscape [Sit]  /  Aurora Veil [Sit]  /  Tailwind [Sit]  /  Ice Beam [T4]
+  [4A] Quiver Dance sweeper
+       Frosmoth @ Life Orb   |   Ability: Ice Scales   |   Nature: Modest
+       Moves: Quiver Dance [T4]  /  Ice Beam [T4]  /  Bug Buzz [T4]  /  Giga Drain [T4]
+  [4B] Tailwind lead
+       Frosmoth @ Focus Sash   |   Ability: Shield Dust   |   Nature: Timid
+       Moves: Tailwind [Sit]  /  Defog [Sit]  /  Ice Beam [T4]  /  Bug Buzz [T4]
+
+====================================================================================================
+#362 GLALIE  —  Ice  —  BST 480  —  Category 5
+Stats 80/80/80/80/80/80  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special (Ice Body)
+----------------------------------------------------------------------------------------------------
+  [1A] Ice face
+       Glalie @ (no item)   |   Ability: Inner Focus   |   Nature: Hardy
+       Moves: Powder Snow [T1]  /  Astonish [T1]  /  Leer [T1]  /  Ice Fang [T2]
+  [1B] Frozen face
+       Glalie @ Oran Berry   |   Ability: Ice Body   |   Nature: Docile
+       Moves: Powder Snow [T1]  /  Astonish [T1]  /  Confide [T1]  /  Chilling Water [T2]
+  [2A] Crunching face
+       Glalie @ Never-Melt Ice   |   Ability: Inner Focus   |   Nature: Lonely
+       Moves: Ice Fang [T2]  /  Bulldoze [T2]  /  Headbutt [T2]  /  Crunch [T3]
+  [2B] Haunting face
+       Glalie @ Wise Glasses   |   Ability: Ice Body   |   Nature: Rash
+       Moves: Icy Wind [T2]  /  Water Pulse [T2]  /  Round [T2]  /  Hex [T3]
+  [3A] Spinning striker
+       Glalie @ Expert Belt   |   Ability: Inner Focus   |   Nature: Adamant
+       Moves: Ice Spinner [T3]  /  Crunch [T3]  /  Earthquake [T4]  /  Self-Destruct [T3]
+  [3B] Ice Body staller
+       Glalie @ Leftovers   |   Ability: Ice Body   |   Nature: Modest
+       Moves: Substitute [Sit]  /  Protect [Sit]  /  Frost Breath [T3]  /  Hex [T3]
+  [4A] Choice Band bomber
+       Glalie @ Choice Band   |   Ability: Inner Focus   |   Nature: Jolly
+       Moves: Icicle Crash [T4]  /  Earthquake [T4]  /  Ice Shard [T4]  /  Explosion [T4]
+  [4B] Snow caster
+       Glalie @ Icy Rock   |   Ability: Ice Body   |   Nature: Timid
+       Moves: Snowscape [Sit]  /  Blizzard [T4]  /  Freeze-Dry [T4]  /  Shadow Ball [T4]
+
+====================================================================================================
+#478 FROSLASS  —  Ice/Ghost  —  BST 480  —  Category 5
+Stats 70/80/70/80/70/110  |  Profile: Offensive (fast)
+Variants: A = Attacker / B = Support (Will-O-Wisp, Destiny Bond, Aurora Veil)
+----------------------------------------------------------------------------------------------------
+  [1A] Snow lady
+       Froslass @ (no item)   |   Ability: Snow Cloak   |   Nature: Hardy
+       Moves: Powder Snow [T1]  /  Astonish [T1]  /  Leer [T1]  /  Ominous Wind [T2]
+  [1B] Cursed lady
+       Froslass @ Oran Berry   |   Ability: Cursed Body   |   Nature: Docile
+       Moves: Astonish [T1]  /  Powder Snow [T1]  /  Mud-Slap [T1]  /  Draining Kiss [T2]
+  [2A] Haunting caster
+       Froslass @ Spell Tag   |   Ability: Snow Cloak   |   Nature: Rash
+       Moves: Ominous Wind [T2]  /  Icy Wind [T2]  /  Shock Wave [T2]  /  Hex [T3]
+  [2B] Burning wisp
+       Froslass @ Sitrus Berry   |   Ability: Cursed Body   |   Nature: Hasty
+       Moves: Icy Wind [T2]  /  Confuse Ray [Sit]  /  Will-O-Wisp [Sit]  /  Ominous Wind [T2]
+  [3A] Hex caster
+       Froslass @ Wise Glasses   |   Ability: Snow Cloak   |   Nature: Timid
+       Moves: Frost Breath [T3]  /  Hex [T3]  /  Will-O-Wisp [Sit]  /  Thunderbolt [T4]
+  [3B] Destiny Bond lead
+       Froslass @ Focus Sash   |   Ability: Cursed Body   |   Nature: Timid
+       Moves: Taunt [Sit]  /  Destiny Bond [Sit]  /  Will-O-Wisp [Sit]  /  Hex [T3]
+  [4A] Physical attacker
+       Froslass @ Life Orb   |   Ability: Cursed Body   |   Nature: Jolly
+       Moves: Poltergeist [T4]  /  Icicle Crash [T4]  /  Ice Shard [T4]  /  Sucker Punch [T4]
+  [4B] Aurora Veil lead
+       Froslass @ Light Clay   |   Ability: Cursed Body   |   Nature: Timid
+       Moves: Snowscape [Sit]  /  Aurora Veil [Sit]  /  Destiny Bond [Sit]  /  Shadow Ball [T4]
+
+====================================================================================================
+#598 FERROTHORN  —  Grass/Steel  —  BST 489  —  Category 6
+Stats 74/94/131/54/116/20  |  Profile: Pure Defensive
+Variants: A = Pure Stall (Leech Seed) / B = Defensive with utility (Curse, Knock Off)
+----------------------------------------------------------------------------------------------------
+  [1A] Thorn pod
+       Ferrothorn @ Oran Berry   |   Ability: Iron Barbs   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Metal Claw [T1]  /  Harden [T1]  /  Mirror Shot [T2]
+  [1B] Wary pod
+       Ferrothorn @ (no item)   |   Ability: Anticipation   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Rock Smash [T1]  /  Flash [T1]  /  Tackle [T1]
+  [2A] Rooted pod
+       Ferrothorn @ Sitrus Berry   |   Ability: Iron Barbs   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Ingrain [Sit]  /  Mirror Shot [T2]  /  Bullet Seed [T3]
+  [2B] Paralysis pod
+       Ferrothorn @ Lum Berry   |   Ability: Iron Barbs   |   Nature: Sassy
+       Moves: Brutal Swing [T2]  /  Bulldoze [T2]  /  Thunder Wave [Sit]  /  Gyro Ball [T3]
+  [3A] Leech Seed staller
+       Ferrothorn @ Leftovers   |   Ability: Iron Barbs   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Protect [Sit]  /  Gyro Ball [T3]  /  Seed Bomb [T3]
+  [3B] Curse thorn
+       Ferrothorn @ Rocky Helmet   |   Ability: Iron Barbs   |   Nature: Sassy
+       Moves: Curse [Sit]  /  Gyro Ball [T3]  /  Seed Bomb [T3]  /  Thunder Wave [Sit]
+  [4A] Leech Seed wall
+       Ferrothorn @ Leftovers   |   Ability: Iron Barbs   |   Nature: Relaxed
+       Moves: Leech Seed [Sit]  /  Protect [Sit]  /  Gyro Ball [T3]  /  Power Whip [T4]
+  [4B] Assault Vest thorn
+       Ferrothorn @ Assault Vest   |   Ability: Iron Barbs   |   Nature: Sassy
+       Moves: Gyro Ball [T3]  /  Power Whip [T4]  /  Knock Off [T4]  /  Body Press [T4]
+
+====================================================================================================
+#295 EXPLOUD  —  Normal  —  BST 490  —  Category 6
+Stats 104/91/63/91/73/68  |  Profile: Mixed attacker
+Variants: A = Physical (Scrappy) / B = Special (Boomburst)
+----------------------------------------------------------------------------------------------------
+  [1A] Booming kid
+       Exploud @ (no item)   |   Ability: Scrappy   |   Nature: Hardy
+       Moves: Pound [T1]  /  Astonish [T1]  /  Howl [T1]  /  Bite [T2]
+  [1B] Blaring kid
+       Exploud @ Oran Berry   |   Ability: Soundproof   |   Nature: Docile
+       Moves: Disarming Voice [T1]  /  Whirlpool [T1]  /  Smokescreen [T1]  /  Icy Wind [T2]
+  [2A] Elemental fangs
+       Exploud @ Muscle Band   |   Ability: Scrappy   |   Nature: Lonely
+       Moves: Fire Fang [T2]  /  Ice Fang [T2]  /  Thunder Fang [T2]  /  Crunch [T3]
+  [2B] Loud caster
+       Exploud @ Sitrus Berry   |   Ability: Scrappy   |   Nature: Rash
+       Moves: Round [T2]  /  Incinerate [T2]  /  Water Pulse [T2]  /  Extrasensory [T3]
+  [3A] Scrappy striker
+       Exploud @ Expert Belt   |   Ability: Scrappy   |   Nature: Adamant
+       Moves: Rock Climb [T3]  /  Crunch [T3]  /  Thunder Punch [T3]  /  Earthquake [T4]
+  [3B] Boomburst caster
+       Exploud @ Wise Glasses   |   Ability: Scrappy   |   Nature: Modest
+       Moves: Boomburst [T4]  /  Extrasensory [T3]  /  Taunt [Sit]  /  Protect [Sit]
+  [4A] Choice Scarf brawler
+       Exploud @ Choice Scarf   |   Ability: Scrappy   |   Nature: Adamant
+       Moves: Double-Edge [T4]  /  Earthquake [T4]  /  Fire Punch [T3]  /  Crunch [T3]
+  [4B] Boomburst attacker
+       Exploud @ Life Orb   |   Ability: Scrappy   |   Nature: Modest
+       Moves: Boomburst [T4]  /  Flamethrower [T4]  /  Focus Blast [T4]  /  Ice Beam [T4]
+
+====================================================================================================
+#460 ABOMASNOW  —  Grass/Ice  —  BST 494  —  Category 6
+Stats 90/92/75/92/85/60  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special (Snow Warning)
+----------------------------------------------------------------------------------------------------
+  [1A] Frost giant
+       Abomasnow @ (no item)   |   Ability: Snow Warning   |   Nature: Hardy
+       Moves: Leafage [T1]  /  Powder Snow [T1]  /  Rock Smash [T1]  /  Grassy Glide [T2]
+  [1B] Quiet giant
+       Abomasnow @ Oran Berry   |   Ability: Soundproof   |   Nature: Docile
+       Moves: Powder Snow [T1]  /  Leafage [T1]  /  Mud-Slap [T1]  /  Magical Leaf [T2]
+  [2A] Stomping giant
+       Abomasnow @ Sitrus Berry   |   Ability: Snow Warning   |   Nature: Lonely
+       Moves: Grassy Glide [T2]  /  Rock Tomb [T2]  /  Stomp [T2]  /  Ice Punch [T3]
+  [2B] Frost caster
+       Abomasnow @ Never-Melt Ice   |   Ability: Snow Warning   |   Nature: Mild
+       Moves: Icy Wind [T2]  /  Magical Leaf [T2]  /  Water Pulse [T2]  /  Frost Breath [T3]
+  [3A] Snow brawler
+       Abomasnow @ Expert Belt   |   Ability: Snow Warning   |   Nature: Adamant
+       Moves: Ice Spinner [T3]  /  Seed Bomb [T3]  /  Low Kick [T3]  /  Earthquake [T4]
+  [3B] Aurora Veil giant
+       Abomasnow @ Light Clay   |   Ability: Snow Warning   |   Nature: Modest
+       Moves: Aurora Veil [Sit]  /  Blizzard [T4]  /  Grass Knot [T3]  /  Leech Seed [Sit]
+  [4A] Assault Vest giant
+       Abomasnow @ Assault Vest   |   Ability: Snow Warning   |   Nature: Adamant
+       Moves: Wood Hammer [T4]  /  Ice Shard [T4]  /  Earthquake [T4]  /  Ice Punch [T3]
+  [4B] Choice Specs blizzard
+       Abomasnow @ Choice Specs   |   Ability: Snow Warning   |   Nature: Modest
+       Moves: Blizzard [T4]  /  Leaf Storm [T4]  /  Earth Power [T4]  /  Focus Blast [T4]
+
+====================================================================================================
+#823 CORVIKNIGHT  —  Flying/Steel  —  BST 495  —  Category 6
+Stats 98/87/105/53/85/67  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Defog, Body Press) / B = Offensive (Bulk Up)
+----------------------------------------------------------------------------------------------------
+  [1A] Raven knight
+       Corviknight @ Oran Berry   |   Ability: Pressure   |   Nature: Hardy
+       Moves: Peck [T1]  /  Metal Claw [T1]  /  Leer [T1]  /  Sand Attack [T1]
+  [1B] Mirror knight
+       Corviknight @ (no item)   |   Ability: Mirror Armor   |   Nature: Docile
+       Moves: Fury Attack [T1]  /  Metal Claw [T1]  /  Focus Energy [T1]  /  Steel Wing [T2]
+  [2A] Pivot knight
+       Corviknight @ Sitrus Berry   |   Ability: Pressure   |   Nature: Impish
+       Moves: Roost [Sit]  /  Steel Wing [T2]  /  U-turn [T2]  /  Defog [Sit]
+  [2B] Honing knight
+       Corviknight @ Metal Coat   |   Ability: Mirror Armor   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Steel Wing [T2]  /  Dual Wingbeat [T2]  /  Power Trip [T3]
+  [3A] Defog pivot
+       Corviknight @ Leftovers   |   Ability: Pressure   |   Nature: Impish
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Body Press [T4]  /  U-turn [T2]
+  [3B] Bulk Up knight
+       Corviknight @ Muscle Band   |   Ability: Mirror Armor   |   Nature: Adamant
+       Moves: Bulk Up [T4]  /  Drill Peck [T3]  /  Heavy Slam [T3]  /  Roost [Sit]
+  [4A] Iron Defense wall
+       Corviknight @ Rocky Helmet   |   Ability: Pressure   |   Nature: Impish
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Body Press [T4]  /  Iron Defense [Sit]
+  [4B] Bulk Up tank
+       Corviknight @ Leftovers   |   Ability: Mirror Armor   |   Nature: Impish
+       Moves: Bulk Up [T4]  /  Roost [Sit]  /  Brave Bird [T4]  /  Body Press [T4]
+
+====================================================================================================
+#437 BRONZONG  —  Steel/Psychic  —  BST 500  —  Category 6
+Stats 67/89/116/79/116/33  |  Profile: Balanced / Bulky
+Variants: A = Defensive / B = Offensive (Trick Room, Heavy Metal)
+----------------------------------------------------------------------------------------------------
+  [1A] Bronze bell
+       Bronzong @ Oran Berry   |   Ability: Levitate   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Confusion [T1]  /  Flash [T1]  /  Rock Smash [T1]
+  [1B] Heavy bell
+       Bronzong @ (no item)   |   Ability: Heavy Metal   |   Nature: Docile
+       Moves: Confusion [T1]  /  Tackle [T1]  /  Confide [T1]  /  Psybeam [T2]
+  [2A] Hypnotic bell
+       Bronzong @ Sitrus Berry   |   Ability: Levitate   |   Nature: Relaxed
+       Moves: Psybeam [T2]  /  Hypnosis [T2]  /  Toxic [Sit]  /  Gyro Ball [T3]
+  [2B] Heavy Slam bell
+       Bronzong @ Metal Coat   |   Ability: Heavy Metal   |   Nature: Lonely
+       Moves: Trick Room [Sit]  /  Bulldoze [T2]  /  Rock Tomb [T2]  /  Heavy Slam [T3]
+  [3A] Psychic Noise wall
+       Bronzong @ Leftovers   |   Ability: Levitate   |   Nature: Sassy
+       Moves: Gyro Ball [T3]  /  Psychic Noise [T3]  /  Toxic [Sit]  /  Protect [Sit]
+  [3B] Trick Room bell
+       Bronzong @ Expert Belt   |   Ability: Heavy Metal   |   Nature: Brave
+       Moves: Trick Room [Sit]  /  Heavy Slam [T3]  /  Zen Headbutt [T3]  /  Earthquake [T4]
+  [4A] Bulky bell
+       Bronzong @ Rocky Helmet   |   Ability: Levitate   |   Nature: Sassy
+       Moves: Gyro Ball [T3]  /  Earthquake [T4]  /  Psychic Noise [T3]  /  Toxic [Sit]
+  [4B] Trick Room bomber
+       Bronzong @ Life Orb   |   Ability: Heavy Metal   |   Nature: Brave
+       Moves: Trick Room [Sit]  /  Heavy Slam [T3]  /  Earthquake [T4]  /  Explosion [T4]
+
+====================================================================================================
+#614 BEARTIC  —  Ice  —  BST 505  —  Category 6
+Stats 95/130/80/70/80/50  |  Profile: Offensive (physical)
+Variants: A = Setup (Slush Rush) / B = Power attacker (Swift Swim, Choice)
+----------------------------------------------------------------------------------------------------
+  [1A] Polar bear
+       Beartic @ (no item)   |   Ability: Slush Rush   |   Nature: Hardy
+       Moves: Metal Claw [T1]  /  Rock Smash [T1]  /  Play Nice [T1]  /  Ice Fang [T2]
+  [1B] Swimming bear
+       Beartic @ Oran Berry   |   Ability: Swift Swim   |   Nature: Docile
+       Moves: Powder Snow [T1]  /  Fury Swipes [T1]  /  Mud-Slap [T1]  /  Aerial Ace [T2]
+  [2A] Honing bear
+       Beartic @ Never-Melt Ice   |   Ability: Slush Rush   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Ice Fang [T2]  /  Bulldoze [T2]  /  Throat Chop [T3]
+  [2B] Punching bear
+       Beartic @ Muscle Band   |   Ability: Snow Cloak   |   Nature: Lonely
+       Moves: Mega Punch [T2]  /  Ice Fang [T2]  /  Thief [T2]  /  Superpower [T3]
+  [3A] Slush Rush bear
+       Beartic @ Icy Rock   |   Ability: Slush Rush   |   Nature: Adamant
+       Moves: Snowscape [Sit]  /  Swords Dance [T4]  /  Icicle Spear [T3]  /  Superpower [T3]
+  [3B] Rain bear
+       Beartic @ Damp Rock   |   Ability: Swift Swim   |   Nature: Adamant
+       Moves: Rain Dance [Sit]  /  Liquidation [T4]  /  Icicle Spear [T3]  /  Superpower [T3]
+  [4A] Slush Rush sweeper
+       Beartic @ Life Orb   |   Ability: Slush Rush   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Icicle Crash [T4]  /  Close Combat [T4]  /  Aqua Jet [T4]
+  [4B] Choice Band bear
+       Beartic @ Choice Band   |   Ability: Snow Cloak   |   Nature: Adamant
+       Moves: Icicle Crash [T4]  /  Close Combat [T4]  /  Aqua Jet [T4]  /  Stone Edge [T4]
+
+====================================================================================================
+#461 WEAVILE  —  Dark/Ice  —  BST 510  —  Category 6
+Stats 70/120/65/45/85/125  |  Profile: Offensive (physical, fast)
+Variants: A = Setup (Swords Dance) / B = Utility attacker (Pickpocket, Choice Scarf)
+----------------------------------------------------------------------------------------------------
+  [1A] Sharp claw
+       Weavile @ (no item)   |   Ability: Pressure   |   Nature: Hardy
+       Moves: False Swipe [T1]  /  Quick Attack [T1]  /  Metal Claw [T1]  /  Icy Wind [T2]
+  [1B] Snarling claw
+       Weavile @ Oran Berry   |   Ability: Pickpocket   |   Nature: Docile
+       Moves: Scratch [T1]  /  Fury Swipes [T1]  /  Leer [T1]  /  Snarl [T2]
+  [2A] Honing claw
+       Weavile @ Black Glasses   |   Ability: Pressure   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Bite [T2]  /  Double Hit [T2]  /  Ice Spinner [T3]
+  [2B] Thieving claw
+       Weavile @ Sitrus Berry   |   Ability: Pickpocket   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  Fake Tears [T2]  /  Thief [T2]  /  Low Sweep [T2]
+  [3A] Swords Dance claw
+       Weavile @ Expert Belt   |   Ability: Pressure   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Ice Spinner [T3]  /  Night Slash [T3]  /  Low Kick [T3]
+  [3B] Priority claw
+       Weavile @ Muscle Band   |   Ability: Pickpocket   |   Nature: Jolly
+       Moves: Fake Out [Sit]  /  Lash Out [T3]  /  Ice Spinner [T3]  /  Upper Hand [Sit]
+  [4A] Swords Dance sweeper
+       Weavile @ Life Orb   |   Ability: Pressure   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Triple Axel [T4]  /  Knock Off [T4]  /  Low Kick [T3]
+  [4B] Choice Scarf claw
+       Weavile @ Choice Scarf   |   Ability: Pickpocket   |   Nature: Jolly
+       Moves: Triple Axel [T4]  /  Knock Off [T4]  /  Low Kick [T3]  /  Poison Jab [T4]
+
+====================================================================================================
+#463 LICKILICKY  —  Normal  —  BST 515  —  Category 6
+Stats 110/85/95/80/95/50  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Curse, Assault Vest) / B = Offensive (Own Tempo Thrash, Belly Drum)
+----------------------------------------------------------------------------------------------------
+  [1A] Wrapping tongue
+       Lickilicky @ Oran Berry   |   Ability: Oblivious   |   Nature: Hardy
+       Moves: Wrap [T1]  /  Lick [T1]  /  Acid [T1]  /  Supersonic [T1]
+  [1B] Slobbering tongue
+       Lickilicky @ (no item)   |   Ability: Cloud Nine   |   Nature: Docile
+       Moves: Lick [T1]  /  Water Gun [T1]  /  Rock Smash [T1]  /  Slam [T2]
+  [2A] Cleric tongue
+       Lickilicky @ Sitrus Berry   |   Ability: Cloud Nine   |   Nature: Careful
+       Moves: Heal Bell [Sit]  /  Dragon Tail [Sit]  /  Slam [T2]  /  Toxic [Sit]
+  [2B] Climbing tongue
+       Lickilicky @ Muscle Band   |   Ability: Oblivious   |   Nature: Lonely
+       Moves: Slam [T2]  /  Bulldoze [T2]  /  Power-Up Punch [T2]  /  Rock Climb [T3]
+  [3A] Curse rester
+       Lickilicky @ Leftovers   |   Ability: Oblivious   |   Nature: Careful
+       Moves: Curse [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Rock Climb [T3]
+  [3B] Own Tempo thrasher
+       Lickilicky @ Muscle Band   |   Ability: Own Tempo   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Thrash [T3]  /  Stomping Tantrum [T3]  /  Fire Punch [T3]
+  [4A] Assault Vest tank
+       Lickilicky @ Assault Vest   |   Ability: Oblivious   |   Nature: Careful
+       Moves: Body Slam [T4]  /  Knock Off [T4]  /  Earthquake [T4]  /  Dragon Tail [Sit]
+  [4B] Belly Drum tongue
+       Lickilicky @ Sitrus Berry   |   Ability: Own Tempo   |   Nature: Adamant
+       Moves: Belly Drum [T4]  /  Double-Edge [T4]  /  Earthquake [T4]  /  Fire Punch [T3]
+
+====================================================================================================
+#448 LUCARIO  —  Fighting/Steel  —  BST 525  —  Category 7
+Stats 70/110/70/115/70/90  |  Profile: Mixed attacker
+Variants: A = Physical / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Aura pup
+       Lucario @ (no item)   |   Ability: Steadfast   |   Nature: Hardy
+       Moves: Quick Attack [T1]  /  Metal Claw [T1]  /  Rock Smash [T1]  /  Force Palm [T2]
+  [1B] Focused pup
+       Lucario @ Oran Berry   |   Ability: Inner Focus   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Mud-Slap [T1]  /  Focus Energy [T1]  /  Water Pulse [T2]
+  [2A] Aura brawler
+       Lucario @ Black Belt   |   Ability: Justified   |   Nature: Lonely
+       Moves: Force Palm [T2]  /  Bite [T2]  /  Rock Tomb [T2]  /  Blaze Kick [T3]
+  [2B] Aura caster
+       Lucario @ Sitrus Berry   |   Ability: Inner Focus   |   Nature: Mild
+       Moves: Work Up [T2]  /  Water Pulse [T2]  /  Swift [T2]  /  Hyper Beam [T3]
+  [3A] Swords Dance aura
+       Lucario @ Expert Belt   |   Ability: Justified   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Sky Uppercut [T3]  /  Crunch [T3]  /  Thunder Punch [T3]
+  [3B] Aura Sphere caster
+       Lucario @ Focus Sash   |   Ability: Inner Focus   |   Nature: Modest
+       Moves: Aura Sphere [T4]  /  Water Pulse [T2]  /  Terrain Pulse [T2]  /  Detect [Sit]
+  [4A] Swords Dance sweeper
+       Lucario @ Life Orb   |   Ability: Justified   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Close Combat [T4]  /  Meteor Mash [T4]  /  Extreme Speed [T4]
+  [4B] Nasty Plot sweeper
+       Lucario @ Focus Sash   |   Ability: Inner Focus   |   Nature: Timid
+       Moves: Nasty Plot [T4]  /  Aura Sphere [T4]  /  Flash Cannon [T4]  /  Vacuum Wave [T4]
+
+====================================================================================================
+#471 GLACEON  —  Ice  —  BST 525  —  Category 7
+Stats 65/60/110/130/95/65  |  Profile: Offensive (special)
+Variants: A = Setup (Calm Mind) / B = Special attacker / Ice Body support
+----------------------------------------------------------------------------------------------------
+  [1A] Frost fox
+       Glaceon @ (no item)   |   Ability: Snow Cloak   |   Nature: Hardy
+       Moves: Tackle [T1]  /  Quick Attack [T1]  /  Tail Whip [T1]  /  Icy Wind [T2]
+  [1B] Snowy fox
+       Glaceon @ Oran Berry   |   Ability: Ice Body   |   Nature: Docile
+       Moves: Quick Attack [T1]  /  Sand Attack [T1]  /  Double Kick [T1]  /  Ice Fang [T2]
+  [2A] Work Up fox
+       Glaceon @ Never-Melt Ice   |   Ability: Ice Body   |   Nature: Mild
+       Moves: Work Up [T2]  /  Icy Wind [T2]  /  Water Pulse [T2]  /  Frost Breath [T3]
+  [2B] Wishing fox
+       Glaceon @ Sitrus Berry   |   Ability: Snow Cloak   |   Nature: Calm
+       Moves: Icy Wind [T2]  /  Wish [Sit]  /  Protect [Sit]  /  Yawn [Sit]
+  [3A] Calm Mind fox
+       Glaceon @ Wise Glasses   |   Ability: Ice Body   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Frost Breath [T3]  /  Signal Beam [T3]  /  Substitute [Sit]
+  [3B] Ice Body wisher
+       Glaceon @ Leftovers   |   Ability: Ice Body   |   Nature: Bold
+       Moves: Hail [Sit]  /  Wish [Sit]  /  Protect [Sit]  /  Frost Breath [T3]
+  [4A] Calm Mind sweeper
+       Glaceon @ Life Orb   |   Ability: Ice Body   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Freeze-Dry [T4]  /  Shadow Ball [T4]  /  Substitute [Sit]
+  [4B] Choice Specs fox
+       Glaceon @ Choice Specs   |   Ability: Ice Body   |   Nature: Modest
+       Moves: Blizzard [T4]  /  Freeze-Dry [T4]  /  Shadow Ball [T4]  /  Alluring Voice [T3]
+
+====================================================================================================
+#306 AGGRON  —  Steel/Rock  —  BST 530  —  Category 7
+Stats 70/110/180/60/60/50  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Curse, Iron Defense) / B = Offensive (Head Smash)
+----------------------------------------------------------------------------------------------------
+  [1A] Iron armor
+       Aggron @ Oran Berry   |   Ability: Sturdy   |   Nature: Hardy
+       Moves: Metal Claw [T1]  /  Harden [T1]  /  Whirlpool [T1]  /  Tackle [T1]
+  [1B] Rocky armor
+       Aggron @ (no item)   |   Ability: Rock Head   |   Nature: Docile
+       Moves: Tackle [T1]  /  Metal Claw [T1]  /  Sand Tomb [T1]  /  Rock Tomb [T2]
+  [2A] Phazing armor
+       Aggron @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Rock Tomb [T2]  /  Brutal Swing [T2]  /  Thunder Wave [Sit]  /  Dragon Tail [Sit]
+  [2B] Smashing armor
+       Aggron @ Muscle Band   |   Ability: Rock Head   |   Nature: Lonely
+       Moves: Take Down [T2]  /  Smack Down [T2]  /  Power-Up Punch [T2]  /  Fire Punch [T3]
+  [3A] Curse rester
+       Aggron @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Curse [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Heavy Slam [T3]
+  [3B] Autotomize rammer
+       Aggron @ Expert Belt   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Autotomize [Sit]  /  Head Smash [T4]  /  Iron Tail [T3]  /  Superpower [T3]
+  [4A] Iron Defense tank
+       Aggron @ Leftovers   |   Ability: Sturdy   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Heavy Slam [T3]  /  Toxic [Sit]
+  [4B] Assault Vest rammer
+       Aggron @ Assault Vest   |   Ability: Rock Head   |   Nature: Adamant
+       Moves: Head Smash [T4]  /  Heavy Slam [T3]  /  Earthquake [T4]  /  Fire Punch [T3]
+
+====================================================================================================
+#365 WALREIN  —  Ice/Water  —  BST 530  —  Category 7
+Stats 110/80/90/95/90/65  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Stockpile, Encore) / B = Offensive (Swords Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Tusked walrus
+       Walrein @ Oran Berry   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Whirlpool [T1]  /  Powder Snow [T1]  /  Mud-Slap [T1]  /  Ice Fang [T2]
+  [1B] Icy walrus
+       Walrein @ (no item)   |   Ability: Ice Body   |   Nature: Docile
+       Moves: Water Gun [T1]  /  Powder Snow [T1]  /  Defense Curl [T1]  /  Headbutt [T2]
+  [2A] Stockpile walrus
+       Walrein @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Bold
+       Moves: Stockpile [Sit]  /  Rest [Sit]  /  Water Pulse [T2]  /  Aurora Beam [T2]
+  [2B] Crunching walrus
+       Walrein @ Never-Melt Ice   |   Ability: Thick Fat   |   Nature: Lonely
+       Moves: Ice Fang [T2]  /  Headbutt [T2]  /  Bulldoze [T2]  /  Crunch [T3]
+  [3A] Encore walrus
+       Walrein @ Leftovers   |   Ability: Ice Body   |   Nature: Calm
+       Moves: Encore [Sit]  /  Brine [T3]  /  Frost Breath [T3]  /  Roar [Sit]
+  [3B] Physical walrus
+       Walrein @ Muscle Band   |   Ability: Oblivious   |   Nature: Adamant
+       Moves: Aqua Tail [T3]  /  Crunch [T3]  /  Avalanche [T3]  /  Earthquake [T4]
+  [4A] Bulky walrus
+       Walrein @ Rocky Helmet   |   Ability: Thick Fat   |   Nature: Bold
+       Moves: Surf [T4]  /  Ice Beam [T4]  /  Roar [Sit]  /  Toxic [Sit]
+  [4B] Swords Dance walrus
+       Walrein @ Life Orb   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Swords Dance [T4]  /  Liquidation [T4]  /  Icicle Spear [T3]  /  Earthquake [T4]
+
+====================================================================================================
+#473 MAMOSWINE  —  Ice/Ground  —  BST 530  —  Category 7
+Stats 110/130/80/70/60/80  |  Profile: Offensive (physical)
+Variants: A = Power attacker / B = Multi-hit attacker
+----------------------------------------------------------------------------------------------------
+  [1A] Tusked mammoth
+       Mamoswine @ (no item)   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Peck [T1]  /  Fury Attack [T1]  /  Sand Tomb [T1]  /  Ice Fang [T2]
+  [1B] Muddy mammoth
+       Mamoswine @ Oran Berry   |   Ability: Oblivious   |   Nature: Docile
+       Moves: Powder Snow [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]  /  Bulldoze [T2]
+  [2A] Stampeding mammoth
+       Mamoswine @ Soft Sand   |   Ability: Thick Fat   |   Nature: Lonely
+       Moves: Ice Fang [T2]  /  Rock Tomb [T2]  /  Double Hit [T2]  /  High Horsepower [T3]
+  [2B] Speed control mammoth
+       Mamoswine @ Sitrus Berry   |   Ability: Oblivious   |   Nature: Hasty
+       Moves: Icy Wind [T2]  /  Mud Shot [T2]  /  Ice Fang [T2]  /  Bulldoze [T2]
+  [3A] Sash mammoth
+       Mamoswine @ Focus Sash   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Icicle Spear [T3]  /  High Horsepower [T3]  /  Rock Blast [T3]  /  Ice Shard [T4]
+  [3B] Coverage mammoth
+       Mamoswine @ Expert Belt   |   Ability: Thick Fat   |   Nature: Jolly
+       Moves: Icicle Spear [T3]  /  High Horsepower [T3]  /  Throat Chop [T3]  /  Stone Edge [T4]
+  [4A] Physical attacker
+       Mamoswine @ Life Orb   |   Ability: Thick Fat   |   Nature: Adamant
+       Moves: Icicle Crash [T4]  /  Earthquake [T4]  /  Ice Shard [T4]  /  Knock Off [T4]
+  [4B] Loaded Dice mammoth
+       Mamoswine @ Loaded Dice   |   Ability: Thick Fat   |   Nature: Jolly
+       Moves: Icicle Spear [T3]  /  Rock Blast [T3]  /  Earthquake [T4]  /  Ice Shard [T4]
+
+====================================================================================================
+#131 LAPRAS  —  Water/Ice  —  BST 535  —  Category 7
+Stats 130/85/80/85/95/60  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Heal Bell) / B = Offensive (Dragon Dance)
+----------------------------------------------------------------------------------------------------
+  [1A] Singing ferry
+       Lapras @ Oran Berry   |   Ability: Water Absorb   |   Nature: Hardy
+       Moves: Water Gun [T1]  /  Growl [T1]  /  Disarming Voice [T1]  /  Sing [T2]
+  [1B] Shelled ferry
+       Lapras @ (no item)   |   Ability: Shell Armor   |   Nature: Docile
+       Moves: Whirlpool [T1]  /  Water Gun [T1]  /  Rock Smash [T1]  /  Foresight [T1]
+  [2A] Lullaby ferry
+       Lapras @ Sitrus Berry   |   Ability: Water Absorb   |   Nature: Calm
+       Moves: Sing [T2]  /  Aurora Beam [T2]  /  Water Pulse [T2]  /  Confuse Ray [Sit]
+  [2B] Aria ferry
+       Lapras @ Mystic Water   |   Ability: Hydration   |   Nature: Rash
+       Moves: Bubble Beam [T2]  /  Aurora Beam [T2]  /  Shock Wave [T2]  /  Sparkling Aria [T3]
+  [3A] Cleric ferry
+       Lapras @ Leftovers   |   Ability: Water Absorb   |   Nature: Calm
+       Moves: Heal Bell [Sit]  /  Muddy Water [T3]  /  Frost Breath [T3]  /  Protect [Sit]
+  [3B] Freeze-Dry caster
+       Lapras @ Expert Belt   |   Ability: Water Absorb   |   Nature: Modest
+       Moves: Freeze-Dry [T4]  /  Sparkling Aria [T3]  /  Psychic Noise [T3]  /  Alluring Voice [T3]
+  [4A] Bulky cleric
+       Lapras @ Leftovers   |   Ability: Water Absorb   |   Nature: Calm
+       Moves: Freeze-Dry [T4]  /  Surf [T4]  /  Heal Bell [Sit]  /  Toxic [Sit]
+  [4B] Dragon Dance ferry
+       Lapras @ Weakness Policy   |   Ability: Shell Armor   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Liquidation [T4]  /  Icicle Spear [T3]  /  Earthquake [T4]
+
+====================================================================================================
+#376 METAGROSS  —  Steel/Psychic  —  BST 600  —  Category 7
+Stats 80/135/130/95/90/70  |  Profile: Offensive (physical)
+Variants: A = Power attacker (Punching Glove) / B = Setup and bulk (Iron Defense, Rock Polish)
+----------------------------------------------------------------------------------------------------
+  [1A] Iron legs
+       Metagross @ (no item)   |   Ability: Clear Body   |   Nature: Hardy
+       Moves: Metal Claw [T1]  /  Confusion [T1]  /  Tackle [T1]  /  Bulldoze [T2]
+  [1B] Floating legs
+       Metagross @ Oran Berry   |   Ability: Light Metal   |   Nature: Docile
+       Moves: Confusion [T1]  /  Metal Claw [T1]  /  Miracle Eye [T1]  /  Rock Smash [T1]
+  [2A] Honing legs
+       Metagross @ Muscle Band   |   Ability: Clear Body   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Brutal Swing [T2]  /  Bulldoze [T2]  /  Zen Headbutt [T3]
+  [2B] Screen legs
+       Metagross @ Sitrus Berry   |   Ability: Light Metal   |   Nature: Hasty
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Rock Tomb [T2]  /  Headbutt [T2]
+  [3A] Bullet Punch striker
+       Metagross @ Muscle Band   |   Ability: Clear Body   |   Nature: Adamant
+       Moves: Bullet Punch [T4]  /  Zen Headbutt [T3]  /  Hammer Arm [T3]  /  Ice Punch [T3]
+  [3B] Iron Defense tank
+       Metagross @ Leftovers   |   Ability: Clear Body   |   Nature: Adamant
+       Moves: Iron Defense [Sit]  /  Hard Press [T3]  /  Zen Headbutt [T3]  /  Body Press [T4]
+  [4A] Punching Glove legs
+       Metagross @ Punching Glove   |   Ability: Clear Body   |   Nature: Adamant
+       Moves: Meteor Mash [T4]  /  Bullet Punch [T4]  /  Ice Punch [T3]  /  Thunder Punch [T3]
+  [4B] Rock Polish sweeper
+       Metagross @ Life Orb   |   Ability: Clear Body   |   Nature: Jolly
+       Moves: Rock Polish [Sit]  /  Meteor Mash [T4]  /  Psychic Fangs [T4]  /  Earthquake [T4]
+
+====================================================================================================
+#144 ARTICUNO  —  Ice/Flying  —  BST 580  —  Category 8
+Stats 90/85/100/95/125/85  |  Profile: Balanced / Bulky
+Variants: A = Defensive (Roost, Toxic, Haze) / B = Offensive (special)
+----------------------------------------------------------------------------------------------------
+  [1A] Frost bird
+       Articuno @ Oran Berry   |   Ability: Pressure   |   Nature: Hardy
+       Moves: Powder Snow [T1]  /  Gust [T1]  /  Leer [T1]  /  Icy Wind [T2]
+  [1B] Snowy wings
+       Articuno @ (no item)   |   Ability: Snow Cloak   |   Nature: Docile
+       Moves: Peck [T1]  /  Powder Snow [T1]  /  Water Gun [T1]  /  Twister [T1]
+  [2A] Roosting bird
+       Articuno @ Sitrus Berry   |   Ability: Pressure   |   Nature: Calm
+       Moves: Icy Wind [T2]  /  Air Cutter [T2]  /  Roost [Sit]  /  Toxic [Sit]
+  [2B] Frost caster
+       Articuno @ Never-Melt Ice   |   Ability: Snow Cloak   |   Nature: Rash
+       Moves: Ancient Power [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Extrasensory [T3]
+  [3A] SubToxic bird
+       Articuno @ Leftovers   |   Ability: Pressure   |   Nature: Calm
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Substitute [Sit]  /  Frost Breath [T3]
+  [3B] Blizzard bird
+       Articuno @ Icy Rock   |   Ability: Snow Cloak   |   Nature: Modest
+       Moves: Snowscape [Sit]  /  Blizzard [T4]  /  Extrasensory [T3]  /  Roost [Sit]
+  [4A] Haze wall
+       Articuno @ Rocky Helmet   |   Ability: Pressure   |   Nature: Calm
+       Moves: Roost [Sit]  /  Freeze-Dry [T4]  /  Haze [Sit]  /  Toxic [Sit]
+  [4B] Special attacker
+       Articuno @ Expert Belt   |   Ability: Pressure   |   Nature: Modest
+       Moves: Hurricane [T4]  /  Freeze-Dry [T4]  /  Extrasensory [T3]  /  Roost [Sit]
+
+====================================================================================================
+#378 REGICE  —  Ice  —  BST 580  —  Category 8
+Stats 80/50/100/100/200/50  |  Profile: Balanced / Bulky
+Variants: A = Defensive (special wall) / B = Offensive (Rock Polish, Lock-On)
+----------------------------------------------------------------------------------------------------
+  [1A] Iceberg
+       Regice @ Oran Berry   |   Ability: Clear Body   |   Nature: Hardy
+       Moves: Rock Smash [T1]  /  Mud-Slap [T1]  /  Defense Curl [T1]  /  Icy Wind [T2]
+  [1B] Frozen golem
+       Regice @ (no item)   |   Ability: Ice Body   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Confide [T1]  /  Mud-Slap [T1]  /  Shock Wave [T2]
+  [2A] Paralysis golem
+       Regice @ Sitrus Berry   |   Ability: Ice Body   |   Nature: Calm
+       Moves: Icy Wind [T2]  /  Charge Beam [T2]  /  Thunder Wave [Sit]  /  Rest [Sit]
+  [2B] Lock-On golem
+       Regice @ Magnet   |   Ability: Clear Body   |   Nature: Rash
+       Moves: Lock-On [Sit]  /  Zap Cannon [T2]  /  Icy Wind [T2]  /  Ancient Power [T2]
+  [3A] RestTalk wall
+       Regice @ Leftovers   |   Ability: Ice Body   |   Nature: Calm
+       Moves: Frost Breath [T3]  /  Thunder Wave [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]
+  [3B] Rock Polish golem
+       Regice @ Expert Belt   |   Ability: Clear Body   |   Nature: Modest
+       Moves: Rock Polish [Sit]  /  Frost Breath [T3]  /  Thunderbolt [T4]  /  Signal Beam [T3]
+  [4A] Snow wall
+       Regice @ Icy Rock   |   Ability: Ice Body   |   Nature: Calm
+       Moves: Snowscape [Sit]  /  Ice Beam [T4]  /  Thunder Wave [Sit]  /  Rest [Sit]
+  [4B] Rock Polish sweeper
+       Regice @ Weakness Policy   |   Ability: Clear Body   |   Nature: Modest
+       Moves: Rock Polish [Sit]  /  Ice Beam [T4]  /  Thunderbolt [T4]  /  Focus Blast [T4]
+
+====================================================================================================
+#379 REGISTEEL  —  Steel  —  BST 580  —  Category 8
+Stats 80/75/150/75/150/50  |  Profile: Pure Defensive
+Variants: A = Pure Stall / B = Defensive with utility (paralysis, Iron Defense, Red Card)
+----------------------------------------------------------------------------------------------------
+  [1A] Iron golem
+       Registeel @ Oran Berry   |   Ability: Clear Body   |   Nature: Hardy
+       Moves: Metal Claw [T1]  /  Defense Curl [T1]  /  Sand Tomb [T1]  /  Rock Smash [T1]
+  [1B] Light golem
+       Registeel @ (no item)   |   Ability: Light Metal   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]  /  Headbutt [T2]
+  [2A] Toxic golem
+       Registeel @ Sitrus Berry   |   Ability: Clear Body   |   Nature: Careful
+       Moves: Toxic [Sit]  /  Protect [Sit]  /  Rest [Sit]  /  Heavy Slam [T3]
+  [2B] Blocking golem
+       Registeel @ Lum Berry   |   Ability: Clear Body   |   Nature: Impish
+       Moves: Thunder Wave [Sit]  /  Rock Tomb [T2]  /  Block [Sit]  /  Stomping Tantrum [T3]
+  [3A] Steel staller
+       Registeel @ Leftovers   |   Ability: Clear Body   |   Nature: Careful
+       Moves: Toxic [Sit]  /  Protect [Sit]  /  Heavy Slam [T3]  /  Seismic Toss [T4]
+  [3B] Iron Defense golem
+       Registeel @ Rocky Helmet   |   Ability: Clear Body   |   Nature: Impish
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Thunder Wave [Sit]  /  Rest [Sit]
+  [4A] Curse rester
+       Registeel @ Leftovers   |   Ability: Clear Body   |   Nature: Careful
+       Moves: Curse [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Iron Head [T4]
+  [4B] Red Card wall
+       Registeel @ Red Card   |   Ability: Clear Body   |   Nature: Impish
+       Moves: Thunder Wave [Sit]  /  Toxic [Sit]  /  Body Press [T4]  /  Iron Head [T4]
+
+====================================================================================================
+#646 KYUREM  —  Dragon/Ice  —  BST 660  —  Category 9
+Stats 125/130/90/130/90/95  |  Profile: Mixed attacker
+Variants: A = Physical (Dragon Dance) / B = Special
+----------------------------------------------------------------------------------------------------
+  [1A] Boundary dragon
+       Kyurem @ (no item)   |   Ability: Pressure   |   Nature: Hardy
+       Moves: Rock Smash [T1]  /  Confide [T1]  /  Ice Fang [T2]   (movepool limit: no other legal move fits this tier)
+  [1B] Frozen dragon
+       Kyurem @ Oran Berry   |   Ability: Pressure   |   Nature: Docile
+       Moves: Rock Smash [T1]  /  Confide [T1]  /  Dragon Breath [T2]   (movepool limit: no other legal move fits this tier)
+  [2A] Honing dragon
+       Kyurem @ Never-Melt Ice   |   Ability: Pressure   |   Nature: Lonely
+       Moves: Hone Claws [T2]  /  Ice Fang [T2]  /  Breaking Swipe [T2]  /  Dragon Claw [T3]
+  [2B] Glaciate caster
+       Kyurem @ Dragon Fang   |   Ability: Pressure   |   Nature: Mild
+       Moves: Icy Wind [T2]  /  Dragon Breath [T2]  /  Ancient Power [T2]  /  Glaciate [T3]
+  [3A] Dragon Dance dragon
+       Kyurem @ Muscle Band   |   Ability: Pressure   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Icicle Spear [T3]  /  Zen Headbutt [T3]
+  [3B] Glaciate attacker
+       Kyurem @ Wise Glasses   |   Ability: Pressure   |   Nature: Modest
+       Moves: Glaciate [T3]  /  Dragon Pulse [T4]  /  Signal Beam [T3]  /  Roost [Sit]
+  [4A] Loaded Dice dragon
+       Kyurem @ Loaded Dice   |   Ability: Pressure   |   Nature: Adamant
+       Moves: Dragon Dance [T4]  /  Scale Shot [T3]  /  Icicle Spear [T3]  /  Iron Head [T4]
+  [4B] Special attacker
+       Kyurem @ Life Orb   |   Ability: Pressure   |   Nature: Timid
+       Moves: Ice Beam [T4]  /  Draco Meteor [T4]  /  Earth Power [T4]  /  Roost [Sit]
+
+====================================================================================================
+#483 DIALGA  —  Steel/Dragon  —  BST 680  —  Category 9
+Stats 100/120/120/150/100/90  |  Profile: Offensive (special)
+Variants: A = Special attacker / B = Bulky utility (paralysis, Trick Room)
+----------------------------------------------------------------------------------------------------
+  [1A] Time dragon
+       Dialga @ (no item)   |   Ability: Pressure   |   Nature: Hardy
+       Moves: Metal Claw [T1]  /  Twister [T1]  /  Flash [T1]  /  Dragon Breath [T2]
+  [1B] Temporal dragon
+       Dialga @ Oran Berry   |   Ability: Telepathy   |   Nature: Docile
+       Moves: Metal Claw [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]  /  Twister [T1]
+  [2A] Roar of Time caster
+       Dialga @ Dragon Fang   |   Ability: Pressure   |   Nature: Rash
+       Moves: Dragon Breath [T2]  /  Incinerate [T2]  /  Shock Wave [T2]  /  Roar of Time [T3]
+  [2B] Paralysis dragon
+       Dialga @ Sitrus Berry   |   Ability: Pressure   |   Nature: Relaxed
+       Moves: Thunder Wave [Sit]  /  Dragon Tail [Sit]  /  Rock Tomb [T2]  /  Heavy Slam [T3]
+  [3A] Mixed dragon
+       Dialga @ Expert Belt   |   Ability: Pressure   |   Nature: Mild
+       Moves: Flash Cannon [T4]  /  Dragon Claw [T3]  /  Stomping Tantrum [T3]  /  Brick Break [T3]
+  [3B] Bulky dragon
+       Dialga @ Leftovers   |   Ability: Pressure   |   Nature: Relaxed
+       Moves: Thunder Wave [Sit]  /  Dragon Tail [Sit]  /  Heavy Slam [T3]  /  Body Press [T4]
+  [4A] Choice Specs dragon
+       Dialga @ Choice Specs   |   Ability: Pressure   |   Nature: Modest
+       Moves: Draco Meteor [T4]  /  Flash Cannon [T4]  /  Fire Blast [T4]  /  Thunderbolt [T4]
+  [4B] Trick Room dragon
+       Dialga @ Life Orb   |   Ability: Pressure   |   Nature: Quiet
+       Moves: Trick Room [Sit]  /  Draco Meteor [T4]  /  Steel Beam [T4]  /  Fire Blast [T4]
+
