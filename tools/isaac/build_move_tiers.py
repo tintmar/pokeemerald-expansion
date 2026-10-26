@@ -20,6 +20,9 @@ def role(rec):
     """Rôle d'une attaque de statut : boost d'attaque (physique, spéciale ou les deux, la Vitesse comptant pour les
     deux), boost de défense, soin, protection, statut infligé, combo (inutile seule : Blabla Dodo, Dévorêve, Métronome...),
     autre"""
+    # attaques qui dépendent d'une autre ou d'une condition rare (Avale, Éructation, Cauchemar, Synchronoise)
+    if re.search(r"Stockpile|Cannot be selected until|A sleeping target|sharing the user's type", rec.effect):
+        return 'ISAAC_MOVE_ROLE_COMBO'
     if rec.cat != 'STATUS':
         if re.search(r'cannot move next turn|Charges|on turn 1\. Hits turn 2|Dives underwater|Flies up|Digs underground|Bounces turn 1|Hits two turns after|Fails if the user takes damage|Fails if there is no terrain', rec.effect):
             return 'ISAAC_MOVE_ROLE_COMBO'
