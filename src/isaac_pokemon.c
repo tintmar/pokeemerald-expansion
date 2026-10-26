@@ -172,7 +172,7 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // Objet spécial tiré au hasard (salle trésor, salle secrète, boutique, boss, pacte du diable). Chaque entrée a un poids :
 // SPECIAL_ITEM_WEIGHT, sauf l'Omniboost (OMNIBOOST_WEIGHT, deux fois plus rare) et les deux Pierres Évolution, plus
 // rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6 ;
-// Super Pierre Évolution retirée pour l'instant : SUPER_EVOLUTION_STONE_ENABLED),
+// retirées pour l'instant : EVOLUTION_STONE_ENABLED, SUPER_EVOLUTION_STONE_ENABLED),
 // et la Super CT, de plus en plus rare (sAbilityTrainerWeights), rare à partir de l'étage 4. Dans la boutique (shop),
 // pas de Pierre Évolution après SHOP_EVOLUTION_STONE_MAX_FLOOR. La Pièce Porte-Bonheur est surtout au début
 // (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours surtout à la fin (sFirstAidKitWeights, retirée pour
@@ -191,6 +191,7 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 #define Z_TM_WEIGHT          2
 #define GOLDEN_HEART_MIN_FLOOR  4
 #define FIRST_AID_KIT_ENABLED   FALSE
+#define EVOLUTION_STONE_ENABLED        FALSE
 #define SUPER_EVOLUTION_STONE_ENABLED  FALSE
 #define SHOP_EVOLUTION_STONE_MAX_FLOOR  3
 
@@ -283,7 +284,9 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
 
     for (i = 0; i < ARRAY_COUNT(sSpecialItems); i++)
     {
-        if (sSpecialItems[i] == ITEM_SUPER_EVOLUTION_STONE && !SUPER_EVOLUTION_STONE_ENABLED)
+        if (sSpecialItems[i] == ITEM_EVOLUTION_STONE && !EVOLUTION_STONE_ENABLED)
+            weights[i] = 0;
+        else if (sSpecialItems[i] == ITEM_SUPER_EVOLUTION_STONE && !SUPER_EVOLUTION_STONE_ENABLED)
             weights[i] = 0;
         else if (sSpecialItems[i] == ITEM_EVOLUTION_STONE || sSpecialItems[i] == ITEM_SUPER_EVOLUTION_STONE)
             weights[i] = (shop && floor > SHOP_EVOLUTION_STONE_MAX_FLOOR) ? 0 : sEvolutionStoneWeights[floor - 1];
