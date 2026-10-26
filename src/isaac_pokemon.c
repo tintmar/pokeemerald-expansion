@@ -640,10 +640,13 @@ void IsaacGoldenHeartEnd(void)
 // espèce (PickUpgradeMove). Sinon, le Pokémon qui a le plus de tours actifs apprend une attaque de tier supérieur
 // (PROGRESSION_MOVE_PCT %, toujours contre le boss), dans l'écran de l'évolution mais sans l'animation. Sinon, ce même
 // Pokémon gagne un cran d'EVs avec PROGRESSION_EVS_PCT % de chances (IncreaseMonEvs), avec un simple message dans la
-// même scène. Sinon, rien. À égalité, le premier de l'équipe.
+// même scène (à coup sûr si ses attaques sont déjà de tier moyen 4, avant tout boost). Si ce Pokémon est à son stade final, que ses attaques sont déjà de tier moyen 4 et que ses EVs sont au
+// maximum (rien d'autre à gagner), il a PROGRESSION_BOOST_PCT % de chances de recevoir un boost de stat au hasard, s'il
+// n'en a pas déjà un (IsaacHasBoost). Sinon, rien. À égalité, le premier de l'équipe.
 #define PROGRESSION_EVOLUTION_PCT  19  // à tous les étages
 #define PROGRESSION_MOVE_PCT       30
 #define PROGRESSION_EVS_PCT        20  // après l'échec des deux autres tirages
+#define PROGRESSION_BOOST_PCT      25  // Pokémon sans rien d'autre à gagner
 
 enum
 {
@@ -658,10 +661,12 @@ enum
     PROGRESSION_SCENE_EVOLUTION,
     PROGRESSION_SCENE_MOVE,
     PROGRESSION_SCENE_EVS,
+    PROGRESSION_SCENE_BOOST,
 };
 
 static EWRAM_DATA u8 sIsaacActiveTurns[PARTY_SIZE] = {0};
 static EWRAM_DATA u8 sIsaacProgressionBattle = PROGRESSION_NONE;
+static EWRAM_DATA u8 sIsaacBoostedStat = 0;  // stat du boost de la scène PROGRESSION_SCENE_BOOST
 static EWRAM_DATA u8 sIsaacProgressionScene = PROGRESSION_SCENE_NONE;  // scène d'évolution lancée par la progression
 
 // Attaques à proposer pendant la scène d'évolution en cours (MOVE_NONE : aucune) : celles du set évolué
@@ -747,6 +752,21 @@ static bool8 IncreaseMonEvs(struct Pokemon *mon)
     return changed;
 }
 
+// Les EVs du Pokémon sont-ils tous au maximum de son dernier set (voir IncreaseMonEvs) ?
+static bool8 AreMonEvsMaxed(struct Pokemon *mon)
+{
+    static const u8 sEvData[] = { MON_DATA_HP_EV, MON_DATA_ATK_EV, MON_DATA_DEF_EV, MON_DATA_SPATK_EV, MON_DATA_SPDEF_EV, MON_DATA_SPEED_EV };
+    const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
+    u32 i;
+
+    if (set == NULL || set->ev == NULL)
+        return TRUE;
+    for (i = 0; i < ARRAY_COUNT(sEvData); i++)
+        if (GetMonData(mon, sEvData[i]) < set->ev[i])
+            return FALSE;
+    return TRUE;
+}
+
 // Tier d'une attaque pour la moyenne du Pokémon (sIsaacMoveTiers) : 0 pour une attaque situationnelle ou sans tier
 // (ignorée)
 static u32 GetMoveTierValue(u16 move)
@@ -754,6 +774,23 @@ static u32 GetMoveTierValue(u16 move)
     u32 tier = (move < MOVES_COUNT) ? sIsaacMoveTiers[move] : 0;
 
     return (tier == ISAAC_MOVE_TIER_SITUATIONAL) ? 0 : tier;
+}
+
+// Moyenne arrondie des tiers de ses attaques (sans les situationnelles), 0 s'il n'en a aucune
+static u32 GetMonAverageMoveTier(struct Pokemon *mon)
+{
+    u32 sum = 0, count = 0, i, tier;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        tier = GetMoveTierValue(GetMonData(mon, MON_DATA_MOVE1 + i));
+        if (tier != 0)
+        {
+            sum += tier;
+            count++;
+        }
+    }
+    return count == 0 ? 0 : (2 * sum + count) / (2 * count);
 }
 
 static bool8 CanSpeciesLearnMove(enum Species species, u16 move)
@@ -982,12 +1019,31 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
             return species;
         }
     }
-    if (active != PARTY_SIZE && Random() % 100 < PROGRESSION_EVS_PCT && IncreaseMonEvs(&gParties[B_TRAINER_PLAYER][active]))
+    // un Pokémon dont les attaques sont déjà de tier moyen 4 n'a plus d'autre progression : ses EVs montent à coup sûr
+    if (active != PARTY_SIZE
+     && (GetMonAverageMoveTier(&gParties[B_TRAINER_PLAYER][active]) >= ISAAC_SET_TIERS || Random() % 100 < PROGRESSION_EVS_PCT)
+     && IncreaseMonEvs(&gParties[B_TRAINER_PLAYER][active]))
     {
         memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
         sIsaacProgressionScene = PROGRESSION_SCENE_EVS;
         *outSlot = active;
         return GetMonData(&gParties[B_TRAINER_PLAYER][active], MON_DATA_SPECIES);
+    }
+    if (active != PARTY_SIZE)
+    {
+        mon = &gParties[B_TRAINER_PLAYER][active];
+        species = GetMonData(mon, MON_DATA_SPECIES);
+        if (IsaacGetEvolutionChoices(species, FALSE, choices, ARRAY_COUNT(choices)) == 0
+         && GetMonAverageMoveTier(mon) >= ISAAC_SET_TIERS && AreMonEvsMaxed(mon)
+         && !IsaacHasBoost(mon) && Random() % 100 < PROGRESSION_BOOST_PCT)
+        {
+            sIsaacBoostedStat = Random() % NUM_STATS;
+            IsaacAddStatBoost(mon, sIsaacBoostedStat);
+            memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
+            sIsaacProgressionScene = PROGRESSION_SCENE_BOOST;
+            *outSlot = active;
+            return species;
+        }
     }
     return SPECIES_NONE;
 }
@@ -999,13 +1055,27 @@ const u8 *IsaacGetEvolutionIntroText(bool8 *learnOnly)
     u32 scene = sIsaacProgressionScene;
 
     sIsaacProgressionScene = PROGRESSION_SCENE_NONE;
-    *learnOnly = (scene == PROGRESSION_SCENE_MOVE || scene == PROGRESSION_SCENE_EVS);
+    *learnOnly = (scene == PROGRESSION_SCENE_MOVE || scene == PROGRESSION_SCENE_EVS || scene == PROGRESSION_SCENE_BOOST);
     if (scene == PROGRESSION_SCENE_EVOLUTION)
         return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
                                "To reward its efforts…\pWhat? {STR_VAR_1} is evolving!");
     if (scene == PROGRESSION_SCENE_MOVE)
         return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
                                "It gained new experience!");
+    if (scene == PROGRESSION_SCENE_BOOST)
+    {
+        static const u8 *const sBoostTexts[NUM_STATS] =
+        {
+            [STAT_HP]    = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts HP rose for good!"),
+            [STAT_ATK]   = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts Attack rose for good!"),
+            [STAT_DEF]   = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts Defense rose for good!"),
+            [STAT_SPEED] = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts Speed rose for good!"),
+            [STAT_SPATK] = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts Sp. Atk rose for good!"),
+            [STAT_SPDEF] = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts Sp. Def rose for good!"),
+        };
+
+        return sBoostTexts[sIsaacBoostedStat % NUM_STATS];
+    }
     if (scene == PROGRESSION_SCENE_EVS)
         return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
                                "It feels stronger!");
