@@ -397,6 +397,7 @@ void DoWhiteOut(void)
     HealPlayerParty();
     Overworld_ResetStateAfterWhiteOut();
     SetWarpDestinationToLastHealLocation();
+    IsaacOnWhiteOut();  // donjon : la descente s'arrête, retour au hub
     WarpIntoMap();
 }
 

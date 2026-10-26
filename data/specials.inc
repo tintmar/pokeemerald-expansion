@@ -657,6 +657,8 @@ gSpecials::
 	def_special IsaacOpenShop
 	def_special IsaacKecleonGreeting
 	def_special IsaacBufferFirstBiome
+	def_special IsaacBuildAscensionMenu
+	def_special IsaacSetAscension
 	def_special IsaacCaptureGuideHasBall
 	def_special IsaacIsBossGuard
 	def_special IsaacCaptureGuideGaveBall

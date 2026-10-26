@@ -24,6 +24,9 @@
 #include "random.h"
 #include "script_pokemon_util.h"
 #include "script.h"
+#include "script_menu.h"
+#include "list_menu.h"
+#include "malloc.h"
 #include "shop.h"
 #include "sound.h"
 #include "string_util.h"
@@ -108,8 +111,6 @@
 #define ISAAC_TRAINER_MONEY_PER_FLOOR  1200  // argent gagné contre un dresseur (ou le boss) : x profondeur
 #define ISAAC_BIOME          IsaacGetCurrentBiome()
 #define ISAAC_FLOOR_COUNT    6  // étages d'une descente (un biome chacun, tous différents), puis la salle de la victoire
-#define WIN_ROOM_X  5  // arrivée dans la salle de la victoire (IsaacWin)
-#define WIN_ROOM_Y  6
 
 // Salles nettoyées (dresseur vaincu) : un drapeau par cellule, dans des drapeaux inutilisés du jeu
 #define FLAG_ISAAC_CLEARED_FIRST  FLAG_UNUSED_0x264
@@ -280,6 +281,9 @@ static const s8 sDoorY[ISAAC_DIR_COUNT] = { [ISAAC_DIR_NORTH] = 0, [ISAAC_DIR_EA
 // Entrée du donjon dans le hub (porte de la grotte)
 #define HUB_ENTRANCE_X  18
 #define HUB_ENTRANCE_Y  5
+// Retour au hub en fin de descente : devant l'entrée, à côté du Montagnard
+#define HUB_RETURN_X    18
+#define HUB_RETURN_Y    7
 
 struct IsaacFloor
 {
@@ -3621,6 +3625,70 @@ static void WarpToNewFloor(u32 floor)
     WarpToRoom(ROOM_MID_X, ROOM_MID_Y);
 }
 
+// ---------------------------------------------------------------------------
+// Fin de descente et niveaux d'ascension
+// ---------------------------------------------------------------------------
+// Une descente finit par la victoire contre le boss du dernier étage (en passant sa porte) ou par un K.O. de toute
+// l'équipe. Dans les deux cas, retour au hub devant l'entrée, à côté du Montagnard, avec tout remis à zéro pour la
+// descente suivante : équipe, boîtes du PC, sac et argent vidés (le Montagnard redonne des Pokémon). Une victoire au
+// niveau d'ascension n débloque le niveau n + 1 (VAR_ISAAC_ASCENSION_MAX) ; la toute première fois, Scott attend le
+// joueur au hub pour lui présenter les niveaux (ISAAC_HUB_SCENE_SCOTT_INTRO), puis il permet de les choisir
+// (IsaacBuildAscensionMenu).
+static void EndRun(bool8 won)
+{
+    u32 level = VarGet(VAR_ISAAC_ASCENSION);
+
+    if (won && level + 1 > VarGet(VAR_ISAAC_ASCENSION_MAX) && level < ISAAC_MAX_ASCENSION)
+    {
+        if (VarGet(VAR_ISAAC_ASCENSION_MAX) == 0)
+            VarSet(VAR_ISAAC_HUB_SCENE, ISAAC_HUB_SCENE_SCOTT_INTRO);
+        VarSet(VAR_ISAAC_ASCENSION_MAX, level + 1);
+    }
+    ZeroPlayerPartyMons();
+    ResetPokemonStorageSystem();
+    ClearBag();
+    SetMoney(&gSaveBlock1Ptr->money, 0);
+    IsaacGoldenHeartReset();
+    VarSet(VAR_ISAAC_FLOOR, 0);
+    FlagClear(FLAG_ISAAC_RUN_PREPARED);  // nouvel ordre des biomes pour la descente suivante
+    SetWarpDestination(MAP_GROUP(MAP_HUB), MAP_NUM(MAP_HUB), WARP_ID_NONE, HUB_RETURN_X, HUB_RETURN_Y);
+}
+
+// K.O. de toute l'équipe (DoWhiteOut, après la destination du dernier soin) : pendant une descente, elle s'arrête là
+void IsaacOnWhiteOut(void)
+{
+    if (VarGet(VAR_ISAAC_FLOOR) != 0)
+        EndRun(FALSE);
+}
+
+// Scott : liste des niveaux débloqués (0 à VAR_ISAAC_ASCENSION_MAX) pour `dynmultistack`, et niveau actuel dans
+// gStringVar1
+void IsaacBuildAscensionMenu(void)
+{
+    u32 level;
+
+    for (level = 0; level <= VarGet(VAR_ISAAC_ASCENSION_MAX) && level <= ISAAC_MAX_ASCENSION; level++)
+    {
+        struct ListMenuItem item;
+        u8 *name = Alloc(16);
+
+        ConvertIntToDecimalStringN(gStringVar2, level, STR_CONV_MODE_LEFT_ALIGN, 2);
+        StringExpandPlaceholders(name, COMPOUND_STRING("Ascension {STR_VAR_2}"));
+        item.name = name;
+        item.id = level;
+        MultichoiceDynamic_PushElement(item);
+    }
+    ConvertIntToDecimalStringN(gStringVar1, VarGet(VAR_ISAAC_ASCENSION), STR_CONV_MODE_LEFT_ALIGN, 2);
+}
+
+// Scott : niveau choisi dans le menu (VAR_RESULT ; rien avec B), puis niveau actuel dans gStringVar1
+void IsaacSetAscension(void)
+{
+    if (gSpecialVar_Result <= VarGet(VAR_ISAAC_ASCENSION_MAX) && gSpecialVar_Result <= ISAAC_MAX_ASCENSION)
+        VarSet(VAR_ISAAC_ASCENSION, gSpecialVar_Result);
+    ConvertIntToDecimalStringN(gStringVar1, VarGet(VAR_ISAAC_ASCENSION), STR_CONV_MODE_LEFT_ALIGN, 2);
+}
+
 // Porte : salle voisine, devant la porte d'en face, tourné dans le sens de la marche
 static void GoThroughDoor(u32 dir)
 {
@@ -3968,9 +4036,9 @@ void IsaacTakeExit(void)
         GoThroughDoor(sPendingDoor);
         break;
     case EXIT_NEXT_FLOOR:
-        if (VarGet(VAR_ISAAC_FLOOR) >= ISAAC_FLOOR_COUNT)
+        if (VarGet(VAR_ISAAC_FLOOR) >= ISAAC_FLOOR_COUNT)  // boss du dernier étage vaincu : descente réussie
         {
-            SetWarpDestination(MAP_GROUP(MAP_ISAAC_WIN), MAP_NUM(MAP_ISAAC_WIN), WARP_ID_NONE, WIN_ROOM_X, WIN_ROOM_Y);
+            EndRun(TRUE);
             DoWarp();
             ResetInitialPlayerAvatarState();
         }

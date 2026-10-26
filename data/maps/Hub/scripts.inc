@@ -1,5 +1,50 @@
 Hub_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Hub_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Hub_OnFrame
 	.byte 0
+
+@ Scott n'est là qu'après la première descente réussie (niveau d'ascension 1 débloqué)
+Hub_OnTransition:
+	call_if_eq VAR_ISAAC_ASCENSION_MAX, 0, Hub_EventScript_HideScott
+	call_if_ne VAR_ISAAC_ASCENSION_MAX, 0, Hub_EventScript_ShowScott
+	end
+
+Hub_EventScript_HideScott:
+	setflag FLAG_HIDE_HUB_SCOTT
+	return
+
+Hub_EventScript_ShowScott:
+	clearflag FLAG_HIDE_HUB_SCOTT
+	return
+
+Hub_OnFrame:
+	map_script_2 VAR_ISAAC_HUB_SCENE, ISAAC_HUB_SCENE_SCOTT_INTRO, Hub_EventScript_ScottIntro
+	.2byte 0
+
+@ Retour de la première descente réussie : Scott interpelle le joueur
+Hub_EventScript_ScottIntro::
+	lockall
+	playse SE_PIN
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
+	waitmovement 0
+	msgbox Hub_Text_ScottIntro, MSGBOX_DEFAULT
+	setvar VAR_ISAAC_HUB_SCENE, ISAAC_HUB_SCENE_NONE
+	releaseall
+	end
+
+@ Scott : choix du niveau d'ascension parmi ceux débloqués
+Hub_EventScript_Scott::
+	lock
+	faceplayer
+	special IsaacBuildAscensionMenu
+	msgbox Hub_Text_ScottAsk, MSGBOX_DEFAULT
+	dynmultistack 0, 0, FALSE, 6, FALSE, VAR_ISAAC_ASCENSION, DYN_MULTICHOICE_CB_NONE
+	special IsaacSetAscension
+	msgbox Hub_Text_ScottSet, MSGBOX_DEFAULT
+	release
+	end
 
 @ Montagnard devant l'entrée du donjon : sans Pokémon, il en fait choisir ISAAC_STARTER_PICKS parmi
 @ ISAAC_STARTER_CHOICES (écran de l'Usine de Combat) et donne une Master Ball, 2 Super Potions et 2 Rappels
@@ -73,3 +118,22 @@ Hub_Text_HikerGoodLuck:
 Hub_Text_HikerStop:
 	.string "Hey! You're not going in there\n"
 	.string "without Pokémon? Come talk to me!$"
+
+Hub_Text_ScottIntro:
+	.string "SCOTT: Hey there! You made it all\n"
+	.string "the way to the bottom! Impressive!\p"
+	.string "I'm SCOTT. I'm always on the lookout\n"
+	.string "for strong Trainers.\p"
+	.string "How about a tougher challenge?\n"
+	.string "Talk to me before heading down,\l"
+	.string "and pick your Ascension level.\p"
+	.string "Each run you clear unlocks\n"
+	.string "the next one!$"
+
+Hub_Text_ScottAsk:
+	.string "SCOTT: You're at Ascension\n"
+	.string "{STR_VAR_1}. Which level do you want?$"
+
+Hub_Text_ScottSet:
+	.string "SCOTT: Ascension {STR_VAR_1} it is!\n"
+	.string "Good luck down there!$"

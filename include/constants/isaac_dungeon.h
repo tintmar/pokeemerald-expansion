@@ -14,4 +14,11 @@
 #define ROOM_CONTENT_EV_TRAINER 9  // entraîneur : IVs et EVs au maximum pour un Pokémon
 #define ROOM_CONTENT_COUNT   10
 
+// Niveaux d'ascension (difficulté) : 0 au départ ; réussir une descente au niveau n débloque le niveau n + 1
+#define ISAAC_MAX_ASCENSION  20
+
+// Scène du hub en attente (VAR_ISAAC_HUB_SCENE)
+#define ISAAC_HUB_SCENE_NONE         0
+#define ISAAC_HUB_SCENE_SCOTT_INTRO  1  // première descente réussie : Scott présente les niveaux d'ascension
+
 #endif // GUARD_CONSTANTS_ISAAC_DUNGEON_H
