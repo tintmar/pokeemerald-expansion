@@ -635,10 +635,12 @@ void IsaacGoldenHeartEnd(void)
 // (PROGRESSION_EVOLUTION_PCT % de chances, toujours contre le boss ; s'il a plusieurs évolutions, l'une
 // de celles qui collent le mieux au biome), et apprend en même temps une attaque de tier supérieur pour sa nouvelle
 // espèce (PickUpgradeMove). Sinon, le Pokémon qui a le plus de tours actifs apprend une attaque de tier supérieur
-// (PROGRESSION_MOVE_PCT %, toujours contre le boss), dans l'écran de l'évolution mais sans l'animation. Sinon, rien.
-// À égalité, le premier de l'équipe.
+// (PROGRESSION_MOVE_PCT %, toujours contre le boss), dans l'écran de l'évolution mais sans l'animation. Sinon, ce même
+// Pokémon gagne un cran d'EVs avec PROGRESSION_EVS_PCT % de chances (IncreaseMonEvs), avec un simple message dans la
+// même scène. Sinon, rien. À égalité, le premier de l'équipe.
 #define PROGRESSION_EVOLUTION_PCT  19  // à tous les étages
 #define PROGRESSION_MOVE_PCT       30
+#define PROGRESSION_EVS_PCT        20  // après l'échec des deux autres tirages
 
 enum
 {
@@ -652,6 +654,7 @@ enum
     PROGRESSION_SCENE_NONE,
     PROGRESSION_SCENE_EVOLUTION,
     PROGRESSION_SCENE_MOVE,
+    PROGRESSION_SCENE_EVS,
 };
 
 static EWRAM_DATA u8 sIsaacActiveTurns[PARTY_SIZE] = {0};
@@ -712,6 +715,33 @@ static u32 KeepBiomeEvolutions(u16 *choices, u32 count)
         if (CountBiomeTypes(choices[i]) == best)
             choices[n++] = choices[i];
     return n;
+}
+
+// Un cran d'EVs : chaque stat du dernier set de l'espèce (même variante), qui est le maximum, gagne un quart de son EV
+// maximal, sans le dépasser. FALSE si le Pokémon a déjà tous ses EVs au maximum de ce set.
+static bool8 IncreaseMonEvs(struct Pokemon *mon)
+{
+    // ordre des EVs d'un set (TRAINER_PARTY_EVS) : PV, Att, Déf, AttSp, DéfSp, Vit
+    static const u8 sEvData[] = { MON_DATA_HP_EV, MON_DATA_ATK_EV, MON_DATA_DEF_EV, MON_DATA_SPATK_EV, MON_DATA_SPDEF_EV, MON_DATA_SPEED_EV };
+    const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
+    bool8 changed = FALSE;
+    u32 i, current, max, value;
+
+    if (set == NULL || set->ev == NULL)
+        return FALSE;
+    for (i = 0; i < ARRAY_COUNT(sEvData); i++)
+    {
+        max = set->ev[i];
+        current = GetMonData(mon, sEvData[i]);
+        if (current >= max)
+            continue;
+        value = min(max, current + max / 4);
+        SetMonData(mon, sEvData[i], &value);
+        changed = TRUE;
+    }
+    if (changed)
+        CalculateMonStats(mon);
+    return changed;
 }
 
 // Tier d'une attaque pour la moyenne du Pokémon (sIsaacMoveTiers) : 0 pour une attaque situationnelle ou sans tier
@@ -943,6 +973,13 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
             return species;
         }
     }
+    if (active != PARTY_SIZE && Random() % 100 < PROGRESSION_EVS_PCT && IncreaseMonEvs(&gParties[B_TRAINER_PLAYER][active]))
+    {
+        memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
+        sIsaacProgressionScene = PROGRESSION_SCENE_EVS;
+        *outSlot = active;
+        return GetMonData(&gParties[B_TRAINER_PLAYER][active], MON_DATA_SPECIES);
+    }
     return SPECIES_NONE;
 }
 
@@ -953,13 +990,16 @@ const u8 *IsaacGetEvolutionIntroText(bool8 *learnOnly)
     u32 scene = sIsaacProgressionScene;
 
     sIsaacProgressionScene = PROGRESSION_SCENE_NONE;
-    *learnOnly = (scene == PROGRESSION_SCENE_MOVE);
+    *learnOnly = (scene == PROGRESSION_SCENE_MOVE || scene == PROGRESSION_SCENE_EVS);
     if (scene == PROGRESSION_SCENE_EVOLUTION)
         return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
                                "To reward its efforts…\pWhat? {STR_VAR_1} is evolving!");
     if (scene == PROGRESSION_SCENE_MOVE)
         return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
                                "It gained new experience!");
+    if (scene == PROGRESSION_SCENE_EVS)
+        return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
+                               "It feels stronger!");
     return gText_PkmnIsEvolving;
 }
 
