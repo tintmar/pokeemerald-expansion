@@ -1,0 +1,1001 @@
+==============================================================================================================
+MOVES_BY_TIER.TXT  —  Move pool tiered by real utility (power x accuracy x effect x priority), sorted by Type
+Draft v3 — pivots by raw power, practical power for conditional moves, no snowball moves in Tier 1, no entry hazards
+==============================================================================================================
+
+SUMMARY
+--------------------------------------------------------------------------------------------------------------
+  Moves in pool: 650  (every move learnable by at least one Pokémon in pokemon_biomes_and_tiers.txt; Gen 1-9 data)
+  TIER 1 — WEAK                        79   (49 attacks, 30 status)
+  TIER 2 — MEDIUM                     130   (114 attacks, 16 status)
+  TIER 3 — STRONG                     135   (131 attacks, 4 status)
+  TIER 4 — OPTIMAL                    132   (119 attacks, 13 status)
+  SITUATIONAL / UTILITY               174   (26 attacks, 148 status)
+
+HOW MOVES WERE TIERED (v3)
+--------------------------------------------------------------------------------------------------------------
+  TIER 4 = OPTIMAL. The moves a competitive player would actually pick, for each type and each category
+    (physical / special). Reliable and risky options sit side by side when both are viable:
+    Flamethrower AND Fire Blast, Earthquake, Thunderbolt AND Thunder, Ice Beam AND Blizzard, Surf AND Hydro Pump.
+    Some roles have their own optimal pick, tagged in the file: [Priority] (Aqua Jet, Mach Punch, Sucker Punch...),
+    [Fixed damage] (Seismic Toss, Night Shade), [Defensive] (Body Press, Foul Play).
+  TIER 3 = NEAR-OPTIMAL. A move is Tier 3 only if a better Tier 4 option of the same type exists, judged on
+    average risk/reward, not raw power. Every Tier 3 entry names that better option ("-> T4: ...").
+    Also here: recharge and 2-turn moves (Hyper Beam, Solar Beam, Fly, Dig) and conditional moves (Stored Power).
+  TIER 2 = MID GAME. Plain ~50-70 effective-power moves: Flame Wheel, Spark, Wing Attack, Bite, Headbutt.
+  TIER 1 = EARLY GAME: Tackle, Ember, Water Gun, plus trivial status moves (Growl, Tail Whip, Harden).
+
+  v3 RULES
+    1. PIVOTS ARE TIERED BY RAW POWER. U-turn (70), Volt Switch (70) and Flip Turn (60) are Tier 2 and keep their
+       [Pivot] tag, so mid-game trainers can use them. Since no stronger pivot exists, Tier 3 and Tier 4 sets are
+       still allowed to pick a Tier 2 [Pivot] move when it is the best option for the Pokémon's role.
+    2. VARIABLE / CONDITIONAL MOVES ARE TIERED BY PRACTICAL POWER.
+       Always-active boosts stay high: Knock Off (97.5 BP vs. a held item, which almost every Tier 2+ Pokémon has),
+       Return / Frustration (102 BP), Facade (140 BP when statused) are Tier 4; Acrobatics (110 BP itemless) is Tier 3.
+       Conditions that are almost always met on the right user move up to Tier 3: Payback (100 BP on slow users),
+       Avalanche and Revenge (120 BP when hit first), Assurance (120 BP if the target was hit this turn),
+       Retaliate (140 BP when an AI trainer sends a Pokémon in after a KO).
+    3. NO SNOWBALL, HIGH-RNG OR FIXED-DAMAGE MOVES IN TIER 1. Moved to Tier 2: Rollout, Ice Ball (up to 480 BP),
+       Echoed Voice (up to 200 BP), Fury Cutter (up to 160 BP), Rage, Present (can roll 80/120 BP),
+       Dragon Rage (40 HP) and Sonic Boom (20 HP).
+    4. NO ENTRY HAZARDS. Stealth Rock, Spikes, Toxic Spikes and Sticky Web are omitted (listed at the end).
+       Stone Axe stays as a plain 65 BP Rock move (Tier 2) without its hazard effect.
+       Former hazard removers are judged on what is left: Rapid Spin (50 BP, +1 Spe, frees from Bind/Leech Seed) and
+       Mortal Spin (30 BP, 100% poison, same freeing effect) are Tier 2; Defog stays Situational as [Disruption / Field];
+       Tidy Up stays Tier 4 [Setup] (+1 Atk, +1 Spe, clears Substitutes).
+
+  STATUS MOVES follow the same rules:
+    Tier 4: Spore, Dark Void, Swords Dance, Nasty Plot, Calm Mind, Bulk Up, Dragon Dance, Quiver Dance, Shell Smash...
+    Tier 3: Sleep Powder, Lovely Kiss (-> Spore), Coil, Growth.   Tier 2: Hypnosis, Sing, Charm, Screech, Work Up...
+    Situational: Toxic, Will-O-Wisp, Protect, recovery, weather, screens..., each with a [Function] label.
+  Multi-hit 25 BP moves (Bullet Seed, Icicle Spear, Rock Blast...) stay Tier 3; they play like Tier 4 on Skill Link users.
+  Excluded: Z-Moves, Max/G-Max moves, Let's Go-only and CAP moves, doubles-only support moves and entry hazards
+    (both listed at the end).
+  Kept: moves removed in Gen 8/9 (Return, Hidden Power, Pursuit, Signal Beam...) since this is a custom game.
+
+COLUMNS
+--------------------------------------------------------------------------------------------------------------
+    Move                Cat     BP   Acc  PP Pri  Effect
+    Cat: Phys / Spec / Stat    BP: var = variable power, fix = fixed damage    Acc: — = never misses    Pri: priority
+    [Exclusive: X line] = only that evolution line in the roster can learn it (signature move).
+    -> T4: X = the better Tier 4 option this Tier 3 move is a weaker version of.
+
+==============================================================================================================
+TIER 1 — WEAK (early game)   [79 moves]
+==============================================================================================================
+  -- NORMAL (33) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Vise Grip           Phys     55  100%  30      —
+    False Swipe         Phys     40  100%  40      Always leaves the target with at least 1 HP.
+    Pay Day             Phys     40  100%  20      Scatters coins.
+    Pound               Phys     40  100%  35      —
+    Quick Attack        Phys     40  100%  30  +1  Usually goes first.
+    Scratch             Phys     40  100%  35      —
+    Tackle              Phys     40  100%  35      —
+    Comet Punch         Phys     18   85%  15      Hits 2-5 times in one turn.
+    Fury Swipes         Phys     18   80%  15      Hits 2-5 times in one turn.
+    Barrage             Phys     15   85%  20      Hits 2-5 times in one turn.  [Exclusive: Exeggcute line]
+    Bind                Phys     15   85%  20      Traps and damages the target for 4-5 turns.
+    Double Slap         Phys     15   85%  10      Hits 2-5 times in one turn.
+    Fury Attack         Phys     15   85%  20      Hits 2-5 times in one turn.
+    Wrap                Phys     15   90%  20      Traps and damages the target for 4-5 turns.
+    Constrict           Phys     10  100%  35      10% chance to lower the target's Speed by 1.
+    Confide             Stat      —     —  20      [Stat Drop] Lowers the target's Sp. Atk by 1.
+    Defense Curl        Stat      —     —  40      [Stat Boost] Raises the user's Defense by 1.
+    Flash               Stat      —  100%  20      [Stat Drop] Lowers the target's accuracy by 1.
+    Focus Energy        Stat      —     —  30      [Stat Boost] Raises the user's critical hit ratio by 2.
+    Foresight           Stat      —     —  40      [Misc] Fighting, Normal hit Ghost. Evasiveness ignored.
+    Growl               Stat      —  100%  40      [Stat Drop] Lowers the foe(s) Attack by 1.
+    Harden              Stat      —     —  30      [Stat Boost] Raises the user's Defense by 1.
+    Howl                Stat      —     —  40      [Stat Boost] Raises the user's and ally's Attack by 1.
+    Leer                Stat      —  100%  30      [Stat Drop] Lowers the foe(s) Defense by 1.
+    Odor Sleuth         Stat      —     —  40      [Misc] Fighting, Normal hit Ghost. Evasiveness ignored.
+    Play Nice           Stat      —     —  20      [Stat Drop] Lowers the target's Attack by 1.
+    Sharpen             Stat      —     —  30      [Stat Boost] Raises the user's Attack by 1.  [Exclusive: Porygon line]
+    Smokescreen         Stat      —  100%  20      [Stat Drop] Lowers the target's accuracy by 1.
+    Splash              Stat      —     —  40      [Misc] No competitive use.
+    Supersonic          Stat      —   55%  20      [Status Inflict] Causes the target to become confused.
+    Sweet Scent         Stat      —  100%  20      [Stat Drop] Lowers the foe(s) evasiveness by 2.
+    Tail Whip           Stat      —  100%  30      [Stat Drop] Lowers the foe(s) Defense by 1.
+    Tearful Look        Stat      —     —  20      [Stat Drop] Lowers the target's Attack and Sp. Atk by 1.
+
+  -- FIRE (2) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Ember               Spec     40  100%  25      10% chance to burn the target.
+    Fire Spin           Spec     35   85%  15      Traps and damages the target for 4-5 turns.
+
+  -- WATER (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Bubble              Spec     40  100%  30      10% chance to lower the foe(s) Speed by 1.
+    Water Gun           Spec     40  100%  25      —
+    Clamp               Phys     35   85%  15      Traps and damages the target for 4-5 turns.
+    Whirlpool           Spec     35   85%  15      Traps and damages the target for 4-5 turns.
+    Water Sport         Stat      —     —  15      [Misc] For 5 turns, Fire-type attacks have 1/3 power.
+    Withdraw            Stat      —     —  40      [Stat Boost] Raises the user's Defense by 1.
+
+  -- ELECTRIC (1) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Thunder Shock       Spec     40  100%  30      10% chance to paralyze the target.
+
+  -- GRASS (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Vine Whip           Phys     45  100%  25      —
+    Leafage             Phys     40  100%  40      —
+    Mega Drain          Spec     40  100%  15      User recovers 50% of the damage dealt.
+    Absorb              Spec     20  100%  25      User recovers 50% of the damage dealt.
+
+  -- ICE (1) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Powder Snow         Spec     40  100%  25      10% chance to freeze the foe(s).
+
+  -- FIGHTING (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Karate Chop         Phys     50  100%  25      High critical hit ratio.
+    Rock Smash          Phys     40  100%  15      50% chance to lower the target's Defense by 1.
+    Double Kick         Phys     30  100%  30      Hits 2 times in one turn.
+    Arm Thrust          Phys     15  100%  20      Hits 2-5 times in one turn.
+    Triple Kick         Phys     10   90%  10      Hits 3 times. Each hit can miss, but power rises.  [Exclusive: Tyrogue line]
+
+  -- POISON (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Acid                Spec     40  100%  30      10% chance to lower the foe(s) Sp. Def by 1.
+    Smog                Spec     30   70%  20      40% chance to poison the target.
+    Poison Sting        Phys     15  100%  35      30% chance to poison the target.
+    Poison Gas          Stat      —   90%  40      [Status Inflict] Poisons the foe(s).
+    Poison Powder       Stat      —   75%  35      [Status Inflict] Poisons the target.
+
+  -- GROUND (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Sand Tomb           Phys     35   85%  15      Traps and damages the target for 4-5 turns.
+    Mud-Slap            Spec     20  100%  10      100% chance to lower the target's accuracy by 1.
+    Mud Sport           Stat      —     —  15      [Misc] For 5 turns, Electric-type attacks have 1/3 power.
+    Sand Attack         Stat      —  100%  15      [Stat Drop] Lowers the target's accuracy by 1.
+
+  -- FLYING (2) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Gust                Spec     40  100%  35      Power doubles during Bounce, Fly, and Sky Drop.
+    Peck                Phys     35  100%  35      —
+
+  -- PSYCHIC (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Confusion           Spec     50  100%  25      10% chance to confuse the target.
+    Kinesis             Stat      —   80%  15      [Stat Drop] Lowers the target's accuracy by 1.  [Exclusive: Abra line]
+    Meditate            Stat      —     —  40      [Stat Boost] Raises the user's Attack by 1.
+    Miracle Eye         Stat      —     —  40      [Misc] Psychic hits Dark. Evasiveness ignored.
+
+  -- BUG (3) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Twineedle           Phys     25  100%  20      Hits 2 times. Each hit has 20% chance to poison.
+    Infestation         Spec     20  100%  20      Traps and damages the target for 4-5 turns.
+    String Shot         Stat      —   95%  40      [Stat Drop] Lowers the foe(s) Speed by 2.
+
+  -- ROCK (1) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Rock Throw          Phys     50   90%  15      —
+
+  -- GHOST (2) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Astonish            Phys     30  100%  15      30% chance to make the target flinch.
+    Lick                Phys     30  100%  30      30% chance to paralyze the target.
+
+  -- DRAGON (1) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Twister             Spec     40  100%  20      20% chance to make the foe(s) flinch.
+
+  -- STEEL (1) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Metal Claw          Phys     50   95%  35      10% chance to raise the user's Attack by 1.
+
+  -- FAIRY (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Disarming Voice     Spec     40     —  15      This move does not check accuracy. Hits foes.
+    Fairy Wind          Spec     40  100%  30      —
+    Baby-Doll Eyes      Stat      —  100%  30  +1  [Stat Drop] Lowers the target's Attack by 1.
+    Sweet Kiss          Stat      —   75%  10      [Status Inflict] Causes the target to become confused.
+
+==============================================================================================================
+TIER 2 — MEDIUM (mid game, ~50-70 effective power)   [130 moves]
+==============================================================================================================
+  -- NORMAL (32) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Take Down           Phys     90   85%  20      Has 1/4 recoil.
+    Mega Punch          Phys     80   85%  20      —
+    Slam                Phys     80   75%  20      —
+    Tera Blast          Spec     80  100%  10      If Terastallized: Phys. if Atk > SpA, type = Tera.
+    Chip Away           Phys     70  100%  20      Ignores the target's stat stage changes.
+    Dizzy Punch         Phys     70  100%  10      20% chance to confuse the target.
+    Headbutt            Phys     70  100%  15      30% chance to make the target flinch.
+    Secret Power        Phys     70  100%  20      Effect varies with terrain. (30% paralysis chance)
+    Smelling Salts      Phys     70  100%  10      Power doubles if target is paralyzed, and cures it.
+    Horn Attack         Phys     65  100%  25      —
+    Stomp               Phys     65  100%  20      30% chance to make the target flinch.
+    Covet               Phys     60  100%  25      If the user has no item, it steals the target's.
+    Hidden Power        Spec     60  100%  15      Type varies (set per Pokémon). Cheap coverage.
+    Round               Spec     60  100%  15      Power doubles if others used Round this turn.
+    Swift               Spec     60     —  20      This move does not check accuracy. Hits foes.
+    Rapid Spin          Phys     50  100%  40      +1 Speed. Frees the user from Bind/Wrap and Leech Seed.
+    Terrain Pulse       Spec     50  100%  10      User on terrain: power doubles, type varies.
+    Echoed Voice        Spec     40  100%  15      Power increases when used on consecutive turns.
+    Double Hit          Phys     35   90%  10      Hits 2 times in one turn.
+    Rage                Phys     20  100%  20      Raises the user's Attack by 1 if hit during use.
+    Spike Cannon        Phys     20  100%  15      Hits 2-5 times in one turn.
+    Flail               Phys    var  100%  15      More power the less HP the user has left.
+    Present             Phys    var   90%  15      40, 80, 120 power, or heals target 1/4 max HP.
+    Sonic Boom          Spec    fix   90%  20      Always does 20 HP of damage.
+    Trump Card          Spec    var     —   5      More power the fewer PP this move has left.
+    Captivate           Stat      —  100%  20      [Stat Drop] Lowers the foe(s) Sp. Atk by 2 if opposite gender.
+    Noble Roar          Stat      —  100%  30      [Stat Drop] Lowers the target's Attack and Sp. Atk by 1.
+    Scary Face          Stat      —  100%  10      [Stat Drop] Lowers the target's Speed by 2.
+    Screech             Stat      —   85%  40      [Stat Drop] Lowers the target's Defense by 2.
+    Sing                Stat      —   55%  15      [Sleep] Causes the target to fall asleep.
+    Tickle              Stat      —  100%  20      [Stat Drop] Lowers the target's Attack and Defense by 1.
+    Work Up             Stat      —     —  30      [Stat Boost] Raises the user's Attack and Sp. Atk by 1.
+
+  -- FIRE (7) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Inferno             Spec    100   50%   5      100% chance to burn the target.
+    Burning Jealousy    Spec     70  100%   5      100% burns a target that had a stat rise this turn.
+    Flame Burst         Spec     70  100%  15      Damages Pokemon next to the target as well.
+    Fire Fang           Phys     65   95%  15      10% chance to burn. 10% chance to flinch.
+    Flame Wheel         Phys     60  100%  25      10% chance to burn the target. Thaws user.
+    Incinerate          Spec     60  100%  15      Destroys the foe(s) Berry/Gem.
+    Flame Charge        Phys     50  100%  20      100% chance to raise the user's Speed by 1.
+
+  -- WATER (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Bubble Beam         Spec     65  100%  20      10% chance to lower the target's Speed by 1.
+    Octazooka           Spec     65   85%  10      50% chance to lower the target's accuracy by 1.
+    Flip Turn           Phys     60  100%  20      [Pivot] User switches out after damaging the target.
+    Water Pulse         Spec     60  100%  20      20% chance to confuse the target.
+    Chilling Water      Spec     50  100%  20      100% chance to lower the target's Attack by 1.
+
+  -- ELECTRIC (10) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Zap Cannon          Spec    120   50%   5      100% chance to paralyze the target.
+    Volt Switch         Spec     70  100%  20      [Pivot] User switches out after damaging the target.
+    Parabolic Charge    Spec     65  100%  20      User recovers 50% of the damage dealt.  [Exclusive: Dedenne line]
+    Spark               Phys     65  100%  20      30% chance to paralyze the target.
+    Thunder Fang        Phys     65   95%  15      10% chance to paralyze. 10% chance to flinch.
+    Shock Wave          Spec     60     —  20      This move does not check accuracy.
+    Electroweb          Spec     55   95%  15      100% chance to lower the foe(s) Speed by 1.
+    Charge Beam         Spec     50   90%  10      70% chance to raise the user's Sp. Atk by 1.
+    Nuzzle              Phys     20  100%  20      100% chance to paralyze the target.
+    Eerie Impulse       Stat      —  100%  15      [Stat Drop] Lowers the target's Sp. Atk by 2.
+
+  -- GRASS (8) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Leaf Tornado        Spec     65   90%  10      50% chance to lower the target's accuracy by 1.
+    Magical Leaf        Spec     60     —  20      This move does not check accuracy.
+    Needle Arm          Phys     60  100%  15      30% chance to make the target flinch.
+    Grassy Glide        Phys     55  100%  20      User on Grassy Terrain: +1 priority.
+    Razor Leaf          Phys     55   95%  25      High critical hit ratio. Hits adjacent foes.
+    Trailblaze          Phys     50  100%  20      100% chance to raise the user's Speed by 1.
+    Cotton Spore        Stat      —  100%  40      [Stat Drop] Lowers the target's Speed by 2.
+    Grass Whistle       Stat      —   55%  15      [Sleep] Causes the target to fall asleep.
+
+  -- ICE (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Aurora Beam         Spec     65  100%  20      10% chance to lower the target's Attack by 1.
+    Ice Fang            Phys     65   95%  15      10% chance to freeze. 10% chance to flinch.
+    Icy Wind            Spec     55   95%  15      100% chance to lower the foe(s) Speed by 1.
+    Ice Ball            Phys     30   90%  20      Power doubles with each hit. Repeats for 5 turns.
+
+  -- FIGHTING (8) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Dynamic Punch       Phys    100   50%   5      100% chance to confuse the target.
+    Submission          Phys     80   80%  20      Has 1/4 recoil.
+    Vital Throw         Phys     70     —  10  -1  This move does not check accuracy. Goes last.
+    Wake-Up Slap        Phys     70  100%  10      Power doubles if target is asleep, and wakes it.
+    Low Sweep           Phys     65  100%  20      100% chance to lower the target's Speed by 1.
+    Force Palm          Phys     60  100%  10      30% chance to paralyze the target.
+    Rolling Kick        Phys     60   85%  15      30% chance to make the target flinch.
+    Power-Up Punch      Phys     40  100%  20      100% chance to raise the user's Attack by 1.
+
+  -- POISON (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Sludge              Spec     65  100%  20      30% chance to poison the target.
+    Poison Fang         Phys     50  100%  15      50% chance to badly poison the target.
+    Poison Tail         Phys     50  100%  25      High critical hit ratio. 10% chance to poison.
+    Acid Spray          Spec     40  100%  20      100% chance to lower the target's Sp. Def by 2.
+    Mortal Spin         Phys     30  100%  15      Poisons the target. Frees the user from Bind/Wrap and Leech Seed.  [Exclusive: Glimmet line]
+
+  -- GROUND (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Bone Club           Phys     65   85%  20      10% chance to make the target flinch.  [Exclusive: Cubone line]
+    Mud Bomb            Spec     65   85%  10      30% chance to lower the target's accuracy by 1.
+    Bulldoze            Phys     60  100%  20      100% chance lower adjacent Pkmn Speed by 1.
+    Mud Shot            Spec     55   95%  15      100% chance to lower the target's Speed by 1.
+    Magnitude           Phys    var  100%  30      Hits adjacent Pokemon. Power varies; 2x on Dig.
+
+  -- FLYING (7) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Aerial Ace          Phys     60     —  20      This move does not check accuracy.
+    Air Cutter          Spec     60   95%  25      High critical hit ratio. Hits adjacent foes.
+    Pluck               Phys     60  100%  20      User steals and eats the target's Berry.
+    Sky Drop            Phys     60  100%  10      User and foe fly up turn 1. Damages on turn 2.
+    Wing Attack         Phys     60  100%  35      —
+    Dual Wingbeat       Phys     40   90%  10      Hits 2 times in one turn.
+    Feather Dance       Stat      —  100%  15      [Stat Drop] Lowers the target's Attack by 2.
+
+  -- PSYCHIC (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Synchronoise        Spec    120  100%  10      Hits adjacent Pokemon sharing the user's type.
+    Psybeam             Spec     65  100%  20      10% chance to confuse the target.
+    Heart Stamp         Phys     60  100%  25      30% chance to make the target flinch.
+    Psywave             Spec    fix  100%  15      Random damage equal to 0.5x-1.5x user's level.
+    Hypnosis            Stat      —   60%  20      [Sleep] Causes the target to fall asleep.
+
+  -- BUG (9) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Skitter Smack       Phys     70   90%  10      100% chance to lower target's Sp. Atk by 1.
+    U-turn              Phys     70  100%  20      [Pivot] User switches out after damaging the target.
+    Steamroller         Phys     65  100%  20      30% chance to make the target flinch.  [Exclusive: Geodude line]
+    Bug Bite            Phys     60  100%  20      User steals and eats the target's Berry.
+    Silver Wind         Spec     60  100%   5      10% chance to raise all stats by 1 (not acc/eva).
+    Fell Stinger        Phys     50  100%  25      Raises user's Attack by 3 if this KOes the target.
+    Pounce              Phys     50  100%  20      100% chance to lower the target's Speed by 1.
+    Struggle Bug        Spec     50  100%  20      100% chance to lower the foe(s) Sp. Atk by 1.
+    Fury Cutter         Phys     40   95%  20      Power doubles with each hit, up to 160.
+
+  -- ROCK (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Stone Axe           Phys     65   90%  15      Plain 65 BP Rock hit (its Stealth Rock effect is removed in this game).  [Exclusive: Scyther line]
+    Ancient Power       Spec     60  100%   5      10% chance to raise all stats by 1 (not acc/eva).
+    Rock Tomb           Phys     60   95%  15      100% chance to lower the target's Speed by 1.
+    Smack Down          Phys     50  100%  15      Removes the target's Ground immunity.
+    Rollout             Phys     30   90%  20      Power doubles with each hit. Repeats for 5 turns.
+
+  -- GHOST (2) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Ominous Wind        Spec     60  100%   5      10% chance to raise all stats by 1 (not acc/eva).
+    Shadow Punch        Phys     60     —  20      This move does not check accuracy.
+
+  -- DRAGON (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Breaking Swipe      Phys     60  100%  15      100% chance to lower the foe(s) Attack by 1.
+    Dragon Breath       Spec     60  100%  20      30% chance to paralyze the target.
+    Dual Chop           Phys     40   90%  15      Hits 2 times in one turn.
+    Dragon Rage         Spec    fix  100%  10      Deals 40 HP of damage to the target.
+
+  -- DARK (8) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Bite                Phys     60  100%  25      30% chance to make the target flinch.
+    Brutal Swing        Phys     60  100%  20      — Hits adjacent Pokemon.
+    Feint Attack        Phys     60     —  20      This move does not check accuracy.
+    Thief               Phys     60  100%  25      If the user has no item, it steals the target's.
+    Snarl               Spec     55   95%  15      100% chance to lower the foe(s) Sp. Atk by 1.
+    Punishment          Phys    var  100%   5      60 power +20 for each of the target's stat boosts.
+    Fake Tears          Stat      —  100%  20      [Stat Drop] Lowers the target's Sp. Def by 2.
+    Hone Claws          Stat      —     —  15      [Stat Boost] Raises the user's Attack and accuracy by 1.
+
+  -- STEEL (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Steel Wing          Phys     70   90%  25      10% chance to raise the user's Defense by 1.
+    Mirror Shot         Spec     65   85%  10      30% chance to lower the target's accuracy by 1.
+    Magnet Bomb         Phys     60     —  20      This move does not check accuracy.
+    Metal Sound         Stat      —   85%  40      [Stat Drop] Lowers the target's Sp. Def by 2.
+
+  -- FAIRY (2) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Draining Kiss       Spec     50  100%  10      User recovers 75% of the damage dealt.
+    Charm               Stat      —  100%  20      [Stat Drop] Lowers the target's Attack by 2.
+
+==============================================================================================================
+TIER 3 — STRONG (near-optimal: a better Tier 4 option of the same type exists)   [135 moves]
+==============================================================================================================
+  -- NORMAL (20) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Self-Destruct       Phys    200  100%   5      Hits adjacent Pokemon. The user faints.  -> T4: Explosion
+    Giga Impact         Phys    150   90%   5      User cannot move next turn.  -> T4: Double-Edge
+    Hyper Beam          Spec    150   90%   5      User cannot move next turn.  -> T4: Hyper Voice
+    Skull Bash          Phys    130  100%  10      Raises user's Defense by 1 on turn 1. Hits turn 2.  -> T4: Double-Edge
+    Mega Kick           Phys    120   75%   5      —  -> T4: Double-Edge
+    Thrash              Phys    120  100%  10      Lasts 2-3 turns. Confuses the user afterwards.  -> T4: Double-Edge
+    Egg Bomb            Phys    100   75%  10      —  -> T4: Body Slam
+    Rock Climb          Phys     90   85%  20      20% chance to confuse the target.  -> T4: Body Slam
+    Uproar              Spec     90  100%  10      Lasts 3 turns. Active Pokemon cannot fall asleep.  -> T4: Hyper Voice
+    Hyper Fang          Phys     80   90%  15      10% chance to make the target flinch.  [Exclusive: Rattata line]  -> T4: Body Slam
+    Razor Wind          Spec     80  100%  10      Charges, then hits foe(s) turn 2. High crit ratio.  -> T4: Hyper Voice
+    Strength            Phys     80  100%  15      —  -> T4: Body Slam
+    Tri Attack          Spec     80  100%  10      20% chance to paralyze or burn or freeze target.  -> T4: Hyper Voice
+    Crush Claw          Phys     75   95%  10      50% chance to lower the target's Defense by 1.  -> T4: Facade
+    Retaliate           Phys     70  100%   5      Power doubles if an ally fainted last turn.  -> T4: Facade
+    Slash               Phys     70  100%  20      High critical hit ratio.  -> T4: Facade
+    Tail Slap           Phys     25   85%  10      Hits 2-5 times in one turn.  -> T4: Frustration
+    Wring Out           Spec    var  100%   5      More power the more HP the target has left.  -> T4: Weather Ball
+    Growth              Stat      —     —  20      [Setup] Raises user's Attack and Sp. Atk by 1; 2 in Sun.  -> T4: Nasty Plot / Swords Dance
+    Lovely Kiss         Stat      —   75%  10      [Sleep] Causes the target to fall asleep.  [Exclusive: Smoochum line]  -> T4: Spore
+
+  -- FIRE (10) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Blast Burn          Spec    150   90%   5      User cannot move next turn.  -> T4: Overheat
+    Heat Wave           Spec     95   90%  10      10% chance to burn the foe(s).  -> T4: Flamethrower
+    Blaze Kick          Phys     85   90%  10      High critical hit ratio. 10% chance to burn.  -> T4: Flare Blitz
+    Fire Lash           Phys     80  100%  15      100% chance to lower the target's Defense by 1.  [Exclusive: Sizzlipede line]  -> T4: Flare Blitz
+    Fire Pledge         Spec     80  100%  10      Use with Grass or Water Pledge for added effect.  -> T4: Flamethrower
+    Lava Plume          Spec     80  100%  15      30% chance to burn adjacent Pokemon.  -> T4: Flamethrower
+    Fire Punch          Phys     75  100%  15      10% chance to burn the target.  -> T4: Flare Blitz
+    Mystical Fire       Spec     75  100%  10      100% chance to lower the target's Sp. Atk by 1.  -> T4: Flamethrower
+    Temper Flare        Phys     75  100%  10      Power doubles if the user's last move failed.  -> T4: Flare Blitz
+    Heat Crash          Phys    var  100%  10      More power the heavier the user than the target.  -> T4: Flare Blitz
+
+  -- WATER (9) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Hydro Cannon        Spec    150   90%   5      User cannot move next turn.  -> T4: Hydro Pump
+    Aqua Tail           Phys     90   90%  10      —  -> T4: Liquidation
+    Muddy Water         Spec     90   85%  10      30% chance to lower the foe(s) accuracy by 1.  -> T4: Surf
+    Sparkling Aria      Spec     90  100%  10      The target is cured of its burn.  [Exclusive: Lapras line]  -> T4: Surf
+    Dive                Phys     80  100%  10      Dives underwater turn 1, strikes turn 2.  -> T4: Waterfall
+    Water Pledge        Spec     80  100%  10      Use with Grass or Fire Pledge for added effect.  -> T4: Scald
+    Razor Shell         Phys     75   95%  10      50% chance to lower the target's Defense by 1.  -> T4: Waterfall
+    Aqua Cutter         Phys     70  100%  20      High critical hit ratio.  [Exclusive: Ralts line]  -> T4: Waterfall
+    Brine               Spec     65  100%  10      Power doubles if the target's HP is 50% or less.  -> T4: Scald
+
+  -- ELECTRIC (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Supercell Slam      Phys    100   95%  15      User is hurt by 50% of its max HP if it misses.  -> T4: Wild Charge
+    Discharge           Spec     80  100%  15      30% chance to paralyze adjacent Pokemon.  -> T4: Thunderbolt
+    Zing Zap            Phys     80  100%  10      30% chance to make the target flinch.  [Exclusive: Togedemaru line]  -> T4: Wild Charge
+    Thunder Punch       Phys     75  100%  15      10% chance to paralyze the target.  -> T4: Wild Charge
+    Rising Voltage      Spec     70  100%  20      2x power if target is grounded in Electric Terrain.  -> T4: Thunderbolt
+    Electro Ball        Spec    var  100%  10      More power the faster the user is than the target.  -> T4: Thunderbolt
+
+  -- GRASS (10) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Frenzy Plant        Spec    150   90%   5      User cannot move next turn.  -> T4: Leaf Storm
+    Solar Blade         Phys    125  100%  10      Charges turn 1. Hits turn 2. No charge in sunlight.  -> T4: Power Whip
+    Petal Dance         Spec    120  100%  10      Lasts 2-3 turns. Confuses the user afterwards.  -> T4: Leaf Storm
+    Solar Beam          Spec    120  100%  10      Charges turn 1. Hits turn 2. No charge in sunlight.  -> T4: Leaf Storm
+    Petal Blizzard      Phys     90  100%  15      — Hits adjacent Pokemon.  -> T4: Leaf Blade
+    Grass Pledge        Spec     80  100%  10      Use with Fire or Water Pledge for added effect.  -> T4: Giga Drain
+    Seed Bomb           Phys     80  100%  15      —  -> T4: Leaf Blade
+    Bullet Seed         Phys     25  100%  30      Hits 2-5 times in one turn.  -> T4: Leaf Blade
+    Grass Knot          Spec    var  100%  20      More power the heavier the target.  -> T4: Giga Drain
+    Sleep Powder        Stat      —   75%  15      [Sleep] Causes the target to fall asleep.  -> T4: Spore
+
+  -- ICE (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Ice Spinner         Phys     80  100%  15      Ends the effects of terrain.  -> T4: Triple Axel
+    Ice Punch           Phys     75  100%  15      10% chance to freeze the target.  -> T4: Triple Axel
+    Glaciate            Spec     65   95%  10      100% chance to lower the foe(s) Speed by 1.  [Exclusive: Kyurem line]  -> T4: Freeze-Dry
+    Avalanche           Phys     60  100%  10  -4  Power doubles if user is damaged by the target.  -> T4: Triple Axel
+    Frost Breath        Spec     60   90%  10      Always results in a critical hit.  -> T4: Freeze-Dry
+    Icicle Spear        Phys     25  100%  30      Hits 2-5 times in one turn.  -> T4: Triple Axel
+
+  -- FIGHTING (13) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Focus Punch         Phys    150  100%  20  -3  Fails if the user takes damage before it hits.  -> T4: Close Combat
+    Axe Kick            Phys    120   90%  10      30% confusion. User loses 50% max HP if miss.  -> T4: Close Combat
+    Superpower          Phys    120  100%   5      Lowers the user's Attack and Defense by 1.  -> T4: Close Combat
+    Cross Chop          Phys    100   80%   5      High critical hit ratio.  -> T4: Close Combat
+    Hammer Arm          Phys    100   90%  10      Lowers the user's Speed by 1.  -> T4: Close Combat
+    Jump Kick           Phys    100   95%  10      User is hurt by 50% of its max HP if it misses.  -> T4: Close Combat
+    Sacred Sword        Phys     90  100%  15      Ignores the target's stat stage changes.  -> T4: Drain Punch
+    Sky Uppercut        Phys     85   90%  15      Can hit Pokemon using Bounce, Fly, or Sky Drop.  -> T4: Drain Punch
+    Brick Break         Phys     75  100%  15      Destroys screens, unless the target is immune.  -> T4: Drain Punch
+    Revenge             Phys     60  100%  10  -4  Power doubles if user is damaged by the target.  -> T4: Drain Punch
+    Storm Throw         Phys     60  100%  10      Always results in a critical hit.  [Exclusive: Pinsir line]  -> T4: Drain Punch
+    Low Kick            Phys    var  100%  20      More power the heavier the target.  -> T4: Drain Punch
+    Reversal            Phys    var  100%  15      More power the less HP the user has left.  -> T4: Drain Punch
+
+  -- POISON (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Belch               Spec    120   90%  10      Cannot be selected until the user eats a Berry.  -> T4: Sludge Wave
+    Cross Poison        Phys     70  100%  20      High critical hit ratio. 10% chance to poison.  -> T4: Poison Jab
+    Venoshock           Spec     65  100%  10      Power doubles if the target is poisoned.  -> T4: Sludge Bomb
+    Barb Barrage        Phys     60  100%  10      50% psn. 2x power if target already poisoned.  [Exclusive: Qwilfish line]  -> T4: Poison Jab
+    Coil                Stat      —     —  20      [Setup] Raises user's Attack, Defense, accuracy by 1.  -> T4: Dragon Dance / Swords Dance
+
+  -- GROUND (7) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    High Horsepower     Phys     95   95%  10      —  -> T4: Earthquake
+    Dig                 Phys     80  100%  10      Digs underground turn 1, strikes turn 2.  -> T4: Earthquake
+    Drill Run           Phys     80   95%  10      High critical hit ratio.  -> T4: Earthquake
+    Stomping Tantrum    Phys     75  100%  10      Power doubles if the user's last move failed.  -> T4: Earthquake
+    Scorching Sands     Spec     70  100%  10      30% chance to burn the target. Thaws target.  -> T4: Earth Power
+    Bonemerang          Phys     50   90%  10      Hits 2 times in one turn.  [Exclusive: Cubone line]  -> T4: Earthquake
+    Bone Rush           Phys     25   90%  10      Hits 2-5 times in one turn.  -> T4: Earthquake
+
+  -- FLYING (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Sky Attack          Phys    140   90%   5      Charges, then hits turn 2. 30% flinch. High crit.  -> T4: Brave Bird
+    Fly                 Phys     90   95%  15      Flies up on first turn, then strikes the next turn.  -> T4: Brave Bird
+    Bounce              Phys     85   85%   5      Bounces turn 1. Hits turn 2. 30% paralyze.  -> T4: Brave Bird
+    Drill Peck          Phys     80  100%  20      —  -> T4: Brave Bird
+    Acrobatics          Phys     55  100%  15      Power doubles if the user has no held item.  -> T4: Brave Bird
+
+  -- PSYCHIC (9) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Future Sight        Spec    120  100%  10      Hits two turns after being used.  -> T4: Psychic
+    Expanding Force     Spec     80  100%  10      User on Psychic Terrain: 1.5x power, hits foes.  -> T4: Psyshock
+    Extrasensory        Spec     80  100%  20      10% chance to make the target flinch.  -> T4: Psyshock
+    Zen Headbutt        Phys     80   90%  15      20% chance to make the target flinch.  -> T4: Psychic Fangs
+    Psychic Noise       Spec     75  100%  10      For 2 turns, the target is prevented from healing.  -> T4: Psyshock
+    Psycho Cut          Phys     70  100%  20      High critical hit ratio.  -> T4: Psychic Fangs
+    Psyshield Bash      Phys     70   90%  10      100% chance to raise the user's Defense by 1.  [Exclusive: Stantler line]  -> T4: Psychic Fangs
+    Twin Beam           Spec     40  100%  10      Hits 2 times in one turn.  [Exclusive: Girafarig line]  -> T4: Psyshock
+    Stored Power        Spec     20  100%  10       + 20 power for each of the user's stat boosts.  -> T4: Psyshock
+
+  -- BUG (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Pollen Puff         Spec     90  100%  15      If the target is an ally, heals 50% of its max HP.  -> T4: Bug Buzz
+    Lunge               Phys     80  100%  15      100% chance to lower the target's Attack by 1.  -> T4: Leech Life
+    X-Scissor           Phys     80  100%  15      —  -> T4: Leech Life
+    Signal Beam         Spec     75  100%  15      10% chance to confuse the target.  -> T4: Bug Buzz
+    Pin Missile         Phys     25   95%  20      Hits 2-5 times in one turn.  -> T4: Leech Life
+
+  -- ROCK (3) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Rock Wrecker        Phys    150   90%   5      User cannot move next turn.  [Exclusive: Rhyhorn line]  -> T4: Head Smash
+    Meteor Beam         Spec    120   90%  10      Raises user's Sp. Atk by 1 on turn 1. Hits turn 2.  -> T4: Power Gem
+    Rock Blast          Phys     25   90%  10      Hits 2-5 times in one turn.  -> T4: Rock Slide
+
+  -- GHOST (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Shadow Force        Phys    120  100%   5      Disappears turn 1. Hits turn 2. Breaks protection.  -> T4: Poltergeist
+    Phantom Force       Phys     90  100%  10      Disappears turn 1. Hits turn 2. Breaks protection.  -> T4: Poltergeist
+    Shadow Claw         Phys     70  100%  15      High critical hit ratio.  -> T4: Poltergeist
+    Hex                 Spec     65  100%  10      Power doubles if the target has a status ailment.  -> T4: Shadow Ball
+
+  -- DRAGON (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Eternabeam          Spec    160   90%   5      User cannot move next turn.  [Exclusive: Eternatus line]  -> T4: Draco Meteor
+    Roar of Time        Spec    150   90%   5      User cannot move next turn.  -> T4: Draco Meteor
+    Dragon Rush         Phys    100   75%  10      20% chance to make the target flinch.  -> T4: Outrage
+    Dragon Hammer       Phys     90  100%  15      —  [Exclusive: Tropius line]  -> T4: Outrage
+    Dragon Claw         Phys     80  100%  15      —  -> T4: Outrage
+    Scale Shot          Phys     25   90%  20      Hits 2-5 times. User: -1 Def, +1 Spe after last hit.  -> T4: Outrage
+
+  -- DARK (8) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Darkest Lariat      Phys     85  100%  10      Ignores the target's stat stage changes.  -> T4: Knock Off
+    Crunch              Phys     80  100%  15      20% chance to lower the target's Defense by 1.  -> T4: Knock Off
+    Throat Chop         Phys     80  100%  15      For 2 turns, the target cannot use sound moves.  -> T4: Knock Off
+    Lash Out            Phys     75  100%   5      2x power if the user had a stat lowered this turn.  -> T4: Knock Off
+    Night Slash         Phys     70  100%  15      High critical hit ratio.  -> T4: Knock Off
+    Assurance           Phys     60  100%  10      Power doubles if target was damaged this turn.  -> T4: Knock Off
+    Payback             Phys     50  100%  10      Power doubles if the user moves after the target.  -> T4: Knock Off
+    Power Trip          Phys     20  100%  10       + 20 power for each of the user's stat boosts.  -> T4: Knock Off
+
+  -- STEEL (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Steel Roller        Phys    130  100%   5      Fails if there is no terrain active. Ends the terrain.  -> T4: Iron Head
+    Iron Tail           Phys    100   75%  15      30% chance to lower the target's Defense by 1.  -> T4: Iron Head
+    Smart Strike        Phys     70     —  10      This move does not check accuracy.  -> T4: Iron Head
+    Gyro Ball           Phys    var  100%   5      More power the slower the user than the target.  -> T4: Iron Head
+    Hard Press          Phys    var  100%  10      More power the more HP the target has left.  -> T4: Iron Head
+    Heavy Slam          Phys    var  100%  10      More power the heavier the user than the target.  -> T4: Iron Head
+
+  -- FAIRY (3) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Misty Explosion     Spec    100  100%   5      User faints. User on Misty Terrain: 1.5x power.  -> T4: Moonblast
+    Alluring Voice      Spec     80  100%  10      100% confuse target that had a stat rise this turn.  -> T4: Moonblast
+    Dazzling Gleam      Spec     80  100%  10      — Hits adjacent foes.  -> T4: Moonblast
+
+==============================================================================================================
+TIER 4 — OPTIMAL (the competitive best of each type x category, or of a role)   [132 moves]
+==============================================================================================================
+  -- NORMAL (18) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Explosion           Phys    250  100%   5      Hits adjacent Pokemon. The user faints.
+    Boomburst           Spec    140  100%  10      — Hits adjacent Pokemon.
+    Double-Edge         Phys    120  100%  15      Has 33% recoil.
+    Hyper Drill         Phys    100  100%   5      Bypasses protection without breaking it.  [Exclusive: Dunsparce line]
+    Judgment            Spec    100  100%  10      Type varies based on the held Plate.  [Exclusive: Arceus line]
+    Hyper Voice         Spec     90  100%  10      — Hits adjacent foes.
+    Raging Bull         Phys     90  100%  10      Destroys screens. Type depends on user's form.  [Exclusive: Tauros line]
+    Body Slam           Phys     85  100%  15      30% chance to paralyze the target.
+    Extreme Speed       Phys     80  100%   5  +2  [Priority] Nearly always goes first.
+    Facade              Phys     70  100%  20      Power doubles if user is burn/poison/paralyzed.
+    Weather Ball        Spec     50  100%  10      Power doubles and type varies in each weather.
+    Crush Grip          Phys    var  100%   5      More power the more HP the target has left.  [Exclusive: Regigigas line]
+    Frustration         Phys   102*  100%  20      Max 102 power at minimum Happiness. (*treat as 102 BP)
+    Return              Phys   102*  100%  20      Max 102 power at maximum Happiness. (*treat as 102 BP)
+    Belly Drum          Stat      —     —  10      [Setup] User loses 50% max HP. Maximizes Attack.
+    Shell Smash         Stat      —     —  15      [Setup] Lowers Def, SpD by 1; raises Atk, SpA, Spe by 2.
+    Swords Dance        Stat      —     —  20      [Setup] Raises the user's Attack by 2.
+    Tidy Up             Stat      —     —  10      [Setup] User +1 Atk, +1 Spe. Removes all Substitutes.  [Exclusive: Sentret line]
+
+  -- FIRE (10) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Eruption            Spec    150  100%   5      Less power as user's HP decreases. Hits foe(s).
+    Blue Flare          Spec    130   85%   5      20% chance to burn the target.  [Exclusive: Reshiram line]
+    Overheat            Spec    130   90%   5      Lowers the user's Sp. Atk by 2.
+    Flare Blitz         Phys    120  100%  15      Has 33% recoil. 10% chance to burn. Thaws user.
+    Raging Fury         Phys    120  100%  10      Lasts 2-3 turns. Confuses the user afterwards.  [Exclusive: Growlithe line]
+    Fire Blast          Spec    110   85%   5      10% chance to burn the target.
+    Fusion Flare        Spec    100  100%   5      Power doubles if used after Fusion Bolt this turn.  [Exclusive: Reshiram line]
+    Sacred Fire         Phys    100   95%   5      50% chance to burn the target. Thaws user.
+    Flamethrower        Spec     90  100%  15      10% chance to burn the target.
+    Fiery Dance         Spec     80  100%  10      50% chance to raise the user's Sp. Atk by 1.  [Exclusive: Larvesta line]
+
+  -- WATER (10) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Water Spout         Spec    150  100%   5      Less power as user's HP decreases. Hits foe(s).
+    Wave Crash          Phys    120  100%  10      Has 33% recoil.
+    Hydro Pump          Spec    110   80%   5      —
+    Origin Pulse        Spec    110   85%  10      — Hits adjacent foes.  [Exclusive: Kyogre line]
+    Crabhammer          Phys    100   90%  10      High critical hit ratio.
+    Surf                Spec     90  100%  15      Hits adjacent Pokemon. Double damage on Dive.
+    Liquidation         Phys     85  100%  10      20% chance to lower the target's Defense by 1.
+    Scald               Spec     80  100%  15      30% chance to burn the target. Thaws target.
+    Waterfall           Phys     80  100%  15      20% chance to make the target flinch.
+    Aqua Jet            Phys     40  100%  20  +1  [Priority] Usually goes first.
+
+  -- ELECTRIC (7) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Bolt Strike         Phys    130   85%   5      20% chance to paralyze the target.  [Exclusive: Zekrom line]
+    Double Shock        Phys    120  100%   5      User's Electric type: typeless; must be Electric.  [Exclusive: Pawmi line]
+    Volt Tackle         Phys    120  100%  15      Has 33% recoil. 10% chance to paralyze target.  [Exclusive: Pichu line]
+    Thunder             Spec    110   70%  10      30% chance to paralyze. Can't miss in rain.
+    Fusion Bolt         Phys    100  100%   5      Power doubles if used after Fusion Flare this turn.  [Exclusive: Zekrom line]
+    Thunderbolt         Spec     90  100%  15      10% chance to paralyze the target.
+    Wild Charge         Phys     90  100%  15      Has 1/4 recoil.
+
+  -- GRASS (9) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Leaf Storm          Spec    130   90%   5      Lowers the user's Sp. Atk by 2.
+    Power Whip          Phys    120   85%  10      —
+    Seed Flare          Spec    120   85%   5      40% chance to lower the target's Sp. Def by 2.  [Exclusive: Shaymin line]
+    Wood Hammer         Phys    120  100%  15      Has 33% recoil.
+    Energy Ball         Spec     90  100%  10      10% chance to lower the target's Sp. Def by 1.
+    Leaf Blade          Phys     90  100%  15      High critical hit ratio.
+    Giga Drain          Spec     75  100%  10      User recovers 50% of the damage dealt.
+    Horn Leech          Phys     75  100%  10      User recovers 50% of the damage dealt.  [Exclusive: Xerneas line]
+    Spore               Stat      —  100%  15      [Sleep] Causes the target to fall asleep.
+
+  -- ICE (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Blizzard            Spec    110   70%   5      10% chance to freeze foe(s). Can't miss in Snow.
+    Ice Beam            Spec     90  100%  10      10% chance to freeze the target.
+    Icicle Crash        Phys     85   90%  10      30% chance to make the target flinch.
+    Freeze-Dry          Spec     70  100%  20      10% chance to freeze. Super effective on Water.
+    Ice Shard           Phys     40  100%  30  +1  [Priority] Usually goes first.
+    Triple Axel         Phys     20   90%  10      Hits 3 times. Each hit can miss, but power rises.
+
+  -- FIGHTING (11) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    High Jump Kick      Phys    130   90%  10      User is hurt by 50% of its max HP if it misses.
+    Close Combat        Phys    120  100%   5      Lowers the user's Defense and Sp. Def by 1.
+    Focus Blast         Spec    120   70%   5      10% chance to lower the target's Sp. Def by 1.
+    Secret Sword        Spec     85  100%  10      Damages target based on Defense, not Sp. Def.  [Exclusive: Keldeo line]
+    Aura Sphere         Spec     80     —  20      This move does not check accuracy.
+    Body Press          Phys     80  100%  10      [Defensive] Uses user's Def stat as Atk in damage calculation.
+    Drain Punch         Phys     75  100%  10      User recovers 50% of the damage dealt.
+    Mach Punch          Phys     40  100%  30  +1  [Priority] Usually goes first.
+    Vacuum Wave         Spec     40  100%  30  +1  [Priority] Usually goes first.
+    Seismic Toss        Phys    fix  100%  20      [Fixed damage] Does damage equal to the user's level.
+    Bulk Up             Stat      —     —  20      [Setup] Raises the user's Attack and Defense by 1.
+
+  -- POISON (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Gunk Shot           Phys    120   80%   5      30% chance to poison the target.
+    Sludge Wave         Spec     95  100%  10      10% chance to poison adjacent Pokemon.
+    Sludge Bomb         Spec     90  100%  10      30% chance to poison the target.
+    Poison Jab          Phys     80  100%  20      30% chance to poison the target.
+
+  -- GROUND (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Headlong Rush       Phys    120  100%   5      Lowers the user's Defense and Sp. Def by 1.
+    Precipice Blades    Phys    120   85%  10      — Hits adjacent foes.  [Exclusive: Groudon line]
+    Earthquake          Phys    100  100%  10      Hits adjacent Pokemon. Double damage on Dig.
+    Earth Power         Spec     90  100%  10      10% chance to lower the target's Sp. Def by 1.
+
+  -- FLYING (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Brave Bird          Phys    120  100%  15      Has 33% recoil.
+    Dragon Ascent       Phys    120  100%   5      Lowers the user's Defense and Sp. Def by 1.  [Exclusive: Rayquaza line]
+    Hurricane           Spec    110   70%  10      30% chance to confuse target. Can't miss in rain.
+    Aeroblast           Spec    100   95%   5      High critical hit ratio.  [Exclusive: Lugia line]
+    Oblivion Wing       Spec     80  100%  10      User recovers 75% of the damage dealt.  [Exclusive: Yveltal line]
+    Air Slash           Spec     75   95%  15      30% chance to make the target flinch.
+
+  -- PSYCHIC (8) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Psycho Boost        Spec    140   90%   5      Lowers the user's Sp. Atk by 2.
+    Psystrike           Spec    100  100%  10      Damages target based on Defense, not Sp. Def.  [Exclusive: Mewtwo line]
+    Luster Purge        Spec     95  100%   5      50% chance to lower the target's Sp. Def by 1.  [Exclusive: Latios line]
+    Mist Ball           Spec     95  100%   5      50% chance to lower the target's Sp. Atk by 1.  [Exclusive: Latias line]
+    Psychic             Spec     90  100%  10      10% chance to lower the target's Sp. Def by 1.
+    Psychic Fangs       Phys     85  100%  10      Destroys screens, unless the target is immune.
+    Psyshock            Spec     80  100%  10      Damages target based on Defense, not Sp. Def.
+    Calm Mind           Stat      —     —  20      [Setup] Raises the user's Sp. Atk and Sp. Def by 1.
+
+  -- BUG (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Megahorn            Phys    120   85%  10      —
+    Bug Buzz            Spec     90  100%  10      10% chance to lower the target's Sp. Def by 1.
+    First Impression    Phys     90  100%  10  +2  [Priority] Nearly always goes first. First turn out only.
+    Leech Life          Phys     80  100%  10      User recovers 50% of the damage dealt.
+    Quiver Dance        Stat      —     —  20      [Setup] Raises the user's Sp. Atk, Sp. Def, Speed by 1.
+    Tail Glow           Stat      —     —  20      [Setup] Raises the user's Sp. Atk by 3.
+
+  -- ROCK (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Head Smash          Phys    150   80%   5      Has 1/2 recoil.
+    Stone Edge          Phys    100   80%   5      High critical hit ratio.
+    Power Gem           Spec     80  100%  20      —
+    Rock Slide          Phys     75   90%  10      30% chance to make the foe(s) flinch.
+
+  -- GHOST (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Poltergeist         Phys    110   90%   5      Fails if the target has no held item.
+    Spectral Thief      Phys     90  100%  10      Steals target's boosts before dealing damage.  [Exclusive: Marshadow line]
+    Shadow Ball         Spec     80  100%  15      20% chance to lower the target's Sp. Def by 1.
+    Rage Fist           Phys     50  100%  10      +50 power for each time user was hit. Max 6 hits.  [Exclusive: Mankey line]
+    Shadow Sneak        Phys     40  100%  30  +1  [Priority] Usually goes first.
+    Night Shade         Spec    fix  100%  15      [Fixed damage] Does damage equal to the user's level.
+
+  -- DRAGON (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Draco Meteor        Spec    130   90%   5      Lowers the user's Sp. Atk by 2.
+    Outrage             Phys    120  100%  10      Lasts 2-3 turns. Confuses the user afterwards.
+    Dynamax Cannon      Spec    100  100%   5      —  [Exclusive: Eternatus line]
+    Spacial Rend        Spec    100   95%   5      High critical hit ratio.
+    Dragon Pulse        Spec     85  100%  10      —
+    Dragon Dance        Stat      —     —  20      [Setup] Raises the user's Attack and Speed by 1.
+
+  -- DARK (7) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Foul Play           Phys     95  100%  15      [Defensive] Uses target's Attack stat in damage calculation.
+    Kowtow Cleave       Phys     85     —  10      This move does not check accuracy.  [Exclusive: Pawniard line]
+    Dark Pulse          Spec     80  100%  15      20% chance to make the target flinch.
+    Sucker Punch        Phys     70  100%   5  +1  [Priority] Usually goes first. Fails if target is not attacking.
+    Knock Off           Phys     65  100%  20      1.5x damage if foe holds an item. Removes item.
+    Dark Void           Stat      —   50%  10      [Sleep] Darkrai: Causes the foe(s) to fall asleep.  [Exclusive: Darkrai line]
+    Nasty Plot          Stat      —     —  20      [Setup] Raises the user's Sp. Atk by 2.
+
+  -- STEEL (7) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Doom Desire         Spec    140  100%   5      Hits two turns after being used.  [Exclusive: Jirachi line]
+    Steel Beam          Spec    140   95%   5      User loses 50% max HP.
+    Make It Rain        Spec    120  100%   5      Lowers the user's Sp. Atk by 1. Hits foe(s).  [Exclusive: Gimmighoul line]
+    Meteor Mash         Phys     90   90%  10      20% chance to raise the user's Attack by 1.
+    Flash Cannon        Spec     80  100%  10      10% chance to lower the target's Sp. Def by 1.
+    Iron Head           Phys     80  100%  15      30% chance to make the target flinch.
+    Bullet Punch        Phys     40  100%  30  +1  [Priority] Usually goes first.
+
+  -- FAIRY (3) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Moonblast           Spec     95  100%  15      30% chance to lower the target's Sp. Atk by 1.
+    Play Rough          Phys     90   90%  10      10% chance to lower the target's Attack by 1.
+    Geomancy            Stat      —     —  10      [Setup] Charges, then raises SpA, SpD, Spe by 2 turn 2.  [Exclusive: Xerneas line]
+
+==============================================================================================================
+SITUATIONAL / UTILITY   [174 moves]
+==============================================================================================================
+  -- NORMAL (67) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Last Resort         Phys    140  100%   5      [Conditional] Fails unless each known move has been used.
+    Natural Gift        Phys    var  100%  15      [Conditional] Power and type depends on the user's Berry.
+    Spit Up             Spec    var  100%  10      [Conditional] More power with more uses of Stockpile.
+    Assist              Stat      —     —  20      [Copy / Random] Uses a random move known by a team member.
+    Bestow              Stat      —     —  15      [Copy / Random] User passes its held item to the target.
+    Camouflage          Stat      —     —  20      [Copy / Random] Changes user's type by terrain (default Normal).
+    Conversion          Stat      —     —  30      [Copy / Random] Changes user's type to match its first move.  [Exclusive: Porygon line]
+    Conversion 2        Stat      —     —  30      [Copy / Random] Changes user's type to resist target's last move.  [Exclusive: Porygon line]
+    Copycat             Stat      —     —  20      [Copy / Random] Uses the last move used in the battle.
+    Lock-On             Stat      —     —   5      [Copy / Random] User's next move will not miss the target.
+    Me First            Stat      —     —  20      [Copy / Random] Copies a foe at 1.5x power. User must be faster.
+    Metronome           Stat      —     —  10      [Copy / Random] Picks a random move.
+    Mimic               Stat      —     —  10      [Copy / Random] The last move the target used replaces this one.
+    Mind Reader         Stat      —     —   5      [Copy / Random] User's next move will not miss the target.
+    Nature Power        Stat      —     —  20      [Copy / Random] Attack depends on terrain (default Tri Attack).
+    Recycle             Stat      —     —  10      [Copy / Random] Restores the item the user last used.
+    Sketch              Stat      —     —   1      [Copy / Random] Permanently copies the last move target used.  [Exclusive: Smeargle line]
+    Sleep Talk          Stat      —     —  10      [Copy / Random] User must be asleep. Uses another known move.
+    Transform           Stat      —     —  10      [Copy / Random] Copies target's stats, moves, types, and Ability.
+    Bide                Phys      —     —  10  +1  [Counterattack] Waits 2 turns; deals double the damage taken.
+    Disable             Stat      —  100%  20      [Disruption] For 4 turns, disables the target's last move used.
+    Encore              Stat      —  100%   5      [Disruption] Target repeats its last move for its next 3 turns.
+    Entrainment         Stat      —  100%  15      [Disruption] The target's Ability changes to match the user's.
+    Perish Song         Stat      —     —   5      [Disruption] All active Pokemon will faint in 3 turns.
+    Psych Up            Stat      —     —  10      [Disruption] Copies the target's current stat stages.
+    Reflect Type        Stat      —     —  15      [Disruption] User becomes the same type as the target.
+    Simple Beam         Stat      —  100%  15      [Disruption] The target's Ability becomes Simple.
+    Endeavor            Phys    fix  100%   5      [Fixed Damage] Lowers the target's HP to the user's HP.
+    Super Fang          Phys    fix   90%  10      [Fixed Damage] Does damage equal to 1/2 target's current HP.
+    Guillotine          Phys      —   30%   5      [OHKO] OHKOs the target. Fails if user is a lower level.
+    Horn Drill          Phys      —   30%   5      [OHKO] OHKOs the target. Fails if user is a lower level.
+    Roar                Stat      —     —  20  -6  [Pivot / Phaze] Forces the target to switch to a random ally.
+    Whirlwind           Stat      —     —  20  -6  [Pivot / Phaze] Forces the target to switch to a random ally.
+    Fake Out            Phys     40  100%  10  +3  [Priority Disruption] Hits first. First turn out only. 100% flinch chance.
+    Feint               Phys     30  100%  10  +2  [Priority Disruption] Nullifies Detect, Protect, and Quick/Wide Guard.
+    Endure              Stat      —     —  10  +4  [Protection] User survives attacks this turn with at least 1 HP.
+    Protect             Stat      —     —  10  +4  [Protection] Prevents moves from affecting the user this turn.
+    Substitute          Stat      —     —  10      [Protection] User takes 1/4 its max HP to put in a substitute.
+    Milk Drink          Stat      —     —   5      [Recovery] Heals the user by 50% of its max HP.  [Exclusive: Miltank line]
+    Morning Sun         Stat      —     —   5      [Recovery] Heals the user by a weather-dependent amount.
+    Pain Split          Stat      —     —  20      [Recovery] Shares HP of user and target equally.
+    Recover             Stat      —     —   5      [Recovery] Heals the user by 50% of its max HP.
+    Slack Off           Stat      —     —   5      [Recovery] Heals the user by 50% of its max HP.
+    Soft-Boiled         Stat      —     —   5      [Recovery] Heals the user by 50% of its max HP.
+    Stuff Cheeks        Stat      —     —  10      [Recovery] Must hold Berry to use. User eats Berry, Def +2.  [Exclusive: Gulpin line]
+    Swallow             Stat      —     —  10      [Recovery] Heals the user based on uses of Stockpile.
+    Wish                Stat      —     —  10      [Recovery] Next turn, 50% of the user's max HP is restored.
+    Snore               Spec     50  100%  15      [Sleep Combo] User must be asleep. 30% chance to flinch target.
+    Acupressure         Stat      —     —  30      [Stat Boost] Raises a random stat of the user or an ally by 2.
+    Double Team         Stat      —     —  15      [Stat Boost] Raises the user's evasiveness by 1.
+    Laser Focus         Stat      —     —  30      [Stat Boost] Until the end of the next turn, user's moves crit.
+    Minimize            Stat      —     —  10      [Stat Boost] Raises the user's evasiveness by 2.
+    Stockpile           Stat      —     —  20      [Stat Boost] Raises user's Defense, Sp. Def by 1. Max 3 uses.
+    Attract             Stat      —  100%  15      [Status Inflict] A target of the opposite gender gets infatuated.
+    Glare               Stat      —  100%  30      [Status Inflict] Paralyzes the target.
+    Swagger             Stat      —   85%  15      [Status Inflict] Raises the target's Attack by 2 and confuses it.
+    Teeter Dance        Stat      —  100%  20      [Status Inflict] Confuses adjacent Pokemon.
+    Yawn                Stat      —     —  10      [Status Inflict] Puts the target to sleep after 1 turn.
+    Baton Pass          Stat      —     —  40      [Team Support] User switches, passing stat changes and more.
+    Heal Bell           Stat      —     —   5      [Team Support] Cures the user's party of all status conditions.
+    Lucky Chant         Stat      —     —  30      [Team Support] For 5 turns, shields user's party from critical hits.
+    Refresh             Stat      —     —  20      [Team Support] User cures its burn, poison, or paralysis.
+    Revival Blessing    Stat      —     —   1      [Team Support] Revives a fainted Pokemon to 50% HP.  [Exclusive: Pawmi line]
+    Safeguard           Stat      —     —  25      [Team Support] For 5 turns, protects user's party from status.
+    Shed Tail           Stat      —     —  10      [Team Support] User takes 1/2 its max HP to pass a substitute.  [Exclusive: Treecko line]
+    Block               Stat      —     —   5      [Trap] Prevents the target from switching out.
+    Mean Look           Stat      —     —   5      [Trap] Prevents the target from switching out.
+
+  -- FIRE (2) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Will-O-Wisp         Stat      —   85%  15      [Status Inflict] Burns the target.
+    Sunny Day           Stat      —     —   5      [Weather] For 5 turns, intense sunlight powers Fire moves.
+
+  -- WATER (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Soak                Stat      —  100%  20      [Disruption] Changes the target's type to Water.
+    Aqua Ring           Stat      —     —  20      [Recovery] User recovers 1/16 max HP per turn.
+    Life Dew            Stat      —     —  10      [Recovery] Heals the user and its allies by 1/4 their max HP.
+    Rain Dance          Stat      —     —   5      [Weather] For 5 turns, heavy rain powers Water moves.
+
+  -- ELECTRIC (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Ion Deluge          Stat      —     —  25  +1  [Field] Normal moves become Electric type this turn.
+    Charge              Stat      —     —  20      [Stat Boost] +1 SpD, user's next Electric move 2x power.
+    Magnet Rise         Stat      —     —  10      [Stat Boost] For 5 turns, the user has immunity to Ground.
+    Magnetic Flux       Stat      —     —  20      [Stat Boost] Raises Def, Sp. Def of allies with Plus/Minus by 1.
+    Thunder Wave        Stat      —   90%  20      [Status Inflict] Paralyzes the target.
+    Electric Terrain    Stat      —     —  10      [Terrain] 5 turns. Grounded: +Electric power, can't sleep.
+
+  -- GRASS (10) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Worry Seed          Stat      —  100%  10      [Disruption] The target's Ability becomes Insomnia.
+    Spiky Shield        Stat      —     —  10  +4  [Protection] Protects from moves. Contact: loses 1/8 max HP.
+    Ingrain             Stat      —     —  20      [Recovery] Traps/grounds user; heals 1/16 max HP per turn.
+    Leech Seed          Stat      —   90%  10      [Recovery] 1/8 of target's HP is restored to user every turn.
+    Strength Sap        Stat      —  100%  10      [Recovery] User heals HP=target's Atk stat. Lowers Atk by 1.
+    Synthesis           Stat      —     —   5      [Recovery] Heals the user by a weather-dependent amount.
+    Cotton Guard        Stat      —     —  10      [Stat Boost] Raises the user's Defense by 3.
+    Stun Spore          Stat      —   75%  30      [Status Inflict] Paralyzes the target.
+    Aromatherapy        Stat      —     —   5      [Team Support] Cures the user's party of all status conditions.
+    Grassy Terrain      Stat      —     —  10      [Terrain] 5 turns. Grounded: +Grass power, +1/16 max HP.
+
+  -- ICE (7) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Haze                Stat      —     —  30      [Disruption] Eliminates all stat changes.
+    Sheer Cold          Spec      —   30%   5      [OHKO] OHKOs non-Ice targets. Fails if user's lower level.
+    Aurora Veil         Stat      —     —  20      [Screen] For 5 turns, damage to allies halved. Snow only.
+    Mist                Stat      —     —  30      [Team Support] For 5 turns, protects user's party from stat drops.
+    Chilly Reception    Stat      —     —  10      [Weather] Starts Snow. User switches out.  [Exclusive: Slowpoke line]
+    Hail                Stat      —     —  10      [Weather] For 5 turns, hail crashes down.
+    Snowscape           Stat      —     —  10      [Weather] For 5 turns, snow falls. Ice: 1.5x Def.
+
+  -- FIGHTING (5) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Counter             Phys      —  100%  20  -5  [Counterattack] If hit by physical attack, returns double damage.
+    Final Gambit        Spec    fix  100%   5      [Fixed Damage] Does damage equal to the user's HP. User faints.
+    Circle Throw        Phys     60   90%  10  -6  [Pivot / Phaze] Forces the target to switch to a random ally.
+    Upper Hand          Phys     65  100%  15  +3  [Priority Disruption] 100% flinch. Fails unless target using priority.
+    Detect              Stat      —     —   5  +4  [Protection] Prevents moves from affecting the user this turn.
+
+  -- POISON (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Clear Smog          Spec     50     —  15      [Disruption] Resets all of the target's stat stages to 0.
+    Gastro Acid         Stat      —  100%  10      [Disruption] Nullifies the target's Ability.
+    Acid Armor          Stat      —     —  20      [Stat Boost] Raises the user's Defense by 2.
+    Toxic               Stat      —   90%  10      [Status Inflict] Badly poisons the target. Poison types can't miss.
+    Toxic Thread        Stat      —  100%  20      [Status Inflict] Lowers the target's Speed by 1 and poisons it.  [Exclusive: Spinarak line]
+    Venom Drench        Stat      —  100%  20      [Status Inflict] Lowers Atk/Sp. Atk/Speed of poisoned foes by 1.
+
+  -- GROUND (2) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Fissure             Phys      —   30%   5      [OHKO] OHKOs the target. Fails if user is a lower level.
+    Rototiller          Stat      —     —  10      [Stat Boost] Raises Atk/Sp. Atk of grounded Grass types by 1.
+
+  -- FLYING (4) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Mirror Move         Stat      —     —  20      [Copy / Random] User uses the target's last used move against it.
+    Defog               Stat      —     —  15      [Disruption / Field] Removes screens and terrain on the target side; lowers its evasion by 1.
+    Tailwind            Stat      —     —  15      [Field] For 4 turns, allies' Speed is doubled.
+    Roost               Stat      —     —   5      [Recovery] Heals 50% HP. Flying-type removed 'til turn ends.
+
+  -- PSYCHIC (33) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Mirror Coat         Spec      —  100%  20  -5  [Counterattack] If hit by special attack, returns double damage.
+    Guard Split         Stat      —     —  10      [Disruption] Averages Defense and Sp. Def stats with target.
+    Guard Swap          Stat      —     —  10      [Disruption] Swaps Defense and Sp. Def changes with target.
+    Heal Block          Stat      —  100%  15      [Disruption] For 5 turns, the foe(s) is prevented from healing.
+    Heart Swap          Stat      —     —  10      [Disruption] Swaps all stat changes with target.  [Exclusive: Manaphy line]
+    Imprison            Stat      —     —  10      [Disruption] No foe can use any move known by the user.
+    Power Split         Stat      —     —  10      [Disruption] Averages Attack and Sp. Atk stats with target.
+    Power Swap          Stat      —     —  10      [Disruption] Swaps Attack and Sp. Atk stat stages with target.
+    Psycho Shift        Stat      —  100%  10      [Disruption] Transfers the user's status ailment to the target.
+    Role Play           Stat      —     —  10      [Disruption] User replaces its Ability with the target's.
+    Skill Swap          Stat      —     —  10      [Disruption] The user and the target trade Abilities.
+    Speed Swap          Stat      —     —  10      [Disruption] Swaps Speed stat with target.
+    Telekinesis         Stat      —     —  15      [Disruption] For 3 turns, target floats but moves can't miss it.
+    Trick               Stat      —  100%  10      [Disruption] User switches its held item with the target's.
+    Gravity             Stat      —     —   5      [Field] 5 turns: no Ground immunities, 1.67x accuracy.
+    Magic Room          Stat      —     —  10      [Field] For 5 turns, all held items have no effect.
+    Trick Room          Stat      —     —   5  -7  [Field] Goes last. For 5 turns, turn order is reversed.
+    Wonder Room         Stat      —     —  10      [Field] For 5 turns, all Defense and Sp. Def stats switch.
+    Teleport            Stat      —     —  20  -6  [Pivot / Phaze] User switches out.
+    Magic Coat          Stat      —     —  15  +4  [Protection] Bounces back certain non-damaging moves.
+    Heal Pulse          Stat      —     —  10      [Recovery] Heals the target by 50% of its max HP.
+    Rest                Stat      —     —   5      [Recovery] User sleeps 2 turns and restores HP and status.
+    Light Screen        Stat      —     —  30      [Screen] For 5 turns, special damage to allies is halved.
+    Reflect             Stat      —     —  20      [Screen] For 5 turns, physical damage to allies is halved.
+    Dream Eater         Spec    100  100%  15      [Sleep Combo] User gains 1/2 HP inflicted. Sleeping target only.
+    Agility             Stat      —     —  30      [Stat Boost] Raises the user's Speed by 2.
+    Amnesia             Stat      —     —  20      [Stat Boost] Raises the user's Sp. Def by 2.
+    Barrier             Stat      —     —  20      [Stat Boost] Raises the user's Defense by 2.
+    Cosmic Power        Stat      —     —  20      [Stat Boost] Raises the user's Defense and Sp. Def by 1.
+    Power Trick         Stat      —     —  10      [Stat Boost] Switches user's Attack and Defense stats.
+    Take Heart          Stat      —     —  15      [Stat Boost] Cures user's status, raises Sp. Atk, Sp. Def by 1.  [Exclusive: Manaphy line]
+    Healing Wish        Stat      —     —  10      [Team Support] User faints. Next hurt Pokemon is fully healed.
+    Psychic Terrain     Stat      —     —  10      [Terrain] 5 turns. Grounded: +Psychic power, priority-safe.
+
+  -- BUG (1) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Spider Web          Stat      —     —  10      [Trap] Prevents the target from switching out.  [Exclusive: Spinarak line]
+
+  -- ROCK (2) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Rock Polish         Stat      —     —  20      [Stat Boost] Raises the user's Speed by 2.
+    Sandstorm           Stat      —     —  10      [Weather] For 5 turns, a sandstorm rages. Rock: 1.5x SpD.
+
+  -- GHOST (6) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Destiny Bond        Stat      —     —   5      [Disruption] If an opponent knocks out the user, it also faints.
+    Grudge              Stat      —     —   5      [Disruption] If the user faints, the attack used loses all its PP.
+    Spite               Stat      —  100%  10      [Disruption] Lowers the PP of the target's last move by 4.
+    Curse               Stat      —     —  10      [Stat Boost] Curses if Ghost, else -1 Spe, +1 Atk, +1 Def.
+    Confuse Ray         Stat      —  100%  10      [Status Inflict] Confuses the target.
+    Nightmare           Stat      —  100%  15      [Status Inflict] A sleeping target is hurt by 1/4 max HP per turn.
+
+  -- DRAGON (1) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Dragon Tail         Phys     60   90%  10  -6  [Pivot / Phaze] Forces the target to switch to a random ally.
+
+  -- DARK (12) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Beat Up             Phys    var  100%  10      [Conditional] All healthy allies aid in damaging the target.
+    Fling               Phys    var  100%  10      [Conditional] Flings the user's item at the target. Power varies.
+    Comeuppance         Phys      —  100%  10      [Counterattack] If hit by an attack, returns 1.5x damage.
+    Embargo             Stat      —  100%  15      [Disruption] For 5 turns, the target's item has no effect.
+    Snatch              Stat      —     —  10  +4  [Disruption] User steals certain support moves to use itself.
+    Switcheroo          Stat      —  100%  10      [Disruption] User switches its held item with the target's.
+    Taunt               Stat      —  100%  20      [Disruption] Target can't use status moves its next 3 turns.
+    Torment             Stat      —  100%  15      [Disruption] Target can't select the same move twice in a row.
+    Parting Shot        Stat      —  100%  20      [Pivot / Phaze] Lowers target's Atk, Sp. Atk by 1. User switches.  [Exclusive: Munkidori line]
+    Flatter             Stat      —  100%  15      [Status Inflict] Raises the target's Sp. Atk by 1 and confuses it.
+    Memento             Stat      —  100%  10      [Team Support] Lowers target's Attack, Sp. Atk by 2. User faints.
+    Pursuit             Phys     40  100%  20      [Trap / Revenge] If a foe is switching out, hits it at 2x power.
+
+  -- STEEL (3) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Metal Burst         Phys      —  100%  10      [Counterattack] If hit by an attack, returns 1.5x damage.
+    Autotomize          Stat      —     —  15      [Stat Boost] Raises the user's Speed by 2; user loses 100 kg.
+    Iron Defense        Stat      —     —  15      [Stat Boost] Raises the user's Defense by 2.
+
+  -- FAIRY (3) --
+    Move                Cat      BP   Acc  PP Pri  Effect
+    Moonlight           Stat      —     —   5      [Recovery] Heals the user by a weather-dependent amount.
+    Flower Shield       Stat      —     —  10      [Stat Boost] Raises Defense by 1 of all active Grass types.  [Exclusive: Sunkern line]
+    Misty Terrain       Stat      —     —  10      [Terrain] 5 turns. Can't status,-Dragon power vs grounded.
+
+==============================================================================================================
+OMITTED MOVES
+==============================================================================================================
+  Entry hazards (removed from the game in v3):
+    Spikes, Stealth Rock, Sticky Web, Toxic Spikes
+  Doubles-only support moves (tell me if the game has double battles and I will tier them):
+    After You, Ally Switch, Celebrate, Coaching, Crafty Shield, Dragon Cheer, Follow Me, Happy Hour, Helping Hand, Quash, Quick Guard, Rage Powder, Spotlight, Wide Guard
