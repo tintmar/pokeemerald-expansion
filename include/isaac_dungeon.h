@@ -12,6 +12,7 @@ struct Pokemon;
 
 void IsaacPaintRoom(void);
 u32 IsaacGetCurrentBiome(void);
+u32 IsaacGetFirstBiome(void);
 bool8 IsaacApplyBiomeToMapHeader(struct MapHeader *header, u16 *layoutId);
 enum MapType IsaacGetRoomMapType(void);
 u16 IsaacGetBiomeMusic(void);

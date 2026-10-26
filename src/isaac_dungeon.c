@@ -399,6 +399,12 @@ u32 IsaacGetCurrentBiome(void)
     return GetBiomeOfFloor(VarGet(VAR_ISAAC_FLOOR));
 }
 
+// Biome du premier étage de la prochaine descente (ordre tiré par PrepareRunBiomeOrder)
+u32 IsaacGetFirstBiome(void)
+{
+    return GetBiomeOfFloor(1);
+}
+
 // Type de la salle du donjon selon le biome : route marine (le joueur surfe) ou souterrain. Sert
 // aussi à GetMapTypeByGroupAndId, qui lit sinon le type d'origine de la map
 enum MapType IsaacGetRoomMapType(void)

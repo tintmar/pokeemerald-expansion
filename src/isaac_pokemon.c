@@ -963,6 +963,18 @@ static bool32 SharesTypeWithStarters(u16 species, const u16 *starters, u32 count
     return FALSE;
 }
 
+// L'espèce a-t-elle un type super efficace contre un des types du biome ?
+static bool32 CountersBiome(u16 species, const struct IsaacBiome *biome)
+{
+    u32 a, b;
+
+    for (a = 0; a < 2; a++)
+        for (b = 0; b < 2; b++)
+            if (GetTypeModifier(GetSpeciesType(species, a), biome->types[b]) > UQ_4_12(1.0))
+                return TRUE;
+    return FALSE;
+}
+
 // Tirage des choix du Montagnard : il ne dépend que de la graine de la prochaine descente (VAR_ISAAC_BIOME_ORDER,
 // tirée avant l'écran de choix par IsaacBufferFirstBiome), pour que les choix restent les mêmes si on lui reparle
 static u32 StarterRandom(u32 *state)
@@ -971,33 +983,59 @@ static u32 StarterRandom(u32 *state)
     return *state >> 16;
 }
 
-// Choix du Montagnard du hub : le Pokémon proposé n° index (0 à ISAAC_STARTER_CHOICES - 1), une espèce
-// différente de catégorie 1 ou 2 (BST <= 325, avec des sets) pour chacun, sans type en commun entre eux, avec le set 2 (variante au hasard). Les
-// espèces sont tirées à l'index 0. Mêmes choix tant que la descente n'a pas commencé (StarterRandom).
+// Choix du Montagnard du hub : le Pokémon proposé n° index (0 à ISAAC_STARTER_CHOICES - 1). Les
+// ISAAC_STARTER_CHOICES / 2 premiers sont de catégorie 1, les autres de catégorie 2 (espèces avec des sets),
+// sans type en commun entre eux, de préférence d'un type super efficace contre le premier biome de la descente
+// (CountersBiome), avec le set 2 (variante au hasard). Les espèces sont tirées à l'index 0. Mêmes choix tant que
+// la descente n'a pas commencé (StarterRandom).
 void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
 {
     static EWRAM_DATA u16 sStarterSpecies[ISAAC_STARTER_CHOICES] = {0};
     u16 candidates[ARRAY_COUNT(sIsaacRoster)];
-    u32 count = 0, i, j, tmp, state, seed;
+    u32 count = 0, i, j, tmp, state, seed, pass;
 
     if (index >= ISAAC_STARTER_CHOICES)
         return;
     state = VarGet(VAR_ISAAC_BIOME_ORDER) * 2654435761u ^ 0x57A47E25;
     if (index == 0)
     {
-        u32 chosen = 0;
+        const struct IsaacBiome *biome = &gIsaacBiomes[IsaacGetFirstBiome()];
+        u16 picked[ISAAC_STARTER_CHOICES];
+        u32 chosen = 0, perCategory[2] = {0};
 
         for (i = 0; i < ARRAY_COUNT(sIsaacRoster); i++)
             if (IsaacGetSpeciesCategory(sIsaacRoster[i]) <= ISAAC_CATEGORY_2 && IsaacSpeciesHasSet(sIsaacRoster[i]))
                 candidates[count++] = sIsaacRoster[i];
-        // tirage dans un ordre au hasard, en gardant seulement les espèces sans type commun avec celles déjà prises
-        for (i = 0; i < count && chosen < ISAAC_STARTER_CHOICES; i++)
+        for (i = 0; i < count; i++)  // ordre au hasard
         {
             j = i + StarterRandom(&state) % (count - i);
             SWAP(candidates[i], candidates[j], tmp);
-            if (!SharesTypeWithStarters(candidates[i], sStarterSpecies, chosen))
-                sStarterSpecies[chosen++] = candidates[i];
         }
+        // d'abord les espèces qui contrent le premier biome, puis les autres, jusqu'à ISAAC_STARTER_CHOICES / 2 par
+        // catégorie, en gardant seulement les espèces sans type commun avec celles déjà prises
+        for (pass = 0; pass < 2; pass++)
+        {
+            for (i = 0; i < count && chosen < ISAAC_STARTER_CHOICES; i++)
+            {
+                u32 cat;
+
+                if (candidates[i] == SPECIES_NONE)  // déjà pris
+                    continue;
+                cat = IsaacGetSpeciesCategory(candidates[i]) - ISAAC_CATEGORY_1;
+                if (perCategory[cat] >= ISAAC_STARTER_CHOICES / 2
+                 || (pass == 0 && !CountersBiome(candidates[i], biome))
+                 || SharesTypeWithStarters(candidates[i], picked, chosen))
+                    continue;
+                picked[chosen++] = candidates[i];
+                perCategory[cat]++;
+                candidates[i] = SPECIES_NONE;
+            }
+        }
+        // catégorie 1 d'abord, puis catégorie 2
+        for (i = 0, j = 0; i < 2; i++)
+            for (tmp = 0; tmp < chosen; tmp++)
+                if (IsaacGetSpeciesCategory(picked[tmp]) == ISAAC_CATEGORY_1 + i)
+                    sStarterSpecies[j++] = picked[tmp];
     }
     state ^= (index + 1) * 0x9E3779B9;
     seed = StarterRandom(&state) << 16;
