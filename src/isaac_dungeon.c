@@ -1411,11 +1411,140 @@ static void GetBossGuardPos(s32 x, s32 y, bool8 aside, s32 *outX, s32 *outY, u32
     }
 }
 
+// ---------------------------------------------------------------------------
+// Rival
+// ---------------------------------------------------------------------------
+// Aux étages RIVAL_FLOOR_STEP, 2 x RIVAL_FLOOR_STEP... (2, 4 et 6), le rival attend dans une salle normale tirée pour
+// l'étage (pas celle du gardien du boss) : un guetteur, qui voit toute la salle. Son équipe, tirée pour la descente
+// parmi les espèces de tous les biomes (avec des sets, sans type en commun entre elles), grandit à chaque rencontre
+// (sRivalJoinCount Pokémon de plus, des catégories sRivalJoinCategories) : ceux d'avant reviennent évolués d'un stade
+// (s'ils le peuvent ; même branche et même variante de set à chaque descente), et toute l'équipe prend un meilleur set
+// (sRivalTiers). Ceux qui la rejoignent avant la dernière rencontre peuvent encore évoluer.
+#define RIVAL_FLOOR_STEP   2
+#define RIVAL_ENCOUNTERS   3
+#define RIVAL_MAX_MONS     5
+
+static const u8 sRivalJoinCount[RIVAL_ENCOUNTERS] = { 3, 1, 1 };
+static const u8 sRivalJoinCategories[RIVAL_ENCOUNTERS][2] =
+{
+    { ISAAC_CATEGORY_2, ISAAC_CATEGORY_3 },
+    { ISAAC_CATEGORY_4, ISAAC_CATEGORY_5 },
+    { ISAAC_CATEGORY_6, ISAAC_CATEGORY_7 },
+};
+static const u8 sRivalTiers[RIVAL_ENCOUNTERS] = { 1, 2, 3 };  // sets 2, 3 et 4
+
+static const struct IsaacTrainerType sRivalType =
+    { TRAINER_CLASS_RIVAL_LATE_FRLG, TRAINER_PIC_RIVAL_LATE_FRLG, OBJ_EVENT_GFX_BLUE, TRAINER_GENDER_MALE, TRAINER_ENCOUNTER_MUSIC_MALE };
+static const struct IsaacTrainerType sRivalOceanType =  // dans l'océan : un nageur, comme les autres dresseurs
+    { TRAINER_CLASS_RIVAL_LATE_FRLG, TRAINER_PIC_RIVAL_LATE_FRLG, OBJ_EVENT_GFX_SWIMMER_M, TRAINER_GENDER_MALE, TRAINER_ENCOUNTER_MUSIC_MALE };
+
+// Rencontre avec le rival à l'étage courant (0 à RIVAL_ENCOUNTERS - 1), -1 s'il n'est pas là
+static s32 GetRivalEncounter(void)
+{
+    u32 floor = VarGet(VAR_ISAAC_FLOOR);
+
+    if (floor == 0 || floor % RIVAL_FLOOR_STEP != 0 || floor / RIVAL_FLOOR_STEP > RIVAL_ENCOUNTERS)
+        return -1;
+    return floor / RIVAL_FLOOR_STEP - 1;
+}
+
+// Cellule de la salle du rival à l'étage (y * ISAAC_GRID_W + x), -1 s'il n'est pas là
+static s32 GetRivalRoom(void)
+{
+    u8 rooms[ISAAC_GRID_W * ISAAC_GRID_H];
+    u32 count = 0;
+    s32 x, y;
+
+    if (GetRivalEncounter() < 0)
+        return -1;
+    for (y = 0; y < ISAAC_GRID_H; y++)
+        for (x = 0; x < ISAAC_GRID_W; x++)
+            if (GetRoom(x, y) == ROOM_NORMAL && !IsBossGuardRoom(x, y))
+                rooms[count++] = y * ISAAC_GRID_W + x;
+    return count ? rooms[RoomRandom(0, 0, 0x41A1) % count] : -1;
+}
+
+static bool8 IsRivalRoom(s32 x, s32 y)
+{
+    return GetRoom(x, y) == ROOM_NORMAL && y * ISAAC_GRID_W + x == GetRivalRoom();
+}
+
+static u32 RivalRandom(u32 *state)
+{
+    *state = *state * 1103515245 + 12345;
+    return *state >> 16;
+}
+
+static bool8 SharesTypeWithSpecies(u16 species, const u16 *others, u32 count)
+{
+    u32 i, a, b;
+
+    for (i = 0; i < count; i++)
+        for (a = 0; a < 2; a++)
+            for (b = 0; b < 2; b++)
+                if (GetSpeciesType(species, a) == GetSpeciesType(others[i], b))
+                    return TRUE;
+    return FALSE;
+}
+
+// Équipe du rival à la rencontre n° encounter (tirée pour la descente) : espèces (évoluées) dans out, variantes de set
+// dans variants ; renvoie leur nombre
+static u32 GetRivalTeam(u32 encounter, u16 *out, u8 *variants)
+{
+    u16 base[RIVAL_MAX_MONS], choices[ISAAC_MAX_EVOLUTION_CHOICES], species;
+    u8 joined[RIVAL_MAX_MONS];
+    u32 state = VarGet(VAR_ISAAC_BIOME_ORDER) * 2654435761u ^ 0x41A1BEEF, evoState;
+    u32 count = 0, e, k, i, tries, n, step;
+    enum IsaacCategory category;
+
+    for (e = 0; e <= encounter && e < RIVAL_ENCOUNTERS; e++)
+    {
+        for (k = 0; k < sRivalJoinCount[e] && count < RIVAL_MAX_MONS; k++)
+        {
+            for (tries = 0; tries < 400; tries++)
+            {
+                species = IsaacGetRosterSpecies(RivalRandom(&state) % IsaacGetRosterCount());
+                category = IsaacGetSpeciesCategory(species);
+                if (category < sRivalJoinCategories[e][0] || category > sRivalJoinCategories[e][1]
+                 || !IsaacSpeciesHasSet(species)
+                 || (e + 1 < RIVAL_ENCOUNTERS && IsaacGetEvolutionChoices(species, FALSE, choices, ARRAY_COUNT(choices)) == 0)
+                 || (tries < 300 && SharesTypeWithSpecies(species, base, count)))  // sans type en commun, si possible
+                    continue;
+                for (i = 0; i < count && base[i] != species; i++)
+                    ;
+                if (i == count)
+                    break;
+            }
+            base[count] = species;
+            joined[count] = e;
+            variants[count] = RivalRandom(&state) % ISAAC_SET_VARIANTS;
+            count++;
+        }
+    }
+    for (i = 0; i < count; i++)  // un stade d'évolution par rencontre depuis son arrivée
+    {
+        species = base[i];
+        evoState = state ^ (i + 1) * 0x9E3779B9;
+        for (step = joined[i]; step < encounter; step++)
+        {
+            n = IsaacGetEvolutionChoices(species, FALSE, choices, ARRAY_COUNT(choices));
+            for (k = 0, e = 0; k < n; k++)  // seulement les évolutions qui ont des sets
+                if (IsaacSpeciesHasSet(choices[k]))
+                    choices[e++] = choices[k];
+            if (e != 0)
+                species = choices[RivalRandom(&evoState) % e];
+        }
+        out[i] = species;
+    }
+    return count;
+}
+
 // Dresseur d'une salle normale, avant l'éventuelle salle libérée pour l'entraîneur d'Éclate-Roc (jamais celle du
-// gardien du boss)
+// gardien du boss ni celle du rival)
 static bool8 NormalRoomRollsTrainer(s32 x, s32 y)
 {
-    return GetRoom(x, y) == ROOM_NORMAL && (IsBossGuardRoom(x, y) || RoomRandom(x, y, 0x7A1) % 100 < ISAAC_TRAINER_PCT);
+    return GetRoom(x, y) == ROOM_NORMAL
+        && (IsBossGuardRoom(x, y) || IsRivalRoom(x, y) || RoomRandom(x, y, 0x7A1) % 100 < ISAAC_TRAINER_PCT);
 }
 
 static bool8 RoomHasTrainer(s32 x, s32 y)
@@ -1429,6 +1558,8 @@ static const struct IsaacTrainerType *GetRoomTrainerType(s32 x, s32 y)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
 
+    if (IsRivalRoom(x, y))
+        return biome->ocean ? &sRivalOceanType : &sRivalType;
     return &biome->trainers[RoomRandom(x, y, 0x7E3) % biome->trainerCount];
 }
 
@@ -1567,6 +1698,23 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     }
 
     type = GetRoomTrainerType(x, y);
+    if (IsRivalRoom(x, y))  // le rival : son équipe de la rencontre (GetRivalTeam)
+    {
+        u16 team[RIVAL_MAX_MONS];
+        u8 variants[RIVAL_MAX_MONS];
+        u32 encounter = GetRivalEncounter();
+
+        InitTrainer(&sRoomTrainer, type, COMPOUND_STRING("GARY"), sRoomTrainerMons);
+        sRoomTrainer.aiFlags = AI_FLAG_SMART_TRAINER;
+        count = GetRivalTeam(encounter, team, variants);
+        for (i = 0; i < count; i++)
+        {
+            sRoomTrainerMons[sRoomTrainer.partySize] = *IsaacGetSet(team[i], sRivalTiers[encounter], variants[i]);
+            sRoomTrainerMons[sRoomTrainer.partySize].lvl = ISAAC_MON_LEVEL;
+            sRoomTrainer.partySize++;
+        }
+        return &sRoomTrainer;
+    }
     names = (type->gender == TRAINER_GENDER_FEMALE) ? sFemaleTrainerNames : sMaleTrainerNames;
     InitTrainer(&sRoomTrainer, type, names[RoomRandom(x, y, 0x4A3) % ARRAY_COUNT(sMaleTrainerNames)], sRoomTrainerMons);
     if (VarGet(VAR_ISAAC_FLOOR) == 1)
@@ -1662,6 +1810,17 @@ static const u8 *const sTrainerAceSpeeches[] =
 
 static EWRAM_DATA u8 sTrainerSpeechText[256] = {0};
 
+// Répliques du rival à chaque rencontre
+static const struct IsaacTrainerSpeech sRivalSpeeches[RIVAL_ENCOUNTERS] =
+{
+    { TRAINER_CLASS_RIVAL_LATE_FRLG, COMPOUND_STRING("Hey! Fancy seeing you down here!\nLet's see what your team's got!"),
+                                     COMPOUND_STRING("What?! Just a lucky break!") },
+    { TRAINER_CLASS_RIVAL_LATE_FRLG, COMPOUND_STRING("You again? My team grew up since\nlast time. Try to keep up!"),
+                                     COMPOUND_STRING("Hmph… You've gotten good.") },
+    { TRAINER_CLASS_RIVAL_LATE_FRLG, COMPOUND_STRING("This is it. My strongest team\nagainst yours. No holding back!"),
+                                     COMPOUND_STRING("…I lost. You really are\nsomething else.") },
+};
+
 static const struct IsaacTrainerSpeech *GetRoomTrainerSpeech(void)
 {
     const struct IsaacTrainerType *type;
@@ -1669,6 +1828,8 @@ static const struct IsaacTrainerSpeech *GetRoomTrainerSpeech(void)
     u32 i;
 
     GetCurrentCell(&x, &y);
+    if (IsRivalRoom(x, y))
+        return &sRivalSpeeches[GetRivalEncounter()];
     type = GetRoomTrainerType(x, y);
     for (i = 0; i < ARRAY_COUNT(sTrainerSpeeches); i++)
         if (sTrainerSpeeches[i].trainerClass == type->trainerClass)
@@ -1690,7 +1851,7 @@ const u8 *IsaacGetRoomTrainerIntro(const u8 *defaultText)
     GetCurrentCell(&x, &y);
     party = GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET));
     roll = RoomRandom(x, y, 0xACE0);
-    if ((party->aceCategory == 0 && party->aceBoosts == 0) || (roll & 1))
+    if ((party->aceCategory == 0 && party->aceBoosts == 0) || (roll & 1) || IsRivalRoom(x, y))  // le rival n'a pas d'as
         return text;
     trainer = GetIsaacTrainer(TRAINER_ISAAC_ROOM);
     StringCopy(gStringVar1, GetSpeciesName(trainer->party[trainer->partySize - 1].species));
@@ -1774,8 +1935,8 @@ void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party)
 
     if (trainerId == TRAINER_ISAAC_ROOM && IsIsaacTrainer(trainerId) && sRoomTrainer.partySize != 0)
     {
-        GetCurrentCell(&x, &y);  // l'as du dresseur de salle (sRoomTrainerParties)
-        for (n = GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET))->aceBoosts; n != 0; n--)
+        GetCurrentCell(&x, &y);  // l'as du dresseur de salle (sRoomTrainerParties ; pas pour le rival)
+        for (n = IsRivalRoom(x, y) ? 0 : GetRoomTrainerParty(VarGet(VAR_ISAAC_FLOOR) + (GetRoom(x, y) == ROOM_SECRET))->aceBoosts; n != 0; n--)
             IsaacAddOmniboost(&party[sRoomTrainer.partySize - 1]);
         IsaacProgressionStart(FALSE);
         return;
@@ -1822,7 +1983,7 @@ enum
 
 static u32 GetRoomTrainerBehavior(s32 x, s32 y)
 {
-    if (GetRoom(x, y) != ROOM_NORMAL || IsBossGuardRoom(x, y))
+    if (GetRoom(x, y) != ROOM_NORMAL || IsBossGuardRoom(x, y) || IsRivalRoom(x, y))
         return TRAINER_BEHAVIOR_WATCHER;
     return RoomRandom(x, y, 0xBE4A) % TRAINER_BEHAVIOR_COUNT;
 }
@@ -2638,7 +2799,7 @@ static s32 GetForcedRockSmashRoom(void)
     {
         for (x = 0; x < ISAAC_GRID_W; x++)
         {
-            if (GetRoom(x, y) != ROOM_NORMAL || IsBossGuardRoom(x, y))
+            if (GetRoom(x, y) != ROOM_NORMAL || IsBossGuardRoom(x, y) || IsRivalRoom(x, y))
                 continue;
             if (!NormalRoomRollsTrainer(x, y))
                 return -1;  // il y a déjà une salle vide
