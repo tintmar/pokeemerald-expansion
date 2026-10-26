@@ -2495,7 +2495,7 @@ static const struct SpriteFrameImage sPicTable_MomFrlg[] = {
 
 #endif // IS_FRLG
 
-// Donjon : Pierre, Erika, Koga et Giovanni (boss) dans la version Émeraude aussi
+// Donjon : Pierre, Erika, Koga et Giovanni (boss) et Blue (le rival) dans la version Émeraude aussi
 #if !IS_FRLG
 static const struct SpriteFrameImage sPicTable_Erika[] = {
     overworld_frame(gObjectEventPic_Erika, 2, 4, 0),
@@ -2533,5 +2533,8 @@ static const struct SpriteFrameImage sPicTable_Koga[] = {
 
 static const struct SpriteFrameImage sPicTable_Giovanni[] = {
     overworld_ascending_frames(gObjectEventPic_Giovanni, 2, 4),
+};
+static const struct SpriteFrameImage sPicTable_Blue[] = {
+    overworld_ascending_frames(gObjectEventPic_Blue, 2, 4),
 };
 #endif
