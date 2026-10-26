@@ -632,13 +632,13 @@ void IsaacGoldenHeartEnd(void)
 
 // Pendant un combat contre un dresseur de salle ou le boss, chaque Pokémon de l'équipe compte ses tours actifs (sur le
 // terrain à la fin du tour). Combat gagné : le Pokémon qui n'est pas à son stade final et en a le plus évolue
-// (sProgressionEvolutionPct % de chances selon l'étage, toujours contre le boss ; s'il a plusieurs évolutions, l'une
+// (PROGRESSION_EVOLUTION_PCT % de chances, toujours contre le boss ; s'il a plusieurs évolutions, l'une
 // de celles qui collent le mieux au biome), et apprend en même temps une attaque de tier supérieur pour sa nouvelle
 // espèce (PickUpgradeMove). Sinon, le Pokémon qui a le plus de tours actifs apprend une attaque de tier supérieur
-// (sProgressionMovePct %, toujours contre le boss), dans l'écran de l'évolution mais sans l'animation. Sinon, rien.
+// (PROGRESSION_MOVE_PCT %, toujours contre le boss), dans l'écran de l'évolution mais sans l'animation. Sinon, rien.
 // À égalité, le premier de l'équipe.
-static const u8 sProgressionEvolutionPct[] = { 13, 15, 17, 20, 22, 25 };  // par étage
-static const u8 sProgressionMovePct[]      = { 25, 27, 29, 31, 33, 35 };
+#define PROGRESSION_EVOLUTION_PCT  19  // à tous les étages
+#define PROGRESSION_MOVE_PCT       30
 
 enum
 {
@@ -880,7 +880,7 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
 enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
 {
     u16 choices[ISAAC_MAX_EVOLUTION_CHOICES], move;
-    u32 i, evolver = PARTY_SIZE, active = PARTY_SIZE, count, floor;
+    u32 i, evolver = PARTY_SIZE, active = PARTY_SIZE, count;
     bool8 boss = (sIsaacProgressionBattle == PROGRESSION_BOSS);
     struct Pokemon *mon;
     enum Species species;
@@ -891,7 +891,6 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
     sIsaacProgressionBattle = PROGRESSION_NONE;
     if (!won)
         return SPECIES_NONE;
-    floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sProgressionEvolutionPct)) - 1;
     for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
     {
         mon = &gParties[B_TRAINER_PLAYER][i];
@@ -903,7 +902,7 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
          && IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), FALSE, choices, ARRAY_COUNT(choices)) != 0)
             evolver = i;
     }
-    if (evolver != PARTY_SIZE && (boss || Random() % 100 < sProgressionEvolutionPct[floor]))
+    if (evolver != PARTY_SIZE && (boss || Random() % 100 < PROGRESSION_EVOLUTION_PCT))
     {
         mon = &gParties[B_TRAINER_PLAYER][evolver];
         count = IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), FALSE, choices, ARRAY_COUNT(choices));
@@ -915,7 +914,7 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
         *outSlot = evolver;
         return species;
     }
-    if (active != PARTY_SIZE && (boss || Random() % 100 < sProgressionMovePct[floor]))
+    if (active != PARTY_SIZE && (boss || Random() % 100 < PROGRESSION_MOVE_PCT))
     {
         mon = &gParties[B_TRAINER_PLAYER][active];
         species = GetMonData(mon, MON_DATA_SPECIES);
