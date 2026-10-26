@@ -1881,10 +1881,10 @@ u32 IsaacGetTrainerMoney(void)
 // Butin d'un dresseur vaincu, donné objet par objet (IsaacNextLootItem) :
 //  - une Restore Max avec TRAINER_LOOT_MAX_RESTORE_PCT % de chances, et une seconde avec la même chance multipliée par
 //    TRAINER_LOOT_SECOND_PCT_PER_FLOOR % par étage au-delà de l'étage 2 (toujours la même réponse pour une salle) : en
-//    moyenne 0,7 aux étages 1-2, 0,875 à l'étage 3, 1,05 au 4, 1,225 au 5, 1,4 à partir du 6.
+//    moyenne 0,8 aux étages 1-2, 1 à l'étage 3, 1,2 au 4, 1,4 au 5, 1,6 à partir du 6.
 // En plus, TRAINER_LOOT_RARE_PCT % des dresseurs donnent un butin rare (PickTrainerRareLoot, toujours le même pour une
 // salle) : un objet spécial, une très bonne CT, un objet de combat de la boutique ou un Rappel Max.
-#define TRAINER_LOOT_MAX_RESTORE_PCT       70
+#define TRAINER_LOOT_MAX_RESTORE_PCT       80
 #define TRAINER_LOOT_SECOND_PCT_PER_FLOOR  25
 #define TRAINER_LOOT_RARE_PCT          10
 
