@@ -92,6 +92,28 @@ Hub_EventScript_NeedPokemon::
 	releaseall
 	end
 
+@ Testeur (pour les tests) : remplace l'équipe par six grands légendaires
+Hub_EventScript_Tester::
+	lock
+	faceplayer
+	msgbox Hub_Text_TesterAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Hub_EventScript_TesterEnd
+	special IsaacGiveLegendaryTestTeam
+	playfanfare MUS_OBTAIN_ITEM
+	waitfanfare
+	msgbox Hub_Text_TesterDone, MSGBOX_DEFAULT
+Hub_EventScript_TesterEnd:
+	release
+	end
+
+Hub_Text_TesterAsk:
+	.string "TESTER: Want a full team of\n"
+	.string "legendary Pokémon? It replaces\l"
+	.string "your current team.$"
+
+Hub_Text_TesterDone:
+	.string "TESTER: There you go!$"
+
 Hub_Text_HikerOffer:
 	.string "Want to head down into the cave?\n"
 	.string "Not without Pokémon!$"

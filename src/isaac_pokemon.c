@@ -1334,6 +1334,32 @@ void IsaacCreateMonFromSet(struct Pokemon *mon, enum Species species, u32 tier, 
     SetMonData(mon, ISAAC_VARIANT_DATA, &value);
 }
 
+// Testeur du hub (pour les tests) : l'équipe est remplacée par six grands légendaires (catégorie 9) différents tirés
+// au hasard, avec leur meilleur set
+void IsaacGiveLegendaryTestTeam(void)
+{
+    u16 candidates[64];
+    u32 count = 0, i, j, tmp;
+
+    for (i = 0; i < IsaacGetRosterCount() && count < ARRAY_COUNT(candidates); i++)
+    {
+        enum Species species = IsaacGetRosterSpecies(i);
+
+        if (IsaacGetSpeciesCategory(species) == ISAAC_CATEGORY_LEGENDARY_BIG && IsaacSpeciesHasSet(species))
+            candidates[count++] = species;
+    }
+    for (i = 0; i < count; i++)  // ordre au hasard
+    {
+        j = i + Random() % (count - i);
+        SWAP(candidates[i], candidates[j], tmp);
+    }
+    ZeroPlayerPartyMons();
+    for (i = 0; i < PARTY_SIZE && i < count; i++)
+        IsaacCreateMonFromSet(&gParties[B_TRAINER_PLAYER][i], candidates[i], ISAAC_SET_TIERS - 1, Random() % ISAAC_SET_VARIANTS, Random32());
+    CalculatePlayerPartyCount();
+    FlagSet(FLAG_SYS_POKEMON_GET);
+}
+
 // Le set (palier et variante) dont le Pokémon a les attaques, FALSE si aucun
 static bool8 FindMonSetByMoves(struct Pokemon *mon, u32 *tier, u32 *variant)
 {
