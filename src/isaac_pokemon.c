@@ -23,10 +23,10 @@
 #include "constants/battle.h"
 
 /*
- * Sets des Pokémon du donjon : pour chaque espèce du roster, 3 paliers du plus faible au plus fort, chacun en
+ * Sets des Pokémon du donjon : pour chaque espèce du roster, 4 paliers du plus faible au plus fort, chacun en
  * deux variantes A et B de même force mais de rôles différents (tirées à 50/50).
- * Les sets sont écrits dans tools/isaac/sets_gen*.py ; src/data/isaac_sets.h est généré par
- * tools/isaac/build_sets.py, qui vérifie aussi que les attaques sont apprenables.
+ * Les sets sont écrits dans tools/isaac/data/pokemon_sets_*.txt ; src/data/isaac_sets.h est généré par
+ * tools/isaac/build_sets.py (via biome_sets.py), qui vérifie aussi que les attaques sont apprenables.
  */
 
 #include "data/isaac_sets.h"

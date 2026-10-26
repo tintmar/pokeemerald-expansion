@@ -6,7 +6,7 @@
 struct Pokemon;
 
 #define ISAAC_MON_LEVEL  50  // niveau de tous les Pokémon du jeu
-#define ISAAC_SET_TIERS     3  // paliers de sets par Pokémon, du plus faible (0) au plus fort (ISAAC_SET_TIERS - 1)
+#define ISAAC_SET_TIERS     4  // paliers de sets par Pokémon, du plus faible (0) au plus fort (ISAAC_SET_TIERS - 1)
 #define ISAAC_SET_VARIANTS  2  // variantes de chaque palier (A, B) : même force, rôles différents
 #define ISAAC_STARTER_CHOICES  6  // Pokémon proposés par le Montagnard du hub (écran de l'Usine de Combat)
 #define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux

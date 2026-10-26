@@ -19,10 +19,9 @@ Paliers :
   2. bonnes attaques, objet correct (Baie Sitrus, objet de type, Restes...), EVs à moitié, IVs 20 ;
   3. set compétitif (Orbe Vie, Choix, Restes...), EVs complets, IVs 31. Pas d'Évoluroc.
 
-Les espèces des biomes déjà au nouveau format (biome_sets.py : data/pokemon_sets_<biome>.txt, 4 tiers) remplacent
-leurs anciens sets. Le jeu n'ayant encore que 3 paliers, ils reçoivent les tiers BIOME_GAME_TIERS (1, 2 et 4 : le
-tier 4 est le set compétitif) ; le tier 3 n'est pas encore utilisé. Les anciens sets des espèces sorties du roster
-sont ignorés.
+Les espèces des biomes au nouveau format (biome_sets.py : data/pokemon_sets_<biome>.txt, 4 paliers) remplacent
+leurs anciens sets. Une espèce restée à l'ancien format (3 paliers) reprend son set 3 comme set 4. Les anciens sets
+des espèces sorties du roster sont ignorés.
 
 Usage : python3 tools/isaac/build_sets.py [--check]   (--check : vérifie sans écrire le header)
 """
@@ -120,9 +119,6 @@ NERF_EXCLUDED |= HAZARD_MOVES
 ITEM_REPLACEMENTS = {'HEAVY_DUTY_BOOTS': 'LEFTOVERS'}
 HAZARD_MAX_POWER = [60, 70, 90]  # puissance maximale de l'attaque de remplacement, par palier
 
-
-# Tiers des sets de biome_sets.py (0 à 3) donnés aux 3 paliers du jeu
-BIOME_GAME_TIERS = (0, 1, 3)
 
 SET_FILES = ['sets_gen1', 'sets_gen2', 'sets_gen3', 'sets_cave', 'sets_dark', 'sets_fire', 'sets_ice', 'sets_poison',
              'sets_ocean', 'sets_desert', 'sets_cliff', 'sets_forest']
@@ -391,8 +387,10 @@ def load_all_sets():
     sets = {name: [[a, sets_b.get(name, parsed)[tier]] for tier, a in enumerate(parsed)]
             for name, parsed in sets_a.items()}
     errors.extend(biome_sets.ERRORS)
+    for name, tiers in sets.items():  # ancien format : le set 3 sert aussi de set 4
+        tiers.append(tiers[-1])
     for name, tiers in biome_sets.SETS.items():
-        sets[name] = [tiers[t] for t in BIOME_GAME_TIERS]
+        sets[name] = tiers
     return sets, len(sets_b) + len(biome_sets.SETS)
 
 
@@ -400,7 +398,7 @@ def write_header(sets):
     out = ['// Fichier généré par tools/isaac/build_sets.py à partir de tools/isaac/sets_*.py et de',
            '// tools/isaac/data/pokemon_sets_*.txt (biome_sets.py) :',
            '// ne pas modifier à la main.',
-           '// Par Pokémon du roster : 3 paliers, du plus faible (0) au plus fort (2), en deux variantes (A, B).',
+           '// Par Pokémon du roster : 4 paliers, du plus faible (0) au plus fort (3), en deux variantes (A, B).',
            '// sIsaacSetIndex : rang des sets de l\'espèce dans sIsaacSets, plus 1 (0 : pas de sets).',
            '',
            '// ISAAC_SET(espèce, talent, objet, nature, IVs, EVs PV / Att / Déf / Vit / AttSp / DéfSp, 4 attaques)',

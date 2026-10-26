@@ -88,8 +88,8 @@
  * l'étage donne une Master Ball à la place, à coup sûr si on les bat tous.
  *
  * SALLE DE CAPTURE : des Pokémon sauvages différents du biome se promènent (3 aux étages 1-2, 4 aux étages
- * 3-4, 5 aux étages 5-6), deux paliers de force au-dessus des dresseurs de l'étage (GetCaptureLevel), au set 2
- * jusqu'à l'étage 3 puis au set 3. Leur parler lance le combat, après quoi ils disparaissent. SALLE TRÉSOR : un objet spécial au sol (deux salles
+ * 3-4, 5 aux étages 5-6), plus forts que les dresseurs de l'étage (sCaptureLevels), au set 2
+ * aux étages 1-2, 3 aux étages 3-4 et 4 aux étages 5-6. Leur parler lance le combat, après quoi ils disparaissent. SALLE TRÉSOR : un objet spécial au sol (deux salles
  * trésor à partir de ISAAC_TWO_TREASURES_MIN_FLOOR).
  *
  * MINI-CARTE (bouton R dans une salle) : comme Isaac, on voit les salles visitées et celles qui les
@@ -1179,8 +1179,8 @@ static EWRAM_DATA struct TrainerMon sRoomTrainerMons[PARTY_SIZE] = {0};
 // Paliers de force : comme des catégories plus fines, un par étage. Un Pokémon d'un palier a une catégorie tirée entre
 // minCategory et maxCategory (légendaire dans legendaryPct % des cas), et un BST au moins minBst (plancher qui
 // adoucit le passage d'une catégorie à la suivante). Les dresseurs de l'étage n prennent le palier n (ceux d'une salle
-// secrète le suivant), la salle de capture et l'échangeur CAPTURE_LEVEL_AHEAD paliers plus haut ; le boss garde ses
-// propres catégories mais le plancher de son étage. Au-delà du dernier, on garde le dernier.
+// secrète le suivant) ; le boss garde ses propres catégories mais le plancher de son étage. La salle de capture et
+// l'échangeur ont leurs propres paliers (sCaptureLevels). Au-delà du dernier, on garde le dernier.
 struct IsaacStrengthLevel
 {
     u8 minCategory, maxCategory;
@@ -1196,11 +1196,20 @@ static const struct IsaacStrengthLevel sStrengthLevels[] =
     { ISAAC_CATEGORY_4, ISAAC_CATEGORY_5,  0, 360 },
     { ISAAC_CATEGORY_5, ISAAC_CATEGORY_6,  0, 430 },
     { ISAAC_CATEGORY_6, ISAAC_CATEGORY_7,  0, 455 },
-    { ISAAC_CATEGORY_7, ISAAC_CATEGORY_7,  0, 490 },
-    { ISAAC_CATEGORY_7, ISAAC_CATEGORY_7, 25, 500 },
+    { ISAAC_CATEGORY_7, ISAAC_CATEGORY_7,  0, 490 },  // dresseur de la salle secrète de l'étage 6
 };
 
-#define CAPTURE_LEVEL_AHEAD  2
+// Paliers de la salle de capture et de l'échangeur, un par étage : catégories 1-3 à l'étage 1, puis une catégorie
+// d'avance sur les dresseurs (3-4 à l'étage 2...), catégorie 7 ou petit légendaire à l'étage 6
+static const struct IsaacStrengthLevel sCaptureLevels[] =
+{
+    { ISAAC_CATEGORY_1, ISAAC_CATEGORY_3,  0, 210 },
+    { ISAAC_CATEGORY_3, ISAAC_CATEGORY_4,  0, 330 },
+    { ISAAC_CATEGORY_4, ISAAC_CATEGORY_5,  0, 360 },
+    { ISAAC_CATEGORY_5, ISAAC_CATEGORY_6,  0, 430 },
+    { ISAAC_CATEGORY_6, ISAAC_CATEGORY_7,  0, 455 },
+    { ISAAC_CATEGORY_7, ISAAC_CATEGORY_7, 50, 490 },
+};
 
 static const struct IsaacStrengthLevel *GetStrengthLevel(u32 level)
 {
@@ -1219,7 +1228,7 @@ static enum IsaacCategory RollLevelCategory(const struct IsaacStrengthLevel *lev
 // chaque Pokémon est du palier de force de l'étage, avec un set tiré entre les deux bornes (au-delà du dernier étage,
 // on garde la dernière ligne). tierByCategory : le set n'est pas tiré mais suit la catégorie à l'envers (catégorie la
 // plus faible -> meilleur set). Le dernier Pokémon est un as : aceCategory 1 = la catégorie la plus haute du palier,
-// 2 = une au-dessus (catégorie 4 au plus ; 0 = tirée comme les autres), son set tiré comme les autres, et aceBoosts
+// 2 = une au-dessus (0 = tirée comme les autres), son set tiré comme les autres, et aceBoosts
 // Omniboosts (IsaacBoostTrainerParty).
 struct IsaacTrainerParty
 {
@@ -1231,18 +1240,18 @@ struct IsaacTrainerParty
 
 static const struct IsaacTrainerParty sRoomTrainerParties[] =
 {
-    { 2,  60, 0, 0, FALSE, 0, 0 },  // étage 1 : pas d'as
-    { 2, 100, 0, 1, TRUE,  0, 0 },  // étage 2 : la catégorie la plus faible en set 2, l'autre en set 1
-    { 3,  60, 1, 1, FALSE, 2, 0 },
-    { 3,  75, 1, 2, FALSE, 1, 0 },
-    { 4,  50, 1, 2, FALSE, 2, 0 },
-    { 4,  70, 2, 2, FALSE, 1, 1 },
+    { 2,  60, 0, 0, FALSE, 0, 0 },  // étage 1 : set 1, catégories 1-2, pas d'as
+    { 2, 100, 1, 1, FALSE, 0, 0 },  // étage 2 : set 2, catégories 2-3
+    { 3,  60, 1, 1, FALSE, 1, 0 },  // étage 3 : set 2, catégories 3-4
+    { 3,  75, 1, 1, FALSE, 1, 0 },  // étage 4 : set 2, catégories 4-5
+    { 4,  50, 2, 2, FALSE, 1, 0 },  // étage 5 : set 3, catégories 5-6
+    { 4,  70, 2, 2, FALSE, 1, 1 },  // étage 6 : set 3, catégories 6-7
 };
 
 // Équipe du boss selon l'étage. Principe : le boss garde toujours un cran d'avance sur les dresseurs
 // de son étage (un Pokémon de plus, catégorie et set au moins égaux), et son dernier Pokémon est un
-// « as » d'une catégorie au-dessus du reste, pour finir le combat sur une vraie menace. Juste avant lui,
-// secondaryAces « as secondaires » ont la catégorie et le set les plus hauts de l'équipe.
+// « as » d'un meilleur set ou d'une meilleure catégorie, pour finir le combat sur une vraie menace. Juste
+// avant lui, secondaryAces « as secondaires » ont la catégorie et le set les plus hauts de l'équipe.
 // En plus du tableau (voir IsaacBoostTrainerParty et GetIsaacTrainer) :
 //  - objets, un seul par Pokémon : la Pierre brillante de l'as (aceBrilliant, étage 6 : chromatique, meilleure stat
 //    +20 %), puis boosts Omniboosts, un par Pokémon en remontant depuis l'as (as secondaires ensuite) ;
@@ -1261,12 +1270,12 @@ struct IsaacBossParty
 
 static const struct IsaacBossParty sBossParties[] =
 {
-    { 3, ISAAC_CATEGORY_1, ISAAC_CATEGORY_2, 0, 1, ISAAC_CATEGORY_3,               1, 0, 0, FALSE },
-    { 4, ISAAC_CATEGORY_2, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_5,               2, 1, 0, FALSE },
-    { 4, ISAAC_CATEGORY_4, ISAAC_CATEGORY_5, 1, 1, ISAAC_CATEGORY_6,               1, 1, 1, FALSE },
-    { 5, ISAAC_CATEGORY_5, ISAAC_CATEGORY_6, 1, 1, ISAAC_CATEGORY_7,               2, 1, 0, FALSE },
-    { 5, ISAAC_CATEGORY_6, ISAAC_CATEGORY_7, 1, 2, ISAAC_CATEGORY_7,               2, 1, 2, FALSE },
-    { 6, ISAAC_CATEGORY_7, ISAAC_CATEGORY_7, 1, 2, ISAAC_CATEGORY_LEGENDARY_SMALL, 2, 2, 2, TRUE },
+    { 3, ISAAC_CATEGORY_2, ISAAC_CATEGORY_2, 0, 0, ISAAC_CATEGORY_2,               1, 0, 0, FALSE },  // set 1, as set 2
+    { 4, ISAAC_CATEGORY_3, ISAAC_CATEGORY_3, 1, 1, ISAAC_CATEGORY_3,               1, 1, 0, FALSE },  // set 2, as set 2
+    { 4, ISAAC_CATEGORY_4, ISAAC_CATEGORY_4, 1, 1, ISAAC_CATEGORY_5,               1, 1, 1, FALSE },  // set 2, as set 2
+    { 5, ISAAC_CATEGORY_5, ISAAC_CATEGORY_5, 1, 2, ISAAC_CATEGORY_6,               2, 1, 0, FALSE },  // sets 2-3, as set 3
+    { 5, ISAAC_CATEGORY_6, ISAAC_CATEGORY_6, 2, 2, ISAAC_CATEGORY_7,               3, 1, 2, FALSE },  // set 3, as set 4
+    { 6, ISAAC_CATEGORY_7, ISAAC_CATEGORY_7, 3, 3, ISAAC_CATEGORY_LEGENDARY_SMALL, 3, 2, 2, TRUE },   // set 4, as set 4
 };
 
 // Légendaire tiré au hasard (avec des sets) : avec biomeOnly, un de la liste du biome (catégories 8 et 9, ou seulement
@@ -1885,11 +1894,10 @@ static u32 GetCaptureMonCount(void)
     return min(3 + (floor - 1) / 2, (u32)CAPTURE_MAX_MONS);
 }
 
-// Palier de force de la salle de capture et de l'échangeur : CAPTURE_LEVEL_AHEAD paliers d'avance sur les dresseurs
-// de l'étage (catégories 3-4 à l'étage 1... catégorie 7 ou légendaire à l'étage 6)
+// Palier de force de la salle de capture et de l'échangeur de l'étage (sCaptureLevels)
 static const struct IsaacStrengthLevel *GetCaptureLevel(void)
 {
-    return GetStrengthLevel(VarGet(VAR_ISAAC_FLOOR) + CAPTURE_LEVEL_AHEAD);
+    return &sCaptureLevels[min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sCaptureLevels)) - 1];
 }
 
 static enum IsaacCategory RollCaptureCategory(s32 x, s32 y, u32 slot)
@@ -1898,15 +1906,15 @@ static enum IsaacCategory RollCaptureCategory(s32 x, s32 y, u32 slot)
 }
 
 // Une espèce de la catégorie voulue (au plancher de BST du palier de capture) : des espèces du biome, ou un légendaire
-// (PickLegendary) : de la liste du biome avec biomeLegendary, sinon n'importe lequel (l'échangeur, qui propose des
-// Pokémon de tous les biomes).
+// (PickLegendary, petit pour la catégorie 8) : de la liste du biome avec biomeLegendary, sinon n'importe lequel
+// (l'échangeur, qui propose des Pokémon de tous les biomes).
 static u16 PickCaptureSpecies(enum IsaacCategory category, u32 roll, bool8 biomeLegendary)
 {
     const struct IsaacBiome *biome = &gIsaacBiomes[ISAAC_BIOME];
     u16 species;
 
     if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
-        return PickLegendary(biomeLegendary, FALSE, roll);
+        return PickLegendary(biomeLegendary, category == ISAAC_CATEGORY_LEGENDARY_SMALL, roll);
     species = IsaacPickLineSpecies(biome->lines, biome->lineCount, category, GetCaptureLevel()->minBst, roll);
     return species != SPECIES_NONE ? species : GetBiomeFallbackSpecies();
 }
@@ -1933,10 +1941,10 @@ static void GetCaptureSpecies(s32 x, s32 y, u16 *species)
     }
 }
 
-// Set des Pokémon de la salle de capture : set 2 jusqu'à l'étage 3, puis set 3
+// Set des Pokémon de la salle de capture : set 2 aux étages 1-2, set 3 aux étages 3-4, set 4 aux étages 5-6
 static u32 GetCaptureSetTier(void)
 {
-    return VarGet(VAR_ISAAC_FLOOR) <= 3 ? 1 : 2;
+    return min(1 + (max(VarGet(VAR_ISAAC_FLOOR), 1u) - 1) / 2, ISAAC_SET_TIERS - 1);
 }
 
 // Place un objet au centre de la salle s'il y est (le boss juste au-dessus du centre),
@@ -2481,7 +2489,7 @@ void IsaacKecleonGreeting(void)
 //    ferment la salle secrète (seulement s'il y en a une, et si personne ne connaissait Éclate-Roc en début d'étage) ;
 //  - ROOM_CONTENT_HEALER : une vieille dame et son Leveinard soignent complètement un Pokémon (même K.O.), une fois
 //    (mise de côté pour l'instant, HEALER_ENABLED : la Restore Max fait la même chose) ;
-//  - ROOM_CONTENT_EV_TRAINER : un entraîneur met au maximum les IVs (31) et EVs (répartition du set 3 de l'espèce)
+//  - ROOM_CONTENT_EV_TRAINER : un entraîneur met au maximum les IVs (31) et EVs (répartition du set 4 de l'espèce)
 //    d'un Pokémon, une fois.
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
 
@@ -3150,7 +3158,7 @@ void IsaacHealerHealMon(void)
         HealPokemon(mon);
 }
 
-// Entraîneur : IVs à 31 et EVs de la répartition du set 3 de l'espèce (même variante) pour le Pokémon n° VAR_0x8004.
+// Entraîneur : IVs à 31 et EVs de la répartition du set 4 de l'espèce (même variante) pour le Pokémon n° VAR_0x8004.
 // VAR_RESULT = FALSE pour un Œuf ou un Pokémon déjà au maximum ; gStringVar1 = son nom
 void IsaacMaxEvsIvs(void)
 {
