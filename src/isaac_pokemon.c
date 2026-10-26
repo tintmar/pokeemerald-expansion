@@ -637,8 +637,8 @@ void IsaacGoldenHeartEnd(void)
 // espèce (PickUpgradeMove). Sinon, le Pokémon qui a le plus de tours actifs apprend une attaque de tier supérieur
 // (sProgressionMovePct %, toujours contre le boss), dans l'écran de l'évolution mais sans l'animation. Sinon, rien.
 // À égalité, le premier de l'équipe.
-static const u8 sProgressionEvolutionPct[] = { 10, 12, 14, 16, 18, 20 };  // par étage
-static const u8 sProgressionMovePct[]      = { 20, 22, 24, 26, 28, 30 };
+static const u8 sProgressionEvolutionPct[] = { 13, 15, 17, 20, 22, 25 };  // par étage
+static const u8 sProgressionMovePct[]      = { 25, 27, 29, 31, 33, 35 };
 
 enum
 {
@@ -759,17 +759,24 @@ static bool8 IsMoveInSpeciesSets(enum Species species, u16 move)
 
 // Attaque de tier supérieur pour le Pokémon, s'il était de l'espèce donnée (celle d'après l'évolution le cas échéant).
 // Tier visé : 1 de plus que l'entier le plus proche de la moyenne des tiers de ses attaques (sans les situationnelles ;
-// s'il n'a que des attaques situationnelles, le palier de son set plus 1), 4 au plus. Candidates, que l'espèce peut apprendre (niveau, CT, tuteur) et que le Pokémon ne
-// connaît pas : les attaques offensives du tier visé dans la catégorie de son build (celle de la majorité de ses
-// attaques offensives ; à égalité, sa meilleure stat d'attaque de base), de préférence d'un de ses types ou d'un type
-// que ses attaques n'ont pas encore ; les attaques de statut du tier visé ou situationnelles qui sont dans les sets de
-// l'espèce (de bonnes attaques pour elle). Tirée au hasard ; MOVE_NONE s'il n'y en a pas.
+// s'il n'a que des attaques situationnelles, le palier de son set plus 1), 4 au plus. Candidates, que l'espèce peut
+// apprendre (niveau, CT, tuteur) et que le Pokémon ne connaît pas : les attaques offensives du tier visé dans la
+// catégorie de son build (celle de la majorité de ses attaques offensives ; à égalité, sa meilleure stat d'attaque de
+// base) ; les attaques de statut du tier visé ou situationnelles qui sont dans les sets de l'espèce (de bonnes attaques
+// pour elle). Tirée au hasard, avec un poids UPGRADE_PRIORITY_WEIGHT (1 sinon) pour une attaque qui apporte du
+// coverage (un type que ses attaques offensives n'ont pas) ou qui améliore nettement une attaque de son type (aucune
+// attaque de ce type, ou au moins UPGRADE_STAB_POWER_GAIN de puissance de plus que la meilleure) ; MOVE_NONE s'il n'y
+// en a pas.
+#define UPGRADE_PRIORITY_WEIGHT  3
+#define UPGRADE_STAB_POWER_GAIN  20
+
 static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
 {
     u16 known[MAX_MON_MOVES], move, picked = MOVE_NONE;
-    u32 setTier = IsaacGetMonSetTier(mon), sum = 0, count = 0, physical = 0, special = 0, i, tier, target, n, pass;
-    enum Type types[2], gem = IsaacGetMonGemType(mon);
-    bool8 wantsPhysical, ok;
+    u32 setTier = IsaacGetMonSetTier(mon), sum = 0, count = 0, physical = 0, special = 0, i, tier, target;
+    u32 weight, total = 0, bestPower;
+    enum Type types[2], gem = IsaacGetMonGemType(mon), type;
+    bool8 wantsPhysical, covered;
 
     types[0] = GetSpeciesType(species, 0);
     types[1] = (gem != TYPE_NONE) ? gem : GetSpeciesType(species, 1);
@@ -794,35 +801,48 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
     else
         wantsPhysical = gSpeciesInfo[species].baseAttack >= gSpeciesInfo[species].baseSpAttack;
 
-    for (pass = 0, n = 0; pass < 2 && n == 0; pass++)  // d'abord les types utiles, puis tous
+    for (move = 1; move < MOVES_COUNT; move++)
     {
-        for (move = 1; move < MOVES_COUNT; move++)
+        tier = sIsaacMoveTiers[move];
+        if (tier == 0)
+            continue;
+        for (i = 0; i < MAX_MON_MOVES && known[i] != move; i++)
+            ;
+        if (i != MAX_MON_MOVES)
+            continue;
+        weight = 1;
+        if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
         {
-            tier = sIsaacMoveTiers[move];
-            if (tier == 0)
+            if ((tier != target && tier != ISAAC_MOVE_TIER_SITUATIONAL) || !IsMoveInSpeciesSets(species, move))
                 continue;
-            for (i = 0; i < MAX_MON_MOVES && known[i] != move; i++)
-                ;
-            if (i != MAX_MON_MOVES)
+        }
+        else
+        {
+            if (tier != target || (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL) != wantsPhysical)
                 continue;
-            if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
+            // attaques offensives connues du même type : y en a-t-il, et la plus puissante
+            type = GetMoveType(move);
+            covered = FALSE;
+            bestPower = 0;
+            for (i = 0; i < MAX_MON_MOVES; i++)
             {
-                ok = (tier == target || tier == ISAAC_MOVE_TIER_SITUATIONAL) && IsMoveInSpeciesSets(species, move);
-            }
-            else
-            {
-                ok = tier == target && (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL) == wantsPhysical;
-                if (ok && pass == 0 && GetMoveType(move) != types[0] && GetMoveType(move) != types[1])
+                if (known[i] != MOVE_NONE && GetMoveCategory(known[i]) != DAMAGE_CATEGORY_STATUS
+                 && GetMoveType(known[i]) == type)
                 {
-                    for (i = 0; i < MAX_MON_MOVES; i++)  // un type que ses attaques offensives n'ont pas
-                        if (known[i] != MOVE_NONE && GetMoveCategory(known[i]) != DAMAGE_CATEGORY_STATUS
-                         && GetMoveType(known[i]) == GetMoveType(move))
-                            ok = FALSE;
+                    covered = TRUE;
+                    bestPower = max(bestPower, GetMovePower(known[i]));
                 }
             }
-            if (ok && CanSpeciesLearnMove(species, move) && Random() % ++n == 0)
-                picked = move;
+            if (!covered)  // coverage, ou première attaque de son type
+                weight = UPGRADE_PRIORITY_WEIGHT;
+            else if ((type == types[0] || type == types[1]) && GetMovePower(move) >= bestPower + UPGRADE_STAB_POWER_GAIN)
+                weight = UPGRADE_PRIORITY_WEIGHT;  // nette amélioration d'une attaque de son type
         }
+        if (!CanSpeciesLearnMove(species, move))
+            continue;
+        total += weight;
+        if (Random() % total < weight)
+            picked = move;
     }
     return picked;
 }
