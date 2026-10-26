@@ -658,6 +658,7 @@ gSpecials::
 	def_special IsaacKecleonGreeting
 	def_special IsaacBufferFirstBiome
 	def_special IsaacCaptureGuideHasBall
+	def_special IsaacIsBossGuard
 	def_special IsaacCaptureGuideGaveBall
 	def_special IsaacGetRoomContent
 	def_special IsaacGiveEgg

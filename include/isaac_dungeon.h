@@ -22,6 +22,7 @@ bool8 TryStartIsaacStepScript(s16 x, s16 y);
 void IsaacShowMinimap(void);
 void IsaacSetRoomCleared(void);
 void IsaacPrepareTrainerReturn(void);
+void IsaacIsBossGuard(void);
 void IsaacOpenBossExit(void);
 void IsaacBufferBossName(void);
 void IsaacPrepareWildBattle(void);

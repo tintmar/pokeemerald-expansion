@@ -40,7 +40,15 @@ Isaac_EventScript_Minimap::
 @ Le script doit commencer par trainerbattle : la vue des dresseurs y lit le dresseur et s'il est déjà vaincu.
 IsaacRoom_EventScript_Trainer::
 	trainerbattle_single TRAINER_ISAAC_ROOM, IsaacRoom_Text_TrainerIntro, IsaacRoom_Text_TrainerDefeat, IsaacRoom_EventScript_TrainerDefeated
+	special IsaacIsBossGuard
+	goto_if_eq VAR_RESULT, TRUE, IsaacRoom_EventScript_BossGuardAgain
 	msgbox IsaacRoom_Text_TrainerPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+@ Gardien du boss (salle voisine du boss) : vaincu, il annonce l'équipe du boss puis se décale de la porte
+IsaacRoom_EventScript_BossGuardAgain::
+	special IsaacBufferBossTeam
+	msgbox IsaacRoom_Text_BossGuardAgain, MSGBOX_AUTOCLOSE
 	end
 
 IsaacRoom_EventScript_OptionalTrainer::
@@ -71,6 +79,11 @@ IsaacRoom_EventScript_TrainerReturn::
 	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_TrainerWalkBack
 	addobject LOCALID_ISAAC_ROOM_ITEM
 IsaacRoom_EventScript_TrainerWalkBack::
+	special IsaacIsBossGuard
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_TrainerWalk
+	special IsaacBufferBossTeam
+	msgbox IsaacRoom_Text_BossGuardWarning, MSGBOX_DEFAULT
+IsaacRoom_EventScript_TrainerWalk::
 	special IsaacPrepareTrainerReturn
 	applymovement LOCALID_ISAAC_ROOM_TRAINER, gIsaacTrainerReturnMovement
 	waitmovement 0
@@ -97,6 +110,20 @@ IsaacRoom_Text_TrainerDeclined:
 IsaacRoom_Text_TrainerPostBattle:
 	.string "The room is yours.\n"
 	.string "Keep heading down!$"
+
+IsaacRoom_Text_BossGuardWarning:
+	.string "You've earned the right to pass.\n"
+	.string "But listen first…\p"
+	.string "{STR_VAR_1} is waiting behind\n"
+	.string "this door.\p"
+	.string "Their team:\n"
+	.string "{STR_VAR_2}.\p"
+	.string "And their ace, saved for last:\n"
+	.string "{STR_VAR_3}! Good luck!$"
+
+IsaacRoom_Text_BossGuardAgain:
+	.string "Beware of {STR_VAR_1}'s ace:\n"
+	.string "{STR_VAR_3}!$"
 
 @ Salle de capture : des Pokémon sauvages du biome (placés par isaac_dungeon.c, CAPTURE_MAX_MONS au plus). Après
 @ le combat (capturé, vaincu ou fui), le Pokémon disparaît.

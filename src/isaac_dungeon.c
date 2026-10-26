@@ -1376,10 +1376,46 @@ static u32 GetSecretRoomContent(s32 x, s32 y)
 
 static s32 GetForcedRockSmashRoom(void);
 
-// Dresseur d'une salle normale, avant l'éventuelle salle libérée pour l'entraîneur d'Éclate-Roc
+// Salle normale voisine du boss : un dresseur y garde toujours l'entrée de la salle du boss (voir SetUpRoomTrainer)
+static bool8 IsBossGuardRoom(s32 x, s32 y)
+{
+    u32 dir;
+
+    if (GetRoom(x, y) != ROOM_NORMAL)
+        return FALSE;
+    for (dir = 0; dir < ISAAC_DIR_COUNT; dir++)
+        if (GetRoom(x + sDirDx[dir], y + sDirDy[dir]) == ROOM_BOSS)
+            return TRUE;
+    return FALSE;
+}
+
+// Place du gardien : sur la première case de la salle devant la porte du boss, ou (aside) une case à côté, vers la
+// droite ou le bas ; *facing : la direction vers l'intérieur de la salle
+static void GetBossGuardPos(s32 x, s32 y, bool8 aside, s32 *outX, s32 *outY, u32 *inward)
+{
+    static const s8 sGuardX[ISAAC_DIR_COUNT] = { [ISAAC_DIR_NORTH] = ROOM_MID_X, [ISAAC_DIR_EAST] = ROOM_MAX_X, [ISAAC_DIR_SOUTH] = ROOM_MID_X, [ISAAC_DIR_WEST] = ROOM_MIN_X };
+    static const s8 sGuardY[ISAAC_DIR_COUNT] = { [ISAAC_DIR_NORTH] = ROOM_MIN_Y, [ISAAC_DIR_EAST] = ROOM_MID_Y, [ISAAC_DIR_SOUTH] = ROOM_MAX_Y, [ISAAC_DIR_WEST] = ROOM_MID_Y };
+    u32 dir, side;
+
+    for (dir = 0; dir < ISAAC_DIR_COUNT && GetRoom(x + sDirDx[dir], y + sDirDy[dir]) != ROOM_BOSS; dir++)
+        ;
+    dir %= ISAAC_DIR_COUNT;
+    *inward = (dir + 2) % ISAAC_DIR_COUNT;
+    *outX = sGuardX[dir];
+    *outY = sGuardY[dir];
+    if (aside)
+    {
+        side = (dir == ISAAC_DIR_NORTH || dir == ISAAC_DIR_SOUTH) ? ISAAC_DIR_EAST : ISAAC_DIR_SOUTH;
+        *outX += sDirDx[side];
+        *outY += sDirDy[side];
+    }
+}
+
+// Dresseur d'une salle normale, avant l'éventuelle salle libérée pour l'entraîneur d'Éclate-Roc (jamais celle du
+// gardien du boss)
 static bool8 NormalRoomRollsTrainer(s32 x, s32 y)
 {
-    return GetRoom(x, y) == ROOM_NORMAL && RoomRandom(x, y, 0x7A1) % 100 < ISAAC_TRAINER_PCT;
+    return GetRoom(x, y) == ROOM_NORMAL && (IsBossGuardRoom(x, y) || RoomRandom(x, y, 0x7A1) % 100 < ISAAC_TRAINER_PCT);
 }
 
 static bool8 RoomHasTrainer(s32 x, s32 y)
@@ -1509,7 +1545,7 @@ const struct Trainer *GetIsaacTrainer(u16 trainerId)
     {
         const struct IsaacBossParty *boss = GetBossParty();
 
-        GetBossCell(&x, &y);  // la même équipe vue d'ailleurs (voyant)
+        GetBossCell(&x, &y);  // la même équipe vue d'ailleurs (gardien du boss)
         InitTrainer(&sRoomTrainer, biome->boss, biome->bossName, sRoomTrainerMons);
         sRoomTrainer.aiFlags = AI_FLAG_SMART_TRAINER;
         for (i = 0; i < boss->count - 1; i++)
@@ -1767,11 +1803,13 @@ static struct ObjectEventTemplate *GetObjectTemplate(u8 localId)
 }
 
 // Comportement du dresseur d'une salle normale, tiré pour la salle (une chance sur trois chacun) ; celui de la salle
-// secrète est toujours un guetteur :
+// secrète et le gardien du boss sont toujours des guetteurs :
 //  - guetteur : il regarde la porte par laquelle le joueur arrive, sa vue couvre toute la salle ;
 //  - rôdeur : il tourne sur lui-même et ne voit qu'à ROAMING_TRAINER_SIGHT cases, on peut l'éviter ;
 //  - facultatif : il ne voit personne, il faut lui parler et accepter le combat.
-// Dans tous les cas, vaincu, il retourne au centre de la salle.
+// Dans tous les cas, vaincu, il retourne au centre de la salle. Le gardien du boss (IsBossGuardRoom), lui, attend
+// devant la porte du boss en regardant la salle, sans voir personne : il faut lui parler, et le combat est obligatoire
+// pour passer. Vaincu, il annonce l'équipe du boss et se décale d'une case.
 enum
 {
     TRAINER_BEHAVIOR_WATCHER,
@@ -1784,18 +1822,26 @@ enum
 
 static u32 GetRoomTrainerBehavior(s32 x, s32 y)
 {
-    if (GetRoom(x, y) != ROOM_NORMAL)
+    if (GetRoom(x, y) != ROOM_NORMAL || IsBossGuardRoom(x, y))
         return TRAINER_BEHAVIOR_WATCHER;
     return RoomRandom(x, y, 0xBE4A) % TRAINER_BEHAVIOR_COUNT;
 }
 
 // Au chargement de la salle : place (ou cache) le dresseur, choisit son apparence et son comportement
 // (GetRoomTrainerBehavior). Pas encore vaincu, il regarde la porte par laquelle le joueur arrive, ou tourne sur
-// lui-même s'il est rôdeur.
+// lui-même s'il est rôdeur ; le gardien du boss garde la porte du boss (GetBossGuardPos).
 static void SetUpRoomTrainer(s32 x, s32 y)
 {
+    static const u8 sFaceMovementTypes[ISAAC_DIR_COUNT] =
+    {
+        [ISAAC_DIR_NORTH] = MOVEMENT_TYPE_FACE_UP,
+        [ISAAC_DIR_EAST] = MOVEMENT_TYPE_FACE_RIGHT,
+        [ISAAC_DIR_SOUTH] = MOVEMENT_TYPE_FACE_DOWN,
+        [ISAAC_DIR_WEST] = MOVEMENT_TYPE_FACE_LEFT,
+    };
     struct ObjectEventTemplate *template = GetObjectTemplate(LOCALID_ISAAC_ROOM_TRAINER);
-    u32 behavior;
+    u32 behavior, inward;
+    s32 guardX, guardY;
 
     if (template == NULL)
         return;
@@ -1813,6 +1859,20 @@ static void SetUpRoomTrainer(s32 x, s32 y)
     template->script = (behavior == TRAINER_BEHAVIOR_OPTIONAL) ? IsaacRoom_EventScript_OptionalTrainer
                                                                : IsaacRoom_EventScript_Trainer;
     template->trainerRange_berryTreeId = (behavior == TRAINER_BEHAVIOR_ROAMING) ? ROAMING_TRAINER_SIGHT : WATCHER_TRAINER_SIGHT;
+    if (IsBossGuardRoom(x, y))  // gardien : devant la porte du boss, ou à côté une fois vaincu
+    {
+        GetBossGuardPos(x, y, IsCleared(x, y), &guardX, &guardY, &inward);
+        template->x = guardX;
+        template->y = guardY;
+        template->trainerType = TRAINER_TYPE_NONE;  // il ne voit personne : il faut lui parler
+        if (IsCleared(x, y))
+            FlagSet(TRAINER_FLAGS_START + TRAINER_ISAAC_ROOM);
+        else if (sArrivalFacing != DIR_NONE)
+            FlagClear(TRAINER_FLAGS_START + TRAINER_ISAAC_ROOM);
+        if (IsCleared(x, y) || sArrivalFacing != DIR_NONE)
+            template->movementType = sFaceMovementTypes[inward];
+        return;
+    }
     if (IsCleared(x, y))
     {
         FlagSet(TRAINER_FLAGS_START + TRAINER_ISAAC_ROOM);
@@ -1962,7 +2022,7 @@ void IsaacBufferBossName(void)
     StringCopy(gStringVar1, gIsaacBiomes[ISAAC_BIOME].bossName);
 }
 
-// Voyant : le boss dans gStringVar1, toute son équipe dans gStringVar2 (dans l'ordre d'envoi, deux par ligne), et son
+// Gardien du boss (et voyant) : le boss dans gStringVar1, toute son équipe dans gStringVar2 (dans l'ordre d'envoi, deux par ligne), et son
 // as (le dernier) dans gStringVar3
 void IsaacBufferBossTeam(void)
 {
@@ -2494,7 +2554,8 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_DUELIST : le duelliste annonce son Pokémon (plus fort que ceux de l'étage, voir GetIsaacTrainer),
 //    puis combat en 1 contre 1 contre le Pokémon choisi par le joueur. Perdre ne renvoie pas au hub. Un seul duel :
 //    gagné, il donne une Restore Max et une Super CT ; perdu, une Restore Max pour relever le Pokémon K.O. ;
-//  - ROOM_CONTENT_SEER : le voyant annonce l'équipe du boss de l'étage (IsaacBufferBossTeam) ;
+//  - ROOM_CONTENT_SEER : le voyant annonce l'équipe du boss de l'étage (IsaacBufferBossTeam ; retiré pour
+//    l'instant, SEER_ENABLED : le gardien du boss le fait) ;
 //  - ROOM_CONTENT_ROCK_SMASH : un entraîneur apprend Éclate-Roc au Pokémon choisi, qui pourra briser les roches qui
 //    ferment la salle secrète (seulement s'il y en a une, et si personne ne connaissait Éclate-Roc en début d'étage) ;
 //  - ROOM_CONTENT_HEALER : une vieille dame et son Leveinard soignent complètement un Pokémon (même K.O.), une fois
@@ -2524,6 +2585,7 @@ static bool8 FloorHasSecretRoom(void)
 
 #define DEVIL_PACT_MIN_FLOOR  3  // le pacte du diable n'apparaît qu'à partir de cet étage
 #define HEALER_ENABLED        FALSE
+#define SEER_ENABLED          FALSE  // le gardien du boss annonce son équipe à la place
 
 static bool8 IsRoomContentAvailable(u32 content)
 {
@@ -2537,6 +2599,8 @@ static bool8 IsRoomContentAvailable(u32 content)
         return FloorHasSecretRoom() && FlagGet(FLAG_ISAAC_ROCK_SMASH_TEACHER);
     case ROOM_CONTENT_HEALER:
         return HEALER_ENABLED;
+    case ROOM_CONTENT_SEER:
+        return SEER_ENABLED;
     default:
         return TRUE;
     }
@@ -2574,7 +2638,7 @@ static s32 GetForcedRockSmashRoom(void)
     {
         for (x = 0; x < ISAAC_GRID_W; x++)
         {
-            if (GetRoom(x, y) != ROOM_NORMAL)
+            if (GetRoom(x, y) != ROOM_NORMAL || IsBossGuardRoom(x, y))
                 continue;
             if (!NormalRoomRollsTrainer(x, y))
                 return -1;  // il y a déjà une salle vide
@@ -3585,13 +3649,22 @@ void IsaacSetRoomCleared(void)
 }
 
 // Remplit gIsaacTrainerReturnMovement : le dresseur revient en ligne droite au centre de la salle (il s'en est
-// éloigné en ligne droite pour approcher le joueur), puis regarde vers le bas
+// éloigné en ligne droite pour approcher le joueur), puis regarde vers le bas ; le gardien du boss va à côté de la
+// porte du boss (un pas de côté, de l'autre côté si le joueur y est) et regarde la salle
 void IsaacPrepareTrainerReturn(void)
 {
+    static const u8 sFaceActions[ISAAC_DIR_COUNT] =
+    {
+        [ISAAC_DIR_NORTH] = MOVEMENT_ACTION_FACE_UP,
+        [ISAAC_DIR_EAST] = MOVEMENT_ACTION_FACE_RIGHT,
+        [ISAAC_DIR_SOUTH] = MOVEMENT_ACTION_FACE_DOWN,
+        [ISAAC_DIR_WEST] = MOVEMENT_ACTION_FACE_LEFT,
+    };
     struct ObjectEvent *trainer;
     u8 objectEventId;
-    s32 dx, dy;
-    u32 n = 0;
+    s32 dx, dy, x, y, targetX = ROOM_MID_X, targetY = ROOM_MID_Y;
+    s16 playerX, playerY;
+    u32 n = 0, inward = ISAAC_DIR_SOUTH;
 
     if (TryGetObjectEventIdByLocalIdAndMap(LOCALID_ISAAC_ROOM_TRAINER, gSaveBlock1Ptr->location.mapNum,
                                            gSaveBlock1Ptr->location.mapGroup, &objectEventId))
@@ -3600,8 +3673,19 @@ void IsaacPrepareTrainerReturn(void)
         return;
     }
     trainer = &gObjectEvents[objectEventId];
-    dx = ROOM_MID_X - (trainer->currentCoords.x - MAP_OFFSET);
-    dy = ROOM_MID_Y - (trainer->currentCoords.y - MAP_OFFSET);
+    GetCurrentCell(&x, &y);
+    if (IsBossGuardRoom(x, y))  // le gardien du boss se décale à côté de la porte
+    {
+        GetBossGuardPos(x, y, TRUE, &targetX, &targetY, &inward);
+        PlayerGetDestCoords(&playerX, &playerY);
+        if (playerX - MAP_OFFSET == targetX && playerY - MAP_OFFSET == targetY)  // le joueur y est : de l'autre côté
+        {
+            targetX -= 2 * (targetX - (trainer->currentCoords.x - MAP_OFFSET));
+            targetY -= 2 * (targetY - (trainer->currentCoords.y - MAP_OFFSET));
+        }
+    }
+    dx = targetX - (trainer->currentCoords.x - MAP_OFFSET);
+    dy = targetY - (trainer->currentCoords.y - MAP_OFFSET);
     for (; dx > 0 && n < ISAAC_ROOM_W; dx--)
         gIsaacTrainerReturnMovement[n++] = MOVEMENT_ACTION_WALK_NORMAL_RIGHT;
     for (; dx < 0 && n < ISAAC_ROOM_W; dx++)
@@ -3610,8 +3694,17 @@ void IsaacPrepareTrainerReturn(void)
         gIsaacTrainerReturnMovement[n++] = MOVEMENT_ACTION_WALK_NORMAL_DOWN;
     for (; dy < 0 && n < ISAAC_ROOM_W; dy++)
         gIsaacTrainerReturnMovement[n++] = MOVEMENT_ACTION_WALK_NORMAL_UP;
-    gIsaacTrainerReturnMovement[n++] = MOVEMENT_ACTION_FACE_DOWN;
+    gIsaacTrainerReturnMovement[n++] = sFaceActions[inward];
     gIsaacTrainerReturnMovement[n] = MOVEMENT_ACTION_STEP_END;
+}
+
+// Après la victoire contre le dresseur de la salle : VAR_RESULT = TRUE si c'est le gardien du boss
+void IsaacIsBossGuard(void)
+{
+    s32 x, y;
+
+    GetCurrentCell(&x, &y);
+    gSpecialVar_Result = IsBossGuardRoom(x, y);
 }
 
 // Bouton R dans une salle : ouvre la mini-carte. Suivre de `waitstate`.
