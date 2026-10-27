@@ -644,7 +644,7 @@ void IsaacGoldenHeartEnd(void)
 // message dans la même scène. Sinon, avec PROGRESSION_EVS_PCT % de chances, ce même Pokémon gagne un cran d'EVs, ou, si
 // ses EVs sont au maximum, que son stade est final, que ses attaques sont de tier moyen 4 et qu'il n'a pas déjà de boost
 // (IsaacHasBoost), un boost de stat au hasard. Sinon, rien. À égalité, le premier de l'équipe.
-#define PROGRESSION_EVOLUTION_PCT  19  // à tous les étages
+#define PROGRESSION_EVOLUTION_PCT  25  // à tous les étages
 #define PROGRESSION_MOVE_PCT       25
 #define PROGRESSION_EVS_PCT        20  // après l'échec des deux autres tirages (EVs ou boost)
 
