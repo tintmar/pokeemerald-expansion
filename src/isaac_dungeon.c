@@ -2558,12 +2558,22 @@ static bool8 MonKnowsSoundMove(struct Pokemon *mon)
     return FALSE;
 }
 
-// L'objet situationnel profite-t-il à ce Pokémon ?
+// Deux objets situationnels du même rôle (les deux Orbes : un statut pour Cran, Pied Véloce...)
+static bool8 AreSimilarSituationalItems(u16 a, u16 b)
+{
+    if (a == b)
+        return TRUE;
+    return (a == ITEM_FLAME_ORB || a == ITEM_TOXIC_ORB) && (b == ITEM_FLAME_ORB || b == ITEM_TOXIC_ORB);
+}
+
+// L'objet situationnel profite-t-il à ce Pokémon ? Pas s'il tient déjà cet objet ou un objet du même rôle.
 static bool8 IsSituationalItemUseful(struct Pokemon *mon, u16 item)
 {
     enum Ability ability = GetMonAbility(mon);
     enum Type types[2];
 
+    if (AreSimilarSituationalItems(GetMonData(mon, MON_DATA_HELD_ITEM), item))
+        return FALSE;
     switch (item)
     {
     case ITEM_FLAME_ORB:  // Cran, Pied Véloce, Écaille Spéciale, Rage Brûlure
