@@ -13,7 +13,7 @@ IsaacRoom_OnFrame:
 @ Entrée dans la salle de capture : le Pokémaniac donne tout de suite la Master Ball de l'étage
 IsaacRoom_EventScript_CaptureGift::
 	lockall
-	setvar VAR_ISAAC_CAPTURE_GIFT_PENDING, 0
+	setvar VAR_ISAAC_CAPTURE_GIFT_PENDING, 2  @ une seule fois par visite (sac plein : il faudra lui parler)
 	applymovement LOCALID_ISAAC_ROOM_CAPTURE_GUIDE, Common_Movement_FacePlayer
 	waitmovement 0
 	msgbox IsaacRoom_Text_CaptureGuideGive, MSGBOX_DEFAULT

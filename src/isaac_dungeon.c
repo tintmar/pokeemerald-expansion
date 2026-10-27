@@ -343,6 +343,7 @@ STATIC_ASSERT(ARRAY_COUNT(sVisitedVars) * 16 >= ISAAC_GRID_W * ISAAC_GRID_H, Eno
 extern const u8 Isaac_EventScript_Exit[];
 extern const u8 Hub_EventScript_NeedPokemon[];
 extern const u8 IsaacRoom_EventScript_SecretWall[];
+extern const u8 IsaacRoom_EventScript_CaptureGift[];
 extern const u8 IsaacRoom_EventScript_Trainer[];
 extern const u8 IsaacRoom_EventScript_OptionalTrainer[];
 extern const u8 Isaac_EventScript_Minimap[];
@@ -2312,13 +2313,32 @@ void IsaacSettleNurse(void)
     PlaceNurse(x, y, FALSE);
 }
 
+// Salle de capture : première case de la salle devant sa porte (le mur du haut et celui du bas font deux cases
+// d'épaisseur : par une porte nord ou sud, on n'y est qu'après un pas), *sideDir : le côté du Pokémaniac
+static void GetCaptureEntryTile(s32 x, s32 y, s32 *tileX, s32 *tileY, u32 *sideDir)
+{
+    u32 inward = GetBossExitDir(x, y);  // à l'opposé de la porte
+    u32 doorDir = (inward + 2) % ISAAC_DIR_COUNT;
+
+    *sideDir = (doorDir + 1) % ISAAC_DIR_COUNT;
+    *tileX = sDoorX[doorDir];
+    *tileY = sDoorY[doorDir];
+    while (*tileX < ROOM_MIN_X || *tileX > ROOM_MAX_X || *tileY < ROOM_MIN_Y || *tileY > ROOM_MAX_Y)
+    {
+        *tileX += sDirDx[inward];
+        *tileY += sDirDy[inward];
+    }
+}
+
 // Pokémaniac de la salle de capture : collé à l'entrée (la seule porte de ce cul-de-sac), à côté de la première case de
-// la salle devant la porte, tourné vers le passage. Il donne la Master Ball de l'étage dès qu'on entre
-// (VAR_ISAAC_CAPTURE_GIFT_PENDING, IsaacRoom_EventScript_CaptureGift), pour qu'on ne puisse pas l'oublier.
+// la salle devant la porte, tourné vers elle. Il donne la Master Ball de l'étage dès qu'on est sur cette case : tout de
+// suite par une porte est ou ouest (VAR_ISAAC_CAPTURE_GIFT_PENDING), après un pas par une porte nord ou sud
+// (TryStartIsaacStepScript) ; IsaacRoom_EventScript_CaptureGift. Ainsi, on ne peut pas l'oublier.
 static void PlaceCaptureGuide(s32 x, s32 y)
 {
     struct ObjectEventTemplate *template = GetObjectTemplate(LOCALID_ISAAC_ROOM_CAPTURE_GUIDE);
-    u32 doorDir, inward, sideDir;
+    s32 tileX, tileY;
+    u32 sideDir;
 
     if (template == NULL)
         return;
@@ -2327,22 +2347,32 @@ static void PlaceCaptureGuide(s32 x, s32 y)
         template->x = template->y = -1000;
         return;
     }
-    inward = GetBossExitDir(x, y);  // à l'opposé de la porte
-    doorDir = (inward + 2) % ISAAC_DIR_COUNT;
-    sideDir = (doorDir + 1) % ISAAC_DIR_COUNT;
-    // première case de la salle devant la porte (le mur du haut et celui du bas font deux cases d'épaisseur), puis un pas
-    // de côté
-    template->x = sDoorX[doorDir] + sDirDx[sideDir];
-    template->y = sDoorY[doorDir] + sDirDy[sideDir];
-    while (template->x < ROOM_MIN_X || template->x > ROOM_MAX_X || template->y < ROOM_MIN_Y || template->y > ROOM_MAX_Y)
-    {
-        template->x += sDirDx[inward];
-        template->y += sDirDy[inward];
-    }
+    GetCaptureEntryTile(x, y, &tileX, &tileY, &sideDir);
+    template->x = tileX + sDirDx[sideDir];
+    template->y = tileY + sDirDy[sideDir];
     template->movementType = sDirToFaceMovementType[(sideDir + 2) % ISAAC_DIR_COUNT];
     VarSet(VAR_OBJ_GFX_ID_B, gIsaacBiomes[ISAAC_BIOME].ocean ? OBJ_EVENT_GFX_SWIMMER_M : OBJ_EVENT_GFX_MANIAC);
-    if (!FlagGet(FLAG_ISAAC_MASTER_BALL_GIVEN) && sArrivalFacing != DIR_NONE)  // on vient d'entrer par la porte
-        VarSet(VAR_ISAAC_CAPTURE_GIFT_PENDING, 1);
+    // entrée par la porte : 1 (porte est ou ouest, on arrive directement sur la case devant lui), sinon 0 (après un pas) ;
+    // 2 une fois le script lancé, pour le reste de la visite
+    if (!FlagGet(FLAG_ISAAC_MASTER_BALL_GIVEN) && sArrivalFacing != DIR_NONE)
+        VarSet(VAR_ISAAC_CAPTURE_GIFT_PENDING, (sArrivalFacing == DIR_EAST || sArrivalFacing == DIR_WEST) ? 1 : 0);
+}
+
+// Pas du joueur dans la salle de capture : arrivé par une porte nord ou sud, la Master Ball quand il atteint la case
+// devant le Pokémaniac. TRUE si le script est lancé.
+static bool8 TryCaptureGiftOnStep(s32 cellX, s32 cellY, s16 x, s16 y)
+{
+    s32 tileX, tileY;
+    u32 sideDir;
+
+    if (GetRoom(cellX, cellY) != ROOM_CAPTURE || FlagGet(FLAG_ISAAC_MASTER_BALL_GIVEN)
+     || VarGet(VAR_ISAAC_CAPTURE_GIFT_PENDING) == 2)
+        return FALSE;
+    GetCaptureEntryTile(cellX, cellY, &tileX, &tileY, &sideDir);
+    if (x != tileX || y != tileY)
+        return FALSE;
+    ScriptContext_SetupScript(IsaacRoom_EventScript_CaptureGift);
+    return TRUE;
 }
 
 static u32 GetNursePricePerMon(void)
@@ -4272,6 +4302,8 @@ bool8 TryStartIsaacStepScript(s16 x, s16 y)
     else if (IsInRoomMap())
     {
         GetCurrentCell(&cellX, &cellY);
+        if (TryCaptureGiftOnStep(cellX, cellY, x, y))
+            return TRUE;
         for (dir = 0; dir < ISAAC_DIR_COUNT; dir++)
         {
             if (x != sDoorX[dir] || y != sDoorY[dir])
