@@ -1172,9 +1172,8 @@ static bool8 IsMoveInSpeciesSets(enum Species species, u16 move)
 // tier de plus encore (UPGRADE_JACKPOT_RARITY fois plus rare). Candidates, que l'espèce peut apprendre (niveau, CT,
 // tuteur) et que le Pokémon ne connaît pas, jamais une attaque ISAAC_MOVE_ROLE_COMBO (recharge, tour de charge,
 // Mitra-Poing...) :
-//  - les attaques offensives dans la catégorie de son build (celle de la majorité de ses attaques offensives ; à
-//    égalité, ou si la stat de base de cette catégorie est bien plus faible que l'autre, sa meilleure stat d'attaque
-//    de base), ou dans l'autre si les deux stats de base sont proches (mixte) ;
+//  - les attaques offensives dans la catégorie de son orientation (IsMonPhysicallyOriented : sa plus haute stat
+//    d'attaque réelle), ou dans les deux s'il est mixte (stats à moins de 10 % l'une de l'autre) ;
 //  - les attaques de statut du tier visé ou situationnelles qui sont dans les sets de l'espèce (de bonnes attaques pour
 //    elle), plus les boosts de tier 4 de son build même hors de ses sets (Danse Lames, Machination...), sans seconde
 //    attaque d'un rôle qu'il a déjà (deux soins, deux boosts...). Un Pokémon offensif (au moins UPGRADE_OFFENSIVE_MOVES
@@ -1241,11 +1240,45 @@ static void AddThreatType(struct UpgradeContext *ctx, enum Type type)
         ctx->threats[ctx->threatCount++] = type;
 }
 
+// Orientation offensive du Pokémon (s'il était de l'espèce donnée, après une évolution le cas échéant) d'après ses
+// vraies stats d'Attaque et d'Attaque Spéciale (nature, EVs et boosts compris ; pour une évolution, mises à l'échelle
+// des stats de base de la nouvelle espèce) : physique ou spécial selon la plus haute ; si elles sont à moins de 10 %
+// l'une de l'autre, mixte (*mixed), et la catégorie de la majorité de ses attaques offensives (à égalité, la plus
+// haute). Renvoie TRUE pour physique.
+static bool8 IsMonPhysicallyOriented(struct Pokemon *mon, enum Species species, bool8 *mixed)
+{
+    enum Species current = GetMonData(mon, MON_DATA_SPECIES);
+    u32 atk = GetMonData(mon, MON_DATA_ATK), spa = GetMonData(mon, MON_DATA_SPATK), physical = 0, special = 0, i;
+    u16 move;
+
+    if (species != current && gSpeciesInfo[current].baseAttack != 0 && gSpeciesInfo[current].baseSpAttack != 0)
+    {
+        atk = atk * gSpeciesInfo[species].baseAttack / gSpeciesInfo[current].baseAttack;
+        spa = spa * gSpeciesInfo[species].baseSpAttack / gSpeciesInfo[current].baseSpAttack;
+    }
+    *mixed = (10 * min(atk, spa) >= 9 * max(atk, spa));
+    if (!*mixed)
+        return atk > spa;
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        move = GetMonData(mon, MON_DATA_MOVE1 + i);
+        if (move == MOVE_NONE || move >= MOVES_COUNT)
+            continue;
+        if (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL)
+            physical++;
+        else if (GetMoveCategory(move) == DAMAGE_CATEGORY_SPECIAL)
+            special++;
+    }
+    if (physical != special)
+        return physical > special;
+    return atk >= spa;
+}
+
 // Remplit ctx ; renvoie le tier visé
 static u32 InitUpgradeContext(struct UpgradeContext *ctx, struct Pokemon *mon, enum Species species)
 {
     const struct SpeciesInfo *info = &gSpeciesInfo[species];
-    u32 sum = 0, count = 0, physical = 0, special = 0, i, tier, buildStat, otherStat, target;
+    u32 sum = 0, count = 0, physical = 0, special = 0, i, tier, target;
     enum Type gem = IsaacGetMonGemType(mon), type, def;
     uq4_12_t effect;
 
@@ -1292,18 +1325,7 @@ static u32 InitUpgradeContext(struct UpgradeContext *ctx, struct Pokemon *mon, e
     target = (count == 0) ? IsaacGetMonSetTier(mon) + 2 : (2 * sum + count) / (2 * count) + 1;
     target = min(target, 4u);
 
-    if (physical != special)
-        ctx->wantsPhysical = physical > special;
-    else
-        ctx->wantsPhysical = info->baseAttack >= info->baseSpAttack;
-    buildStat = ctx->wantsPhysical ? info->baseAttack : info->baseSpAttack;
-    otherStat = ctx->wantsPhysical ? info->baseSpAttack : info->baseAttack;
-    if (3 * buildStat < 2 * otherStat)  // ses attaques ne vont pas avec ses stats (Leuphorie et Damoclès) : sa meilleure stat
-    {
-        ctx->wantsPhysical = !ctx->wantsPhysical;
-        SWAP(buildStat, otherStat, i);
-    }
-    ctx->mixed = (10 * min(buildStat, otherStat) >= 9 * max(buildStat, otherStat));
+    ctx->wantsPhysical = IsMonPhysicallyOriented(mon, species, &ctx->mixed);
     ctx->bulky = (2 * (info->baseHP + info->baseDefense + info->baseSpDefense) >= 5 * max(info->baseAttack, info->baseSpAttack));
     ctx->buildSetup = ctx->wantsPhysical ? ISAAC_MOVE_ROLE_SETUP_PHYSICAL : ISAAC_MOVE_ROLE_SETUP_SPECIAL;
     if (ctx->mixed)
@@ -1485,8 +1507,8 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
 // son nouveau type lui en ouvre). Une attaque offensive d'un tier au-dessus de ses attaques (moyenne arrondie + 1, 4 au
 // plus ; sans attaque à tier, le palier de son set + 2), jamais une attaque ISAAC_MOVE_ROLE_COMBO ni une qu'il connaît,
 // cherchée dans cet ordre jusqu'à en trouver :
-//  1. que son espèce peut apprendre, dans la catégorie de son build (celle de la majorité de ses attaques offensives ;
-//     à égalité, sa meilleure stat d'attaque de base) ;
+//  1. que son espèce peut apprendre, dans la catégorie de son orientation (IsMonPhysicallyOriented ; les deux s'il
+//     est mixte) ;
 //  2. n'importe laquelle de cette catégorie ;
 //  3. n'importe laquelle, physique ou spéciale ;
 //  4. du tier le plus proche (1, puis 2, puis 3 d'écart).
@@ -1513,25 +1535,11 @@ static bool8 IsPrismMoveUsable(struct Pokemon *mon, u16 move, enum Type type)
 u16 IsaacPickPrismMove(struct Pokemon *mon, enum Type type)
 {
     enum Species species = GetMonData(mon, MON_DATA_SPECIES);
-    u32 tier = GetMonAverageMoveTier(mon), physical = 0, special = 0, total, offensive, weight, i, pass, gap, moveTier;
-    u16 move, known, picked;
-    bool8 wantsPhysical;
+    u32 tier = GetMonAverageMoveTier(mon), total, offensive, weight, pass, gap, moveTier;
+    u16 move, picked;
+    bool8 mixed, wantsPhysical = IsMonPhysicallyOriented(mon, species, &mixed);
 
     tier = min((tier == 0) ? IsaacGetMonSetTier(mon) + 2 : tier + 1, 4u);
-    for (i = 0; i < MAX_MON_MOVES; i++)
-    {
-        known = GetMonData(mon, MON_DATA_MOVE1 + i);
-        if (known == MOVE_NONE || known >= MOVES_COUNT)
-            continue;
-        if (GetMoveCategory(known) == DAMAGE_CATEGORY_PHYSICAL)
-            physical++;
-        else if (GetMoveCategory(known) == DAMAGE_CATEGORY_SPECIAL)
-            special++;
-    }
-    if (physical != special)
-        wantsPhysical = physical > special;
-    else
-        wantsPhysical = gSpeciesInfo[species].baseAttack >= gSpeciesInfo[species].baseSpAttack;
 
     for (pass = PRISM_PASS_LEARNABLE; pass <= PRISM_PASS_SITUATIONAL; pass++)
     {
@@ -1553,7 +1561,7 @@ u16 IsaacPickPrismMove(struct Pokemon *mon, enum Type type)
                     if (pass == PRISM_PASS_SITUATIONAL || GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS
                      || (moveTier != tier + gap && moveTier + gap != tier))
                         continue;
-                    if (pass <= PRISM_PASS_BUILD && (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL) != wantsPhysical)
+                    if (pass <= PRISM_PASS_BUILD && !mixed && (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL) != wantsPhysical)
                         continue;
                     if (pass == PRISM_PASS_LEARNABLE && !CanSpeciesLearnMove(species, move))
                         continue;
