@@ -127,19 +127,19 @@ Variants: A = Power attacker / B = Utility (Fake Out, phazing)
        Moves: Force Palm [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Cross Chop [T3]
   [2B] Ring controller
        Makuhita @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Naughty
-       Moves: Fake Out [Sit]  /  Revenge [T3]  /  Feint Attack [T2]  /  Whirlwind [Sit]
+       Moves: Fake Out [Sit]  /  Revenge [T3]  /  Feint Attack [T2]  /  Take Down [T2]
   [3A] Guts striker
        Makuhita @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
        Moves: Cross Chop [T3]  /  Ice Punch [T3]  /  Stomping Tantrum [T3]  /  Facade [T4]
   [3B] Thick Fat pivot
        Makuhita @ Rocky Helmet   |   Ability: Thick Fat   |   Nature: Adamant
-       Moves: Fake Out [Sit]  /  Brick Break [T3]  /  Whirlwind [Sit]  /  Bullet Punch [T4]
+       Moves: Fake Out [Sit]  /  Brick Break [T3]  /  Mega Kick [T3]  /  Bullet Punch [T4]
   [4A] Guts wallbreaker
        Makuhita @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
        Moves: Facade [T4]  /  Close Combat [T4]  /  Knock Off [T4]  /  Bullet Punch [T4]
   [4B] Bulky utility
        Makuhita @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Adamant
-       Moves: Fake Out [Sit]  /  Drain Punch [T4]  /  Knock Off [T4]  /  Whirlwind [Sit]
+       Moves: Fake Out [Sit]  /  Drain Punch [T4]  /  Knock Off [T4]  /  Double-Edge [T4]
 
 ====================================================================================================
 #235 SMEARGLE  —  Normal  —  BST 250  —  Category 1
@@ -163,7 +163,7 @@ Variants: A = Sleep / status lead / B = Disruptor / Baton Pass
        Moves: Sleep Powder [T3]  /  Taunt [Sit]  /  Will-O-Wisp [Sit]  /  Fake Out [Sit]
   [3B] Annoyer
        Smeargle @ Lum Berry   |   Ability: Own Tempo   |   Nature: Jolly
-       Moves: Encore [Sit]  /  Taunt [Sit]  /  Thunder Wave [Sit]  /  Whirlwind [Sit]
+       Moves: Encore [Sit]  /  Taunt [Sit]  /  Thunder Wave [Sit]  /  Spore [T4]
   [4A] Spore disruptor lead
        Smeargle @ Focus Sash   |   Ability: Own Tempo   |   Nature: Jolly
        Moves: Spore [T4]  /  Fake Out [Sit]  /  Will-O-Wisp [Sit]  /  Destiny Bond [Sit]
@@ -634,7 +634,7 @@ Variants: A = Defensive lead (phazing, Explosion) / B = Offensive (Rock Head)
        Moves: Rock Throw [T1]  /  Sand Tomb [T1]  /  Twister [T1]  /  Smack Down [T2]
   [2A] Phazing snake
        Onix @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Rock Tomb [T2]  /  Roar [Sit]  /  Toxic [Sit]  /  Screech [T2]
+       Moves: Rock Tomb [T2]  /  Rock Polish [Sit]  /  Toxic [Sit]  /  Screech [T2]
   [2B] Ramming snake
        Onix @ Hard Stone   |   Ability: Rock Head   |   Nature: Lonely
        Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Iron Tail [T3]
@@ -844,7 +844,7 @@ Variants: A = Defensive / B = Offensive (setup)
        Moves: Twister [T1]  /  Fire Spin [T1]  /  Ember [T1]  /  Leer [T1]
   [2A] Wish shell
        Shelgon @ Sitrus Berry   |   Ability: Overcoat   |   Nature: Impish
-       Moves: Dragon Breath [T2]  /  Wish [Sit]  /  Protect [Sit]  /  Roar [Sit]
+       Moves: Dragon Breath [T2]  /  Wish [Sit]  /  Protect [Sit]  /  Toxic [Sit]
   [2B] Rock Head rammer
        Shelgon @ Dragon Fang   |   Ability: Rock Head   |   Nature: Lonely
        Moves: Take Down [T2]  /  Fire Fang [T2]  /  Thunder Fang [T2]  /  Dragon Claw [T3]
@@ -1084,13 +1084,13 @@ Variants: A = Defensive (Thick Fat) / B = Offensive (Guts)
        Moves: Arm Thrust [T1]  /  Tackle [T1]  /  Whirlpool [T1]  /  Force Palm [T2]
   [2A] Paralysis combo
        Hariyama @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Careful
-       Moves: Force Palm [T2]  /  Smelling Salts [T2]  /  Whirlwind [Sit]  /  Fake Out [Sit]
+       Moves: Force Palm [T2]  /  Smelling Salts [T2]  /  Mega Kick [T3]  /  Fake Out [Sit]
   [2B] Revenge sumo
        Hariyama @ Black Belt   |   Ability: Guts   |   Nature: Lonely
        Moves: Revenge [T3]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Feint Attack [T2]
   [3A] Bulky phazer
        Hariyama @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Careful
-       Moves: Drain Punch [T4]  /  Whirlwind [Sit]  /  Fake Out [Sit]  /  Stomping Tantrum [T3]
+       Moves: Drain Punch [T4]  /  Bulk Up [T4]  /  Fake Out [Sit]  /  Stomping Tantrum [T3]
   [3B] Guts sumo
        Hariyama @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
        Moves: Facade [T4]  /  Cross Chop [T3]  /  Ice Punch [T3]  /  Heavy Slam [T3]
@@ -1144,13 +1144,13 @@ Variants: A = Defensive (Sturdy, phazing) / B = Offensive
        Moves: Tackle [T1]  /  Rock Throw [T1]  /  Rock Smash [T1]  /  Take Down [T2]
   [2A] Phazing boulder
        Golem @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Relaxed
-       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Roar [Sit]  /  Toxic [Sit]
+       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Mega Kick [T3]  /  Toxic [Sit]
   [2B] Rock Head rammer
        Golem @ Soft Sand   |   Ability: Rock Head   |   Nature: Lonely
        Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Magnitude [T2]  /  Hammer Arm [T3]
   [3A] Sturdy phazer
        Golem @ Shell Bell   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Rock Blast [T3]  /  High Horsepower [T3]  /  Roar [Sit]  /  Counter [Sit]
+       Moves: Rock Blast [T3]  /  High Horsepower [T3]  /  Toxic [Sit]  /  Counter [Sit]
   [3B] Rock Head breaker
        Golem @ Muscle Band   |   Ability: Rock Head   |   Nature: Adamant
        Moves: Double-Edge [T4]  /  Rock Blast [T3]  /  High Horsepower [T3]  /  Heavy Slam [T3]
@@ -1324,13 +1324,13 @@ Variants: A = Defensive (phazing, status) / B = Offensive (Sheer Force)
        Moves: Rock Throw [T1]  /  Twister [T1]  /  Sand Tomb [T1]  /  Mud-Slap [T1]
   [2A] Phazing snake
        Steelix @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Bulldoze [T2]  /  Roar [Sit]  /  Toxic [Sit]  /  Protect [Sit]
+       Moves: Bulldoze [T2]  /  Strength [T3]  /  Toxic [Sit]  /  Protect [Sit]
   [2B] Sheer Force snake
        Steelix @ Metal Coat   |   Ability: Sheer Force   |   Nature: Lonely
        Moves: Iron Tail [T3]  /  Bulldoze [T2]  /  Rock Tomb [T2]  /  Brutal Swing [T2]
   [3A] Phazing wall
        Steelix @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Heavy Slam [T3]  /  Stomping Tantrum [T3]  /  Roar [Sit]  /  Toxic [Sit]
+       Moves: Heavy Slam [T3]  /  Stomping Tantrum [T3]  /  Protect [Sit]  /  Toxic [Sit]
   [3B] Sheer Force breaker
        Steelix @ Muscle Band   |   Ability: Sheer Force   |   Nature: Adamant
        Moves: Iron Tail [T3]  /  Crunch [T3]  /  Stomping Tantrum [T3]  /  Rock Slide [T4]
@@ -1474,13 +1474,13 @@ Variants: A = Defensive (sand, status) / B = Offensive (Dragon Dance)
        Moves: Rock Throw [T1]  /  Rock Smash [T1]  /  Focus Energy [T1]  /  Bite [T2]
   [2A] Sand phazer
        Tyranitar @ Sitrus Berry   |   Ability: Sand Stream   |   Nature: Impish
-       Moves: Rock Tomb [T2]  /  Payback [T3]  /  Roar [Sit]  /  Toxic [Sit]
+       Moves: Rock Tomb [T2]  /  Payback [T3]  /  Thunder Wave [Sit]  /  Toxic [Sit]
   [2B] Rampaging tyrant
        Tyranitar @ Hard Stone   |   Ability: Unnerve   |   Nature: Lonely
        Moves: Rock Tomb [T2]  /  Bite [T2]  /  Bulldoze [T2]  /  Thrash [T3]
   [3A] Sand tank
        Tyranitar @ Rocky Helmet   |   Ability: Sand Stream   |   Nature: Careful
-       Moves: Stone Edge [T4]  /  Crunch [T3]  /  Thunder Wave [Sit]  /  Roar [Sit]
+       Moves: Stone Edge [T4]  /  Crunch [T3]  /  Thunder Wave [Sit]  /  Dragon Dance [T4]
   [3B] Dragon Dance tyrant
        Tyranitar @ Muscle Band   |   Ability: Unnerve   |   Nature: Adamant
        Moves: Dragon Dance [T4]  /  Rock Blast [T3]  /  Crunch [T3]  /  High Horsepower [T3]
@@ -1594,7 +1594,7 @@ Variants: A = Defensive utility / B = Offensive (setup)
        Moves: Metal Claw [T1]  /  Rock Smash [T1]  /  False Swipe [T1]  /  Metal Sound [T2]
   [2A] Utility guardian
        Cobalion @ Sitrus Berry   |   Ability: Justified   |   Nature: Impish
-       Moves: Revenge [T3]  /  Thunder Wave [Sit]  /  Roar [Sit]  /  Protect [Sit]
+       Moves: Revenge [T3]  /  Thunder Wave [Sit]  /  Metal Sound [T2]  /  Protect [Sit]
   [2B] Sharpened guardian
        Cobalion @ Metal Coat   |   Ability: Justified   |   Nature: Lonely
        Moves: Hone Claws [T2]  /  Take Down [T2]  /  Aerial Ace [T2]  /  Smart Strike [T3]
@@ -1654,13 +1654,13 @@ Variants: A = Defensive (Iron Defense + Body Press) / B = Offensive
        Moves: Metal Claw [T1]  /  Quick Attack [T1]  /  Focus Energy [T1]  /  Fire Fang [T2]
   [2A] Guarding shield
        Zamazenta @ Sitrus Berry   |   Ability: Dauntless Shield   |   Nature: Impish
-       Moves: Revenge [T3]  /  Scary Face [T2]  /  Roar [Sit]  /  Protect [Sit]
+       Moves: Revenge [T3]  /  Scary Face [T2]  /  Iron Defense [Sit]  /  Protect [Sit]
   [2B] Biting shield
        Zamazenta @ Black Belt   |   Ability: Dauntless Shield   |   Nature: Hasty
        Moves: Bite [T2]  /  Fire Fang [T2]  /  Ice Fang [T2]  /  Brick Break [T3]
   [3A] Iron wall
        Zamazenta @ Rocky Helmet   |   Ability: Dauntless Shield   |   Nature: Impish
-       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Crunch [T3]  /  Roar [Sit]
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Crunch [T3]  /  Protect [Sit]
   [3B] Shield brawler
        Zamazenta @ Expert Belt   |   Ability: Dauntless Shield   |   Nature: Jolly
        Moves: Close Combat [T4]  /  Crunch [T3]  /  Heavy Slam [T3]  /  Dig [T3]

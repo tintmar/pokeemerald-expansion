@@ -184,13 +184,13 @@ Variants: A = Defensive (Roost, phazing) / B = Offensive (special setup)
        Moves: Peck [T1]  /  Confusion [T1]  /  Twister [T1]  /  Hypnosis [T2]
   [2A] Roosting owl
        Hoothoot @ Sitrus Berry   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Roost [Sit]  /  Hypnosis [T2]  /  Whirlwind [Sit]  /  Air Cutter [T2]
+       Moves: Roost [Sit]  /  Hypnosis [T2]  /  Defog [Sit]  /  Air Cutter [T2]
   [2B] Psychic owl
        Hoothoot @ Sharp Beak   |   Ability: Tinted Lens   |   Nature: Modest
        Moves: Air Cutter [T2]  /  Psybeam [T2]  /  Ominous Wind [T2]  /  Extrasensory [T3]
   [3A] Night Shade staller
        Hoothoot @ Leftovers   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Toxic [Sit]  /  Hyper Voice [T4]
+       Moves: Roost [Sit]  /  Nasty Plot [T4]  /  Toxic [Sit]  /  Hyper Voice [T4]
   [3B] Calm Mind owl
        Hoothoot @ Wise Glasses   |   Ability: Tinted Lens   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Hurricane [T4]  /  Heat Wave [T3]  /  Roost [Sit]
@@ -259,7 +259,7 @@ Variants: A = Setup attacker (Moxie) / B = Utility (Intimidate, trapping)
        Moves: Earthquake [T4]  /  Crunch [T3]  /  Stone Edge [T4]  /  Iron Tail [T3]
   [4B] Intimidate pivot
        Sandile @ Rocky Helmet   |   Ability: Intimidate   |   Nature: Jolly
-       Moves: Earthquake [T4]  /  Foul Play [T4]  /  Taunt [Sit]  /  Roar [Sit]
+       Moves: Earthquake [T4]  /  Foul Play [T4]  /  Taunt [Sit]  /  Double-Edge [T4]
 
 ====================================================================================================
 #353 SHUPPET  —  Ghost  —  BST 295  —  Category 2
@@ -343,7 +343,7 @@ Variants: A = Hustle attacker / B = Bulky utility (phazing, paralysis)
        Moves: Outrage [T4]  /  Crunch [T3]  /  Superpower [T3]  /  Zen Headbutt [T3]
   [3B] Hatchling phazer
        Deino @ Sitrus Berry   |   Ability: Hustle   |   Nature: Impish
-       Moves: Crunch [T3]  /  Roar [Sit]  /  Thunder Wave [Sit]  /  Dragon Tail [Sit]
+       Moves: Crunch [T3]  /  Return [T4]  /  Thunder Wave [Sit]  /  Dragon Tail [Sit]
   [4A] Hustle wallbreaker
        Deino @ Choice Band   |   Ability: Hustle   |   Nature: Adamant
        Moves: Outrage [T4]  /  Crunch [T3]  /  Head Smash [T4]  /  Superpower [T3]
@@ -517,7 +517,7 @@ Variants: A = Special attacker / B = Utility (burns, Pursuit, priority)
        Moves: Incinerate [T2]  /  Snarl [T2]  /  Mud Shot [T2]  /  Heat Wave [T3]
   [2B] Burning pup
        Houndour @ Sitrus Berry   |   Ability: Unnerve   |   Nature: Hasty
-       Moves: Will-O-Wisp [Sit]  /  Bite [T2]  /  Roar [Sit]  /  Taunt [Sit]
+       Moves: Will-O-Wisp [Sit]  /  Bite [T2]  /  Protect [Sit]  /  Taunt [Sit]
   [3A] Fire caster
        Houndour @ Charcoal   |   Ability: Flash Fire   |   Nature: Modest
        Moves: Dark Pulse [T4]  /  Heat Wave [T3]  /  Will-O-Wisp [Sit]  /  Protect [Sit]
@@ -607,7 +607,7 @@ Variants: A = Setup attacker (Moxie) / B = Utility (Intimidate, trapping)
        Moves: Hone Claws [T2]  /  Brutal Swing [T2]  /  Bulldoze [T2]  /  Crunch [T3]
   [2B] Intimidating croc
        Krokorok @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Naughty
-       Moves: Mud Shot [T2]  /  Snarl [T2]  /  Scary Face [T2]  /  Roar [Sit]
+       Moves: Mud Shot [T2]  /  Snarl [T2]  /  Scary Face [T2]  /  Hone Claws [T2]
   [3A] Coverage biter
        Krokorok @ Expert Belt   |   Ability: Moxie   |   Nature: Adamant
        Moves: Crunch [T3]  /  Dragon Claw [T3]  /  Aqua Tail [T3]  /  Earthquake [T4]
@@ -619,7 +619,7 @@ Variants: A = Setup attacker (Moxie) / B = Utility (Intimidate, trapping)
        Moves: Earthquake [T4]  /  Knock Off [T4]  /  Stone Edge [T4]  /  Scale Shot [T3]
   [4B] Intimidate pivot
        Krokorok @ Rocky Helmet   |   Ability: Intimidate   |   Nature: Jolly
-       Moves: Earthquake [T4]  /  Knock Off [T4]  /  Taunt [Sit]  /  Roar [Sit]
+       Moves: Earthquake [T4]  /  Knock Off [T4]  /  Taunt [Sit]  /  Double-Edge [T4]
 
 ====================================================================================================
 #302 SABLEYE  —  Dark/Ghost  —  BST 380  —  Category 3
@@ -817,7 +817,7 @@ Variants: A = Moxie attacker / B = Utility (Intimidate, Yawn, Taunt)
        Moves: Headbutt [T2]  /  Fire Fang [T2]  /  Thunder Fang [T2]  /  Crunch [T3]
   [2B] Pest hound
        Mightyena @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Hasty
-       Moves: Yawn [Sit]  /  Taunt [Sit]  /  Snarl [T2]  /  Roar [Sit]
+       Moves: Yawn [Sit]  /  Taunt [Sit]  /  Snarl [T2]  /  Strength [T3]
   [3A] Moxie striker
        Mightyena @ Muscle Band   |   Ability: Moxie   |   Nature: Adamant
        Moves: Crunch [T3]  /  Iron Tail [T3]  /  Strength [T3]  /  Sucker Punch [T4]
@@ -829,7 +829,7 @@ Variants: A = Moxie attacker / B = Utility (Intimidate, Yawn, Taunt)
        Moves: Sucker Punch [T4]  /  Crunch [T3]  /  Play Rough [T4]  /  Psychic Fangs [T4]
   [4B] Intimidate disruptor
        Mightyena @ Leftovers   |   Ability: Intimidate   |   Nature: Careful
-       Moves: Yawn [Sit]  /  Foul Play [T4]  /  Taunt [Sit]  /  Roar [Sit]
+       Moves: Yawn [Sit]  /  Foul Play [T4]  /  Taunt [Sit]  /  Double-Edge [T4]
 
 ====================================================================================================
 #634 ZWEILOUS  —  Dark/Dragon  —  BST 420  —  Category 4
@@ -847,7 +847,7 @@ Variants: A = Hustle attacker / B = Bulky utility (phazing, status)
        Moves: Double Hit [T2]  /  Bite [T2]  /  Ice Fang [T2]  /  Dragon Rush [T3]
   [2B] Paralyzing heads
        Zweilous @ Sitrus Berry   |   Ability: Hustle   |   Nature: Naughty
-       Moves: Dragon Breath [T2]  /  Thunder Wave [Sit]  /  Roar [Sit]  /  Snarl [T2]
+       Moves: Dragon Breath [T2]  /  Thunder Wave [Sit]  /  Taunt [Sit]  /  Snarl [T2]
   [3A] Rampaging heads
        Zweilous @ Lum Berry   |   Ability: Hustle   |   Nature: Adamant
        Moves: Outrage [T4]  /  Crunch [T3]  /  Superpower [T3]  /  Stomping Tantrum [T3]
@@ -904,19 +904,19 @@ Variants: A = Defensive (Roost, phazing) / B = Offensive (special setup)
        Moves: Confusion [T1]  /  Peck [T1]  /  Twister [T1]  /  Air Cutter [T2]
   [2A] Roosting owl
        Noctowl @ Sitrus Berry   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]  /  Swift [T2]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Work Up [T2]  /  Swift [T2]
   [2B] Tinted Lens caster
        Noctowl @ Sharp Beak   |   Ability: Tinted Lens   |   Nature: Modest
        Moves: Air Cutter [T2]  /  Psybeam [T2]  /  Work Up [T2]  /  Heat Wave [T3]
   [3A] Bulky phazer
        Noctowl @ Leftovers   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Hyper Voice [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
+       Moves: Hyper Voice [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Nasty Plot [T4]
   [3B] Calm Mind owl
        Noctowl @ Wise Glasses   |   Ability: Tinted Lens   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Hurricane [T4]  /  Heat Wave [T3]  /  Roost [Sit]
   [4A] Night Shade staller
        Noctowl @ Leftovers   |   Ability: Insomnia   |   Nature: Calm
-       Moves: Hyper Voice [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
+       Moves: Hyper Voice [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Nasty Plot [T4]
   [4B] Nasty Plot owl
        Noctowl @ Life Orb   |   Ability: Tinted Lens   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Air Slash [T4]  /  Hyper Voice [T4]  /  Roost [Sit]
@@ -1297,7 +1297,7 @@ Variants: A = Special attacker / B = Utility (burns, priority)
        Moves: Burning Jealousy [T2]  /  Snarl [T2]  /  Mud Shot [T2]  /  Heat Wave [T3]
   [2B] Burning hound
        Houndoom @ Sitrus Berry   |   Ability: Unnerve   |   Nature: Hasty
-       Moves: Will-O-Wisp [Sit]  /  Feint Attack [T2]  /  Roar [Sit]  /  Taunt [Sit]
+       Moves: Will-O-Wisp [Sit]  /  Feint Attack [T2]  /  Sunny Day [Sit]  /  Taunt [Sit]
   [3A] Sun hound
        Houndoom @ Heat Rock   |   Ability: Flash Fire   |   Nature: Modest
        Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Heat Wave [T3]  /  Dark Pulse [T4]
@@ -1654,7 +1654,7 @@ Variants: A = Defensive (burns, phazing) / B = Offensive (Calm Mind)
        Moves: Twister [T1]  /  Confide [T1]  /  Mud-Slap [T1]  /  Ancient Power [T2]
   [2A] Burning renegade
        Giratina @ Sitrus Berry   |   Ability: Pressure   |   Nature: Bold
-       Moves: Dragon Breath [T2]  /  Will-O-Wisp [Sit]  /  Roar [Sit]  /  Protect [Sit]
+       Moves: Dragon Breath [T2]  /  Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Protect [Sit]
   [2B] Renegade caster
        Giratina @ Dragon Fang   |   Ability: Telepathy   |   Nature: Modest
        Moves: Dragon Breath [T2]  /  Ominous Wind [T2]  /  Ancient Power [T2]  /  Hex [T3]

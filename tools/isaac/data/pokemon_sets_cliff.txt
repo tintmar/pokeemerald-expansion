@@ -97,7 +97,7 @@ Variants: A = Attacker / B = Support (Tailwind, Defog, Roost)
        Moves: Steel Wing [T2]  /  Wing Attack [T2]  /  Feint Attack [T2]  /  Work Up [T2]
   [2B] Pivot bird
        Pidgey @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Hasty
-       Moves: Take Down [T2]  /  Feather Dance [T2]  /  Roost [Sit]  /  Whirlwind [Sit]
+       Moves: Take Down [T2]  /  Feather Dance [T2]  /  Roost [Sit]  /  Work Up [T2]
   [3A] Diving bird
        Pidgey @ Muscle Band   |   Ability: Big Pecks   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Fly [T3]  /  Double-Edge [T4]  /  U-turn [T2]
@@ -307,7 +307,7 @@ Variants: A = Setup (Swords Dance) / B = Bulky (Rough Skin)
        Moves: Bite [T2]  /  Bulldoze [T2]  /  Fire Fang [T2]  /  Dragon Claw [T3]
   [2B] Phazing shark
        Gible @ Sitrus Berry   |   Ability: Rough Skin   |   Nature: Impish
-       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Roar [Sit]  /  Protect [Sit]
+       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Toxic [Sit]  /  Protect [Sit]
   [3A] Swords Dance shark
        Gible @ Muscle Band   |   Ability: Sand Veil   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Dragon Claw [T3]  /  Dig [T3]  /  Shadow Claw [T3]
@@ -613,7 +613,7 @@ Variants: A = Physical / B = Special and support
        Moves: Brave Bird [T4]  /  Fly [T3]  /  Double-Edge [T4]  /  Roost [Sit]
   [3B] Field cleaner
        Pidgeotto @ Rocky Helmet   |   Ability: Keen Eye   |   Nature: Timid
-       Moves: Roost [Sit]  /  Defog [Sit]  /  Whirlwind [Sit]  /  Air Slash [T4]
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Double-Edge [T4]  /  Air Slash [T4]
   [4A] Choice Band bird
        Pidgeotto @ Choice Band   |   Ability: Big Pecks   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Return [T4]  /  U-turn [T2]  /  Facade [T4]
@@ -1237,7 +1237,7 @@ Variants: A = Guts attacker / B = Setup (Bulk Up, Quick Feet)
        Moves: Chip Away [T2]  /  Power-Up Punch [T2]  /  Feint Attack [T2]  /  Hammer Arm [T3]
   [2B] Yawning bear
        Ursaring @ Sitrus Berry   |   Ability: Unnerve   |   Nature: Impish
-       Moves: Yawn [Sit]  /  Roar [Sit]  /  Headbutt [T2]  /  Protect [Sit]
+       Moves: Yawn [Sit]  /  Rest [Sit]  /  Headbutt [T2]  /  Protect [Sit]
   [3A] Guts striker
        Ursaring @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
        Moves: Facade [T4]  /  Hammer Arm [T3]  /  Night Slash [T3]  /  Shadow Claw [T3]
@@ -1303,7 +1303,7 @@ Variants: A = Attacker (Rock Head) / B = Utility (Taunt, Tailwind)
        Moves: Double-Edge [T4]  /  Rock Blast [T3]  /  Aqua Tail [T3]  /  Crunch [T3]
   [3B] Tailwind lead
        Aerodactyl @ Focus Sash   |   Ability: Pressure   |   Nature: Jolly
-       Moves: Taunt [Sit]  /  Tailwind [Sit]  /  Rock Blast [T3]  /  Roar [Sit]
+       Moves: Taunt [Sit]  /  Tailwind [Sit]  /  Rock Blast [T3]  /  Dragon Dance [T4]
   [4A] Dragon Dance sweeper
        Aerodactyl @ Life Orb   |   Ability: Rock Head   |   Nature: Jolly
        Moves: Dragon Dance [T4]  /  Stone Edge [T4]  /  Earthquake [T4]  /  Double-Edge [T4]
@@ -1477,7 +1477,7 @@ Variants: A = Guts attacker / B = Bulky (Bulletproof, Assault Vest)
        Moves: Bulldoze [T2]  /  Power-Up Punch [T2]  /  Feint Attack [T2]  /  High Horsepower [T3]
   [2B] Yawning bear
        Ursaluna @ Sitrus Berry   |   Ability: Bulletproof   |   Nature: Impish
-       Moves: Rock Tomb [T2]  /  Yawn [Sit]  /  Roar [Sit]  /  Mega Punch [T2]
+       Moves: Rock Tomb [T2]  /  Yawn [Sit]  /  Rest [Sit]  /  Mega Punch [T2]
   [3A] Guts striker
        Ursaluna @ Flame Orb   |   Ability: Guts   |   Nature: Adamant
        Moves: Facade [T4]  /  High Horsepower [T3]  /  Crunch [T3]  /  Fire Punch [T3]
@@ -1537,7 +1537,7 @@ Variants: A = Setup (Swords Dance) / B = Sand and Choice attacker
        Moves: Breaking Swipe [T2]  /  Fire Fang [T2]  /  Bulldoze [T2]  /  Dragon Claw [T3]
   [2B] Phazing dragon
        Garchomp @ Sitrus Berry   |   Ability: Rough Skin   |   Nature: Impish
-       Moves: Rock Tomb [T2]  /  Roar [Sit]  /  Dragon Tail [Sit]  /  Protect [Sit]
+       Moves: Rock Tomb [T2]  /  Sandstorm [Sit]  /  Dragon Tail [Sit]  /  Protect [Sit]
   [3A] Swords Dance dragon
        Garchomp @ Muscle Band   |   Ability: Rough Skin   |   Nature: Jolly
        Moves: Swords Dance [T4]  /  Dragon Claw [T3]  /  Dig [T3]  /  Crunch [T3]

@@ -313,7 +313,7 @@ Variants: A = Attacker (Intimidate) / B = Support (Heal Bell, paralysis)
        Moves: Play Rough [T4]  /  Crunch [T3]  /  Fire Punch [T3]  /  Thunder Punch [T3]
   [3B] Bulky cleric
        Snubbull @ Leftovers   |   Ability: Intimidate   |   Nature: Careful
-       Moves: Heal Bell [Sit]  /  Thunder Wave [Sit]  /  Roar [Sit]  /  Play Rough [T4]
+       Moves: Heal Bell [Sit]  /  Thunder Wave [Sit]  /  Bulk Up [T4]  /  Play Rough [T4]
   [4A] Bulk Up pup
        Snubbull @ Life Orb   |   Ability: Intimidate   |   Nature: Adamant
        Moves: Bulk Up [T4]  /  Play Rough [T4]  /  Close Combat [T4]  /  Earthquake [T4]
@@ -907,7 +907,7 @@ Variants: A = Attacker (Intimidate, Quick Feet) / B = Bulky support (Heal Bell, 
        Moves: Low Sweep [T2]  /  Power-Up Punch [T2]  /  Fire Fang [T2]  /  Crunch [T3]
   [2B] Charming bulldog
        Granbull @ Sitrus Berry   |   Ability: Rattled   |   Nature: Impish
-       Moves: Charm [T2]  /  Roar [Sit]  /  Bite [T2]  /  Thunder Wave [Sit]
+       Moves: Charm [T2]  /  Heal Bell [Sit]  /  Bite [T2]  /  Thunder Wave [Sit]
   [3A] Quick Feet bulldog
        Granbull @ Flame Orb   |   Ability: Quick Feet   |   Nature: Adamant
        Moves: Play Rough [T4]  /  Crunch [T3]  /  Superpower [T3]  /  Ice Punch [T3]
@@ -1687,7 +1687,7 @@ Variants: A = Setup (Geomancy, Calm Mind) / B = Attacker (Fairy Aura)
        Moves: Draining Kiss [T2]  /  Aurora Beam [T2]  /  Swift [T2]  /  Dazzling Gleam [T3]
   [2B] Cleric deer
        Xerneas @ Sitrus Berry   |   Ability: Fairy Aura   |   Nature: Calm
-       Moves: Draining Kiss [T2]  /  Aromatherapy [Sit]  /  Roar [Sit]  /  Thunder Wave [Sit]
+       Moves: Draining Kiss [T2]  /  Aromatherapy [Sit]  /  Rest [Sit]  /  Thunder Wave [Sit]
   [3A] Calm Mind deer
        Xerneas @ Wise Glasses   |   Ability: Fairy Aura   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Rest [Sit]

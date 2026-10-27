@@ -706,7 +706,7 @@ Variants: A = Defensive (Aqua Ring, Roar) / B = Offensive (Water Spout, Heavy Sl
        Moves: Heavy Slam [T3]  /  Dive [T3]  /  Avalanche [T3]  /  Earthquake [T4]
   [4A] Phazing whale
        Wailmer @ Rocky Helmet   |   Ability: Water Veil   |   Nature: Bold
-       Moves: Scald [T4]  /  Roar [Sit]  /  Toxic [Sit]  /  Body Press [T4]
+       Moves: Scald [T4]  /  Protect [Sit]  /  Toxic [Sit]  /  Body Press [T4]
   [4B] Choice Scarf spout
        Wailmer @ Choice Scarf   |   Ability: Oblivious   |   Nature: Modest
        Moves: Water Spout [T4]  /  Hydro Pump [T4]  /  Ice Beam [T4]  /  Hyper Voice [T4]
@@ -1420,13 +1420,13 @@ Variants: A = Defensive (Rapid Spin, Roar) / B = Offensive (Shell Smash)
        Moves: Chilling Water [T2]  /  Icy Wind [T2]  /  Mud Shot [T2]  /  Signal Beam [T3]
   [3A] Phazing spinner
        Blastoise @ Leftovers   |   Ability: Rain Dish   |   Nature: Bold
-       Moves: Rapid Spin [T2]  /  Brine [T3]  /  Roar [Sit]  /  Toxic [Sit]
+       Moves: Rapid Spin [T2]  /  Brine [T3]  /  Protect [Sit]  /  Toxic [Sit]
   [3B] Shell Smash cannon
        Blastoise @ White Herb   |   Ability: Torrent   |   Nature: Modest
        Moves: Shell Smash [T4]  /  Muddy Water [T3]  /  Signal Beam [T3]  /  Protect [Sit]
   [4A] Bulky spinner
        Blastoise @ Rocky Helmet   |   Ability: Rain Dish   |   Nature: Bold
-       Moves: Scald [T4]  /  Rapid Spin [T2]  /  Roar [Sit]  /  Toxic [Sit]
+       Moves: Scald [T4]  /  Rapid Spin [T2]  /  Protect [Sit]  /  Toxic [Sit]
   [4B] Shell Smash sweeper
        Blastoise @ White Herb   |   Ability: Torrent   |   Nature: Modest
        Moves: Shell Smash [T4]  /  Hydro Pump [T4]  /  Ice Beam [T4]  /  Dark Pulse [T4]
@@ -1564,13 +1564,13 @@ Variants: A = Defensive (Roar, Calm Mind rest) / B = Offensive (special)
        Moves: Whirlpool [T1]  /  Mud-Slap [T1]  /  Rock Smash [T1]  /  Aurora Beam [T2]
   [2A] Phazing beast
        Suicune @ Sitrus Berry   |   Ability: Pressure   |   Nature: Calm
-       Moves: Roar [Sit]  /  Water Pulse [T2]  /  Toxic [Sit]  /  Protect [Sit]
+       Moves: Rest [Sit]  /  Water Pulse [T2]  /  Toxic [Sit]  /  Protect [Sit]
   [2B] Aurora caster
        Suicune @ Mystic Water   |   Ability: Inner Focus   |   Nature: Mild
        Moves: Bubble Beam [T2]  /  Aurora Beam [T2]  /  Ominous Wind [T2]  /  Extrasensory [T3]
   [3A] Toxic staller
        Suicune @ Rocky Helmet   |   Ability: Pressure   |   Nature: Calm
-       Moves: Roar [Sit]  /  Toxic [Sit]  /  Brine [T3]  /  Protect [Sit]
+       Moves: Calm Mind [T4]  /  Toxic [Sit]  /  Brine [T3]  /  Protect [Sit]
   [3B] Special attacker
        Suicune @ Wise Glasses   |   Ability: Inner Focus   |   Nature: Modest
        Moves: Brine [T3]  /  Extrasensory [T3]  /  Signal Beam [T3]  /  Ice Beam [T4]
@@ -1684,19 +1684,19 @@ Variants: A = Defensive (Multiscale, Roost) / B = Offensive (Calm Mind)
        Moves: Flash [T1]  /  Gust [T1]  /  Rock Smash [T1]  /  Dragon Breath [T2]
   [2A] Roosting guardian
        Lugia @ Sitrus Berry   |   Ability: Multiscale   |   Nature: Bold
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  Air Cutter [T2]  /  Whirlwind [Sit]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Air Cutter [T2]  /  Strength [T3]
   [2B] Psychic caster
        Lugia @ Twisted Spoon   |   Ability: Pressure   |   Nature: Mild
        Moves: Ancient Power [T2]  /  Ominous Wind [T2]  /  Water Pulse [T2]  /  Extrasensory [T3]
   [3A] Multiscale staller
        Lugia @ Leftovers   |   Ability: Multiscale   |   Nature: Bold
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]  /  Psychic Noise [T3]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Calm Mind [T4]  /  Psychic Noise [T3]
   [3B] Calm Mind guardian
        Lugia @ Wise Glasses   |   Ability: Multiscale   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Extrasensory [T3]  /  Roost [Sit]  /  Aeroblast [T4]
   [4A] Multiscale wall
        Lugia @ Rocky Helmet   |   Ability: Multiscale   |   Nature: Bold
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]  /  Aeroblast [T4]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Calm Mind [T4]  /  Aeroblast [T4]
   [4B] Calm Mind sweeper
        Lugia @ Leftovers   |   Ability: Multiscale   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Aeroblast [T4]  /  Psyshock [T4]  /  Roost [Sit]

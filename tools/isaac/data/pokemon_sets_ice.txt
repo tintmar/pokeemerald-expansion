@@ -73,7 +73,7 @@ Variants: A = Physical / B = Special
        Moves: Ice Punch [T3]  /  Fire Punch [T3]  /  Thunder Punch [T3]  /  Double-Edge [T4]
   [3B] Booming whisper
        Whismur @ Wise Glasses   |   Ability: Rattled   |   Nature: Modest
-       Moves: Hyper Voice [T4]  /  Extrasensory [T3]  /  Protect [Sit]  /  Roar [Sit]
+       Moves: Hyper Voice [T4]  /  Extrasensory [T3]  /  Protect [Sit]  /  Mega Kick [T3]
   [4A] Physical attacker
        Whismur @ Life Orb   |   Ability: Soundproof   |   Nature: Adamant
        Moves: Double-Edge [T4]  /  Ice Punch [T3]  /  Fire Punch [T3]  /  Thunder Punch [T3]
@@ -217,7 +217,7 @@ Variants: A = Setup attacker / B = Priority / Choice attacker
        Moves: Force Palm [T2]  /  Bite [T2]  /  Aerial Ace [T2]  /  Brick Break [T3]
   [2B] Prankster pup
        Riolu @ Sitrus Berry   |   Ability: Prankster   |   Nature: Hasty
-       Moves: Low Sweep [T2]  /  Screech [T2]  /  Roar [Sit]  /  Bite [T2]
+       Moves: Low Sweep [T2]  /  Screech [T2]  /  Mega Kick [T3]  /  Bite [T2]
   [3A] Swords Dance pup
        Riolu @ Muscle Band   |   Ability: Steadfast   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Brick Break [T3]  /  Crunch [T3]  /  Ice Punch [T3]
@@ -514,13 +514,13 @@ Variants: A = Defensive (Iron Defense) / B = Offensive (Rock Head)
        Moves: Tackle [T1]  /  Metal Claw [T1]  /  Rock Smash [T1]  /  Headbutt [T2]
   [2A] Sturdy pup
        Aron @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Relaxed
-       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Iron Defense [Sit]  /  Roar [Sit]
+       Moves: Rock Tomb [T2]  /  Bulldoze [T2]  /  Iron Defense [Sit]  /  Rest [Sit]
   [2B] Recoil pup
        Aron @ Hard Stone   |   Ability: Rock Head   |   Nature: Lonely
        Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Iron Tail [T3]
   [3A] Iron wall
        Aron @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Heavy Slam [T3]  /  Iron Defense [Sit]  /  Body Press [T4]  /  Roar [Sit]
+       Moves: Heavy Slam [T3]  /  Iron Defense [Sit]  /  Body Press [T4]  /  Rest [Sit]
   [3B] Head Smash pup
        Aron @ Expert Belt   |   Ability: Rock Head   |   Nature: Adamant
        Moves: Head Smash [T4]  /  Iron Tail [T3]  /  Dig [T3]  /  Superpower [T3]
@@ -856,7 +856,7 @@ Variants: A = Defensive (Heavy Metal, Metal Burst) / B = Offensive (Rock Polish)
        Moves: Rock Polish [Sit]  /  Head Smash [T4]  /  Iron Tail [T3]  /  Dig [T3]
   [4A] Metal Burst wall
        Lairon @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Metal Burst [Sit]  /  Iron Head [T4]  /  Rock Slide [T4]  /  Roar [Sit]
+       Moves: Metal Burst [Sit]  /  Iron Head [T4]  /  Rock Slide [T4]  /  Protect [Sit]
   [4B] Rock Polish sweeper
        Lairon @ Life Orb   |   Ability: Rock Head   |   Nature: Adamant
        Moves: Rock Polish [Sit]  /  Head Smash [T4]  /  Iron Head [T4]  /  Earthquake [T4]
@@ -907,13 +907,13 @@ Variants: A = Power attacker / B = Bulky utility (Thick Fat, Roar)
        Moves: Ice Fang [T2]  /  Bulldoze [T2]  /  Rock Tomb [T2]  /  Icicle Spear [T3]
   [2B] Bulky swine
        Piloswine @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Impish
-       Moves: Ice Fang [T2]  /  Bulldoze [T2]  /  Roar [Sit]  /  Protect [Sit]
+       Moves: Ice Fang [T2]  /  Bulldoze [T2]  /  Toxic [Sit]  /  Protect [Sit]
   [3A] Tusked striker
        Piloswine @ Expert Belt   |   Ability: Thick Fat   |   Nature: Adamant
        Moves: Icicle Spear [T3]  /  High Horsepower [T3]  /  Superpower [T3]  /  Ice Shard [T4]
   [3B] Avalanche wall
        Piloswine @ Rocky Helmet   |   Ability: Thick Fat   |   Nature: Impish
-       Moves: Avalanche [T3]  /  High Horsepower [T3]  /  Roar [Sit]  /  Toxic [Sit]
+       Moves: Avalanche [T3]  /  High Horsepower [T3]  /  Protect [Sit]  /  Toxic [Sit]
   [4A] Physical attacker
        Piloswine @ Life Orb   |   Ability: Thick Fat   |   Nature: Adamant
        Moves: Icicle Crash [T4]  /  Earthquake [T4]  /  Ice Shard [T4]  /  Stone Edge [T4]
@@ -964,19 +964,19 @@ Variants: A = Pure Stall / B = Defensive with utility (Defog, Taunt, Tailwind)
        Moves: Fury Attack [T1]  /  Metal Claw [T1]  /  Twister [T1]  /  Sand Tomb [T1]
   [2A] Steel staller
        Skarmory @ Sitrus Berry   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Steel Wing [T2]  /  Roost [Sit]  /  Whirlwind [Sit]  /  Toxic [Sit]
+       Moves: Steel Wing [T2]  /  Roost [Sit]  /  Tailwind [Sit]  /  Toxic [Sit]
   [2B] Taunting bird
        Skarmory @ Lum Berry   |   Ability: Keen Eye   |   Nature: Impish
        Moves: Steel Wing [T2]  /  Pluck [T2]  /  Taunt [Sit]  /  Tailwind [Sit]
   [3A] Phazing staller
        Skarmory @ Leftovers   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Toxic [Sit]  /  Drill Peck [T3]
+       Moves: Roost [Sit]  /  Tailwind [Sit]  /  Toxic [Sit]  /  Drill Peck [T3]
   [3B] Field cleaner
        Skarmory @ Sitrus Berry   |   Ability: Keen Eye   |   Nature: Impish
        Moves: Roost [Sit]  /  Defog [Sit]  /  Taunt [Sit]  /  Brave Bird [T4]
   [4A] Iron Defense wall
        Skarmory @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Iron Defense [Sit]  /  Brave Bird [T4]
+       Moves: Roost [Sit]  /  Tailwind [Sit]  /  Iron Defense [Sit]  /  Brave Bird [T4]
   [4B] Tailwind support
        Skarmory @ Leftovers   |   Ability: Sturdy   |   Nature: Careful
        Moves: Roost [Sit]  /  Tailwind [Sit]  /  Brave Bird [T4]  /  Taunt [Sit]
@@ -1450,13 +1450,13 @@ Variants: A = Defensive (Stockpile, Encore) / B = Offensive (Swords Dance)
        Moves: Ice Fang [T2]  /  Headbutt [T2]  /  Bulldoze [T2]  /  Crunch [T3]
   [3A] Encore walrus
        Walrein @ Leftovers   |   Ability: Ice Body   |   Nature: Calm
-       Moves: Encore [Sit]  /  Brine [T3]  /  Frost Breath [T3]  /  Roar [Sit]
+       Moves: Encore [Sit]  /  Brine [T3]  /  Frost Breath [T3]  /  Swords Dance [T4]
   [3B] Physical walrus
        Walrein @ Muscle Band   |   Ability: Oblivious   |   Nature: Adamant
        Moves: Aqua Tail [T3]  /  Crunch [T3]  /  Avalanche [T3]  /  Earthquake [T4]
   [4A] Bulky walrus
        Walrein @ Rocky Helmet   |   Ability: Thick Fat   |   Nature: Bold
-       Moves: Surf [T4]  /  Ice Beam [T4]  /  Roar [Sit]  /  Toxic [Sit]
+       Moves: Surf [T4]  /  Ice Beam [T4]  /  Swords Dance [T4]  /  Toxic [Sit]
   [4B] Swords Dance walrus
        Walrein @ Life Orb   |   Ability: Thick Fat   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Liquidation [T4]  /  Icicle Spear [T3]  /  Earthquake [T4]

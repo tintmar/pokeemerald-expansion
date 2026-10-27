@@ -523,7 +523,7 @@ Variants: A = Physical / B = Special
        Moves: Temper Flare [T3]  /  Crunch [T3]  /  Iron Tail [T3]  /  Close Combat [T4]
   [3B] Burning guard
        Growlithe @ Leftovers   |   Ability: Flash Fire   |   Nature: Modest
-       Moves: Heat Wave [T3]  /  Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Roar [Sit]
+       Moves: Heat Wave [T3]  /  Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Sunny Day [Sit]
   [4A] Physical attacker
        Growlithe @ Life Orb   |   Ability: Intimidate   |   Nature: Adamant
        Moves: Flare Blitz [T4]  /  Close Combat [T4]  /  Wild Charge [T4]  /  Psychic Fangs [T4]
@@ -640,7 +640,7 @@ Variants: A = Defensive (Cotton Guard, screens) / B = Offensive (special)
        Moves: Charge Beam [T2]  /  Swift [T2]  /  Volt Switch [T2]  /  Signal Beam [T3]
   [3A] Cotton Guard phazer
        Flaaffy @ Leftovers   |   Ability: Static   |   Nature: Bold
-       Moves: Discharge [T3]  /  Cotton Guard [Sit]  /  Heal Bell [Sit]  /  Roar [Sit]
+       Moves: Discharge [T3]  /  Cotton Guard [Sit]  /  Heal Bell [Sit]  /  Thunder Wave [Sit]
   [3B] Agility sheep
        Flaaffy @ Lum Berry   |   Ability: Plus   |   Nature: Modest
        Moves: Agility [Sit]  /  Discharge [T3]  /  Dazzling Gleam [T3]  /  Power Gem [T4]
@@ -1057,13 +1057,13 @@ Variants: A = Special attacker / B = Pivot (Volt Switch)
        Moves: Shock Wave [T2]  /  Flame Burst [T2]  /  Swift [T2]  /  Signal Beam [T3]
   [2B] Pivot hound
        Manectric @ Sitrus Berry   |   Ability: Static   |   Nature: Hasty
-       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Snarl [T2]  /  Roar [Sit]
+       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Snarl [T2]  /  Strength [T3]
   [3A] Fast caster
        Manectric @ Wise Glasses   |   Ability: Lightning Rod   |   Nature: Timid
        Moves: Electro Ball [T3]  /  Signal Beam [T3]  /  Flamethrower [T4]  /  Thunder Wave [Sit]
   [3B] Static pivot
        Manectric @ Rocky Helmet   |   Ability: Static   |   Nature: Timid
-       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Discharge [T3]  /  Roar [Sit]
+       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Discharge [T3]  /  Double-Edge [T4]
   [4A] Lightning sweeper
        Manectric @ Life Orb   |   Ability: Lightning Rod   |   Nature: Timid
        Moves: Thunderbolt [T4]  /  Flamethrower [T4]  /  Hyper Voice [T4]  /  Volt Switch [T2]
@@ -1309,7 +1309,7 @@ Variants: A = Special attacker / B = Sun support (Drought, burns)
        Moves: Nasty Plot [T4]  /  Fire Blast [T4]  /  Solar Beam [T3]  /  Psyshock [T4]
   [4B] Sun support
        Ninetales @ Heat Rock   |   Ability: Drought   |   Nature: Timid
-       Moves: Will-O-Wisp [Sit]  /  Flamethrower [T4]  /  Roar [Sit]  /  Healing Wish [Sit]
+       Moves: Will-O-Wisp [Sit]  /  Flamethrower [T4]  /  Pain Split [Sit]  /  Healing Wish [Sit]
 
 ====================================================================================================
 #181 AMPHAROS  —  Electric  —  BST 510  —  Category 6
@@ -1534,13 +1534,13 @@ Variants: A = Defensive (Intimidate, burns) / B = Offensive (physical)
        Moves: Double Kick [T1]  /  Ember [T1]  /  Odor Sleuth [T1]  /  Flame Wheel [T2]
   [2A] Burning guard dog
        Arcanine @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Impish
-       Moves: Will-O-Wisp [Sit]  /  Roar [Sit]  /  Morning Sun [Sit]  /  Flame Wheel [T2]
+       Moves: Will-O-Wisp [Sit]  /  Strength [T3]  /  Morning Sun [Sit]  /  Flame Wheel [T2]
   [2B] Fang dog
        Arcanine @ Charcoal   |   Ability: Justified   |   Nature: Lonely
        Moves: Fire Fang [T2]  /  Thunder Fang [T2]  /  Take Down [T2]  /  Crunch [T3]
   [3A] Intimidate wall
        Arcanine @ Leftovers   |   Ability: Intimidate   |   Nature: Impish
-       Moves: Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Roar [Sit]  /  Flare Blitz [T4]
+       Moves: Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Double-Edge [T4]  /  Flare Blitz [T4]
   [3B] Extreme Speed dog
        Arcanine @ Muscle Band   |   Ability: Intimidate   |   Nature: Adamant
        Moves: Temper Flare [T3]  /  Crunch [T3]  /  Superpower [T3]  /  Extreme Speed [T4]
@@ -1597,7 +1597,7 @@ Variants: A = Calm Mind sweeper / B = Pivot attacker
        Moves: Charge Beam [T2]  /  Snarl [T2]  /  Shock Wave [T2]  /  Extrasensory [T3]
   [2B] Pivot beast
        Raikou @ Sitrus Berry   |   Ability: Pressure   |   Nature: Hasty
-       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Bite [T2]  /  Roar [Sit]
+       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Bite [T2]  /  Substitute [Sit]
   [3A] Calm Mind beast
        Raikou @ Leftovers   |   Ability: Inner Focus   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Discharge [T3]  /  Extrasensory [T3]  /  Substitute [Sit]
@@ -1654,13 +1654,13 @@ Variants: A = Defensive (Sacred Fire, Recover) / B = Offensive (physical)
        Moves: Gust [T1]  /  Rock Smash [T1]  /  Flash [T1]  /  Aerial Ace [T2]
   [2A] Regenerating bird
        Ho-Oh @ Sitrus Berry   |   Ability: Regenerator   |   Nature: Careful
-       Moves: Incinerate [T2]  /  Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
+       Moves: Incinerate [T2]  /  Roost [Sit]  /  Toxic [Sit]  /  Recover [Sit]
   [2B] Diving bird
        Ho-Oh @ Sharp Beak   |   Ability: Pressure   |   Nature: Lonely
        Moves: Aerial Ace [T2]  /  Flame Charge [T2]  /  Steel Wing [T2]  /  Fly [T3]
   [3A] Sacred Fire wall
        Ho-Oh @ Leftovers   |   Ability: Regenerator   |   Nature: Careful
-       Moves: Sacred Fire [T4]  /  Recover [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
+       Moves: Sacred Fire [T4]  /  Recover [Sit]  /  Toxic [Sit]  /  Roost [Sit]
   [3B] Bulky striker
        Ho-Oh @ Muscle Band   |   Ability: Regenerator   |   Nature: Adamant
        Moves: Brave Bird [T4]  /  Flare Blitz [T4]  /  Roost [Sit]  /  Toxic [Sit]
