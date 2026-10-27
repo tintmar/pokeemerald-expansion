@@ -4893,6 +4893,44 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_Relics,
     },
 
+    // Donjon : +30 % à la meilleure stat quand le Pokémon entre en combat en relais (pas en tête au début du combat), un
+    // boost (voir IsaacUseTeamworkTotem, IsaacApplySwitchInTotem)
+    [ITEM_TEAMWORK_TOTEM] =
+    {
+        .name = ITEM_NAME("Teamwork Totem"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Best stat +30%\n"
+            "when it switches\n"
+            "into battle."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacTeamworkTotem,
+        .flingPower = 30,
+        .iconPic = gItemIcon_KingsRock,
+        .iconPalette = gItemIconPalette_KingsRock,
+    },
+
+    // Donjon : le Pokémon méga-évolue pour toujours, en consommant sa Méga-Gemme (tenue ou dans le sac ; voir
+    // IsaacUseMegaCrystal)
+    [ITEM_MEGA_CRYSTAL] =
+    {
+        .name = ITEM_NAME("Mega Crystal"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Mega Evolves a\n"
+            "Pokémon for good.\n"
+            "Uses its Mega Stone."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacMegaCrystal,
+        .flingPower = 30,
+        .iconPic = gItemIcon_MegaRing,
+        .iconPalette = gItemIconPalette_MegaRing,
+    },
+
     // Donjon : argent des dresseurs doublé jusqu'à la fin de la descente (voir IsaacGetTrainerMoney)
     [ITEM_LUCKY_COIN] =
     {

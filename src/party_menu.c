@@ -6766,6 +6766,37 @@ void ItemUseCB_IsaacGlassCrown(u8 taskId, TaskFunc task)
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} wears the Glass Crown!\nDon't let it fall…{PAUSE_UNTIL_PRESS}"));
 }
 
+// Donjon : Totem d'Entraide, +30 % à la meilleure stat quand le Pokémon entre en combat en relais ; un seul boost par
+// Pokémon
+void ItemUseCB_IsaacTeamworkTotem(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+
+    if (!GetMonData(mon, MON_DATA_IS_EGG) && IsaacRefuseSecondBoost(mon, taskId, task))
+        return;
+    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacUseTeamworkTotem(mon))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    GetMonNickname(mon, gStringVar1);
+    IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} will shine when it\ncomes in to help!{PAUSE_UNTIL_PRESS}"));
+}
+
+// Donjon : Cristal Méga, Méga-Évolution définitive (consomme la Méga-Gemme)
+void ItemUseCB_IsaacMegaCrystal(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+
+    GetMonNickname(mon, gStringVar1);
+    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacUseMegaCrystal(mon))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} Mega Evolved\nfor good!{PAUSE_UNTIL_PRESS}"));
+}
+
 // Donjon : Omniboost, +10 % à toutes les stats du Pokémon ; un seul boost par Pokémon
 void ItemUseCB_IsaacOmniboost(u8 taskId, TaskFunc task)
 {

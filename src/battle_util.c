@@ -8756,6 +8756,11 @@ bool32 TryRevertPartyMonFormChange(u32 partyIndex)
 {
      bool32 changedForm = FALSE;
 
+    // Donjon : Méga-Évolution définitive (Cristal Méga) : déjà Méga avant le combat, elle le reste
+    if (gSpeciesInfo[GetMonData(&gParties[B_TRAINER_PLAYER][partyIndex], MON_DATA_SPECIES)].isMegaEvolution
+     && gBattleStruct->partyState[B_SIDE_PLAYER][partyIndex].changedSpecies == SPECIES_NONE)
+        return FALSE;
+
     // Appeared in battle and didn't faint
     if (gBattleStruct->partyState[B_SIDE_PLAYER][partyIndex].sentOut && GetMonData(&gParties[B_TRAINER_PLAYER][partyIndex], MON_DATA_HP) != 0)
         changedForm = TryFormChange(&gParties[B_TRAINER_PLAYER][partyIndex], FORM_CHANGE_END_BATTLE_ENVIRONMENT, B_TRAINER_PLAYER);

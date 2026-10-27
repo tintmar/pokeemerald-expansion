@@ -8,6 +8,7 @@
 #include "isaac_dungeon.h"
 #include "isaac_pokemon.h"
 #include "party_menu.h"
+#include "pokedex.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
 #include "random.h"
@@ -39,6 +40,8 @@
 // NULL si l'espèce n'a pas de sets (hors du roster)
 const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier, u32 variant)
 {
+    if (species > SPECIES_NONE && species < NUM_SPECIES && sIsaacSetIndex[species] == 0 && gSpeciesInfo[species].isMegaEvolution)
+        species = GET_BASE_SPECIES_ID(species);  // Méga-Évolution définitive (Cristal Méga) : les sets de sa forme de base
     if (species == SPECIES_NONE || species >= NUM_SPECIES || sIsaacSetIndex[species] == 0)
         return NULL;
     return &sIsaacSets[sIsaacSetIndex[species] - 1][min(tier, ISAAC_SET_TIERS - 1)][variant % ISAAC_SET_VARIANTS];
@@ -179,7 +182,8 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // pas de Pierre Évolution après SHOP_EVOLUTION_STONE_MAX_FLOOR. La Pièce Porte-Bonheur est surtout au début
 // (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours surtout à la fin (sFirstAidKitWeights, retirée pour
 // l'instant : FIRST_AID_KIT_ENABLED) ; la Pierre Prisme est rare (PRISM_STONE_WEIGHT), le Cœur Doré peu courant
-// (GOLDEN_HEART_WEIGHT). La Master Ball est peu courante (MASTER_BALL_WEIGHT).
+// (GOLDEN_HEART_WEIGHT). La Master Ball est peu courante (MASTER_BALL_WEIGHT). Le Cristal Méga n'apparaît que si un
+// Pokémon de l'équipe a sa Méga-Gemme (tenue ou dans le sac).
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, un
 // peu plus fréquente en profondeur (sStatBoostWeights) ; de même pour les Gemmes de Type (puis le type est tiré ;
 // retirées pour l'instant : TYPE_GEM_WEIGHT à 0). Le Cœur Doré n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
@@ -266,13 +270,16 @@ static u32 GetMissingPartyMegaStones(u16 *out)
     return count;
 }
 
+static bool8 PartyHasPermanentMegaEvolution(void);
+
 u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
 {
     static const u16 sSpecialItems[] =
     {
         ITEM_EVOLUTION_STONE, ITEM_SUPER_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_BOOST_HP,
         ITEM_BRILLIANT_STONE, ITEM_ISAAC_GEM_FIRST, ITEM_GOLDEN_HEART, ITEM_MEGA_RING, ITEM_LUCKY_COIN,
-        ITEM_FIRST_AID_KIT, ITEM_PRISM_STONE, ITEM_Z_TM, ITEM_MASTER_BALL, ITEM_GLASS_CROWN,
+        ITEM_FIRST_AID_KIT, ITEM_PRISM_STONE, ITEM_Z_TM, ITEM_MASTER_BALL, ITEM_GLASS_CROWN, ITEM_TEAMWORK_TOTEM,
+        ITEM_MEGA_CRYSTAL,
     };
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
     static const u8 sAbilityTrainerWeights[] = { 4, 3, 2, 1, 1, 1 };
@@ -313,6 +320,8 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
             weights[i] = Z_TM_WEIGHT;
         else if (sSpecialItems[i] == ITEM_MASTER_BALL)
             weights[i] = MASTER_BALL_WEIGHT;
+        else if (sSpecialItems[i] == ITEM_MEGA_CRYSTAL)
+            weights[i] = PartyHasPermanentMegaEvolution() ? SPECIAL_ITEM_WEIGHT : 0;
         else if (sSpecialItems[i] == ITEM_MEGA_RING)
             weights[i] = megaStoneCount != 0 ? SPECIAL_ITEM_WEIGHT : 0;
         else
@@ -490,6 +499,10 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 // Pierre brillante : stat boostée + 1 (0 : pas encore utilisée), dans la stat de concours Robustesse
 #define ISAAC_BRILLIANT_DATA   MON_DATA_TOUGH
 #define ISAAC_BRILLIANT_PCT    20
+// Totem d'Entraide : valeur ISAAC_TEAMWORK_TOTEM dans la même stat (jamais une stat + 1), +ISAAC_TEAMWORK_TOTEM_PCT % à
+// la meilleure stat (hors PV) à chaque entrée en combat en relais
+#define ISAAC_TEAMWORK_TOTEM      0x80
+#define ISAAC_TEAMWORK_TOTEM_PCT  30
 
 // Gemme de Type : type donné (enum Type), 0 si aucun, dans la stat de concours Lustre
 #define ISAAC_GEM_TYPE_DATA    MON_DATA_SHEEN
@@ -582,6 +595,8 @@ const u8 *IsaacGetBoostName(struct Pokemon *mon)
     for (stat = 0; stat < NUM_STATS; stat++)
         if (boosts & (1 << stat))
             return sStatBoostNames[stat];
+    if (GetMonData(mon, ISAAC_BRILLIANT_DATA) == ISAAC_TEAMWORK_TOTEM)
+        return COMPOUND_STRING("TEAMWORK TOTEM");
     if (GetMonData(mon, ISAAC_BRILLIANT_DATA) != 0)
         return COMPOUND_STRING("BRILLIANT");
     if (GetMonData(mon, ISAAC_OMNIBOOST_DATA) != 0)
@@ -590,7 +605,7 @@ const u8 *IsaacGetBoostName(struct Pokemon *mon)
 }
 
 // Le Pokémon a-t-il déjà reçu un boost (un seul par Pokémon) : boost de stat, Pierre brillante, Omniboost, Pacte de
-// Sang ou Couronne de Verre ?
+// Sang, Couronne de Verre ou Totem d'Entraide ?
 bool8 IsaacHasBoost(struct Pokemon *mon)
 {
     return GetMonData(mon, ISAAC_STAT_BOOST_DATA) != 0 || GetMonData(mon, ISAAC_BRILLIANT_DATA) != 0
@@ -684,6 +699,95 @@ void IsaacTakeFallenCrown(void)
     StringCopy(gStringVar1, GetSpeciesName(value & ((1 << ISAAC_FALLEN_CROWN_COUNT_SHIFT) - 1)));
     gSpecialVar_0x8005 = max(value >> ISAAC_FALLEN_CROWN_COUNT_SHIFT, 1u);
     VarSet(VAR_ISAAC_FALLEN_CROWN, 0);
+}
+
+// Totem d'Entraide : FALSE si le Pokémon a déjà un boost
+bool8 IsaacUseTeamworkTotem(struct Pokemon *mon)
+{
+    u32 value = ISAAC_TEAMWORK_TOTEM;
+
+    if (IsaacHasBoost(mon))
+        return FALSE;
+    SetMonData(mon, ISAAC_BRILLIANT_DATA, &value);
+    return TRUE;
+}
+
+// Entrée en combat en relais (pas au début du combat) : avec le Totem d'Entraide, sa meilleure stat (hors PV) prend
+// +ISAAC_TEAMWORK_TOTEM_PCT % jusqu'à ce qu'il sorte
+void IsaacApplySwitchInTotem(enum BattlerId battler)
+{
+    struct Pokemon *mon = GetBattlerMon(battler);
+    u16 *stats[] = { &gBattleMons[battler].attack, &gBattleMons[battler].defense, &gBattleMons[battler].speed,
+                     &gBattleMons[battler].spAttack, &gBattleMons[battler].spDefense };
+    u32 best = 0, i;
+
+    if (mon == NULL || !IsPlayerPartyMon(mon) || GetMonData(mon, ISAAC_BRILLIANT_DATA) != ISAAC_TEAMWORK_TOTEM)
+        return;
+    for (i = 1; i < ARRAY_COUNT(stats); i++)
+        if (*stats[i] > *stats[best])
+            best = i;
+    *stats[best] = *stats[best] * (100 + ISAAC_TEAMWORK_TOTEM_PCT) / 100;
+}
+
+// Méga-Évolution que le Pokémon peut faire pour toujours : sa Méga-Gemme, tenue par lui ou dans le sac (*held : tenue),
+// et l'espèce Méga ; FALSE s'il n'en a pas
+static bool8 FindPermanentMegaEvolution(struct Pokemon *mon, u16 *stone, enum Species *mega, bool8 *held)
+{
+    const struct FormChange *formChanges = GetSpeciesFormChanges(GetMonData(mon, MON_DATA_SPECIES));
+    u16 heldItem = GetMonData(mon, MON_DATA_HELD_ITEM);
+    u32 i, pass;
+
+    if (formChanges == NULL || GetMonData(mon, MON_DATA_IS_EGG))
+        return FALSE;
+    for (pass = 0; pass < 2; pass++)  // d'abord la Méga-Gemme qu'il tient, puis celles du sac
+    {
+        for (i = 0; formChanges[i].method != FORM_CHANGE_TERMINATOR; i++)
+        {
+            if (formChanges[i].method != FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM)
+                continue;
+            if (pass == 0 ? heldItem != formChanges[i].param1 : !CheckBagHasItem(formChanges[i].param1, 1))
+                continue;
+            *stone = formChanges[i].param1;
+            *mega = formChanges[i].targetSpecies;
+            *held = (pass == 0);
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+// Un Pokémon de l'équipe peut-il méga-évoluer pour toujours (Cristal Méga) ?
+static bool8 PartyHasPermanentMegaEvolution(void)
+{
+    u16 stone;
+    enum Species mega;
+    bool8 held;
+    u32 i;
+
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+        if (FindPermanentMegaEvolution(&gParties[B_TRAINER_PLAYER][i], &stone, &mega, &held))
+            return TRUE;
+    return FALSE;
+}
+
+// Cristal Méga : le Pokémon prend sa forme Méga pour toujours, sa Méga-Gemme est consommée. FALSE s'il ne peut pas.
+bool8 IsaacUseMegaCrystal(struct Pokemon *mon)
+{
+    u16 stone, none = ITEM_NONE;
+    enum Species mega;
+    bool8 held;
+
+    if (!FindPermanentMegaEvolution(mon, &stone, &mega, &held))
+        return FALSE;
+    if (held)
+        SetMonData(mon, MON_DATA_HELD_ITEM, &none);
+    else
+        RemoveBagItem(stone, 1);
+    SetMonData(mon, MON_DATA_SPECIES, &mega);
+    CalculateMonStats(mon);
+    GetSetPokedexFlag(SpeciesToNationalPokedexNum(mega), FLAG_SET_SEEN);
+    GetSetPokedexFlag(SpeciesToNationalPokedexNum(mega), FLAG_SET_CAUGHT);
+    return TRUE;
 }
 
 static void RecalculatePlayerPartyStats(void)

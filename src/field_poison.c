@@ -138,7 +138,8 @@ s32 DoPoisonFieldEffect(void)
             hp = GetMonData(pokemon, MON_DATA_HP);
             if (OW_POISON_DAMAGE < GEN_4 && (hp == 0 || --hp == 0))
             {
-                TryFormChange(&gParties[B_TRAINER_PLAYER][i], FORM_CHANGE_FAINT, B_TRAINER_PLAYER);
+                if (!gSpeciesInfo[GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES)].isMegaEvolution)  // donjon : Méga définitive
+                    TryFormChange(&gParties[B_TRAINER_PLAYER][i], FORM_CHANGE_FAINT, B_TRAINER_PLAYER);
                 numFainted++;
             }
             else if (OW_POISON_DAMAGE >= GEN_4 && (hp == 1 || --hp == 1))

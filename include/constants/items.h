@@ -1091,6 +1091,8 @@ enum __attribute__((packed)) Item
     ITEM_Z_TM = 910,                   // apprend le Z-move du type du Pokémon (1 PP, très puissant)
     ITEM_MAX_RESTORE = 911,            // Guérison qui relève aussi un Pokémon K.O. (PV au complet)
     ITEM_GLASS_CROWN = 912,            // +25 % à toutes les stats d'un Pokémon (un boost), mais K.O., il est relâché
+    ITEM_TEAMWORK_TOTEM = 913,         // +30 % à la meilleure stat quand le Pokémon entre en combat en relais (un boost)
+    ITEM_MEGA_CRYSTAL = 914,           // Méga-Évolution définitive (consomme la Méga-Gemme)
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

@@ -1180,6 +1180,18 @@ void ItemUseOutOfBattle_IsaacGlassCrown(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_IsaacTeamworkTotem(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacTeamworkTotem;
+    SetUpItemUseCallback(taskId);
+}
+
+void ItemUseOutOfBattle_IsaacMegaCrystal(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacMegaCrystal;
+    SetUpItemUseCallback(taskId);
+}
+
 void ItemUseOutOfBattle_IsaacCursedDie(u8 taskId)
 {
     gItemUseCB = ItemUseCB_IsaacCursedDie;
