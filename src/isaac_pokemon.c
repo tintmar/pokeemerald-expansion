@@ -712,21 +712,47 @@ bool8 IsaacUseTeamworkTotem(struct Pokemon *mon)
     return TRUE;
 }
 
+// Combattants dont le Totem d'Entraide est actif (un bit par combattant) : il faut le réappliquer quand le jeu recalcule
+// leurs stats (Méga-Évolution, changement de forme...)
+static EWRAM_DATA u8 sIsaacTotemActiveBattlers = 0;
+
+// +ISAAC_TEAMWORK_TOTEM_PCT % à la meilleure stat de combat (hors PV) du combattant
+static void ApplyTotemBoost(enum BattlerId battler)
+{
+    u16 *stats[] = { &gBattleMons[battler].attack, &gBattleMons[battler].defense, &gBattleMons[battler].speed,
+                     &gBattleMons[battler].spAttack, &gBattleMons[battler].spDefense };
+    u32 best = 0, i;
+
+    for (i = 1; i < ARRAY_COUNT(stats); i++)
+        if (*stats[i] > *stats[best])
+            best = i;
+    *stats[best] = *stats[best] * (100 + ISAAC_TEAMWORK_TOTEM_PCT) / 100;
+}
+
 // Entrée en combat en relais (pas au début du combat) : avec le Totem d'Entraide, sa meilleure stat (hors PV) prend
 // +ISAAC_TEAMWORK_TOTEM_PCT % jusqu'à ce qu'il sorte
 void IsaacApplySwitchInTotem(enum BattlerId battler)
 {
     struct Pokemon *mon = GetBattlerMon(battler);
-    u16 *stats[] = { &gBattleMons[battler].attack, &gBattleMons[battler].defense, &gBattleMons[battler].speed,
-                     &gBattleMons[battler].spAttack, &gBattleMons[battler].spDefense };
-    u32 best = 0, i;
 
+    sIsaacTotemActiveBattlers &= ~(1 << battler);
     if (mon == NULL || !IsPlayerPartyMon(mon) || GetMonData(mon, ISAAC_BRILLIANT_DATA) != ISAAC_TEAMWORK_TOTEM)
         return;
-    for (i = 1; i < ARRAY_COUNT(stats); i++)
-        if (*stats[i] > *stats[best])
-            best = i;
-    *stats[best] = *stats[best] * (100 + ISAAC_TEAMWORK_TOTEM_PCT) / 100;
+    sIsaacTotemActiveBattlers |= 1 << battler;
+    ApplyTotemBoost(battler);
+}
+
+// Début du combat : le Pokémon en tête n'entre pas en relais, pas de Totem actif
+void IsaacClearSwitchInTotem(enum BattlerId battler)
+{
+    sIsaacTotemActiveBattlers &= ~(1 << battler);
+}
+
+// Stats de combat recalculées depuis le Pokémon (RecalcBattlerStats) : le Totem actif s'applique de nouveau
+void IsaacReapplySwitchInTotem(enum BattlerId battler)
+{
+    if (sIsaacTotemActiveBattlers & (1 << battler))
+        ApplyTotemBoost(battler);
 }
 
 // Méga-Évolution que le Pokémon peut faire pour toujours : sa Méga-Gemme, tenue par lui ou dans le sac (*held : tenue),

@@ -9635,6 +9635,7 @@ void RecalcBattlerStats(enum BattlerId battler, struct Pokemon *mon, bool32 isDy
     else
         CopyMonLevelAndBaseStatsToBattleMon(battler, mon, TRUE);
     CopyMonAbilityAndTypesToBattleMon(battler, mon);
+    IsaacReapplySwitchInTotem(battler);  // donjon : le Totem d'Entraide reste actif après une Méga-Évolution
 }
 
 u32 GetBattlerGender(enum BattlerId battler)
