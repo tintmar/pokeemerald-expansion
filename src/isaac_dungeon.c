@@ -1258,9 +1258,9 @@ static const struct IsaacTrainerParty sRoomTrainerParties[] =
     { 2,  60, 0, 0, FALSE, 0, 0 },  // étage 1 : set 1, catégories 1-2, pas d'as
     { 2, 100, 1, 1, FALSE, 0, 0 },  // étage 2 : set 2, catégories 2-3
     { 3,  60, 1, 1, FALSE, 1, 0 },  // étage 3 : set 2, catégories 3-4
-    { 3,  75, 1, 1, FALSE, 1, 0 },  // étage 4 : set 2, catégories 4-5
+    { 3, 100, 1, 1, FALSE, 1, 0 },  // étage 4 : set 2, catégories 4-5
     { 4,  50, 2, 2, FALSE, 1, 0 },  // étage 5 : set 3, catégories 5-6
-    { 4,  70, 2, 2, FALSE, 1, 0 },  // étage 6 : set 3, catégories 6-7
+    { 4, 100, 2, 2, FALSE, 1, 0 },  // étage 6 : set 3, catégories 6-7
 };
 
 // Équipe du boss selon l'étage. Principe : le boss garde toujours un cran d'avance sur les dresseurs
