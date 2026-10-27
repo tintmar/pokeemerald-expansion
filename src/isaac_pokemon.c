@@ -1,6 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_message.h"
+#include "battle_z_move.h"
 #include "data.h"
 #include "event_data.h"
 #include "item.h"
@@ -752,10 +753,13 @@ static bool8 IncreaseMonEvs(struct Pokemon *mon)
 }
 
 // Tier d'une attaque pour la moyenne du Pokémon (sIsaacMoveTiers) : 0 pour une attaque situationnelle ou sans tier
-// (ignorée)
+// (ignorée) ; une attaque Z (CT Z) compte comme une attaque de tier 4
 static u32 GetMoveTierValue(u16 move)
 {
     u32 tier = (move < MOVES_COUNT) ? sIsaacMoveTiers[move] : 0;
+
+    if (IsZMove(move))
+        return 4;
 
     return (tier == ISAAC_MOVE_TIER_SITUATIONAL) ? 0 : tier;
 }
