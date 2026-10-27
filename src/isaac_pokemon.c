@@ -574,6 +574,23 @@ bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat)
     return TRUE;
 }
 
+// L'objet donne-t-il le boost d'un Pokémon (un seul par Pokémon, voir IsaacHasBoost) ?
+bool8 IsaacIsBoostItem(u16 item)
+{
+    return (item >= ITEM_BOOST_HP && item < ITEM_BOOST_HP + NUM_STATS) || item == ITEM_OMNIBOOST
+        || item == ITEM_BRILLIANT_STONE || item == ITEM_BLOOD_PACT || item == ITEM_GLASS_CROWN
+        || item == ITEM_TEAMWORK_TOTEM;
+}
+
+// Menu de l'équipe, objet de boost : le Pokémon peut-il le recevoir (pas un Œuf, pas déjà de boost ; la Couronne de
+// Verre, pas sur un Pokémon K.O.) ?
+bool8 IsaacCanReceiveBoost(struct Pokemon *mon, u16 item)
+{
+    if (GetMonData(mon, MON_DATA_IS_EGG) || IsaacHasBoost(mon))
+        return FALSE;
+    return item != ITEM_GLASS_CROWN || GetMonData(mon, MON_DATA_HP) != 0;
+}
+
 // Nom du boost du Pokémon pour l'écran de résumé (emplacement BOOST, à la place des rubans), NULL s'il n'en a pas
 const u8 *IsaacGetBoostName(struct Pokemon *mon)
 {

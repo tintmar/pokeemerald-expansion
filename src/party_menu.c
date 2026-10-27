@@ -1177,6 +1177,13 @@ static bool8 DisplayPartyPokemonDataForMoveTutorOrEvolutionItem(u8 slot)
         if (gPartyMenu.action != PARTY_ACTION_USE_ITEM)
             return FALSE;
 
+        // Donjon : objet de boost, APTE / PAS APTE comme une CT (un seul boost par Pokémon)
+        if (IsaacIsBoostItem(item))
+        {
+            DisplayPartyPokemonDescriptionData(slot, IsaacCanReceiveBoost(currentPokemon, item) ? PARTYBOX_DESC_ABLE_2 : PARTYBOX_DESC_NOT_ABLE_2);
+            return TRUE;
+        }
+
         switch (CheckIfItemIsTMHMOrEvolutionStone(item))
         {
         default:
