@@ -21,6 +21,8 @@ For a given species, a move is considered teachable to that species if:
     2. The species rule defined by their teachingType in the species_info folder
 """
 
+from __future__ import annotations  # annotations dict[...] / list[...] : Python 3.8
+
 from itertools import chain
 from textwrap import dedent
 

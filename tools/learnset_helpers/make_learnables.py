@@ -8,6 +8,8 @@ is meant to be run to generate a pre-processed store of data that should not cha
 thus, it can safely be pre-computed in order to speed up incremental builds for end-users.
 """
 
+from __future__ import annotations  # annotations dict[...] / list[...] : Python 3.8
+
 from functools import reduce
 
 import json
