@@ -2430,7 +2430,7 @@ static void SetUpCaptureMons(s32 x, s32 y)
 //    Total Soin ;
 //  - jusqu'à l'étage SHOP_DISCOUNT_CARD_MAX_FLOOR, la Carte de Réduction (si on ne l'a pas déjà) : -SHOP_DISCOUNT_PCT %
 //    sur tous les autres articles jusqu'à la fin de la descente ;
-//  - trois objets de combat de sShopBattleItems et trois CT de sShopTMs, tous différents (tirés pour la salle), à
+//  - trois objets de combat (PickBattleItem) et trois CT de sShopTMs, tous différents (tirés pour la salle), à
 //    SHOP_HELD_TM_PRICE_PCT % de leur prix ; un objet spécial (IsaacPickSpecialItem), et rarement un second, différent.
 // Chacun n'est vraiment en vente qu'avec une chance qui dépend de l'article et de l'étage (sShopSlotPresentPct, tirée
 // pour l'étage, IsShopSlotPresent), en un seul exemplaire.
@@ -2460,8 +2460,8 @@ enum
 };
 STATIC_ASSERT(SHOP_SLOT_DISCOUNT_CARD + 1 == SHOP_LIMITED_SLOTS, IsaacShopSlotCount);
 
-// Très bons objets de combat
-static const u16 sShopBattleItems[] =
+// Objets de combat de tier 1 : très bons objets (boutique et butin rare des dresseurs avec le tier 2, salle secrète seul)
+static const u16 sBattleItemsTier1[] =
 {
     ITEM_CHOICE_BAND,
     ITEM_CHOICE_SPECS,
@@ -2475,6 +2475,187 @@ static const u16 sShopBattleItems[] =
     ITEM_EXPERT_BELT,
     ITEM_LUM_BERRY,
 };
+
+// Objets de combat de tier 2 : utiles, mais moins décisifs que ceux du tier 1
+static const u16 sBattleItemsTier2[] =
+{
+    ITEM_MUSCLE_BAND,
+    ITEM_WISE_GLASSES,
+    ITEM_METRONOME,
+    ITEM_SITRUS_BERRY,
+    ITEM_SHELL_BELL,
+    ITEM_AIR_BALLOON,
+    ITEM_QUICK_CLAW,
+    ITEM_COVERT_CLOAK,
+};
+
+// Objets de combat situationnels : très bons seulement avec le bon Pokémon ou le bon set, donc proposés seulement si
+// un Pokémon de l'équipe du joueur en profite (IsSituationalItemUseful)
+static const u16 sBattleItemsSituational[] =
+{
+    ITEM_FLAME_ORB,
+    ITEM_TOXIC_ORB,
+    ITEM_BLACK_SLUDGE,
+    ITEM_WHITE_HERB,
+    ITEM_POWER_HERB,
+    ITEM_LIGHT_CLAY,
+    ITEM_THROAT_SPRAY,
+};
+
+// Objet de combat proposé (boutique, butin rare des dresseurs) : avec BATTLE_ITEM_SITUATIONAL_PCT % de chances un objet
+// situationnel utile à l'équipe s'il y en a, sinon un objet de tier 1 avec BATTLE_ITEM_TIER1_PCT_FLOOR_1 % de chances
+// à l'étage 1, BATTLE_ITEM_TIER1_PCT_PER_FLOOR % de plus par étage (100 % au dernier), sinon de tier 2
+#define BATTLE_ITEM_SITUATIONAL_PCT       30
+#define BATTLE_ITEM_TIER1_PCT_FLOOR_1     50
+#define BATTLE_ITEM_TIER1_PCT_PER_FLOOR   10
+
+// Attaques qui baissent les stats du lanceur (Herbe Blanche)
+static const u16 sSelfDropMoves[] =
+{
+    MOVE_CLOSE_COMBAT, MOVE_SUPERPOWER, MOVE_DRACO_METEOR, MOVE_OVERHEAT, MOVE_LEAF_STORM, MOVE_PSYCHO_BOOST,
+    MOVE_FLEUR_CANNON, MOVE_SHELL_SMASH, MOVE_HAMMER_ARM, MOVE_ICE_HAMMER, MOVE_V_CREATE, MOVE_HEADLONG_RUSH,
+    MOVE_ARMOR_CANNON, MOVE_MAKE_IT_RAIN, MOVE_SPIN_OUT, MOVE_DRAGON_ASCENT, MOVE_CLANGING_SCALES,
+};
+
+// Attaques en deux tours (Herbe Pouvoir)
+static const u16 sTwoTurnMoves[] =
+{
+    MOVE_SOLAR_BEAM, MOVE_SOLAR_BLADE, MOVE_SKY_ATTACK, MOVE_SKULL_BASH, MOVE_METEOR_BEAM, MOVE_ELECTRO_SHOT,
+    MOVE_GEOMANCY, MOVE_RAZOR_WIND, MOVE_FREEZE_SHOCK, MOVE_ICE_BURN, MOVE_FLY, MOVE_DIG, MOVE_DIVE, MOVE_BOUNCE,
+    MOVE_PHANTOM_FORCE, MOVE_SHADOW_FORCE,
+};
+
+static bool8 MonKnowsMoveFrom(struct Pokemon *mon, const u16 *moves, u32 count)
+{
+    u32 i;
+
+    for (i = 0; i < count; i++)
+        if (MonKnowsMove(mon, moves[i]))
+            return TRUE;
+    return FALSE;
+}
+
+static bool8 MonKnowsSoundMove(struct Pokemon *mon)
+{
+    u32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = GetMonData(mon, MON_DATA_MOVE1 + i);
+
+        if (move != MOVE_NONE && move < MOVES_COUNT && IsSoundMove(move))
+            return TRUE;
+    }
+    return FALSE;
+}
+
+// L'objet situationnel profite-t-il à ce Pokémon ?
+static bool8 IsSituationalItemUseful(struct Pokemon *mon, u16 item)
+{
+    enum Ability ability = GetMonAbility(mon);
+    enum Type types[2];
+
+    switch (item)
+    {
+    case ITEM_FLAME_ORB:  // Cran, Pied Véloce, Écaille Spéciale, Rage Brûlure
+        return ability == ABILITY_GUTS || ability == ABILITY_QUICK_FEET || ability == ABILITY_MARVEL_SCALE
+            || ability == ABILITY_FLARE_BOOST;
+    case ITEM_TOXIC_ORB:  // Soin Poison, Cran, Pied Véloce, Écaille Spéciale, Rage Poison
+        return ability == ABILITY_POISON_HEAL || ability == ABILITY_GUTS || ability == ABILITY_QUICK_FEET
+            || ability == ABILITY_MARVEL_SCALE || ability == ABILITY_TOXIC_BOOST;
+    case ITEM_BLACK_SLUDGE:  // un Pokémon de type Poison (Gemme de Type comprise)
+        IsaacGetMonTypes(mon, types);
+        return types[0] == TYPE_POISON || types[1] == TYPE_POISON;
+    case ITEM_WHITE_HERB:
+        return MonKnowsMoveFrom(mon, sSelfDropMoves, ARRAY_COUNT(sSelfDropMoves));
+    case ITEM_POWER_HERB:
+        return MonKnowsMoveFrom(mon, sTwoTurnMoves, ARRAY_COUNT(sTwoTurnMoves));
+    case ITEM_LIGHT_CLAY:  // les deux écrans, ou Voile Aurore
+        return (MonKnowsMove(mon, MOVE_REFLECT) && MonKnowsMove(mon, MOVE_LIGHT_SCREEN)) || MonKnowsMove(mon, MOVE_AURORA_VEIL);
+    case ITEM_THROAT_SPRAY:
+        return MonKnowsSoundMove(mon);
+    }
+    return FALSE;
+}
+
+// Objets situationnels utiles à l'équipe du joueur (au moins un Pokémon en profite) : un bit par objet de
+// sBattleItemsSituational
+static u32 GetUsefulSituationalMask(void)
+{
+    u32 mask = 0, i, slot;
+
+    for (i = 0; i < ARRAY_COUNT(sBattleItemsSituational); i++)
+    {
+        for (slot = 0; slot < gPartiesCount[B_TRAINER_PLAYER]; slot++)
+        {
+            struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][slot];
+
+            if (!GetMonData(mon, MON_DATA_IS_EGG) && IsSituationalItemUseful(mon, sBattleItemsSituational[i]))
+            {
+                mask |= 1 << i;
+                break;
+            }
+        }
+    }
+    return mask;
+}
+
+// Boutique : les objets situationnels utiles à l'équipe lors de la première visite de l'étage, pour que ses articles
+// ne changent plus ensuite (VAR_ISAAC_SHOP_SITUATIONAL, remise à zéro à chaque étage)
+#define SHOP_SITUATIONAL_LOCKED  (1 << 15)
+STATIC_ASSERT(ARRAY_COUNT(sBattleItemsSituational) < 15, IsaacShopSituationalMaskFits);
+
+static u32 GetShopSituationalMask(void)
+{
+    u32 value = VarGet(VAR_ISAAC_SHOP_SITUATIONAL);
+
+    if (!(value & SHOP_SITUATIONAL_LOCKED))
+    {
+        value = GetUsefulSituationalMask() | SHOP_SITUATIONAL_LOCKED;
+        VarSet(VAR_ISAAC_SHOP_SITUATIONAL, value);
+    }
+    return value & ~SHOP_SITUATIONAL_LOCKED;
+}
+
+// mask : objets situationnels possibles (GetUsefulSituationalMask)
+static u16 PickBattleItem(u32 roll, u32 mask)
+{
+    u16 situational[ARRAY_COUNT(sBattleItemsSituational)];
+    u32 count = 0, i;
+
+    for (i = 0; i < ARRAY_COUNT(sBattleItemsSituational); i++)
+        if (mask & (1 << i))
+            situational[count++] = sBattleItemsSituational[i];
+    u32 floor = max(VarGet(VAR_ISAAC_FLOOR), 1u);
+    u32 tier1Pct = min(BATTLE_ITEM_TIER1_PCT_FLOOR_1 + BATTLE_ITEM_TIER1_PCT_PER_FLOOR * (floor - 1), 100u);
+
+    if (count != 0 && roll % 100 < BATTLE_ITEM_SITUATIONAL_PCT)
+        return situational[(roll / 100) % count];
+    roll /= 100;
+    if (roll % 100 < tier1Pct)
+        return sBattleItemsTier1[(roll / 100) % ARRAY_COUNT(sBattleItemsTier1)];
+    return sBattleItemsTier2[(roll / 100) % ARRAY_COUNT(sBattleItemsTier2)];
+}
+
+// Objet de combat n° index (0 à 2) de la boutique : tous différents (quelques tirages de plus en cas de doublon)
+static u16 PickShopBattleItem(s32 x, s32 y, u32 index)
+{
+    u16 items[3];
+    u32 i, j, tries, mask = GetShopSituationalMask();
+
+    for (i = 0; i <= index && i < ARRAY_COUNT(items); i++)
+    {
+        for (tries = 0; tries < 16; tries++)
+        {
+            items[i] = PickBattleItem(RoomRandom(x, y, 0x5409 + i * 16 + tries), mask);
+            for (j = 0; j < i && items[j] != items[i]; j++)
+                ;
+            if (j == i)
+                break;
+        }
+    }
+    return items[min(index, (u32)ARRAY_COUNT(items) - 1)];
+}
 
 // Très bonnes CT (les CT51 et après viennent des générations suivantes, voir include/constants/tms_hms.h)
 static const u16 sShopTMs[] =
@@ -2530,7 +2711,7 @@ static u16 PickTrainerRareLoot(u32 roll)
         return IsaacPickSpecialItem(roll, FALSE);
     if (pick < 60)
         return PickGoodTM(roll);
-    return sShopBattleItems[roll % ARRAY_COUNT(sShopBattleItems)];
+    return PickBattleItem(roll, GetUsefulSituationalMask());
 }
 
 // Prix en dixièmes des gains d'un dresseur de l'étage
@@ -2596,10 +2777,8 @@ static u16 PickSecondShopSpecialItem(s32 x, s32 y)
 static u16 GetShopSlotItem(u32 slot)
 {
     s32 x, y;
-    u32 roll;
 
     GetCurrentCell(&x, &y);
-    roll = RoomRandom(x, y, 0x5409);
     switch (slot)
     {
     case SHOP_SLOT_MASTER_BALL:
@@ -2621,7 +2800,7 @@ static u16 GetShopSlotItem(u32 slot)
     case SHOP_SLOT_ITEM_1:
     case SHOP_SLOT_ITEM_2:
     case SHOP_SLOT_ITEM_3:  // trois objets différents
-        return PickDistinctShopItem(sShopBattleItems, ARRAY_COUNT(sShopBattleItems), roll, slot - SHOP_SLOT_ITEM_1);
+        return PickShopBattleItem(x, y, slot - SHOP_SLOT_ITEM_1);
     case SHOP_SLOT_TM_1:
     case SHOP_SLOT_TM_2:
     case SHOP_SLOT_TM_3:  // trois CT différentes
@@ -3387,7 +3566,7 @@ static void PickSecretRoomLoot(s32 x, s32 y)
     switch (entry)
     {
     case SECRET_LOOT_ITEM_AND_TM:
-        sLoot[sLootCount++] = sShopBattleItems[roll % ARRAY_COUNT(sShopBattleItems)];
+        sLoot[sLootCount++] = sBattleItemsTier1[roll % ARRAY_COUNT(sBattleItemsTier1)];
         sLoot[sLootCount++] = PickGoodTM(roll >> 8);
         break;
     case SECRET_LOOT_CURSED_DIE:
@@ -3608,6 +3787,7 @@ static void WarpToNewFloor(u32 floor)
     ClearVisited();
     ClearClearedRooms();
     FlagClear(FLAG_ISAAC_MASTER_BALL_GIVEN);
+    VarSet(VAR_ISAAC_SHOP_SITUATIONAL, 0);  // la boutique du nouvel étage sera figée à sa première visite
     for (u32 i = 0; i < CAPTURE_MAX_MONS; i++)
         FlagClear(FLAG_ISAAC_CAPTURE_DONE_FIRST + i);
     for (u32 i = 0; i < SHOP_LIMITED_SLOTS; i++)
