@@ -30,8 +30,8 @@ Variants: A = Stall (Wish, Soft-Boiled) / B = Utility (Serene Grace, screens, Na
        Togepi @ Oran Berry   |   Ability: Serene Grace   |   Nature: Hardy
        Moves: Pound [T1]  /  Sweet Kiss [T1]  /  Growl [T1]  /  Draining Kiss [T2]
   [1B] Egg baby
-       Togepi @ (no item)   |   Ability: Hustle   |   Nature: Docile
-       Moves: Peck [T1]  /  Pound [T1]  /  Defense Curl [T1]  /  Headbutt [T2]
+       Togepi @ (no item)   |   Ability: Serene Grace   |   Nature: Docile
+       Moves: Fairy Wind [T1]  /  Mud-Slap [T1]  /  Defense Curl [T1]  /  Swift [T2]
   [2A] Wishing egg
        Togepi @ Sitrus Berry   |   Ability: Serene Grace   |   Nature: Bold
        Moves: Wish [Sit]  /  Protect [Sit]  /  Draining Kiss [T2]  /  Yawn [Sit]
@@ -328,13 +328,13 @@ Variants: A = Physical / B = Special (Solar Power)
 ----------------------------------------------------------------------------------------------------
   [1A] Flame lizard
        Charmander @ (no item)   |   Ability: Blaze   |   Nature: Hardy
-       Moves: Scratch [T1]  /  Ember [T1]  /  Growl [T1]  /  Metal Claw [T1]
+       Moves: Swift [T2]  /  Ember [T1]  /  Growl [T1]  /  Mud-Slap [T1]
   [1B] Sunny lizard
        Charmander @ Oran Berry   |   Ability: Solar Power   |   Nature: Docile
        Moves: Ember [T1]  /  Smokescreen [T1]  /  Fire Spin [T1]  /  Dragon Breath [T2]
   [2A] Fanged lizard
-       Charmander @ Charcoal   |   Ability: Blaze   |   Nature: Lonely
-       Moves: Fire Fang [T2]  /  Bite [T2]  /  Flame Charge [T2]  /  Fire Punch [T3]
+       Charmander @ Charcoal   |   Ability: Blaze   |   Nature: Mild
+       Moves: Swift [T2]  /  Ancient Power [T2]  /  Dragon Breath [T2]  /  Heat Wave [T3]
   [2B] Flame caster
        Charmander @ Sitrus Berry   |   Ability: Solar Power   |   Nature: Mild
        Moves: Flame Burst [T2]  /  Dragon Breath [T2]  /  Air Cutter [T2]  /  Heat Wave [T3]
@@ -688,13 +688,13 @@ Variants: A = Physical (Dragon Dance) / B = Special (Solar Power)
 ----------------------------------------------------------------------------------------------------
   [1A] Flame claw
        Charmeleon @ (no item)   |   Ability: Blaze   |   Nature: Hardy
-       Moves: Ember [T1]  /  Scratch [T1]  /  Smokescreen [T1]  /  Fire Fang [T2]
+       Moves: Ember [T1]  /  Mud-Slap [T1]  /  Smokescreen [T1]  /  Swift [T2]
   [1B] Sunny claw
        Charmeleon @ Oran Berry   |   Ability: Solar Power   |   Nature: Docile
        Moves: Metal Claw [T1]  /  Growl [T1]  /  Fire Spin [T1]  /  Flame Burst [T2]
   [2A] Tempered claw
-       Charmeleon @ Charcoal   |   Ability: Blaze   |   Nature: Lonely
-       Moves: Fire Fang [T2]  /  Breaking Swipe [T2]  /  Bite [T2]  /  Temper Flare [T3]
+       Charmeleon @ Charcoal   |   Ability: Blaze   |   Nature: Mild
+       Moves: Swift [T2]  /  Dragon Breath [T2]  /  Ancient Power [T2]  /  Heat Wave [T3]
   [2B] Flame caster
        Charmeleon @ Sitrus Berry   |   Ability: Solar Power   |   Nature: Mild
        Moves: Incinerate [T2]  /  Dragon Breath [T2]  /  Ancient Power [T2]  /  Heat Wave [T3]
@@ -1141,7 +1141,7 @@ Variants: A = Defensive (Roost, Will-O-Wisp) / B = Offensive (Dragon Dance)
        Moves: Peck [T1]  /  Twister [T1]  /  Growl [T1]  /  Dragon Breath [T2]
   [1B] Singing dragon
        Altaria @ (no item)   |   Ability: Cloud Nine   |   Nature: Docile
-       Moves: Peck [T1]  /  Disarming Voice [T1]  /  Astonish [T1]  /  Sing [T2]
+       Moves: Twister [T1]  /  Disarming Voice [T1]  /  Fire Spin [T1]  /  Sing [T2]
   [2A] Burning cloud
        Altaria @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Bold
        Moves: Roost [Sit]  /  Will-O-Wisp [Sit]  /  Dragon Breath [T2]  /  Defog [Sit]
@@ -1212,8 +1212,8 @@ Variants: A = Unburden attacker / B = Bulky support (Strength Sap, Will-O-Wisp)
        Drifblim @ Leftovers   |   Ability: Aftermath   |   Nature: Bold
        Moves: Strength Sap [Sit]  /  Will-O-Wisp [Sit]  /  Hex [T3]  /  Defog [Sit]
   [3B] Acrobatics blimp
-       Drifblim @ Sitrus Berry   |   Ability: Unburden   |   Nature: Adamant
-       Moves: Substitute [Sit]  /  Return [T4]  /  Phantom Force [T3]  /  Temper Flare [T3]
+       Drifblim @ Sitrus Berry   |   Ability: Aftermath   |   Nature: Modest
+       Moves: Substitute [Sit]  /  Air Slash [T4]  /  Shadow Ball [T4]  /  Mystical Fire [T3]
   [4A] Bulky blimp
        Drifblim @ Rocky Helmet   |   Ability: Aftermath   |   Nature: Calm
        Moves: Strength Sap [Sit]  /  Will-O-Wisp [Sit]  /  Shadow Ball [T4]  /  Tailwind [Sit]
@@ -1378,13 +1378,13 @@ Variants: A = Physical (Dragon Dance) / B = Special (Solar Power)
 ----------------------------------------------------------------------------------------------------
   [1A] Flame dragon
        Charizard @ (no item)   |   Ability: Blaze   |   Nature: Hardy
-       Moves: Ember [T1]  /  Scratch [T1]  /  Twister [T1]  /  Wing Attack [T2]
+       Moves: Ember [T1]  /  Mud-Slap [T1]  /  Twister [T1]  /  Air Cutter [T2]
   [1B] Sunny dragon
        Charizard @ Oran Berry   |   Ability: Solar Power   |   Nature: Docile
        Moves: Fire Spin [T1]  /  Growl [T1]  /  Smokescreen [T1]  /  Air Cutter [T2]
   [2A] Kicking dragon
-       Charizard @ Charcoal   |   Ability: Blaze   |   Nature: Lonely
-       Moves: Flame Charge [T2]  /  Wing Attack [T2]  /  Breaking Swipe [T2]  /  Blaze Kick [T3]
+       Charizard @ Charcoal   |   Ability: Blaze   |   Nature: Mild
+       Moves: Ancient Power [T2]  /  Air Cutter [T2]  /  Dragon Breath [T2]  /  Heat Wave [T3]
   [2B] Inferno caster
        Charizard @ Sitrus Berry   |   Ability: Solar Power   |   Nature: Mild
        Moves: Inferno [T2]  /  Air Cutter [T2]  /  Ancient Power [T2]  /  Mystical Fire [T3]
@@ -1648,7 +1648,7 @@ Variants: A = Physical (Dragon Dance) / B = Special and Choice
 ----------------------------------------------------------------------------------------------------
   [1A] Sky high
        Rayquaza @ (no item)   |   Ability: Air Lock   |   Nature: Hardy
-       Moves: Twister [T1]  /  Bind [T1]  /  Rock Smash [T1]  /  Breaking Swipe [T2]
+       Moves: Twister [T1]  /  Whirlpool [T1]  /  Mud-Slap [T1]  /  Swift [T2]
   [1B] Ozone dragon
        Rayquaza @ Oran Berry   |   Ability: Air Lock   |   Nature: Docile
        Moves: Whirlpool [T1]  /  Twister [T1]  /  Confide [T1]  /  Ancient Power [T2]
@@ -1668,8 +1668,8 @@ Variants: A = Physical (Dragon Dance) / B = Special and Choice
        Rayquaza @ Life Orb   |   Ability: Air Lock   |   Nature: Jolly
        Moves: Dragon Dance [T4]  /  Dragon Ascent [T4]  /  Outrage [T4]  /  Extreme Speed [T4]
   [4B] Choice Band dragon
-       Rayquaza @ Choice Band   |   Ability: Air Lock   |   Nature: Adamant
-       Moves: Dragon Ascent [T4]  /  Outrage [T4]  /  Extreme Speed [T4]  /  Earthquake [T4]
+       Rayquaza @ Choice Specs   |   Ability: Air Lock   |   Nature: Modest
+       Moves: Hurricane [T4]  /  Dragon Pulse [T4]  /  Hyper Voice [T4]  /  Earth Power [T4]
 
 ====================================================================================================
 #644 ZEKROM  —  Dragon/Electric  —  BST 680  —  Category 9

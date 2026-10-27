@@ -27,14 +27,14 @@ Stats 50/20/40/20/40/20  |  Profile: Offensive (physical)
 Variants: A = Huge Power attacker / B = Support (Thick Fat, Sing, Encore)
 ----------------------------------------------------------------------------------------------------
   [1A] Polka-dot ball
-       Azurill @ (no item)   |   Ability: Huge Power   |   Nature: Hardy
-       Moves: Water Gun [T1]  /  Tail Whip [T1]  /  Defense Curl [T1]  /  Slam [T2]
+       Azurill @ (no item)   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Water Gun [T1]  /  Tail Whip [T1]  /  Defense Curl [T1]  /  Swift [T2]
   [1B] Bouncy ball
        Azurill @ Oran Berry   |   Ability: Thick Fat   |   Nature: Docile
        Moves: Bubble [T1]  /  Mud-Slap [T1]  /  Supersonic [T1]  /  Draining Kiss [T2]
   [2A] Huge Power ball
-       Azurill @ Silk Scarf   |   Ability: Huge Power   |   Nature: Lonely
-       Moves: Slam [T2]  /  Brutal Swing [T2]  /  Covet [T2]  /  Bounce [T3]
+       Azurill @ Silk Scarf   |   Ability: Thick Fat   |   Nature: Mild
+       Moves: Draining Kiss [T2]  /  Bubble Beam [T2]  /  Covet [T2]  /  Mud Shot [T2]
   [2B] Singing ball
        Azurill @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Calm
        Moves: Sing [T2]  /  Charm [T2]  /  Water Pulse [T2]  /  Draining Kiss [T2]
@@ -45,8 +45,8 @@ Variants: A = Huge Power attacker / B = Support (Thick Fat, Sing, Encore)
        Azurill @ Leftovers   |   Ability: Thick Fat   |   Nature: Bold
        Moves: Encore [Sit]  /  Perish Song [Sit]  /  Alluring Voice [T3]  /  Protect [Sit]
   [4A] Choice Band ball
-       Azurill @ Choice Band   |   Ability: Huge Power   |   Nature: Adamant
-       Moves: Double-Edge [T4]  /  Waterfall [T4]  /  Aqua Jet [T4]  /  Knock Off [T4]
+       Azurill @ Choice Specs   |   Ability: Thick Fat   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Alluring Voice [T3]  /  Surf [T4]  /  Knock Off [T4]
   [4B] Belly Drum ball
        Azurill @ Sitrus Berry   |   Ability: Huge Power   |   Nature: Adamant
        Moves: Belly Drum [T4]  /  Aqua Jet [T4]  /  Double-Edge [T4]  /  Knock Off [T4]
@@ -147,14 +147,14 @@ Stats 70/20/50/20/50/40  |  Profile: Offensive (physical)
 Variants: A = Huge Power attacker / B = Special and support
 ----------------------------------------------------------------------------------------------------
   [1A] Aqua mouse
-       Marill @ (no item)   |   Ability: Huge Power   |   Nature: Hardy
-       Moves: Tackle [T1]  /  Rock Smash [T1]  /  Tail Whip [T1]  /  Headbutt [T2]
+       Marill @ (no item)   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Bubble [T1]  /  Disarming Voice [T1]  /  Tail Whip [T1]  /  Swift [T2]
   [1B] Bubbly mouse
        Marill @ Oran Berry   |   Ability: Thick Fat   |   Nature: Docile
        Moves: Bubble [T1]  /  Disarming Voice [T1]  /  Defense Curl [T1]  /  Water Pulse [T2]
   [2A] Huge Power mouse
-       Marill @ Mystic Water   |   Ability: Huge Power   |   Nature: Lonely
-       Moves: Power-Up Punch [T2]  /  Headbutt [T2]  /  Bulldoze [T2]  /  Aqua Tail [T3]
+       Marill @ Mystic Water   |   Ability: Thick Fat   |   Nature: Mild
+       Moves: Draining Kiss [T2]  /  Swift [T2]  /  Mud Shot [T2]  /  Muddy Water [T3]
   [2B] Singing mouse
        Marill @ Sitrus Berry   |   Ability: Sap Sipper   |   Nature: Mild
        Moves: Bubble Beam [T2]  /  Draining Kiss [T2]  /  Icy Wind [T2]  /  Sing [T2]
@@ -168,8 +168,8 @@ Variants: A = Huge Power attacker / B = Special and support
        Marill @ Sitrus Berry   |   Ability: Huge Power   |   Nature: Adamant
        Moves: Belly Drum [T4]  /  Aqua Jet [T4]  /  Play Rough [T4]  /  Liquidation [T4]
   [4B] Choice Band mouse
-       Marill @ Choice Band   |   Ability: Huge Power   |   Nature: Adamant
-       Moves: Liquidation [T4]  /  Play Rough [T4]  /  Aqua Jet [T4]  /  Knock Off [T4]
+       Marill @ Choice Specs   |   Ability: Thick Fat   |   Nature: Modest
+       Moves: Ice Beam [T4]  /  Alluring Voice [T3]  /  Surf [T4]  /  Knock Off [T4]
 
 ====================================================================================================
 #283 SURSKIT  —  Bug/Water  —  BST 269  —  Category 1
@@ -208,13 +208,13 @@ Variants: A = Physical (Dragon Dance) / B = Special (Hydration rain)
 ----------------------------------------------------------------------------------------------------
   [1A] Whisker fish
        Barboach @ (no item)   |   Ability: Oblivious   |   Nature: Hardy
-       Moves: Water Gun [T1]  /  Mud-Slap [T1]  /  Whirlpool [T1]  /  Spark [T2]
+       Moves: Water Gun [T1]  /  Mud-Slap [T1]  /  Whirlpool [T1]  /  Swift [T2]
   [1B] Wary fish
        Barboach @ Oran Berry   |   Ability: Anticipation   |   Nature: Docile
        Moves: Whirlpool [T1]  /  Mud-Slap [T1]  /  Confide [T1]  /  Water Pulse [T2]
   [2A] Brawling fish
-       Barboach @ Soft Sand   |   Ability: Oblivious   |   Nature: Lonely
-       Moves: Bulldoze [T2]  /  Spark [T2]  /  Headbutt [T2]  /  Aqua Tail [T3]
+       Barboach @ Soft Sand   |   Ability: Oblivious   |   Nature: Mild
+       Moves: Mud Bomb [T2]  /  Icy Wind [T2]  /  Swift [T2]  /  Muddy Water [T3]
   [2B] Muddy caster
        Barboach @ Sitrus Berry   |   Ability: Hydration   |   Nature: Mild
        Moves: Mud Bomb [T2]  /  Water Pulse [T2]  /  Icy Wind [T2]  /  Muddy Water [T3]
@@ -297,14 +297,14 @@ Stats 35/65/35/65/35/65  |  Profile: Mixed attacker
 Variants: A = Physical (Hustle) / B = Special (Sniper)
 ----------------------------------------------------------------------------------------------------
   [1A] Jet fish
-       Remoraid @ (no item)   |   Ability: Hustle   |   Nature: Hardy
-       Moves: Water Gun [T1]  /  Mud-Slap [T1]  /  Supersonic [T1]  /  Smack Down [T2]
+       Remoraid @ (no item)   |   Ability: Sniper   |   Nature: Hardy
+       Moves: Water Gun [T1]  /  Mud-Slap [T1]  /  Supersonic [T1]  /  Aurora Beam [T2]
   [1B] Sniping fish
        Remoraid @ Oran Berry   |   Ability: Sniper   |   Nature: Docile
        Moves: Water Gun [T1]  /  Focus Energy [T1]  /  Whirlpool [T1]  /  Aurora Beam [T2]
   [2A] Hustle fish
-       Remoraid @ Hard Stone   |   Ability: Hustle   |   Nature: Lonely
-       Moves: Smack Down [T2]  /  Thief [T2]  /  Flail [T2]  /  Rock Blast [T3]
+       Remoraid @ Hard Stone   |   Ability: Sniper   |   Nature: Mild
+       Moves: Bubble Beam [T2]  /  Thief [T2]  /  Swift [T2]  /  Signal Beam [T3]
   [2B] Ink caster
        Remoraid @ Scope Lens   |   Ability: Sniper   |   Nature: Rash
        Moves: Octazooka [T2]  /  Aurora Beam [T2]  /  Charge Beam [T2]  /  Incinerate [T2]
@@ -315,8 +315,8 @@ Variants: A = Physical (Hustle) / B = Special (Sniper)
        Remoraid @ Wise Glasses   |   Ability: Sniper   |   Nature: Modest
        Moves: Brine [T3]  /  Signal Beam [T3]  /  Flamethrower [T4]  /  Focus Energy [T1]
   [4A] Choice Band fish
-       Remoraid @ Choice Band   |   Ability: Hustle   |   Nature: Adamant
-       Moves: Waterfall [T4]  /  Gunk Shot [T4]  /  Rock Blast [T3]  /  Seed Bomb [T3]
+       Remoraid @ Choice Specs   |   Ability: Sniper   |   Nature: Modest
+       Moves: Surf [T4]  /  Fire Blast [T4]  /  Ice Beam [T4]  /  Psychic [T4]
   [4B] Choice Specs fish
        Remoraid @ Choice Specs   |   Ability: Sniper   |   Nature: Modest
        Moves: Hydro Pump [T4]  /  Fire Blast [T4]  /  Ice Beam [T4]  /  Psychic [T4]
@@ -559,7 +559,7 @@ Variants: A = Pure Stall (Toxic) / B = Defensive with utility (Rapid Spin, Haze)
        Moves: Scald [T4]  /  Toxic [Sit]  /  Haze [Sit]  /  Protect [Sit]
   [4B] Spinning wall
        Tentacool @ Rocky Helmet   |   Ability: Liquid Ooze   |   Nature: Timid
-       Moves: Liquidation [T4]  /  Knock Off [T4]  /  Sludge Bomb [T4]  /  Haze [Sit]
+       Moves: Surf [T4]  /  Knock Off [T4]  /  Sludge Bomb [T4]  /  Haze [Sit]
 
 ====================================================================================================
 #366 CLAMPERL  —  Water  —  BST 345  —  Category 3
@@ -721,7 +721,7 @@ Variants: A = Defensive (Rapid Spin, Haze) / B = Offensive (physical Shell Smash
        Moves: Bubble [T1]  /  Withdraw [T1]  /  Tail Whip [T1]  /  Confusion [T1]
   [1B] Spinning turtle
        Wartortle @ (no item)   |   Ability: Torrent   |   Nature: Docile
-       Moves: Water Gun [T1]  /  Tackle [T1]  /  Mud-Slap [T1]  /  Rapid Spin [T2]
+       Moves: Water Gun [T1]  /  Confusion [T1]  /  Mud-Slap [T1]  /  Rapid Spin [T2]
   [2A] Haze turtle
        Wartortle @ Sitrus Berry   |   Ability: Rain Dish   |   Nature: Impish
        Moves: Rapid Spin [T2]  /  Flip Turn [T2]  /  Haze [Sit]  /  Toxic [Sit]
@@ -738,8 +738,8 @@ Variants: A = Defensive (Rapid Spin, Haze) / B = Offensive (physical Shell Smash
        Wartortle @ Leftovers   |   Ability: Rain Dish   |   Nature: Bold
        Moves: Scald [T4]  /  Rapid Spin [T2]  /  Haze [Sit]  /  Toxic [Sit]
   [4B] Shell Smash sweeper
-       Wartortle @ White Herb   |   Ability: Torrent   |   Nature: Adamant
-       Moves: Shell Smash [T4]  /  Liquidation [T4]  /  Ice Spinner [T3]  /  Aqua Jet [T4]
+       Wartortle @ White Herb   |   Ability: Torrent   |   Nature: Modest
+       Moves: Shell Smash [T4]  /  Dragon Pulse [T4]  /  Ice Beam [T4]  /  Surf [T4]
 
 ====================================================================================================
 #159 CROCONAW  —  Water  —  BST 405  —  Category 4
@@ -807,29 +807,29 @@ Stats 100/50/80/60/80/50  |  Profile: Offensive (physical)
 Variants: A = Huge Power attacker / B = Bulky support (Thick Fat)
 ----------------------------------------------------------------------------------------------------
   [1A] Aqua rabbit
-       Azumarill @ (no item)   |   Ability: Huge Power   |   Nature: Hardy
-       Moves: Tackle [T1]  /  Rock Smash [T1]  /  Defense Curl [T1]  /  Slam [T2]
+       Azumarill @ (no item)   |   Ability: Thick Fat   |   Nature: Hardy
+       Moves: Bubble [T1]  /  Disarming Voice [T1]  /  Defense Curl [T1]  /  Swift [T2]
   [1B] Bubbly rabbit
        Azumarill @ Oran Berry   |   Ability: Thick Fat   |   Nature: Docile
        Moves: Bubble [T1]  /  Water Gun [T1]  /  Supersonic [T1]  /  Draining Kiss [T2]
   [2A] Huge Power rabbit
-       Azumarill @ Fairy Feather   |   Ability: Huge Power   |   Nature: Lonely
-       Moves: Slam [T2]  /  Bulldoze [T2]  /  Power-Up Punch [T2]  /  Aqua Tail [T3]
+       Azumarill @ Fairy Feather   |   Ability: Thick Fat   |   Nature: Mild
+       Moves: Swift [T2]  /  Mud Shot [T2]  /  Draining Kiss [T2]  /  Muddy Water [T3]
   [2B] Charming rabbit
        Azumarill @ Sitrus Berry   |   Ability: Thick Fat   |   Nature: Calm
        Moves: Charm [T2]  /  Draining Kiss [T2]  /  Bubble Beam [T2]  /  Sing [T2]
   [3A] Aqua Jet rabbit
-       Azumarill @ Muscle Band   |   Ability: Huge Power   |   Nature: Adamant
-       Moves: Aqua Tail [T3]  /  Play Rough [T4]  /  Superpower [T3]  /  Aqua Jet [T4]
+       Azumarill @ Wise Glasses   |   Ability: Thick Fat   |   Nature: Modest
+       Moves: Grass Knot [T3]  /  Alluring Voice [T3]  /  Focus Blast [T4]  /  Surf [T4]
   [3B] Perish rabbit
        Azumarill @ Leftovers   |   Ability: Thick Fat   |   Nature: Calm
        Moves: Perish Song [Sit]  /  Protect [Sit]  /  Alluring Voice [T3]  /  Muddy Water [T3]
   [4A] Assault Vest rabbit
-       Azumarill @ Assault Vest   |   Ability: Huge Power   |   Nature: Adamant
-       Moves: Liquidation [T4]  /  Play Rough [T4]  /  Aqua Jet [T4]  /  Knock Off [T4]
+       Azumarill @ Assault Vest   |   Ability: Thick Fat   |   Nature: Modest
+       Moves: Ice Beam [T4]  /  Alluring Voice [T3]  /  Surf [T4]  /  Knock Off [T4]
   [4B] Physical attacker
-       Azumarill @ Life Orb   |   Ability: Huge Power   |   Nature: Adamant
-       Moves: Liquidation [T4]  /  Play Rough [T4]  /  Aqua Jet [T4]  /  Superpower [T3]
+       Azumarill @ Life Orb   |   Ability: Thick Fat   |   Nature: Modest
+       Moves: Ice Beam [T4]  /  Alluring Voice [T3]  /  Surf [T4]  /  Focus Blast [T4]
 
 ====================================================================================================
 #195 QUAGSIRE  —  Water/Ground  —  BST 430  —  Category 4
@@ -993,8 +993,8 @@ Variants: A = Physical (Dragon Dance) / B = Special (Rest)
        Whiscash @ Oran Berry   |   Ability: Hydration   |   Nature: Docile
        Moves: Whirlpool [T1]  /  Rock Smash [T1]  /  Mud Sport [T1]  /  Mud Shot [T2]
   [2A] Brawling catfish
-       Whiscash @ Soft Sand   |   Ability: Oblivious   |   Nature: Lonely
-       Moves: Bulldoze [T2]  /  Spark [T2]  /  Rock Tomb [T2]  /  Zen Headbutt [T3]
+       Whiscash @ Soft Sand   |   Ability: Oblivious   |   Nature: Mild
+       Moves: Mud Bomb [T2]  /  Water Pulse [T2]  /  Swift [T2]  /  Icy Wind [T2]
   [2B] Seer catfish
        Whiscash @ Sitrus Berry   |   Ability: Anticipation   |   Nature: Mild
        Moves: Mud Bomb [T2]  /  Water Pulse [T2]  /  Icy Wind [T2]  /  Future Sight [T3]
@@ -1048,25 +1048,25 @@ Variants: A = Physical (Suction Cups) / B = Special (Sniper)
 ----------------------------------------------------------------------------------------------------
   [1A] Inky octopus
        Octillery @ (no item)   |   Ability: Sniper   |   Nature: Hardy
-       Moves: Water Gun [T1]  /  Constrict [T1]  /  Focus Energy [T1]  /  Octazooka [T2]
+       Moves: Water Gun [T1]  /  Mud-Slap [T1]  /  Focus Energy [T1]  /  Octazooka [T2]
   [1B] Clinging octopus
        Octillery @ Oran Berry   |   Ability: Suction Cups   |   Nature: Docile
        Moves: Whirlpool [T1]  /  Wrap [T1]  /  Supersonic [T1]  /  Smack Down [T2]
   [2A] Rock octopus
-       Octillery @ Hard Stone   |   Ability: Suction Cups   |   Nature: Lonely
-       Moves: Smack Down [T2]  /  Skitter Smack [T2]  /  Thief [T2]  /  Rock Blast [T3]
+       Octillery @ Hard Stone   |   Ability: Suction Cups   |   Nature: Mild
+       Moves: Bubble Beam [T2]  /  Aurora Beam [T2]  /  Thief [T2]  /  Signal Beam [T3]
   [2B] Ink sniper
        Octillery @ Scope Lens   |   Ability: Sniper   |   Nature: Rash
        Moves: Octazooka [T2]  /  Acid Spray [T2]  /  Psybeam [T2]  /  Brine [T3]
   [3A] Multi-hit octopus
-       Octillery @ Muscle Band   |   Ability: Suction Cups   |   Nature: Adamant
-       Moves: Rock Blast [T3]  /  Seed Bomb [T3]  /  Payback [T3]  /  Liquidation [T4]
+       Octillery @ Wise Glasses   |   Ability: Suction Cups   |   Nature: Modest
+       Moves: Sludge Wave [T4]  /  Signal Beam [T3]  /  Wring Out [T3]  /  Surf [T4]
   [3B] Focus Energy sniper
        Octillery @ Scope Lens   |   Ability: Sniper   |   Nature: Modest
        Moves: Focus Energy [T1]  /  Brine [T3]  /  Signal Beam [T3]  /  Fire Blast [T4]
   [4A] Physical attacker
-       Octillery @ Life Orb   |   Ability: Suction Cups   |   Nature: Adamant
-       Moves: Liquidation [T4]  /  Gunk Shot [T4]  /  Rock Blast [T3]  /  Seed Bomb [T3]
+       Octillery @ Life Orb   |   Ability: Suction Cups   |   Nature: Modest
+       Moves: Surf [T4]  /  Sludge Wave [T4]  /  Fire Blast [T4]  /  Energy Ball [T4]
   [4B] Assault Vest octopus
        Octillery @ Assault Vest   |   Ability: Sniper   |   Nature: Quiet
        Moves: Scald [T4]  /  Fire Blast [T4]  /  Ice Beam [T4]  /  Energy Ball [T4]
@@ -1138,10 +1138,10 @@ Variants: A = Setup (Shell Smash) / B = Attacker (Coil, rain)
 ----------------------------------------------------------------------------------------------------
   [1A] Deep-sea eel
        Huntail @ (no item)   |   Ability: Swift Swim   |   Nature: Hardy
-       Moves: Clamp [T1]  /  Bind [T1]  /  Water Gun [T1]  /  Bite [T2]
+       Moves: Infestation [T1]  /  Mud-Slap [T1]  /  Water Gun [T1]  /  Swift [T2]
   [1B] Veiled eel
        Huntail @ Oran Berry   |   Ability: Water Veil   |   Nature: Docile
-       Moves: Clamp [T1]  /  Supersonic [T1]  /  Mud-Slap [T1]  /  Ice Fang [T2]
+       Moves: Water Gun [T1]  /  Supersonic [T1]  /  Mud-Slap [T1]  /  Icy Wind [T2]
   [2A] Biting eel
        Huntail @ Mystic Water   |   Ability: Swift Swim   |   Nature: Lonely
        Moves: Bite [T2]  /  Ice Fang [T2]  /  Rock Tomb [T2]  /  Aqua Tail [T3]
@@ -1336,7 +1336,7 @@ Variants: A = Pure Stall (Toxic, Haze) / B = Defensive with utility (Rapid Spin,
        Moves: Toxic [Sit]  /  Hex [T3]  /  Muddy Water [T3]  /  Sludge Wave [T4]
   [4A] Utility spinner
        Tentacruel @ Black Sludge   |   Ability: Clear Body   |   Nature: Timid
-       Moves: Scald [T4]  /  Knock Off [T4]  /  Gunk Shot [T4]  /  Toxic [Sit]
+       Moves: Scald [T4]  /  Knock Off [T4]  /  Sludge Wave [T4]  /  Toxic [Sit]
   [4B] Assault Vest jelly
        Tentacruel @ Assault Vest   |   Ability: Rain Dish   |   Nature: Timid
        Moves: Scald [T4]  /  Sludge Bomb [T4]  /  Knock Off [T4]  /  Rapid Spin [T2]
@@ -1503,8 +1503,8 @@ Variants: A = Physical (Dragon Dance) / B = Special (rain, Sniper)
        Kingdra @ Oran Berry   |   Ability: Sniper   |   Nature: Docile
        Moves: Water Gun [T1]  /  Focus Energy [T1]  /  Whirlpool [T1]  /  Octazooka [T2]
   [2A] Scaled dragon
-       Kingdra @ Dragon Fang   |   Ability: Swift Swim   |   Nature: Lonely
-       Moves: Breaking Swipe [T2]  /  Flip Turn [T2]  /  Headbutt [T2]  /  Scale Shot [T3]
+       Kingdra @ Dragon Fang   |   Ability: Swift Swim   |   Nature: Mild
+       Moves: Aurora Beam [T2]  /  Flip Turn [T2]  /  Swift [T2]  /  Dragon Breath [T2]
   [2B] Rain caster
        Kingdra @ Mystic Water   |   Ability: Swift Swim   |   Nature: Mild
        Moves: Bubble Beam [T2]  /  Dragon Breath [T2]  /  Icy Wind [T2]  /  Muddy Water [T3]
@@ -1605,8 +1605,8 @@ Variants: A = Physical (Swords Dance) / B = Special (Secret Sword)
        Keldeo @ Expert Belt   |   Ability: Justified   |   Nature: Modest
        Moves: Secret Sword [T4]  /  Muddy Water [T3]  /  Icy Wind [T2]  /  Substitute [Sit]
   [4A] Swords Dance sweeper
-       Keldeo @ Life Orb   |   Ability: Justified   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  Close Combat [T4]  /  Liquidation [T4]  /  Aqua Jet [T4]
+       Keldeo @ Life Orb   |   Ability: Justified   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Secret Sword [T4]  /  Air Slash [T4]  /  Surf [T4]
   [4B] Choice Specs colt
        Keldeo @ Choice Specs   |   Ability: Justified   |   Nature: Timid
        Moves: Secret Sword [T4]  /  Hydro Pump [T4]  /  Scald [T4]  /  Flip Turn [T2]

@@ -538,7 +538,7 @@ Variants: A = Physical (Swords Dance) / B = Special (Nasty Plot)
 ----------------------------------------------------------------------------------------------------
   [1A] Cactus
        Cacnea @ (no item)   |   Ability: Sand Veil   |   Nature: Hardy
-       Moves: Poison Sting [T1]  /  Leer [T1]  /  Absorb [T1]  /  Needle Arm [T2]
+       Moves: Acid [T1]  /  Leer [T1]  /  Absorb [T1]  /  Swift [T2]
   [1B] Thirsty cactus
        Cacnea @ Oran Berry   |   Ability: Water Absorb   |   Nature: Docile
        Moves: Acid [T1]  /  Sand Attack [T1]  /  Mud-Slap [T1]  /  Magical Leaf [T2]
@@ -939,14 +939,14 @@ Variants: A = Physical (Sap Sipper) / B = Special (Nasty Plot, Calm Mind)
        Girafarig @ Sitrus Berry   |   Ability: Sap Sipper   |   Nature: Mild
        Moves: Psybeam [T2]  /  Charge Beam [T2]  /  Shock Wave [T2]  /  Twin Beam [T3]
   [3A] Physical neck
-       Girafarig @ Muscle Band   |   Ability: Sap Sipper   |   Nature: Adamant
-       Moves: Zen Headbutt [T3]  /  High Horsepower [T3]  /  Double-Edge [T4]  /  Psychic Fangs [T4]
+       Girafarig @ Wise Glasses   |   Ability: Sap Sipper   |   Nature: Modest
+       Moves: Dazzling Gleam [T3]  /  Signal Beam [T3]  /  Hyper Voice [T4]  /  Psychic [T4]
   [3B] Nasty Plot neck
        Girafarig @ Wise Glasses   |   Ability: Inner Focus   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Psychic Noise [T3]  /  Hyper Voice [T4]  /  Agility [Sit]
   [4A] Physical attacker
-       Girafarig @ Life Orb   |   Ability: Sap Sipper   |   Nature: Jolly
-       Moves: Body Slam [T4]  /  Psychic Fangs [T4]  /  Earthquake [T4]  /  Sucker Punch [T4]
+       Girafarig @ Life Orb   |   Ability: Sap Sipper   |   Nature: Timid
+       Moves: Hyper Voice [T4]  /  Psychic [T4]  /  Thunderbolt [T4]  /  Energy Ball [T4]
   [4B] Calm Mind passer
        Girafarig @ Leftovers   |   Ability: Inner Focus   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Baton Pass [Sit]  /  Psychic [T4]  /  Substitute [Sit]
@@ -1078,7 +1078,7 @@ Variants: A = Physical (Swords Dance) / B = Special and Sand Veil stall
 ----------------------------------------------------------------------------------------------------
   [1A] Scarecrow
        Cacturne @ (no item)   |   Ability: Sand Veil   |   Nature: Hardy
-       Moves: Poison Sting [T1]  /  Absorb [T1]  /  Leer [T1]  /  Feint Attack [T2]
+       Moves: Acid [T1]  /  Absorb [T1]  /  Leer [T1]  /  Swift [T2]
   [1B] Thirsty scarecrow
        Cacturne @ Oran Berry   |   Ability: Water Absorb   |   Nature: Docile
        Moves: Acid [T1]  /  Mud-Slap [T1]  /  Sand Attack [T1]  /  Needle Arm [T2]
@@ -1095,8 +1095,8 @@ Variants: A = Physical (Swords Dance) / B = Special and Sand Veil stall
        Cacturne @ Leftovers   |   Ability: Sand Veil   |   Nature: Modest
        Moves: Sandstorm [Sit]  /  Leech Seed [Sit]  /  Spiky Shield [Sit]  /  Giga Drain [T4]
   [4A] Choice Band scarecrow
-       Cacturne @ Choice Band   |   Ability: Sand Veil   |   Nature: Adamant
-       Moves: Sucker Punch [T4]  /  Knock Off [T4]  /  Seed Bomb [T3]  /  Drain Punch [T4]
+       Cacturne @ Choice Specs   |   Ability: Sand Veil   |   Nature: Modest
+       Moves: Shadow Ball [T4]  /  Knock Off [T4]  /  Energy Ball [T4]  /  Focus Blast [T4]
   [4B] Nasty Plot sweeper
        Cacturne @ Focus Sash   |   Ability: Water Absorb   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Dark Pulse [T4]  /  Energy Ball [T4]  /  Focus Blast [T4]
@@ -1201,7 +1201,7 @@ Variants: A = Special (Swift Swim) / B = Physical and Cloud Nine
        Moves: Scratch [T1]  /  Water Gun [T1]  /  Confusion [T1]  /  Fury Swipes [T1]
   [1B] Swimming duck
        Golduck @ Oran Berry   |   Ability: Swift Swim   |   Nature: Docile
-       Moves: Pay Day [T1]  /  Tail Whip [T1]  /  Whirlpool [T1]  /  Psybeam [T2]
+       Moves: Mud-Slap [T1]  /  Tail Whip [T1]  /  Whirlpool [T1]  /  Psybeam [T2]
   [2A] Rain caster
        Golduck @ Mystic Water   |   Ability: Swift Swim   |   Nature: Mild
        Moves: Bubble Beam [T2]  /  Psybeam [T2]  /  Icy Wind [T2]  /  Signal Beam [T3]
@@ -1449,14 +1449,14 @@ Variants: A = Physical (Armor Tail) / B = Special (Cud Chew, Trick Room)
        Farigiraf @ Sitrus Berry   |   Ability: Cud Chew   |   Nature: Quiet
        Moves: Psybeam [T2]  /  Charge Beam [T2]  /  Shock Wave [T2]  /  Twin Beam [T3]
   [3A] Armor Tail striker
-       Farigiraf @ Muscle Band   |   Ability: Armor Tail   |   Nature: Brave
-       Moves: Zen Headbutt [T3]  /  High Horsepower [T3]  /  Crunch [T3]  /  Body Slam [T4]
+       Farigiraf @ Wise Glasses   |   Ability: Armor Tail   |   Nature: Quiet
+       Moves: Psychic [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Hyper Voice [T4]
   [3B] Trick Room neck
        Farigiraf @ Sitrus Berry   |   Ability: Cud Chew   |   Nature: Quiet
        Moves: Trick Room [Sit]  /  Psychic Noise [T3]  /  Hyper Voice [T4]  /  Thunderbolt [T4]
   [4A] Physical attacker
-       Farigiraf @ Life Orb   |   Ability: Armor Tail   |   Nature: Brave
-       Moves: Psychic Fangs [T4]  /  Body Slam [T4]  /  Earthquake [T4]  /  Sucker Punch [T4]
+       Farigiraf @ Life Orb   |   Ability: Armor Tail   |   Nature: Quiet
+       Moves: Psychic [T4]  /  Hyper Voice [T4]  /  Thunderbolt [T4]  /  Energy Ball [T4]
   [4B] Nasty Plot neck
        Farigiraf @ Leftovers   |   Ability: Cud Chew   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Psychic [T4]  /  Hyper Voice [T4]  /  Thunderbolt [T4]
@@ -1572,8 +1572,8 @@ Variants: A = Defensive (Will-O-Wisp, Soft-Boiled) / B = Offensive (any style)
        Mew @ Leftovers   |   Ability: Synchronize   |   Nature: Bold
        Moves: Will-O-Wisp [Sit]  /  Soft-Boiled [Sit]  /  Psychic Noise [T3]  /  Taunt [Sit]
   [3B] Swords Dance mew
-       Mew @ Expert Belt   |   Ability: Synchronize   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Zen Headbutt [T3]  /  Fire Punch [T3]  /  Ice Punch [T3]
+       Mew @ Expert Belt   |   Ability: Synchronize   |   Nature: Modest
+       Moves: Nasty Plot [T4]  /  Psychic [T4]  /  Heat Wave [T3]  /  Frost Breath [T3]
   [4A] Bulky mew
        Mew @ Rocky Helmet   |   Ability: Synchronize   |   Nature: Bold
        Moves: Will-O-Wisp [Sit]  /  Roost [Sit]  /  Psychic [T4]  /  Knock Off [T4]
@@ -1605,8 +1605,8 @@ Variants: A = Defensive (Serene Grace, Wish) / B = Offensive (Calm Mind, Scarf)
        Jirachi @ Wise Glasses   |   Ability: Serene Grace   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Psychic Noise [T3]  /  Dazzling Gleam [T3]  /  Flash Cannon [T4]
   [4A] Choice Scarf flincher
-       Jirachi @ Choice Scarf   |   Ability: Serene Grace   |   Nature: Jolly
-       Moves: Iron Head [T4]  /  U-turn [T2]  /  Play Rough [T4]  /  Zen Headbutt [T3]
+       Jirachi @ Choice Scarf   |   Ability: Serene Grace   |   Nature: Timid
+       Moves: Flash Cannon [T4]  /  U-turn [T2]  /  Dazzling Gleam [T3]  /  Psychic [T4]
   [4B] Calm Mind sweeper
        Jirachi @ Life Orb   |   Ability: Serene Grace   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Flash Cannon [T4]  /  Psychic [T4]  /  Aura Sphere [T4]
@@ -1623,20 +1623,20 @@ Variants: A = Physical / B = Special
        Deoxys @ Oran Berry   |   Ability: Pressure   |   Nature: Docile
        Moves: Bind [T1]  /  Flash [T1]  /  Mud-Slap [T1]  /  Psybeam [T2]
   [2A] Brawling alien
-       Deoxys @ Black Belt   |   Ability: Pressure   |   Nature: Lonely
-       Moves: Low Sweep [T2]  /  Brutal Swing [T2]  /  Power-Up Punch [T2]  /  Zen Headbutt [T3]
+       Deoxys @ Black Belt   |   Ability: Pressure   |   Nature: Mild
+       Moves: Swift [T2]  /  Water Pulse [T2]  /  Shock Wave [T2]  /  Psychic Noise [T3]
   [2B] Psychic alien
        Deoxys @ Twisted Spoon   |   Ability: Pressure   |   Nature: Rash
        Moves: Psybeam [T2]  /  Charge Beam [T2]  /  Icy Wind [T2]  /  Psychic Noise [T3]
   [3A] Extreme Speed alien
-       Deoxys @ Muscle Band   |   Ability: Pressure   |   Nature: Adamant
-       Moves: Superpower [T3]  /  Zen Headbutt [T3]  /  Ice Punch [T3]  /  Extreme Speed [T4]
+       Deoxys @ Wise Glasses   |   Ability: Pressure   |   Nature: Modest
+       Moves: Signal Beam [T3]  /  Psychic [T4]  /  Grass Knot [T3]  /  Ice Beam [T4]
   [3B] Nasty Plot alien
        Deoxys @ Wise Glasses   |   Ability: Pressure   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Psychic Noise [T3]  /  Signal Beam [T3]  /  Grass Knot [T3]
   [4A] Physical attacker
-       Deoxys @ Life Orb   |   Ability: Pressure   |   Nature: Jolly
-       Moves: Extreme Speed [T4]  /  Knock Off [T4]  /  Superpower [T3]  /  Zen Headbutt [T3]
+       Deoxys @ Life Orb   |   Ability: Pressure   |   Nature: Timid
+       Moves: Ice Beam [T4]  /  Knock Off [T4]  /  Focus Blast [T4]  /  Psychic [T4]
   [4B] Psycho Boost lead
        Deoxys @ Focus Sash   |   Ability: Pressure   |   Nature: Timid
        Moves: Psycho Boost [T4]  /  Ice Beam [T4]  /  Thunderbolt [T4]  /  Focus Blast [T4]
@@ -1681,19 +1681,19 @@ Variants: A = Setup (Calm Mind, Nasty Plot) / B = Physical (Bulk Up)
        Moves: Confusion [T1]  /  Water Gun [T1]  /  Mud-Slap [T1]  /  Psybeam [T2]
   [1B] Unnerving clone
        Mewtwo @ Oran Berry   |   Ability: Unnerve   |   Nature: Docile
-       Moves: Confusion [T1]  /  Pay Day [T1]  /  Rock Smash [T1]  /  Swift [T2]
+       Moves: Confusion [T1]  /  Water Gun [T1]  /  Mud-Slap [T1]  /  Swift [T2]
   [2A] Psychic caster
        Mewtwo @ Twisted Spoon   |   Ability: Pressure   |   Nature: Mild
        Moves: Psybeam [T2]  /  Shock Wave [T2]  /  Icy Wind [T2]  /  Psychic Noise [T3]
   [2B] Brawling clone
-       Mewtwo @ Black Belt   |   Ability: Unnerve   |   Nature: Lonely
-       Moves: Low Sweep [T2]  /  Power-Up Punch [T2]  /  Brutal Swing [T2]  /  Psycho Cut [T3]
+       Mewtwo @ Black Belt   |   Ability: Unnerve   |   Nature: Mild
+       Moves: Bubble Beam [T2]  /  Incinerate [T2]  /  Zap Cannon [T2]  /  Psychic Noise [T3]
   [3A] Calm Mind clone
        Mewtwo @ Wise Glasses   |   Ability: Pressure   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Psystrike [T4]  /  Signal Beam [T3]  /  Recover [Sit]
   [3B] Bulk Up clone
-       Mewtwo @ Muscle Band   |   Ability: Unnerve   |   Nature: Adamant
-       Moves: Bulk Up [T4]  /  Psycho Cut [T3]  /  Brick Break [T3]  /  Ice Punch [T3]
+       Mewtwo @ Wise Glasses   |   Ability: Unnerve   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Psystrike [T4]  /  Discharge [T3]  /  Tri Attack [T3]
   [4A] Nasty Plot sweeper
        Mewtwo @ Life Orb   |   Ability: Pressure   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Psystrike [T4]  /  Aura Sphere [T4]  /  Ice Beam [T4]

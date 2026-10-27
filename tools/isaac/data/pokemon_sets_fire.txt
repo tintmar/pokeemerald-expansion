@@ -90,11 +90,11 @@ Variants: A = Belly Drum sweeper / B = Utility (Super Fang, Trick)
        Zigzagoon @ (no item)   |   Ability: Pickup   |   Nature: Hardy
        Moves: Tackle [T1]  /  Growl [T1]  /  Tail Whip [T1]  /  Sand Attack [T1]
   [1B] Curious raccoon
-       Zigzagoon @ Oran Berry   |   Ability: Quick Feet   |   Nature: Docile
-       Moves: Tackle [T1]  /  Odor Sleuth [T1]  /  Baby-Doll Eyes [T1]  /  Headbutt [T2]
+       Zigzagoon @ Oran Berry   |   Ability: Pickup   |   Nature: Docile
+       Moves: Whirlpool [T1]  /  Odor Sleuth [T1]  /  Baby-Doll Eyes [T1]  /  Swift [T2]
   [2A] Sharp raccoon
-       Zigzagoon @ Silk Scarf   |   Ability: Gluttony   |   Nature: Lonely
-       Moves: Headbutt [T2]  /  Hone Claws [T2]  /  Thief [T2]  /  Pin Missile [T3]
+       Zigzagoon @ Silk Scarf   |   Ability: Gluttony   |   Nature: Mild
+       Moves: Swift [T2]  /  Work Up [T2]  /  Thief [T2]  /  Grass Knot [T3]
   [2B] Pest raccoon
        Zigzagoon @ Sitrus Berry   |   Ability: Pickup   |   Nature: Hasty
        Moves: Super Fang [Sit]  /  Thunder Wave [Sit]  /  Headbutt [T2]  /  Charm [T2]
@@ -246,14 +246,14 @@ Variants: A = Special attacker / B = Physical / utility attacker
        Electrike @ Magnet   |   Ability: Lightning Rod   |   Nature: Modest
        Moves: Charge Beam [T2]  /  Flame Burst [T2]  /  Snarl [T2]  /  Discharge [T3]
   [2B] Fang pup
-       Electrike @ Sitrus Berry   |   Ability: Static   |   Nature: Lonely
-       Moves: Thunder Fang [T2]  /  Bite [T2]  /  Fire Fang [T2]  /  Volt Switch [T2]
+       Electrike @ Sitrus Berry   |   Ability: Static   |   Nature: Mild
+       Moves: Signal Beam [T3]  /  Snarl [T2]  /  Flame Burst [T2]  /  Volt Switch [T2]
   [3A] Pivot caster
        Electrike @ Expert Belt   |   Ability: Lightning Rod   |   Nature: Timid
        Moves: Discharge [T3]  /  Signal Beam [T3]  /  Flamethrower [T4]  /  Volt Switch [T2]
   [3B] Sash biter
-       Electrike @ Focus Sash   |   Ability: Static   |   Nature: Jolly
-       Moves: Thunder Wave [Sit]  /  Volt Switch [T2]  /  Crunch [T3]  /  Psychic Fangs [T4]
+       Electrike @ Focus Sash   |   Ability: Static   |   Nature: Timid
+       Moves: Thunder Wave [Sit]  /  Volt Switch [T2]  /  Signal Beam [T3]  /  Flamethrower [T4]
   [4A] Lightning sweeper
        Electrike @ Life Orb   |   Ability: Lightning Rod   |   Nature: Timid
        Moves: Thunderbolt [T4]  /  Flamethrower [T4]  /  Volt Switch [T2]  /  Protect [Sit]
@@ -298,7 +298,7 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Numb camel
        Numel @ (no item)   |   Ability: Oblivious   |   Nature: Hardy
-       Moves: Tackle [T1]  /  Growl [T1]  /  Focus Energy [T1]  /  Flame Wheel [T2]
+       Moves: Mud-Slap [T1]  /  Growl [T1]  /  Focus Energy [T1]  /  Flame Burst [T2]
   [1B] Ember camel
        Numel @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
        Moves: Ember [T1]  /  Fire Spin [T1]  /  Mud-Slap [T1]  /  Flame Burst [T2]
@@ -418,25 +418,25 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Electric mouse
        Pikachu @ (no item)   |   Ability: Static   |   Nature: Hardy
-       Moves: Quick Attack [T1]  /  Tail Whip [T1]  /  Double Kick [T1]  /  Spark [T2]
+       Moves: Disarming Voice [T1]  /  Tail Whip [T1]  /  Mud-Slap [T1]  /  Volt Switch [T2]
   [1B] Cheek sparker
        Pikachu @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
        Moves: Thunder Shock [T1]  /  Growl [T1]  /  Sweet Kiss [T1]  /  Electroweb [T2]
   [2A] Iron Tail mouse
-       Pikachu @ Magnet   |   Ability: Static   |   Nature: Lonely
-       Moves: Fake Out [Sit]  /  Spark [T2]  /  Slam [T2]  /  Iron Tail [T3]
+       Pikachu @ Magnet   |   Ability: Static   |   Nature: Mild
+       Moves: Fake Out [Sit]  /  Volt Switch [T2]  /  Draining Kiss [T2]  /  Signal Beam [T3]
   [2B] Pivot caster
        Pikachu @ Sitrus Berry   |   Ability: Lightning Rod   |   Nature: Mild
        Moves: Charge Beam [T2]  /  Draining Kiss [T2]  /  Volt Switch [T2]  /  Electro Ball [T3]
   [3A] Light Ball striker
-       Pikachu @ Light Ball   |   Ability: Static   |   Nature: Jolly
-       Moves: Fake Out [Sit]  /  Thunder Punch [T3]  /  Brick Break [T3]  /  Volt Tackle [T4]
+       Pikachu @ Light Ball   |   Ability: Static   |   Nature: Timid
+       Moves: Fake Out [Sit]  /  Surf [T4]  /  Alluring Voice [T3]  /  Thunderbolt [T4]
   [3B] Light Ball caster
        Pikachu @ Light Ball   |   Ability: Lightning Rod   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Electro Ball [T3]  /  Grass Knot [T3]  /  Signal Beam [T3]
   [4A] Volt Tackle attacker
-       Pikachu @ Light Ball   |   Ability: Static   |   Nature: Jolly
-       Moves: Volt Tackle [T4]  /  Extreme Speed [T4]  /  Iron Tail [T3]  /  Knock Off [T4]
+       Pikachu @ Light Ball   |   Ability: Static   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Surf [T4]  /  Alluring Voice [T3]  /  Knock Off [T4]
   [4B] Nasty Plot sweeper
        Pikachu @ Light Ball   |   Ability: Lightning Rod   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Thunderbolt [T4]  /  Surf [T4]  /  Grass Knot [T3]
@@ -513,8 +513,8 @@ Variants: A = Physical / B = Special
        Growlithe @ Oran Berry   |   Ability: Flash Fire   |   Nature: Docile
        Moves: Ember [T1]  /  Leer [T1]  /  Odor Sleuth [T1]  /  Flame Burst [T2]
   [2A] Fang puppy
-       Growlithe @ Charcoal   |   Ability: Intimidate   |   Nature: Lonely
-       Moves: Fire Fang [T2]  /  Bite [T2]  /  Thunder Fang [T2]  /  Temper Flare [T3]
+       Growlithe @ Charcoal   |   Ability: Intimidate   |   Nature: Mild
+       Moves: Swift [T2]  /  Snarl [T2]  /  Dragon Breath [T2]  /  Heat Wave [T3]
   [2B] Flame caster
        Growlithe @ Sitrus Berry   |   Ability: Flash Fire   |   Nature: Mild
        Moves: Flame Burst [T2]  /  Snarl [T2]  /  Dragon Breath [T2]  /  Heat Wave [T3]
@@ -585,8 +585,8 @@ Variants: A = Physical / B = Special
        Elekid @ Wise Glasses   |   Ability: Vital Spirit   |   Nature: Timid
        Moves: Electro Ball [T3]  /  Signal Beam [T3]  /  Thunder Wave [Sit]  /  Focus Blast [T4]
   [4A] Physical attacker
-       Elekid @ Life Orb   |   Ability: Static   |   Nature: Jolly
-       Moves: Wild Charge [T4]  /  Ice Punch [T3]  /  Cross Chop [T3]  /  Knock Off [T4]
+       Elekid @ Life Orb   |   Ability: Static   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Psychic [T4]  /  Focus Blast [T4]  /  Knock Off [T4]
   [4B] Choice Specs kid
        Elekid @ Choice Specs   |   Ability: Vital Spirit   |   Nature: Timid
        Moves: Thunderbolt [T4]  /  Focus Blast [T4]  /  Psychic [T4]  /  Volt Switch [T2]
@@ -603,8 +603,8 @@ Variants: A = Contrary attacker / B = Support (Teeter Dance, Encore, Wish)
        Spinda @ Oran Berry   |   Ability: Tangled Feet   |   Nature: Docile
        Moves: Tackle [T1]  /  Flash [T1]  /  Mud-Slap [T1]  /  Psybeam [T2]
   [2A] Contrary panda
-       Spinda @ Silk Scarf   |   Ability: Contrary   |   Nature: Lonely
-       Moves: Dizzy Punch [T2]  /  Power-Up Punch [T2]  /  Feint Attack [T2]  /  Superpower [T3]
+       Spinda @ Silk Scarf   |   Ability: Contrary   |   Nature: Mild
+       Moves: Swift [T2]  /  Psybeam [T2]  /  Water Pulse [T2]  /  Shock Wave [T2]
   [2B] Dizzy support
        Spinda @ Sitrus Berry   |   Ability: Own Tempo   |   Nature: Mild
        Moves: Hypnosis [T2]  /  Swift [T2]  /  Teeter Dance [Sit]  /  Wish [Sit]
@@ -658,7 +658,7 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Live coal
        Magby @ (no item)   |   Ability: Flame Body   |   Nature: Hardy
-       Moves: Karate Chop [T1]  /  Leer [T1]  /  Focus Energy [T1]  /  Flame Wheel [T2]
+       Moves: Smog [T1]  /  Leer [T1]  /  Focus Energy [T1]  /  Flame Burst [T2]
   [1B] Smoky coal
        Magby @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
        Moves: Ember [T1]  /  Smog [T1]  /  Smokescreen [T1]  /  Flame Burst [T2]
@@ -718,7 +718,7 @@ Variants: A = Special attacker / B = Support (Encore, Wish, Baton Pass)
 ----------------------------------------------------------------------------------------------------
   [1A] Cheering bunny
        Plusle @ (no item)   |   Ability: Plus   |   Nature: Hardy
-       Moves: Quick Attack [T1]  /  Growl [T1]  /  Sweet Kiss [T1]  /  Spark [T2]
+       Moves: Mud-Slap [T1]  /  Growl [T1]  /  Sweet Kiss [T1]  /  Volt Switch [T2]
   [1B] Sparky bunny
        Plusle @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
        Moves: Quick Attack [T1]  /  Tearful Look [T1]  /  Flash [T1]  /  Shock Wave [T2]
@@ -748,7 +748,7 @@ Variants: A = Special attacker / B = Support (Wish, screens)
 ----------------------------------------------------------------------------------------------------
   [1A] Cheering bunny
        Minun @ (no item)   |   Ability: Minus   |   Nature: Hardy
-       Moves: Quick Attack [T1]  /  Growl [T1]  /  Play Nice [T1]  /  Spark [T2]
+       Moves: Mud-Slap [T1]  /  Growl [T1]  /  Play Nice [T1]  /  Volt Switch [T2]
   [1B] Static bunny
        Minun @ Oran Berry   |   Ability: Volt Absorb   |   Nature: Docile
        Moves: Quick Attack [T1]  /  Sweet Kiss [T1]  /  Mud-Slap [T1]  /  Nuzzle [T2]
@@ -928,7 +928,7 @@ Variants: A = Physical / B = Special (Trick Room)
 ----------------------------------------------------------------------------------------------------
   [1A] Eruption camel
        Camerupt @ (no item)   |   Ability: Magma Armor   |   Nature: Hardy
-       Moves: Tackle [T1]  /  Growl [T1]  /  Focus Energy [T1]  /  Flame Wheel [T2]
+       Moves: Mud-Slap [T1]  /  Growl [T1]  /  Focus Energy [T1]  /  Flame Burst [T2]
   [1B] Magma camel
        Camerupt @ Oran Berry   |   Ability: Solid Rock   |   Nature: Docile
        Moves: Ember [T1]  /  Fire Spin [T1]  /  Mud-Slap [T1]  /  Flame Burst [T2]
@@ -939,14 +939,14 @@ Variants: A = Physical / B = Special (Trick Room)
        Camerupt @ Charcoal   |   Ability: Solid Rock   |   Nature: Mild
        Moves: Incinerate [T2]  /  Mud Shot [T2]  /  Ancient Power [T2]  /  Scorching Sands [T3]
   [3A] Rock Polish camel
-       Camerupt @ Muscle Band   |   Ability: Solid Rock   |   Nature: Brave
-       Moves: Rock Polish [Sit]  /  Temper Flare [T3]  /  High Horsepower [T3]  /  Rock Slide [T4]
+       Camerupt @ Wise Glasses   |   Ability: Solid Rock   |   Nature: Quiet
+       Moves: Rock Polish [Sit]  /  Fire Blast [T4]  /  Scorching Sands [T3]  /  Flash Cannon [T4]
   [3B] Eruption camel
        Camerupt @ Charcoal   |   Ability: Solid Rock   |   Nature: Quiet
        Moves: Eruption [T4]  /  Scorching Sands [T3]  /  Yawn [Sit]  /  Protect [Sit]
   [4A] Rock Polish sweeper
-       Camerupt @ Life Orb   |   Ability: Solid Rock   |   Nature: Brave
-       Moves: Rock Polish [Sit]  /  Earthquake [T4]  /  Flare Blitz [T4]  /  Rock Slide [T4]
+       Camerupt @ Life Orb   |   Ability: Solid Rock   |   Nature: Quiet
+       Moves: Rock Polish [Sit]  /  Earth Power [T4]  /  Fire Blast [T4]  /  Flash Cannon [T4]
   [4B] Trick Room nuke
        Camerupt @ Choice Specs   |   Ability: Solid Rock   |   Nature: Quiet
        Moves: Eruption [T4]  /  Fire Blast [T4]  /  Earth Power [T4]  /  Flash Cannon [T4]
@@ -1048,7 +1048,7 @@ Variants: A = Special attacker / B = Pivot (Volt Switch)
 ----------------------------------------------------------------------------------------------------
   [1A] Discharge hound
        Manectric @ (no item)   |   Ability: Static   |   Nature: Hardy
-       Moves: Quick Attack [T1]  /  Leer [T1]  /  Odor Sleuth [T1]  /  Thunder Fang [T2]
+       Moves: Mud-Slap [T1]  /  Leer [T1]  /  Odor Sleuth [T1]  /  Volt Switch [T2]
   [1B] Thunder hound
        Manectric @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
        Moves: Tackle [T1]  /  Howl [T1]  /  Flash [T1]  /  Charge Beam [T2]
@@ -1108,7 +1108,7 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Mouse warrior
        Raichu @ (no item)   |   Ability: Static   |   Nature: Hardy
-       Moves: Quick Attack [T1]  /  Double Kick [T1]  /  Tail Whip [T1]  /  Spark [T2]
+       Moves: Disarming Voice [T1]  /  Mud-Slap [T1]  /  Tail Whip [T1]  /  Volt Switch [T2]
   [1B] Thunder mouse
        Raichu @ Oran Berry   |   Ability: Lightning Rod   |   Nature: Docile
        Moves: Thunder Shock [T1]  /  Growl [T1]  /  Disarming Voice [T1]  /  Electroweb [T2]
@@ -1119,14 +1119,14 @@ Variants: A = Physical / B = Special
        Raichu @ Sitrus Berry   |   Ability: Lightning Rod   |   Nature: Mild
        Moves: Charge Beam [T2]  /  Volt Switch [T2]  /  Draining Kiss [T2]  /  Discharge [T3]
   [3A] Volt Tackle striker
-       Raichu @ Muscle Band   |   Ability: Static   |   Nature: Jolly
-       Moves: Thunder Punch [T3]  /  Brick Break [T3]  /  Iron Tail [T3]  /  Volt Tackle [T4]
+       Raichu @ Wise Glasses   |   Ability: Static   |   Nature: Timid
+       Moves: Surf [T4]  /  Alluring Voice [T3]  /  Signal Beam [T3]  /  Thunderbolt [T4]
   [3B] Nasty Plot mouse
        Raichu @ Wise Glasses   |   Ability: Lightning Rod   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Discharge [T3]  /  Grass Knot [T3]  /  Alluring Voice [T3]
   [4A] Physical sweeper
-       Raichu @ Life Orb   |   Ability: Static   |   Nature: Jolly
-       Moves: Volt Tackle [T4]  /  Extreme Speed [T4]  /  Knock Off [T4]  /  Brick Break [T3]
+       Raichu @ Life Orb   |   Ability: Static   |   Nature: Timid
+       Moves: Thunderbolt [T4]  /  Surf [T4]  /  Knock Off [T4]  /  Focus Blast [T4]
   [4B] Sash Nasty Plot
        Raichu @ Focus Sash   |   Ability: Lightning Rod   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Thunderbolt [T4]  /  Focus Blast [T4]  /  Grass Knot [T3]
@@ -1228,7 +1228,7 @@ Variants: A = Physical / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Spitfire
        Magmar @ (no item)   |   Ability: Flame Body   |   Nature: Hardy
-       Moves: Karate Chop [T1]  /  Smokescreen [T1]  /  Focus Energy [T1]  /  Flame Wheel [T2]
+       Moves: Smog [T1]  /  Smokescreen [T1]  /  Focus Energy [T1]  /  Flame Burst [T2]
   [1B] Smoky spitfire
        Magmar @ Oran Berry   |   Ability: Vital Spirit   |   Nature: Docile
        Moves: Ember [T1]  /  Smog [T1]  /  Leer [T1]  /  Flame Burst [T2]
@@ -1245,8 +1245,8 @@ Variants: A = Physical / B = Special
        Magmar @ Expert Belt   |   Ability: Vital Spirit   |   Nature: Timid
        Moves: Heat Wave [T3]  /  Scorching Sands [T3]  /  Will-O-Wisp [Sit]  /  Focus Blast [T4]
   [4A] Physical attacker
-       Magmar @ Life Orb   |   Ability: Flame Body   |   Nature: Jolly
-       Moves: Flare Blitz [T4]  /  Mach Punch [T4]  /  Thunder Punch [T3]  /  Knock Off [T4]
+       Magmar @ Life Orb   |   Ability: Flame Body   |   Nature: Timid
+       Moves: Fire Blast [T4]  /  Focus Blast [T4]  /  Psychic [T4]  /  Knock Off [T4]
   [4B] Choice Specs spitfire
        Magmar @ Choice Specs   |   Ability: Vital Spirit   |   Nature: Timid
        Moves: Fire Blast [T4]  /  Focus Blast [T4]  /  Psychic [T4]  /  Scorching Sands [T3]
@@ -1425,8 +1425,8 @@ Variants: A = Physical / B = Special (Eruption)
        Typhlosion @ Wise Glasses   |   Ability: Flash Fire   |   Nature: Modest
        Moves: Heat Wave [T3]  /  Extrasensory [T3]  /  Scorching Sands [T3]  /  Focus Blast [T4]
   [4A] Physical attacker
-       Typhlosion @ Life Orb   |   Ability: Blaze   |   Nature: Adamant
-       Moves: Flare Blitz [T4]  /  Earthquake [T4]  /  Wild Charge [T4]  /  Play Rough [T4]
+       Typhlosion @ Life Orb   |   Ability: Blaze   |   Nature: Modest
+       Moves: Fire Blast [T4]  /  Scorching Sands [T3]  /  Focus Blast [T4]  /  Shadow Ball [T4]
   [4B] Choice Specs Eruption
        Typhlosion @ Choice Specs   |   Ability: Flash Fire   |   Nature: Timid
        Moves: Eruption [T4]  /  Fire Blast [T4]  /  Focus Blast [T4]  /  Shadow Ball [T4]
@@ -1531,13 +1531,13 @@ Variants: A = Defensive (Intimidate, burns) / B = Offensive (physical)
        Moves: Leer [T1]  /  Howl [T1]  /  Ember [T1]  /  Bite [T2]
   [1B] Loyal dog
        Arcanine @ (no item)   |   Ability: Flash Fire   |   Nature: Docile
-       Moves: Double Kick [T1]  /  Ember [T1]  /  Odor Sleuth [T1]  /  Flame Wheel [T2]
+       Moves: Mud-Slap [T1]  /  Ember [T1]  /  Odor Sleuth [T1]  /  Swift [T2]
   [2A] Burning guard dog
        Arcanine @ Sitrus Berry   |   Ability: Intimidate   |   Nature: Impish
        Moves: Will-O-Wisp [Sit]  /  Strength [T3]  /  Morning Sun [Sit]  /  Flame Wheel [T2]
   [2B] Fang dog
-       Arcanine @ Charcoal   |   Ability: Justified   |   Nature: Lonely
-       Moves: Fire Fang [T2]  /  Thunder Fang [T2]  /  Take Down [T2]  /  Crunch [T3]
+       Arcanine @ Charcoal   |   Ability: Justified   |   Nature: Mild
+       Moves: Incinerate [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Snarl [T2]
   [3A] Intimidate wall
        Arcanine @ Leftovers   |   Ability: Intimidate   |   Nature: Impish
        Moves: Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Double-Edge [T4]  /  Flare Blitz [T4]
@@ -1548,8 +1548,8 @@ Variants: A = Defensive (Intimidate, burns) / B = Offensive (physical)
        Arcanine @ Rocky Helmet   |   Ability: Intimidate   |   Nature: Impish
        Moves: Flare Blitz [T4]  /  Will-O-Wisp [Sit]  /  Morning Sun [Sit]  /  Extreme Speed [T4]
   [4B] Choice Band dog
-       Arcanine @ Choice Band   |   Ability: Intimidate   |   Nature: Adamant
-       Moves: Flare Blitz [T4]  /  Extreme Speed [T4]  /  Close Combat [T4]  /  Wild Charge [T4]
+       Arcanine @ Choice Specs   |   Ability: Intimidate   |   Nature: Modest
+       Moves: Fire Blast [T4]  /  Hyper Voice [T4]  /  Dragon Pulse [T4]  /  Scorching Sands [T3]
 
 ====================================================================================================
 #146 MOLTRES  —  Fire/Flying  —  BST 580  —  Category 8

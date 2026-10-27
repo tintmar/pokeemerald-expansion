@@ -75,8 +75,8 @@ Variants: A = Physical / B = Special
        Whismur @ Wise Glasses   |   Ability: Rattled   |   Nature: Modest
        Moves: Hyper Voice [T4]  /  Extrasensory [T3]  /  Protect [Sit]  /  Mega Kick [T3]
   [4A] Physical attacker
-       Whismur @ Life Orb   |   Ability: Soundproof   |   Nature: Adamant
-       Moves: Double-Edge [T4]  /  Ice Punch [T3]  /  Fire Punch [T3]  /  Thunder Punch [T3]
+       Whismur @ Life Orb   |   Ability: Soundproof   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Ice Beam [T4]  /  Fire Blast [T4]  /  Shadow Ball [T4]
   [4B] Choice Specs shouter
        Whismur @ Choice Specs   |   Ability: Rattled   |   Nature: Modest
        Moves: Hyper Voice [T4]  /  Ice Beam [T4]  /  Fire Blast [T4]  /  Shadow Ball [T4]
@@ -483,8 +483,8 @@ Variants: A = Hustle attacker / B = Support (Aurora Veil, Tailwind, Memento)
        Delibird @ Oran Berry   |   Ability: Hustle   |   Nature: Docile
        Moves: Quick Attack [T1]  /  Mud-Slap [T1]  /  Tailwind [Sit]  /  Pluck [T2]
   [2A] Hustle courier
-       Delibird @ Never-Melt Ice   |   Ability: Hustle   |   Nature: Lonely
-       Moves: Pluck [T2]  /  Brutal Swing [T2]  /  Power-Up Punch [T2]  /  Ice Spinner [T3]
+       Delibird @ Never-Melt Ice   |   Ability: Vital Spirit   |   Nature: Mild
+       Moves: Pluck [T2]  /  Swift [T2]  /  Water Pulse [T2]  /  Frost Breath [T3]
   [2B] Spinning helper
        Delibird @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Hasty
        Moves: Icy Wind [T2]  /  Feather Dance [T2]  /  Rapid Spin [T2]  /  Fake Out [Sit]
@@ -492,8 +492,8 @@ Variants: A = Hustle attacker / B = Support (Aurora Veil, Tailwind, Memento)
        Delibird @ Muscle Band   |   Ability: Hustle   |   Nature: Adamant
        Moves: Ice Spinner [T3]  /  Drill Peck [T3]  /  Brick Break [T3]  /  Ice Shard [T4]
   [3B] Aurora Veil setter
-       Delibird @ Light Clay   |   Ability: Insomnia   |   Nature: Jolly
-       Moves: Brave Bird [T4]  /  Ice Spinner [T3]  /  Tailwind [Sit]  /  Memento [Sit]
+       Delibird @ Light Clay   |   Ability: Insomnia   |   Nature: Timid
+       Moves: Air Slash [T4]  /  Ice Beam [T4]  /  Tailwind [Sit]  /  Memento [Sit]
   [4A] Hustle attacker
        Delibird @ Life Orb   |   Ability: Hustle   |   Nature: Jolly
        Moves: Triple Axel [T4]  /  Brave Bird [T4]  /  Ice Shard [T4]  /  Drill Run [T3]
@@ -538,13 +538,13 @@ Variants: A = Physical / B = Special (snow)
 ----------------------------------------------------------------------------------------------------
   [1A] Frosted tree
        Snover @ (no item)   |   Ability: Snow Warning   |   Nature: Hardy
-       Moves: Leafage [T1]  /  Powder Snow [T1]  /  Leer [T1]  /  Razor Leaf [T2]
+       Moves: Mud-Slap [T1]  /  Powder Snow [T1]  /  Leer [T1]  /  Magical Leaf [T2]
   [1B] Quiet tree
        Snover @ Oran Berry   |   Ability: Soundproof   |   Nature: Docile
        Moves: Powder Snow [T1]  /  Leafage [T1]  /  Flash [T1]  /  Icy Wind [T2]
   [2A] Snowy brawler
-       Snover @ Never-Melt Ice   |   Ability: Snow Warning   |   Nature: Lonely
-       Moves: Razor Leaf [T2]  /  Headbutt [T2]  /  Leech Seed [Sit]  /  Ice Punch [T3]
+       Snover @ Never-Melt Ice   |   Ability: Snow Warning   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Water Pulse [T2]  /  Leech Seed [Sit]  /  Frost Breath [T3]
   [2B] Seeding caster
        Snover @ Miracle Seed   |   Ability: Snow Warning   |   Nature: Mild
        Moves: Magical Leaf [T2]  /  Icy Wind [T2]  /  Water Pulse [T2]  /  Leech Seed [Sit]
@@ -585,8 +585,8 @@ Variants: A = Physical (Scrappy) / B = Special (Soundproof)
        Loudred @ Wise Glasses   |   Ability: Soundproof   |   Nature: Modest
        Moves: Uproar [T3]  /  Extrasensory [T3]  /  Flamethrower [T4]  /  Taunt [Sit]
   [4A] Physical attacker
-       Loudred @ Life Orb   |   Ability: Scrappy   |   Nature: Adamant
-       Moves: Double-Edge [T4]  /  Earthquake [T4]  /  Fire Punch [T3]  /  Ice Punch [T3]
+       Loudred @ Life Orb   |   Ability: Soundproof   |   Nature: Modest
+       Moves: Hyper Voice [T4]  /  Shadow Ball [T4]  /  Fire Blast [T4]  /  Ice Beam [T4]
   [4B] Choice Specs speaker
        Loudred @ Choice Specs   |   Ability: Soundproof   |   Nature: Modest
        Moves: Hyper Voice [T4]  /  Fire Blast [T4]  /  Ice Beam [T4]  /  Shadow Ball [T4]
@@ -1002,8 +1002,8 @@ Variants: A = Defensive (Encore, Hydration Rest) / B = Offensive
        Dewgong @ Damp Rock   |   Ability: Hydration   |   Nature: Calm
        Moves: Rain Dance [Sit]  /  Rest [Sit]  /  Muddy Water [T3]  /  Frost Breath [T3]
   [3B] Horned striker
-       Dewgong @ Expert Belt   |   Ability: Thick Fat   |   Nature: Adamant
-       Moves: Ice Spinner [T3]  /  Aqua Tail [T3]  /  Drill Run [T3]  /  Ice Shard [T4]
+       Dewgong @ Expert Belt   |   Ability: Thick Fat   |   Nature: Modest
+       Moves: Alluring Voice [T3]  /  Surf [T4]  /  Signal Beam [T3]  /  Ice Beam [T4]
   [4A] Bulky lion
        Dewgong @ Leftovers   |   Ability: Thick Fat   |   Nature: Calm
        Moves: Surf [T4]  /  Ice Shard [T4]  /  Encore [Sit]  /  Toxic [Sit]
@@ -1059,14 +1059,14 @@ Variants: A = Physical / B = Special (Ice Body)
        Glalie @ Wise Glasses   |   Ability: Ice Body   |   Nature: Rash
        Moves: Icy Wind [T2]  /  Water Pulse [T2]  /  Chilling Water [T2]  /  Frost Breath [T3]
   [3A] Spinning striker
-       Glalie @ Expert Belt   |   Ability: Inner Focus   |   Nature: Adamant
-       Moves: Ice Spinner [T3]  /  Crunch [T3]  /  Earthquake [T4]  /  Self-Destruct [T3]
+       Glalie @ Expert Belt   |   Ability: Inner Focus   |   Nature: Modest
+       Moves: Ice Beam [T4]  /  Signal Beam [T3]  /  Dark Pulse [T4]  /  Self-Destruct [T3]
   [3B] Ice Body staller
        Glalie @ Leftovers   |   Ability: Ice Body   |   Nature: Modest
        Moves: Substitute [Sit]  /  Protect [Sit]  /  Frost Breath [T3]  /  Shadow Ball [T4]
   [4A] Choice Band bomber
-       Glalie @ Choice Band   |   Ability: Inner Focus   |   Nature: Jolly
-       Moves: Icicle Crash [T4]  /  Earthquake [T4]  /  Ice Shard [T4]  /  Explosion [T4]
+       Glalie @ Choice Specs   |   Ability: Inner Focus   |   Nature: Timid
+       Moves: Dark Pulse [T4]  /  Shadow Ball [T4]  /  Ice Beam [T4]  /  Explosion [T4]
   [4B] Snow caster
        Glalie @ Icy Rock   |   Ability: Ice Body   |   Nature: Timid
        Moves: Snowscape [Sit]  /  Blizzard [T4]  /  Freeze-Dry [T4]  /  Shadow Ball [T4]
@@ -1095,8 +1095,8 @@ Variants: A = Attacker / B = Support (Will-O-Wisp, Destiny Bond, Aurora Veil)
        Froslass @ Focus Sash   |   Ability: Cursed Body   |   Nature: Timid
        Moves: Taunt [Sit]  /  Destiny Bond [Sit]  /  Will-O-Wisp [Sit]  /  Hex [T3]
   [4A] Physical attacker
-       Froslass @ Life Orb   |   Ability: Cursed Body   |   Nature: Jolly
-       Moves: Poltergeist [T4]  /  Icicle Crash [T4]  /  Ice Shard [T4]  /  Sucker Punch [T4]
+       Froslass @ Life Orb   |   Ability: Cursed Body   |   Nature: Timid
+       Moves: Shadow Ball [T4]  /  Thunderbolt [T4]  /  Ice Beam [T4]  /  Psychic [T4]
   [4B] Aurora Veil lead
        Froslass @ Light Clay   |   Ability: Cursed Body   |   Nature: Timid
        Moves: Snowscape [Sit]  /  Aurora Veil [Sit]  /  Destiny Bond [Sit]  /  Shadow Ball [T4]
@@ -1155,8 +1155,8 @@ Variants: A = Physical (Scrappy) / B = Special (Boomburst)
        Exploud @ Wise Glasses   |   Ability: Scrappy   |   Nature: Modest
        Moves: Boomburst [T4]  /  Extrasensory [T3]  /  Taunt [Sit]  /  Protect [Sit]
   [4A] Choice Scarf brawler
-       Exploud @ Choice Scarf   |   Ability: Scrappy   |   Nature: Adamant
-       Moves: Double-Edge [T4]  /  Earthquake [T4]  /  Fire Punch [T3]  /  Crunch [T3]
+       Exploud @ Choice Scarf   |   Ability: Soundproof   |   Nature: Modest
+       Moves: Boomburst [T4]  /  Ice Beam [T4]  /  Fire Blast [T4]  /  Surf [T4]
   [4B] Boomburst attacker
        Exploud @ Life Orb   |   Ability: Scrappy   |   Nature: Modest
        Moves: Boomburst [T4]  /  Flamethrower [T4]  /  Focus Blast [T4]  /  Ice Beam [T4]
@@ -1185,8 +1185,8 @@ Variants: A = Physical / B = Special (Snow Warning)
        Abomasnow @ Light Clay   |   Ability: Snow Warning   |   Nature: Modest
        Moves: Aurora Veil [Sit]  /  Blizzard [T4]  /  Grass Knot [T3]  /  Leech Seed [Sit]
   [4A] Assault Vest giant
-       Abomasnow @ Assault Vest   |   Ability: Snow Warning   |   Nature: Adamant
-       Moves: Wood Hammer [T4]  /  Ice Shard [T4]  /  Earthquake [T4]  /  Ice Punch [T3]
+       Abomasnow @ Assault Vest   |   Ability: Snow Warning   |   Nature: Modest
+       Moves: Energy Ball [T4]  /  Focus Blast [T4]  /  Earth Power [T4]  /  Ice Beam [T4]
   [4B] Choice Specs blizzard
        Abomasnow @ Choice Specs   |   Ability: Snow Warning   |   Nature: Modest
        Moves: Blizzard [T4]  /  Leaf Storm [T4]  /  Earth Power [T4]  /  Focus Blast [T4]
@@ -1326,8 +1326,8 @@ Variants: A = Defensive (Curse, Assault Vest) / B = Offensive (Own Tempo Thrash,
        Lickilicky @ Sitrus Berry   |   Ability: Cloud Nine   |   Nature: Careful
        Moves: Heal Bell [Sit]  /  Dragon Tail [Sit]  /  Slam [T2]  /  Toxic [Sit]
   [2B] Climbing tongue
-       Lickilicky @ Muscle Band   |   Ability: Oblivious   |   Nature: Lonely
-       Moves: Slam [T2]  /  Bulldoze [T2]  /  Power-Up Punch [T2]  /  Rock Climb [T3]
+       Lickilicky @ Wise Glasses   |   Ability: Oblivious   |   Nature: Mild
+       Moves: Water Pulse [T2]  /  Incinerate [T2]  /  Shock Wave [T2]  /  Wring Out [T3]
   [3A] Curse rester
        Lickilicky @ Leftovers   |   Ability: Oblivious   |   Nature: Careful
        Moves: Curse [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Rock Climb [T3]
@@ -1365,8 +1365,8 @@ Variants: A = Physical / B = Special
        Lucario @ Focus Sash   |   Ability: Inner Focus   |   Nature: Modest
        Moves: Aura Sphere [T4]  /  Water Pulse [T2]  /  Agility [Sit]  /  Detect [Sit]
   [4A] Swords Dance sweeper
-       Lucario @ Life Orb   |   Ability: Justified   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Close Combat [T4]  /  Meteor Mash [T4]  /  Extreme Speed [T4]
+       Lucario @ Life Orb   |   Ability: Justified   |   Nature: Modest
+       Moves: Nasty Plot [T4]  /  Focus Blast [T4]  /  Flash Cannon [T4]  /  Psychic [T4]
   [4B] Nasty Plot sweeper
        Lucario @ Focus Sash   |   Ability: Inner Focus   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Aura Sphere [T4]  /  Flash Cannon [T4]  /  Vacuum Wave [T4]
@@ -1381,7 +1381,7 @@ Variants: A = Setup (Calm Mind) / B = Special attacker / Ice Body support
        Moves: Tackle [T1]  /  Quick Attack [T1]  /  Tail Whip [T1]  /  Icy Wind [T2]
   [1B] Snowy fox
        Glaceon @ Oran Berry   |   Ability: Ice Body   |   Nature: Docile
-       Moves: Quick Attack [T1]  /  Sand Attack [T1]  /  Double Kick [T1]  /  Ice Fang [T2]
+       Moves: Disarming Voice [T1]  /  Sand Attack [T1]  /  Mud-Slap [T1]  /  Icy Wind [T2]
   [2A] Work Up fox
        Glaceon @ Never-Melt Ice   |   Ability: Ice Body   |   Nature: Mild
        Moves: Work Up [T2]  /  Icy Wind [T2]  /  Water Pulse [T2]  /  Frost Breath [T3]

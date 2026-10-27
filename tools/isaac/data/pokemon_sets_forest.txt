@@ -268,7 +268,7 @@ Variants: A = Setup (sun, Swords Dance) / B = Special and Choice
 ----------------------------------------------------------------------------------------------------
   [1A] Flower sprout
        Bellsprout @ (no item)   |   Ability: Chlorophyll   |   Nature: Hardy
-       Moves: Vine Whip [T1]  /  Wrap [T1]  /  Poison Powder [T1]  /  Razor Leaf [T2]
+       Moves: Acid [T1]  /  Infestation [T1]  /  Poison Powder [T1]  /  Magical Leaf [T2]
   [1B] Hungry sprout
        Bellsprout @ Oran Berry   |   Ability: Gluttony   |   Nature: Docile
        Moves: Acid [T1]  /  Mega Drain [T1]  /  Sweet Scent [T1]  /  Slam [T2]
@@ -288,8 +288,8 @@ Variants: A = Setup (sun, Swords Dance) / B = Special and Choice
        Bellsprout @ Life Orb   |   Ability: Chlorophyll   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Power Whip [T4]  /  Sucker Punch [T4]  /  Poison Jab [T4]
   [4B] Choice Band sprout
-       Bellsprout @ Choice Band   |   Ability: Gluttony   |   Nature: Adamant
-       Moves: Power Whip [T4]  /  Knock Off [T4]  /  Poison Jab [T4]  /  Sucker Punch [T4]
+       Bellsprout @ Choice Specs   |   Ability: Gluttony   |   Nature: Modest
+       Moves: Energy Ball [T4]  /  Knock Off [T4]  /  Sludge Wave [T4]  /  Wring Out [T3]
 
 ====================================================================================================
 #209 SNUBBULL  —  Fairy  —  BST 300  —  Category 2
@@ -328,7 +328,7 @@ Variants: A = Physical (Unburden) / B = Special
 ----------------------------------------------------------------------------------------------------
   [1A] Wood gecko
        Treecko @ (no item)   |   Ability: Overgrow   |   Nature: Hardy
-       Moves: Pound [T1]  /  Leafage [T1]  /  Leer [T1]  /  Absorb [T1]
+       Moves: Swift [T2]  /  Mud-Slap [T1]  /  Leer [T1]  /  Absorb [T1]
   [1B] Quick gecko
        Treecko @ Oran Berry   |   Ability: Unburden   |   Nature: Docile
        Moves: Quick Attack [T1]  /  Mega Drain [T1]  /  Double Kick [T1]  /  Magical Leaf [T2]
@@ -361,7 +361,7 @@ Variants: A = Defensive (screens, Leech Seed) / B = Offensive (Swords Dance)
        Moves: Tackle [T1]  /  Growl [T1]  /  Vine Whip [T1]  /  Poison Powder [T1]
   [1B] Guarded leaf
        Chikorita @ (no item)   |   Ability: Leaf Guard   |   Nature: Docile
-       Moves: Mud-Slap [T1]  /  Sweet Scent [T1]  /  Tackle [T1]  /  Razor Leaf [T2]
+       Moves: Mud-Slap [T1]  /  Sweet Scent [T1]  /  Disarming Voice [T1]  /  Magical Leaf [T2]
   [2A] Screen leaf
        Chikorita @ Sitrus Berry   |   Ability: Leaf Guard   |   Nature: Bold
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Magical Leaf [T2]  /  Synthesis [Sit]
@@ -481,19 +481,19 @@ Variants: A = Special (Swift Swim) / B = Physical (Fake Out)
        Moves: Absorb [T1]  /  Water Gun [T1]  /  Astonish [T1]  /  Fury Swipes [T1]
   [1B] Carefree weed
        Lombre @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
-       Moves: Bubble [T1]  /  Growl [T1]  /  Mega Drain [T1]  /  Razor Leaf [T2]
+       Moves: Bubble [T1]  /  Growl [T1]  /  Mega Drain [T1]  /  Mud Shot [T2]
   [2A] Rain caster
        Lombre @ Mystic Water   |   Ability: Swift Swim   |   Nature: Mild
        Moves: Water Pulse [T2]  /  Magical Leaf [T2]  /  Mud Shot [T2]  /  Grass Knot [T3]
   [2B] Punching weed
-       Lombre @ Miracle Seed   |   Ability: Own Tempo   |   Nature: Lonely
-       Moves: Power-Up Punch [T2]  /  Razor Leaf [T2]  /  Headbutt [T2]  /  Ice Punch [T3]
+       Lombre @ Miracle Seed   |   Ability: Own Tempo   |   Nature: Mild
+       Moves: Bubble Beam [T2]  /  Magical Leaf [T2]  /  Mud Shot [T2]  /  Icy Wind [T2]
   [3A] Rain setter
        Lombre @ Damp Rock   |   Ability: Swift Swim   |   Nature: Modest
        Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Grass Knot [T3]  /  Ice Beam [T4]
   [3B] Fake Out weed
-       Lombre @ Expert Belt   |   Ability: Rain Dish   |   Nature: Adamant
-       Moves: Fake Out [Sit]  /  Seed Bomb [T3]  /  Waterfall [T4]  /  Drain Punch [T4]
+       Lombre @ Expert Belt   |   Ability: Rain Dish   |   Nature: Modest
+       Moves: Fake Out [Sit]  /  Grass Knot [T3]  /  Surf [T4]  /  Ice Beam [T4]
   [4A] Choice Specs weed
        Lombre @ Choice Specs   |   Ability: Swift Swim   |   Nature: Modest
        Moves: Hydro Pump [T4]  /  Giga Drain [T4]  /  Ice Beam [T4]  /  Hyper Voice [T4]
@@ -541,7 +541,7 @@ Variants: A = Pure Stall (Roost, Toxic) / B = Utility and Quiver Dance
        Moves: Confusion [T1]  /  Gust [T1]  /  Poison Powder [T1]  /  Silver Wind [T2]
   [1B] Staring moth
        Dustox @ (no item)   |   Ability: Compound Eyes   |   Nature: Docile
-       Moves: Poison Sting [T1]  /  Tackle [T1]  /  Harden [T1]  /  Psybeam [T2]
+       Moves: Infestation [T1]  /  Twister [T1]  /  Harden [T1]  /  Psybeam [T2]
   [2A] Toxic moth
        Dustox @ Sitrus Berry   |   Ability: Shield Dust   |   Nature: Calm
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Struggle Bug [T2]  /  Protect [Sit]
@@ -721,13 +721,13 @@ Variants: A = Defensive (Leech Seed, Aromatherapy) / B = Offensive (Swords Dance
        Moves: Vine Whip [T1]  /  Tackle [T1]  /  Sweet Scent [T1]  /  Magical Leaf [T2]
   [1B] Leaf pokemon
        Bayleef @ Oran Berry   |   Ability: Overgrow   |   Nature: Docile
-       Moves: Rock Smash [T1]  /  Growl [T1]  /  Mud-Slap [T1]  /  Razor Leaf [T2]
+       Moves: Disarming Voice [T1]  /  Growl [T1]  /  Mud-Slap [T1]  /  Magical Leaf [T2]
   [2A] Cleric leaf
        Bayleef @ Sitrus Berry   |   Ability: Leaf Guard   |   Nature: Calm
        Moves: Aromatherapy [Sit]  /  Leech Seed [Sit]  /  Magical Leaf [T2]  /  Protect [Sit]
   [2B] Stomping leaf
-       Bayleef @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
-       Moves: Razor Leaf [T2]  /  Headbutt [T2]  /  Work Up [T2]  /  Stomping Tantrum [T3]
+       Bayleef @ Miracle Seed   |   Ability: Overgrow   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Ancient Power [T2]  /  Work Up [T2]  /  Dazzling Gleam [T3]
   [3A] Leech Seed cleric
        Bayleef @ Leftovers   |   Ability: Leaf Guard   |   Nature: Calm
        Moves: Leech Seed [Sit]  /  Aromatherapy [Sit]  /  Seed Bomb [T3]  /  Synthesis [Sit]
@@ -738,8 +738,8 @@ Variants: A = Defensive (Leech Seed, Aromatherapy) / B = Offensive (Swords Dance
        Bayleef @ Rocky Helmet   |   Ability: Leaf Guard   |   Nature: Bold
        Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  Knock Off [T4]  /  Giga Drain [T4]
   [4B] Choice Band leaf
-       Bayleef @ Choice Band   |   Ability: Overgrow   |   Nature: Adamant
-       Moves: Double-Edge [T4]  /  Knock Off [T4]  /  Seed Bomb [T3]  /  Stomping Tantrum [T3]
+       Bayleef @ Choice Specs   |   Ability: Overgrow   |   Nature: Modest
+       Moves: Wring Out [T3]  /  Knock Off [T4]  /  Energy Ball [T4]  /  Earth Power [T4]
 
 ====================================================================================================
 #253 GROVYLE  —  Grass  —  BST 405  —  Category 4
@@ -928,13 +928,13 @@ Variants: A = Setup (Swords Dance) / B = Support (sleep, Leech Seed)
 ----------------------------------------------------------------------------------------------------
   [1A] Bug catcher
        Carnivine @ (no item)   |   Ability: Levitate   |   Nature: Hardy
-       Moves: Vine Whip [T1]  /  Bind [T1]  /  Sweet Scent [T1]  /  Bite [T2]
+       Moves: Absorb [T1]  /  Infestation [T1]  /  Sweet Scent [T1]  /  Acid Spray [T2]
   [1B] Floating trap
        Carnivine @ Oran Berry   |   Ability: Levitate   |   Nature: Docile
        Moves: Infestation [T1]  /  Mud-Slap [T1]  /  Flash [T1]  /  Razor Leaf [T2]
   [2A] Crunching trap
-       Carnivine @ Miracle Seed   |   Ability: Levitate   |   Nature: Lonely
-       Moves: Razor Leaf [T2]  /  Bite [T2]  /  Bug Bite [T2]  /  Crunch [T3]
+       Carnivine @ Miracle Seed   |   Ability: Levitate   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Bug Bite [T2]  /  Wring Out [T3]
   [2B] Seeding trap
        Carnivine @ Sitrus Berry   |   Ability: Levitate   |   Nature: Impish
        Moves: Leech Seed [Sit]  /  Stun Spore [Sit]  /  Grass Whistle [T2]  /  Seed Bomb [T3]
@@ -1081,13 +1081,13 @@ Variants: A = Special (Swift Swim) / B = Physical (Fake Out, Swords Dance)
        Moves: Bubble [T1]  /  Absorb [T1]  /  Growl [T1]  /  Astonish [T1]
   [1B] Dancing duck
        Ludicolo @ Oran Berry   |   Ability: Own Tempo   |   Nature: Docile
-       Moves: Water Gun [T1]  /  Fury Swipes [T1]  /  Mega Drain [T1]  /  Water Pulse [T2]
+       Moves: Water Gun [T1]  /  Disarming Voice [T1]  /  Mega Drain [T1]  /  Water Pulse [T2]
   [2A] Rain caster
        Ludicolo @ Mystic Water   |   Ability: Swift Swim   |   Nature: Mild
        Moves: Chilling Water [T2]  /  Magical Leaf [T2]  /  Icy Wind [T2]  /  Grass Knot [T3]
   [2B] Fake Out dancer
-       Ludicolo @ Miracle Seed   |   Ability: Own Tempo   |   Nature: Lonely
-       Moves: Fake Out [Sit]  /  Power-Up Punch [T2]  /  Razor Leaf [T2]  /  Ice Punch [T3]
+       Ludicolo @ Miracle Seed   |   Ability: Own Tempo   |   Nature: Mild
+       Moves: Fake Out [Sit]  /  Bubble Beam [T2]  /  Magical Leaf [T2]  /  Icy Wind [T2]
   [3A] Rain setter
        Ludicolo @ Damp Rock   |   Ability: Swift Swim   |   Nature: Modest
        Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Grass Knot [T3]  /  Focus Blast [T4]
@@ -1168,13 +1168,13 @@ Variants: A = Physical / B = Special (sun)
 ----------------------------------------------------------------------------------------------------
   [1A] Flycatcher
        Victreebel @ (no item)   |   Ability: Chlorophyll   |   Nature: Hardy
-       Moves: Vine Whip [T1]  /  Wrap [T1]  /  Sweet Scent [T1]  /  Pounce [T2]
+       Moves: Mega Drain [T1]  /  Acid [T1]  /  Sweet Scent [T1]  /  Infestation [T1]
   [1B] Hungry flycatcher
        Victreebel @ Oran Berry   |   Ability: Gluttony   |   Nature: Docile
        Moves: Acid [T1]  /  Bind [T1]  /  Poison Powder [T1]  /  Leaf Tornado [T2]
   [2A] Lunging flycatcher
-       Victreebel @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Lonely
-       Moves: Razor Leaf [T2]  /  Bug Bite [T2]  /  Thief [T2]  /  Lunge [T3]
+       Victreebel @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Mild
+       Moves: Magical Leaf [T2]  /  Bug Bite [T2]  /  Thief [T2]  /  Acid Spray [T2]
   [2B] Encore caster
        Victreebel @ Sitrus Berry   |   Ability: Gluttony   |   Nature: Mild
        Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Encore [Sit]  /  Grass Knot [T3]
@@ -1488,8 +1488,8 @@ Variants: A = Sun attacker (Chlorophyll) / B = Harvest and Trick Room
        Exeggutor @ Life Orb   |   Ability: Chlorophyll   |   Nature: Modest
        Moves: Growth [T3]  /  Giga Drain [T4]  /  Psychic [T4]  /  Sludge Bomb [T4]
   [4B] Trick Room bomber
-       Exeggutor @ Sitrus Berry   |   Ability: Harvest   |   Nature: Brave
-       Moves: Trick Room [Sit]  /  Wood Hammer [T4]  /  Zen Headbutt [T3]  /  Explosion [T4]
+       Exeggutor @ Sitrus Berry   |   Ability: Harvest   |   Nature: Quiet
+       Moves: Trick Room [Sit]  /  Energy Ball [T4]  /  Psychic [T4]  /  Explosion [T4]
 
 ====================================================================================================
 #254 SCEPTILE  —  Grass  —  BST 530  —  Category 7
@@ -1536,8 +1536,8 @@ Variants: A = Defensive (Regenerator) / B = Offensive (sun, Assault Vest)
        Tangrowth @ Sitrus Berry   |   Ability: Regenerator   |   Nature: Relaxed
        Moves: Leech Seed [Sit]  /  Seed Bomb [T3]  /  Stun Spore [Sit]  /  Ingrain [Sit]
   [2B] Slamming giant
-       Tangrowth @ Miracle Seed   |   Ability: Leaf Guard   |   Nature: Lonely
-       Moves: Slam [T2]  /  Brutal Swing [T2]  /  Bulldoze [T2]  /  Seed Bomb [T3]
+       Tangrowth @ Miracle Seed   |   Ability: Leaf Guard   |   Nature: Mild
+       Moves: Ancient Power [T2]  /  Shock Wave [T2]  /  Acid Spray [T2]  /  Grass Knot [T3]
   [3A] Regenerator staller
        Tangrowth @ Leftovers   |   Ability: Regenerator   |   Nature: Relaxed
        Moves: Leech Seed [Sit]  /  Sleep Powder [T3]  /  Seed Bomb [T3]  /  Synthesis [Sit]
@@ -1575,8 +1575,8 @@ Variants: A = Physical (Swords Dance) / B = Special (Calm Mind)
        Virizion @ Wise Glasses   |   Ability: Justified   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Grass Knot [T3]  /  Synthesis [Sit]  /  Substitute [Sit]
   [4A] Swords Dance sweeper
-       Virizion @ Life Orb   |   Ability: Justified   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  Leaf Blade [T4]  /  Close Combat [T4]  /  Stone Edge [T4]
+       Virizion @ Life Orb   |   Ability: Justified   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Energy Ball [T4]  /  Focus Blast [T4]  /  Air Slash [T4]
   [4B] Calm Mind sweeper
        Virizion @ Leftovers   |   Ability: Justified   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Giga Drain [T4]  /  Aura Sphere [T4]  /  Synthesis [Sit]

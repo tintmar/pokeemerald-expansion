@@ -306,8 +306,8 @@ Variants: A = Defensive (Stockpile, Liquid Ooze) / B = Offensive (Gluttony, Swor
        Gulpin @ Sitrus Berry   |   Ability: Liquid Ooze   |   Nature: Bold
        Moves: Stockpile [Sit]  /  Swallow [Sit]  /  Sludge [T2]  /  Yawn [Sit]
   [2B] Gluttonous stomach
-       Gulpin @ Poison Barb   |   Ability: Gluttony   |   Nature: Lonely
-       Moves: Headbutt [T2]  /  Power-Up Punch [T2]  /  Thief [T2]  /  Seed Bomb [T3]
+       Gulpin @ Poison Barb   |   Ability: Gluttony   |   Nature: Mild
+       Moves: Sludge [T2]  /  Water Pulse [T2]  /  Thief [T2]  /  Wring Out [T3]
   [3A] Venoshock stomach
        Gulpin @ Black Sludge   |   Ability: Liquid Ooze   |   Nature: Calm
        Moves: Stockpile [Sit]  /  Toxic [Sit]  /  Venoshock [T3]  /  Encore [Sit]
@@ -606,8 +606,8 @@ Variants: A = Stall (Roost, Toxic) / B = Utility (screens, Tailwind, Iron Fist)
        Ledian @ Sitrus Berry   |   Ability: Early Bird   |   Nature: Calm
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Encore [Sit]  /  Struggle Bug [T2]
   [2B] Iron Fist beetle
-       Ledian @ Muscle Band   |   Ability: Iron Fist   |   Nature: Hasty
-       Moves: Power-Up Punch [T2]  /  Dizzy Punch [T2]  /  U-turn [T2]  /  Ice Punch [T3]
+       Ledian @ Wise Glasses   |   Ability: Swarm   |   Nature: Hasty
+       Moves: Air Cutter [T2]  /  Swift [T2]  /  U-turn [T2]  /  Psybeam [T2]
   [3A] Field cleaner
        Ledian @ Leftovers   |   Ability: Early Bird   |   Nature: Careful
        Moves: Roost [Sit]  /  Defog [Sit]  /  U-turn [T2]  /  Encore [Sit]
@@ -633,8 +633,8 @@ Variants: A = Physical (Speed Boost) / B = Special (Speed Boost)
        Yanma @ Oran Berry   |   Ability: Compound Eyes   |   Nature: Docile
        Moves: Tackle [T1]  /  Foresight [T1]  /  String Shot [T1]  /  Silver Wind [T2]
   [2A] Speed striker
-       Yanma @ Sharp Beak   |   Ability: Speed Boost   |   Nature: Lonely
-       Moves: Wing Attack [T2]  /  Bug Bite [T2]  /  Feint Attack [T2]  /  Lunge [T3]
+       Yanma @ Sharp Beak   |   Ability: Speed Boost   |   Nature: Mild
+       Moves: Air Cutter [T2]  /  Bug Bite [T2]  /  Ominous Wind [T2]  /  Psychic Noise [T3]
   [2B] Hypnotic wing
        Yanma @ Silver Powder   |   Ability: Compound Eyes   |   Nature: Mild
        Moves: Silver Wind [T2]  /  Air Cutter [T2]  /  Ancient Power [T2]  /  Hypnosis [T2]
@@ -768,8 +768,8 @@ Variants: A = Defensive (Serene Grace Glare) / B = Offensive (Coil)
        Dunsparce @ Leftovers   |   Ability: Serene Grace   |   Nature: Careful
        Moves: Glare [Sit]  /  Roost [Sit]  /  Body Slam [T4]  /  Earthquake [T4]
   [4B] Coil sweeper
-       Dunsparce @ Sitrus Berry   |   Ability: Serene Grace   |   Nature: Adamant
-       Moves: Coil [T3]  /  Double-Edge [T4]  /  Earthquake [T4]  /  Roost [Sit]
+       Dunsparce @ Sitrus Berry   |   Ability: Serene Grace   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Hyper Voice [T4]  /  Earth Power [T4]  /  Roost [Sit]
 
 ====================================================================================================
 #313 VOLBEAT  —  Bug  —  BST 430  —  Category 4
@@ -855,8 +855,8 @@ Variants: A = Physical (Technician) / B = Special (Nasty Plot)
        Persian @ Expert Belt   |   Ability: Unnerve   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Uproar [T3]  /  Petal Dance [T3]  /  Water Pulse [T2]
   [4A] Choice Band cat
-       Persian @ Choice Band   |   Ability: Technician   |   Nature: Jolly
-       Moves: Double-Edge [T4]  /  Knock Off [T4]  /  Play Rough [T4]  /  U-turn [T2]
+       Persian @ Choice Specs   |   Ability: Technician   |   Nature: Timid
+       Moves: Hyper Voice [T4]  /  Knock Off [T4]  /  Thunderbolt [T4]  /  U-turn [T2]
   [4B] Nasty Plot sweeper
        Persian @ Life Orb   |   Ability: Unnerve   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Hyper Voice [T4]  /  Thunderbolt [T4]  /  Shadow Ball [T4]
@@ -1081,13 +1081,13 @@ Variants: A = Defensive (Liquid Ooze, Yawn) / B = Offensive (Gluttony Belch, Ass
        Moves: Smog [T1]  /  Pound [T1]  /  Infestation [T1]  /  Sludge [T2]
   [1B] Hungry bag
        Swalot @ (no item)   |   Ability: Gluttony   |   Nature: Docile
-       Moves: Pound [T1]  /  Rock Smash [T1]  /  Poison Gas [T1]  /  Defense Curl [T1]
+       Moves: Sludge [T2]  /  Infestation [T1]  /  Poison Gas [T1]  /  Defense Curl [T1]
   [2A] Yawning bag
        Swalot @ Sitrus Berry   |   Ability: Liquid Ooze   |   Nature: Calm
        Moves: Yawn [Sit]  /  Encore [Sit]  /  Sludge [T2]  /  Protect [Sit]
   [2B] Punching bag
-       Swalot @ Poison Barb   |   Ability: Gluttony   |   Nature: Lonely
-       Moves: Power-Up Punch [T2]  /  Headbutt [T2]  /  Bulldoze [T2]  /  Fire Punch [T3]
+       Swalot @ Poison Barb   |   Ability: Gluttony   |   Nature: Mild
+       Moves: Sludge [T2]  /  Water Pulse [T2]  /  Mud Shot [T2]  /  Wring Out [T3]
   [3A] Sticky staller
        Swalot @ Black Sludge   |   Ability: Sticky Hold   |   Nature: Calm
        Moves: Sludge Bomb [T4]  /  Pain Split [Sit]  /  Yawn [Sit]  /  Encore [Sit]
@@ -1381,7 +1381,7 @@ Variants: A = Defensive (Leech Seed, Synthesis) / B = Offensive (Chlorophyll)
        Moves: Vine Whip [T1]  /  Mega Drain [T1]  /  Growl [T1]  /  Sludge [T2]
   [1B] Sunny giant
        Venusaur @ (no item)   |   Ability: Chlorophyll   |   Nature: Docile
-       Moves: Tackle [T1]  /  Poison Powder [T1]  /  Sweet Scent [T1]  /  Razor Leaf [T2]
+       Moves: Mud-Slap [T1]  /  Poison Powder [T1]  /  Sweet Scent [T1]  /  Magical Leaf [T2]
   [2A] Seeding giant
        Venusaur @ Sitrus Berry   |   Ability: Overgrow   |   Nature: Bold
        Moves: Leech Seed [Sit]  /  Sludge [T2]  /  Sleep Powder [T3]  /  Protect [Sit]
@@ -1443,8 +1443,8 @@ Variants: A = Physical (Intimidate) / B = Special (Trick Room, Calm Mind)
        Wyrdeer @ Oran Berry   |   Ability: Frisk   |   Nature: Docile
        Moves: Astonish [T1]  /  Sand Attack [T1]  /  Mud-Slap [T1]  /  Stomp [T2]
   [2A] Psyshield elk
-       Wyrdeer @ Twisted Spoon   |   Ability: Intimidate   |   Nature: Lonely
-       Moves: Psyshield Bash [T3]  /  Headbutt [T2]  /  Thief [T2]  /  Trailblaze [T2]
+       Wyrdeer @ Twisted Spoon   |   Ability: Intimidate   |   Nature: Mild
+       Moves: Extrasensory [T3]  /  Swift [T2]  /  Thief [T2]  /  Charge Beam [T2]
   [2B] Psychic caster
        Wyrdeer @ Sitrus Berry   |   Ability: Sap Sipper   |   Nature: Mild
        Moves: Psybeam [T2]  /  Swift [T2]  /  Charge Beam [T2]  /  Work Up [T2]
@@ -1455,8 +1455,8 @@ Variants: A = Physical (Intimidate) / B = Special (Trick Room, Calm Mind)
        Wyrdeer @ Expert Belt   |   Ability: Sap Sipper   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Psychic Noise [T3]  /  Signal Beam [T3]  /  Uproar [T3]
   [4A] Choice Band elk
-       Wyrdeer @ Choice Band   |   Ability: Intimidate   |   Nature: Adamant
-       Moves: Double-Edge [T4]  /  Megahorn [T4]  /  Earthquake [T4]  /  Psyshield Bash [T3]
+       Wyrdeer @ Choice Specs   |   Ability: Intimidate   |   Nature: Modest
+       Moves: Thunderbolt [T4]  /  Energy Ball [T4]  /  Earth Power [T4]  /  Psychic [T4]
   [4B] Trick Room elk
        Wyrdeer @ Life Orb   |   Ability: Sap Sipper   |   Nature: Quiet
        Moves: Trick Room [Sit]  /  Psychic [T4]  /  Double-Edge [T4]  /  Thunderbolt [T4]
@@ -1678,25 +1678,25 @@ Variants: A = Physical (Swords Dance, Extreme Speed) / B = Special (Calm Mind)
 ----------------------------------------------------------------------------------------------------
   [1A] Alpha
        Arceus @ (no item)   |   Ability: Multitype   |   Nature: Hardy
-       Moves: Rock Smash [T1]  /  Twister [T1]  /  Whirlpool [T1]  /  Headbutt [T2]
+       Moves: Confusion [T1]  /  Twister [T1]  /  Whirlpool [T1]  /  Swift [T2]
   [1B] Original one
        Arceus @ Oran Berry   |   Ability: Multitype   |   Nature: Docile
        Moves: Mud-Slap [T1]  /  Flash [T1]  /  Rock Smash [T1]  /  Swift [T2]
   [2A] Honing alpha
-       Arceus @ Silk Scarf   |   Ability: Multitype   |   Nature: Lonely
-       Moves: Hone Claws [T2]  /  Headbutt [T2]  /  Rock Tomb [T2]  /  Shadow Claw [T3]
+       Arceus @ Silk Scarf   |   Ability: Multitype   |   Nature: Mild
+       Moves: Work Up [T2]  /  Swift [T2]  /  Ancient Power [T2]  /  Ominous Wind [T2]
   [2B] Alpha caster
        Arceus @ Sitrus Berry   |   Ability: Multitype   |   Nature: Mild
        Moves: Work Up [T2]  /  Shock Wave [T2]  /  Swift [T2]  /  Ominous Wind [T2]
   [3A] Swords Dance alpha
-       Arceus @ Muscle Band   |   Ability: Multitype   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Rock Climb [T3]  /  Shadow Claw [T3]  /  Stomping Tantrum [T3]
+       Arceus @ Wise Glasses   |   Ability: Multitype   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Judgment [T4]  /  Heat Wave [T3]  /  Scorching Sands [T3]
   [3B] Calm Mind alpha
        Arceus @ Wise Glasses   |   Ability: Multitype   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Dazzling Gleam [T3]  /  Heat Wave [T3]  /  Recover [Sit]
   [4A] Extreme Speed sweeper
-       Arceus @ Life Orb   |   Ability: Multitype   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Extreme Speed [T4]  /  Earthquake [T4]  /  Recover [Sit]
+       Arceus @ Life Orb   |   Ability: Multitype   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Judgment [T4]  /  Earth Power [T4]  /  Recover [Sit]
   [4B] Calm Mind sweeper
        Arceus @ Leftovers   |   Ability: Multitype   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Judgment [T4]  /  Earth Power [T4]  /  Recover [Sit]

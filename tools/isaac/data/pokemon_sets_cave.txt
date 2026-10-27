@@ -216,20 +216,20 @@ Variants: A = Setup attacker / B = Fast attacker (priority)
        Meditite @ Black Belt   |   Ability: Pure Power   |   Nature: Lonely
        Moves: Power-Up Punch [T2]  /  Force Palm [T2]  /  Rock Tomb [T2]  /  Zen Headbutt [T3]
   [2B] Quick boxer
-       Meditite @ Sitrus Berry   |   Ability: Pure Power   |   Nature: Hasty
-       Moves: Fake Out [Sit]  /  Force Palm [T2]  /  Low Sweep [T2]  /  Thief [T2]
+       Meditite @ Sitrus Berry   |   Ability: Telepathy   |   Nature: Hasty
+       Moves: Fake Out [Sit]  /  Psybeam [T2]  /  Signal Beam [T3]  /  Thief [T2]
   [3A] Bulk Up boxer
-       Meditite @ Black Belt   |   Ability: Pure Power   |   Nature: Adamant
-       Moves: Brick Break [T3]  /  Zen Headbutt [T3]  /  Ice Punch [T3]  /  Bulk Up [T4]
+       Meditite @ Black Belt   |   Ability: Telepathy   |   Nature: Modest
+       Moves: Focus Blast [T4]  /  Signal Beam [T3]  /  Grass Knot [T3]  /  Calm Mind [T4]
   [3B] Sash striker
-       Meditite @ Focus Sash   |   Ability: Pure Power   |   Nature: Jolly
-       Moves: Fake Out [Sit]  /  Zen Headbutt [T3]  /  Low Kick [T3]  /  Bullet Punch [T4]
+       Meditite @ Focus Sash   |   Ability: Telepathy   |   Nature: Timid
+       Moves: Fake Out [Sit]  /  Psychic [T4]  /  Signal Beam [T3]  /  Focus Blast [T4]
   [4A] Bulk Up sweeper
-       Meditite @ Sitrus Berry   |   Ability: Pure Power   |   Nature: Adamant
-       Moves: Bulk Up [T4]  /  Drain Punch [T4]  /  Zen Headbutt [T3]  /  Bullet Punch [T4]
+       Meditite @ Sitrus Berry   |   Ability: Telepathy   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Focus Blast [T4]  /  Psychic [T4]  /  Shadow Ball [T4]
   [4B] Life Orb attacker
-       Meditite @ Life Orb   |   Ability: Pure Power   |   Nature: Jolly
-       Moves: High Jump Kick [T4]  /  Zen Headbutt [T3]  /  Bullet Punch [T4]  /  Ice Punch [T3]
+       Meditite @ Life Orb   |   Ability: Telepathy   |   Nature: Timid
+       Moves: Focus Blast [T4]  /  Psychic [T4]  /  Shadow Ball [T4]  /  Signal Beam [T3]
 
 ====================================================================================================
 #438 BONSLY  —  Rock  —  BST 290  —  Category 2
@@ -819,17 +819,17 @@ Variants: A = Setup attacker / B = Fast attacker
        Medicham @ Twisted Spoon   |   Ability: Pure Power   |   Nature: Hasty
        Moves: Fake Out [Sit]  /  Force Palm [T2]  /  Thief [T2]  /  Psycho Cut [T3]
   [3A] Bulk Up kicker
-       Medicham @ Expert Belt   |   Ability: Pure Power   |   Nature: Adamant
-       Moves: Bulk Up [T4]  /  Axe Kick [T3]  /  Zen Headbutt [T3]  /  Thunder Punch [T3]
+       Medicham @ Expert Belt   |   Ability: Telepathy   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Focus Blast [T4]  /  Signal Beam [T3]  /  Grass Knot [T3]
   [3B] Priority striker
-       Medicham @ Expert Belt   |   Ability: Pure Power   |   Nature: Jolly
-       Moves: Fake Out [Sit]  /  Zen Headbutt [T3]  /  Close Combat [T4]  /  Bullet Punch [T4]
+       Medicham @ Expert Belt   |   Ability: Telepathy   |   Nature: Timid
+       Moves: Fake Out [Sit]  /  Signal Beam [T3]  /  Focus Blast [T4]  /  Psychic [T4]
   [4A] Bulk Up sweeper
-       Medicham @ Punching Glove   |   Ability: Pure Power   |   Nature: Adamant
-       Moves: Bulk Up [T4]  /  Drain Punch [T4]  /  Zen Headbutt [T3]  /  Bullet Punch [T4]
+       Medicham @ Wise Glasses   |   Ability: Telepathy   |   Nature: Modest
+       Moves: Calm Mind [T4]  /  Focus Blast [T4]  /  Psychic [T4]  /  Energy Ball [T4]
   [4B] Choice Band attacker
-       Medicham @ Choice Band   |   Ability: Pure Power   |   Nature: Jolly
-       Moves: High Jump Kick [T4]  /  Zen Headbutt [T3]  /  Ice Punch [T3]  /  Bullet Punch [T4]
+       Medicham @ Choice Specs   |   Ability: Telepathy   |   Nature: Timid
+       Moves: Focus Blast [T4]  /  Psychic [T4]  /  Energy Ball [T4]  /  Shadow Ball [T4]
 
 ====================================================================================================
 #372 SHELGON  —  Dragon  —  BST 420  —  Category 4
@@ -1236,8 +1236,8 @@ Variants: A = Defensive / B = Offensive (setup)
        Cradily @ Sitrus Berry   |   Ability: Suction Cups   |   Nature: Calm
        Moves: Ancient Power [T2]  /  Ingrain [Sit]  /  Toxic [Sit]  /  Confuse Ray [Sit]
   [2B] Fossil brawler
-       Cradily @ Hard Stone   |   Ability: Storm Drain   |   Nature: Lonely
-       Moves: Rock Tomb [T2]  /  Mud Shot [T2]  /  Tickle [T2]  /  Bullet Seed [T3]
+       Cradily @ Hard Stone   |   Ability: Storm Drain   |   Nature: Mild
+       Moves: Ancient Power [T2]  /  Mud Shot [T2]  /  Tickle [T2]  /  Grass Knot [T3]
   [3A] Leech Seed wall
        Cradily @ Big Root   |   Ability: Suction Cups   |   Nature: Calm
        Moves: Rock Blast [T3]  /  Recover [Sit]  /  Leech Seed [Sit]  /  Toxic [Sit]
@@ -1608,8 +1608,8 @@ Variants: A = Defensive utility / B = Offensive (setup)
        Cobalion @ Leftovers   |   Ability: Justified   |   Nature: Impish
        Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Iron Head [T4]  /  Volt Switch [T2]
   [4B] Swords Dance sweeper
-       Cobalion @ Life Orb   |   Ability: Justified   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  Close Combat [T4]  /  Iron Head [T4]  /  Stone Edge [T4]
+       Cobalion @ Life Orb   |   Ability: Justified   |   Nature: Timid
+       Moves: Calm Mind [T4]  /  Focus Blast [T4]  /  Flash Cannon [T4]  /  Air Slash [T4]
 
 ====================================================================================================
 #639 TERRAKION  —  Rock/Fighting  —  BST 580  —  Category 8
