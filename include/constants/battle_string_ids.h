@@ -727,6 +727,7 @@ enum StringID
     STRINGID_BELCHCANTUSE,
     STRINGID_ISAAC_CAUGHTMONRELEASED,   // donjon : équipe pleine, le Pokémon capturé est relâché
     STRINGID_ISAAC_SWAPPEDMONRELEASED,  // donjon : un Pokémon de l'équipe est relâché pour lui faire place
+    STRINGID_ISAAC_TEAMWORKTOTEM,       // donjon : Totem d'Entraide à l'entrée en relais
     STRINGID_COUNT
 };
 

@@ -5386,6 +5386,15 @@ BattleScript_BerryPPHeal_Anim:
 	waitabilitypopup
 	return
 
+@ Donjon : Totem d'Entraide, à l'entrée en relais (stat dans gBattleTextBuff1 et l'animation, voir
+@ IsaacTryTeamworkTotemMessage)
+BattleScript_IsaacTeamworkTotem::
+	playanimation BS_SCRIPTING, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	waitanimation
+	printstring STRINGID_ISAAC_TEAMWORKTOTEM
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_AirBalloonMsgInRet::
 	printstring STRINGID_AIRBALLOONFLOAT
 	waitmessage B_WAIT_TIME_LONG

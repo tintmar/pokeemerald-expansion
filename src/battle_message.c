@@ -905,6 +905,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_LOSTSOMEOFITSHP]                      = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} lost some of its HP!"),
     [STRINGID_BELCHCANTUSE]                         = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} hasn't eaten any held Berries, so it can't possibly belch!\p"),
     [STRINGID_ISAAC_CAUGHTMONRELEASED]              = COMPOUND_STRING("Your party is full…\n{STR_VAR_2} was released.\p"),
+    [STRINGID_ISAAC_TEAMWORKTOTEM]                  = COMPOUND_STRING("{B_SCR_NAME_WITH_PREFIX} came in to help!\nIts Teamwork Totem boosted its {B_BUFF1}!"),
     [STRINGID_ISAAC_SWAPPEDMONRELEASED]             = COMPOUND_STRING("{STR_VAR_2} was released.\n{STR_VAR_1} joined the party!\p"),
 };
 

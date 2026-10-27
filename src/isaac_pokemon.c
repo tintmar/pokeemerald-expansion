@@ -1,6 +1,8 @@
 #include "global.h"
 #include "battle.h"
+#include "battle_anim.h"
 #include "battle_message.h"
+#include "battle_scripts.h"
 #include "battle_z_move.h"
 #include "data.h"
 #include "event_data.h"
@@ -732,10 +734,14 @@ bool8 IsaacUseTeamworkTotem(struct Pokemon *mon)
 // Combattants dont le Totem d'Entraide est actif (un bit par combattant) : il faut le réappliquer quand le jeu recalcule
 // leurs stats (Méga-Évolution, changement de forme...)
 static EWRAM_DATA u8 sIsaacTotemActiveBattlers = 0;
+// Combattants dont le message du Totem (animation de hausse de stat et texte) est à afficher, et leur stat boostée
+static EWRAM_DATA u8 sIsaacTotemMessageBattlers = 0;
+static EWRAM_DATA u8 sIsaacTotemStat[MAX_BATTLERS_COUNT] = {0};
 
-// +ISAAC_TEAMWORK_TOTEM_PCT % à la meilleure stat de combat (hors PV) du combattant
-static void ApplyTotemBoost(enum BattlerId battler)
+// +ISAAC_TEAMWORK_TOTEM_PCT % à la meilleure stat de combat (hors PV) du combattant ; renvoie la stat (STAT_*)
+static u32 ApplyTotemBoost(enum BattlerId battler)
 {
+    // dans l'ordre de STAT_ATK à STAT_SPDEF
     u16 *stats[] = { &gBattleMons[battler].attack, &gBattleMons[battler].defense, &gBattleMons[battler].speed,
                      &gBattleMons[battler].spAttack, &gBattleMons[battler].spDefense };
     u32 best = 0, i;
@@ -744,6 +750,7 @@ static void ApplyTotemBoost(enum BattlerId battler)
         if (*stats[i] > *stats[best])
             best = i;
     *stats[best] = *stats[best] * (100 + ISAAC_TEAMWORK_TOTEM_PCT) / 100;
+    return STAT_ATK + best;
 }
 
 // Entrée en combat en relais (pas au début du combat) : avec le Totem d'Entraide, sa meilleure stat (hors PV) prend
@@ -753,23 +760,41 @@ void IsaacApplySwitchInTotem(enum BattlerId battler)
     struct Pokemon *mon = GetBattlerMon(battler);
 
     sIsaacTotemActiveBattlers &= ~(1 << battler);
+    sIsaacTotemMessageBattlers &= ~(1 << battler);
     if (mon == NULL || !IsPlayerPartyMon(mon) || GetMonData(mon, ISAAC_BRILLIANT_DATA) != ISAAC_TEAMWORK_TOTEM)
         return;
     sIsaacTotemActiveBattlers |= 1 << battler;
-    ApplyTotemBoost(battler);
+    sIsaacTotemMessageBattlers |= 1 << battler;
+    sIsaacTotemStat[battler] = ApplyTotemBoost(battler);
+}
+
+// Effets d'entrée en combat (battle_switch_in.c) : animation de hausse de la stat boostée par le Totem d'Entraide et
+// message, une fois par entrée en relais. TRUE si le script est lancé.
+bool8 IsaacTryTeamworkTotemMessage(enum BattlerId battler)
+{
+    if (!(sIsaacTotemMessageBattlers & (1 << battler)))
+        return FALSE;
+    sIsaacTotemMessageBattlers &= ~(1 << battler);
+    gBattleScripting.battler = battler;
+    gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + sIsaacTotemStat[battler];
+    gBattleScripting.animArg2 = 0;
+    PREPARE_STAT_BUFFER(gBattleTextBuff1, sIsaacTotemStat[battler]);
+    BattleScriptCall(BattleScript_IsaacTeamworkTotem);
+    return TRUE;
 }
 
 // Début du combat : le Pokémon en tête n'entre pas en relais, pas de Totem actif
 void IsaacClearSwitchInTotem(enum BattlerId battler)
 {
     sIsaacTotemActiveBattlers &= ~(1 << battler);
+    sIsaacTotemMessageBattlers &= ~(1 << battler);
 }
 
 // Stats de combat recalculées depuis le Pokémon (RecalcBattlerStats) : le Totem actif s'applique de nouveau
 void IsaacReapplySwitchInTotem(enum BattlerId battler)
 {
     if (sIsaacTotemActiveBattlers & (1 << battler))
-        ApplyTotemBoost(battler);
+        sIsaacTotemStat[battler] = ApplyTotemBoost(battler);
 }
 
 // Méga-Évolution que le Pokémon peut faire pour toujours : sa Méga-Gemme, tenue par lui ou dans le sac (*held : tenue),

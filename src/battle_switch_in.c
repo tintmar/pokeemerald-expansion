@@ -1,4 +1,5 @@
 #include "global.h"
+#include "isaac_pokemon.h"
 #include "battle.h"
 #include "battle_hold_effects.h"
 #include "battle_stat_change.h"
@@ -285,6 +286,11 @@ static bool32 FirstEventBlockEvents(struct BattleCalcValues *calcValues)
         gBattleStruct->eventState.battlerSwitchIn++;
         break;
     case FIRST_EVENT_BLOCK_ITEMS:
+        if (IsaacTryTeamworkTotemMessage(battler))  // donjon : Totem d'Entraide (même étape au prochain appel)
+        {
+            effect = TRUE;
+            break;
+        }
         if (ItemBattleEffects(battler, 0, calcValues->holdEffects[battler], IsOnSwitchInActivation))
             effect = TRUE;
         gBattleStruct->eventState.battlerSwitchIn++;

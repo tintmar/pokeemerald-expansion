@@ -328,6 +328,7 @@ extern const u8 BattleScript_ItemStatChange[];
 extern const u8 BattleScript_RockyHelmetActivates[];
 extern const u8 BattleScript_ItemHurtWithAnim[];
 extern const u8 BattleScript_AirBalloonMsgInRet[];
+extern const u8 BattleScript_IsaacTeamworkTotem[];
 extern const u8 BattleScript_AirBalloonMsgPop[];
 extern const u8 BattleScript_ItemHurtRet[];
 extern const u8 BattleScript_LifeOrbActivates[];
