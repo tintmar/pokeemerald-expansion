@@ -181,7 +181,7 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // et la Super CT, de plus en plus rare (sAbilityTrainerWeights), rare à partir de l'étage 4. Dans la boutique (shop),
 // pas de Pierre Évolution après SHOP_EVOLUTION_STONE_MAX_FLOOR. La Pièce Porte-Bonheur est surtout au début
 // (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours surtout à la fin (sFirstAidKitWeights, retirée pour
-// l'instant : FIRST_AID_KIT_ENABLED) ; la Pierre Prisme est rare (PRISM_STONE_WEIGHT), le Cœur Doré peu courant
+// l'instant : FIRST_AID_KIT_ENABLED) ; la Pierre Prisme un peu moins courante (PRISM_STONE_WEIGHT), le Cœur Doré peu courant
 // (GOLDEN_HEART_WEIGHT). La Master Ball est peu courante (MASTER_BALL_WEIGHT). Le Cristal Méga n'apparaît que si un
 // Pokémon de l'équipe a sa Méga-Gemme (tenue ou dans le sac).
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, un
@@ -193,7 +193,7 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 #define OMNIBOOST_WEIGHT     2
 #define TYPE_GEM_WEIGHT      0
 #define GOLDEN_HEART_WEIGHT  2
-#define PRISM_STONE_WEIGHT   1
+#define PRISM_STONE_WEIGHT   3
 #define Z_TM_WEIGHT          2
 #define MASTER_BALL_WEIGHT   2
 #define GOLDEN_HEART_MIN_FLOOR  4
@@ -283,7 +283,7 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
     };
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
     static const u8 sAbilityTrainerWeights[] = { 4, 3, 2, 1, 1, 1 };
-    static const u8 sLuckyCoinWeights[] = { 6, 5, 4, 2, 1, 0 };
+    static const u8 sLuckyCoinWeights[] = { 4, 3, 3, 2, 1, 0 };
     static const u8 sFirstAidKitWeights[] = { 1, 1, 2, 3, 4, 5 };
     static const u8 sStatBoostWeights[] = { 4, 4, 4, 5, 6, 6 };
     u32 floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvolutionStoneWeights));
@@ -1396,6 +1396,50 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
     for (i = 0; i + 1 < count && roll >= weights[i]; i++)
         roll -= weights[i];
     return moves[i];
+}
+
+// Pierre Prisme : attaque offensive du nouveau type à proposer au Pokémon, d'un tier au-dessus de ses attaques
+// (moyenne arrondie + 1, 4 au plus ; sans attaque à tier, le palier de son set + 2), dans la catégorie de son build (celle de la majorité de ses attaques offensives ; à égalité, sa meilleure
+// stat d'attaque de base), jamais une attaque ISAAC_MOVE_ROLE_COMBO ni une qu'il connaît. D'abord celles que son
+// espèce peut apprendre, sinon n'importe laquelle (son nouveau type peut lui en ouvrir d'autres) ; tirée au hasard.
+// MOVE_NONE s'il n'y en a pas.
+u16 IsaacPickPrismMove(struct Pokemon *mon, enum Type type)
+{
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    u32 tier = GetMonAverageMoveTier(mon), physical = 0, special = 0, count, i, pass;
+    u16 move, known, picked = MOVE_NONE;
+    bool8 wantsPhysical;
+
+    tier = min((tier == 0) ? IsaacGetMonSetTier(mon) + 2 : tier + 1, 4u);
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        known = GetMonData(mon, MON_DATA_MOVE1 + i);
+        if (known == MOVE_NONE || known >= MOVES_COUNT)
+            continue;
+        if (GetMoveCategory(known) == DAMAGE_CATEGORY_PHYSICAL)
+            physical++;
+        else if (GetMoveCategory(known) == DAMAGE_CATEGORY_SPECIAL)
+            special++;
+    }
+    if (physical != special)
+        wantsPhysical = physical > special;
+    else
+        wantsPhysical = gSpeciesInfo[species].baseAttack >= gSpeciesInfo[species].baseSpAttack;
+    for (pass = 0, count = 0; pass < 2 && count == 0; pass++)
+    {
+        for (move = 1; move < MOVES_COUNT; move++)
+        {
+            if (sIsaacMoveTiers[move] != tier || GetMoveType(move) != type
+             || GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS
+             || (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL) != wantsPhysical
+             || (sIsaacMoveRoles[move] & ISAAC_MOVE_ROLE_COMBO) || MonKnowsMove(mon, move)
+             || (pass == 0 && !CanSpeciesLearnMove(species, move)))
+                continue;
+            if (Random() % ++count == 0)
+                picked = move;
+        }
+    }
+    return picked;
 }
 
 // Un cran d'EVs pour le Pokémon n° slot, avec la scène de message (FALSE si ses EVs sont déjà au maximum)

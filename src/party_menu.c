@@ -6609,11 +6609,33 @@ void ItemUseCB_IsaacTypeGem(u8 taskId, TaskFunc task)
 
 // Donjon : Pierre Prisme, nouveau second type au choix parmi trois (pas ceux du Pokémon) dans une liste ; B garde la
 // pierre. Les trois types sont toujours les mêmes pour un Pokémon (tirés d'après sa personnalité et ses types
-// actuels) : reprendre la pierre ne permet pas d'en voir d'autres.
+// actuels) : reprendre la pierre ne permet pas d'en voir d'autres. Ensuite, le Pokémon peut apprendre une attaque du
+// nouveau type (IsaacPickPrismMove), comme avec une CT ; la pierre est déjà consommée.
 #define ISAAC_PRISM_CHOICES  3
 
 static EWRAM_DATA u8 sIsaacPrismTypes[ISAAC_PRISM_CHOICES] = {0};
 static EWRAM_DATA TaskFunc sIsaacPrismTask = NULL;
+
+// Après le message du nouveau type : apprentissage de l'attaque du nouveau type (gPartyMenu.data1), comme une CT
+static void Task_IsaacPrismLearnMove(u8 taskId)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+
+    if (IsPartyMenuTextPrinterActive())
+        return;
+    gPartyMenu.learnMoveState = 0;
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, GetMoveName(gPartyMenu.data1));
+    if (GiveMoveToMon(mon, gPartyMenu.data1) != MON_HAS_MAX_MOVES)
+    {
+        gTasks[taskId].func = Task_LearnedMove;
+    }
+    else
+    {
+        DisplayLearnMoveMessage(gText_PkmnNeedsToReplaceMove);
+        gTasks[taskId].func = Task_ReplaceMoveYesNo;
+    }
+}
 
 static void Task_HandleIsaacPrismChoiceInput(u8 taskId)
 {
@@ -6635,7 +6657,22 @@ static void Task_HandleIsaacPrismChoiceInput(u8 taskId)
     IsaacUseTypeGem(mon, sIsaacPrismTypes[input]);
     GetMonNickname(mon, gStringVar1);
     StringCopy(gStringVar2, gTypesInfo[sIsaacPrismTypes[input]].name);
-    IsaacItemUsed(taskId, sIsaacPrismTask, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
+    gPartyMenu.data1 = IsaacPickPrismMove(mon, sIsaacPrismTypes[input]);
+    if (gPartyMenu.data1 == MOVE_NONE)
+    {
+        IsaacItemUsed(taskId, sIsaacPrismTask, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
+        return;
+    }
+    // la pierre est consommée maintenant : l'apprentissage (Task_LearnedMove) ne doit pas retirer d'objet
+    PlaySE(SE_USE_ITEM);
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    gSpecialVar_ItemId = ITEM_NONE;
+    gPartyMenuUseExitCallback = TRUE;
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} is now\npart {STR_VAR_2} type!{PAUSE_UNTIL_PRESS}"));
+    DisplayPartyPokemonData(gPartyMenu.slotId);
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = Task_IsaacPrismLearnMove;
 }
 
 void ItemUseCB_IsaacPrismStone(u8 taskId, TaskFunc task)

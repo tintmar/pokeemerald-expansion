@@ -108,6 +108,7 @@ bool8 IsaacUseGlassCrown(struct Pokemon *mon);
 bool8 IsaacUseTeamworkTotem(struct Pokemon *mon);
 void IsaacApplySwitchInTotem(enum BattlerId battler);
 bool8 IsaacUseMegaCrystal(struct Pokemon *mon);
+u16 IsaacPickPrismMove(struct Pokemon *mon, enum Type type);
 const u8 *IsaacGetBoostName(struct Pokemon *mon);
 bool8 IsaacIsFallenCrown(struct Pokemon *mon);
 void IsaacReleaseFallenCrowns(void);
