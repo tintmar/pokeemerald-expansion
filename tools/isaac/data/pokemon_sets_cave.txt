@@ -1576,7 +1576,7 @@ Variants: A = Defensive (Body Press, status) / B = Offensive (Curse)
        Moves: Curse [Sit]  /  Rock Blast [T3]  /  Stomping Tantrum [T3]  /  Rest [Sit]
   [4A] Iron Defense wall
        Regirock @ Leftovers   |   Ability: Clear Body   |   Nature: Impish
-       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Stone Edge [T4]  /  Rest [Sit]
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Stone Edge [T4]  /  Earthquake [T4]
   [4B] Curse tank
        Regirock @ Leftovers   |   Ability: Sturdy   |   Nature: Adamant
        Moves: Curse [Sit]  /  Stone Edge [T4]  /  Drain Punch [T4]  /  Earthquake [T4]
@@ -1605,8 +1605,8 @@ Variants: A = Defensive utility / B = Offensive (setup)
        Cobalion @ Muscle Band   |   Ability: Justified   |   Nature: Jolly
        Moves: Swords Dance [T4]  /  Sacred Sword [T3]  /  Smart Strike [T3]  /  Zen Headbutt [T3]
   [4A] Iron Defense pivot
-       Cobalion @ Leftovers   |   Ability: Justified   |   Nature: Impish
-       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Iron Head [T4]  /  Volt Switch [T2]
+       Cobalion @ Life Orb   |   Ability: Justified   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Close Combat [T4]  /  Iron Head [T4]  /  Stone Edge [T4]
   [4B] Swords Dance sweeper
        Cobalion @ Life Orb   |   Ability: Justified   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Focus Blast [T4]  /  Flash Cannon [T4]  /  Air Slash [T4]
@@ -1666,7 +1666,7 @@ Variants: A = Defensive (Iron Defense + Body Press) / B = Offensive
        Moves: Close Combat [T4]  /  Crunch [T3]  /  Heavy Slam [T3]  /  Dig [T3]
   [4A] Body Press wall
        Zamazenta @ Leftovers   |   Ability: Dauntless Shield   |   Nature: Impish
-       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Heavy Slam [T3]  /  Rest [Sit]
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Iron Head [T4]  /  Crunch [T3]
   [4B] Fast wallbreaker
        Zamazenta @ Life Orb   |   Ability: Dauntless Shield   |   Nature: Jolly
        Moves: Close Combat [T4]  /  Play Rough [T4]  /  Stone Edge [T4]  /  Psychic Fangs [T4]
@@ -1696,8 +1696,8 @@ Variants: A = Stall while Slow Start runs / B = Offensive
        Moves: Substitute [Sit]  /  Protect [Sit]  /  Rock Climb [T3]  /  Earthquake [T4]
   [4A] Paralysis tank
        Regigigas @ Rocky Helmet   |   Ability: Slow Start   |   Nature: Careful
-       Moves: Body Slam [T4]  /  Knock Off [T4]  /  Thunder Wave [Sit]  /  Protect [Sit]
+       Moves: Return [T4]  /  Knock Off [T4]  /  Earthquake [T4]  /  Thunder Wave [Sit]
   [4B] Substitute sweeper
        Regigigas @ Leftovers   |   Ability: Slow Start   |   Nature: Adamant
-       Moves: Substitute [Sit]  /  Protect [Sit]  /  Return [T4]  /  Earthquake [T4]
+       Moves: Substitute [Sit]  /  Return [T4]  /  Earthquake [T4]  /  Knock Off [T4]
 

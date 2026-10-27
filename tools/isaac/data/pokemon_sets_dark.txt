@@ -1609,7 +1609,7 @@ Variants: A = Special attacker / B = Sleep disruptor (Dark Void)
        Moves: Nasty Plot [T4]  /  Dark Pulse [T4]  /  Sludge Bomb [T4]  /  Focus Blast [T4]
   [4B] Substitute Dark Void
        Darkrai @ Leftovers   |   Ability: Bad Dreams   |   Nature: Timid
-       Moves: Dark Void [T4]  /  Nasty Plot [T4]  /  Dark Pulse [T4]  /  Substitute [Sit]
+       Moves: Dark Void [T4]  /  Nasty Plot [T4]  /  Dark Pulse [T4]  /  Sludge Bomb [T4]
 
 ====================================================================================================
 #802 MARSHADOW  —  Fighting/Ghost  —  BST 600  —  Category 8
@@ -1666,7 +1666,7 @@ Variants: A = Defensive (burns, phazing) / B = Offensive (Calm Mind)
        Moves: Calm Mind [T4]  /  Hex [T3]  /  Will-O-Wisp [Sit]  /  Rest [Sit]
   [4A] Burning phazer
        Giratina @ Leftovers   |   Ability: Pressure   |   Nature: Careful
-       Moves: Dragon Tail [Sit]  /  Will-O-Wisp [Sit]  /  Poltergeist [T4]  /  Pain Split [Sit]
+       Moves: Will-O-Wisp [Sit]  /  Poltergeist [T4]  /  Outrage [T4]  /  Earthquake [T4]
   [4B] Calm Mind tank
        Giratina @ Leftovers   |   Ability: Telepathy   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Shadow Ball [T4]  /  Dragon Pulse [T4]  /  Pain Split [Sit]
@@ -1696,8 +1696,8 @@ Variants: A = Physical / B = Special
        Moves: Oblivion Wing [T4]  /  Dark Pulse [T4]  /  Roost [Sit]  /  Taunt [Sit]
   [4A] Dark Aura attacker
        Yveltal @ Life Orb   |   Ability: Dark Aura   |   Nature: Modest
-       Moves: Knock Off [T4]  /  Oblivion Wing [T4]  /  Psychic [T4]  /  Roost [Sit]
+       Moves: Dark Pulse [T4]  /  Oblivion Wing [T4]  /  Focus Blast [T4]  /  Roost [Sit]
   [4B] Choice Specs pivot
        Yveltal @ Choice Specs   |   Ability: Dark Aura   |   Nature: Modest
-       Moves: Dark Pulse [T4]  /  Oblivion Wing [T4]  /  Focus Blast [T4]  /  U-turn [T2]
+       Moves: Dark Pulse [T4]  /  Oblivion Wing [T4]  /  Heat Wave [T3]  /  U-turn [T2]
 

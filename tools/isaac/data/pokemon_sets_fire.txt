@@ -1606,7 +1606,7 @@ Variants: A = Calm Mind sweeper / B = Pivot attacker
        Moves: Volt Switch [T2]  /  Electro Ball [T3]  /  Signal Beam [T3]  /  Thunder Wave [Sit]
   [4A] Calm Mind sweeper
        Raikou @ Leftovers   |   Ability: Inner Focus   |   Nature: Timid
-       Moves: Calm Mind [T4]  /  Thunderbolt [T4]  /  Scald [T4]  /  Substitute [Sit]
+       Moves: Calm Mind [T4]  /  Thunderbolt [T4]  /  Scald [T4]  /  Shadow Ball [T4]
   [4B] Choice Specs pivot
        Raikou @ Choice Specs   |   Ability: Pressure   |   Nature: Timid
        Moves: Thunderbolt [T4]  /  Volt Switch [T2]  /  Shadow Ball [T4]  /  Scald [T4]
@@ -1639,7 +1639,7 @@ Variants: A = Physical attacker (Sacred Fire) / B = Special attacker
        Moves: Sacred Fire [T4]  /  Extreme Speed [T4]  /  Stone Edge [T4]  /  Iron Head [T4]
   [4B] Choice Scarf Eruption
        Entei @ Choice Scarf   |   Ability: Pressure   |   Nature: Timid
-       Moves: Eruption [T4]  /  Fire Blast [T4]  /  Shadow Ball [T4]  /  Extrasensory [T3]
+       Moves: Eruption [T4]  /  Scorching Sands [T3]  /  Shadow Ball [T4]  /  Extrasensory [T3]
 
 ====================================================================================================
 #250 HO-OH  —  Fire/Flying  —  BST 680  —  Category 9
@@ -1666,7 +1666,7 @@ Variants: A = Defensive (Sacred Fire, Recover) / B = Offensive (physical)
        Moves: Brave Bird [T4]  /  Flare Blitz [T4]  /  Roost [Sit]  /  Toxic [Sit]
   [4A] Regenerator tank
        Ho-Oh @ Rocky Helmet   |   Ability: Regenerator   |   Nature: Careful
-       Moves: Sacred Fire [T4]  /  Brave Bird [T4]  /  Recover [Sit]  /  Toxic [Sit]
+       Moves: Sacred Fire [T4]  /  Brave Bird [T4]  /  Recover [Sit]  /  Earthquake [T4]
   [4B] Choice Band phoenix
        Ho-Oh @ Choice Band   |   Ability: Regenerator   |   Nature: Adamant
        Moves: Sacred Fire [T4]  /  Brave Bird [T4]  /  Earthquake [T4]  /  Iron Head [T4]

@@ -1606,7 +1606,7 @@ Variants: A = Defensive (Recover, Wish) / B = Offensive (Calm Mind)
        Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Draco Meteor [T4]  /  Recover [Sit]
   [4A] Healing maiden
        Latias @ Rocky Helmet   |   Ability: Levitate   |   Nature: Bold
-       Moves: Recover [Sit]  /  Wish [Sit]  /  Mist Ball [T4]  /  Healing Wish [Sit]
+       Moves: Recover [Sit]  /  Draco Meteor [T4]  /  Mist Ball [T4]  /  Healing Wish [Sit]
   [4B] Calm Mind sweeper
        Latias @ Life Orb   |   Ability: Levitate   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Dragon Pulse [T4]  /  Psyshock [T4]  /  Recover [Sit]

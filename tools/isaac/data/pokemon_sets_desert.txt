@@ -1669,7 +1669,7 @@ Variants: A = Setup (Swords Dance, Drought) / B = Bulky and special (sun)
        Moves: Swords Dance [T4]  /  Precipice Blades [T4]  /  Stone Edge [T4]  /  Fire Punch [T3]
   [4B] Bulky titan
        Groudon @ Leftovers   |   Ability: Drought   |   Nature: Impish
-       Moves: Earthquake [T4]  /  Precipice Blades [T4]  /  Swords Dance [T4]  /  Will-O-Wisp [Sit]
+       Moves: Precipice Blades [T4]  /  Fire Punch [T3]  /  Will-O-Wisp [Sit]  /  Rest [Sit]
 
 ====================================================================================================
 #150 MEWTWO  —  Psychic  —  BST 680  —  Category 9

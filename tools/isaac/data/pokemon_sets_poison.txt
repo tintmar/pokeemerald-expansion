@@ -1636,10 +1636,10 @@ Variants: A = Defensive (Roost, Taunt, U-turn) / B = Offensive (Technician, Swor
        Moves: Swords Dance [T4]  /  Tail Slap [T3]  /  Cross Poison [T3]  /  Play Rough [T4]
   [4A] Bulky pivot
        Fezandipiti @ Rocky Helmet   |   Ability: Toxic Chain   |   Nature: Careful
-       Moves: Roost [Sit]  /  Taunt [Sit]  /  Play Rough [T4]  /  Gunk Shot [T4]
+       Moves: Roost [Sit]  /  U-turn [T2]  /  Play Rough [T4]  /  Gunk Shot [T4]
   [4B] Technician sweeper
        Fezandipiti @ Life Orb   |   Ability: Technician   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Tail Slap [T3]  /  Play Rough [T4]  /  Gunk Shot [T4]
+       Moves: Swords Dance [T4]  /  Brave Bird [T4]  /  Play Rough [T4]  /  Gunk Shot [T4]
 
 ====================================================================================================
 #890 ETERNATUS  —  Poison/Dragon  —  BST 690  —  Category 9
@@ -1698,6 +1698,6 @@ Variants: A = Physical (Swords Dance, Extreme Speed) / B = Special (Calm Mind)
        Arceus @ Life Orb   |   Ability: Multitype   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Judgment [T4]  /  Earth Power [T4]  /  Recover [Sit]
   [4B] Calm Mind sweeper
-       Arceus @ Leftovers   |   Ability: Multitype   |   Nature: Timid
-       Moves: Calm Mind [T4]  /  Judgment [T4]  /  Earth Power [T4]  /  Recover [Sit]
+       Arceus @ Leftovers   |   Ability: Multitype   |   Nature: Jolly
+       Moves: Swords Dance [T4]  /  Extreme Speed [T4]  /  Earthquake [T4]  /  Recover [Sit]
 

@@ -1576,7 +1576,7 @@ Variants: A = Defensive (Roost, Toxic, Haze) / B = Offensive (special)
        Moves: Snowscape [Sit]  /  Blizzard [T4]  /  Hurricane [T4]  /  Roost [Sit]
   [4A] Haze wall
        Articuno @ Rocky Helmet   |   Ability: Pressure   |   Nature: Calm
-       Moves: Roost [Sit]  /  Freeze-Dry [T4]  /  Haze [Sit]  /  Toxic [Sit]
+       Moves: Roost [Sit]  /  Freeze-Dry [T4]  /  Hurricane [T4]  /  Toxic [Sit]
   [4B] Special attacker
        Articuno @ Expert Belt   |   Ability: Pressure   |   Nature: Modest
        Moves: Hurricane [T4]  /  Freeze-Dry [T4]  /  Extrasensory [T3]  /  Roost [Sit]
@@ -1606,7 +1606,7 @@ Variants: A = Defensive (special wall) / B = Offensive (Rock Polish, Lock-On)
        Moves: Rock Polish [Sit]  /  Frost Breath [T3]  /  Thunderbolt [T4]  /  Signal Beam [T3]
   [4A] Snow wall
        Regice @ Icy Rock   |   Ability: Ice Body   |   Nature: Calm
-       Moves: Snowscape [Sit]  /  Ice Beam [T4]  /  Thunder Wave [Sit]  /  Rest [Sit]
+       Moves: Snowscape [Sit]  /  Ice Beam [T4]  /  Thunderbolt [T4]  /  Thunder Wave [Sit]
   [4B] Rock Polish sweeper
        Regice @ Weakness Policy   |   Ability: Clear Body   |   Nature: Modest
        Moves: Rock Polish [Sit]  /  Ice Beam [T4]  /  Thunderbolt [T4]  /  Focus Blast [T4]
@@ -1636,10 +1636,10 @@ Variants: A = Pure Stall / B = Defensive with utility (paralysis, Iron Defense, 
        Moves: Iron Defense [Sit]  /  Iron Head [T4]  /  Thunder Wave [Sit]  /  Rest [Sit]
   [4A] Curse rester
        Registeel @ Leftovers   |   Ability: Clear Body   |   Nature: Careful
-       Moves: Curse [Sit]  /  Rest [Sit]  /  Sleep Talk [Sit]  /  Iron Head [T4]
+       Moves: Curse [Sit]  /  Iron Head [T4]  /  Earthquake [T4]  /  Rest [Sit]
   [4B] Red Card wall
        Registeel @ Red Card   |   Ability: Clear Body   |   Nature: Impish
-       Moves: Thunder Wave [Sit]  /  Toxic [Sit]  /  Body Press [T4]  /  Iron Head [T4]
+       Moves: Iron Defense [Sit]  /  Body Press [T4]  /  Iron Head [T4]  /  Toxic [Sit]
 
 ====================================================================================================
 #646 KYUREM  —  Dragon/Ice  —  BST 660  —  Category 9
@@ -1699,5 +1699,5 @@ Variants: A = Special attacker / B = Bulky utility (paralysis, Trick Room)
        Moves: Draco Meteor [T4]  /  Flash Cannon [T4]  /  Fire Blast [T4]  /  Thunderbolt [T4]
   [4B] Trick Room dragon
        Dialga @ Life Orb   |   Ability: Pressure   |   Nature: Quiet
-       Moves: Flash Cannon [T4]  /  Draco Meteor [T4]  /  Steel Beam [T4]  /  Fire Blast [T4]
+       Moves: Flash Cannon [T4]  /  Draco Meteor [T4]  /  Earth Power [T4]  /  Fire Blast [T4]
 

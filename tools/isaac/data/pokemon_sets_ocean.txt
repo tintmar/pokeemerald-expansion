@@ -1576,7 +1576,7 @@ Variants: A = Defensive (Roar, Calm Mind rest) / B = Offensive (special)
        Moves: Brine [T3]  /  Extrasensory [T3]  /  Signal Beam [T3]  /  Ice Beam [T4]
   [4A] Calm Mind rester
        Suicune @ Leftovers   |   Ability: Pressure   |   Nature: Bold
-       Moves: Calm Mind [T4]  /  Scald [T4]  /  Rest [Sit]  /  Sleep Talk [Sit]
+       Moves: Calm Mind [T4]  /  Scald [T4]  /  Ice Beam [T4]  /  Rest [Sit]
   [4B] Choice Specs beast
        Suicune @ Choice Specs   |   Ability: Inner Focus   |   Nature: Timid
        Moves: Hydro Pump [T4]  /  Ice Beam [T4]  /  Shadow Ball [T4]  /  Air Slash [T4]
@@ -1609,7 +1609,7 @@ Variants: A = Physical (Swords Dance) / B = Special (Secret Sword)
        Moves: Calm Mind [T4]  /  Secret Sword [T4]  /  Air Slash [T4]  /  Surf [T4]
   [4B] Choice Specs colt
        Keldeo @ Choice Specs   |   Ability: Justified   |   Nature: Timid
-       Moves: Secret Sword [T4]  /  Hydro Pump [T4]  /  Scald [T4]  /  Flip Turn [T2]
+       Moves: Secret Sword [T4]  /  Hydro Pump [T4]  /  Air Slash [T4]  /  Flip Turn [T2]
 
 ====================================================================================================
 #490 MANAPHY  —  Water  —  BST 600  —  Category 8
@@ -1639,7 +1639,7 @@ Variants: A = Setup (Tail Glow) / B = Support (Hydration, Take Heart, Heal Bell)
        Moves: Tail Glow [T4]  /  Surf [T4]  /  Ice Beam [T4]  /  Energy Ball [T4]
   [4B] Take Heart cleric
        Manaphy @ Leftovers   |   Ability: Hydration   |   Nature: Calm
-       Moves: Take Heart [Sit]  /  Scald [T4]  /  Ice Beam [T4]  /  Heal Bell [Sit]
+       Moves: Take Heart [Sit]  /  Scald [T4]  /  Ice Beam [T4]  /  Energy Ball [T4]
 
 ====================================================================================================
 #382 KYOGRE  —  Water  —  BST 670  —  Category 9
@@ -1696,7 +1696,7 @@ Variants: A = Defensive (Multiscale, Roost) / B = Offensive (Calm Mind)
        Moves: Calm Mind [T4]  /  Extrasensory [T3]  /  Roost [Sit]  /  Aeroblast [T4]
   [4A] Multiscale wall
        Lugia @ Rocky Helmet   |   Ability: Multiscale   |   Nature: Bold
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  Calm Mind [T4]  /  Aeroblast [T4]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Aeroblast [T4]  /  Earth Power [T4]
   [4B] Calm Mind sweeper
        Lugia @ Leftovers   |   Ability: Multiscale   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Aeroblast [T4]  /  Psyshock [T4]  /  Roost [Sit]
