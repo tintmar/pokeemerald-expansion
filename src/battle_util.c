@@ -8733,6 +8733,10 @@ static bool32 CanBattlerFormChange(enum BattlerId battler, enum FormChanges meth
             return TRUE;
         // Fallthrough
     case FORM_CHANGE_FAINT:
+        // Donjon : Méga-Évolution définitive (Cristal Méga) : déjà Méga sans avoir méga-évolué dans ce combat, elle le
+        // reste (K.O. ou fin de combat)
+        if (IsBattlerMegaEvolved(battler) && GetActiveGimmick(battler) != GIMMICK_MEGA && IsOnPlayerSide(battler))
+            return FALSE;
         if (IsBattlerMegaEvolved(battler) || IsBattlerUltraBursted(battler) || IsBattlerInTeraForm(battler) || IsGigantamaxed(battler))
             return TRUE;
         break;
