@@ -6794,7 +6794,7 @@ void ItemUseCB_IsaacBloodPact(u8 taskId, TaskFunc task)
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} sealed a blood pact!\nIt's stronger, but frailer…{PAUSE_UNTIL_PRESS}"));
 }
 
-// Donjon : Couronne de Verre, +25 % à toutes les stats, mais K.O., le Pokémon est relâché ; un seul boost par Pokémon
+// Donjon : Couronne de Verre, +20 % à toutes les stats, mais K.O., le Pokémon est relâché ; un seul boost par Pokémon
 void ItemUseCB_IsaacGlassCrown(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];

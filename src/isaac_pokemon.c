@@ -495,7 +495,7 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 #define ISAAC_STAT_BOOST_PCT   25
 #define ISAAC_BLOOD_PACT_BIT   (1 << 7)
 #define ISAAC_GLASS_CROWN_BIT  (1 << 6)  // Couronne de Verre (toutes les stats +ISAAC_GLASS_CROWN_PCT %)
-#define ISAAC_GLASS_CROWN_PCT  25
+#define ISAAC_GLASS_CROWN_PCT  20
 #define ISAAC_BLOOD_PACT_PCT           20  // Attaque, Attaque Spéciale et Vitesse
 #define ISAAC_BLOOD_PACT_HP_MALUS_PCT  25
 // Pierre brillante : stat boostée + 1 (0 : pas encore utilisée), dans la stat de concours Robustesse
