@@ -5697,7 +5697,7 @@ static void Task_LearnedMove(u8 taskId)
     if (gPartyMenu.learnMoveState == 0)
     {
         AdjustFriendship(mon, FRIENDSHIP_EVENT_LEARN_TMHM);
-        if (!GetItemImportance(item))
+        if (item != ITEM_NONE && !GetItemImportance(item))  // donjon : ITEM_NONE, objet déjà consommé (Pierre Prisme)
             RemoveBagItem(item, 1);
     }
     GetMonNickname(mon, gStringVar1);
