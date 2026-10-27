@@ -280,7 +280,7 @@ Variants: A = Setup (sun, Swords Dance) / B = Special and Choice
        Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Stun Spore [Sit]  /  Grass Knot [T3]
   [3A] Sun sprout
        Bellsprout @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Adamant
-       Moves: Sunny Day [Sit]  /  Swords Dance [T4]  /  Seed Bomb [T3]  /  Lunge [T3]
+       Moves: Sunny Day [Sit]  /  Swords Dance [T4]  /  Seed Bomb [T3]  /  Poison Jab [T4]
   [3B] Growth sprout
        Bellsprout @ Wise Glasses   |   Ability: Chlorophyll   |   Nature: Modest
        Moves: Growth [T3]  /  Grass Knot [T3]  /  Sludge Wave [T4]  /  Sleep Powder [T3]
@@ -493,13 +493,13 @@ Variants: A = Special (Swift Swim) / B = Physical (Fake Out)
        Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Grass Knot [T3]  /  Ice Beam [T4]
   [3B] Fake Out weed
        Lombre @ Expert Belt   |   Ability: Rain Dish   |   Nature: Adamant
-       Moves: Fake Out [Sit]  /  Seed Bomb [T3]  /  Ice Punch [T3]  /  Drain Punch [T4]
+       Moves: Fake Out [Sit]  /  Seed Bomb [T3]  /  Waterfall [T4]  /  Drain Punch [T4]
   [4A] Choice Specs weed
        Lombre @ Choice Specs   |   Ability: Swift Swim   |   Nature: Modest
        Moves: Hydro Pump [T4]  /  Giga Drain [T4]  /  Ice Beam [T4]  /  Hyper Voice [T4]
   [4B] Bulky weed
        Lombre @ Rocky Helmet   |   Ability: Rain Dish   |   Nature: Calm
-       Moves: Leech Seed [Sit]  /  Scald [T4]  /  Synthesis [Sit]  /  Knock Off [T4]
+       Moves: Leech Seed [Sit]  /  Scald [T4]  /  Synthesis [Sit]  /  Energy Ball [T4]
 
 ====================================================================================================
 #190 AIPOM  —  Normal  —  BST 360  —  Category 3
@@ -580,13 +580,13 @@ Variants: A = Setup (sun, Swords Dance) / B = Support and attacker
        Moves: Magical Leaf [T2]  /  Acid Spray [T2]  /  Swift [T2]  /  Sleep Powder [T3]
   [3A] Swords Dance flycatcher
        Weepinbell @ Muscle Band   |   Ability: Chlorophyll   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Lunge [T3]  /  Sleep Powder [T3]
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Poison Jab [T4]  /  Sleep Powder [T3]
   [3B] Venoshock flycatcher
        Weepinbell @ Black Sludge   |   Ability: Gluttony   |   Nature: Modest
        Moves: Strength Sap [Sit]  /  Venoshock [T3]  /  Toxic [Sit]  /  Grass Knot [T3]
   [4A] Sun sweeper
        Weepinbell @ Heat Rock   |   Ability: Chlorophyll   |   Nature: Adamant
-       Moves: Sunny Day [Sit]  /  Swords Dance [T4]  /  Power Whip [T4]  /  Sucker Punch [T4]
+       Moves: Sunny Day [Sit]  /  Swords Dance [T4]  /  Power Whip [T4]  /  Poison Jab [T4]
   [4B] Swords Dance sweeper
        Weepinbell @ Life Orb   |   Ability: Gluttony   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Power Whip [T4]  /  Poison Jab [T4]  /  Knock Off [T4]
@@ -610,7 +610,7 @@ Variants: A = Setup (Swords Dance) / B = Sniper attacker and Choice
        Moves: U-turn [T2]  /  Agility [Sit]  /  Bug Bite [T2]  /  Thief [T2]
   [3A] Swords Dance bee
        Beedrill @ Muscle Band   |   Ability: Swarm   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Drill Run [T3]  /  Throat Chop [T3]
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Poison Jab [T4]  /  Throat Chop [T3]
   [3B] Critical bee
        Beedrill @ Scope Lens   |   Ability: Sniper   |   Nature: Jolly
        Moves: Focus Energy [T1]  /  X-Scissor [T3]  /  Pin Missile [T3]  /  Poison Jab [T4]
@@ -649,7 +649,7 @@ Variants: A = Attacker (Chlorophyll, Growth) / B = Support (Strength Sap, Leech 
        Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Sludge Bomb [T4]  /  Moonblast [T4]
   [4B] Bulky weed
        Gloom @ Leftovers   |   Ability: Stench   |   Nature: Calm
-       Moves: Strength Sap [Sit]  /  Leech Seed [Sit]  /  Giga Drain [T4]  /  Moonblast [T4]
+       Moves: Strength Sap [Sit]  /  Leech Seed [Sit]  /  Giga Drain [T4]  /  Sludge Bomb [T4]
 
 ====================================================================================================
 #267 BEAUTIFLY  —  Bug/Flying  —  BST 395  —  Category 3
@@ -673,10 +673,10 @@ Variants: A = Setup (Quiver Dance) / B = Support (Stun Spore, Tailwind)
        Moves: Quiver Dance [T4]  /  Signal Beam [T3]  /  Air Cutter [T2]  /  Morning Sun [Sit]
   [3B] Tailwind lead
        Beautifly @ Focus Sash   |   Ability: Rivalry   |   Nature: Timid
-       Moves: Stun Spore [Sit]  /  Tailwind [Sit]  /  Signal Beam [T3]  /  U-turn [T2]
+       Moves: Air Slash [T4]  /  Tailwind [Sit]  /  Signal Beam [T3]  /  U-turn [T2]
   [4A] Quiver Dance sweeper
        Beautifly @ Life Orb   |   Ability: Swarm   |   Nature: Modest
-       Moves: Quiver Dance [T4]  /  Bug Buzz [T4]  /  Giga Drain [T4]  /  Psychic [T4]
+       Moves: Quiver Dance [T4]  /  Bug Buzz [T4]  /  Air Slash [T4]  /  Psychic [T4]
   [4B] Support butterfly
        Beautifly @ Leftovers   |   Ability: Rivalry   |   Nature: Timid
        Moves: Morning Sun [Sit]  /  Defog [Sit]  /  Bug Buzz [T4]  /  Stun Spore [Sit]
@@ -1093,7 +1093,7 @@ Variants: A = Special (Swift Swim) / B = Physical (Fake Out, Swords Dance)
        Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Grass Knot [T3]  /  Focus Blast [T4]
   [3B] Swords Dance dancer
        Ludicolo @ Muscle Band   |   Ability: Swift Swim   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Ice Punch [T3]  /  Rock Climb [T3]
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Waterfall [T4]  /  Rock Climb [T3]
   [4A] Rain sweeper
        Ludicolo @ Life Orb   |   Ability: Swift Swim   |   Nature: Modest
        Moves: Hydro Pump [T4]  /  Giga Drain [T4]  /  Ice Beam [T4]  /  Focus Blast [T4]
@@ -1183,7 +1183,7 @@ Variants: A = Physical / B = Special (sun)
        Moves: Sunny Day [Sit]  /  Growth [T3]  /  Solar Beam [T3]  /  Weather Ball [T4]
   [3B] Swords Dance flycatcher
        Victreebel @ Muscle Band   |   Ability: Gluttony   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Lunge [T3]  /  Strength Sap [Sit]
+       Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Poison Jab [T4]  /  Strength Sap [Sit]
   [4A] Choice Band flycatcher
        Victreebel @ Choice Band   |   Ability: Chlorophyll   |   Nature: Adamant
        Moves: Leaf Blade [T4]  /  Poison Jab [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]
@@ -1276,7 +1276,7 @@ Variants: A = Technician attacker (Bullet Punch) / B = Bulky pivot (Roost, Defog
        Moves: Roost [Sit]  /  Defog [Sit]  /  U-turn [T2]  /  Hard Press [T3]
   [4A] Swords Dance sweeper
        Scizor @ Life Orb   |   Ability: Technician   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Bullet Punch [T4]  /  Close Combat [T4]  /  Knock Off [T4]
+       Moves: Swords Dance [T4]  /  Bullet Punch [T4]  /  X-Scissor [T3]  /  Knock Off [T4]
   [4B] Choice Band pincer
        Scizor @ Choice Band   |   Ability: Technician   |   Nature: Adamant
        Moves: Bullet Punch [T4]  /  U-turn [T2]  /  Knock Off [T4]  /  Superpower [T3]
@@ -1300,13 +1300,13 @@ Variants: A = Setup (Sharpness, Swords Dance) / B = Sheer Force attacker
        Moves: Rock Tomb [T2]  /  Smack Down [T2]  /  U-turn [T2]  /  Defog [Sit]
   [3A] Sharpness mantis
        Kleavor @ Muscle Band   |   Ability: Sharpness   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Night Slash [T3]  /  Psycho Cut [T3]
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Stone Edge [T4]  /  Psycho Cut [T3]
   [3B] Sash mantis
        Kleavor @ Focus Sash   |   Ability: Sheer Force   |   Nature: Jolly
        Moves: Rock Slide [T4]  /  Lunge [T3]  /  Brick Break [T3]  /  U-turn [T2]
   [4A] Sharpness sweeper
        Kleavor @ Life Orb   |   Ability: Sharpness   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Close Combat [T4]  /  Night Slash [T3]
+       Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Close Combat [T4]  /  Stone Edge [T4]
   [4B] Choice Band mantis
        Kleavor @ Choice Band   |   Ability: Sheer Force   |   Nature: Adamant
        Moves: Stone Edge [T4]  /  Close Combat [T4]  /  Knock Off [T4]  /  U-turn [T2]
@@ -1603,10 +1603,10 @@ Variants: A = Defensive (Recover, Leech Seed) / B = Offensive (Nasty Plot)
        Moves: Leech Seed [Sit]  /  Recover [Sit]  /  Psychic [T4]  /  Heal Bell [Sit]
   [3B] Nasty Plot guardian
        Celebi @ Wise Glasses   |   Ability: Natural Cure   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Pollen Puff [T3]  /  Expanding Force [T3]  /  Dazzling Gleam [T3]
+       Moves: Nasty Plot [T4]  /  Pollen Puff [T3]  /  Expanding Force [T3]  /  Leaf Storm [T4]
   [4A] Bulky pivot
        Celebi @ Rocky Helmet   |   Ability: Natural Cure   |   Nature: Bold
-       Moves: Leech Seed [Sit]  /  Recover [Sit]  /  Giga Drain [T4]  /  U-turn [T2]
+       Moves: Leech Seed [Sit]  /  Recover [Sit]  /  Giga Drain [T4]  /  Psychic [T4]
   [4B] Nasty Plot sweeper
        Celebi @ Life Orb   |   Ability: Natural Cure   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Leaf Storm [T4]  /  Psychic [T4]  /  Earth Power [T4]

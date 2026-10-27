@@ -100,7 +100,7 @@ Variants: A = Attacker / B = Support (Tailwind, Defog, Roost)
        Moves: Take Down [T2]  /  Feather Dance [T2]  /  Roost [Sit]  /  Whirlwind [Sit]
   [3A] Diving bird
        Pidgey @ Muscle Band   |   Ability: Big Pecks   |   Nature: Jolly
-       Moves: Brave Bird [T4]  /  Fly [T3]  /  Feint Attack [T2]  /  U-turn [T2]
+       Moves: Brave Bird [T4]  /  Fly [T3]  /  Double-Edge [T4]  /  U-turn [T2]
   [3B] Tailwind support
        Pidgey @ Leftovers   |   Ability: Keen Eye   |   Nature: Timid
        Moves: Roost [Sit]  /  Defog [Sit]  /  Tailwind [Sit]  /  Hurricane [T4]
@@ -193,13 +193,13 @@ Variants: A = Rain attacker / B = Utility (Defog, Roost, U-turn)
        Moves: Rain Dance [Sit]  /  Muddy Water [T3]  /  Roost [Sit]  /  Hurricane [T4]
   [3B] Field cleaner
        Wingull @ Leftovers   |   Ability: Hydration   |   Nature: Timid
-       Moves: Defog [Sit]  /  Roost [Sit]  /  Brine [T3]  /  U-turn [T2]
+       Moves: Defog [Sit]  /  Roost [Sit]  /  Brine [T3]  /  Hurricane [T4]
   [4A] Choice Specs gull
        Wingull @ Choice Specs   |   Ability: Rain Dish   |   Nature: Modest
        Moves: Hydro Pump [T4]  /  Hurricane [T4]  /  Ice Beam [T4]  /  U-turn [T2]
   [4B] Bulky gull
        Wingull @ Rocky Helmet   |   Ability: Keen Eye   |   Nature: Timid
-       Moves: Scald [T4]  /  Roost [Sit]  /  Defog [Sit]  /  Knock Off [T4]
+       Moves: Scald [T4]  /  Roost [Sit]  /  Defog [Sit]  /  Hurricane [T4]
 
 ====================================================================================================
 #433 CHINGLING  —  Psychic  —  BST 285  —  Category 1
@@ -370,7 +370,7 @@ Variants: A = Attacker / B = Support (Feather Dance, Roost)
        Moves: Feather Dance [T2]  /  Roost [Sit]  /  Pluck [T2]  /  Haze [Sit]
   [3A] Coverage bird
        Doduo @ Muscle Band   |   Ability: Early Bird   |   Nature: Jolly
-       Moves: Drill Peck [T3]  /  Jump Kick [T3]  /  Throat Chop [T3]  /  Knock Off [T4]
+       Moves: Drill Peck [T3]  /  Jump Kick [T3]  /  Double-Edge [T4]  /  Knock Off [T4]
   [3B] Endeavor bird
        Doduo @ Focus Sash   |   Ability: Tangled Feet   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Jump Kick [T3]  /  Endeavor [Sit]  /  Quick Attack [T1]
@@ -430,7 +430,7 @@ Variants: A = Attacker (Calm Mind) / B = Support (Magic Bounce, Wish, Roost)
        Moves: Drill Peck [T3]  /  Thunder Wave [Sit]  /  Roost [Sit]  /  Wish [Sit]
   [3A] Stored Power bird
        Natu @ Wise Glasses   |   Ability: Magic Bounce   |   Nature: Modest
-       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Heat Wave [T3]  /  Roost [Sit]
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Air Slash [T4]  /  Roost [Sit]
   [3B] Magic Bounce support
        Natu @ Leftovers   |   Ability: Magic Bounce   |   Nature: Timid
        Moves: Roost [Sit]  /  Wish [Sit]  /  Thunder Wave [Sit]  /  Psychic [T4]
@@ -460,7 +460,7 @@ Variants: A = Setup (Simple Calm Mind) / B = Utility (Unaware, Roost, Defog)
        Moves: U-turn [T2]  /  Roost [Sit]  /  Thunder Wave [Sit]  /  Air Cutter [T2]
   [3A] Simple Calm Mind bat
        Woobat @ Wise Glasses   |   Ability: Simple   |   Nature: Timid
-       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Heat Wave [T3]  /  Roost [Sit]
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Air Slash [T4]  /  Roost [Sit]
   [3B] Unaware bat
        Woobat @ Leftovers   |   Ability: Unaware   |   Nature: Bold
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Psychic [T4]  /  Defog [Sit]
@@ -610,7 +610,7 @@ Variants: A = Physical / B = Special and support
        Moves: Air Cutter [T2]  /  Ominous Wind [T2]  /  Feather Dance [T2]  /  Heat Wave [T3]
   [3A] Brave bird
        Pidgeotto @ Expert Belt   |   Ability: Big Pecks   |   Nature: Jolly
-       Moves: Brave Bird [T4]  /  Fly [T3]  /  U-turn [T2]  /  Roost [Sit]
+       Moves: Brave Bird [T4]  /  Fly [T3]  /  Double-Edge [T4]  /  Roost [Sit]
   [3B] Field cleaner
        Pidgeotto @ Rocky Helmet   |   Ability: Keen Eye   |   Nature: Timid
        Moves: Roost [Sit]  /  Defog [Sit]  /  Whirlwind [Sit]  /  Air Slash [T4]
@@ -640,16 +640,16 @@ Variants: A = Setup (Defiant, Swords Dance) / B = Inner Focus attacker
        Moves: U-turn [T2]  /  Feather Dance [T2]  /  Covet [T2]  /  Roost [Sit]
   [3A] Swords Dance duck
        Farfetch’d @ Muscle Band   |   Ability: Defiant   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Night Slash [T3]  /  Iron Tail [T3]  /  Fly [T3]
+       Moves: Swords Dance [T4]  /  Double-Edge [T4]  /  Iron Tail [T3]  /  Fly [T3]
   [3B] Sash duck
        Farfetch’d @ Focus Sash   |   Ability: Inner Focus   |   Nature: Jolly
-       Moves: Brave Bird [T4]  /  Night Slash [T3]  /  Throat Chop [T3]  /  Revenge [T3]
+       Moves: Brave Bird [T4]  /  Night Slash [T3]  /  Throat Chop [T3]  /  Double-Edge [T4]
   [4A] Swords Dance sweeper
        Farfetch’d @ Life Orb   |   Ability: Defiant   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  Brave Bird [T4]  /  Leaf Blade [T4]  /  Knock Off [T4]
+       Moves: Swords Dance [T4]  /  Brave Bird [T4]  /  Double-Edge [T4]  /  Knock Off [T4]
   [4B] Choice Band duck
        Farfetch’d @ Choice Band   |   Ability: Inner Focus   |   Nature: Jolly
-       Moves: Brave Bird [T4]  /  Leaf Blade [T4]  /  Close Combat [T4]  /  Knock Off [T4]
+       Moves: Brave Bird [T4]  /  Double-Edge [T4]  /  Close Combat [T4]  /  Knock Off [T4]
 
 ====================================================================================================
 #137 PORYGON  —  Normal  —  BST 395  —  Category 3
@@ -733,13 +733,13 @@ Variants: A = Stall (Roost, Wish) / B = Utility (Serene Grace, Nasty Plot)
        Moves: Roost [Sit]  /  Defog [Sit]  /  Dazzling Gleam [T3]  /  Thunder Wave [Sit]
   [3B] Nasty Plot bird
        Togetic @ Wise Glasses   |   Ability: Serene Grace   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Dazzling Gleam [T3]  /  Heat Wave [T3]  /  Roost [Sit]
+       Moves: Nasty Plot [T4]  /  Dazzling Gleam [T3]  /  Air Slash [T4]  /  Roost [Sit]
   [4A] Tailwind support
        Togetic @ Rocky Helmet   |   Ability: Serene Grace   |   Nature: Calm
        Moves: Wish [Sit]  /  Roost [Sit]  /  Tailwind [Sit]  /  Dazzling Gleam [T3]
   [4B] Nasty Plot sweeper
        Togetic @ Life Orb   |   Ability: Serene Grace   |   Nature: Timid
-       Moves: Nasty Plot [T4]  /  Moonblast [T4]  /  Flamethrower [T4]  /  Shadow Ball [T4]
+       Moves: Nasty Plot [T4]  /  Moonblast [T4]  /  Flamethrower [T4]  /  Air Slash [T4]
 
 ====================================================================================================
 #444 GABITE  —  Dragon/Ground  —  BST 410  —  Category 4
@@ -823,7 +823,7 @@ Variants: A = Setup (Simple) / B = Utility (Unaware, Trick)
        Moves: Calm Mind [T4]  /  Amnesia [Sit]  /  Stored Power [T3]  /  Roost [Sit]
   [3B] Taunt lead
        Swoobat @ Focus Sash   |   Ability: Unaware   |   Nature: Timid
-       Moves: Taunt [Sit]  /  Thunder Wave [Sit]  /  Heat Wave [T3]  /  Psychic [T4]
+       Moves: Taunt [Sit]  /  Thunder Wave [Sit]  /  Air Slash [T4]  /  Psychic [T4]
   [4A] Simple sweeper
        Swoobat @ Weakness Policy   |   Ability: Simple   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Psychic [T4]  /  Air Slash [T4]  /  Roost [Sit]
@@ -880,13 +880,13 @@ Variants: A = Defensive (Drizzle, Roost, U-turn) / B = Offensive (rain)
        Moves: Water Pulse [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Muddy Water [T3]
   [3A] Rain setter
        Pelipper @ Damp Rock   |   Ability: Drizzle   |   Nature: Bold
-       Moves: Roost [Sit]  /  Defog [Sit]  /  Brine [T3]  /  U-turn [T2]
+       Moves: Roost [Sit]  /  Defog [Sit]  /  Brine [T3]  /  Hurricane [T4]
   [3B] Rain attacker
        Pelipper @ Wise Glasses   |   Ability: Drizzle   |   Nature: Modest
        Moves: Hurricane [T4]  /  Muddy Water [T3]  /  Roost [Sit]  /  U-turn [T2]
   [4A] Bulky Drizzle
        Pelipper @ Rocky Helmet   |   Ability: Drizzle   |   Nature: Bold
-       Moves: Scald [T4]  /  Roost [Sit]  /  U-turn [T2]  /  Knock Off [T4]
+       Moves: Scald [T4]  /  Roost [Sit]  /  Brave Bird [T4]  /  Knock Off [T4]
   [4B] Choice Specs Drizzle
        Pelipper @ Choice Specs   |   Ability: Drizzle   |   Nature: Modest
        Moves: Hydro Pump [T4]  /  Hurricane [T4]  /  Weather Ball [T4]  /  Ice Beam [T4]
@@ -913,7 +913,7 @@ Variants: A = Sniper attacker / B = Keen Eye utility (Roost, Tailwind)
        Moves: Focus Energy [T1]  /  Drill Peck [T3]  /  Throat Chop [T3]  /  Return [T4]
   [3B] Drilling beak
        Fearow @ Expert Belt   |   Ability: Keen Eye   |   Nature: Jolly
-       Moves: Drill Peck [T3]  /  Drill Run [T3]  /  Roost [Sit]  /  U-turn [T2]
+       Moves: Drill Peck [T3]  /  Double-Edge [T4]  /  Roost [Sit]  /  U-turn [T2]
   [4A] Choice Scarf beak
        Fearow @ Choice Scarf   |   Ability: Sniper   |   Nature: Jolly
        Moves: Drill Peck [T3]  /  Double-Edge [T4]  /  Drill Run [T3]  /  U-turn [T2]
@@ -1030,13 +1030,13 @@ Variants: A = Setup (Swords Dance) / B = Support and Choice
        Moves: Feather Dance [T2]  /  Scary Face [T2]  /  Roost [Sit]  /  Pluck [T2]
   [3A] Swords Dance bird
        Dodrio @ Muscle Band   |   Ability: Early Bird   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  Drill Peck [T3]  /  Drill Run [T3]  /  Jump Kick [T3]
+       Moves: Swords Dance [T4]  /  Drill Peck [T3]  /  Double-Edge [T4]  /  Jump Kick [T3]
   [3B] Taunt bird
        Dodrio @ Leftovers   |   Ability: Tangled Feet   |   Nature: Jolly
-       Moves: Taunt [Sit]  /  Roost [Sit]  /  Drill Peck [T3]  /  Throat Chop [T3]
+       Moves: Taunt [Sit]  /  Roost [Sit]  /  Drill Peck [T3]  /  Double-Edge [T4]
   [4A] Swords Dance sweeper
        Dodrio @ Life Orb   |   Ability: Early Bird   |   Nature: Jolly
-       Moves: Swords Dance [T4]  /  Brave Bird [T4]  /  Knock Off [T4]  /  Jump Kick [T3]
+       Moves: Swords Dance [T4]  /  Brave Bird [T4]  /  Knock Off [T4]  /  Double-Edge [T4]
   [4B] Choice Scarf bird
        Dodrio @ Choice Scarf   |   Ability: Run Away   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Double-Edge [T4]  /  Knock Off [T4]  /  Drill Run [T3]
@@ -1159,7 +1159,7 @@ Variants: A = Defensive (Roost, Will-O-Wisp) / B = Offensive (Dragon Dance)
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Dragon Pulse [T4]  /  Haze [Sit]
   [4B] Dragon Dance sweeper
        Altaria @ Life Orb   |   Ability: Natural Cure   |   Nature: Adamant
-       Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Earthquake [T4]  /  Roost [Sit]
+       Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Brave Bird [T4]  /  Roost [Sit]
 
 ====================================================================================================
 #561 SIGILYPH  —  Psychic/Flying  —  BST 490  —  Category 6
@@ -1180,7 +1180,7 @@ Variants: A = Setup (Magic Guard Calm Mind) / B = Support (Wonder Skin, screens)
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Psybeam [T2]  /  Air Cutter [T2]
   [3A] Stored Power bird
        Sigilyph @ Wise Glasses   |   Ability: Magic Guard   |   Nature: Timid
-       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Heat Wave [T3]  /  Roost [Sit]
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Air Slash [T4]  /  Roost [Sit]
   [3B] Screen setter
        Sigilyph @ Light Clay   |   Ability: Wonder Skin   |   Nature: Bold
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Roost [Sit]  /  Psychic [T4]
@@ -1363,7 +1363,7 @@ Variants: A = Physical (Dragon Dance) / B = Special and utility
        Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Dig [T3]  /  Fire Punch [T3]
   [3B] Tailwind support
        Flygon @ Leftovers   |   Ability: Levitate   |   Nature: Timid
-       Moves: Roost [Sit]  /  Tailwind [Sit]  /  Psychic Noise [T3]  /  Scorching Sands [T3]
+       Moves: Roost [Sit]  /  Tailwind [Sit]  /  Draco Meteor [T4]  /  Scorching Sands [T3]
   [4A] Dragon Dance sweeper
        Flygon @ Life Orb   |   Ability: Levitate   |   Nature: Jolly
        Moves: Dragon Dance [T4]  /  Earthquake [T4]  /  Outrage [T4]  /  Fire Punch [T3]
@@ -1453,13 +1453,13 @@ Variants: A = Defensive (Serene Grace, Roost) / B = Offensive (Nasty Plot, Trick
        Moves: Roost [Sit]  /  Thunder Wave [Sit]  /  Air Slash [T4]  /  Heal Bell [Sit]
   [3B] Nasty Plot bird
        Togekiss @ Wise Glasses   |   Ability: Serene Grace   |   Nature: Timid
-       Moves: Nasty Plot [T4]  /  Dazzling Gleam [T3]  /  Extrasensory [T3]  /  Roost [Sit]
+       Moves: Nasty Plot [T4]  /  Dazzling Gleam [T3]  /  Air Slash [T4]  /  Roost [Sit]
   [4A] Wish wall
        Togekiss @ Rocky Helmet   |   Ability: Serene Grace   |   Nature: Calm
        Moves: Wish [Sit]  /  Protect [Sit]  /  Air Slash [T4]  /  Thunder Wave [Sit]
   [4B] Choice Scarf trickster
        Togekiss @ Choice Scarf   |   Ability: Serene Grace   |   Nature: Timid
-       Moves: Trick [Sit]  /  Air Slash [T4]  /  Aura Sphere [T4]  /  Fire Blast [T4]
+       Moves: Trick [Sit]  /  Air Slash [T4]  /  Moonblast [T4]  /  Fire Blast [T4]
 
 ====================================================================================================
 #901 URSALUNA  —  Ground/Normal  —  BST 550  —  Category 7
@@ -1570,13 +1570,13 @@ Variants: A = Defensive (Roost, Static, Defog) / B = Offensive (special)
        Moves: Charge Beam [T2]  /  Air Cutter [T2]  /  Ancient Power [T2]  /  Discharge [T3]
   [3A] Static wall
        Zapdos @ Leftovers   |   Ability: Static   |   Nature: Bold
-       Moves: Roost [Sit]  /  Discharge [T3]  /  Heat Wave [T3]  /  Defog [Sit]
+       Moves: Roost [Sit]  /  Discharge [T3]  /  Hurricane [T4]  /  Defog [Sit]
   [3B] Agility bird
        Zapdos @ Wise Glasses   |   Ability: Pressure   |   Nature: Timid
-       Moves: Thunderbolt [T4]  /  Heat Wave [T3]  /  Volt Switch [T2]  /  Agility [Sit]
+       Moves: Thunderbolt [T4]  /  Hurricane [T4]  /  Volt Switch [T2]  /  Agility [Sit]
   [4A] Bulky pivot
        Zapdos @ Rocky Helmet   |   Ability: Static   |   Nature: Bold
-       Moves: Roost [Sit]  /  Thunderbolt [T4]  /  Volt Switch [T2]  /  Defog [Sit]
+       Moves: Roost [Sit]  /  Thunderbolt [T4]  /  Volt Switch [T2]  /  Hurricane [T4]
   [4B] Choice Specs bird
        Zapdos @ Choice Specs   |   Ability: Pressure   |   Nature: Timid
        Moves: Thunderbolt [T4]  /  Hurricane [T4]  /  Heat Wave [T3]  /  Volt Switch [T2]
@@ -1603,7 +1603,7 @@ Variants: A = Defensive (Recover, Wish) / B = Offensive (Calm Mind)
        Moves: Recover [Sit]  /  Thunder Wave [Sit]  /  Defog [Sit]  /  Mist Ball [T4]
   [3B] Stored Power maiden
        Latias @ Wise Glasses   |   Ability: Levitate   |   Nature: Timid
-       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Mystical Fire [T3]  /  Recover [Sit]
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Draco Meteor [T4]  /  Recover [Sit]
   [4A] Healing maiden
        Latias @ Rocky Helmet   |   Ability: Levitate   |   Nature: Bold
        Moves: Recover [Sit]  /  Wish [Sit]  /  Mist Ball [T4]  /  Healing Wish [Sit]
@@ -1630,13 +1630,13 @@ Variants: A = Setup (Calm Mind) / B = Attacker (Draco Meteor, Choice)
        Moves: Flip Turn [T2]  /  Thunder Wave [Sit]  /  Dragon Breath [T2]  /  Roost [Sit]
   [3A] Calm Mind knight
        Latios @ Wise Glasses   |   Ability: Levitate   |   Nature: Modest
-       Moves: Calm Mind [T4]  /  Psychic Noise [T3]  /  Mystical Fire [T3]  /  Recover [Sit]
+       Moves: Calm Mind [T4]  /  Psychic Noise [T3]  /  Draco Meteor [T4]  /  Recover [Sit]
   [3B] Draco knight
        Latios @ Expert Belt   |   Ability: Levitate   |   Nature: Timid
        Moves: Draco Meteor [T4]  /  Psychic Noise [T3]  /  Mystical Fire [T3]  /  Grass Knot [T3]
   [4A] Calm Mind sweeper
        Latios @ Life Orb   |   Ability: Levitate   |   Nature: Timid
-       Moves: Calm Mind [T4]  /  Luster Purge [T4]  /  Aura Sphere [T4]  /  Recover [Sit]
+       Moves: Calm Mind [T4]  /  Luster Purge [T4]  /  Draco Meteor [T4]  /  Recover [Sit]
   [4B] Choice Specs knight
        Latios @ Choice Specs   |   Ability: Levitate   |   Nature: Timid
        Moves: Draco Meteor [T4]  /  Luster Purge [T4]  /  Aura Sphere [T4]  /  Ice Beam [T4]
@@ -1660,13 +1660,13 @@ Variants: A = Physical (Dragon Dance) / B = Special and Choice
        Moves: Icy Wind [T2]  /  Incinerate [T2]  /  Water Pulse [T2]  /  Shock Wave [T2]
   [3A] Dragon Dance dragon
        Rayquaza @ Muscle Band   |   Ability: Air Lock   |   Nature: Adamant
-       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Iron Tail [T3]  /  Crunch [T3]
+       Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Dragon Ascent [T4]  /  Crunch [T3]
   [3B] Meteor Beam dragon
        Rayquaza @ Power Herb   |   Ability: Air Lock   |   Nature: Modest
-       Moves: Meteor Beam [T3]  /  Draco Meteor [T4]  /  Uproar [T3]  /  Icy Wind [T2]
+       Moves: Meteor Beam [T3]  /  Draco Meteor [T4]  /  Uproar [T3]  /  Hurricane [T4]
   [4A] Dragon Dance sweeper
        Rayquaza @ Life Orb   |   Ability: Air Lock   |   Nature: Jolly
-       Moves: Dragon Dance [T4]  /  Dragon Ascent [T4]  /  Earthquake [T4]  /  Extreme Speed [T4]
+       Moves: Dragon Dance [T4]  /  Dragon Ascent [T4]  /  Outrage [T4]  /  Extreme Speed [T4]
   [4B] Choice Band dragon
        Rayquaza @ Choice Band   |   Ability: Air Lock   |   Nature: Adamant
        Moves: Dragon Ascent [T4]  /  Outrage [T4]  /  Extreme Speed [T4]  /  Earthquake [T4]

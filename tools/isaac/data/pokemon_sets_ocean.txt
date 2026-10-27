@@ -160,7 +160,7 @@ Variants: A = Huge Power attacker / B = Special and support
        Moves: Bubble Beam [T2]  /  Draining Kiss [T2]  /  Icy Wind [T2]  /  Sing [T2]
   [3A] Aqua Jet mouse
        Marill @ Muscle Band   |   Ability: Huge Power   |   Nature: Adamant
-       Moves: Aqua Tail [T3]  /  Superpower [T3]  /  Ice Punch [T3]  /  Aqua Jet [T4]
+       Moves: Aqua Tail [T3]  /  Superpower [T3]  /  Play Rough [T4]  /  Aqua Jet [T4]
   [3B] Aqua Ring mouse
        Marill @ Leftovers   |   Ability: Thick Fat   |   Nature: Calm
        Moves: Aqua Ring [Sit]  /  Encore [Sit]  /  Muddy Water [T3]  /  Protect [Sit]
@@ -553,13 +553,13 @@ Variants: A = Pure Stall (Toxic) / B = Defensive with utility (Rapid Spin, Haze)
        Moves: Toxic [Sit]  /  Venoshock [T3]  /  Aqua Ring [Sit]  /  Brine [T3]
   [3B] Utility jelly
        Tentacool @ Leftovers   |   Ability: Liquid Ooze   |   Nature: Timid
-       Moves: Haze [Sit]  /  Toxic [Sit]  /  Venoshock [T3]  /  Knock Off [T4]
+       Moves: Haze [Sit]  /  Toxic [Sit]  /  Venoshock [T3]  /  Surf [T4]
   [4A] Jelly wall
        Tentacool @ Black Sludge   |   Ability: Clear Body   |   Nature: Calm
        Moves: Scald [T4]  /  Toxic [Sit]  /  Haze [Sit]  /  Protect [Sit]
   [4B] Spinning wall
        Tentacool @ Rocky Helmet   |   Ability: Liquid Ooze   |   Nature: Timid
-       Moves: Rapid Spin [T2]  /  Knock Off [T4]  /  Sludge Bomb [T4]  /  Haze [Sit]
+       Moves: Liquidation [T4]  /  Knock Off [T4]  /  Sludge Bomb [T4]  /  Haze [Sit]
 
 ====================================================================================================
 #366 CLAMPERL  —  Water  —  BST 345  —  Category 3
@@ -820,7 +820,7 @@ Variants: A = Huge Power attacker / B = Bulky support (Thick Fat)
        Moves: Charm [T2]  /  Draining Kiss [T2]  /  Bubble Beam [T2]  /  Sing [T2]
   [3A] Aqua Jet rabbit
        Azumarill @ Muscle Band   |   Ability: Huge Power   |   Nature: Adamant
-       Moves: Aqua Tail [T3]  /  Ice Spinner [T3]  /  Superpower [T3]  /  Aqua Jet [T4]
+       Moves: Aqua Tail [T3]  /  Play Rough [T4]  /  Superpower [T3]  /  Aqua Jet [T4]
   [3B] Perish rabbit
        Azumarill @ Leftovers   |   Ability: Thick Fat   |   Nature: Calm
        Moves: Perish Song [Sit]  /  Protect [Sit]  /  Alluring Voice [T3]  /  Muddy Water [T3]
@@ -1300,7 +1300,7 @@ Variants: A = Setup (Bulk Up, Belly Drum) / B = Attacker (Swift Swim)
        Moves: Hypnosis [T2]  /  Wake-Up Slap [T2]  /  Low Sweep [T2]  /  Darkest Lariat [T3]
   [3A] Bulk Up brawler
        Poliwrath @ Expert Belt   |   Ability: Water Absorb   |   Nature: Adamant
-       Moves: Bulk Up [T4]  /  Brick Break [T3]  /  Darkest Lariat [T3]  /  Ice Punch [T3]
+       Moves: Bulk Up [T4]  /  Brick Break [T3]  /  Darkest Lariat [T3]  /  Liquidation [T4]
   [3B] Rain brawler
        Poliwrath @ Damp Rock   |   Ability: Swift Swim   |   Nature: Adamant
        Moves: Rain Dance [Sit]  /  Liquidation [T4]  /  Superpower [T3]  /  Ice Punch [T3]
@@ -1330,13 +1330,13 @@ Variants: A = Pure Stall (Toxic, Haze) / B = Defensive with utility (Rapid Spin,
        Moves: Bubble Beam [T2]  /  Acid Spray [T2]  /  Aqua Ring [Sit]  /  Rain Dance [Sit]
   [3A] Haze staller
        Tentacruel @ Black Sludge   |   Ability: Clear Body   |   Nature: Calm
-       Moves: Toxic [Sit]  /  Haze [Sit]  /  Brine [T3]  /  Rapid Spin [T2]
+       Moves: Toxic [Sit]  /  Haze [Sit]  /  Brine [T3]  /  Sludge Wave [T4]
   [3B] Hex spinner
        Tentacruel @ Leftovers   |   Ability: Clear Body   |   Nature: Timid
-       Moves: Toxic [Sit]  /  Hex [T3]  /  Muddy Water [T3]  /  Rapid Spin [T2]
+       Moves: Toxic [Sit]  /  Hex [T3]  /  Muddy Water [T3]  /  Sludge Wave [T4]
   [4A] Utility spinner
        Tentacruel @ Black Sludge   |   Ability: Clear Body   |   Nature: Timid
-       Moves: Scald [T4]  /  Knock Off [T4]  /  Rapid Spin [T2]  /  Toxic [Sit]
+       Moves: Scald [T4]  /  Knock Off [T4]  /  Gunk Shot [T4]  /  Toxic [Sit]
   [4B] Assault Vest jelly
        Tentacruel @ Assault Vest   |   Ability: Rain Dish   |   Nature: Timid
        Moves: Scald [T4]  /  Sludge Bomb [T4]  /  Knock Off [T4]  /  Rapid Spin [T2]
@@ -1360,16 +1360,16 @@ Variants: A = Setup (Shell Smash) / B = Bulky utility (Rapid Spin, Explosion)
        Moves: Rapid Spin [T2]  /  Aurora Beam [T2]  /  Protect [Sit]  /  Icy Wind [T2]
   [3A] Shell Smash shell
        Cloyster @ White Herb   |   Ability: Skill Link   |   Nature: Adamant
-       Moves: Shell Smash [T4]  /  Icicle Spear [T3]  /  Rock Blast [T3]  /  Pin Missile [T3]
+       Moves: Shell Smash [T4]  /  Icicle Spear [T3]  /  Liquidation [T4]  /  Pin Missile [T3]
   [3B] Bulky spinner
        Cloyster @ Leftovers   |   Ability: Overcoat   |   Nature: Impish
        Moves: Rapid Spin [T2]  /  Icicle Spear [T3]  /  Razor Shell [T3]  /  Explosion [T4]
   [4A] Shell Smash sweeper
        Cloyster @ White Herb   |   Ability: Skill Link   |   Nature: Adamant
-       Moves: Shell Smash [T4]  /  Icicle Spear [T3]  /  Rock Blast [T3]  /  Ice Shard [T4]
+       Moves: Shell Smash [T4]  /  Icicle Spear [T3]  /  Liquidation [T4]  /  Ice Shard [T4]
   [4B] Sash smasher
        Cloyster @ Focus Sash   |   Ability: Skill Link   |   Nature: Jolly
-       Moves: Shell Smash [T4]  /  Icicle Spear [T3]  /  Rock Blast [T3]  /  Explosion [T4]
+       Moves: Shell Smash [T4]  /  Icicle Spear [T3]  /  Liquidation [T4]  /  Explosion [T4]
 
 ====================================================================================================
 #134 VAPOREON  —  Water  —  BST 525  —  Category 7
@@ -1693,7 +1693,7 @@ Variants: A = Defensive (Multiscale, Roost) / B = Offensive (Calm Mind)
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]  /  Psychic Noise [T3]
   [3B] Calm Mind guardian
        Lugia @ Wise Glasses   |   Ability: Multiscale   |   Nature: Modest
-       Moves: Calm Mind [T4]  /  Extrasensory [T3]  /  Roost [Sit]  /  Signal Beam [T3]
+       Moves: Calm Mind [T4]  /  Extrasensory [T3]  /  Roost [Sit]  /  Aeroblast [T4]
   [4A] Multiscale wall
        Lugia @ Rocky Helmet   |   Ability: Multiscale   |   Nature: Bold
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]  /  Aeroblast [T4]

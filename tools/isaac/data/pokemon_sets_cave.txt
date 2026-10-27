@@ -583,13 +583,13 @@ Variants: A = Setup sweeper / B = Utility attacker (Knock Off, priority)
        Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Rock Blast [T3]  /  Brick Break [T3]
   [3B] Coverage fossil
        Anorith @ Expert Belt   |   Ability: Swift Swim   |   Nature: Jolly
-       Moves: Rock Blast [T3]  /  Cross Poison [T3]  /  Brick Break [T3]  /  Knock Off [T4]
+       Moves: Rock Blast [T3]  /  X-Scissor [T3]  /  Brick Break [T3]  /  Knock Off [T4]
   [4A] Swords Dance sweeper
        Anorith @ Life Orb   |   Ability: Battle Armor   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Rock Slide [T4]  /  Aqua Jet [T4]
   [4B] Choice Band fossil
        Anorith @ Choice Band   |   Ability: Swift Swim   |   Nature: Jolly
-       Moves: Knock Off [T4]  /  Rock Slide [T4]  /  Aqua Jet [T4]  /  Brick Break [T3]
+       Moves: Knock Off [T4]  /  Rock Slide [T4]  /  Aqua Jet [T4]  /  X-Scissor [T3]
 
 ====================================================================================================
 #299 NOSEPASS  —  Rock  —  BST 375  —  Category 3
@@ -640,7 +640,7 @@ Variants: A = Defensive lead (phazing, Explosion) / B = Offensive (Rock Head)
        Moves: Take Down [T2]  /  Rock Tomb [T2]  /  Bulldoze [T2]  /  Iron Tail [T3]
   [3A] Sturdy phazer
        Onix @ Rocky Helmet   |   Ability: Sturdy   |   Nature: Impish
-       Moves: Rock Blast [T3]  /  Dragon Tail [Sit]  /  Toxic [Sit]  /  Explosion [T4]
+       Moves: Rock Blast [T3]  /  Earthquake [T4]  /  Toxic [Sit]  /  Explosion [T4]
   [3B] Rock Head snake
        Onix @ Hard Stone   |   Ability: Rock Head   |   Nature: Adamant
        Moves: Head Smash [T4]  /  Drill Run [T3]  /  Iron Tail [T3]  /  Rock Polish [Sit]
@@ -823,7 +823,7 @@ Variants: A = Setup attacker / B = Fast attacker
        Moves: Bulk Up [T4]  /  Axe Kick [T3]  /  Zen Headbutt [T3]  /  Thunder Punch [T3]
   [3B] Priority striker
        Medicham @ Expert Belt   |   Ability: Pure Power   |   Nature: Jolly
-       Moves: Fake Out [Sit]  /  Zen Headbutt [T3]  /  Ice Punch [T3]  /  Bullet Punch [T4]
+       Moves: Fake Out [Sit]  /  Zen Headbutt [T3]  /  Close Combat [T4]  /  Bullet Punch [T4]
   [4A] Bulk Up sweeper
        Medicham @ Punching Glove   |   Ability: Pure Power   |   Nature: Adamant
        Moves: Bulk Up [T4]  /  Drain Punch [T4]  /  Zen Headbutt [T3]  /  Bullet Punch [T4]
@@ -1063,10 +1063,10 @@ Variants: A = Defensive (screens, status) / B = Offensive (special setup)
        Moves: Psychic [T4]  /  Moonlight [Sit]  /  Toxic [Sit]  /  Reflect [Sit]
   [3B] Calm Mind moon
        Lunatone @ Expert Belt   |   Ability: Levitate   |   Nature: Modest
-       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Signal Beam [T3]  /  Moonlight [Sit]
+       Moves: Calm Mind [T4]  /  Stored Power [T3]  /  Power Gem [T4]  /  Moonlight [Sit]
   [4A] Bulky moon
        Lunatone @ Leftovers   |   Ability: Levitate   |   Nature: Bold
-       Moves: Psyshock [T4]  /  Ice Beam [T4]  /  Moonlight [Sit]  /  Toxic [Sit]
+       Moves: Psyshock [T4]  /  Power Gem [T4]  /  Moonlight [Sit]  /  Toxic [Sit]
   [4B] Nasty Plot sweeper
        Lunatone @ Life Orb   |   Ability: Levitate   |   Nature: Modest
        Moves: Nasty Plot [T4]  /  Power Gem [T4]  /  Psychic [T4]  /  Ice Beam [T4]
@@ -1270,13 +1270,13 @@ Variants: A = Defensive utility (Knock Off, status) / B = Offensive (setup)
        Moves: Hone Claws [T2]  /  Bug Bite [T2]  /  Rock Tomb [T2]  /  Crush Claw [T3]
   [3A] Bulky utility fossil
        Armaldo @ Rocky Helmet   |   Ability: Battle Armor   |   Nature: Impish
-       Moves: X-Scissor [T3]  /  Knock Off [T4]  /  Toxic [Sit]  /  Protect [Sit]
+       Moves: X-Scissor [T3]  /  Stone Edge [T4]  /  Toxic [Sit]  /  Protect [Sit]
   [3B] Swords Dance fossil
        Armaldo @ Muscle Band   |   Ability: Swift Swim   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Rock Blast [T3]  /  Aqua Tail [T3]
   [4A] Bulky utility fossil
        Armaldo @ Leftovers   |   Ability: Battle Armor   |   Nature: Impish
-       Moves: Stone Edge [T4]  /  Knock Off [T4]  /  Toxic [Sit]  /  Protect [Sit]
+       Moves: Stone Edge [T4]  /  X-Scissor [T3]  /  Toxic [Sit]  /  Protect [Sit]
   [4B] Swords Dance sweeper
        Armaldo @ Life Orb   |   Ability: Swift Swim   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  X-Scissor [T3]  /  Stone Edge [T4]  /  Earthquake [T4]
@@ -1363,7 +1363,7 @@ Variants: A = Pure Stall / B = Defensive with utility (Magnet Pull, pivot)
        Moves: Flash Cannon [T4]  /  Pain Split [Sit]  /  Toxic [Sit]  /  Protect [Sit]
   [3B] Pivot wall
        Probopass @ Magnet   |   Ability: Magnet Pull   |   Nature: Bold
-       Moves: Discharge [T3]  /  Thunder Wave [Sit]  /  Volt Switch [T2]  /  Flash Cannon [T4]
+       Moves: Power Gem [T4]  /  Thunder Wave [Sit]  /  Volt Switch [T2]  /  Flash Cannon [T4]
   [4A] Iron Defense staller
        Probopass @ Leftovers   |   Ability: Sturdy   |   Nature: Calm
        Moves: Iron Defense [Sit]  /  Head Smash [T4]  /  Pain Split [Sit]  /  Toxic [Sit]
@@ -1513,7 +1513,7 @@ Variants: A = Physical / B = Special
        Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Crunch [T3]  /  Iron Tail [T3]
   [3B] Bulky special dragon
        Salamence @ Wise Glasses   |   Ability: Intimidate   |   Nature: Modest
-       Moves: Dragon Pulse [T4]  /  Heat Wave [T3]  /  Roost [Sit]  /  Dragon Tail [Sit]
+       Moves: Dragon Pulse [T4]  /  Hurricane [T4]  /  Roost [Sit]  /  Dragon Tail [Sit]
   [4A] Moxie sweeper
        Salamence @ Life Orb   |   Ability: Moxie   |   Nature: Jolly
        Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Earthquake [T4]  /  Iron Head [T4]

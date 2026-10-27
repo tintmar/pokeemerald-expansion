@@ -169,7 +169,7 @@ Variants: A = Physical attacker (Sniper) / B = Utility (Toxic Thread, Baton Pass
        Moves: Megahorn [T4]  /  Poison Jab [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]
   [4B] Spider support
        Spinarak @ Rocky Helmet   |   Ability: Insomnia   |   Nature: Impish
-       Moves: Toxic Thread [Sit]  /  Leech Life [T4]  /  Knock Off [T4]  /  Megahorn [T4]
+       Moves: Toxic Thread [Sit]  /  Leech Life [T4]  /  Poison Jab [T4]  /  Megahorn [T4]
 
 ====================================================================================================
 #163 HOOTHOOT  —  Normal/Flying  —  BST 262  —  Category 1
@@ -193,13 +193,13 @@ Variants: A = Defensive (Roost, phazing) / B = Offensive (special setup)
        Moves: Roost [Sit]  /  Whirlwind [Sit]  /  Toxic [Sit]  /  Hyper Voice [T4]
   [3B] Calm Mind owl
        Hoothoot @ Wise Glasses   |   Ability: Tinted Lens   |   Nature: Modest
-       Moves: Calm Mind [T4]  /  Extrasensory [T3]  /  Heat Wave [T3]  /  Roost [Sit]
+       Moves: Calm Mind [T4]  /  Hurricane [T4]  /  Heat Wave [T3]  /  Roost [Sit]
   [4A] Owl wall
        Hoothoot @ Rocky Helmet   |   Ability: Insomnia   |   Nature: Calm
        Moves: Hyper Voice [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Defog [Sit]
   [4B] Nasty Plot owl
        Hoothoot @ Life Orb   |   Ability: Tinted Lens   |   Nature: Timid
-       Moves: Nasty Plot [T4]  /  Air Slash [T4]  /  Psychic [T4]  /  Roost [Sit]
+       Moves: Nasty Plot [T4]  /  Air Slash [T4]  /  Hyper Voice [T4]  /  Roost [Sit]
 
 ====================================================================================================
 #132 DITTO  —  Normal  —  BST 288  —  Category 1
@@ -463,7 +463,7 @@ Variants: A = Special attacker / B = Disruptor (sleep, burns, Destiny Bond)
        Moves: Hex [T3]  /  Will-O-Wisp [Sit]  /  Sludge Bomb [T4]  /  Pain Split [Sit]
   [3B] Sash disruptor
        Gastly @ Focus Sash   |   Ability: Levitate   |   Nature: Timid
-       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Dazzling Gleam [T3]  /  Shadow Ball [T4]
+       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Sludge Wave [T4]  /  Shadow Ball [T4]
   [4A] Nasty Plot sweeper
        Gastly @ Life Orb   |   Ability: Levitate   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Shadow Ball [T4]  /  Sludge Bomb [T4]  /  Thunderbolt [T4]
@@ -523,7 +523,7 @@ Variants: A = Special attacker / B = Utility (burns, Pursuit, priority)
        Moves: Dark Pulse [T4]  /  Heat Wave [T3]  /  Will-O-Wisp [Sit]  /  Protect [Sit]
   [3B] Trapping pup
        Houndour @ Focus Sash   |   Ability: Unnerve   |   Nature: Hasty
-       Moves: Will-O-Wisp [Sit]  /  Payback [T3]  /  Crunch [T3]  /  Sucker Punch [T4]
+       Moves: Flare Blitz [T4]  /  Payback [T3]  /  Crunch [T3]  /  Sucker Punch [T4]
   [4A] Nasty Plot sweeper
        Houndour @ Life Orb   |   Ability: Flash Fire   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Fire Blast [T4]  /  Dark Pulse [T4]  /  Sludge Bomb [T4]
@@ -553,7 +553,7 @@ Variants: A = Physical / B = Special
        Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Night Slash [T3]  /  Low Kick [T3]
   [3B] Nasty Plot trickster
        Nuzleaf @ Wise Glasses   |   Ability: Chlorophyll   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Grass Knot [T3]  /  Extrasensory [T3]  /  Synthesis [Sit]
+       Moves: Nasty Plot [T4]  /  Grass Knot [T3]  /  Dark Pulse [T4]  /  Synthesis [Sit]
   [4A] Swords Dance attacker
        Nuzleaf @ Life Orb   |   Ability: Pickpocket   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Leaf Blade [T4]  /  Knock Off [T4]  /  Sucker Punch [T4]
@@ -580,10 +580,10 @@ Variants: A = Setup sweeper / B = Priority / trapping attacker
        Moves: Feint Attack [T2]  /  Screech [T2]  /  Low Sweep [T2]  /  Night Slash [T3]
   [3A] Swords Dance pawn
        Pawniard @ Lum Berry   |   Ability: Defiant   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Night Slash [T3]  /  Brick Break [T3]  /  Psycho Cut [T3]
+       Moves: Swords Dance [T4]  /  Night Slash [T3]  /  Brick Break [T3]  /  Iron Head [T4]
   [3B] Trapping pawn
        Pawniard @ Black Glasses   |   Ability: Inner Focus   |   Nature: Adamant
-       Moves: Payback [T3]  /  Night Slash [T3]  /  X-Scissor [T3]  /  Sucker Punch [T4]
+       Moves: Payback [T3]  /  Night Slash [T3]  /  Iron Head [T4]  /  Sucker Punch [T4]
   [4A] Swords Dance sweeper
        Pawniard @ Life Orb   |   Ability: Defiant   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Iron Head [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]
@@ -709,7 +709,7 @@ Variants: A = Setup attacker (Sniper) / B = Utility (Toxic Thread, priority)
        Moves: Swords Dance [T4]  /  Megahorn [T4]  /  Poison Jab [T4]  /  Sucker Punch [T4]
   [4B] Bulky disruptor
        Ariados @ Leftovers   |   Ability: Insomnia   |   Nature: Careful
-       Moves: Toxic Thread [Sit]  /  Knock Off [T4]  /  Leech Life [T4]  /  Protect [Sit]
+       Moves: Toxic Thread [Sit]  /  Poison Jab [T4]  /  Leech Life [T4]  /  Protect [Sit]
 
 ====================================================================================================
 #093 HAUNTER  —  Ghost/Poison  —  BST 405  —  Category 4
@@ -733,7 +733,7 @@ Variants: A = Special attacker / B = Disruptor (sleep, burns, Destiny Bond)
        Moves: Hex [T3]  /  Will-O-Wisp [Sit]  /  Sludge Wave [T4]  /  Pain Split [Sit]
   [3B] Sash disruptor
        Haunter @ Focus Sash   |   Ability: Levitate   |   Nature: Timid
-       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Dazzling Gleam [T3]  /  Sludge Bomb [T4]
+       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Shadow Ball [T4]  /  Sludge Bomb [T4]
   [4A] Nasty Plot sweeper
        Haunter @ Life Orb   |   Ability: Levitate   |   Nature: Timid
        Moves: Nasty Plot [T4]  /  Shadow Ball [T4]  /  Sludge Wave [T4]  /  Focus Blast [T4]
@@ -763,7 +763,7 @@ Variants: A = Physical / B = Special
        Moves: Drill Peck [T3]  /  Night Slash [T3]  /  Sucker Punch [T4]  /  Roost [Sit]
   [3B] Nasty Plot crow
        Murkrow @ Wise Glasses   |   Ability: Prankster   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Heat Wave [T3]  /  Psychic Noise [T3]  /  Roost [Sit]
+       Moves: Nasty Plot [T4]  /  Heat Wave [T3]  /  Dark Pulse [T4]  /  Roost [Sit]
   [4A] Prankster attacker
        Murkrow @ Rocky Helmet   |   Ability: Prankster   |   Nature: Jolly
        Moves: Brave Bird [T4]  /  Foul Play [T4]  /  Roost [Sit]  /  Thunder Wave [Sit]
@@ -913,13 +913,13 @@ Variants: A = Defensive (Roost, phazing) / B = Offensive (special setup)
        Moves: Hyper Voice [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
   [3B] Calm Mind owl
        Noctowl @ Wise Glasses   |   Ability: Tinted Lens   |   Nature: Modest
-       Moves: Calm Mind [T4]  /  Extrasensory [T3]  /  Heat Wave [T3]  /  Roost [Sit]
+       Moves: Calm Mind [T4]  /  Hurricane [T4]  /  Heat Wave [T3]  /  Roost [Sit]
   [4A] Night Shade staller
        Noctowl @ Leftovers   |   Ability: Insomnia   |   Nature: Calm
        Moves: Hyper Voice [T4]  /  Roost [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
   [4B] Nasty Plot owl
        Noctowl @ Life Orb   |   Ability: Tinted Lens   |   Nature: Timid
-       Moves: Nasty Plot [T4]  /  Air Slash [T4]  /  Moonblast [T4]  /  Roost [Sit]
+       Moves: Nasty Plot [T4]  /  Air Slash [T4]  /  Hyper Voice [T4]  /  Roost [Sit]
 
 ====================================================================================================
 #354 BANETTE  —  Ghost  —  BST 455  —  Category 5
@@ -1093,7 +1093,7 @@ Variants: A = Physical / B = Special
        Moves: Swords Dance [T4]  /  Seed Bomb [T3]  /  Throat Chop [T3]  /  Low Kick [T3]
   [3B] Sun caster
        Shiftry @ Wise Glasses   |   Ability: Chlorophyll   |   Nature: Modest
-       Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Heat Wave [T3]  /  Extrasensory [T3]
+       Moves: Sunny Day [Sit]  /  Solar Beam [T3]  /  Heat Wave [T3]  /  Dark Pulse [T4]
   [4A] Swords Dance sweeper
        Shiftry @ Life Orb   |   Ability: Pickpocket   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Leaf Blade [T4]  /  Knock Off [T4]  /  Sucker Punch [T4]
@@ -1210,10 +1210,10 @@ Variants: A = Setup sweeper / B = Priority / Choice attacker
        Moves: Feint Attack [T2]  /  Metal Sound [T2]  /  Low Sweep [T2]  /  Throat Chop [T3]
   [3A] Swords Dance blade
        Bisharp @ Muscle Band   |   Ability: Defiant   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Night Slash [T3]  /  Psycho Cut [T3]  /  Low Kick [T3]
+       Moves: Swords Dance [T4]  /  Night Slash [T3]  /  Psycho Cut [T3]  /  Iron Head [T4]
   [3B] Priority blade
        Bisharp @ Black Glasses   |   Ability: Inner Focus   |   Nature: Adamant
-       Moves: Night Slash [T3]  /  Throat Chop [T3]  /  X-Scissor [T3]  /  Sucker Punch [T4]
+       Moves: Night Slash [T3]  /  Throat Chop [T3]  /  Iron Head [T4]  /  Sucker Punch [T4]
   [4A] Swords Dance sweeper
        Bisharp @ Life Orb   |   Ability: Defiant   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Iron Head [T4]  /  Sucker Punch [T4]  /  Knock Off [T4]
@@ -1273,7 +1273,7 @@ Variants: A = Special attacker / B = Disruptor
        Moves: Sludge Bomb [T4]  /  Hex [T3]  /  Psychic Noise [T3]  /  Will-O-Wisp [Sit]
   [3B] Sash disruptor
        Gengar @ Focus Sash   |   Ability: Cursed Body   |   Nature: Timid
-       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Psychic Noise [T3]  /  Shadow Ball [T4]
+       Moves: Destiny Bond [Sit]  /  Taunt [Sit]  /  Sludge Wave [T4]  /  Shadow Ball [T4]
   [4A] Choice Specs nuke
        Gengar @ Choice Specs   |   Ability: Cursed Body   |   Nature: Timid
        Moves: Shadow Ball [T4]  /  Sludge Bomb [T4]  /  Focus Blast [T4]  /  Thunderbolt [T4]
@@ -1333,7 +1333,7 @@ Variants: A = Physical / B = Special
        Moves: Night Slash [T3]  /  Drill Peck [T3]  /  Superpower [T3]  /  Sucker Punch [T4]
   [3B] Nasty Plot boss
        Honchkrow @ Wise Glasses   |   Ability: Insomnia   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Heat Wave [T3]  /  Psychic Noise [T3]  /  Roost [Sit]
+       Moves: Nasty Plot [T4]  /  Heat Wave [T3]  /  Dark Pulse [T4]  /  Roost [Sit]
   [4A] Moxie sweeper
        Honchkrow @ Life Orb   |   Ability: Moxie   |   Nature: Adamant
        Moves: Brave Bird [T4]  /  Sucker Punch [T4]  /  Superpower [T3]  /  Roost [Sit]
@@ -1480,10 +1480,10 @@ Variants: A = Setup sweeper / B = Bulky attacker
        Moves: Metal Sound [T2]  /  Feint Attack [T2]  /  Rock Tomb [T2]  /  Revenge [T3]
   [3A] Swords Dance general
        Kingambit @ Muscle Band   |   Ability: Supreme Overlord   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Night Slash [T3]  /  Zen Headbutt [T3]  /  Low Kick [T3]
+       Moves: Swords Dance [T4]  /  Night Slash [T3]  /  Zen Headbutt [T3]  /  Iron Head [T4]
   [3B] Iron Defense general
        Kingambit @ Leftovers   |   Ability: Defiant   |   Nature: Adamant
-       Moves: Iron Defense [Sit]  /  Throat Chop [T3]  /  X-Scissor [T3]  /  Kowtow Cleave [T4]
+       Moves: Iron Defense [Sit]  /  Throat Chop [T3]  /  Iron Head [T4]  /  Kowtow Cleave [T4]
   [4A] Supreme Overlord sweeper
        Kingambit @ Leftovers   |   Ability: Supreme Overlord   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Kowtow Cleave [T4]  /  Sucker Punch [T4]  /  Iron Head [T4]
@@ -1543,7 +1543,7 @@ Variants: A = Physical (Dragon Dance) / B = Special
        Moves: Dragon Dance [T4]  /  Dragon Rush [T3]  /  Crunch [T3]  /  Superpower [T3]
   [3B] Bulky caster
        Hydreigon @ Wise Glasses   |   Ability: Levitate   |   Nature: Modest
-       Moves: Dark Pulse [T4]  /  Heat Wave [T3]  /  Tri Attack [T3]  /  Roost [Sit]
+       Moves: Dark Pulse [T4]  /  Heat Wave [T3]  /  Draco Meteor [T4]  /  Roost [Sit]
   [4A] Dragon Dance sweeper
        Hydreigon @ Life Orb   |   Ability: Levitate   |   Nature: Jolly
        Moves: Dragon Dance [T4]  /  Outrage [T4]  /  Crunch [T3]  /  Earthquake [T4]
@@ -1693,7 +1693,7 @@ Variants: A = Physical / B = Special
        Moves: Payback [T3]  /  Shadow Claw [T3]  /  Roost [Sit]  /  Sucker Punch [T4]
   [3B] Draining reaper
        Yveltal @ Wise Glasses   |   Ability: Dark Aura   |   Nature: Modest
-       Moves: Oblivion Wing [T4]  /  Heat Wave [T3]  /  Roost [Sit]  /  Taunt [Sit]
+       Moves: Oblivion Wing [T4]  /  Dark Pulse [T4]  /  Roost [Sit]  /  Taunt [Sit]
   [4A] Dark Aura attacker
        Yveltal @ Life Orb   |   Ability: Dark Aura   |   Nature: Adamant
        Moves: Knock Off [T4]  /  Sucker Punch [T4]  /  Rock Slide [T4]  /  Roost [Sit]

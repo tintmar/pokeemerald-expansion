@@ -226,7 +226,7 @@ Variants: A = Special attacker / B = Support (screens, Will-O-Wisp)
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Dazzling Gleam [T3]  /  Memento [Sit]
   [4A] Choice Scarf trickster
        Kirlia @ Choice Scarf   |   Ability: Trace   |   Nature: Timid
-       Moves: Trick [Sit]  /  Psychic [T4]  /  Thunderbolt [T4]  /  Shadow Ball [T4]
+       Moves: Trick [Sit]  /  Psychic [T4]  /  Thunderbolt [T4]  /  Alluring Voice [T3]
   [4B] Burning sprite
        Kirlia @ Rocky Helmet   |   Ability: Synchronize   |   Nature: Calm
        Moves: Will-O-Wisp [Sit]  /  Pain Split [Sit]  /  Psyshock [T4]  /  Protect [Sit]
@@ -280,13 +280,13 @@ Variants: A = Defensive (Rapid Spin, Levitate) / B = Offensive (Calm Mind, Trick
        Moves: Psybeam [T2]  /  Ancient Power [T2]  /  Charge Beam [T2]  /  Extrasensory [T3]
   [3A] Spinning wall
        Baltoy @ Leftovers   |   Ability: Levitate   |   Nature: Impish
-       Moves: Earthquake [T4]  /  Gyro Ball [T3]  /  Toxic [Sit]  /  Cosmic Power [Sit]
+       Moves: Earthquake [T4]  /  Zen Headbutt [T3]  /  Toxic [Sit]  /  Cosmic Power [Sit]
   [3B] Calm Mind doll
        Baltoy @ Wise Glasses   |   Ability: Levitate   |   Nature: Modest
        Moves: Calm Mind [T4]  /  Extrasensory [T3]  /  Scorching Sands [T3]  /  Hex [T3]
   [4A] Bulky spinner
        Baltoy @ Rocky Helmet   |   Ability: Levitate   |   Nature: Impish
-       Moves: Rapid Spin [T2]  /  Earthquake [T4]  /  Toxic [Sit]  /  Gyro Ball [T3]
+       Moves: Zen Headbutt [T3]  /  Earthquake [T4]  /  Toxic [Sit]  /  Gyro Ball [T3]
   [4B] Trick Room doll
        Baltoy @ Life Orb   |   Ability: Levitate   |   Nature: Quiet
        Moves: Trick Room [Sit]  /  Earth Power [T4]  /  Psychic [T4]  /  Shadow Ball [T4]
@@ -379,7 +379,7 @@ Variants: A = Screens (Filter) / B = Utility (Technician Fake Out, Trick Room)
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Psychic [T4]  /  Encore [Sit]
   [4B] Trick Room lead
        Mime Jr. @ Focus Sash   |   Ability: Technician   |   Nature: Bold
-       Moves: Fake Out [Sit]  /  Trick Room [Sit]  /  Healing Wish [Sit]  /  Psyshock [T4]
+       Moves: Dazzling Gleam [T3]  /  Trick Room [Sit]  /  Healing Wish [Sit]  /  Psyshock [T4]
 
 ====================================================================================================
 #079 SLOWPOKE  —  Water/Psychic  —  BST 315  —  Category 2
@@ -940,10 +940,10 @@ Variants: A = Physical (Sap Sipper) / B = Special (Nasty Plot, Calm Mind)
        Moves: Psybeam [T2]  /  Charge Beam [T2]  /  Shock Wave [T2]  /  Twin Beam [T3]
   [3A] Physical neck
        Girafarig @ Muscle Band   |   Ability: Sap Sipper   |   Nature: Adamant
-       Moves: Zen Headbutt [T3]  /  High Horsepower [T3]  /  Crunch [T3]  /  Psychic Fangs [T4]
+       Moves: Zen Headbutt [T3]  /  High Horsepower [T3]  /  Double-Edge [T4]  /  Psychic Fangs [T4]
   [3B] Nasty Plot neck
        Girafarig @ Wise Glasses   |   Ability: Inner Focus   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Psychic Noise [T3]  /  Dazzling Gleam [T3]  /  Agility [Sit]
+       Moves: Nasty Plot [T4]  /  Psychic Noise [T3]  /  Hyper Voice [T4]  /  Agility [Sit]
   [4A] Physical attacker
        Girafarig @ Life Orb   |   Ability: Sap Sipper   |   Nature: Jolly
        Moves: Body Slam [T4]  /  Psychic Fangs [T4]  /  Earthquake [T4]  /  Sucker Punch [T4]
@@ -1006,10 +1006,10 @@ Variants: A = Setup (Nasty Plot, Filter) / B = Support (screens, Trick)
        Moves: Psychic [T4]  /  Reflect [Sit]  /  Taunt [Sit]  /  Healing Wish [Sit]
   [4A] Nasty Plot sweeper
        Mr. Mime @ Life Orb   |   Ability: Filter   |   Nature: Timid
-       Moves: Nasty Plot [T4]  /  Psychic [T4]  /  Focus Blast [T4]  /  Thunderbolt [T4]
+       Moves: Nasty Plot [T4]  /  Psychic [T4]  /  Dazzling Gleam [T3]  /  Thunderbolt [T4]
   [4B] Choice Scarf trickster
        Mr. Mime @ Choice Scarf   |   Ability: Soundproof   |   Nature: Timid
-       Moves: Trick [Sit]  /  Psychic [T4]  /  Focus Blast [T4]  /  Shadow Ball [T4]
+       Moves: Trick [Sit]  /  Psychic [T4]  /  Focus Blast [T4]  /  Dazzling Gleam [T3]
 
 ====================================================================================================
 #338 SOLROCK  —  Rock/Psychic  —  BST 460  —  Category 5
@@ -1036,7 +1036,7 @@ Variants: A = Defensive (Will-O-Wisp, Morning Sun) / B = Offensive (Rock Polish)
        Moves: Rock Polish [Sit]  /  Rock Blast [T3]  /  Zen Headbutt [T3]  /  Flare Blitz [T4]
   [4A] Bulky stone
        Solrock @ Rocky Helmet   |   Ability: Levitate   |   Nature: Impish
-       Moves: Morning Sun [Sit]  /  Will-O-Wisp [Sit]  /  Stone Edge [T4]  /  Earthquake [T4]
+       Moves: Morning Sun [Sit]  /  Will-O-Wisp [Sit]  /  Stone Edge [T4]  /  Zen Headbutt [T3]
   [4B] Swords Dance stone
        Solrock @ Life Orb   |   Ability: Levitate   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Stone Edge [T4]  /  Zen Headbutt [T3]  /  Flare Blitz [T4]
@@ -1300,7 +1300,7 @@ Variants: A = Defensive (screens, Rapid Spin) / B = Offensive (Calm Mind)
        Moves: Ancient Power [T2]  /  Charge Beam [T2]  /  Psybeam [T2]  /  Scorching Sands [T3]
   [3A] Screen setter
        Claydol @ Light Clay   |   Ability: Levitate   |   Nature: Impish
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Earthquake [T4]  /  Drill Run [T3]
+       Moves: Zen Headbutt [T3]  /  Reflect [Sit]  /  Earthquake [T4]  /  Drill Run [T3]
   [3B] Coverage idol
        Claydol @ Expert Belt   |   Ability: Levitate   |   Nature: Modest
        Moves: Earth Power [T4]  /  Extrasensory [T3]  /  Scorching Sands [T3]  /  Signal Beam [T3]
@@ -1363,7 +1363,7 @@ Variants: A = Setup (Calm Mind) / B = Support (Will-O-Wisp, Trick, Destiny Bond)
        Moves: Calm Mind [T4]  /  Psychic Noise [T3]  /  Alluring Voice [T3]  /  Mystical Fire [T3]
   [3B] Destiny Bond lead
        Gardevoir @ Focus Sash   |   Ability: Synchronize   |   Nature: Timid
-       Moves: Will-O-Wisp [Sit]  /  Moonblast [T4]  /  Destiny Bond [Sit]  /  Dazzling Gleam [T3]
+       Moves: Psychic [T4]  /  Moonblast [T4]  /  Destiny Bond [Sit]  /  Dazzling Gleam [T3]
   [4A] Choice Scarf trickster
        Gardevoir @ Choice Scarf   |   Ability: Trace   |   Nature: Timid
        Moves: Trick [Sit]  /  Moonblast [T4]  /  Psychic [T4]  /  Focus Blast [T4]
@@ -1423,7 +1423,7 @@ Variants: A = Attacker (Analytic) / B = Utility (Rapid Spin, Recover)
        Moves: Expanding Force [T3]  /  Brine [T3]  /  Dazzling Gleam [T3]  /  Ice Beam [T4]
   [3B] Utility spinner
        Starmie @ Leftovers   |   Ability: Natural Cure   |   Nature: Timid
-       Moves: Recover [Sit]  /  Surf [T4]  /  Thunder Wave [Sit]  /  Dazzling Gleam [T3]
+       Moves: Recover [Sit]  /  Surf [T4]  /  Thunder Wave [Sit]  /  Psychic [T4]
   [4A] Choice Specs star
        Starmie @ Choice Specs   |   Ability: Analytic   |   Nature: Timid
        Moves: Hydro Pump [T4]  /  Psychic [T4]  /  Thunderbolt [T4]  /  Ice Beam [T4]
@@ -1453,7 +1453,7 @@ Variants: A = Physical (Armor Tail) / B = Special (Cud Chew, Trick Room)
        Moves: Zen Headbutt [T3]  /  High Horsepower [T3]  /  Crunch [T3]  /  Body Slam [T4]
   [3B] Trick Room neck
        Farigiraf @ Sitrus Berry   |   Ability: Cud Chew   |   Nature: Quiet
-       Moves: Trick Room [Sit]  /  Expanding Force [T3]  /  Dazzling Gleam [T3]  /  Thunderbolt [T4]
+       Moves: Trick Room [Sit]  /  Expanding Force [T3]  /  Hyper Voice [T4]  /  Thunderbolt [T4]
   [4A] Physical attacker
        Farigiraf @ Life Orb   |   Ability: Armor Tail   |   Nature: Brave
        Moves: Psychic Fangs [T4]  /  Body Slam [T4]  /  Earthquake [T4]  /  Sucker Punch [T4]
@@ -1510,7 +1510,7 @@ Variants: A = Defensive (Roar, Flip Turn) / B = Offensive (physical)
        Moves: Stomp [T2]  /  Flip Turn [T2]  /  Rock Tomb [T2]  /  Darkest Lariat [T3]
   [3A] Phazing fish
        Swampert @ Leftovers   |   Ability: Damp   |   Nature: Relaxed
-       Moves: Roar [Sit]  /  Toxic [Sit]  /  Muddy Water [T3]  /  Flip Turn [T2]
+       Moves: Earthquake [T4]  /  Toxic [Sit]  /  Muddy Water [T3]  /  Flip Turn [T2]
   [3B] Coverage fish
        Swampert @ Expert Belt   |   Ability: Torrent   |   Nature: Adamant
        Moves: Aqua Tail [T3]  /  Hammer Arm [T3]  /  Ice Punch [T3]  /  Earthquake [T4]
@@ -1603,10 +1603,10 @@ Variants: A = Defensive (Serene Grace, Wish) / B = Offensive (Calm Mind, Scarf)
        Moves: Wish [Sit]  /  Protect [Sit]  /  Zen Headbutt [T3]  /  Iron Head [T4]
   [3B] Calm Mind star
        Jirachi @ Wise Glasses   |   Ability: Serene Grace   |   Nature: Timid
-       Moves: Calm Mind [T4]  /  Psychic Noise [T3]  /  Dazzling Gleam [T3]  /  Signal Beam [T3]
+       Moves: Calm Mind [T4]  /  Psychic Noise [T3]  /  Dazzling Gleam [T3]  /  Flash Cannon [T4]
   [4A] Choice Scarf flincher
        Jirachi @ Choice Scarf   |   Ability: Serene Grace   |   Nature: Jolly
-       Moves: Iron Head [T4]  /  U-turn [T2]  /  Play Rough [T4]  /  Drain Punch [T4]
+       Moves: Iron Head [T4]  /  U-turn [T2]  /  Play Rough [T4]  /  Zen Headbutt [T3]
   [4B] Calm Mind sweeper
        Jirachi @ Life Orb   |   Ability: Serene Grace   |   Nature: Timid
        Moves: Calm Mind [T4]  /  Flash Cannon [T4]  /  Psychic [T4]  /  Aura Sphere [T4]

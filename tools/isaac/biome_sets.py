@@ -101,7 +101,8 @@ def spread(name, nature, moves, role, profile):
 
 def check_tier_rules(name, label, tier, tiers, moves):
     """Règles de tier du fichier (« HOW TO READ ») : tier 1 = T1 + au plus une T2 ; tier 2 = T2 / Sit + au plus une T3 ;
-    tier 3 = T3 / Sit + au plus une T4 ; tier 4 = T3 / T4 / Sit. Exception : une attaque [Pivot] de T2 aux tiers 3 et 4."""
+    tier 3 = T3 / Sit + au plus une T4 ; tier 4 = T3 / T4 / Sit. Exceptions : une attaque [Pivot] de T2 aux tiers 3 et
+    4 ; au tier 3, une seconde T4 si c'est la seule attaque d'un type du Pokémon (son second STAB)."""
     over = {1: 2, 2: 3, 3: 4, 4: None}[tier]
     allowed = {1: {1}, 2: {2, 'SITUATIONAL'}, 3: {3, 'SITUATIONAL'}, 4: {3, 4, 'SITUATIONAL'}}[tier]
     n_over = 0
@@ -112,6 +113,14 @@ def check_tier_rules(name, label, tier, tiers, moves):
             n_over += 1
         elif t not in allowed and not pivot and not (tier == 1 and t == 'SITUATIONAL'):
             WARNINGS.append(f'{name} [{label}] : {mv} (T{t}) hors des tiers du set {tier}')
+    # Exception (second STAB d'un double type) : au tier 3, une seconde attaque de tier 4 si c'est la seule attaque
+    # offensive d'un des types du Pokémon (souvent, ce type n'a rien d'utilisable en tier 3)
+    if tier == 3 and n_over == 2:
+        types = set(g.MONS[name].types)
+        damaging = [mv for mv in moves if mv in g.MOVES and g.MOVES[mv].cat != 'STATUS']
+        if any(g.MOVES[mv].type in types and sum(g.MOVES[x].type == g.MOVES[mv].type for x in damaging) == 1
+               for mv, t in zip(moves, tiers) if t == 4 and mv in damaging):
+            n_over = 1
     if n_over > 1:
         WARNINGS.append(f'{name} [{label}] : {n_over} attaques de tier {over}')
 

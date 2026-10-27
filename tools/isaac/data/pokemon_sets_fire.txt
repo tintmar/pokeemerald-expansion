@@ -463,7 +463,7 @@ Variants: A = Special attacker (Analytic) / B = Utility (Magnet Pull, pivot)
        Moves: Discharge [T3]  /  Flash Cannon [T4]  /  Signal Beam [T3]  /  Protect [Sit]
   [3B] Steel trapper
        Magnemite @ Air Balloon   |   Ability: Magnet Pull   |   Nature: Bold
-       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Discharge [T3]  /  Explosion [T4]
+       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Discharge [T3]  /  Flash Cannon [T4]
   [4A] Analytic attacker
        Magnemite @ Life Orb   |   Ability: Analytic   |   Nature: Modest
        Moves: Thunderbolt [T4]  /  Flash Cannon [T4]  /  Volt Switch [T2]  /  Protect [Sit]
@@ -553,13 +553,13 @@ Variants: A = Physical attacker / B = Support (Fake Out, pivot, Wish)
        Moves: Thunder Punch [T3]  /  Low Kick [T3]  /  Crunch [T3]  /  Mach Punch [T4]
   [3B] Sash support
        Pawmo @ Focus Sash   |   Ability: Volt Absorb   |   Nature: Jolly
-       Moves: Volt Switch [T2]  /  Fake Out [Sit]  /  Thunder Punch [T3]  /  Wish [Sit]
+       Moves: Volt Switch [T2]  /  Mach Punch [T4]  /  Thunder Punch [T3]  /  Wish [Sit]
   [4A] Iron Fist attacker
        Pawmo @ Life Orb   |   Ability: Iron Fist   |   Nature: Jolly
        Moves: Wild Charge [T4]  /  Mach Punch [T4]  /  Knock Off [T4]  /  Thunder Punch [T3]
   [4B] Pivot support
        Pawmo @ Rocky Helmet   |   Ability: Natural Cure   |   Nature: Jolly
-       Moves: Fake Out [Sit]  /  Volt Switch [T2]  /  Knock Off [T4]  /  Super Fang [Sit]
+       Moves: Fake Out [Sit]  /  Volt Switch [T2]  /  Knock Off [T4]  /  Mach Punch [T4]
 
 ====================================================================================================
 #239 ELEKID  —  Electric  —  BST 360  —  Category 3
@@ -853,10 +853,10 @@ Variants: A = Defensive (Recover) / B = Offensive (Shell Smash)
        Moves: Lava Plume [T3]  /  Recover [Sit]  /  Toxic [Sit]  /  Power Gem [T4]
   [3B] Shell Smash snail
        Magcargo @ White Herb   |   Ability: Weak Armor   |   Nature: Modest
-       Moves: Shell Smash [T4]  /  Lava Plume [T3]  /  Scorching Sands [T3]  /  Protect [Sit]
+       Moves: Shell Smash [T4]  /  Lava Plume [T3]  /  Power Gem [T4]  /  Protect [Sit]
   [4A] Flame Body wall
        Magcargo @ Rocky Helmet   |   Ability: Flame Body   |   Nature: Bold
-       Moves: Flamethrower [T4]  /  Recover [Sit]  /  Clear Smog [Sit]  /  Toxic [Sit]
+       Moves: Flamethrower [T4]  /  Recover [Sit]  /  Power Gem [T4]  /  Toxic [Sit]
   [4B] Shell Smash sweeper
        Magcargo @ White Herb   |   Ability: Weak Armor   |   Nature: Modest
        Moves: Shell Smash [T4]  /  Fire Blast [T4]  /  Earth Power [T4]  /  Power Gem [T4]
@@ -973,7 +973,7 @@ Variants: A = Special attacker (Analytic) / B = Utility (Magnet Pull, pivot)
        Moves: Discharge [T3]  /  Tri Attack [T3]  /  Signal Beam [T3]  /  Flash Cannon [T4]
   [3B] Steel trapper
        Magneton @ Air Balloon   |   Ability: Magnet Pull   |   Nature: Bold
-       Moves: Volt Switch [T2]  /  Thunder Wave [Sit]  /  Discharge [T3]  /  Light Screen [Sit]
+       Moves: Volt Switch [T2]  /  Flash Cannon [T4]  /  Discharge [T3]  /  Light Screen [Sit]
   [4A] Analytic attacker
        Magneton @ Life Orb   |   Ability: Analytic   |   Nature: Modest
        Moves: Thunderbolt [T4]  /  Flash Cannon [T4]  /  Tri Attack [T3]  /  Volt Switch [T2]
@@ -1213,7 +1213,7 @@ Variants: A = Iron Fist attacker / B = Support (Revival Blessing)
        Moves: Thunder Punch [T3]  /  Ice Punch [T3]  /  Throat Chop [T3]  /  Mach Punch [T4]
   [3B] Revival support
        Pawmot @ Leftovers   |   Ability: Natural Cure   |   Nature: Jolly
-       Moves: Volt Switch [T2]  /  Fake Out [Sit]  /  Revival Blessing [Sit]  /  Thunder Punch [T3]
+       Moves: Volt Switch [T2]  /  Close Combat [T4]  /  Revival Blessing [Sit]  /  Thunder Punch [T3]
   [4A] Iron Fist sweeper
        Pawmot @ Punching Glove   |   Ability: Iron Fist   |   Nature: Jolly
        Moves: Double Shock [T4]  /  Close Combat [T4]  /  Mach Punch [T4]  /  Ice Punch [T3]
@@ -1453,7 +1453,7 @@ Variants: A = Special attacker (Analytic) / B = Utility (Magnet Pull, Iron Defen
        Moves: Discharge [T3]  /  Tri Attack [T3]  /  Flash Cannon [T4]  /  Thunder Wave [Sit]
   [3B] Steel trapper
        Magnezone @ Air Balloon   |   Ability: Magnet Pull   |   Nature: Bold
-       Moves: Volt Switch [T2]  /  Iron Defense [Sit]  /  Body Press [T4]  /  Discharge [T3]
+       Moves: Volt Switch [T2]  /  Iron Defense [Sit]  /  Flash Cannon [T4]  /  Discharge [T3]
   [4A] Choice Specs magnet
        Magnezone @ Choice Specs   |   Ability: Analytic   |   Nature: Modest
        Moves: Thunderbolt [T4]  /  Flash Cannon [T4]  /  Volt Switch [T2]  /  Tri Attack [T3]
@@ -1579,7 +1579,7 @@ Variants: A = Special attacker / B = Bulky utility (burns, Roost, pivot)
        Moves: Fire Blast [T4]  /  Hurricane [T4]  /  Scorching Sands [T3]  /  U-turn [T2]
   [4B] Flame Body pivot
        Moltres @ Rocky Helmet   |   Ability: Flame Body   |   Nature: Bold
-       Moves: Flamethrower [T4]  /  Roost [Sit]  /  Will-O-Wisp [Sit]  /  U-turn [T2]
+       Moves: Flamethrower [T4]  /  Roost [Sit]  /  Will-O-Wisp [Sit]  /  Hurricane [T4]
 
 ====================================================================================================
 #243 RAIKOU  —  Electric  —  BST 580  —  Category 8
@@ -1663,7 +1663,7 @@ Variants: A = Defensive (Sacred Fire, Recover) / B = Offensive (physical)
        Moves: Sacred Fire [T4]  /  Recover [Sit]  /  Toxic [Sit]  /  Whirlwind [Sit]
   [3B] Bulky striker
        Ho-Oh @ Muscle Band   |   Ability: Regenerator   |   Nature: Adamant
-       Moves: Brave Bird [T4]  /  Zen Headbutt [T3]  /  Roost [Sit]  /  Toxic [Sit]
+       Moves: Brave Bird [T4]  /  Flare Blitz [T4]  /  Roost [Sit]  /  Toxic [Sit]
   [4A] Regenerator tank
        Ho-Oh @ Rocky Helmet   |   Ability: Regenerator   |   Nature: Careful
        Moves: Sacred Fire [T4]  /  Brave Bird [T4]  /  Recover [Sit]  /  Toxic [Sit]
@@ -1690,7 +1690,7 @@ Variants: A = Special / B = Physical (Dragon Dance)
        Moves: Fire Fang [T2]  /  Breaking Swipe [T2]  /  Hone Claws [T2]  /  Dragon Claw [T3]
   [3A] Blue Flare dragon
        Reshiram @ Wise Glasses   |   Ability: Turboblaze   |   Nature: Modest
-       Moves: Blue Flare [T4]  /  Heat Wave [T3]  /  Extrasensory [T3]  /  Roost [Sit]
+       Moves: Blue Flare [T4]  /  Heat Wave [T3]  /  Draco Meteor [T4]  /  Roost [Sit]
   [3B] Dragon Dance dragon
        Reshiram @ Muscle Band   |   Ability: Turboblaze   |   Nature: Adamant
        Moves: Dragon Dance [T4]  /  Dragon Claw [T3]  /  Crunch [T3]  /  Heat Crash [T3]

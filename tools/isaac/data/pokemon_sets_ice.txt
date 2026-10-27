@@ -340,7 +340,7 @@ Variants: A = Pure Stall / B = Defensive with utility (Trick Room, screens)
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Heavy Slam [T3]
   [3A] Mirror staller
        Bronzor @ Leftovers   |   Ability: Levitate   |   Nature: Bold
-       Moves: Toxic [Sit]  /  Protect [Sit]  /  Expanding Force [T3]  /  Psychic [T4]
+       Moves: Flash Cannon [T4]  /  Protect [Sit]  /  Expanding Force [T3]  /  Psychic [T4]
   [3B] Screen setter
        Bronzor @ Light Clay   |   Ability: Heatproof   |   Nature: Relaxed
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Gyro Ball [T3]
@@ -379,7 +379,7 @@ Variants: A = Special attacker / B = Support (Aurora Veil, Fake Out)
        Moves: Nasty Plot [T4]  /  Ice Beam [T4]  /  Psychic [T4]  /  Shadow Ball [T4]
   [4B] Aurora Veil lead
        Smoochum @ Light Clay   |   Ability: Forewarn   |   Nature: Timid
-       Moves: Hail [Sit]  /  Aurora Veil [Sit]  /  Fake Out [Sit]  /  Ice Beam [T4]
+       Moves: Hail [Sit]  /  Aurora Veil [Sit]  /  Psychic [T4]  /  Ice Beam [T4]
 
 ====================================================================================================
 #597 FERROSEED  —  Grass/Steel  —  BST 305  —  Category 2
@@ -409,7 +409,7 @@ Variants: A = Pure Stall (Leech Seed) / B = Defensive with utility (paralysis, K
        Moves: Leech Seed [Sit]  /  Protect [Sit]  /  Gyro Ball [T3]  /  Iron Defense [Sit]
   [4B] Helmet seed
        Ferroseed @ Rocky Helmet   |   Ability: Iron Barbs   |   Nature: Relaxed
-       Moves: Gyro Ball [T3]  /  Knock Off [T4]  /  Thunder Wave [Sit]  /  Leech Seed [Sit]
+       Moves: Gyro Ball [T3]  /  Seed Bomb [T3]  /  Thunder Wave [Sit]  /  Leech Seed [Sit]
 
 ====================================================================================================
 #613 CUBCHOO  —  Ice  —  BST 305  —  Category 2
@@ -499,7 +499,7 @@ Variants: A = Hustle attacker / B = Support (Aurora Veil, Tailwind, Memento)
        Moves: Triple Axel [T4]  /  Brave Bird [T4]  /  Ice Shard [T4]  /  Drill Run [T3]
   [4B] Suicide lead
        Delibird @ Focus Sash   |   Ability: Vital Spirit   |   Nature: Timid
-       Moves: Fake Out [Sit]  /  Tailwind [Sit]  /  Freeze-Dry [T4]  /  Memento [Sit]
+       Moves: Air Slash [T4]  /  Tailwind [Sit]  /  Freeze-Dry [T4]  /  Memento [Sit]
 
 ====================================================================================================
 #304 ARON  —  Steel/Rock  —  BST 330  —  Category 3
@@ -640,10 +640,10 @@ Variants: A = Setup (Intimidate) / B = Sheer Force attacker
        Moves: Fire Fang [T2]  /  Ice Fang [T2]  /  Thunder Fang [T2]  /  Headbutt [T2]
   [3A] Swords Dance jaw
        Mawile @ Muscle Band   |   Ability: Intimidate   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Crunch [T3]  /  Ice Punch [T3]  /  Brick Break [T3]
+       Moves: Swords Dance [T4]  /  Crunch [T3]  /  Play Rough [T4]  /  Brick Break [T3]
   [3B] Sheer Force puncher
        Mawile @ Expert Belt   |   Ability: Sheer Force   |   Nature: Adamant
-       Moves: Iron Head [T4]  /  Crunch [T3]  /  Ice Punch [T3]  /  Thunder Punch [T3]
+       Moves: Iron Head [T4]  /  Crunch [T3]  /  Play Rough [T4]  /  Thunder Punch [T3]
   [4A] Swords Dance deceiver
        Mawile @ Leftovers   |   Ability: Intimidate   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Play Rough [T4]  /  Iron Head [T4]  /  Sucker Punch [T4]
@@ -739,7 +739,7 @@ Variants: A = Defensive (Ice Body stall) / B = Offensive
        Moves: Hail [Sit]  /  Ice Beam [T4]  /  Toxic [Sit]  /  Protect [Sit]
   [4B] Curse rester
        Sealeo @ Leftovers   |   Ability: Thick Fat   |   Nature: Adamant
-       Moves: Curse [Sit]  /  Rest [Sit]  /  Waterfall [T4]  /  Earthquake [T4]
+       Moves: Curse [Sit]  /  Rest [Sit]  /  Waterfall [T4]  /  Icicle Spear [T3]
 
 ====================================================================================================
 #020 RATICATE  —  Normal  —  BST 413  —  Category 4
@@ -790,13 +790,13 @@ Variants: A = Defensive (screens, Iron Defense) / B = Offensive (Meteor Mash)
        Moves: Headbutt [T2]  /  Power-Up Punch [T2]  /  Bulldoze [T2]  /  Zen Headbutt [T3]
   [3A] Screen bomber
        Metang @ Light Clay   |   Ability: Clear Body   |   Nature: Impish
-       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Gyro Ball [T3]  /  Explosion [T4]
+       Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Gyro Ball [T3]  /  Zen Headbutt [T3]
   [3B] Elemental puncher
        Metang @ Expert Belt   |   Ability: Clear Body   |   Nature: Adamant
        Moves: Meteor Mash [T4]  /  Zen Headbutt [T3]  /  Ice Punch [T3]  /  Thunder Punch [T3]
   [4A] Iron Defense tank
        Metang @ Rocky Helmet   |   Ability: Clear Body   |   Nature: Impish
-       Moves: Iron Defense [Sit]  /  Meteor Mash [T4]  /  Earthquake [T4]  /  Rest [Sit]
+       Moves: Iron Defense [Sit]  /  Meteor Mash [T4]  /  Zen Headbutt [T3]  /  Rest [Sit]
   [4B] Agility sweeper
        Metang @ Life Orb   |   Ability: Clear Body   |   Nature: Adamant
        Moves: Agility [Sit]  /  Meteor Mash [T4]  /  Zen Headbutt [T3]  /  Earthquake [T4]
@@ -1006,7 +1006,7 @@ Variants: A = Defensive (Encore, Hydration Rest) / B = Offensive
        Moves: Ice Spinner [T3]  /  Aqua Tail [T3]  /  Drill Run [T3]  /  Ice Shard [T4]
   [4A] Bulky lion
        Dewgong @ Leftovers   |   Ability: Thick Fat   |   Nature: Calm
-       Moves: Surf [T4]  /  Knock Off [T4]  /  Encore [Sit]  /  Toxic [Sit]
+       Moves: Surf [T4]  /  Ice Shard [T4]  /  Encore [Sit]  /  Toxic [Sit]
   [4B] Choice Specs lion
        Dewgong @ Choice Specs   |   Ability: Thick Fat   |   Nature: Modest
        Moves: Hydro Pump [T4]  /  Ice Beam [T4]  /  Alluring Voice [T3]  /  Signal Beam [T3]
@@ -1249,7 +1249,7 @@ Variants: A = Defensive / B = Offensive (Trick Room, Heavy Metal)
        Moves: Gyro Ball [T3]  /  Earthquake [T4]  /  Psychic Noise [T3]  /  Toxic [Sit]
   [4B] Trick Room bomber
        Bronzong @ Life Orb   |   Ability: Heavy Metal   |   Nature: Brave
-       Moves: Trick Room [Sit]  /  Heavy Slam [T3]  /  Earthquake [T4]  /  Explosion [T4]
+       Moves: Trick Room [Sit]  /  Heavy Slam [T3]  /  Zen Headbutt [T3]  /  Explosion [T4]
 
 ====================================================================================================
 #614 BEARTIC  —  Ice  —  BST 505  —  Category 6
@@ -1360,7 +1360,7 @@ Variants: A = Physical / B = Special
        Moves: Work Up [T2]  /  Water Pulse [T2]  /  Swift [T2]  /  Hyper Beam [T3]
   [3A] Swords Dance aura
        Lucario @ Expert Belt   |   Ability: Justified   |   Nature: Adamant
-       Moves: Swords Dance [T4]  /  Sky Uppercut [T3]  /  Crunch [T3]  /  Thunder Punch [T3]
+       Moves: Swords Dance [T4]  /  Sky Uppercut [T3]  /  Crunch [T3]  /  Meteor Mash [T4]
   [3B] Aura Sphere caster
        Lucario @ Focus Sash   |   Ability: Inner Focus   |   Nature: Modest
        Moves: Aura Sphere [T4]  /  Water Pulse [T2]  /  Terrain Pulse [T2]  /  Detect [Sit]
@@ -1546,7 +1546,7 @@ Variants: A = Power attacker (Punching Glove) / B = Setup and bulk (Iron Defense
        Moves: Iron Defense [Sit]  /  Hard Press [T3]  /  Zen Headbutt [T3]  /  Body Press [T4]
   [4A] Punching Glove legs
        Metagross @ Punching Glove   |   Ability: Clear Body   |   Nature: Adamant
-       Moves: Meteor Mash [T4]  /  Bullet Punch [T4]  /  Ice Punch [T3]  /  Thunder Punch [T3]
+       Moves: Meteor Mash [T4]  /  Bullet Punch [T4]  /  Psychic Fangs [T4]  /  Thunder Punch [T3]
   [4B] Rock Polish sweeper
        Metagross @ Life Orb   |   Ability: Clear Body   |   Nature: Jolly
        Moves: Rock Polish [Sit]  /  Meteor Mash [T4]  /  Psychic Fangs [T4]  /  Earthquake [T4]
@@ -1573,7 +1573,7 @@ Variants: A = Defensive (Roost, Toxic, Haze) / B = Offensive (special)
        Moves: Roost [Sit]  /  Toxic [Sit]  /  Substitute [Sit]  /  Frost Breath [T3]
   [3B] Blizzard bird
        Articuno @ Icy Rock   |   Ability: Snow Cloak   |   Nature: Modest
-       Moves: Snowscape [Sit]  /  Blizzard [T4]  /  Extrasensory [T3]  /  Roost [Sit]
+       Moves: Snowscape [Sit]  /  Blizzard [T4]  /  Hurricane [T4]  /  Roost [Sit]
   [4A] Haze wall
        Articuno @ Rocky Helmet   |   Ability: Pressure   |   Nature: Calm
        Moves: Roost [Sit]  /  Freeze-Dry [T4]  /  Haze [Sit]  /  Toxic [Sit]
