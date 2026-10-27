@@ -1893,10 +1893,10 @@ u32 IsaacGetTrainerMoney(void)
 //    TRAINER_LOOT_SECOND_PCT_PER_FLOOR % par étage au-delà de l'étage 2 (toujours la même réponse pour une salle) : en
 //    moyenne 0,8 aux étages 1-2, 1 à l'étage 3, 1,2 au 4, 1,4 au 5, 1,6 à partir du 6.
 // En plus, TRAINER_LOOT_RARE_PCT % des dresseurs donnent un butin rare (PickTrainerRareLoot, toujours le même pour une
-// salle) : un objet spécial, une très bonne CT, un objet de combat de la boutique ou un Rappel Max.
+// salle) : un objet spécial, une très bonne CT ou un objet de combat de la boutique.
 #define TRAINER_LOOT_MAX_RESTORE_PCT       80
 #define TRAINER_LOOT_SECOND_PCT_PER_FLOOR  25
-#define TRAINER_LOOT_RARE_PCT          10
+#define TRAINER_LOOT_RARE_PCT          20
 
 static u16 PickGoodTM(u32 roll);
 static u16 PickTrainerRareLoot(u32 roll);
@@ -2520,20 +2520,17 @@ static u16 PickGoodTM(u32 roll)
     return sShopTMs[roll % ARRAY_COUNT(sShopTMs)];
 }
 
-// Butin rare d'un dresseur (sur 100) : objet spécial 40, très bonne CT 25, objet de combat de la boutique 25, Rappel
-// Max 10
+// Butin rare d'un dresseur (sur 100) : objet spécial 20, très bonne CT 40, objet de combat de la boutique 40
 static u16 PickTrainerRareLoot(u32 roll)
 {
     u32 pick = roll % 100;
 
     roll /= 100;
-    if (pick < 40)
+    if (pick < 20)
         return IsaacPickSpecialItem(roll, FALSE);
-    if (pick < 65)
+    if (pick < 60)
         return PickGoodTM(roll);
-    if (pick < 90)
-        return sShopBattleItems[roll % ARRAY_COUNT(sShopBattleItems)];
-    return ITEM_MAX_REVIVE;
+    return sShopBattleItems[roll % ARRAY_COUNT(sShopBattleItems)];
 }
 
 // Prix en dixièmes des gains d'un dresseur de l'étage
