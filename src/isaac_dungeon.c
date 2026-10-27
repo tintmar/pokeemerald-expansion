@@ -2312,8 +2312,8 @@ void IsaacSettleNurse(void)
     PlaceNurse(x, y, FALSE);
 }
 
-// Pokémaniac de la salle de capture : collé à l'entrée (la seule porte de ce cul-de-sac), sur le côté de la première
-// case de la salle, tourné vers le passage. Il donne la Master Ball de l'étage dès qu'on entre
+// Pokémaniac de la salle de capture : collé à l'entrée (la seule porte de ce cul-de-sac), à côté de la première case de
+// la salle devant la porte, tourné vers le passage. Il donne la Master Ball de l'étage dès qu'on entre
 // (VAR_ISAAC_CAPTURE_GIFT_PENDING, IsaacRoom_EventScript_CaptureGift), pour qu'on ne puisse pas l'oublier.
 static void PlaceCaptureGuide(s32 x, s32 y)
 {
@@ -2330,8 +2330,15 @@ static void PlaceCaptureGuide(s32 x, s32 y)
     inward = GetBossExitDir(x, y);  // à l'opposé de la porte
     doorDir = (inward + 2) % ISAAC_DIR_COUNT;
     sideDir = (doorDir + 1) % ISAAC_DIR_COUNT;
-    template->x = sDoorX[doorDir] + sDirDx[inward] + sDirDx[sideDir];
-    template->y = sDoorY[doorDir] + sDirDy[inward] + sDirDy[sideDir];
+    // première case de la salle devant la porte (le mur du haut et celui du bas font deux cases d'épaisseur), puis un pas
+    // de côté
+    template->x = sDoorX[doorDir] + sDirDx[sideDir];
+    template->y = sDoorY[doorDir] + sDirDy[sideDir];
+    while (template->x < ROOM_MIN_X || template->x > ROOM_MAX_X || template->y < ROOM_MIN_Y || template->y > ROOM_MAX_Y)
+    {
+        template->x += sDirDx[inward];
+        template->y += sDirDy[inward];
+    }
     template->movementType = sDirToFaceMovementType[(sideDir + 2) % ISAAC_DIR_COUNT];
     VarSet(VAR_OBJ_GFX_ID_B, gIsaacBiomes[ISAAC_BIOME].ocean ? OBJ_EVENT_GFX_SWIMMER_M : OBJ_EVENT_GFX_MANIAC);
     if (!FlagGet(FLAG_ISAAC_MASTER_BALL_GIVEN) && sArrivalFacing != DIR_NONE)  // on vient d'entrer par la porte
