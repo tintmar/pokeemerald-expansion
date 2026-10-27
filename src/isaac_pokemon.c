@@ -737,6 +737,8 @@ static EWRAM_DATA u8 sIsaacTotemActiveBattlers = 0;
 // Combattants dont le message du Totem (animation de hausse de stat et texte) est à afficher, et leur stat boostée
 static EWRAM_DATA u8 sIsaacTotemMessageBattlers = 0;
 static EWRAM_DATA u8 sIsaacTotemStat[MAX_BATTLERS_COUNT] = {0};
+// Pokémon de l'équipe (un bit par place) dont le Totem a déjà servi dans ce combat : seulement à la première entrée
+static EWRAM_DATA u8 sIsaacTotemUsedSlots = 0;
 
 // +ISAAC_TEAMWORK_TOTEM_PCT % à la meilleure stat de combat (hors PV) du combattant ; renvoie la stat (STAT_*)
 static u32 ApplyTotemBoost(enum BattlerId battler)
@@ -754,15 +756,17 @@ static u32 ApplyTotemBoost(enum BattlerId battler)
 }
 
 // Entrée en combat en relais (pas au début du combat) : avec le Totem d'Entraide, sa meilleure stat (hors PV) prend
-// +ISAAC_TEAMWORK_TOTEM_PCT % jusqu'à ce qu'il sorte
+// +ISAAC_TEAMWORK_TOTEM_PCT % jusqu'à ce qu'il sorte, seulement à sa première entrée en relais du combat
 void IsaacApplySwitchInTotem(enum BattlerId battler)
 {
     struct Pokemon *mon = GetBattlerMon(battler);
 
     sIsaacTotemActiveBattlers &= ~(1 << battler);
     sIsaacTotemMessageBattlers &= ~(1 << battler);
-    if (mon == NULL || !IsPlayerPartyMon(mon) || GetMonData(mon, ISAAC_BRILLIANT_DATA) != ISAAC_TEAMWORK_TOTEM)
+    if (mon == NULL || !IsPlayerPartyMon(mon) || GetMonData(mon, ISAAC_BRILLIANT_DATA) != ISAAC_TEAMWORK_TOTEM
+     || (sIsaacTotemUsedSlots & (1 << gBattlerPartyIndexes[battler])))
         return;
+    sIsaacTotemUsedSlots |= 1 << gBattlerPartyIndexes[battler];
     sIsaacTotemActiveBattlers |= 1 << battler;
     sIsaacTotemMessageBattlers |= 1 << battler;
     sIsaacTotemStat[battler] = ApplyTotemBoost(battler);
@@ -783,9 +787,10 @@ bool8 IsaacTryTeamworkTotemMessage(enum BattlerId battler)
     return TRUE;
 }
 
-// Début du combat : le Pokémon en tête n'entre pas en relais, pas de Totem actif
+// Début du combat : le Pokémon en tête n'entre pas en relais, pas de Totem actif ; aucun Totem n'a encore servi
 void IsaacClearSwitchInTotem(enum BattlerId battler)
 {
+    sIsaacTotemUsedSlots = 0;
     sIsaacTotemActiveBattlers &= ~(1 << battler);
     sIsaacTotemMessageBattlers &= ~(1 << battler);
 }
