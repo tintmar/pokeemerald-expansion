@@ -3807,24 +3807,18 @@ static void PrintHeldItemName(void)
     PrintTextOnWindowWithFont(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_HELD_ITEM), text, x, 1, 0, 0, fontId);
 }
 
+// Donjon : l'emplacement des rubans (libellé BOOST) montre le boost du Pokémon (IsaacGetBoostName)
 static void PrintRibbonCount(void)
 {
-    const u8 *text;
+    const u8 *text = IsaacGetBoostName(&sMonSummaryScreen->currentMon);
+    u32 fontId;
     int x;
 
-    if (sMonSummaryScreen->summary.ribbonCount == 0)
-    {
+    if (text == NULL)
         text = gText_None;
-    }
-    else
-    {
-        ConvertIntToDecimalStringN(gStringVar1, sMonSummaryScreen->summary.ribbonCount, STR_CONV_MODE_RIGHT_ALIGN, 2);
-        StringExpandPlaceholders(gStringVar4, gText_RibbonsVar1);
-        text = gStringVar4;
-    }
-
-    x = GetStringCenterAlignXOffset(FONT_NORMAL, text, 70) + 6;
-    PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_RIBBON_COUNT), text, x, 1, 0, 0);
+    fontId = GetFontIdToFit(text, FONT_NORMAL, 0, WindowTemplateWidthPx(&sPageSkillsTemplate[PSS_DATA_WINDOW_SKILLS_RIBBON_COUNT]) - 8);
+    x = GetStringCenterAlignXOffset(fontId, text, 70) + 6;
+    PrintTextOnWindowWithFont(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_RIBBON_COUNT), text, x, 1, 0, 0, fontId);
 }
 
 static void BufferStat(u8 *dst, enum Stat statIndex, u32 stat, u32 strId, u32 n)

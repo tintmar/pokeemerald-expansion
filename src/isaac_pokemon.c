@@ -561,6 +561,34 @@ bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat)
     return TRUE;
 }
 
+// Nom du boost du Pokémon pour l'écran de résumé (emplacement BOOST, à la place des rubans), NULL s'il n'en a pas
+const u8 *IsaacGetBoostName(struct Pokemon *mon)
+{
+    static const u8 *const sStatBoostNames[NUM_STATS] =
+    {
+        [STAT_HP]    = COMPOUND_STRING("HP +25%"),
+        [STAT_ATK]   = COMPOUND_STRING("ATTACK +25%"),
+        [STAT_DEF]   = COMPOUND_STRING("DEFENSE +25%"),
+        [STAT_SPEED] = COMPOUND_STRING("SPEED +25%"),
+        [STAT_SPATK] = COMPOUND_STRING("SP. ATK +25%"),
+        [STAT_SPDEF] = COMPOUND_STRING("SP. DEF +25%"),
+    };
+    u32 boosts = GetMonData(mon, ISAAC_STAT_BOOST_DATA), stat;
+
+    if (boosts & ISAAC_GLASS_CROWN_BIT)
+        return COMPOUND_STRING("GLASS CROWN");
+    if (boosts & ISAAC_BLOOD_PACT_BIT)
+        return COMPOUND_STRING("BLOOD PACT");
+    for (stat = 0; stat < NUM_STATS; stat++)
+        if (boosts & (1 << stat))
+            return sStatBoostNames[stat];
+    if (GetMonData(mon, ISAAC_BRILLIANT_DATA) != 0)
+        return COMPOUND_STRING("BRILLIANT");
+    if (GetMonData(mon, ISAAC_OMNIBOOST_DATA) != 0)
+        return COMPOUND_STRING("OMNIBOOST");
+    return NULL;
+}
+
 // Le Pokémon a-t-il déjà reçu un boost (un seul par Pokémon) : boost de stat, Pierre brillante, Omniboost, Pacte de
 // Sang ou Couronne de Verre ?
 bool8 IsaacHasBoost(struct Pokemon *mon)
