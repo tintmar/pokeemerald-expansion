@@ -660,6 +660,7 @@ gSpecials::
 	def_special IsaacBuildAscensionMenu
 	def_special IsaacSetAscension
 	def_special IsaacGiveLegendaryTestTeam
+	def_special IsaacTakeFallenCrown
 	def_special IsaacCaptureGuideHasBall
 	def_special IsaacIsBossGuard
 	def_special IsaacCaptureGuideGaveBall

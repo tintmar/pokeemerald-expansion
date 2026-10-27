@@ -9,6 +9,7 @@
 #include "isaac_pokemon.h"
 #include "party_menu.h"
 #include "pokemon.h"
+#include "pokemon_storage_system.h"
 #include "random.h"
 #include "string_util.h"
 #include "trainer_util.h"
@@ -271,7 +272,7 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
     {
         ITEM_EVOLUTION_STONE, ITEM_SUPER_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_BOOST_HP,
         ITEM_BRILLIANT_STONE, ITEM_ISAAC_GEM_FIRST, ITEM_GOLDEN_HEART, ITEM_MEGA_RING, ITEM_LUCKY_COIN,
-        ITEM_FIRST_AID_KIT, ITEM_PRISM_STONE, ITEM_Z_TM, ITEM_MASTER_BALL,
+        ITEM_FIRST_AID_KIT, ITEM_PRISM_STONE, ITEM_Z_TM, ITEM_MASTER_BALL, ITEM_GLASS_CROWN,
     };
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
     static const u8 sAbilityTrainerWeights[] = { 4, 3, 2, 1, 1, 1 };
@@ -482,6 +483,8 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 #define ISAAC_STAT_BOOST_DATA  MON_DATA_SMART
 #define ISAAC_STAT_BOOST_PCT   25
 #define ISAAC_BLOOD_PACT_BIT   (1 << 7)
+#define ISAAC_GLASS_CROWN_BIT  (1 << 6)  // Couronne de Verre (toutes les stats +ISAAC_GLASS_CROWN_PCT %)
+#define ISAAC_GLASS_CROWN_PCT  25
 #define ISAAC_BLOOD_PACT_PCT           20  // Attaque, Attaque Spéciale et Vitesse
 #define ISAAC_BLOOD_PACT_HP_MALUS_PCT  25
 // Pierre brillante : stat boostée + 1 (0 : pas encore utilisée), dans la stat de concours Robustesse
@@ -514,6 +517,8 @@ s32 IsaacApplyStatBoosts(struct Pokemon *mon, u32 stat, s32 value)
         value = value * (100 + ISAAC_STAT_BOOST_PCT) / 100;
     if (GetMonData(mon, ISAAC_BRILLIANT_DATA) == stat + 1)
         value = value * (100 + ISAAC_BRILLIANT_PCT) / 100;
+    if (GetMonData(mon, ISAAC_STAT_BOOST_DATA) & ISAAC_GLASS_CROWN_BIT)
+        value = value * (100 + ISAAC_GLASS_CROWN_PCT) / 100;
     if (GetMonData(mon, ISAAC_STAT_BOOST_DATA) & ISAAC_BLOOD_PACT_BIT)
     {
         if (stat == STAT_HP)
@@ -556,8 +561,8 @@ bool8 IsaacUseBrilliantStone(struct Pokemon *mon, u32 *stat)
     return TRUE;
 }
 
-// Le Pokémon a-t-il déjà reçu un boost (un seul par Pokémon) : boost de stat, Pierre brillante, Omniboost ou Pacte de
-// Sang ?
+// Le Pokémon a-t-il déjà reçu un boost (un seul par Pokémon) : boost de stat, Pierre brillante, Omniboost, Pacte de
+// Sang ou Couronne de Verre ?
 bool8 IsaacHasBoost(struct Pokemon *mon)
 {
     return GetMonData(mon, ISAAC_STAT_BOOST_DATA) != 0 || GetMonData(mon, ISAAC_BRILLIANT_DATA) != 0
@@ -588,6 +593,69 @@ bool8 IsaacUseBloodPact(struct Pokemon *mon)
     SetMonData(mon, ISAAC_STAT_BOOST_DATA, &boosts);
     CalculateMonStats(mon);
     return TRUE;
+}
+
+// Couronne de Verre : toutes les stats +ISAAC_GLASS_CROWN_PCT %, pour toujours. FALSE si le Pokémon a déjà un boost.
+bool8 IsaacUseGlassCrown(struct Pokemon *mon)
+{
+    u32 boosts = ISAAC_GLASS_CROWN_BIT;
+
+    if (IsaacHasBoost(mon))
+        return FALSE;
+    SetMonData(mon, ISAAC_STAT_BOOST_DATA, &boosts);
+    CalculateMonStats(mon);
+    return TRUE;
+}
+
+// Pokémon couronné tombé K.O. : il ne peut plus être relevé (il sera relâché à la fin du combat)
+bool8 IsaacIsFallenCrown(struct Pokemon *mon)
+{
+    return (GetMonData(mon, ISAAC_STAT_BOOST_DATA) & ISAAC_GLASS_CROWN_BIT) && GetMonData(mon, MON_DATA_HP) == 0
+        && !GetMonData(mon, MON_DATA_IS_EGG);
+}
+
+// Fin de combat : chaque Pokémon couronné K.O. est relâché (son objet tenu revient au sac), et laisse sa Master Ball.
+// Le message et la Master Ball viennent ensuite sur le terrain (VAR_ISAAC_FALLEN_CROWN : espèce du dernier relâché, et
+// nombre de relâchés à partir du bit ISAAC_FALLEN_CROWN_COUNT_SHIFT, VAR_ISAAC_FALLEN_CROWN_PENDING ; voir
+// IsaacTakeFallenCrown)
+#define ISAAC_FALLEN_CROWN_COUNT_SHIFT  12
+
+void IsaacReleaseFallenCrowns(void)
+{
+    u32 i, count = VarGet(VAR_ISAAC_FALLEN_CROWN) >> ISAAC_FALLEN_CROWN_COUNT_SHIFT;
+    u16 species = VarGet(VAR_ISAAC_FALLEN_CROWN) & ((1 << ISAAC_FALLEN_CROWN_COUNT_SHIFT) - 1);
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][i];
+        u16 heldItem;
+
+        if (GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE || !IsaacIsFallenCrown(mon))
+            continue;
+        species = GetMonData(mon, MON_DATA_SPECIES);
+        heldItem = GetMonData(mon, MON_DATA_HELD_ITEM);
+        if (heldItem != ITEM_NONE)
+            AddBagItem(heldItem, 1);
+        ZeroMonData(mon);
+        count++;
+    }
+    if (count == 0)
+        return;
+    CompactPartySlots();
+    CalculatePlayerPartyCount();
+    VarSet(VAR_ISAAC_FALLEN_CROWN, species | (min(count, 7u) << ISAAC_FALLEN_CROWN_COUNT_SHIFT));
+    VarSet(VAR_ISAAC_FALLEN_CROWN_PENDING, 1);
+}
+
+// Sur le terrain, après le combat : espèce du Pokémon couronné relâché dans gStringVar1 et nombre de Master Balls
+// dans VAR_0x8005 ; la variable est remise à zéro
+void IsaacTakeFallenCrown(void)
+{
+    u32 value = VarGet(VAR_ISAAC_FALLEN_CROWN);
+
+    StringCopy(gStringVar1, GetSpeciesName(value & ((1 << ISAAC_FALLEN_CROWN_COUNT_SHIFT) - 1)));
+    gSpecialVar_0x8005 = max(value >> ISAAC_FALLEN_CROWN_COUNT_SHIFT, 1u);
+    VarSet(VAR_ISAAC_FALLEN_CROWN, 0);
 }
 
 static void RecalculatePlayerPartyStats(void)
@@ -1229,8 +1297,8 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
     for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
     {
         mon = &gParties[B_TRAINER_PLAYER][i];
-        if (sIsaacActiveTurns[i] == 0 || GetMonData(mon, MON_DATA_IS_EGG))
-            continue;
+        if (sIsaacActiveTurns[i] == 0 || GetMonData(mon, MON_DATA_IS_EGG) || IsaacIsFallenCrown(mon))
+            continue;  // un Pokémon couronné K.O. va être relâché
         if (active == PARTY_SIZE || sIsaacActiveTurns[i] > sIsaacActiveTurns[active])
             active = i;
         if ((evolver == PARTY_SIZE || sIsaacActiveTurns[i] > sIsaacActiveTurns[evolver])

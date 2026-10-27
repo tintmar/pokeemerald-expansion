@@ -3816,6 +3816,8 @@ static void EndRun(bool8 won)
     SetMoney(&gSaveBlock1Ptr->money, 0);
     IsaacGoldenHeartReset();
     VarSet(VAR_ISAAC_FLOOR, 0);
+    VarSet(VAR_ISAAC_FALLEN_CROWN, 0);
+    VarSet(VAR_ISAAC_FALLEN_CROWN_PENDING, 0);
     FlagClear(FLAG_ISAAC_RUN_PREPARED);  // nouvel ordre des biomes pour la descente suivante
     SetWarpDestination(MAP_GROUP(MAP_HUB), MAP_NUM(MAP_HUB), WARP_ID_NONE, HUB_RETURN_X, HUB_RETURN_Y);
 }

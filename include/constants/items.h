@@ -1090,6 +1090,7 @@ enum __attribute__((packed)) Item
     ITEM_PRISM_STONE = 909,            // nouveau second type pour un Pokémon, au choix parmi trois
     ITEM_Z_TM = 910,                   // apprend le Z-move du type du Pokémon (1 PP, très puissant)
     ITEM_MAX_RESTORE = 911,            // Guérison qui relève aussi un Pokémon K.O. (PV au complet)
+    ITEM_GLASS_CROWN = 912,            // +25 % à toutes les stats d'un Pokémon (un boost), mais K.O., il est relâché
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

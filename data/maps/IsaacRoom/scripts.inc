@@ -2,7 +2,28 @@
 IsaacRoom_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, IsaacRoom_OnLoad
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, IsaacRoom_OnWarp
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, IsaacRoom_OnFrame
 	.byte 0
+
+IsaacRoom_OnFrame:
+	map_script_2 VAR_ISAAC_FALLEN_CROWN_PENDING, 1, IsaacRoom_EventScript_FallenCrown
+	.2byte 0
+
+@ Après le combat : le Pokémon couronné tombé K.O. a été relâché ; il laisse sa Master Ball
+IsaacRoom_EventScript_FallenCrown::
+	lockall
+	special IsaacTakeFallenCrown
+	setvar VAR_ISAAC_FALLEN_CROWN_PENDING, 0
+	msgbox IsaacRoom_Text_FallenCrown, MSGBOX_DEFAULT
+	giveitem ITEM_MASTER_BALL, VAR_0x8005
+	releaseall
+	end
+
+IsaacRoom_Text_FallenCrown:
+	.string "The Glass Crown shattered…\n"
+	.string "{STR_VAR_1} is gone for good.\p"
+	.string "Only the Master Ball it lived in\n"
+	.string "was left behind.$"
 
 IsaacRoom_OnLoad:
 	special IsaacPaintRoom

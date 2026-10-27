@@ -1174,6 +1174,12 @@ void ItemUseOutOfBattle_IsaacBloodPact(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_IsaacGlassCrown(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacGlassCrown;
+    SetUpItemUseCallback(taskId);
+}
+
 void ItemUseOutOfBattle_IsaacCursedDie(u8 taskId)
 {
     gItemUseCB = ItemUseCB_IsaacCursedDie;
@@ -1274,6 +1280,9 @@ bool32 CannotUseItemsInBattle(enum Item itemId, struct Pokemon *mon)
         if (gBattleMons[battlerTarget].volatiles.embargoTimer)
             return TRUE;
     }
+
+    if (IsaacIsFallenCrown(mon))  // donjon : un Pokémon couronné K.O. ne se relève pas
+        return TRUE;
 
     // battleUsage checks
     switch (battleUsage)

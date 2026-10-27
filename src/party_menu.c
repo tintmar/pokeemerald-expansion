@@ -6750,6 +6750,22 @@ void ItemUseCB_IsaacBloodPact(u8 taskId, TaskFunc task)
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} sealed a blood pact!\nIt's stronger, but frailer…{PAUSE_UNTIL_PRESS}"));
 }
 
+// Donjon : Couronne de Verre, +25 % à toutes les stats, mais K.O., le Pokémon est relâché ; un seul boost par Pokémon
+void ItemUseCB_IsaacGlassCrown(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+
+    if (!GetMonData(mon, MON_DATA_IS_EGG) && IsaacRefuseSecondBoost(mon, taskId, task))
+        return;
+    if (GetMonData(mon, MON_DATA_IS_EGG) || GetMonData(mon, MON_DATA_HP) == 0 || !IsaacUseGlassCrown(mon))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    GetMonNickname(mon, gStringVar1);
+    IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1} wears the Glass Crown!\nDon't let it fall…{PAUSE_UNTIL_PRESS}"));
+}
+
 // Donjon : Omniboost, +10 % à toutes les stats du Pokémon ; un seul boost par Pokémon
 void ItemUseCB_IsaacOmniboost(u8 taskId, TaskFunc task)
 {

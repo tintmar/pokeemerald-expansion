@@ -4874,6 +4874,25 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_SpellTag,
     },
 
+    // Donjon : +25 % à toutes les stats d'un Pokémon (un boost), mais s'il est K.O., il est relâché pour toujours en
+    // laissant sa Master Ball (voir IsaacUseGlassCrown, IsaacReleaseFallenCrowns)
+    [ITEM_GLASS_CROWN] =
+    {
+        .name = ITEM_NAME("Glass Crown"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "All stats +25%,\n"
+            "but if it faints,\n"
+            "it's gone for good."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacGlassCrown,
+        .flingPower = 30,
+        .iconPic = gItemIcon_RelicCrown,
+        .iconPalette = gItemIconPalette_Relics,
+    },
+
     // Donjon : argent des dresseurs doublé jusqu'à la fin de la descente (voir IsaacGetTrainerMoney)
     [ITEM_LUCKY_COIN] =
     {

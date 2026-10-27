@@ -3479,6 +3479,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, enum Item item, u8 partyIndex, 
     // Skip using the item if it won't do anything
     if (GetItemEffect(item) == NULL && item != ITEM_ENIGMA_BERRY_E_READER)
         return TRUE;
+    if (IsaacIsFallenCrown(mon))  // donjon : un Pokémon couronné K.O. ne se relève pas
+        return TRUE;
 
     // Get item effect
     itemEffect = GetItemEffect(item);
