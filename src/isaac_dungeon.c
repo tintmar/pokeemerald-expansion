@@ -128,7 +128,7 @@ STATIC_ASSERT(FLAG_ISAAC_CAPTURE_DONE_FIRST + CAPTURE_MAX_MONS - 1 <= FLAG_UNUSE
 // Articles de la boutique de l'étage déjà vendus, chacun en un seul exemplaire (voir SHOP_SLOT_*), dans des drapeaux
 // inutilisés du jeu
 #define FLAG_ISAAC_SHOP_SOLD_FIRST  FLAG_UNUSED_0x030
-#define SHOP_LIMITED_SLOTS  17
+#define SHOP_LIMITED_SLOTS  16
 STATIC_ASSERT(FLAG_ISAAC_SHOP_SOLD_FIRST + SHOP_LIMITED_SLOTS - 1 <= FLAG_UNUSED_0x047, IsaacShopFlagsAreUnused);
 
 // Passage vers la salle secrète de l'étage ouvert (sinon ses portes sont fermées par de la roche)
@@ -2426,12 +2426,12 @@ static void SetUpCaptureMons(s32 x, s32 y)
 // Boutique de Kecleon
 // ---------------------------------------------------------------------------
 // Kecleon tient la boutique de l'étage (menu Acheter / Quitter, CreateIsaacMartMenu). Ses articles possibles :
-//  - une Master Ball, une Guérison, un Rappel, un Rappel Max, une Restore Max, une Super Potion, une Hyper Potion, un
-//    Total Soin ;
+//  - une Guérison, un Rappel, un Rappel Max, une Restore Max, une Super Potion, une Hyper Potion, un Total Soin ;
 //  - jusqu'à l'étage SHOP_DISCOUNT_CARD_MAX_FLOOR, la Carte de Réduction (si on ne l'a pas déjà) : -SHOP_DISCOUNT_PCT %
 //    sur tous les autres articles jusqu'à la fin de la descente ;
 //  - trois objets de combat (PickBattleItem) et trois CT de sShopTMs, tous différents (tirés pour la salle), à
-//    SHOP_HELD_TM_PRICE_PCT % de leur prix ; un objet spécial (IsaacPickSpecialItem), et rarement un second, différent.
+//    SHOP_HELD_TM_PRICE_PCT % de leur prix ; deux objets spéciaux différents (IsaacPickSpecialItem, Master Ball comprise),
+//    chacun avec la même chance d'être en vente.
 // Chacun n'est vraiment en vente qu'avec une chance qui dépend de l'article et de l'étage (sShopSlotPresentPct, tirée
 // pour l'étage, IsShopSlotPresent), en un seul exemplaire.
 // Les prix se comptent en dixièmes de SHOP_PRICE_UNIT_PER_FLOOR x étage (voir sShopPrices) : un étage rapporte de
@@ -2440,7 +2440,6 @@ static void SetUpCaptureMons(s32 x, s32 y)
 
 enum
 {
-    SHOP_SLOT_MASTER_BALL,
     SHOP_SLOT_FULL_RESTORE,
     SHOP_SLOT_REVIVE,
     SHOP_SLOT_MAX_REVIVE,
@@ -2730,7 +2729,6 @@ static const struct IsaacShopPrice sShopPrices[] =
     { ITEM_FULL_RESTORE,  6 },
     { ITEM_MAX_REVIVE,   10 },
     { ITEM_MAX_RESTORE,  12 },
-    { ITEM_MASTER_BALL,  30 },
     { ITEM_DISCOUNT_CARD, 20 },
 };
 #define SHOP_DISCOUNT_CARD_MAX_FLOOR  4
@@ -2762,7 +2760,7 @@ static u16 PickDistinctShopItem(const u16 *list, u32 count, u32 roll, u32 index)
     return list[i];
 }
 
-// Second objet spécial : différent du premier (quelques tirages)
+// Second objet spécial de la boutique : différent du premier (quelques tirages)
 static u16 PickSecondShopSpecialItem(s32 x, s32 y)
 {
     u16 first = IsaacPickSpecialItem(RoomRandom(x, y, 0x5495), TRUE), item = first;
@@ -2781,8 +2779,6 @@ static u16 GetShopSlotItem(u32 slot)
     GetCurrentCell(&x, &y);
     switch (slot)
     {
-    case SHOP_SLOT_MASTER_BALL:
-        return ITEM_MASTER_BALL;
     case SHOP_SLOT_FULL_RESTORE:
         return ITEM_FULL_RESTORE;
     case SHOP_SLOT_REVIVE:
@@ -2867,7 +2863,6 @@ void IsaacOnShopPurchase(u16 item, u16 count)
 // l'étage 1) : les soins forts et le Rappel Max de plus en plus courants, la Super Potion de moins en moins
 static const u8 sShopSlotPresentPct[SHOP_LIMITED_SLOTS][6] =
 {
-    [SHOP_SLOT_MASTER_BALL]   = { 15, 15, 20, 25, 30, 35 },
     [SHOP_SLOT_FULL_RESTORE]  = { 20, 25, 35, 50, 65, 75 },
     [SHOP_SLOT_REVIVE]        = { 60, 65, 65, 60, 55, 50 },
     [SHOP_SLOT_MAX_REVIVE]    = { 15, 20, 30, 45, 55, 65 },
@@ -2882,7 +2877,7 @@ static const u8 sShopSlotPresentPct[SHOP_LIMITED_SLOTS][6] =
     [SHOP_SLOT_TM_2]          = { 60, 60, 60, 55, 50, 45 },
     [SHOP_SLOT_TM_3]          = { 60, 60, 60, 55, 50, 45 },
     [SHOP_SLOT_SPECIAL]       = { 50, 55, 60, 65, 70, 75 },
-    [SHOP_SLOT_SPECIAL_2]     = { 10, 10, 15, 15, 20, 20 },  // second objet spécial : rare
+    [SHOP_SLOT_SPECIAL_2]     = { 50, 55, 60, 65, 70, 75 },  // comme le premier
     [SHOP_SLOT_DISCOUNT_CARD] = { 70, 70, 60, 50,  0,  0 },  // jusqu'à SHOP_DISCOUNT_CARD_MAX_FLOOR
 };
 

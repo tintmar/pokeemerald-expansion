@@ -178,8 +178,7 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // pas de Pierre Évolution après SHOP_EVOLUTION_STONE_MAX_FLOOR. La Pièce Porte-Bonheur est surtout au début
 // (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours surtout à la fin (sFirstAidKitWeights, retirée pour
 // l'instant : FIRST_AID_KIT_ENABLED) ; la Pierre Prisme est rare (PRISM_STONE_WEIGHT), le Cœur Doré peu courant
-// (GOLDEN_HEART_WEIGHT). La Master Ball est peu courante (MASTER_BALL_WEIGHT), jamais en objet spécial de la boutique
-// (qui la vend déjà à part).
+// (GOLDEN_HEART_WEIGHT). La Master Ball est peu courante (MASTER_BALL_WEIGHT).
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, un
 // peu plus fréquente en profondeur (sStatBoostWeights) ; de même pour les Gemmes de Type (puis le type est tiré ;
 // retirées pour l'instant : TYPE_GEM_WEIGHT à 0). Le Cœur Doré n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
@@ -312,7 +311,7 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
         else if (sSpecialItems[i] == ITEM_Z_TM)
             weights[i] = Z_TM_WEIGHT;
         else if (sSpecialItems[i] == ITEM_MASTER_BALL)
-            weights[i] = shop ? 0 : MASTER_BALL_WEIGHT;  // la boutique a déjà son propre article Master Ball
+            weights[i] = MASTER_BALL_WEIGHT;
         else if (sSpecialItems[i] == ITEM_MEGA_RING)
             weights[i] = megaStoneCount != 0 ? SPECIAL_ITEM_WEIGHT : 0;
         else
