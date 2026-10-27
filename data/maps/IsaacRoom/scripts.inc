@@ -7,7 +7,23 @@ IsaacRoom_MapScripts::
 
 IsaacRoom_OnFrame:
 	map_script_2 VAR_ISAAC_FALLEN_CROWN_PENDING, 1, IsaacRoom_EventScript_FallenCrown
+	map_script_2 VAR_ISAAC_CAPTURE_GIFT_PENDING, 1, IsaacRoom_EventScript_CaptureGift
 	.2byte 0
+
+@ Entrée dans la salle de capture : le Pokémaniac donne tout de suite la Master Ball de l'étage
+IsaacRoom_EventScript_CaptureGift::
+	lockall
+	setvar VAR_ISAAC_CAPTURE_GIFT_PENDING, 0
+	applymovement LOCALID_ISAAC_ROOM_CAPTURE_GUIDE, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox IsaacRoom_Text_CaptureGuideGive, MSGBOX_DEFAULT
+	giveitem ITEM_MASTER_BALL
+	goto_if_eq VAR_0x8007, FALSE, IsaacRoom_EventScript_CaptureGiftEnd  @ sac plein (message de giveitem)
+	special IsaacCaptureGuideGaveBall
+	msgbox IsaacRoom_Text_CaptureGuideAfter, MSGBOX_DEFAULT
+IsaacRoom_EventScript_CaptureGiftEnd:
+	releaseall
+	end
 
 @ Après le combat : le Pokémon couronné tombé K.O. a été relâché ; il laisse sa Master Ball
 IsaacRoom_EventScript_FallenCrown::
@@ -173,7 +189,8 @@ IsaacRoom_EventScript_WildMon:
 	release
 	end
 
-@ Salle de capture : le personnage de l'entrée donne une Master Ball par étage (voir PlaceCaptureGuide)
+@ Salle de capture : le Pokémaniac de l'entrée donne une Master Ball par étage, d'abord tout seul à l'entrée dans la
+@ salle (IsaacRoom_EventScript_CaptureGift), sinon (sac plein) en lui parlant (voir PlaceCaptureGuide)
 IsaacRoom_EventScript_CaptureGuide::
 	lock
 	faceplayer
@@ -197,7 +214,8 @@ IsaacRoom_EventScript_CaptureGuideDone::
 	end
 
 IsaacRoom_Text_CaptureGuideGive:
-	.string "Wild Pokémon live in this room!\p"
+	.string "Hey, you! Wild Pokémon live\n"
+	.string "in this room!\p"
 	.string "Here, take this. It never fails,\n"
 	.string "so save it for the one you want most!$"
 

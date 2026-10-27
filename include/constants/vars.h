@@ -269,7 +269,7 @@
 #define VAR_ISAAC_SHOP_SITUATIONAL                       0x40F7 // Objets situationnels de la boutique de l'étage, figés à la première visite
 #define VAR_ISAAC_FALLEN_CROWN                           0x40F8 // Pokémon couronné relâché après le combat (isaac_pokemon.c)
 #define VAR_ISAAC_FALLEN_CROWN_PENDING                   0x40F9 // 1 : message du Pokémon couronné relâché en attente
-#define VAR_UNUSED_0x40FA                                0x40FA // Unused Var
+#define VAR_ISAAC_CAPTURE_GIFT_PENDING                   0x40FA // 1 : le Pokémaniac de la salle de capture va donner la Master Ball
 #define VAR_UNUSED_0x40FB                                0x40FB // Unused Var
 #define VAR_UNUSED_0x40FC                                0x40FC // Unused Var
 #define VAR_UNUSED_0x40FD                                0x40FD // Unused Var

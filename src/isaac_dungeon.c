@@ -2312,12 +2312,13 @@ void IsaacSettleNurse(void)
     PlaceNurse(x, y, FALSE);
 }
 
-// Personnage de la salle de capture : à l'entrée (la seule porte de ce cul-de-sac), comme l'infirmière une fois
-// arrivée (quelques pas dans la salle, un pas de côté), tourné vers la porte. Il donne une Master Ball par étage.
+// Pokémaniac de la salle de capture : collé à l'entrée (la seule porte de ce cul-de-sac), sur le côté de la première
+// case de la salle, tourné vers le passage. Il donne la Master Ball de l'étage dès qu'on entre
+// (VAR_ISAAC_CAPTURE_GIFT_PENDING, IsaacRoom_EventScript_CaptureGift), pour qu'on ne puisse pas l'oublier.
 static void PlaceCaptureGuide(s32 x, s32 y)
 {
     struct ObjectEventTemplate *template = GetObjectTemplate(LOCALID_ISAAC_ROOM_CAPTURE_GUIDE);
-    u32 doorDir, inward, sideDir, steps;
+    u32 doorDir, inward, sideDir;
 
     if (template == NULL)
         return;
@@ -2328,11 +2329,13 @@ static void PlaceCaptureGuide(s32 x, s32 y)
     }
     inward = GetBossExitDir(x, y);  // à l'opposé de la porte
     doorDir = (inward + 2) % ISAAC_DIR_COUNT;
-    steps = GetNurseSteps(doorDir, &sideDir);
-    template->x = sDoorX[doorDir] + steps * sDirDx[inward] + sDirDx[sideDir];
-    template->y = sDoorY[doorDir] + steps * sDirDy[inward] + sDirDy[sideDir];
-    template->movementType = sDirToFaceMovementType[doorDir];
-    VarSet(VAR_OBJ_GFX_ID_B, gIsaacBiomes[ISAAC_BIOME].ocean ? OBJ_EVENT_GFX_SWIMMER_M : OBJ_EVENT_GFX_SCIENTIST_1);
+    sideDir = (doorDir + 1) % ISAAC_DIR_COUNT;
+    template->x = sDoorX[doorDir] + sDirDx[inward] + sDirDx[sideDir];
+    template->y = sDoorY[doorDir] + sDirDy[inward] + sDirDy[sideDir];
+    template->movementType = sDirToFaceMovementType[(sideDir + 2) % ISAAC_DIR_COUNT];
+    VarSet(VAR_OBJ_GFX_ID_B, gIsaacBiomes[ISAAC_BIOME].ocean ? OBJ_EVENT_GFX_SWIMMER_M : OBJ_EVENT_GFX_MANIAC);
+    if (!FlagGet(FLAG_ISAAC_MASTER_BALL_GIVEN) && sArrivalFacing != DIR_NONE)  // on vient d'entrer par la porte
+        VarSet(VAR_ISAAC_CAPTURE_GIFT_PENDING, 1);
 }
 
 static u32 GetNursePricePerMon(void)
