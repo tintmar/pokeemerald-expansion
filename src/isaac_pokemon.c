@@ -1481,16 +1481,40 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
     return moves[i];
 }
 
-// Pierre Prisme : attaque offensive du nouveau type à proposer au Pokémon, d'un tier au-dessus de ses attaques
-// (moyenne arrondie + 1, 4 au plus ; sans attaque à tier, le palier de son set + 2), dans la catégorie de son build (celle de la majorité de ses attaques offensives ; à égalité, sa meilleure
-// stat d'attaque de base), jamais une attaque ISAAC_MOVE_ROLE_COMBO ni une qu'il connaît. D'abord celles que son
-// espèce peut apprendre, sinon n'importe laquelle (son nouveau type peut lui en ouvrir d'autres) ; tirée au hasard.
-// MOVE_NONE s'il n'y en a pas.
+// Pierre Prisme : attaque du nouveau type à proposer au Pokémon, toujours (même si son espèce n'en apprend aucune :
+// son nouveau type lui en ouvre). Une attaque offensive d'un tier au-dessus de ses attaques (moyenne arrondie + 1, 4 au
+// plus ; sans attaque à tier, le palier de son set + 2), jamais une attaque ISAAC_MOVE_ROLE_COMBO ni une qu'il connaît,
+// cherchée dans cet ordre jusqu'à en trouver :
+//  1. que son espèce peut apprendre, dans la catégorie de son build (celle de la majorité de ses attaques offensives ;
+//     à égalité, sa meilleure stat d'attaque de base) ;
+//  2. n'importe laquelle de cette catégorie ;
+//  3. n'importe laquelle, physique ou spéciale ;
+//  4. du tier le plus proche (1, puis 2, puis 3 d'écart).
+// Rarement (PRISM_SITUATIONAL_WEIGHT contre PRISM_OFFENSIVE_WEIGHT par candidate), une attaque situationnelle du type
+// à la place ; et seulement elles si le type n'a rien d'autre. Tirée au hasard.
+#define PRISM_OFFENSIVE_WEIGHT    8
+#define PRISM_SITUATIONAL_WEIGHT  1
+
+enum
+{
+    PRISM_PASS_LEARNABLE,
+    PRISM_PASS_BUILD,
+    PRISM_PASS_ANY_CATEGORY,
+    PRISM_PASS_NEAREST_TIER,
+    PRISM_PASS_SITUATIONAL,
+};
+
+static bool8 IsPrismMoveUsable(struct Pokemon *mon, u16 move, enum Type type)
+{
+    return sIsaacMoveTiers[move] != 0 && GetMoveType(move) == type && !(sIsaacMoveRoles[move] & ISAAC_MOVE_ROLE_COMBO)
+        && !MonKnowsMove(mon, move);
+}
+
 u16 IsaacPickPrismMove(struct Pokemon *mon, enum Type type)
 {
     enum Species species = GetMonData(mon, MON_DATA_SPECIES);
-    u32 tier = GetMonAverageMoveTier(mon), physical = 0, special = 0, count, i, pass;
-    u16 move, known, picked = MOVE_NONE;
+    u32 tier = GetMonAverageMoveTier(mon), physical = 0, special = 0, total, offensive, weight, i, pass, gap, moveTier;
+    u16 move, known, picked;
     bool8 wantsPhysical;
 
     tier = min((tier == 0) ? IsaacGetMonSetTier(mon) + 2 : tier + 1, 4u);
@@ -1508,21 +1532,43 @@ u16 IsaacPickPrismMove(struct Pokemon *mon, enum Type type)
         wantsPhysical = physical > special;
     else
         wantsPhysical = gSpeciesInfo[species].baseAttack >= gSpeciesInfo[species].baseSpAttack;
-    for (pass = 0, count = 0; pass < 2 && count == 0; pass++)
+
+    for (pass = PRISM_PASS_LEARNABLE; pass <= PRISM_PASS_SITUATIONAL; pass++)
     {
-        for (move = 1; move < MOVES_COUNT; move++)
+        for (gap = (pass == PRISM_PASS_NEAREST_TIER) ? 1 : 0; gap <= ((pass == PRISM_PASS_NEAREST_TIER) ? 3 : 0); gap++)
         {
-            if (sIsaacMoveTiers[move] != tier || GetMoveType(move) != type
-             || GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS
-             || (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL) != wantsPhysical
-             || (sIsaacMoveRoles[move] & ISAAC_MOVE_ROLE_COMBO) || MonKnowsMove(mon, move)
-             || (pass == 0 && !CanSpeciesLearnMove(species, move)))
-                continue;
-            if (Random() % ++count == 0)
-                picked = move;
+            picked = MOVE_NONE;
+            total = offensive = 0;
+            for (move = 1; move < MOVES_COUNT; move++)
+            {
+                if (!IsPrismMoveUsable(mon, move, type))
+                    continue;
+                moveTier = sIsaacMoveTiers[move];
+                if (moveTier == ISAAC_MOVE_TIER_SITUATIONAL)
+                {
+                    weight = PRISM_SITUATIONAL_WEIGHT;  // rarement, à la place d'une attaque offensive
+                }
+                else
+                {
+                    if (pass == PRISM_PASS_SITUATIONAL || GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS
+                     || (moveTier != tier + gap && moveTier + gap != tier))
+                        continue;
+                    if (pass <= PRISM_PASS_BUILD && (GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL) != wantsPhysical)
+                        continue;
+                    if (pass == PRISM_PASS_LEARNABLE && !CanSpeciesLearnMove(species, move))
+                        continue;
+                    weight = PRISM_OFFENSIVE_WEIGHT;
+                    offensive++;
+                }
+                total += weight;
+                if (Random() % total < weight)
+                    picked = move;
+            }
+            if (offensive != 0 || (pass == PRISM_PASS_SITUATIONAL && picked != MOVE_NONE))
+                return picked;
         }
     }
-    return picked;
+    return MOVE_NONE;
 }
 
 // Un cran d'EVs pour le Pokémon n° slot, avec la scène de message (FALSE si ses EVs sont déjà au maximum)
