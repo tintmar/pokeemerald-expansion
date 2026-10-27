@@ -3604,6 +3604,7 @@ static void WarpToNewFloor(u32 floor)
         RemoveBagItem(ITEM_DISCOUNT_CARD, 1);  // la Carte de Réduction ne vaut que pour une descente
         RemoveBagItem(ITEM_LUCKY_COIN, 1);     // la Pièce Porte-Bonheur aussi
         IsaacGoldenHeartReset();
+        IsaacResetProgressionPity();
     }
     VarSet(VAR_ISAAC_FLOOR, floor);
     VarSet(VAR_ISAAC_SEED, Random());

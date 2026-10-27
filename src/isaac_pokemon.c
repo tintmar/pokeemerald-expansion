@@ -636,17 +636,67 @@ void IsaacGoldenHeartEnd(void)
 
 // Pendant un combat contre un dresseur de salle ou le boss, chaque Pokémon de l'équipe compte ses tours actifs (sur le
 // terrain à la fin du tour). Combat gagné : le Pokémon qui n'est pas à son stade final et en a le plus évolue
-// (PROGRESSION_EVOLUTION_PCT % de chances, toujours contre le boss ; s'il a plusieurs évolutions, l'une
+// (environ PROGRESSION_EVOLUTION_PCT % de chances, voir l'anti-malchance plus bas, toujours contre le boss ; s'il a plusieurs évolutions, l'une
 // de celles qui collent le mieux au biome), et apprend en même temps une attaque de tier supérieur pour sa nouvelle
-// espèce (PickUpgradeMove). Sinon, avec PROGRESSION_MOVE_PCT % de chances (toujours contre le boss), le Pokémon qui a le
+// espèce (PickUpgradeMove). Sinon, avec environ PROGRESSION_MOVE_PCT % de chances (toujours contre le boss), le Pokémon qui a le
 // plus de tours actifs apprend une attaque de tier supérieur, dans l'écran de l'évolution mais sans l'animation ; si la
 // moyenne de ses attaques est déjà de tier 4, il gagne à la place un cran d'EVs (IncreaseMonEvs), avec un simple
-// message dans la même scène. Sinon, avec PROGRESSION_EVS_PCT % de chances, ce même Pokémon gagne un cran d'EVs, ou, si
+// message dans la même scène. Sinon, avec environ PROGRESSION_EVS_PCT % de chances, ce même Pokémon gagne un cran d'EVs, ou, si
 // ses EVs sont au maximum, que son stade est final, que ses attaques sont de tier moyen 4 et qu'il n'a pas déjà de boost
 // (IsaacHasBoost), un boost de stat au hasard. Sinon, rien. À égalité, le premier de l'équipe.
 #define PROGRESSION_EVOLUTION_PCT  25  // à tous les étages
 #define PROGRESSION_MOVE_PCT       25
 #define PROGRESSION_EVS_PCT        20  // après l'échec des deux autres tirages (EVs ou boost)
+
+// Anti-malchance (distribution pseudo-aléatoire, comme les coups critiques de Dota) : la chance d'un tirage est de
+// n x pas (en pour mille) au n-ième essai depuis le dernier succès, avec un pas choisi pour que le taux moyen reste
+// celui de PROGRESSION_*_PCT. Les séries d'échecs sont bien plus courtes : à 25 %, 8,5 % au premier essai, 25,5 % au
+// troisième, 51 % au sixième, succès garanti au douzième ; à 20 %, garanti au dix-huitième. Les échecs sont comptés
+// par tirage (évolution, attaque, EVs) dans VAR_ISAAC_PROGRESSION_PITY (4 bits chacun), remis à zéro à chaque
+// descente. Seuls les combats contre les dresseurs de salle comptent : jamais celui du boss, aux effets garantis.
+enum
+{
+    PITY_EVOLUTION,
+    PITY_MOVE,
+    PITY_EVS,
+};
+
+#define PITY_BITS  4
+#define PITY_MAX   ((1 << PITY_BITS) - 1)
+
+static const u16 sPityStepPermille[] =
+{
+    [PITY_EVOLUTION] = 85,  // ~ 25 %
+    [PITY_MOVE]      = 85,  // ~ 25 %
+    [PITY_EVS]       = 56,  // ~ 20 %
+};
+
+static u32 GetPityFails(u32 kind)
+{
+    return (VarGet(VAR_ISAAC_PROGRESSION_PITY) >> (kind * PITY_BITS)) & PITY_MAX;
+}
+
+// Tirage du type kind, sans le compter (voir RecordPity)
+static bool8 RollPity(u32 kind)
+{
+    return Random() % 1000 < sPityStepPermille[kind] * (GetPityFails(kind) + 1);
+}
+
+// Résultat du tirage : un succès remet le compteur d'échecs à zéro. Un tirage n'a lieu (et ne compte) que si le
+// Pokémon a quelque chose à gagner : personne qui puisse évoluer, ou attaques et EVs déjà au maximum, ne fait pas
+// monter le compteur.
+static void RecordPity(u32 kind, bool8 success)
+{
+    u32 pity = VarGet(VAR_ISAAC_PROGRESSION_PITY), fails = success ? 0 : min(GetPityFails(kind) + 1, (u32)PITY_MAX);
+
+    pity &= ~(PITY_MAX << (kind * PITY_BITS));
+    VarSet(VAR_ISAAC_PROGRESSION_PITY, pity | (fails << (kind * PITY_BITS)));
+}
+
+void IsaacResetProgressionPity(void)
+{
+    VarSet(VAR_ISAAC_PROGRESSION_PITY, 0);
+}
 
 enum
 {
@@ -750,6 +800,21 @@ static bool8 IncreaseMonEvs(struct Pokemon *mon)
     if (changed)
         CalculateMonStats(mon);
     return changed;
+}
+
+// Le Pokémon peut-il encore gagner un cran d'EVs (voir IncreaseMonEvs) ?
+static bool8 CanIncreaseMonEvs(struct Pokemon *mon)
+{
+    static const u8 sEvData[] = { MON_DATA_HP_EV, MON_DATA_ATK_EV, MON_DATA_DEF_EV, MON_DATA_SPATK_EV, MON_DATA_SPDEF_EV, MON_DATA_SPEED_EV };
+    const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
+    u32 i;
+
+    if (set == NULL || set->ev == NULL)
+        return FALSE;
+    for (i = 0; i < ARRAY_COUNT(sEvData); i++)
+        if (GetMonData(mon, sEvData[i]) < set->ev[i])
+            return TRUE;
+    return FALSE;
 }
 
 // Tier d'une attaque pour la moyenne du Pokémon (sIsaacMoveTiers) : 0 pour une attaque situationnelle ou sans tier
@@ -1148,7 +1213,7 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
 {
     u16 choices[ISAAC_MAX_EVOLUTION_CHOICES], move;
     u32 i, evolver = PARTY_SIZE, active = PARTY_SIZE, count;
-    bool8 boss = (sIsaacProgressionBattle == PROGRESSION_BOSS);
+    bool8 boss = (sIsaacProgressionBattle == PROGRESSION_BOSS), rolled = FALSE, maxedMoves, canEvs, canBoost;
     struct Pokemon *mon;
     enum Species species;
 
@@ -1169,7 +1234,12 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
          && IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), FALSE, choices, ARRAY_COUNT(choices)) != 0)
             evolver = i;
     }
-    if (evolver != PARTY_SIZE && (boss || Random() % 100 < PROGRESSION_EVOLUTION_PCT))
+    if (evolver != PARTY_SIZE && !boss)
+    {
+        rolled = RollPity(PITY_EVOLUTION);
+        RecordPity(PITY_EVOLUTION, rolled);
+    }
+    if (evolver != PARTY_SIZE && (boss || rolled))
     {
         mon = &gParties[B_TRAINER_PLAYER][evolver];
         count = IsaacGetEvolutionChoices(GetMonData(mon, MON_DATA_SPECIES), FALSE, choices, ARRAY_COUNT(choices));
@@ -1181,38 +1251,52 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
         *outSlot = evolver;
         return species;
     }
-    if (active != PARTY_SIZE && (boss || Random() % 100 < PROGRESSION_MOVE_PCT))
+    if (active == PARTY_SIZE)
+        return SPECIES_NONE;
+    mon = &gParties[B_TRAINER_PLAYER][active];
+    species = GetMonData(mon, MON_DATA_SPECIES);
+    maxedMoves = (GetMonAverageMoveTier(mon) >= ISAAC_SET_TIERS);  // ses attaques n'ont plus rien à gagner
+    canEvs = CanIncreaseMonEvs(mon);
+
+    // Attaque de tier supérieur, ou des EVs à la place si ses attaques sont au maximum ; tirage seulement s'il y a
+    // quelque chose à gagner
+    move = maxedMoves ? MOVE_NONE : PickUpgradeMove(mon, species);
+    if (maxedMoves ? canEvs : (move != MOVE_NONE))
     {
-        mon = &gParties[B_TRAINER_PLAYER][active];
-        species = GetMonData(mon, MON_DATA_SPECIES);
-        if (GetMonAverageMoveTier(mon) >= ISAAC_SET_TIERS)  // ses attaques n'ont plus rien à gagner : des EVs à la place
+        rolled = boss || RollPity(PITY_MOVE);
+        if (!boss)
+            RecordPity(PITY_MOVE, rolled);
+        if (rolled && maxedMoves)
         {
-            if (TryProgressionEvs(mon, active, outSlot))
-                return species;
+            TryProgressionEvs(mon, active, outSlot);
+            return species;
         }
-        else
+        if (rolled)
         {
-            move = PickUpgradeMove(mon, species);
-            if (move != MOVE_NONE)
-            {
-                memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
-                sIsaacEvolutionMoves[MAX_MON_MOVES] = move;
-                sIsaacProgressionScene = PROGRESSION_SCENE_MOVE;
-                *outSlot = active;
-                return species;
-            }
+            memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
+            sIsaacEvolutionMoves[MAX_MON_MOVES] = move;
+            sIsaacProgressionScene = PROGRESSION_SCENE_MOVE;
+            *outSlot = active;
+            return species;
         }
     }
-    if (active != PARTY_SIZE && Random() % 100 < PROGRESSION_EVS_PCT)
+
+    // Un cran d'EVs, ou, s'ils sont au maximum, un boost de stat au hasard si le Pokémon est à son stade final, que ses
+    // attaques sont de tier moyen 4 et qu'il n'a pas déjà de boost ; tirage seulement si l'un des deux est possible.
+    // Contre le boss (rare : l'attaque n'a rien donné), simple tirage, hors anti-malchance.
+    canBoost = !canEvs && maxedMoves && !IsaacHasBoost(mon)
+            && IsaacGetEvolutionChoices(species, FALSE, choices, ARRAY_COUNT(choices)) == 0;
+    if (canEvs || canBoost)
     {
-        mon = &gParties[B_TRAINER_PLAYER][active];
-        species = GetMonData(mon, MON_DATA_SPECIES);
-        if (TryProgressionEvs(mon, active, outSlot))
+        rolled = boss ? (Random() % 100 < PROGRESSION_EVS_PCT) : RollPity(PITY_EVS);
+        if (!boss)
+            RecordPity(PITY_EVS, rolled);
+        if (rolled && canEvs)
+        {
+            TryProgressionEvs(mon, active, outSlot);
             return species;
-        // EVs au maximum : un boost de stat au hasard, si le Pokémon est à son stade final, que ses attaques sont de
-        // tier moyen 4 et qu'il n'a pas déjà de boost
-        if (IsaacGetEvolutionChoices(species, FALSE, choices, ARRAY_COUNT(choices)) == 0
-         && GetMonAverageMoveTier(mon) >= ISAAC_SET_TIERS && !IsaacHasBoost(mon))
+        }
+        if (rolled)
         {
             sIsaacBoostedStat = Random() % NUM_STATS;
             IsaacAddStatBoost(mon, sIsaacBoostedStat);

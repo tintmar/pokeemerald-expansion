@@ -104,6 +104,7 @@ enum Species IsaacPickLineSpecies(const u16 *lines, u32 lineCount, enum IsaacCat
 enum IsaacCategory IsaacGetLinesCategory(const u16 *lines, u32 lineCount, enum Species species);
 u32 IsaacAddLinesSpeciesOfCategory(const u16 *lines, u32 lineCount, enum IsaacCategory category, u16 *out, u32 count, u32 max);
 void IsaacGiveLegendaryTestTeam(void);
+void IsaacResetProgressionPity(void);
 void IsaacCreateMonFromSet(struct Pokemon *mon, enum Species species, u32 tier, u32 variant, u32 seed);
 u32 IsaacGetMonSetTier(struct Pokemon *mon);
 u32 IsaacGetMonSetVariant(struct Pokemon *mon);
