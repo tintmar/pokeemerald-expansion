@@ -874,7 +874,7 @@ Variants: A = Defensive support / B = Offensive (special, Competitive)
        Moves: Disarming Voice [T1]  /  Water Gun [T1]  /  Flash [T1]  /  Draining Kiss [T2]
   [2A] Lullaby diva
        Wigglytuff @ Sitrus Berry   |   Ability: Cute Charm   |   Nature: Bold
-       Moves: Sing [T2]  /  Charm [T2]  /  Wish [Sit]  /  Misty Explosion [T3]
+       Moves: Sing [T2]  /  Charm [T2]  /  Wish [Sit]  /  Alluring Voice [T3]
   [2B] Fairy caster
        Wigglytuff @ Fairy Feather   |   Ability: Competitive   |   Nature: Modest
        Moves: Draining Kiss [T2]  /  Icy Wind [T2]  /  Magical Leaf [T2]  /  Dazzling Gleam [T3]
@@ -883,7 +883,7 @@ Variants: A = Defensive support / B = Offensive (special, Competitive)
        Moves: Alluring Voice [T3]  /  Wish [Sit]  /  Protect [Sit]  /  Heal Bell [Sit]
   [3B] Competitive diva
        Wigglytuff @ Wise Glasses   |   Ability: Competitive   |   Nature: Modest
-       Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Expanding Force [T3]
+       Moves: Hyper Voice [T4]  /  Dazzling Gleam [T3]  /  Grass Knot [T3]  /  Psychic [T4]
   [4A] Wish wall
        Wigglytuff @ Leftovers   |   Ability: Cute Charm   |   Nature: Bold
        Moves: Double-Edge [T4]  /  Encore [Sit]  /  Wish [Sit]  /  Protect [Sit]

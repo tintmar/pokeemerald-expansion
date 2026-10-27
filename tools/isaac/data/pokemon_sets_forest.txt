@@ -334,7 +334,7 @@ Variants: A = Physical (Unburden) / B = Special
        Moves: Quick Attack [T1]  /  Mega Drain [T1]  /  Double Kick [T1]  /  Magical Leaf [T2]
   [2A] Unburden gecko
        Treecko @ Sitrus Berry   |   Ability: Unburden   |   Nature: Lonely
-       Moves: Grassy Glide [T2]  /  Aerial Ace [T2]  /  Breaking Swipe [T2]  /  Seed Bomb [T3]
+       Moves: Trailblaze [T2]  /  Aerial Ace [T2]  /  Breaking Swipe [T2]  /  Seed Bomb [T3]
   [2B] Leafy caster
        Treecko @ Miracle Seed   |   Ability: Overgrow   |   Nature: Mild
        Moves: Magical Leaf [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Grass Knot [T3]
@@ -727,7 +727,7 @@ Variants: A = Defensive (Leech Seed, Aromatherapy) / B = Offensive (Swords Dance
        Moves: Aromatherapy [Sit]  /  Leech Seed [Sit]  /  Magical Leaf [T2]  /  Protect [Sit]
   [2B] Stomping leaf
        Bayleef @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
-       Moves: Grassy Glide [T2]  /  Headbutt [T2]  /  Work Up [T2]  /  Stomping Tantrum [T3]
+       Moves: Razor Leaf [T2]  /  Headbutt [T2]  /  Work Up [T2]  /  Stomping Tantrum [T3]
   [3A] Leech Seed cleric
        Bayleef @ Leftovers   |   Ability: Leaf Guard   |   Nature: Calm
        Moves: Leech Seed [Sit]  /  Aromatherapy [Sit]  /  Seed Bomb [T3]  /  Synthesis [Sit]
@@ -754,7 +754,7 @@ Variants: A = Physical (Unburden) / B = Special
        Moves: Absorb [T1]  /  Mega Drain [T1]  /  Double Kick [T1]  /  False Swipe [T1]
   [2A] Slashing gecko
        Grovyle @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
-       Moves: Grassy Glide [T2]  /  Low Sweep [T2]  /  Aerial Ace [T2]  /  X-Scissor [T3]
+       Moves: Trailblaze [T2]  /  Low Sweep [T2]  /  Aerial Ace [T2]  /  X-Scissor [T3]
   [2B] Leafy caster
        Grovyle @ Sitrus Berry   |   Ability: Unburden   |   Nature: Mild
        Moves: Magical Leaf [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Grass Knot [T3]
@@ -787,7 +787,7 @@ Variants: A = Defensive (Leech Seed, Curse) / B = Offensive (Shell Smash, Swords
        Moves: Leech Seed [Sit]  /  Bulldoze [T2]  /  Protect [Sit]  /  Razor Leaf [T2]
   [2B] Crunching turtle
        Grotle @ Miracle Seed   |   Ability: Overgrow   |   Nature: Lonely
-       Moves: Bulldoze [T2]  /  Bite [T2]  /  Grassy Glide [T2]  /  Crunch [T3]
+       Moves: Bulldoze [T2]  /  Bite [T2]  /  Razor Leaf [T2]  /  Crunch [T3]
   [3A] Curse turtle
        Grotle @ Leftovers   |   Ability: Shell Armor   |   Nature: Impish
        Moves: Curse [Sit]  /  Seed Bomb [T3]  /  Heavy Slam [T3]  /  Synthesis [Sit]
@@ -1051,7 +1051,7 @@ Variants: A = Special (sun) / B = Physical and support (Spiky Shield)
        Moves: Absorb [T1]  /  Peck [T1]  /  Sweet Scent [T1]  /  Needle Arm [T2]
   [1B] Draining cactus
        Maractus @ Oran Berry   |   Ability: Storm Drain   |   Nature: Docile
-       Moves: Mega Drain [T1]  /  Confide [T1]  /  Peck [T1]  /  Grassy Glide [T2]
+       Moves: Mega Drain [T1]  /  Confide [T1]  /  Peck [T1]  /  Needle Arm [T2]
   [2A] Needle cactus
        Maractus @ Miracle Seed   |   Ability: Chlorophyll   |   Nature: Lonely
        Moves: Needle Arm [T2]  /  Aerial Ace [T2]  /  Screech [T2]  /  Seed Bomb [T3]
@@ -1387,7 +1387,7 @@ Variants: A = Defensive (Leech Seed, Iron Defense) / B = Offensive (Shell Smash)
        Moves: Stockpile [Sit]  /  Rock Tomb [T2]  /  Razor Leaf [T2]  /  Protect [Sit]
   [2B] Stomping turtle
        Torterra @ Soft Sand   |   Ability: Overgrow   |   Nature: Lonely
-       Moves: Bulldoze [T2]  /  Bite [T2]  /  Grassy Glide [T2]  /  High Horsepower [T3]
+       Moves: Bulldoze [T2]  /  Bite [T2]  /  Razor Leaf [T2]  /  High Horsepower [T3]
   [3A] Leech Seed turtle
        Torterra @ Leftovers   |   Ability: Shell Armor   |   Nature: Impish
        Moves: Leech Seed [Sit]  /  Synthesis [Sit]  /  High Horsepower [T3]  /  Toxic [Sit]
@@ -1504,7 +1504,7 @@ Variants: A = Physical (Unburden) / B = Special
        Moves: False Swipe [T1]  /  Mega Drain [T1]  /  Mud-Slap [T1]  /  Dual Chop [T2]
   [2A] Unburden gecko
        Sceptile @ Sitrus Berry   |   Ability: Unburden   |   Nature: Lonely
-       Moves: Grassy Glide [T2]  /  Breaking Swipe [T2]  /  Low Sweep [T2]  /  Night Slash [T3]
+       Moves: Trailblaze [T2]  /  Breaking Swipe [T2]  /  Low Sweep [T2]  /  Night Slash [T3]
   [2B] Leafy caster
        Sceptile @ Miracle Seed   |   Ability: Overgrow   |   Nature: Mild
        Moves: Magical Leaf [T2]  /  Dragon Breath [T2]  /  Swift [T2]  /  Grass Knot [T3]
@@ -1561,10 +1561,10 @@ Variants: A = Physical (Swords Dance) / B = Special (Calm Mind)
        Moves: Double Kick [T1]  /  Leer [T1]  /  Quick Attack [T1]  /  Magical Leaf [T2]
   [1B] Swift knight
        Virizion @ Oran Berry   |   Ability: Justified   |   Nature: Docile
-       Moves: Rock Smash [T1]  /  False Swipe [T1]  /  Flash [T1]  /  Grassy Glide [T2]
+       Moves: Rock Smash [T1]  /  False Swipe [T1]  /  Flash [T1]  /  Trailblaze [T2]
   [2A] Sword knight
        Virizion @ Black Belt   |   Ability: Justified   |   Nature: Lonely
-       Moves: Grassy Glide [T2]  /  Aerial Ace [T2]  /  Work Up [T2]  /  Sacred Sword [T3]
+       Moves: Trailblaze [T2]  /  Aerial Ace [T2]  /  Work Up [T2]  /  Sacred Sword [T3]
   [2B] Leafy caster
        Virizion @ Miracle Seed   |   Ability: Justified   |   Nature: Mild
        Moves: Magical Leaf [T2]  /  Swift [T2]  /  Work Up [T2]  /  Grass Knot [T3]
@@ -1603,7 +1603,7 @@ Variants: A = Defensive (Recover, Leech Seed) / B = Offensive (Nasty Plot)
        Moves: Leech Seed [Sit]  /  Recover [Sit]  /  Psychic [T4]  /  Heal Bell [Sit]
   [3B] Nasty Plot guardian
        Celebi @ Wise Glasses   |   Ability: Natural Cure   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Pollen Puff [T3]  /  Expanding Force [T3]  /  Leaf Storm [T4]
+       Moves: Nasty Plot [T4]  /  Pollen Puff [T3]  /  Dazzling Gleam [T3]  /  Leaf Storm [T4]
   [4A] Bulky pivot
        Celebi @ Rocky Helmet   |   Ability: Natural Cure   |   Nature: Bold
        Moves: Leech Seed [Sit]  /  Recover [Sit]  /  Giga Drain [T4]  /  Psychic [T4]

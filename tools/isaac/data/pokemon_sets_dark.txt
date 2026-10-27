@@ -94,7 +94,7 @@ Variants: A = Setup attacker / B = Utility (Leech Seed, Explosion)
        Moves: Mega Drain [T1]  /  Astonish [T1]  /  Defense Curl [T1]  /  Rock Smash [T1]
   [2A] Seed striker
        Seedot @ Miracle Seed   |   Ability: Early Bird   |   Nature: Lonely
-       Moves: Trailblaze [T2]  /  Headbutt [T2]  /  Grassy Glide [T2]  /  Seed Bomb [T3]
+       Moves: Trailblaze [T2]  /  Headbutt [T2]  /  Take Down [T2]  /  Seed Bomb [T3]
   [2B] Leech acorn
        Seedot @ Sitrus Berry   |   Ability: Chlorophyll   |   Nature: Relaxed
        Moves: Leech Seed [Sit]  /  Magical Leaf [T2]  /  Synthesis [Sit]  /  Worry Seed [Sit]

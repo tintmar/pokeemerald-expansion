@@ -70,7 +70,7 @@ Variants: A = Setup (Calm Mind) / B = Support (Will-O-Wisp, Wish, Memento)
        Moves: Hypnosis [T2]  /  Charm [T2]  /  Thunder Wave [Sit]  /  Draining Kiss [T2]
   [3A] Calm Mind sprite
        Ralts @ Wise Glasses   |   Ability: Synchronize   |   Nature: Modest
-       Moves: Calm Mind [T4]  /  Expanding Force [T3]  /  Dazzling Gleam [T3]  /  Mystical Fire [T3]
+       Moves: Calm Mind [T4]  /  Psychic [T4]  /  Dazzling Gleam [T3]  /  Mystical Fire [T3]
   [3B] Memento lead
        Ralts @ Focus Sash   |   Ability: Trace   |   Nature: Timid
        Moves: Will-O-Wisp [Sit]  /  Taunt [Sit]  /  Memento [Sit]  /  Dazzling Gleam [T3]
@@ -400,10 +400,10 @@ Variants: A = Defensive (Regenerator, Slack Off) / B = Offensive (Trick Room)
        Moves: Trick Room [Sit]  /  Bubble Beam [T2]  /  Psybeam [T2]  /  Brine [T3]
   [3A] Regenerator wall
        Slowpoke @ Leftovers   |   Ability: Regenerator   |   Nature: Bold
-       Moves: Slack Off [Sit]  /  Thunder Wave [Sit]  /  Brine [T3]  /  Expanding Force [T3]
+       Moves: Slack Off [Sit]  /  Thunder Wave [Sit]  /  Brine [T3]  /  Psychic [T4]
   [3B] Trick Room caster
        Slowpoke @ Wise Glasses   |   Ability: Oblivious   |   Nature: Quiet
-       Moves: Trick Room [Sit]  /  Expanding Force [T3]  /  Brine [T3]  /  Fire Blast [T4]
+       Moves: Trick Room [Sit]  /  Psychic [T4]  /  Brine [T3]  /  Fire Blast [T4]
   [4A] Bulky healer
        Slowpoke @ Rocky Helmet   |   Ability: Regenerator   |   Nature: Bold
        Moves: Slack Off [Sit]  /  Scald [T4]  /  Psyshock [T4]  /  Thunder Wave [Sit]
@@ -700,7 +700,7 @@ Variants: A = Setup (Magic Guard, Calm Mind) / B = Support (screens)
        Moves: Thunder Wave [Sit]  /  Reflect [Sit]  /  Light Screen [Sit]  /  Psybeam [T2]
   [3A] Calm Mind psychic
        Kadabra @ Wise Glasses   |   Ability: Magic Guard   |   Nature: Modest
-       Moves: Calm Mind [T4]  /  Expanding Force [T3]  /  Dazzling Gleam [T3]  /  Recover [Sit]
+       Moves: Calm Mind [T4]  /  Psychic [T4]  /  Dazzling Gleam [T3]  /  Recover [Sit]
   [3B] Screen setter
        Kadabra @ Light Clay   |   Ability: Inner Focus   |   Nature: Timid
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Psyshock [T4]  /  Thunder Wave [Sit]
@@ -1000,7 +1000,7 @@ Variants: A = Setup (Nasty Plot, Filter) / B = Support (screens, Trick)
        Moves: Hypnosis [T2]  /  Encore [Sit]  /  Psybeam [T2]  /  Thunder Wave [Sit]
   [3A] Nasty Plot mime
        Mr. Mime @ Wise Glasses   |   Ability: Filter   |   Nature: Modest
-       Moves: Nasty Plot [T4]  /  Dazzling Gleam [T3]  /  Expanding Force [T3]  /  Mystical Fire [T3]
+       Moves: Nasty Plot [T4]  /  Dazzling Gleam [T3]  /  Psychic [T4]  /  Mystical Fire [T3]
   [3B] Screen setter
        Mr. Mime @ Light Clay   |   Ability: Filter   |   Nature: Timid
        Moves: Psychic [T4]  /  Reflect [Sit]  /  Taunt [Sit]  /  Healing Wish [Sit]
@@ -1147,7 +1147,7 @@ Variants: A = Defensive (Regenerator, Slack Off) / B = Offensive (Calm Mind, Spe
        Moves: Slack Off [Sit]  /  Psybeam [T2]  /  Yawn [Sit]  /  Toxic [Sit]
   [2B] Psychic caster
        Slowbro @ Twisted Spoon   |   Ability: Oblivious   |   Nature: Mild
-       Moves: Psybeam [T2]  /  Bubble Beam [T2]  /  Incinerate [T2]  /  Expanding Force [T3]
+       Moves: Psybeam [T2]  /  Bubble Beam [T2]  /  Incinerate [T2]  /  Psychic Noise [T3]
   [3A] Regenerator wall
        Slowbro @ Leftovers   |   Ability: Regenerator   |   Nature: Bold
        Moves: Slack Off [Sit]  /  Psychic Noise [T3]  /  Thunder Wave [Sit]  /  Brine [T3]
@@ -1234,13 +1234,13 @@ Variants: A = Setup (Magic Guard, Nasty Plot) / B = Utility and Calm Mind
        Moves: Confusion [T1]  /  Miracle Eye [T1]  /  Confide [T1]  /  Shock Wave [T2]
   [2A] Psychic caster
        Alakazam @ Twisted Spoon   |   Ability: Magic Guard   |   Nature: Rash
-       Moves: Psybeam [T2]  /  Charge Beam [T2]  /  Swift [T2]  /  Expanding Force [T3]
+       Moves: Psybeam [T2]  /  Charge Beam [T2]  /  Swift [T2]  /  Tri Attack [T3]
   [2B] Taunting master
        Alakazam @ Sitrus Berry   |   Ability: Inner Focus   |   Nature: Timid
        Moves: Encore [Sit]  /  Taunt [Sit]  /  Psybeam [T2]  /  Thunder Wave [Sit]
   [3A] Nasty Plot master
        Alakazam @ Expert Belt   |   Ability: Magic Guard   |   Nature: Timid
-       Moves: Nasty Plot [T4]  /  Expanding Force [T3]  /  Dazzling Gleam [T3]  /  Signal Beam [T3]
+       Moves: Nasty Plot [T4]  /  Psychic [T4]  /  Dazzling Gleam [T3]  /  Signal Beam [T3]
   [3B] Sash master
        Alakazam @ Focus Sash   |   Ability: Synchronize   |   Nature: Timid
        Moves: Encore [Sit]  /  Taunt [Sit]  /  Future Sight [T3]  /  Psyshock [T4]
@@ -1414,13 +1414,13 @@ Variants: A = Attacker (Analytic) / B = Utility (Rapid Spin, Recover)
        Moves: Whirlpool [T1]  /  Flash [T1]  /  Confide [T1]  /  Psybeam [T2]
   [2A] Analytic caster
        Starmie @ Mystic Water   |   Ability: Analytic   |   Nature: Mild
-       Moves: Bubble Beam [T2]  /  Psybeam [T2]  /  Swift [T2]  /  Expanding Force [T3]
+       Moves: Bubble Beam [T2]  /  Psybeam [T2]  /  Swift [T2]  /  Brine [T3]
   [2B] Spinning star
        Starmie @ Sitrus Berry   |   Ability: Natural Cure   |   Nature: Timid
        Moves: Rapid Spin [T2]  /  Recover [Sit]  /  Flip Turn [T2]  /  Psybeam [T2]
   [3A] Coverage star
        Starmie @ Expert Belt   |   Ability: Analytic   |   Nature: Timid
-       Moves: Expanding Force [T3]  /  Brine [T3]  /  Dazzling Gleam [T3]  /  Ice Beam [T4]
+       Moves: Psychic [T4]  /  Brine [T3]  /  Dazzling Gleam [T3]  /  Ice Beam [T4]
   [3B] Utility spinner
        Starmie @ Leftovers   |   Ability: Natural Cure   |   Nature: Timid
        Moves: Recover [Sit]  /  Surf [T4]  /  Thunder Wave [Sit]  /  Psychic [T4]
@@ -1453,7 +1453,7 @@ Variants: A = Physical (Armor Tail) / B = Special (Cud Chew, Trick Room)
        Moves: Zen Headbutt [T3]  /  High Horsepower [T3]  /  Crunch [T3]  /  Body Slam [T4]
   [3B] Trick Room neck
        Farigiraf @ Sitrus Berry   |   Ability: Cud Chew   |   Nature: Quiet
-       Moves: Trick Room [Sit]  /  Expanding Force [T3]  /  Hyper Voice [T4]  /  Thunderbolt [T4]
+       Moves: Trick Room [Sit]  /  Psychic Noise [T3]  /  Hyper Voice [T4]  /  Thunderbolt [T4]
   [4A] Physical attacker
        Farigiraf @ Life Orb   |   Ability: Armor Tail   |   Nature: Brave
        Moves: Psychic Fangs [T4]  /  Body Slam [T4]  /  Earthquake [T4]  /  Sucker Punch [T4]
@@ -1690,7 +1690,7 @@ Variants: A = Setup (Calm Mind, Nasty Plot) / B = Physical (Bulk Up)
        Moves: Low Sweep [T2]  /  Power-Up Punch [T2]  /  Brutal Swing [T2]  /  Psycho Cut [T3]
   [3A] Calm Mind clone
        Mewtwo @ Wise Glasses   |   Ability: Pressure   |   Nature: Modest
-       Moves: Calm Mind [T4]  /  Expanding Force [T3]  /  Signal Beam [T3]  /  Recover [Sit]
+       Moves: Calm Mind [T4]  /  Psystrike [T4]  /  Signal Beam [T3]  /  Recover [Sit]
   [3B] Bulk Up clone
        Mewtwo @ Muscle Band   |   Ability: Unnerve   |   Nature: Adamant
        Moves: Bulk Up [T4]  /  Psycho Cut [T3]  /  Brick Break [T3]  /  Ice Punch [T3]

@@ -424,7 +424,7 @@ Variants: A = Attacker (Calm Mind) / B = Support (Magic Bounce, Wish, Roost)
        Moves: Peck [T1]  /  Miracle Eye [T1]  /  Flash [T1]  /  Air Cutter [T2]
   [2A] Psychic caster
        Natu @ Twisted Spoon   |   Ability: Synchronize   |   Nature: Mild
-       Moves: Air Cutter [T2]  /  Ominous Wind [T2]  /  Silver Wind [T2]  /  Expanding Force [T3]
+       Moves: Air Cutter [T2]  /  Ominous Wind [T2]  /  Silver Wind [T2]  /  Heat Wave [T3]
   [2B] Bouncing pivot
        Natu @ Sitrus Berry   |   Ability: Magic Bounce   |   Nature: Timid
        Moves: Drill Peck [T3]  /  Thunder Wave [Sit]  /  Roost [Sit]  /  Wish [Sit]
@@ -454,7 +454,7 @@ Variants: A = Setup (Simple Calm Mind) / B = Utility (Unaware, Roost, Defog)
        Moves: Confusion [T1]  /  Flash [T1]  /  Odor Sleuth [T1]  /  Heart Stamp [T2]
   [2A] Simple caster
        Woobat @ Twisted Spoon   |   Ability: Simple   |   Nature: Mild
-       Moves: Charge Beam [T2]  /  Air Cutter [T2]  /  Swift [T2]  /  Expanding Force [T3]
+       Moves: Charge Beam [T2]  /  Air Cutter [T2]  /  Swift [T2]  /  Heat Wave [T3]
   [2B] Pivot bat
        Woobat @ Sitrus Berry   |   Ability: Unaware   |   Nature: Timid
        Moves: U-turn [T2]  /  Roost [Sit]  /  Thunder Wave [Sit]  /  Air Cutter [T2]
@@ -1060,10 +1060,10 @@ Variants: A = Bulky support (Magic Bounce, Roost) / B = Special attacker
        Moves: Roost [Sit]  /  Drill Peck [T3]  /  Thunder Wave [Sit]  /  Feather Dance [T2]
   [3A] Magic Bounce wall
        Xatu @ Leftovers   |   Ability: Magic Bounce   |   Nature: Bold
-       Moves: Roost [Sit]  /  Expanding Force [T3]  /  Night Shade [T4]  /  Thunder Wave [Sit]
+       Moves: Roost [Sit]  /  Psychic [T4]  /  Night Shade [T4]  /  Thunder Wave [Sit]
   [3B] Psychic caster
        Xatu @ Wise Glasses   |   Ability: Synchronize   |   Nature: Timid
-       Moves: Expanding Force [T3]  /  Heat Wave [T3]  /  Signal Beam [T3]  /  Air Slash [T4]
+       Moves: Psychic [T4]  /  Heat Wave [T3]  /  Signal Beam [T3]  /  Air Slash [T4]
   [4A] Bulky bird
        Xatu @ Rocky Helmet   |   Ability: Magic Bounce   |   Nature: Bold
        Moves: Roost [Sit]  /  Psychic [T4]  /  Defog [Sit]  /  Thunder Wave [Sit]
@@ -1174,7 +1174,7 @@ Variants: A = Setup (Magic Guard Calm Mind) / B = Support (Wonder Skin, screens)
        Moves: Confusion [T1]  /  Flash [T1]  /  Gust [T1]  /  Air Cutter [T2]
   [2A] Tinted caster
        Sigilyph @ Twisted Spoon   |   Ability: Tinted Lens   |   Nature: Mild
-       Moves: Psybeam [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Expanding Force [T3]
+       Moves: Psybeam [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Heat Wave [T3]
   [2B] Screen bird
        Sigilyph @ Sitrus Berry   |   Ability: Wonder Skin   |   Nature: Bold
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Psybeam [T2]  /  Air Cutter [T2]

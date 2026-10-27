@@ -340,7 +340,7 @@ Variants: A = Pure Stall / B = Defensive with utility (Trick Room, screens)
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Heavy Slam [T3]
   [3A] Mirror staller
        Bronzor @ Leftovers   |   Ability: Levitate   |   Nature: Bold
-       Moves: Flash Cannon [T4]  /  Protect [Sit]  /  Expanding Force [T3]  /  Psychic [T4]
+       Moves: Flash Cannon [T4]  /  Protect [Sit]  /  Extrasensory [T3]  /  Psychic [T4]
   [3B] Screen setter
        Bronzor @ Light Clay   |   Ability: Heatproof   |   Nature: Relaxed
        Moves: Light Screen [Sit]  /  Reflect [Sit]  /  Trick Room [Sit]  /  Gyro Ball [T3]
@@ -934,7 +934,7 @@ Variants: A = Special attacker / B = Support (Lovely Kiss, Taunt, Trick)
        Moves: Double Slap [T1]  /  Lick [T1]  /  Sweet Kiss [T1]  /  Confusion [T1]
   [2A] Psychic caster
        Jynx @ Twisted Spoon   |   Ability: Dry Skin   |   Nature: Rash
-       Moves: Icy Wind [T2]  /  Bubble Beam [T2]  /  Draining Kiss [T2]  /  Expanding Force [T3]
+       Moves: Icy Wind [T2]  /  Bubble Beam [T2]  /  Draining Kiss [T2]  /  Psywave [T2]
   [2B] Kiss support
        Jynx @ Sitrus Berry   |   Ability: Forewarn   |   Nature: Hasty
        Moves: Lovely Kiss [T3]  /  Encore [Sit]  /  Fake Tears [T2]  /  Icy Wind [T2]
@@ -1168,13 +1168,13 @@ Variants: A = Physical / B = Special (Snow Warning)
 ----------------------------------------------------------------------------------------------------
   [1A] Frost giant
        Abomasnow @ (no item)   |   Ability: Snow Warning   |   Nature: Hardy
-       Moves: Leafage [T1]  /  Powder Snow [T1]  /  Rock Smash [T1]  /  Grassy Glide [T2]
+       Moves: Leafage [T1]  /  Powder Snow [T1]  /  Rock Smash [T1]  /  Razor Leaf [T2]
   [1B] Quiet giant
        Abomasnow @ Oran Berry   |   Ability: Soundproof   |   Nature: Docile
        Moves: Powder Snow [T1]  /  Leafage [T1]  /  Mud-Slap [T1]  /  Magical Leaf [T2]
   [2A] Stomping giant
        Abomasnow @ Sitrus Berry   |   Ability: Snow Warning   |   Nature: Lonely
-       Moves: Grassy Glide [T2]  /  Rock Tomb [T2]  /  Stomp [T2]  /  Ice Punch [T3]
+       Moves: Razor Leaf [T2]  /  Rock Tomb [T2]  /  Stomp [T2]  /  Ice Punch [T3]
   [2B] Frost caster
        Abomasnow @ Never-Melt Ice   |   Ability: Snow Warning   |   Nature: Mild
        Moves: Icy Wind [T2]  /  Magical Leaf [T2]  /  Water Pulse [T2]  /  Frost Breath [T3]
@@ -1363,7 +1363,7 @@ Variants: A = Physical / B = Special
        Moves: Swords Dance [T4]  /  Sky Uppercut [T3]  /  Crunch [T3]  /  Meteor Mash [T4]
   [3B] Aura Sphere caster
        Lucario @ Focus Sash   |   Ability: Inner Focus   |   Nature: Modest
-       Moves: Aura Sphere [T4]  /  Water Pulse [T2]  /  Terrain Pulse [T2]  /  Detect [Sit]
+       Moves: Aura Sphere [T4]  /  Water Pulse [T2]  /  Agility [Sit]  /  Detect [Sit]
   [4A] Swords Dance sweeper
        Lucario @ Life Orb   |   Ability: Justified   |   Nature: Adamant
        Moves: Swords Dance [T4]  /  Close Combat [T4]  /  Meteor Mash [T4]  /  Extreme Speed [T4]

@@ -577,7 +577,7 @@ Variants: A = Special (Shell Smash) / B = Bulky / physical
        Moves: Water Pulse [T2]  /  Icy Wind [T2]  /  Round [T2]  /  Brine [T3]
   [2B] Iron clam
        Clamperl @ Sitrus Berry   |   Ability: Rattled   |   Nature: Impish
-       Moves: Iron Defense [Sit]  /  Secret Power [T2]  /  Water Pulse [T2]  /  Protect [Sit]
+       Moves: Iron Defense [Sit]  /  Muddy Water [T3]  /  Water Pulse [T2]  /  Protect [Sit]
   [3A] Shell Smash clam
        Clamperl @ White Herb   |   Ability: Shell Armor   |   Nature: Modest
        Moves: Shell Smash [T4]  /  Muddy Water [T3]  /  Brine [T3]  /  Icy Wind [T2]
