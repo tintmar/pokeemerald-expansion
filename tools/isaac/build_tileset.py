@@ -58,6 +58,17 @@ MAT_FIRST = 0x240
 PRIMARY_SIGN = 0x003  # panneau du tileset General
 SANDBAR_WATER = 0x170  # eau de General
 SANDBAR_TOP = [0x59D6, 0x55D0, 0x51D6, 0x5DD0]  # coins de rive (tuiles 0x1D6 et 0x1D0 de General retournées)
+HFLIP = 0x10000  # metatile de General retourné horizontalement (HFLIP | metatile, voir hflip_metatile)
+
+
+def hflip_metatile(entries):
+    """Metatile retourné horizontalement : dans chaque calque (2 x 2 tuiles), gauche et droite échangées, et chaque
+    tuile retournée (bit 0x400)"""
+    out = []
+    for layer in range(2):
+        tl, tr, bl, br = entries[layer * 4: layer * 4 + 4]
+        out += [e ^ 0x400 for e in (tr, tl, br, bl)]
+    return out
 
 # Décors : (tileset produit, tileset d'origine, metatile d'origine pour chaque rôle)
 BIOME_TILESETS = [
@@ -80,10 +91,11 @@ BIOME_TILESETS = [
     # bouts de mur isolés ; tout dans le tileset primaire General (le tileset d'origine ne sert pas). Tous les rôles
     # ont le comportement de l'eau : le joueur surfe partout, même à travers les rochers des portes secrètes (les
     # murs sont bloqués par leur collision). Les crêtes n'ont que deux coins rentrants (sol au nord-ouest 0x0B4, au
-    # sud-est 0x074) : les deux autres prennent le centre de la roche.
+    # sud-est 0x074) : les deux autres sont ces coins retournés horizontalement (HFLIP).
     ('isaac_ocean', 'pacifidlog', dict(
         FLOOR=0x170, ROCK_1=0x0BD, ROCK_2=0x0BD, TL=0x172, T=0x17B, TR=0x174, L=0x17A, C=0x071, R=0x17C,
-        BL=0x182, B=0x079, BR=0x184, IN_SE=0x074, IN_SW=0x071, IN_NE=0x071, IN_NW=0x0B4, DECO_1=0x0BD, DECO_2=0x0BD)),
+        BL=0x182, B=0x079, BR=0x184, IN_SE=0x074, IN_SW=HFLIP | 0x074, IN_NE=HFLIP | 0x0B4, IN_NW=0x0B4,
+        DECO_1=0x0BD, DECO_2=0x0BD)),
     # Désert (Route 111) : sable ondulé, montagnes rouges de General avec leurs bords sur le sable
     ('isaac_desert', 'mauville', dict(
         FLOOR=0x251, ROCK_1=0x0E1, ROCK_2=0x0E1, TL=0x080, T=0x081, TR=0x082, L=0x088, C=0x071, R=0x08A,
@@ -259,7 +271,7 @@ def build(out_name, source_name, mapping, mats):
         mapping.setdefault(role, mapping[EXTRA_DEFAULTS[role]])
     pal_remap = {}
     for role in ROLES + DECOS + TREES + EXTRAS:
-        if mapping[role] < NUM_PRIMARY_TILES:
+        if mapping[role] < NUM_PRIMARY_TILES or mapping[role] & HFLIP:
             continue  # metatile de General : palettes de General
         m = mapping[role] - NUM_PRIMARY_TILES
         for e in src_meta[m * 8: m * 8 + 8]:
@@ -287,6 +299,11 @@ def build(out_name, source_name, mapping, mats):
     # 1. Rôles (0x200 à 0x20F)
     metatiles, attributes = [], []
     for role in ROLES:
+        if mapping[role] & HFLIP:  # metatile de General retourné horizontalement (comportement compris)
+            m = mapping[role] & ~HFLIP
+            metatiles.extend(hflip_metatile(primary_meta[m * 8: m * 8 + 8]))
+            attributes.append(primary_attr[m])
+            continue
         if mapping[role] < NUM_PRIMARY_TILES:  # metatile de General, tel quel (comportement compris)
             m = mapping[role]
             metatiles.extend(primary_meta[m * 8: m * 8 + 8])
