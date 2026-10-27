@@ -1173,7 +1173,7 @@ static bool8 IsMoveInSpeciesSets(enum Species species, u16 move)
 // tuteur) et que le Pokémon ne connaît pas, jamais une attaque ISAAC_MOVE_ROLE_COMBO (recharge, tour de charge,
 // Mitra-Poing...) :
 //  - les attaques offensives dans la catégorie de son orientation (IsMonPhysicallyOriented : sa plus haute stat
-//    d'attaque réelle), ou dans les deux s'il est mixte (stats à moins de 10 % l'une de l'autre) ;
+//    d'attaque réelle), ou dans les deux s'il est mixte (stats à moins de ISAAC_MIXED_GAP_PCT % l'une de l'autre) ;
 //  - les attaques de statut du tier visé ou situationnelles qui sont dans les sets de l'espèce (de bonnes attaques pour
 //    elle), plus les boosts de tier 4 de son build même hors de ses sets (Danse Lames, Machination...), sans seconde
 //    attaque d'un rôle qu'il a déjà (deux soins, deux boosts...). Un Pokémon offensif (au moins UPGRADE_OFFENSIVE_MOVES
@@ -1242,9 +1242,11 @@ static void AddThreatType(struct UpgradeContext *ctx, enum Type type)
 
 // Orientation offensive du Pokémon (s'il était de l'espèce donnée, après une évolution le cas échéant) d'après ses
 // vraies stats d'Attaque et d'Attaque Spéciale (nature, EVs et boosts compris ; pour une évolution, mises à l'échelle
-// des stats de base de la nouvelle espèce) : physique ou spécial selon la plus haute ; si elles sont à moins de 10 %
-// l'une de l'autre, mixte (*mixed), et la catégorie de la majorité de ses attaques offensives (à égalité, la plus
+// des stats de base de la nouvelle espèce) : physique ou spécial selon la plus haute ; si elles sont à moins de
+// ISAAC_MIXED_GAP_PCT % l'une de l'autre, mixte (*mixed), et la catégorie de la majorité de ses attaques offensives (à égalité, la plus
 // haute). Renvoie TRUE pour physique.
+#define ISAAC_MIXED_GAP_PCT  15
+
 static bool8 IsMonPhysicallyOriented(struct Pokemon *mon, enum Species species, bool8 *mixed)
 {
     enum Species current = GetMonData(mon, MON_DATA_SPECIES);
@@ -1256,7 +1258,7 @@ static bool8 IsMonPhysicallyOriented(struct Pokemon *mon, enum Species species, 
         atk = atk * gSpeciesInfo[species].baseAttack / gSpeciesInfo[current].baseAttack;
         spa = spa * gSpeciesInfo[species].baseSpAttack / gSpeciesInfo[current].baseSpAttack;
     }
-    *mixed = (10 * min(atk, spa) >= 9 * max(atk, spa));
+    *mixed = (100 * min(atk, spa) >= (100 - ISAAC_MIXED_GAP_PCT) * max(atk, spa));
     if (!*mixed)
         return atk > spa;
     for (i = 0; i < MAX_MON_MOVES; i++)
