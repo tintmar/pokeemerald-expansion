@@ -5,6 +5,7 @@
 static const u8 sIsaacMoveTiers[MOVES_COUNT] =
 {
     [MOVE_VISE_GRIP] = 1,
+    [MOVE_CUT] = 1,
     [MOVE_FALSE_SWIPE] = 1,
     [MOVE_PAY_DAY] = 1,
     [MOVE_POUND] = 1,

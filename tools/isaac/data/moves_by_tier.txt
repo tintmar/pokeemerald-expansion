@@ -5,8 +5,8 @@ Draft v3 — pivots by raw power, practical power for conditional moves, no snow
 
 SUMMARY
 --------------------------------------------------------------------------------------------------------------
-  Moves in pool: 650  (every move learnable by at least one Pokémon in pokemon_biomes_and_tiers.txt; Gen 1-9 data)
-  TIER 1 — WEAK                        79   (49 attacks, 30 status)
+  Moves in pool: 651  (every move learnable by at least one Pokémon in pokemon_biomes_and_tiers.txt, plus every TM and HM; Gen 1-9 data)
+  TIER 1 — WEAK                        80   (50 attacks, 30 status)
   TIER 2 — MEDIUM                     130   (114 attacks, 16 status)
   TIER 3 — STRONG                     135   (131 attacks, 4 status)
   TIER 4 — OPTIMAL                    132   (119 attacks, 13 status)
@@ -61,11 +61,12 @@ COLUMNS
     -> T4: X = the better Tier 4 option this Tier 3 move is a weaker version of.
 
 ==============================================================================================================
-TIER 1 — WEAK (early game)   [79 moves]
+TIER 1 — WEAK (early game)   [80 moves]
 ==============================================================================================================
-  -- NORMAL (33) --
+  -- NORMAL (34) --
     Move                Cat      BP   Acc  PP Pri  Effect
     Vise Grip           Phys     55  100%  30      —
+    Cut                 Phys     50   95%  30      —
     False Swipe         Phys     40  100%  40      Always leaves the target with at least 1 HP.
     Pay Day             Phys     40  100%  20      Scatters coins.
     Pound               Phys     40  100%  35      —
