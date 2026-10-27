@@ -841,7 +841,8 @@ void IsaacGoldenHeartEnd(void)
 // terrain à la fin du tour). Combat gagné : le Pokémon qui n'est pas à son stade final et en a le plus évolue
 // (environ PROGRESSION_EVOLUTION_PCT % de chances, voir l'anti-malchance plus bas, toujours contre le boss ; s'il a plusieurs évolutions, l'une
 // de celles qui collent le mieux au biome), et apprend en même temps une attaque de tier supérieur pour sa nouvelle
-// espèce (PickUpgradeMove). Sinon, avec environ PROGRESSION_MOVE_PCT % de chances (toujours contre le boss), le Pokémon qui a le
+// espèce (PickUpgradeMove). Sinon, avec environ PROGRESSION_MOVE_PCT % de chances (PROGRESSION_MOVE_NO_EVOLUTION_PCT %
+// si personne ne peut évoluer) (toujours contre le boss), le Pokémon qui a le
 // plus de tours actifs apprend une attaque de tier supérieur, dans l'écran de l'évolution mais sans l'animation ; si la
 // moyenne de ses attaques est déjà de tier 4, il gagne à la place un cran d'EVs (IncreaseMonEvs), avec un simple
 // message dans la même scène. Sinon, avec environ PROGRESSION_EVS_PCT % de chances, ce même Pokémon gagne un cran d'EVs, ou, si
@@ -879,10 +880,19 @@ static u32 GetPityFails(u32 kind)
     return (VarGet(VAR_ISAAC_PROGRESSION_PITY) >> (kind * PITY_BITS)) & PITY_MAX;
 }
 
-// Tirage du type kind, sans le compter (voir RecordPity)
+// Personne ne peut évoluer : l'attaque prend la place de l'évolution, environ PROGRESSION_MOVE_NO_EVOLUTION_PCT %
+#define PROGRESSION_MOVE_NO_EVOLUTION_PCT  40
+#define PITY_MOVE_NO_EVOLUTION_STEP        202  // ~ 40 %
+
+// Tirage du type kind avec un pas (pour mille) donné, sans le compter (voir RecordPity)
+static bool8 RollPityStep(u32 kind, u32 step)
+{
+    return Random() % 1000 < step * (GetPityFails(kind) + 1);
+}
+
 static bool8 RollPity(u32 kind)
 {
-    return Random() % 1000 < sPityStepPermille[kind] * (GetPityFails(kind) + 1);
+    return RollPityStep(kind, sPityStepPermille[kind]);
 }
 
 // Résultat du tirage : un succès remet le compteur d'échecs à zéro. Un tirage n'a lieu (et ne compte) que si le
@@ -1510,7 +1520,8 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
     move = maxedMoves ? MOVE_NONE : PickUpgradeMove(mon, species);
     if (maxedMoves ? canEvs : (move != MOVE_NONE))
     {
-        rolled = boss || RollPity(PITY_MOVE);
+        // personne ne peut évoluer (pas de tirage d'évolution) : l'attaque est plus probable
+        rolled = boss || RollPityStep(PITY_MOVE, (evolver == PARTY_SIZE) ? PITY_MOVE_NO_EVOLUTION_STEP : sPityStepPermille[PITY_MOVE]);
         if (!boss)
             RecordPity(PITY_MOVE, rolled);
         if (rolled && maxedMoves)
