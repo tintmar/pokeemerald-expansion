@@ -14203,7 +14203,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM76"),
         .price = 3000,
-        .description = COMPOUND_STRING("?????"), // Todo
+        .description = COMPOUND_STRING(
+            "Inflicts a burn on\n"
+            "the foe with a\n"
+            "sinister flame."),  // Donjon : WILL_O_WISP
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14214,7 +14217,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM77"),
         .price = 3000,
-        .description = COMPOUND_STRING("?????"), // Todo
+        .description = COMPOUND_STRING(
+            "A weak jolt of\n"
+            "electricity that\n"
+            "paralyzes the foe."),  // Donjon : THUNDER_WAVE
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14225,7 +14231,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM78"),
         .price = 3000,
-        .description = COMPOUND_STRING("?????"), // Todo
+        .description = COMPOUND_STRING(
+            "Uses 1/4 of its HP\n"
+            "to make a decoy\n"
+            "that takes hits."),  // Donjon : SUBSTITUTE
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14236,7 +14245,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM79"),
         .price = 3000,
-        .description = COMPOUND_STRING("?????"), // Todo
+        .description = COMPOUND_STRING(
+            "Makes the foe repeat\n"
+            "its last move for\n"
+            "3 turns."),  // Donjon : ENCORE
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14247,7 +14259,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM80"),
         .price = 3000,
-        .description = COMPOUND_STRING("?????"), // Todo
+        .description = COMPOUND_STRING(
+            "Slams the foe using\n"
+            "its Defense instead\n"
+            "of its Attack."),  // Donjon : BODY_PRESS
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14258,7 +14273,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM81"),
         .price = 3000,
-        .description = COMPOUND_STRING("?????"), // Todo
+        .description = COMPOUND_STRING(
+            "Turns the foe's\n"
+            "power against it,\n"
+            "using its Attack."),  // Donjon : FOUL_PLAY
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14269,7 +14287,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM82"),
         .price = 3000,
-        .description = COMPOUND_STRING("?????"), // Todo
+        .description = COMPOUND_STRING(
+            "Hardens the body's\n"
+            "surface to sharply\n"
+            "raise Defense."),  // Donjon : IRON_DEFENSE
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14280,7 +14301,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM83"),
         .price = 3000,
-        .description = COMPOUND_STRING("?????"), // Todo
+        .description = COMPOUND_STRING(
+            "For 5 turns, slower\n"
+            "Pokémon move first.\n"
+            "Moves last."),  // Donjon : TRICK_ROOM
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14291,7 +14315,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM84"),
         .price = 3000,
-        .description = COMPOUND_STRING("?????"), // Todo
+        .description = COMPOUND_STRING(
+            "Whips up a wind that\n"
+            "doubles the team's\n"
+            "Speed for 4 turns."),  // Donjon : TAILWIND
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14302,7 +14329,10 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM85"),
         .price = 3000,
-        .description = COMPOUND_STRING("?????"), // Todo
+        .description = COMPOUND_STRING(
+            "Adds its HP to the\n"
+            "foe's and shares\n"
+            "them out equally."),  // Donjon : PAIN_SPLIT
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
