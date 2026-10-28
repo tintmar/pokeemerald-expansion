@@ -8,8 +8,8 @@ SUMMARY
   Moves in pool: 651  (every move learnable by at least one Pokémon in pokemon_biomes_and_tiers.txt, plus every TM and HM; Gen 1-9 data)
   TIER 1 — WEAK                        80   (50 attacks, 30 status)
   TIER 2 — MEDIUM                     130   (114 attacks, 16 status)
-  TIER 3 — STRONG                     135   (131 attacks, 4 status)
-  TIER 4 — OPTIMAL                    132   (119 attacks, 13 status)
+  TIER 3 — STRONG                     136   (132 attacks, 4 status)
+  TIER 4 — OPTIMAL                    131   (118 attacks, 13 status)
   SITUATIONAL / UTILITY               174   (26 attacks, 148 status)
 
 HOW MOVES WERE TIERED (v3)
@@ -382,7 +382,7 @@ TIER 2 — MEDIUM (mid game, ~50-70 effective power)   [130 moves]
     Charm               Stat      —  100%  20      [Stat Drop] Lowers the target's Attack by 2.
 
 ==============================================================================================================
-TIER 3 — STRONG (near-optimal: a better Tier 4 option of the same type exists)   [135 moves]
+TIER 3 — STRONG (near-optimal: a better Tier 4 option of the same type exists)   [136 moves]
 ==============================================================================================================
   -- NORMAL (20) --
     Move                Cat      BP   Acc  PP Pri  Effect
@@ -454,13 +454,14 @@ TIER 3 — STRONG (near-optimal: a better Tier 4 option of the same type exists)
     Grass Knot          Spec    var  100%  20      More power the heavier the target.  -> T4: Giga Drain
     Sleep Powder        Stat      —   75%  15      [Sleep] Causes the target to fall asleep.  -> T4: Spore
 
-  -- ICE (6) --
+  -- ICE (7) --
     Move                Cat      BP   Acc  PP Pri  Effect
     Ice Spinner         Phys     80  100%  15      Ends the effects of terrain.  -> T4: Triple Axel
     Ice Punch           Phys     75  100%  15      10% chance to freeze the target.  -> T4: Triple Axel
-    Glaciate            Spec     65   95%  10      100% chance to lower the foe(s) Speed by 1.  [Exclusive: Kyurem line]  -> T4: Freeze-Dry
+    Freeze-Dry          Spec     70  100%  20      10% chance to freeze. Super effective on Water.  -> T4: Ice Beam
+    Glaciate            Spec     65   95%  10      100% chance to lower the foe(s) Speed by 1.  [Exclusive: Kyurem line]  -> T4: Ice Beam
     Avalanche           Phys     60  100%  10  -4  Power doubles if user is damaged by the target.  -> T4: Triple Axel
-    Frost Breath        Spec     60   90%  10      Always results in a critical hit.  -> T4: Freeze-Dry
+    Frost Breath        Spec     60   90%  10      Always results in a critical hit.  -> T4: Ice Beam
     Icicle Spear        Phys     25  100%  30      Hits 2-5 times in one turn.  -> T4: Triple Axel
 
   -- FIGHTING (13) --
@@ -574,7 +575,7 @@ TIER 3 — STRONG (near-optimal: a better Tier 4 option of the same type exists)
     Dazzling Gleam      Spec     80  100%  10      — Hits adjacent foes.  -> T4: Moonblast
 
 ==============================================================================================================
-TIER 4 — OPTIMAL (the competitive best of each type x category, or of a role)   [132 moves]
+TIER 4 — OPTIMAL (the competitive best of each type x category, or of a role)   [131 moves]
 ==============================================================================================================
   -- NORMAL (18) --
     Move                Cat      BP   Acc  PP Pri  Effect
@@ -645,12 +646,11 @@ TIER 4 — OPTIMAL (the competitive best of each type x category, or of a role) 
     Horn Leech          Phys     75  100%  10      User recovers 50% of the damage dealt.  [Exclusive: Xerneas line]
     Spore               Stat      —  100%  15      [Sleep] Causes the target to fall asleep.
 
-  -- ICE (6) --
+  -- ICE (5) --
     Move                Cat      BP   Acc  PP Pri  Effect
     Blizzard            Spec    110   70%   5      10% chance to freeze foe(s). Can't miss in Snow.
     Ice Beam            Spec     90  100%  10      10% chance to freeze the target.
     Icicle Crash        Phys     85   90%  10      30% chance to make the target flinch.
-    Freeze-Dry          Spec     70  100%  20      10% chance to freeze. Super effective on Water.
     Ice Shard           Phys     40  100%  30  +1  [Priority] Usually goes first.
     Triple Axel         Phys     20   90%  10      Hits 3 times. Each hit can miss, but power rises.
 
