@@ -1550,12 +1550,55 @@ static u32 GetRivalTeam(u32 encounter, u16 *out, u8 *variants)
     return count;
 }
 
-// Dresseur d'une salle normale, avant l'éventuelle salle libérée pour l'entraîneur d'Éclate-Roc (jamais celle du
-// gardien du boss ni celle du rival)
-static bool8 NormalRoomRollsTrainer(s32 x, s32 y)
+// Tirage du dresseur d'une salle normale seule (toujours un dresseur chez le gardien du boss et le rival)
+static bool8 NormalRoomRollsTrainerAlone(s32 x, s32 y)
 {
     return GetRoom(x, y) == ROOM_NORMAL
         && (IsBossGuardRoom(x, y) || IsRivalRoom(x, y) || RoomRandom(x, y, 0x7A1) % 100 < ISAAC_TRAINER_PCT);
+}
+
+// Dresseur d'une salle normale, avant l'éventuelle salle libérée pour l'entraîneur d'Éclate-Roc : le tirage de chaque
+// salle, complété si besoin pour qu'au moins ISAAC_TRAINER_PCT % des salles normales de l'étage (arrondi au-dessus)
+// aient un dresseur ; les salles ajoutées sont celles dont la clé de tirage est la plus basse
+static bool8 NormalRoomRollsTrainer(s32 x, s32 y)
+{
+    u32 rooms = 0, trainers = 0, missing, rank = 0, key;
+    s32 cx, cy;
+
+    if (GetRoom(x, y) != ROOM_NORMAL)
+        return FALSE;
+    if (NormalRoomRollsTrainerAlone(x, y))
+        return TRUE;
+    for (cy = 0; cy < ISAAC_GRID_H; cy++)
+    {
+        for (cx = 0; cx < ISAAC_GRID_W; cx++)
+        {
+            if (GetRoom(cx, cy) != ROOM_NORMAL)
+                continue;
+            rooms++;
+            if (NormalRoomRollsTrainerAlone(cx, cy))
+                trainers++;
+        }
+    }
+    missing = (rooms * ISAAC_TRAINER_PCT + 99) / 100;
+    missing = (missing > trainers) ? missing - trainers : 0;
+    if (missing == 0)
+        return FALSE;
+    key = RoomRandom(x, y, 0x7A2);
+    for (cy = 0; cy < ISAAC_GRID_H; cy++)
+    {
+        for (cx = 0; cx < ISAAC_GRID_W; cx++)
+        {
+            u32 other;
+
+            if (GetRoom(cx, cy) != ROOM_NORMAL || NormalRoomRollsTrainerAlone(cx, cy) || (cx == x && cy == y))
+                continue;
+            other = RoomRandom(cx, cy, 0x7A2);
+            if (other < key || (other == key && cy * ISAAC_GRID_W + cx < y * ISAAC_GRID_W + x))
+                rank++;
+        }
+    }
+    return rank < missing;
 }
 
 static bool8 RoomHasTrainer(s32 x, s32 y)
