@@ -230,7 +230,7 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours surtout à la fin (sFirstAidKitWeights, retirée pour
 // l'instant : FIRST_AID_KIT_ENABLED) ; la Pierre Prisme un peu moins courante (PRISM_STONE_WEIGHT), le Cœur Doré peu courant
 // (GOLDEN_HEART_WEIGHT). La Master Ball est peu courante (MASTER_BALL_WEIGHT). Le Cristal Méga n'apparaît que si un
-// Pokémon de l'équipe a sa Méga-Gemme (tenue ou dans le sac).
+// Pokémon de l'équipe a sa Méga-Gemme (tenue ou dans le sac). L'Idole du Chaos a le poids normal.
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, un
 // peu plus fréquente en profondeur (sStatBoostWeights) ; de même pour les Gemmes de Type (puis le type est tiré ;
 // retirées pour l'instant : TYPE_GEM_WEIGHT à 0). Le Cœur Doré n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
@@ -326,7 +326,7 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
         ITEM_EVOLUTION_STONE, ITEM_SUPER_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_BOOST_HP,
         ITEM_BRILLIANT_STONE, ITEM_ISAAC_GEM_FIRST, ITEM_GOLDEN_HEART, ITEM_MEGA_RING, ITEM_LUCKY_COIN,
         ITEM_FIRST_AID_KIT, ITEM_PRISM_STONE, ITEM_Z_TM, ITEM_MASTER_BALL, ITEM_GLASS_CROWN, ITEM_TEAMWORK_TOTEM,
-        ITEM_MEGA_CRYSTAL,
+        ITEM_MEGA_CRYSTAL, ITEM_IDOL_OF_CHAOS,
     };
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
     static const u8 sAbilityTrainerWeights[] = { 4, 3, 2, 1, 1, 1 };
@@ -1312,6 +1312,7 @@ struct UpgradeContext
     bool8 bulky;                               // PV et défenses de base bien au-dessus de son attaque
     bool8 residual;                            // dégâts résiduels (Toxik, Feu Follet, Vampigraine) ou Restes
     u8 build;                                  // UPGRADE_BUILD_*
+    u8 base[NUM_STATS];                        // stats de base (STAT_*), Idole du Chaos comprise
 };
 
 // Rôle d'une attaque connue (lue sur le Pokémon, donc pas forcément valide) : 0 hors de la table.
@@ -1444,7 +1445,6 @@ static bool8 IsMonPhysicallyOriented(struct Pokemon *mon, enum Species species, 
 // Remplit ctx ; renvoie le tier visé
 static u32 InitUpgradeContext(struct UpgradeContext *ctx, struct Pokemon *mon, enum Species species)
 {
-    const struct SpeciesInfo *info = &gSpeciesInfo[species];
     u32 sum = 0, count = 0, physical = 0, special = 0, i, tier, target;
     enum Type gem = IsaacGetMonGemType(mon), type, def;
     uq4_12_t effect;
@@ -1493,7 +1493,10 @@ static u32 InitUpgradeContext(struct UpgradeContext *ctx, struct Pokemon *mon, e
     target = min(target, 4u);
 
     ctx->wantsPhysical = IsMonPhysicallyOriented(mon, species, &ctx->mixed);
-    ctx->bulky = (2 * (info->baseHP + info->baseDefense + info->baseSpDefense) >= 5 * max(info->baseAttack, info->baseSpAttack));
+    for (i = 0; i < NUM_STATS; i++)
+        ctx->base[i] = IsaacGetMonBaseStat(mon, species, i);
+    ctx->bulky = (2 * (ctx->base[STAT_HP] + ctx->base[STAT_DEF] + ctx->base[STAT_SPDEF])
+               >= 5 * max(ctx->base[STAT_ATK], ctx->base[STAT_SPATK]));
     ctx->buildSetup = ctx->wantsPhysical ? ISAAC_MOVE_ROLE_SETUP_PHYSICAL : ISAAC_MOVE_ROLE_SETUP_SPECIAL;
     if (ctx->mixed)
         ctx->buildSetup |= ISAAC_MOVE_ROLE_SETUP_PHYSICAL | ISAAC_MOVE_ROLE_SETUP_SPECIAL;
@@ -1626,7 +1629,7 @@ static u32 CountThreatTypes(const struct UpgradeContext *ctx, enum Type type1, e
 // puis les combinaisons avec ce qu'il connaît et les types à venir.
 static u32 ScoreUtilityUpgrade(const struct UpgradeContext *ctx, u16 move, u32 tier)
 {
-    u32 role = sIsaacMoveRoles[move], speed = gSpeciesInfo[ctx->species].baseSpeed;
+    u32 role = sIsaacMoveRoles[move], speed = ctx->base[STAT_SPEED];
     s32 score;
     bool8 defensive = (ctx->build == UPGRADE_BUILD_DEFENSIVE);
 
@@ -1723,14 +1726,13 @@ static u32 ScoreUtilityUpgrade(const struct UpgradeContext *ctx, u16 move, u32 t
 // base, EVs) ou un boost de Défense, les dégâts fixes surtout s'il frappe peu fort lui-même
 static u32 ScoreStatFreeBonus(const struct UpgradeContext *ctx, struct Pokemon *mon, u16 move)
 {
-    const struct SpeciesInfo *info = &gSpeciesInfo[ctx->species];
-    u32 bonus = 4;
+    u32 bonus = 4, attack = max(ctx->base[STAT_ATK], ctx->base[STAT_SPATK]);
 
     if (move == MOVE_BODY_PRESS)
     {
-        if (info->baseDefense >= 100 || GetMonData(mon, MON_DATA_DEF_EV) >= 128)
+        if (ctx->base[STAT_DEF] >= 100 || GetMonData(mon, MON_DATA_DEF_EV) >= 128)
             bonus += 4;
-        if (info->baseDefense < max(info->baseAttack, info->baseSpAttack))
+        if (ctx->base[STAT_DEF] < attack)
             bonus = 1;  // il frappe mieux autrement
         if (UpgradeKnowsMove(ctx, MOVE_IRON_DEFENSE) || UpgradeKnowsMove(ctx, MOVE_COTTON_GUARD)
          || UpgradeKnowsMove(ctx, MOVE_ACID_ARMOR) || UpgradeKnowsMove(ctx, MOVE_BARRIER)
@@ -1738,7 +1740,7 @@ static u32 ScoreStatFreeBonus(const struct UpgradeContext *ctx, struct Pokemon *
          || UpgradeKnowsMove(ctx, MOVE_BULK_UP) || UpgradeKnowsMove(ctx, MOVE_STOCKPILE))
             bonus += 6;
     }
-    else if (move != MOVE_FOUL_PLAY && max(info->baseAttack, info->baseSpAttack) <= 80)
+    else if (move != MOVE_FOUL_PLAY && attack <= 80)
     {
         bonus += 4;  // Frappe Atlas, Ombre Nocturne : des dégâts sûrs pour qui frappe peu fort
     }
@@ -1756,7 +1758,8 @@ static bool8 IsMissingStabUpgrade(const struct UpgradeContext *ctx, u16 move)
         && (type == ctx->types[0] || type == ctx->types[1]) && ctx->typeTier[type] == 0;
 }
 
-static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
+// forcedTarget : tier visé imposé (Idole du Chaos), 0 pour celui de ses attaques
+static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 forcedTarget)
 {
     struct UpgradeContext ctx;
     u16 moves[UPGRADE_MAX_CANDIDATES], move, fallback = MOVE_NONE;
@@ -1766,6 +1769,9 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
     u32 target = InitUpgradeContext(&ctx, mon, species);
     enum Type gem = IsaacGetMonGemType(mon);
     bool8 jackpot, physical, statFree;
+
+    if (forcedTarget != 0)
+        target = forcedTarget;
 
     for (move = 1; move < MOVES_COUNT && count < UPGRADE_MAX_CANDIDATES; move++)
     {
@@ -1866,6 +1872,11 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
     for (i = 0; i + 1 < count && roll >= weights[i]; i++)
         roll -= weights[i];
     return moves[i];
+}
+
+static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
+{
+    return PickUpgradeMoveAtTier(mon, species, 0);
 }
 
 // Pierre Prisme : attaque du nouveau type à proposer au Pokémon, toujours (même si son espèce n'en apprend aucune :
@@ -2698,6 +2709,101 @@ s32 IsaacRollCursedDie(struct Pokemon *mon, bool8 *ok)
     newTier = min(level - 1 + roll % 2, (u32)ISAAC_SET_TIERS - 1);  // set X ou X + 1 (paliers de 0 à 3)
     *ok = SetMovesFromSet(mon, newTier, (roll >> 8) % ISAAC_SET_VARIANTS);
     return (s32)(newTier + 1) - (s32)level;
+}
+
+// ---------------------------------------------------------------------------
+// Idole du Chaos
+// ---------------------------------------------------------------------------
+// Les stats de base hors PV du Pokémon (Attaque, Défense, Vitesse, Attaque Spé., Défense Spé.) sont redistribuées au
+// hasard sur leur total +CHAOS_BONUS_PCT % : chaque stat reçoit une part tirée entre CHAOS_MIN_WEIGHT et
+// CHAOS_MAX_WEIGHT (aucune ne tombe à presque rien), 255 au plus. Les PV ne changent pas. La répartition vient d'une
+// graine rangée sur le Pokémon (CHAOS_SEED_BITS bits dans deux rubans de concours, 0 : pas d'Idole) et de sa
+// personnalité : elle s'applique à toutes ses formes, évolutions et Méga-Évolution comprises, chacune avec son propre
+// total. Puis ses quatre attaques sont remplacées par quatre attaques du proposeur de fin de combat (PickUpgradeMove),
+// tirées une à une au niveau de tier de ses anciennes attaques (IsaacGetMonTierLevel), avec ses nouvelles stats. Ce
+// n'est pas un boost : il se cumule avec, et une nouvelle Idole refait un tirage (sans cumuler le bonus).
+#define CHAOS_BONUS_PCT   10
+#define CHAOS_MIN_WEIGHT  10
+#define CHAOS_MAX_WEIGHT  100
+#define CHAOS_SEED_BITS   3  // par ruban
+static const u32 sChaosSeedData[] = { MON_DATA_SMART_RIBBON, MON_DATA_TOUGH_RIBBON };
+#define CHAOS_SEED_COUNT  ((1 << (CHAOS_SEED_BITS * ARRAY_COUNT(sChaosSeedData))) - 1)  // graines 1 à 63
+
+static u32 GetMonChaosSeed(struct Pokemon *mon)
+{
+    u32 seed = 0, i;
+
+    for (i = 0; i < ARRAY_COUNT(sChaosSeedData); i++)
+        seed |= GetMonData(mon, sChaosSeedData[i]) << (CHAOS_SEED_BITS * i);
+    return seed;
+}
+
+static void SetMonChaosSeed(struct Pokemon *mon, u32 seed)
+{
+    u32 i, bits;
+
+    for (i = 0; i < ARRAY_COUNT(sChaosSeedData); i++)
+    {
+        bits = (seed >> (CHAOS_SEED_BITS * i)) & ((1 << CHAOS_SEED_BITS) - 1);
+        SetMonData(mon, sChaosSeedData[i], &bits);
+    }
+}
+
+// Stat de base (STAT_*) du Pokémon s'il était de l'espèce donnée, avec la répartition de l'Idole du Chaos
+u32 IsaacGetMonBaseStat(struct Pokemon *mon, enum Species species, u32 stat)
+{
+    u32 seed = GetMonChaosSeed(mon), weights[NUM_STATS], total = 0, weightTotal = 0, state, i;
+
+    if (seed == 0 || stat == STAT_HP)
+        return GetSpeciesBaseStat(species, stat);
+    state = GetMonData(mon, MON_DATA_PERSONALITY) ^ (seed * 0x9E3779B9);
+    for (i = STAT_ATK; i < NUM_STATS; i++)
+    {
+        state = ISO_RANDOMIZE1(state);
+        weights[i] = CHAOS_MIN_WEIGHT + (state >> 16) % (CHAOS_MAX_WEIGHT - CHAOS_MIN_WEIGHT + 1);
+        weightTotal += weights[i];
+        total += GetSpeciesBaseStat(species, i);
+    }
+    total = total * (100 + CHAOS_BONUS_PCT) / 100;
+    return min(max(total * weights[stat] / weightTotal, 1u), 255u);
+}
+
+// Idole du Chaos sur le Pokémon (voir plus haut) ; FALSE s'il ne peut rien apprendre
+bool8 IsaacUseIdolOfChaos(struct Pokemon *mon)
+{
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    u32 level = IsaacGetMonTierLevel(mon), oldSeed = GetMonChaosSeed(mon), seed, count = 0, i, tier;
+    u16 oldMoves[MAX_MON_MOVES], move;
+
+    // nouvelle répartition (jamais la même), d'abord : les attaques suivent les nouvelles stats
+    seed = 1 + Random() % CHAOS_SEED_COUNT;
+    if (seed == oldSeed)
+        seed = seed % CHAOS_SEED_COUNT + 1;
+    SetMonChaosSeed(mon, seed);
+    CalculateMonStats(mon);
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        oldMoves[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
+        RemoveMonPPBonus(mon, i);
+        SetMonMoveSlot(mon, MOVE_NONE, i);
+    }
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        for (tier = level, move = MOVE_NONE; tier >= 1 && move == MOVE_NONE; tier--)
+            move = PickUpgradeMoveAtTier(mon, species, tier);
+        if (move != MOVE_NONE)
+            SetMonMoveSlot(mon, move, count++);
+    }
+    if (count == 0)  // rien à apprendre : tout reste comme avant
+    {
+        for (i = 0; i < MAX_MON_MOVES; i++)
+            SetMonMoveSlot(mon, oldMoves[i], i);
+        SetMonChaosSeed(mon, oldSeed);
+        CalculateMonStats(mon);
+        return FALSE;
+    }
+    return TRUE;
 }
 
 // L'espèce a-t-elle un type en commun avec une des count espèces données ?

@@ -6776,6 +6776,20 @@ void ItemUseCB_IsaacCursedDie(u8 taskId, TaskFunc task)
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1}'s moves changed!\n{STR_VAR_2}{PAUSE_UNTIL_PRESS}"));
 }
 
+// Donjon : Idole du Chaos, stats hors PV redistribuées au hasard (+10 % au total) et 4 nouvelles attaques ; pas un boost
+void ItemUseCB_IsaacIdolOfChaos(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacUseIdolOfChaos(mon))
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    GetMonNickname(mon, gStringVar1);
+    IsaacItemUsed(taskId, task, COMPOUND_STRING("Chaos swallowed {STR_VAR_1}!\nIts stats and moves were reshaped!{PAUSE_UNTIL_PRESS}"));
+}
+
 // Donjon : Pacte de Sang, +20 % à toutes les stats mais -25 % de PV max, une fois par Pokémon
 void ItemUseCB_IsaacBloodPact(u8 taskId, TaskFunc task)
 {

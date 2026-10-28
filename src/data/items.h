@@ -4931,6 +4931,25 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_MegaRing,
     },
 
+    // Donjon : stats hors PV +10 % au total, redistribuées au hasard, et 4 nouvelles attaques (voir IsaacUseIdolOfChaos) ;
+    // pas un boost, réutilisable (nouveau tirage)
+    [ITEM_IDOL_OF_CHAOS] =
+    {
+        .name = ITEM_NAME("Idol of Chaos"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "+10% stats, then\n"
+            "shuffles them and\n"
+            "all four moves."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacIdolOfChaos,
+        .flingPower = 30,
+        .iconPic = gItemIcon_RelicStatue,
+        .iconPalette = gItemIconPalette_Relics,
+    },
+
     // Donjon : argent des dresseurs doublé jusqu'à la fin de la descente (voir IsaacGetTrainerMoney)
     [ITEM_LUCKY_COIN] =
     {

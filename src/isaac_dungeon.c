@@ -3721,6 +3721,7 @@ enum
     SECRET_LOOT_ITEM_AND_TM,  // un très bon objet de combat et une très bonne CT
     SECRET_LOOT_CURSED_DIE,
     SECRET_LOOT_BLOOD_PACT,
+    SECRET_LOOT_IDOL_OF_CHAOS,
     SECRET_LOOT_DISCOUNT_CARD,
     SECRET_LOOT_HEALS,        // une Guérison, un Rappel et un Total Soin
     SECRET_LOOT_COUNT,
@@ -3745,6 +3746,9 @@ static void PickSecretRoomLoot(s32 x, s32 y)
         break;
     case SECRET_LOOT_BLOOD_PACT:
         sLoot[sLootCount++] = ITEM_BLOOD_PACT;
+        break;
+    case SECRET_LOOT_IDOL_OF_CHAOS:
+        sLoot[sLootCount++] = ITEM_IDOL_OF_CHAOS;
         break;
     case SECRET_LOOT_DISCOUNT_CARD:
         sLoot[sLootCount++] = ITEM_DISCOUNT_CARD;
