@@ -1106,26 +1106,45 @@ static u32 KeepBiomeEvolutions(u16 *choices, u32 count)
     return n;
 }
 
-// Un cran d'EVs : chaque stat du dernier set de l'espèce (même variante), qui est le maximum, gagne un quart de son EV
-// maximal, sans le dépasser. FALSE si le Pokémon a déjà tous ses EVs au maximum de ce set.
-static bool8 IncreaseMonEvs(struct Pokemon *mon)
+// ordre des EVs d'un set (TRAINER_PARTY_EVS) : PV, Att, Déf, AttSp, DéfSp, Vit
+static const u8 sSetEvData[] = { MON_DATA_HP_EV, MON_DATA_ATK_EV, MON_DATA_DEF_EV, MON_DATA_SPATK_EV, MON_DATA_SPDEF_EV, MON_DATA_SPEED_EV };
+
+// EVs restant à gagner par le Pokémon : total des EVs du dernier set de l'espèce (même variante), moins le total des
+// siens (0 s'il en a déjà autant). Le total compte, pas la répartition : un Pokémon qui a changé de variante (Dé Maudit,
+// Super CT) garde ses EVs de l'ancienne et n'en gagne pas de nouveaux au-delà de ce total.
+static u32 GetMonMissingEvs(struct Pokemon *mon, const struct TrainerMon *set)
 {
-    // ordre des EVs d'un set (TRAINER_PARTY_EVS) : PV, Att, Déf, AttSp, DéfSp, Vit
-    static const u8 sEvData[] = { MON_DATA_HP_EV, MON_DATA_ATK_EV, MON_DATA_DEF_EV, MON_DATA_SPATK_EV, MON_DATA_SPDEF_EV, MON_DATA_SPEED_EV };
-    const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
-    bool8 changed = FALSE;
-    u32 i, current, max, value;
+    u32 target = 0, total = 0, i;
 
     if (set == NULL || set->ev == NULL)
-        return FALSE;
-    for (i = 0; i < ARRAY_COUNT(sEvData); i++)
+        return 0;
+    for (i = 0; i < ARRAY_COUNT(sSetEvData); i++)
     {
-        max = set->ev[i];
-        current = GetMonData(mon, sEvData[i]);
-        if (current >= max)
+        target += set->ev[i];
+        total += GetMonData(mon, sSetEvData[i]);
+    }
+    return (total < target) ? target - total : 0;
+}
+
+// Un cran d'EVs : chaque stat du dernier set de l'espèce (même variante), qui est le maximum, gagne un quart de son EV
+// maximal, sans le dépasser, et sans que le total dépasse celui du set (GetMonMissingEvs). FALSE si le Pokémon a déjà
+// tous ses EVs.
+static bool8 IncreaseMonEvs(struct Pokemon *mon)
+{
+    const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
+    u32 missing = GetMonMissingEvs(mon, set), i, current, cap, gain;
+    bool8 changed = FALSE;
+
+    for (i = 0; i < ARRAY_COUNT(sSetEvData) && missing != 0; i++)
+    {
+        cap = set->ev[i];
+        current = GetMonData(mon, sSetEvData[i]);
+        if (current >= cap)
             continue;
-        value = min(max, current + max / 4);
-        SetMonData(mon, sEvData[i], &value);
+        gain = min(min(cap - current, max(cap / 4, 1)), missing);
+        missing -= gain;
+        current += gain;
+        SetMonData(mon, sSetEvData[i], &current);
         changed = TRUE;
     }
     if (changed)
@@ -1136,14 +1155,13 @@ static bool8 IncreaseMonEvs(struct Pokemon *mon)
 // Le Pokémon peut-il encore gagner un cran d'EVs (voir IncreaseMonEvs) ?
 static bool8 CanIncreaseMonEvs(struct Pokemon *mon)
 {
-    static const u8 sEvData[] = { MON_DATA_HP_EV, MON_DATA_ATK_EV, MON_DATA_DEF_EV, MON_DATA_SPATK_EV, MON_DATA_SPDEF_EV, MON_DATA_SPEED_EV };
     const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
     u32 i;
 
-    if (set == NULL || set->ev == NULL)
+    if (GetMonMissingEvs(mon, set) == 0)
         return FALSE;
-    for (i = 0; i < ARRAY_COUNT(sEvData); i++)
-        if (GetMonData(mon, sEvData[i]) < set->ev[i])
+    for (i = 0; i < ARRAY_COUNT(sSetEvData); i++)
+        if (GetMonData(mon, sSetEvData[i]) < set->ev[i])
             return TRUE;
     return FALSE;
 }
