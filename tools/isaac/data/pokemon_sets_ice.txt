@@ -484,7 +484,7 @@ Variants: A = Hustle attacker / B = Support (Aurora Veil, Tailwind, Memento)
        Moves: Quick Attack [T1]  /  Mud-Slap [T1]  /  Tailwind [Sit]  /  Pluck [T2]
   [2A] Hustle courier
        Delibird @ Never-Melt Ice   |   Ability: Vital Spirit   |   Nature: Mild
-       Moves: Pluck [T2]  /  Swift [T2]  /  Water Pulse [T2]  /  Freeze-Dry [T3]
+       Moves: Pluck [T2]  /  Swift [T2]  /  Water Pulse [T2]  /  Frost Breath [T3]
   [2B] Spinning helper
        Delibird @ Sitrus Berry   |   Ability: Vital Spirit   |   Nature: Hasty
        Moves: Icy Wind [T2]  /  Feather Dance [T2]  /  Rapid Spin [T2]  /  Fake Out [Sit]
@@ -1384,7 +1384,7 @@ Variants: A = Setup (Calm Mind) / B = Special attacker / Ice Body support
        Moves: Disarming Voice [T1]  /  Sand Attack [T1]  /  Mud-Slap [T1]  /  Icy Wind [T2]
   [2A] Work Up fox
        Glaceon @ Never-Melt Ice   |   Ability: Ice Body   |   Nature: Mild
-       Moves: Work Up [T2]  /  Icy Wind [T2]  /  Water Pulse [T2]  /  Freeze-Dry [T3]
+       Moves: Work Up [T2]  /  Icy Wind [T2]  /  Water Pulse [T2]  /  Frost Breath [T3]
   [2B] Wishing fox
        Glaceon @ Sitrus Berry   |   Ability: Snow Cloak   |   Nature: Calm
        Moves: Icy Wind [T2]  /  Wish [Sit]  /  Protect [Sit]  /  Yawn [Sit]
@@ -1510,7 +1510,7 @@ Variants: A = Defensive (Heal Bell) / B = Offensive (Dragon Dance)
        Moves: Bubble Beam [T2]  /  Aurora Beam [T2]  /  Shock Wave [T2]  /  Sparkling Aria [T3]
   [3A] Cleric ferry
        Lapras @ Leftovers   |   Ability: Water Absorb   |   Nature: Calm
-       Moves: Heal Bell [Sit]  /  Muddy Water [T3]  /  Freeze-Dry [T3]  /  Protect [Sit]
+       Moves: Heal Bell [Sit]  /  Muddy Water [T3]  /  Frost Breath [T3]  /  Protect [Sit]
   [3B] Freeze-Dry caster
        Lapras @ Expert Belt   |   Ability: Water Absorb   |   Nature: Modest
        Moves: Freeze-Dry [T3]  /  Sparkling Aria [T3]  /  Psychic Noise [T3]  /  Alluring Voice [T3]
@@ -1570,7 +1570,7 @@ Variants: A = Defensive (Roost, Toxic, Haze) / B = Offensive (special)
        Moves: Ancient Power [T2]  /  Air Cutter [T2]  /  Icy Wind [T2]  /  Extrasensory [T3]
   [3A] SubToxic bird
        Articuno @ Leftovers   |   Ability: Pressure   |   Nature: Calm
-       Moves: Roost [Sit]  /  Toxic [Sit]  /  Substitute [Sit]  /  Freeze-Dry [T3]
+       Moves: Roost [Sit]  /  Toxic [Sit]  /  Substitute [Sit]  /  Frost Breath [T3]
   [3B] Blizzard bird
        Articuno @ Icy Rock   |   Ability: Snow Cloak   |   Nature: Modest
        Moves: Snowscape [Sit]  /  Blizzard [T4]  /  Hurricane [T4]  /  Roost [Sit]
