@@ -77,7 +77,18 @@
     F(LIQUIDATION) \
     F(BUG_BUZZ) \
     F(DARK_PULSE) \
-    F(ROOST)
+    F(ROOST) \
+    /* Donjon : CT de soutien et défensives, vendues par Kecleon */ \
+    F(WILL_O_WISP) \
+    F(THUNDER_WAVE) \
+    F(SUBSTITUTE) \
+    F(ENCORE) \
+    F(BODY_PRESS) \
+    F(FOUL_PLAY) \
+    F(IRON_DEFENSE) \
+    F(TRICK_ROOM) \
+    F(TAILWIND) \
+    F(PAIN_SPLIT)
 
 #define FOREACH_HM(F) \
     F(CUT) \

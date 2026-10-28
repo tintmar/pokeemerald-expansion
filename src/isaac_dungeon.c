@@ -2519,7 +2519,8 @@ static void SetUpCaptureMons(s32 x, s32 y)
 //  - une Guérison, un Rappel, un Rappel Max, une Restore Max, une Super Potion, une Hyper Potion, un Total Soin ;
 //  - jusqu'à l'étage SHOP_DISCOUNT_CARD_MAX_FLOOR, la Carte de Réduction (si on ne l'a pas déjà) : -SHOP_DISCOUNT_PCT %
 //    sur tous les autres articles jusqu'à la fin de la descente ;
-//  - trois objets de combat (PickBattleItem) et trois CT de sShopTMs, tous différents (tirés pour la salle), à
+//  - trois objets de combat (PickBattleItem) et deux CT de sShopTMs, tous différents, plus une CT de soutien
+//    (sShopSupportTMs : Toxik, Feu Follet, Abri, Clonage, Big Splash...), tirés pour la salle, à
 //    SHOP_HELD_TM_PRICE_PCT % de leur prix ; deux objets spéciaux différents (IsaacPickSpecialItem, Master Ball comprise),
 //    chacun avec la même chance d'être en vente.
 // Chacun n'est vraiment en vente qu'avec une chance qui dépend de l'article et de l'étage (sShopSlotPresentPct, tirée
@@ -2795,6 +2796,28 @@ static const u16 sShopTMs[] =
     ITEM_TM_ROOST,
 };
 
+// CT de soutien et défensives : la troisième CT de la boutique en est une (pour les builds défensifs, voir
+// PickUpgradeMove dans isaac_pokemon.c)
+static const u16 sShopSupportTMs[] =
+{
+    ITEM_TM_TOXIC,
+    ITEM_TM_WILL_O_WISP,
+    ITEM_TM_THUNDER_WAVE,
+    ITEM_TM_PROTECT,
+    ITEM_TM_SUBSTITUTE,
+    ITEM_TM_TAUNT,
+    ITEM_TM_ENCORE,
+    ITEM_TM_REFLECT,
+    ITEM_TM_LIGHT_SCREEN,
+    ITEM_TM_BODY_PRESS,
+    ITEM_TM_FOUL_PLAY,
+    ITEM_TM_IRON_DEFENSE,
+    ITEM_TM_TRICK_ROOM,
+    ITEM_TM_TAILWIND,
+    ITEM_TM_PAIN_SPLIT,
+    ITEM_TM_ROAR,
+};
+
 static u16 PickGoodTM(u32 roll)
 {
     return sShopTMs[roll % ARRAY_COUNT(sShopTMs)];
@@ -2898,9 +2921,10 @@ static u16 GetShopSlotItem(u32 slot)
     case SHOP_SLOT_ITEM_3:  // trois objets différents
         return PickShopBattleItem(x, y, slot - SHOP_SLOT_ITEM_1);
     case SHOP_SLOT_TM_1:
-    case SHOP_SLOT_TM_2:
-    case SHOP_SLOT_TM_3:  // trois CT différentes
+    case SHOP_SLOT_TM_2:  // deux très bonnes CT différentes
         return PickDistinctShopItem(sShopTMs, ARRAY_COUNT(sShopTMs), RoomRandom(x, y, 0x5470), slot - SHOP_SLOT_TM_1);
+    case SHOP_SLOT_TM_3:  // une CT de soutien
+        return sShopSupportTMs[RoomRandom(x, y, 0x5473) % ARRAY_COUNT(sShopSupportTMs)];
     case SHOP_SLOT_DISCOUNT_CARD:
         return ITEM_DISCOUNT_CARD;
     case SHOP_SLOT_SPECIAL_2:
