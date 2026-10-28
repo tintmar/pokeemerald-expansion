@@ -107,7 +107,7 @@
 #define ISAAC_TWO_TREASURES_MIN_FLOOR 5  // deux salles trésor à partir de cet étage
 #define ISAAC_MAX_TRIES        200  // graines essayées pour un étage valide
 
-#define ISAAC_TRAINER_PCT    60  // % de salles normales avec un dresseur
+#define ISAAC_TRAINER_PCT    60  // % de salles normales avec un dresseur (arrondi au-dessus), les autres ont un contenu
 #define ISAAC_TRAINER_MONEY_PER_FLOOR  1200  // argent gagné contre un dresseur (ou le boss) : x profondeur
 #define ISAAC_BIOME          IsaacGetCurrentBiome()
 #define ISAAC_FLOOR_COUNT    6  // étages d'une descente (un biome chacun, tous différents), puis la salle de la victoire
@@ -1550,55 +1550,62 @@ static u32 GetRivalTeam(u32 encounter, u16 *out, u8 *variants)
     return count;
 }
 
-// Tirage du dresseur d'une salle normale seule (toujours un dresseur chez le gardien du boss et le rival)
-static bool8 NormalRoomRollsTrainerAlone(s32 x, s32 y)
+static bool8 IsRoomContentAvailable(u32 content);
+
+static bool8 IsForcedTrainerRoom(s32 x, s32 y)
 {
-    return GetRoom(x, y) == ROOM_NORMAL
-        && (IsBossGuardRoom(x, y) || IsRivalRoom(x, y) || RoomRandom(x, y, 0x7A1) % 100 < ISAAC_TRAINER_PCT);
+    return IsBossGuardRoom(x, y) || IsRivalRoom(x, y);
 }
 
-// Dresseur d'une salle normale, avant l'éventuelle salle libérée pour l'entraîneur d'Éclate-Roc : le tirage de chaque
-// salle, complété si besoin pour qu'au moins ISAAC_TRAINER_PCT % des salles normales de l'étage (arrondi au-dessus)
-// aient un dresseur ; les salles ajoutées sont celles dont la clé de tirage est la plus basse
+// Contenus de salle (ROOM_CONTENT_*) disponibles à cet étage
+static u32 CountAvailableRoomContents(void)
+{
+    u32 i, count = 0;
+
+    for (i = ROOM_CONTENT_NONE + 1; i < ROOM_CONTENT_COUNT; i++)
+        if (IsRoomContentAvailable(i))
+            count++;
+    return count;
+}
+
+// Dresseur d'une salle normale, avant l'éventuelle salle libérée pour l'entraîneur d'Éclate-Roc : exactement
+// ISAAC_TRAINER_PCT % des salles normales de l'étage (arrondi au-dessus) en ont un, toutes les autres ont un contenu
+// (GetRoomContent). Le gardien du boss et le rival en ont toujours un ; les autres dresseurs vont aux salles dont la
+// clé de tirage est la plus basse. S'il y a moins de contenus disponibles que de salles restantes, les salles en trop
+// ont aussi un dresseur.
 static bool8 NormalRoomRollsTrainer(s32 x, s32 y)
 {
-    u32 rooms = 0, trainers = 0, missing, rank = 0, key;
+    u32 rooms = 0, forced = 0, need, rank = 0, key;
     s32 cx, cy;
 
     if (GetRoom(x, y) != ROOM_NORMAL)
         return FALSE;
-    if (NormalRoomRollsTrainerAlone(x, y))
+    if (IsForcedTrainerRoom(x, y))
         return TRUE;
-    for (cy = 0; cy < ISAAC_GRID_H; cy++)
-    {
-        for (cx = 0; cx < ISAAC_GRID_W; cx++)
-        {
-            if (GetRoom(cx, cy) != ROOM_NORMAL)
-                continue;
-            rooms++;
-            if (NormalRoomRollsTrainerAlone(cx, cy))
-                trainers++;
-        }
-    }
-    missing = (rooms * ISAAC_TRAINER_PCT + 99) / 100;
-    missing = (missing > trainers) ? missing - trainers : 0;
-    if (missing == 0)
-        return FALSE;
-    key = RoomRandom(x, y, 0x7A2);
+    key = RoomRandom(x, y, 0x7A1);
     for (cy = 0; cy < ISAAC_GRID_H; cy++)
     {
         for (cx = 0; cx < ISAAC_GRID_W; cx++)
         {
             u32 other;
 
-            if (GetRoom(cx, cy) != ROOM_NORMAL || NormalRoomRollsTrainerAlone(cx, cy) || (cx == x && cy == y))
+            if (GetRoom(cx, cy) != ROOM_NORMAL)
                 continue;
-            other = RoomRandom(cx, cy, 0x7A2);
+            rooms++;
+            if (IsForcedTrainerRoom(cx, cy))
+            {
+                forced++;
+                continue;
+            }
+            other = RoomRandom(cx, cy, 0x7A1);
             if (other < key || (other == key && cy * ISAAC_GRID_W + cx < y * ISAAC_GRID_W + x))
                 rank++;
         }
     }
-    return rank < missing;
+    need = (rooms * ISAAC_TRAINER_PCT + 99) / 100;
+    if (rooms > CountAvailableRoomContents())
+        need = max(need, rooms - CountAvailableRoomContents());
+    return rank + forced < need;
 }
 
 static bool8 RoomHasTrainer(s32 x, s32 y)
