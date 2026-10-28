@@ -2844,7 +2844,8 @@ s32 IsaacRollCursedDie(struct Pokemon *mon, bool8 *ok)
 // CHAOS_MAX_WEIGHT (aucune ne tombe à presque rien), 255 au plus. Les PV ne changent pas. La répartition vient d'une
 // graine rangée sur le Pokémon (CHAOS_SEED_BITS bits dans deux rubans de concours, 0 : pas d'Idole) et de sa
 // personnalité : elle s'applique à toutes ses formes, évolutions et Méga-Évolution comprises, chacune avec son propre
-// total. Puis ses quatre attaques sont remplacées par quatre attaques du proposeur de fin de combat (PickUpgradeMove),
+// total. Ses EVs et IVs hors PV suivent la même répartition (DealChaosEvsIvs : leurs totaux ne changent pas), pour que
+// ses stats finales soient vraiment rebattues. Puis ses quatre attaques sont remplacées par quatre attaques du proposeur de fin de combat (PickUpgradeMove),
 // tirées une à une au niveau de tier de ses anciennes attaques (IsaacGetMonTierLevel), avec ses nouvelles stats. Ce
 // n'est pas un boost : il se cumule avec, et une nouvelle Idole refait un tirage (sans cumuler le bonus).
 #define CHAOS_BONUS_PCT   10
@@ -2875,22 +2876,93 @@ static void SetMonChaosSeed(struct Pokemon *mon, u32 seed)
 }
 
 // Stat de base (STAT_*) du Pokémon s'il était de l'espèce donnée, avec la répartition de l'Idole du Chaos
-static u32 GetChaosBaseStat(struct Pokemon *mon, enum Species species, u32 stat)
+// Parts des stats hors PV (weights[STAT_ATK] à weights[STAT_SPDEF]) pour la graine du Pokémon ; renvoie leur total
+static u32 GetChaosWeights(struct Pokemon *mon, u32 seed, u32 *weights)
 {
-    u32 seed = GetMonChaosSeed(mon), weights[NUM_STATS], total = 0, weightTotal = 0, state, i;
+    u32 state = GetMonData(mon, MON_DATA_PERSONALITY) ^ (seed * 0x9E3779B9), total = 0, i;
 
-    if (seed == 0 || stat == STAT_HP)
-        return GetSpeciesBaseStat(species, stat);
-    state = GetMonData(mon, MON_DATA_PERSONALITY) ^ (seed * 0x9E3779B9);
+    weights[STAT_HP] = 0;
     for (i = STAT_ATK; i < NUM_STATS; i++)
     {
         state = ISO_RANDOMIZE1(state);
         weights[i] = CHAOS_MIN_WEIGHT + (state >> 16) % (CHAOS_MAX_WEIGHT - CHAOS_MIN_WEIGHT + 1);
-        weightTotal += weights[i];
-        total += GetSpeciesBaseStat(species, i);
+        total += weights[i];
     }
+    return total;
+}
+
+static u32 GetChaosBaseStat(struct Pokemon *mon, enum Species species, u32 stat)
+{
+    u32 seed = GetMonChaosSeed(mon), weights[NUM_STATS], total = 0, weightTotal, i;
+
+    if (seed == 0 || stat == STAT_HP)
+        return GetSpeciesBaseStat(species, stat);
+    weightTotal = GetChaosWeights(mon, seed, weights);
+    for (i = STAT_ATK; i < NUM_STATS; i++)
+        total += GetSpeciesBaseStat(species, i);
     total = total * (100 + CHAOS_BONUS_PCT) / 100;
     return min(max(total * weights[stat] / weightTotal, 1u), 255u);
+}
+
+// Répartit total entre les stats hors PV (out[STAT_ATK] à out[STAT_SPDEF]) au prorata des parts, cap au plus chacune ;
+// ce qu'une stat plafonnée ne peut pas prendre passe aux autres, et les restes des arrondis vont aux plus grosses parts
+static void DealByChaosWeights(u32 total, const u32 *weights, u32 cap, u32 *out)
+{
+    u32 left = total, round, weightTotal, given, best, i;
+
+    for (i = STAT_ATK; i < NUM_STATS; i++)
+        out[i] = 0;
+    for (round = 0; round < NUM_STATS && left != 0; round++)
+    {
+        weightTotal = 0;
+        for (i = STAT_ATK; i < NUM_STATS; i++)
+            if (out[i] < cap)
+                weightTotal += weights[i];
+        if (weightTotal == 0)
+            break;
+        given = 0;
+        for (i = STAT_ATK; i < NUM_STATS; i++)
+        {
+            if (out[i] >= cap)
+                continue;
+            out[i] += min(cap - out[i], left * weights[i] / weightTotal);
+        }
+        for (i = STAT_ATK; i < NUM_STATS; i++)
+            given += out[i];
+        left = total - given;
+    }
+    while (left != 0)  // restes des arrondis, un par un
+    {
+        best = NUM_STATS;
+        for (i = STAT_ATK; i < NUM_STATS; i++)
+            if (out[i] < cap && (best == NUM_STATS || weights[i] > weights[best]))
+                best = i;
+        if (best == NUM_STATS)
+            break;
+        out[best]++;
+        left--;
+    }
+}
+
+// Les EVs et les IVs hors PV du Pokémon suivent la répartition : leurs totaux restent les mêmes, redistribués au
+// prorata des parts de la graine (MAX_PER_STAT_EVS et MAX_PER_STAT_IVS au plus par stat)
+static void DealChaosEvsIvs(struct Pokemon *mon, u32 seed)
+{
+    u32 weights[NUM_STATS], evs[NUM_STATS], ivs[NUM_STATS], evTotal = 0, ivTotal = 0, i;
+
+    GetChaosWeights(mon, seed, weights);
+    for (i = STAT_ATK; i < NUM_STATS; i++)
+    {
+        evTotal += GetMonData(mon, MON_DATA_HP_EV + i);
+        ivTotal += GetMonData(mon, MON_DATA_HP_IV + i);
+    }
+    DealByChaosWeights(evTotal, weights, MAX_PER_STAT_EVS, evs);
+    DealByChaosWeights(ivTotal, weights, MAX_PER_STAT_IVS, ivs);
+    for (i = STAT_ATK; i < NUM_STATS; i++)
+    {
+        SetMonData(mon, MON_DATA_HP_EV + i, &evs[i]);
+        SetMonData(mon, MON_DATA_HP_IV + i, &ivs[i]);
+    }
 }
 
 static u32 GetInvertedBaseStat(struct Pokemon *mon, enum Species species, u32 stat);
@@ -2908,13 +2980,20 @@ bool8 IsaacUseIdolOfChaos(struct Pokemon *mon)
 {
     enum Species species = GetMonData(mon, MON_DATA_SPECIES);
     u32 level = IsaacGetMonTierLevel(mon), oldSeed = GetMonChaosSeed(mon), seed, count = 0, i, tier;
+    u32 oldEvs[NUM_STATS], oldIvs[NUM_STATS];
     u16 oldMoves[MAX_MON_MOVES], move;
 
-    // nouvelle répartition (jamais la même), d'abord : les attaques suivent les nouvelles stats
+    // nouvelle répartition (jamais la même), EVs et IVs compris, d'abord : les attaques suivent les nouvelles stats
     seed = 1 + Random() % CHAOS_SEED_COUNT;
     if (seed == oldSeed)
         seed = seed % CHAOS_SEED_COUNT + 1;
+    for (i = 0; i < NUM_STATS; i++)
+    {
+        oldEvs[i] = GetMonData(mon, MON_DATA_HP_EV + i);
+        oldIvs[i] = GetMonData(mon, MON_DATA_HP_IV + i);
+    }
     SetMonChaosSeed(mon, seed);
+    DealChaosEvsIvs(mon, seed);
     CalculateMonStats(mon);
 
     for (i = 0; i < MAX_MON_MOVES; i++)
@@ -2934,6 +3013,11 @@ bool8 IsaacUseIdolOfChaos(struct Pokemon *mon)
     {
         for (i = 0; i < MAX_MON_MOVES; i++)
             SetMonMoveSlot(mon, oldMoves[i], i);
+        for (i = 0; i < NUM_STATS; i++)
+        {
+            SetMonData(mon, MON_DATA_HP_EV + i, &oldEvs[i]);
+            SetMonData(mon, MON_DATA_HP_IV + i, &oldIvs[i]);
+        }
         SetMonChaosSeed(mon, oldSeed);
         CalculateMonStats(mon);
         return FALSE;
@@ -2944,15 +3028,15 @@ bool8 IsaacUseIdolOfChaos(struct Pokemon *mon)
 // ---------------------------------------------------------------------------
 // Idole de l'Inversion
 // ---------------------------------------------------------------------------
-// Le Pokémon prend le contraire de chacun de ses types (sInvertedTypes). Ses stats de base s'inversent : Attaque et
+// Le Pokémon prend le contraire de chacun de ses types (InvertTypes). Ses stats de base s'inversent : Attaque et
 // Attaque Spéciale s'échangent, Défense et Défense Spéciale aussi, et sa Vitesse est retournée autour de la Vitesse
 // moyenne des espèces de sa catégorie (GetCategoryMeanSpeed : un Pokémon lent devient rapide et inversement), entre
 // INVERSION_MIN_SPEED et 255. Plus il perd de Vitesse, plus ses deux défenses gagnent : +INVERSION_MAX_DEF_BONUS_PCT %
 // pour une perte égale ou supérieure à la moyenne, proportionnellement en dessous. Les PV ne changent pas. Après
 // l'Idole du Chaos (sa répartition est inversée), sous toutes ses formes.
-// Chaque attaque offensive devient une attaque du type contraire, de l'autre catégorie (les stats d'attaque sont
-// échangées), du même tier (PickInvertedMove) : une attaque de son type reste donc une attaque de son nouveau type, une
-// attaque de coverage devient une attaque de coverage du type contraire. Les boosts et les écrans prennent leur pendant
+// Chaque attaque offensive devient une attaque du type contraire (GetInvertedMoveType : une attaque de son type devient
+// une attaque du nouveau type qui le remplace, une attaque de coverage une attaque de coverage du type contraire), de
+// l'autre catégorie (les stats d'attaque sont échangées), du même tier (PickInvertedMove). Les boosts et les écrans prennent leur pendant
 // (sInvertedStatusMoves : Danse Lames <-> Machination, Distorsion <-> Vent Arrière...), les autres attaques de statut
 // et l'attaque Z restent. Ce n'est pas un boost ; une seconde Idole le retourne à l'endroit.
 #define INVERSION_MIN_SPEED          5
