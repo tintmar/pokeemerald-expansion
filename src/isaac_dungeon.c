@@ -1947,7 +1947,7 @@ u32 IsaacGetTrainerMoney(void)
 // salle) : un objet spécial, une très bonne CT ou un objet de combat de la boutique.
 #define TRAINER_LOOT_MAX_RESTORE_PCT       80
 #define TRAINER_LOOT_SECOND_PCT_PER_FLOOR  25
-#define TRAINER_LOOT_RARE_PCT          20
+#define TRAINER_LOOT_RARE_PCT          15
 
 static u16 PickGoodTM(u32 roll);
 static u16 PickTrainerRareLoot(u32 roll);
@@ -2800,15 +2800,15 @@ static u16 PickGoodTM(u32 roll)
     return sShopTMs[roll % ARRAY_COUNT(sShopTMs)];
 }
 
-// Butin rare d'un dresseur (sur 100) : objet spécial 20, très bonne CT 40, objet de combat de la boutique 40
+// Butin rare d'un dresseur (sur 100) : objet spécial 10, très bonne CT 45, objet de combat de la boutique 45
 static u16 PickTrainerRareLoot(u32 roll)
 {
     u32 pick = roll % 100;
 
     roll /= 100;
-    if (pick < 20)
+    if (pick < 10)
         return IsaacPickSpecialItem(roll, FALSE);
-    if (pick < 60)
+    if (pick < 55)
         return PickGoodTM(roll);
     return PickBattleItem(roll, GetUsefulSituationalMask());
 }
@@ -2976,8 +2976,8 @@ static const u8 sShopSlotPresentPct[SHOP_LIMITED_SLOTS][6] =
     [SHOP_SLOT_TM_1]          = { 60, 60, 60, 55, 50, 45 },
     [SHOP_SLOT_TM_2]          = { 60, 60, 60, 55, 50, 45 },
     [SHOP_SLOT_TM_3]          = { 60, 60, 60, 55, 50, 45 },
-    [SHOP_SLOT_SPECIAL]       = { 50, 55, 60, 65, 70, 75 },
-    [SHOP_SLOT_SPECIAL_2]     = { 50, 55, 60, 65, 70, 75 },  // comme le premier
+    [SHOP_SLOT_SPECIAL]       = { 45, 50, 54, 59, 63, 68 },
+    [SHOP_SLOT_SPECIAL_2]     = { 45, 50, 54, 59, 63, 68 },  // comme le premier
     [SHOP_SLOT_DISCOUNT_CARD] = { 70, 70, 60, 50,  0,  0 },  // jusqu'à SHOP_DISCOUNT_CARD_MAX_FLOOR
 };
 
