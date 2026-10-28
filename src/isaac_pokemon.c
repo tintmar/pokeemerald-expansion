@@ -3187,6 +3187,56 @@ static u16 PickInvertedMove(struct Pokemon *mon, u16 move, enum Type type, const
     return move;
 }
 
+// Stat (STAT_*) qui prend la place de stat quand les stats s'inversent
+static u32 GetInvertedStat(u32 stat)
+{
+    switch (stat)
+    {
+    case STAT_ATK:   return STAT_SPATK;
+    case STAT_SPATK: return STAT_ATK;
+    case STAT_DEF:   return STAT_SPDEF;
+    case STAT_SPDEF: return STAT_DEF;
+    default:         return stat;
+    }
+}
+
+// Échange aussi ce que le Pokémon a investi dans ses stats (EVs, IVs, nature, boosts de stat) : sans ça, un Pokémon
+// spécial garde ses EVs en Attaque Spéciale et reste spécial malgré ses stats de base échangées
+static void InvertMonInvestment(struct Pokemon *mon)
+{
+    u32 evs[NUM_STATS], ivs[NUM_STATS], boosts, newBoosts, nature, brilliant, i;
+
+    for (i = 0; i < NUM_STATS; i++)
+    {
+        evs[i] = GetMonData(mon, MON_DATA_HP_EV + i);
+        ivs[i] = GetMonData(mon, MON_DATA_HP_IV + i);
+    }
+    for (i = 0; i < NUM_STATS; i++)
+    {
+        SetMonData(mon, MON_DATA_HP_EV + i, &evs[GetInvertedStat(i)]);
+        SetMonData(mon, MON_DATA_HP_IV + i, &ivs[GetInvertedStat(i)]);
+    }
+
+    // nature = 5 * (stat augmentée - 1) + (stat baissée - 1), dans l'ordre Atk, Déf, Vit, AtkSp, DéfSp
+    nature = GetMonData(mon, MON_DATA_HIDDEN_NATURE);
+    nature = 5 * (GetInvertedStat(nature / 5 + 1) - 1) + (GetInvertedStat(nature % 5 + 1) - 1);
+    SetMonData(mon, MON_DATA_HIDDEN_NATURE, &nature);
+
+    boosts = GetMonData(mon, ISAAC_STAT_BOOST_DATA);
+    newBoosts = boosts & ~((1 << NUM_STATS) - 1);
+    for (i = 0; i < NUM_STATS; i++)
+        if (boosts & (1 << i))
+            newBoosts |= 1 << GetInvertedStat(i);
+    SetMonData(mon, ISAAC_STAT_BOOST_DATA, &newBoosts);
+
+    brilliant = GetMonData(mon, ISAAC_BRILLIANT_DATA);
+    if (brilliant != 0)
+    {
+        brilliant = GetInvertedStat(brilliant - 1) + 1;
+        SetMonData(mon, ISAAC_BRILLIANT_DATA, &brilliant);
+    }
+}
+
 // Idole de l'Inversion sur le Pokémon (voir plus haut) ; toujours TRUE
 bool8 IsaacUseIdolOfInversion(struct Pokemon *mon)
 {
@@ -3197,6 +3247,7 @@ bool8 IsaacUseIdolOfInversion(struct Pokemon *mon)
     IsaacGetMonTypes(mon, before);
     SetMonData(mon, ISAAC_INVERTED_DATA, &value);
     IsaacGetMonTypes(mon, after);
+    InvertMonInvestment(mon);
     CalculateMonStats(mon);
     for (i = 0; i < MAX_MON_MOVES; i++)
         moves[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
