@@ -3266,14 +3266,24 @@ static void IsaacTickEggs(void)
 
 static EWRAM_DATA u16 sTradeSpecies = SPECIES_NONE;
 
+static bool8 PartyHasSpecies(u16 species)
+{
+    u32 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+        if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES) == species
+         && !GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+            return TRUE;
+    return FALSE;
+}
+
 // Échange avec le Pokémon n° VAR_0x8004 de l'équipe : VAR_RESULT = FALSE pour un Œuf. Sinon, l'offre est celle de la
 // salle (toujours la même) : un Pokémon de n'importe quel biome, de la force de ceux de la salle de capture de l'étage
-// (GetCaptureLevel, GetCaptureSetTier), d'une autre espèce que celui du joueur. gStringVar1 = le Pokémon du joueur,
+// (GetCaptureLevel, GetCaptureSetTier), d'une espèce absente de l'équipe. gStringVar1 = le Pokémon du joueur,
 // gStringVar2 = l'offre, révélée seulement une fois l'échange conclu.
 void IsaacPrepareTrade(void)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
-    u16 species = GetMonData(mon, MON_DATA_SPECIES);
     enum IsaacCategory category;
     u32 try, seed;
     s32 x, y;
@@ -3283,14 +3293,14 @@ void IsaacPrepareTrade(void)
         return;
     GetCurrentCell(&x, &y);
     category = RollCaptureCategory(x, y, 0);
-    for (try = 0; try < 16; try++)
+    for (try = 0; try < 32; try++)
     {
         seed = RoomRandom(x, y, 0x7AD0 + try);
         if (category == ISAAC_CATEGORY_LEGENDARY_SMALL || category == ISAAC_CATEGORY_LEGENDARY_BIG)
             sTradeSpecies = PickCaptureSpecies(category, seed, FALSE);
         else
             sTradeSpecies = PickSpeciesOfAnyBiome(category, GetCaptureLevel()->minBst, SPECIES_NONE, seed);
-        if (sTradeSpecies != species)
+        if (!PartyHasSpecies(sTradeSpecies))
             break;
     }
     GetMonNickname(mon, gStringVar1);
