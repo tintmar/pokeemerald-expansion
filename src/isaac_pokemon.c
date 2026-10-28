@@ -1833,8 +1833,7 @@ void IsaacApplyBattlerGemType(enum BattlerId battler)
 // ---------------------------------------------------------------------------
 
 // Talent secret éveillé par le révélateur de talents (enum Ability, ABILITY_NONE si aucun) : 9 bits, 3 dans chacun de
-// trois rubans de concours (pas de concours dans le jeu). Il remplace le talent de l'espèce, sauf sous une forme de
-// combat (Méga-Évolution, Primo-Résurgence...), qui garde le sien.
+// trois rubans de concours (pas de concours dans le jeu). Il remplace le talent de l'espèce, sous toutes ses formes.
 static const u32 sSecretAbilityData[] = { MON_DATA_COOL_RIBBON, MON_DATA_BEAUTY_RIBBON, MON_DATA_CUTE_RIBBON };
 #define SECRET_ABILITY_DATA_BITS  3
 
@@ -1849,14 +1848,11 @@ void IsaacSetMonSecretAbility(struct Pokemon *mon, enum Ability ability)
     }
 }
 
-// Talent secret du Pokémon sous la forme species
+// Talent secret du Pokémon, gardé sous toutes ses formes (Méga-Évolution comprise, Cristal Méga ou Méga-Gemme)
 enum Ability IsaacGetMonSecretAbility(struct Pokemon *mon, enum Species species)
 {
-    const struct SpeciesInfo *info = &gSpeciesInfo[species];
     u32 i, ability = 0;
 
-    if (info->isMegaEvolution || info->isPrimalReversion || info->isUltraBurst || info->isGigantamax || info->isTeraForm)
-        return ABILITY_NONE;
     for (i = 0; i < ARRAY_COUNT(sSecretAbilityData); i++)
         ability |= GetMonData(mon, sSecretAbilityData[i]) << (SECRET_ABILITY_DATA_BITS * i);
     return ability < ABILITIES_COUNT ? ability : ABILITY_NONE;
