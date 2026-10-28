@@ -1266,6 +1266,8 @@ static bool8 IsMoveInSpeciesSets(enum Species species, u16 move)
 //  - les attaques qui ne dépendent pas de ses stats d'attaque (ISAAC_MOVE_ROLE_STAT_FREE : Big Splash, Tricherie,
 //    Frappe Atlas, Ombre Nocturne) quelle que soit son orientation, dès le tier visé 3 ;
 //  - le STAB manquant ne passe qu'avant les autres attaques offensives, pas avant les attaques de statut ;
+//  - un build défensif ne se voit jamais proposer de coverage : seulement un STAB manquant, une attaque STAT_FREE, ou
+//    une meilleure attaque de son type s'il n'y a aucune attaque de statut à lui proposer ;
 //  - attaques offensives et attaques de statut se partagent le tirage selon sUpgradeUtilityShare : un Pokémon qui n'a
 //    presque pas d'attaques se voit surtout proposer des attaques, un qui en a assez surtout du soutien. Il garde donc
 //    toujours de quoi frapper, sans que tout build devienne offensif.
@@ -1769,7 +1771,7 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
     u8 typeCount[NUMBER_OF_MON_TYPES] = {0};
     u32 target = InitUpgradeContext(&ctx, mon, species);
     enum Type moveType;
-    bool8 jackpot, physical, statFree;
+    bool8 jackpot, physical, statFree, hasStatus;
 
     if (forcedTarget != 0)
         target = forcedTarget;
@@ -1841,6 +1843,23 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
             if (!IsMissingStabUpgrade(&ctx, moves[i])
              && (ctx.build == UPGRADE_BUILD_OFFENSIVE || GetMoveCategory(moves[i]) != DAMAGE_CATEGORY_STATUS))
                 weights[i] = 0;
+    // build défensif : pas d'attaque offensive, sauf un STAB manquant et les attaques STAT_FREE (Big Splash...) ; une
+    // meilleure attaque de son type seulement s'il n'y a aucune attaque de statut à proposer, jamais de coverage
+    if (ctx.build == UPGRADE_BUILD_DEFENSIVE)
+    {
+        for (i = 0; i < count && GetMoveCategory(moves[i]) != DAMAGE_CATEGORY_STATUS; i++)
+            ;
+        hasStatus = (i != count);
+        for (i = 0; i < count; i++)
+        {
+            moveType = GetMoveType(moves[i]);
+            if (GetMoveCategory(moves[i]) == DAMAGE_CATEGORY_STATUS || IsMissingStabUpgrade(&ctx, moves[i])
+             || (sIsaacMoveRoles[moves[i]] & ISAAC_MOVE_ROLE_STAT_FREE))
+                continue;
+            if (hasStatus || (moveType != ctx.types[0] && moveType != ctx.types[1]))
+                weights[i] = 0;
+        }
+    }
     // un type de coverage qui a beaucoup d'attaques candidates ne doit pas écraser les autres : poids x 2 / (n + 1)
     for (i = 0; i < count; i++)
     {
@@ -1871,7 +1890,7 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
     }
     total += statusTotal;
     if (total == 0)
-        return moves[0];
+        return MOVE_NONE;  // seulement des attaques écartées (coverage d'un build défensif)
     roll = Random32() % total;
     for (i = 0; i + 1 < count && roll >= weights[i]; i++)
         roll -= weights[i];
