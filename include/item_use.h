@@ -36,6 +36,7 @@ void ItemUseOutOfBattle_IsaacBrilliantStone(u8 taskId);
 void ItemUseOutOfBattle_IsaacTypeGem(u8 taskId);
 void ItemUseOutOfBattle_IsaacCursedDie(u8 taskId);
 void ItemUseOutOfBattle_IsaacIdolOfChaos(u8 taskId);
+void ItemUseOutOfBattle_IsaacIdolOfInversion(u8 taskId);
 void ItemUseOutOfBattle_IsaacBloodPact(u8 taskId);
 void ItemUseOutOfBattle_IsaacGlassCrown(u8 taskId);
 void ItemUseOutOfBattle_IsaacTeamworkTotem(u8 taskId);

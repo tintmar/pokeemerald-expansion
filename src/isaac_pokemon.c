@@ -230,7 +230,7 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours surtout à la fin (sFirstAidKitWeights, retirée pour
 // l'instant : FIRST_AID_KIT_ENABLED) ; la Pierre Prisme un peu moins courante (PRISM_STONE_WEIGHT), le Cœur Doré peu courant
 // (GOLDEN_HEART_WEIGHT). La Master Ball est peu courante (MASTER_BALL_WEIGHT). Le Cristal Méga n'apparaît que si un
-// Pokémon de l'équipe a sa Méga-Gemme (tenue ou dans le sac). L'Idole du Chaos a le poids normal.
+// Pokémon de l'équipe a sa Méga-Gemme (tenue ou dans le sac). Les deux Idoles (Chaos, Inversion) ont le poids normal.
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, un
 // peu plus fréquente en profondeur (sStatBoostWeights) ; de même pour les Gemmes de Type (puis le type est tiré ;
 // retirées pour l'instant : TYPE_GEM_WEIGHT à 0). Le Cœur Doré n'apparaît qu'à partir de GOLDEN_HEART_MIN_FLOOR.
@@ -326,7 +326,7 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
         ITEM_EVOLUTION_STONE, ITEM_SUPER_EVOLUTION_STONE, ITEM_OMNIBOOST, ITEM_ABILITY_TRAINER, ITEM_BOOST_HP,
         ITEM_BRILLIANT_STONE, ITEM_ISAAC_GEM_FIRST, ITEM_GOLDEN_HEART, ITEM_MEGA_RING, ITEM_LUCKY_COIN,
         ITEM_FIRST_AID_KIT, ITEM_PRISM_STONE, ITEM_Z_TM, ITEM_MASTER_BALL, ITEM_GLASS_CROWN, ITEM_TEAMWORK_TOTEM,
-        ITEM_MEGA_CRYSTAL, ITEM_IDOL_OF_CHAOS,
+        ITEM_MEGA_CRYSTAL, ITEM_IDOL_OF_CHAOS, ITEM_IDOL_OF_INVERSION,
     };
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
     static const u8 sAbilityTrainerWeights[] = { 4, 3, 2, 1, 1, 1 };
@@ -1442,17 +1442,18 @@ static bool8 IsMonPhysicallyOriented(struct Pokemon *mon, enum Species species, 
     return atk >= spa;
 }
 
+static void GetMonTypesAsSpecies(struct Pokemon *mon, enum Species species, enum Type *types);
+
 // Remplit ctx ; renvoie le tier visé
 static u32 InitUpgradeContext(struct UpgradeContext *ctx, struct Pokemon *mon, enum Species species)
 {
     u32 sum = 0, count = 0, physical = 0, special = 0, i, tier, target;
-    enum Type gem = IsaacGetMonGemType(mon), type, def;
+    enum Type type, def;
     uq4_12_t effect;
 
     memset(ctx, 0, sizeof(*ctx));
     ctx->species = species;
-    ctx->types[0] = GetSpeciesType(species, 0);
-    ctx->types[1] = (gem != TYPE_NONE) ? gem : GetSpeciesType(species, 1);
+    GetMonTypesAsSpecies(mon, species, ctx->types);  // Gemme de Type et Idole de l'Inversion comprises
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
         ctx->known[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
@@ -1767,7 +1768,7 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
     u32 score, share, i;
     u8 typeCount[NUMBER_OF_MON_TYPES] = {0};
     u32 target = InitUpgradeContext(&ctx, mon, species);
-    enum Type gem = IsaacGetMonGemType(mon);
+    enum Type moveType;
     bool8 jackpot, physical, statFree;
 
     if (forcedTarget != 0)
@@ -1810,9 +1811,12 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
             if (score != 0 && statFree)
                 score += ScoreStatFreeBonus(&ctx, mon, move);
         }
-        // le type donné par la Pierre Prisme n'est presque jamais dans les attaques de l'espèce : elles sont permises
+        // un type qui n'est pas celui de l'espèce (Pierre Prisme, Idole de l'Inversion) n'est presque jamais dans ses
+        // attaques : les attaques offensives de ce type sont permises
+        moveType = GetMoveType(move);
         if (!CanSpeciesLearnMove(species, move)
-         && (gem == TYPE_NONE || GetMoveType(move) != gem || GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS))
+         && (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS || (moveType != ctx.types[0] && moveType != ctx.types[1])
+          || moveType == GetSpeciesType(species, 0) || moveType == GetSpeciesType(species, 1)))
             continue;
         if (score == 0)  // sans intérêt : seulement s'il n'y a rien d'autre
         {
@@ -2114,24 +2118,63 @@ enum Type IsaacGetMonGemType(struct Pokemon *mon)
     return GetMonData(mon, ISAAC_GEM_TYPE_DATA);
 }
 
-// Types du Pokémon avec sa Gemme de Type : elle remplace le second type (s'ajoute à un type simple). Si son espèce a
-// déjà ce type (après une évolution), il redevient simple.
-void IsaacGetMonTypes(struct Pokemon *mon, enum Type *types)
+// Idole de l'Inversion : chaque type a son contraire (les paires se touchent en super efficace dans un sens ou dans
+// l'autre ; inverser deux fois rend le type d'origine). Le drapeau est rangé dans un ruban (pas de rubans dans le jeu).
+#define ISAAC_INVERTED_DATA  MON_DATA_WORLD_RIBBON
+
+static const u8 sInvertedTypes[NUMBER_OF_MON_TYPES] =
 {
-    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    [TYPE_NORMAL]   = TYPE_FIGHTING, [TYPE_FIGHTING] = TYPE_NORMAL,
+    [TYPE_FIRE]     = TYPE_WATER,    [TYPE_WATER]    = TYPE_FIRE,
+    [TYPE_GRASS]    = TYPE_POISON,   [TYPE_POISON]   = TYPE_GRASS,
+    [TYPE_ELECTRIC] = TYPE_GROUND,   [TYPE_GROUND]   = TYPE_ELECTRIC,
+    [TYPE_ICE]      = TYPE_DRAGON,   [TYPE_DRAGON]   = TYPE_ICE,
+    [TYPE_PSYCHIC]  = TYPE_GHOST,    [TYPE_GHOST]    = TYPE_PSYCHIC,
+    [TYPE_DARK]     = TYPE_FAIRY,    [TYPE_FAIRY]    = TYPE_DARK,
+    [TYPE_ROCK]     = TYPE_STEEL,    [TYPE_STEEL]    = TYPE_ROCK,
+    [TYPE_FLYING]   = TYPE_BUG,      [TYPE_BUG]      = TYPE_FLYING,
+};
+
+// Type contraire (le même pour un type hors de la table : Mystère, Stellaire)
+static enum Type InvertType(enum Type type)
+{
+    return (type < NUMBER_OF_MON_TYPES && sInvertedTypes[type] != TYPE_NONE) ? sInvertedTypes[type] : type;
+}
+
+static bool8 IsMonInverted(struct Pokemon *mon)
+{
+    return GetMonData(mon, ISAAC_INVERTED_DATA);
+}
+
+// Types du Pokémon s'il était de l'espèce donnée (sa forme en combat, son évolution) : sa Gemme de Type remplace le
+// second type (s'ajoute à un type simple), puis l'Idole de l'Inversion les inverse tous deux
+static void GetMonTypesAsSpecies(struct Pokemon *mon, enum Species species, enum Type *types)
+{
     enum Type gem = IsaacGetMonGemType(mon);
 
     types[0] = GetSpeciesType(species, 0);
     types[1] = GetSpeciesType(species, 1);
     if (gem != TYPE_NONE)
         types[1] = gem;
+    if (IsMonInverted(mon))
+    {
+        types[0] = InvertType(types[0]);
+        types[1] = InvertType(types[1]);
+    }
 }
 
-// Gemme de Type : FALSE si le Pokémon a déjà ce type
+// Types du Pokémon, Gemme de Type et Idole de l'Inversion comprises
+void IsaacGetMonTypes(struct Pokemon *mon, enum Type *types)
+{
+    GetMonTypesAsSpecies(mon, GetMonData(mon, MON_DATA_SPECIES), types);
+}
+
+// Gemme de Type : FALSE si le Pokémon a déjà ce type. Un Pokémon inversé reçoit bien ce type : la gemme rangée est son
+// contraire, que l'inversion retourne.
 bool8 IsaacUseTypeGem(struct Pokemon *mon, enum Type type)
 {
     enum Type types[2];
-    u32 value = type;
+    u32 value = IsMonInverted(mon) ? InvertType(type) : type;
 
     IsaacGetMonTypes(mon, types);
     if (types[0] == type || types[1] == type)
@@ -2140,18 +2183,18 @@ bool8 IsaacUseTypeGem(struct Pokemon *mon, enum Type type)
     return TRUE;
 }
 
-// En combat, après que le jeu a remis les types de l'espèce (entrée en combat, Méga-Évolution...) : le second type
-// redevient celui de la Gemme de Type
+// En combat, après que le jeu a remis les types de l'espèce (entrée en combat, Méga-Évolution...) : ceux du Pokémon,
+// Gemme de Type et Idole de l'Inversion comprises
 void IsaacApplyBattlerGemType(enum BattlerId battler)
 {
     struct Pokemon *mon = GetBattlerMon(battler);
-    enum Type gem;
+    enum Type types[2];
 
-    if (mon == NULL || !IsPlayerPartyMon(mon))
+    if (mon == NULL || !IsPlayerPartyMon(mon) || (IsaacGetMonGemType(mon) == TYPE_NONE && !IsMonInverted(mon)))
         return;
-    gem = IsaacGetMonGemType(mon);
-    if (gem != TYPE_NONE)
-        gBattleMons[battler].types[1] = gem;
+    GetMonTypesAsSpecies(mon, gBattleMons[battler].species, types);
+    gBattleMons[battler].types[0] = types[0];
+    gBattleMons[battler].types[1] = types[1];
 }
 
 // ---------------------------------------------------------------------------
@@ -2750,7 +2793,7 @@ static void SetMonChaosSeed(struct Pokemon *mon, u32 seed)
 }
 
 // Stat de base (STAT_*) du Pokémon s'il était de l'espèce donnée, avec la répartition de l'Idole du Chaos
-u32 IsaacGetMonBaseStat(struct Pokemon *mon, enum Species species, u32 stat)
+static u32 GetChaosBaseStat(struct Pokemon *mon, enum Species species, u32 stat)
 {
     u32 seed = GetMonChaosSeed(mon), weights[NUM_STATS], total = 0, weightTotal = 0, state, i;
 
@@ -2766,6 +2809,16 @@ u32 IsaacGetMonBaseStat(struct Pokemon *mon, enum Species species, u32 stat)
     }
     total = total * (100 + CHAOS_BONUS_PCT) / 100;
     return min(max(total * weights[stat] / weightTotal, 1u), 255u);
+}
+
+static u32 GetInvertedBaseStat(struct Pokemon *mon, enum Species species, u32 stat);
+
+// Stat de base (STAT_*) du Pokémon s'il était de l'espèce donnée : Idole du Chaos, puis Idole de l'Inversion
+u32 IsaacGetMonBaseStat(struct Pokemon *mon, enum Species species, u32 stat)
+{
+    if (IsMonInverted(mon))
+        return GetInvertedBaseStat(mon, species, stat);
+    return GetChaosBaseStat(mon, species, stat);
 }
 
 // Idole du Chaos sur le Pokémon (voir plus haut) ; FALSE s'il ne peut rien apprendre
@@ -2802,6 +2855,173 @@ bool8 IsaacUseIdolOfChaos(struct Pokemon *mon)
         SetMonChaosSeed(mon, oldSeed);
         CalculateMonStats(mon);
         return FALSE;
+    }
+    return TRUE;
+}
+
+// ---------------------------------------------------------------------------
+// Idole de l'Inversion
+// ---------------------------------------------------------------------------
+// Le Pokémon prend le contraire de chacun de ses types (sInvertedTypes). Ses stats de base s'inversent : Attaque et
+// Attaque Spéciale s'échangent, Défense et Défense Spéciale aussi, et sa Vitesse est retournée autour de la Vitesse
+// moyenne des espèces de sa catégorie (GetCategoryMeanSpeed : un Pokémon lent devient rapide et inversement), entre
+// INVERSION_MIN_SPEED et 255. Plus il perd de Vitesse, plus ses deux défenses gagnent : +INVERSION_MAX_DEF_BONUS_PCT %
+// pour une perte égale ou supérieure à la moyenne, proportionnellement en dessous. Les PV ne changent pas. Après
+// l'Idole du Chaos (sa répartition est inversée), sous toutes ses formes.
+// Chaque attaque offensive devient une attaque du type contraire, de l'autre catégorie (les stats d'attaque sont
+// échangées), du même tier (PickInvertedMove) : une attaque de son type reste donc une attaque de son nouveau type, une
+// attaque de coverage devient une attaque de coverage du type contraire. Les boosts et les écrans prennent leur pendant
+// (sInvertedStatusMoves : Danse Lames <-> Machination, Distorsion <-> Vent Arrière...), les autres attaques de statut
+// et l'attaque Z restent. Ce n'est pas un boost ; une seconde Idole le retourne à l'endroit.
+#define INVERSION_MIN_SPEED          5
+#define INVERSION_MAX_DEF_BONUS_PCT  20
+
+static EWRAM_DATA u8 sCategoryMeanSpeed[ISAAC_CATEGORY_LEGENDARY_BIG + 1] = {0};  // 0 : pas encore calculée
+
+// Vitesse de base moyenne des espèces du roster de la catégorie de l'espèce (calculée une fois)
+static u32 GetCategoryMeanSpeed(enum Species species)
+{
+    enum IsaacCategory category = IsaacGetSpeciesCategory(species);
+    u32 sum = 0, count = 0, i;
+
+    if (category > ISAAC_CATEGORY_LEGENDARY_BIG)
+        category = ISAAC_CATEGORY_NONE;
+    if (sCategoryMeanSpeed[category] == 0)
+    {
+        for (i = 0; i < IsaacGetRosterCount(); i++)
+        {
+            if (IsaacGetSpeciesCategory(IsaacGetRosterSpecies(i)) != category)
+                continue;
+            sum += GetSpeciesBaseStat(IsaacGetRosterSpecies(i), STAT_SPEED);
+            count++;
+        }
+        sCategoryMeanSpeed[category] = (count == 0) ? GetSpeciesBaseStat(species, STAT_SPEED) : max(sum / count, 1u);
+    }
+    return sCategoryMeanSpeed[category];
+}
+
+static u32 GetInvertedBaseStat(struct Pokemon *mon, enum Species species, u32 stat)
+{
+    s32 speed = GetChaosBaseStat(mon, species, STAT_SPEED), mean = GetCategoryMeanSpeed(species);
+    s32 mirrored = min(max(2 * mean - speed, INVERSION_MIN_SPEED), 255), bonus;
+
+    switch (stat)
+    {
+    case STAT_ATK:
+        return GetChaosBaseStat(mon, species, STAT_SPATK);
+    case STAT_SPATK:
+        return GetChaosBaseStat(mon, species, STAT_ATK);
+    case STAT_SPEED:
+        return mirrored;
+    case STAT_DEF:
+    case STAT_SPDEF:
+        bonus = (speed > mirrored) ? min((speed - mirrored) * INVERSION_MAX_DEF_BONUS_PCT / mean, INVERSION_MAX_DEF_BONUS_PCT) : 0;
+        return min(GetChaosBaseStat(mon, species, (stat == STAT_DEF) ? STAT_SPDEF : STAT_DEF) * (100 + bonus) / 100, 255);
+    default:
+        return GetChaosBaseStat(mon, species, stat);
+    }
+}
+
+static const u16 sInvertedStatusMoves[][2] =
+{
+    { MOVE_SWORDS_DANCE, MOVE_NASTY_PLOT },
+    { MOVE_BULK_UP,      MOVE_CALM_MIND },
+    { MOVE_DRAGON_DANCE, MOVE_QUIVER_DANCE },
+    { MOVE_IRON_DEFENSE, MOVE_AMNESIA },
+    { MOVE_REFLECT,      MOVE_LIGHT_SCREEN },
+    { MOVE_TRICK_ROOM,   MOVE_TAILWIND },
+};
+
+static u16 GetInvertedStatusMove(u16 move)
+{
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sInvertedStatusMoves); i++)
+    {
+        if (sInvertedStatusMoves[i][0] == move)
+            return sInvertedStatusMoves[i][1];
+        if (sInvertedStatusMoves[i][1] == move)
+            return sInvertedStatusMoves[i][0];
+    }
+    return move;
+}
+
+// Passes de PickInvertedMove, de la plus stricte à la plus large : l'autre catégorie passe avant le tier exact
+static const struct { bool8 learnable; bool8 sameCategoryOk; u8 maxGap; } sInversionPasses[] =
+{
+    { TRUE,  FALSE, 0 },  // que l'espèce apprend, de l'autre catégorie, même tier
+    { FALSE, FALSE, 0 },  // de l'autre catégorie, même tier
+    { FALSE, FALSE, 3 },  // de l'autre catégorie, tier le plus proche
+    { FALSE, TRUE,  3 },  // n'importe laquelle du type
+};
+
+// Attaque offensive contraire de move pour le Pokémon (voir plus haut), tirée au hasard dans la première passe qui en
+// trouve ; jamais une attaque ISAAC_MOVE_ROLE_COMBO, situationnelle, ni une qu'il a déjà (taken). move si aucune.
+static u16 PickInvertedMove(struct Pokemon *mon, u16 move, const u16 *taken)
+{
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    enum Type type = InvertType(GetMoveType(move));
+    enum DamageCategory category = GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL ? DAMAGE_CATEGORY_SPECIAL : DAMAGE_CATEGORY_PHYSICAL;
+    u32 tier = GetMoveTierValue(move), pass, gap, candidate, moveTier, count, i;
+    u16 picked;
+
+    if (tier == 0)
+        tier = 2;  // attaque situationnelle : une attaque moyenne
+    for (pass = 0; pass < ARRAY_COUNT(sInversionPasses); pass++)
+    {
+        for (gap = 0; gap <= sInversionPasses[pass].maxGap; gap++)
+        {
+            picked = MOVE_NONE;
+            count = 0;
+            for (candidate = 1; candidate < MOVES_COUNT; candidate++)
+            {
+                moveTier = sIsaacMoveTiers[candidate];
+                if (moveTier == 0 || IsSituationalTier(moveTier) || (moveTier != tier + gap && moveTier + gap != tier)
+                 || GetMoveCategory(candidate) == DAMAGE_CATEGORY_STATUS || GetMoveType(candidate) != type
+                 || (sIsaacMoveRoles[candidate] & ISAAC_MOVE_ROLE_COMBO))
+                    continue;
+                if (!sInversionPasses[pass].sameCategoryOk && GetMoveCategory(candidate) != category)
+                    continue;
+                if (sInversionPasses[pass].learnable && !CanSpeciesLearnMove(species, candidate))
+                    continue;
+                for (i = 0; i < MAX_MON_MOVES && taken[i] != candidate; i++)
+                    ;
+                if (i != MAX_MON_MOVES)
+                    continue;
+                if (Random() % ++count == 0)
+                    picked = candidate;
+            }
+            if (picked != MOVE_NONE)
+                return picked;
+        }
+    }
+    return move;
+}
+
+// Idole de l'Inversion sur le Pokémon (voir plus haut) ; toujours TRUE
+bool8 IsaacUseIdolOfInversion(struct Pokemon *mon)
+{
+    u16 moves[MAX_MON_MOVES], move;
+    u32 value = !IsMonInverted(mon), i;
+
+    SetMonData(mon, ISAAC_INVERTED_DATA, &value);
+    CalculateMonStats(mon);
+    for (i = 0; i < MAX_MON_MOVES; i++)
+        moves[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        move = moves[i];
+        if (move == MOVE_NONE || move >= MOVES_COUNT || IsZMove(move))
+            continue;
+        if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
+            move = GetInvertedStatusMove(move);
+        else
+            move = PickInvertedMove(mon, move, moves);
+        if (move == moves[i] || MonKnowsMove(mon, move))
+            continue;
+        moves[i] = move;
+        RemoveMonPPBonus(mon, i);
+        SetMonMoveSlot(mon, move, i);
     }
     return TRUE;
 }

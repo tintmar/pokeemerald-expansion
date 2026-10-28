@@ -4856,7 +4856,8 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_LoadedDice,
     },
 
-    // Donjon : deux Omniboosts contre un quart des PV max, pour toujours, une fois par Pokémon (voir IsaacUseBloodPact)
+    // Donjon : Attaque, Attaque Spé. et Vitesse +20 % contre un quart des PV max, pour toujours ; un boost (voir
+    // IsaacUseBloodPact)
     [ITEM_BLOOD_PACT] =
     {
         .name = ITEM_NAME("Blood Pact"),
@@ -4948,6 +4949,25 @@ const struct ItemInfo gItemsInfo[] =
         .flingPower = 30,
         .iconPic = gItemIcon_RelicStatue,
         .iconPalette = gItemIconPalette_Relics,
+    },
+
+    // Donjon : types contraires, stats inversées, attaques du type contraire (voir IsaacUseIdolOfInversion) ; pas un
+    // boost, une seconde Idole le retourne
+    [ITEM_IDOL_OF_INVERSION] =
+    {
+        .name = ITEM_NAME("Idol of Inversion"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Turns a Pokémon's\n"
+            "types, stats and\n"
+            "moves inside out."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_IsaacIdolOfInversion,
+        .flingPower = 30,
+        .iconPic = gItemIcon_OddKeystone,
+        .iconPalette = gItemIconPalette_OddKeystone,
     },
 
     // Donjon : argent des dresseurs doublé jusqu'à la fin de la descente (voir IsaacGetTrainerMoney)

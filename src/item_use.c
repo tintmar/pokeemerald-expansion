@@ -1204,6 +1204,12 @@ void ItemUseOutOfBattle_IsaacIdolOfChaos(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_IsaacIdolOfInversion(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_IsaacIdolOfInversion;
+    SetUpItemUseCallback(taskId);
+}
+
 static u32 GetBallThrowableState(void)
 {
     if (IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))

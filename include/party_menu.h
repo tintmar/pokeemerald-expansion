@@ -116,6 +116,7 @@ void ItemUseCB_IsaacTeamworkTotem(u8 taskId, TaskFunc task);
 void ItemUseCB_IsaacMegaCrystal(u8 taskId, TaskFunc task);
 void ItemUseCB_IsaacCursedDie(u8 taskId, TaskFunc task);
 void ItemUseCB_IsaacIdolOfChaos(u8 taskId, TaskFunc task);
+void ItemUseCB_IsaacIdolOfInversion(u8 taskId, TaskFunc task);
 void ItemUseCB_IsaacPrismStone(u8 taskId, TaskFunc task);
 void ItemUseCB_IsaacZTM(u8 taskId, TaskFunc task);
 void ItemUseCB_IsaacAbilityTrainer(u8 taskId, TaskFunc task);

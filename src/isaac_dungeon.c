@@ -3051,8 +3051,8 @@ void IsaacKecleonGreeting(void)
 //    salles visitées (environ deux étages, IsaacTickEggs) ;
 //  - ROOM_CONTENT_TRADER : un homme échange un Pokémon de l'équipe contre un autre de n'importe quel biome, de la
 //    force de ceux de la salle de capture de l'étage (IsaacPrepareTrade) ;
-//  - ROOM_CONTENT_DEVIL : à partir de DEVIL_PACT_MIN_FLOOR, pacte du diable, un objet rare (Master Ball, Dé
-//    Maudit, Pacte de Sang ou objet spécial, IsaacPrepareDevilPact) contre le sacrifice définitif d'un Pokémon de
+//  - ROOM_CONTENT_DEVIL : à partir de DEVIL_PACT_MIN_FLOOR, pacte du diable, un objet maudit (une des deux
+//    Idoles, Dé Maudit ou Pacte de Sang, IsaacPrepareDevilPact) contre le sacrifice définitif d'un Pokémon de
 //    l'équipe (pas le dernier en état de se battre, pas un Œuf) ;
 //  - ROOM_CONTENT_TUTOR : maître des capacités, propose TUTOR_CHOICES attaques fortes (sTutorMoves) que le Pokémon choisi peut
 //    apprendre et ne connaît pas, dont au moins TUTOR_TYPE_CHOICES de ses types (Pierre Prisme comprise) ; il en apprend une (en oubliant une autre s'il en connaît déjà 4) ;
@@ -3407,28 +3407,23 @@ void IsaacDoTrade(void)
     GetSetPokedexFlag(SpeciesToNationalPokedexNum(sTradeSpecies), FLAG_SET_CAUGHT);
 }
 
-// Pacte du diable : objet proposé (toujours le même pour la salle) dans VAR_0x8006 et gStringVar2. VAR_RESULT = FALSE
-// si l'équipe n'a pas au moins deux Pokémon (hors Œufs) : on ne peut pas sacrifier le dernier.
-
-#define DEVIL_PACT_MASTER_BALL_ODDS  5
-// Sinon, sur DEVIL_PACT_ITEM_ODDS : un Dé Maudit, un Pacte de Sang, ou (le reste) un objet spécial
-#define DEVIL_PACT_ITEM_ODDS  4
+// Pacte du diable : objet proposé (toujours le même pour la salle) dans VAR_0x8006 et gStringVar2, tiré dans sa propre
+// table (sDevilPactItems, chances égales). VAR_RESULT = FALSE si l'équipe n'a pas au moins deux Pokémon (hors Œufs) :
+// on ne peut pas sacrifier le dernier.
+static const u16 sDevilPactItems[] =
+{
+    ITEM_IDOL_OF_CHAOS,
+    ITEM_IDOL_OF_INVERSION,
+    ITEM_CURSED_DIE,
+    ITEM_BLOOD_PACT,
+};
 
 void IsaacPrepareDevilPact(void)
 {
     s32 x, y;
-    u32 roll;
 
     GetCurrentCell(&x, &y);
-    roll = RoomRandom(x, y, 0xD3E1);
-    if (roll % DEVIL_PACT_MASTER_BALL_ODDS == 0)
-        gSpecialVar_0x8006 = ITEM_MASTER_BALL;
-    else if ((roll >> 4) % DEVIL_PACT_ITEM_ODDS == 0)
-        gSpecialVar_0x8006 = ITEM_CURSED_DIE;
-    else if ((roll >> 4) % DEVIL_PACT_ITEM_ODDS == 1)
-        gSpecialVar_0x8006 = ITEM_BLOOD_PACT;
-    else
-        gSpecialVar_0x8006 = IsaacPickSpecialItem(roll >> 8, FALSE);
+    gSpecialVar_0x8006 = sDevilPactItems[RoomRandom(x, y, 0xD3E1) % ARRAY_COUNT(sDevilPactItems)];
     CopyItemName(gSpecialVar_0x8006, gStringVar2);
     gSpecialVar_Result = CountPartyFighters() >= 2;
 }
