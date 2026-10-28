@@ -2335,6 +2335,26 @@ static bool8 SetMovesFromSet(struct Pokemon *mon, u32 tier, u32 variant)
     return TRUE;
 }
 
+// Niveau de tier du Pokémon, de 1 à ISAAC_SET_TIERS : moyenne des tiers de ses attaques (sans les situationnelles),
+// arrondie au-dessus ; celui de son set s'il n'a aucune attaque avec un tier
+u32 IsaacGetMonTierLevel(struct Pokemon *mon)
+{
+    u32 sum = 0, count = 0, i, tier;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        tier = GetMoveTierValue(GetMonData(mon, MON_DATA_MOVE1 + i));
+        if (tier != 0)
+        {
+            sum += tier;
+            count++;
+        }
+    }
+    if (count == 0)
+        return IsaacGetMonSetTier(mon) + 1;
+    return min((sum + count - 1) / count, (u32)ISAAC_SET_TIERS);
+}
+
 // Super CT (ITEM_ABILITY_TRAINER) : le Pokémon prend les attaques du palier suivant de son espèce, même variante (FALSE s'il a déjà
 // le meilleur)
 bool8 IsaacUpgradeSet(struct Pokemon *mon)
@@ -2346,16 +2366,23 @@ bool8 IsaacUpgradeSet(struct Pokemon *mon)
     return SetMovesFromSet(mon, tier + 1, IsaacGetMonSetVariant(mon));
 }
 
-// Dé Maudit : le Pokémon prend les attaques d'un set tiré au hasard, un palier plus bas, le même ou un plus haut (dans
-// les limites), en variante A ou B. Renvoie le palier gagné (-1, 0 ou 1) ; FALSE dans *ok si l'espèce n'a pas le set.
+// Super CT sur un Pokémon déjà au niveau de tier maximal : une attaque à apprendre, comme à la fin d'un combat
+// (PickUpgradeMove), MOVE_NONE s'il n'y a rien à gagner
+u16 IsaacPickSuperTmMove(struct Pokemon *mon)
+{
+    return PickUpgradeMove(mon, GetMonData(mon, MON_DATA_SPECIES));
+}
+
+// Dé Maudit : le Pokémon prend les attaques d'un set de son espèce tiré au hasard, au niveau X de ses attaques
+// (IsaacGetMonTierLevel) ou au suivant (dans les limites), en variante A ou B. Renvoie le palier gagné par rapport à X
+// (0 ou 1) ; FALSE dans *ok si l'espèce n'a pas le set.
 s32 IsaacRollCursedDie(struct Pokemon *mon, bool8 *ok)
 {
-    u32 roll = Random(), tier = IsaacGetMonSetTier(mon), newTier;
+    u32 roll = Random(), level = IsaacGetMonTierLevel(mon), newTier;
 
-    newTier = tier + roll % 3;  // tier - 1, tier ou tier + 1, décalé d'un
-    newTier = (newTier == 0) ? 0 : min(newTier - 1, (u32)ISAAC_SET_TIERS - 1);
+    newTier = min(level - 1 + roll % 2, (u32)ISAAC_SET_TIERS - 1);  // set X ou X + 1 (paliers de 0 à 3)
     *ok = SetMovesFromSet(mon, newTier, (roll >> 8) % ISAAC_SET_VARIANTS);
-    return (s32)newTier - (s32)tier;
+    return (s32)(newTier + 1) - (s32)level;
 }
 
 // L'espèce a-t-elle un type en commun avec une des count espèces données ?

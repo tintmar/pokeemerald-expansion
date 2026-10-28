@@ -4304,9 +4304,9 @@ const struct ItemInfo gItemsInfo[] =
         .name = ITEM_NAME("Super TM"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "Teaches a Pokémon\n"
-            "its next, stronger\n"
-            "set of moves."),
+            "Next, stronger set\n"
+            "of moves, or one\n"
+            "new move at the top."),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
         .type = ITEM_USE_PARTY_MENU,
@@ -4845,8 +4845,8 @@ const struct ItemInfo gItemsInfo[] =
         .price = 0,
         .description = COMPOUND_STRING(
             "Rerolls the moves\n"
-            "of a Pokémon.\n"
-            "Better or worse…"),
+            "of a Pokémon, at\n"
+            "its tier or above."),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STAT_BOOST_DRINK,
         .type = ITEM_USE_PARTY_MENU,

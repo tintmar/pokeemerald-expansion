@@ -134,6 +134,8 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop);
 bool8 IsaacAddOmniboost(struct Pokemon *mon);
 bool8 IsaacHasBoost(struct Pokemon *mon);
 bool8 IsaacUpgradeSet(struct Pokemon *mon);
+u32 IsaacGetMonTierLevel(struct Pokemon *mon);
+u16 IsaacPickSuperTmMove(struct Pokemon *mon);
 bool8 IsaacUseBloodPact(struct Pokemon *mon);
 s32 IsaacRollCursedDie(struct Pokemon *mon, bool8 *ok);
 bool8 IsaacUseGoldenHeart(void);

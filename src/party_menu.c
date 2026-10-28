@@ -6750,7 +6750,7 @@ void ItemUseCB_IsaacZTM(u8 taskId, TaskFunc task)
     }
 }
 
-// Donjon : Dé Maudit, le Pokémon prend un set au hasard, un palier plus bas, le même ou un plus haut
+// Donjon : Dé Maudit, le Pokémon prend un set au hasard, à son niveau de tier ou au suivant
 void ItemUseCB_IsaacCursedDie(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
@@ -6771,8 +6771,6 @@ void ItemUseCB_IsaacCursedDie(u8 taskId, TaskFunc task)
     GetMonNickname(mon, gStringVar1);
     if (change > 0)
         StringCopy(gStringVar2, COMPOUND_STRING("They got better!"));
-    else if (change < 0)
-        StringCopy(gStringVar2, COMPOUND_STRING("They got worse…"));
     else
         StringCopy(gStringVar2, COMPOUND_STRING("Same tier as before."));
     IsaacItemUsed(taskId, task, COMPOUND_STRING("{STR_VAR_1}'s moves changed!\n{STR_VAR_2}{PAUSE_UNTIL_PRESS}"));
@@ -6868,18 +6866,47 @@ void ItemUseCB_IsaacOmniboost(u8 taskId, TaskFunc task)
     gTasks[taskId].func = task;
 }
 
-// Donjon : Super CT (ITEM_ABILITY_TRAINER), le Pokémon passe au set suivant de son espèce
+// Super CT au niveau de tier maximal (ou avec le meilleur set) : une seule attaque, comme à la fin d'un combat (comme
+// une CT : il peut en remplacer une)
+static void IsaacSuperTmTeachMove(u8 taskId, TaskFunc task, struct Pokemon *mon)
+{
+    u16 move = IsaacPickSuperTmMove(mon);
+
+    if (move == MOVE_NONE)
+    {
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    gPartyMenu.data1 = move;
+    gPartyMenu.learnMoveState = 0;
+    PlaySE(SE_SELECT);
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, GetMoveName(move));
+    if (GiveMoveToMon(mon, move) != MON_HAS_MAX_MOVES)
+    {
+        gTasks[taskId].func = Task_LearnedMove;
+    }
+    else
+    {
+        DisplayLearnMoveMessage(gText_PkmnNeedsToReplaceMove);
+        gTasks[taskId].func = Task_ReplaceMoveYesNo;
+    }
+}
+
+// Donjon : Super CT (ITEM_ABILITY_TRAINER), le Pokémon passe au set suivant de son espèce ; déjà au niveau de tier
+// maximal (IsaacGetMonTierLevel) ou au meilleur set, il apprend une seule attaque (IsaacSuperTmTeachMove)
 void ItemUseCB_IsaacAbilityTrainer(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
 
-    if (GetMonData(mon, MON_DATA_IS_EGG) || !IsaacUpgradeSet(mon))
+    if (GetMonData(mon, MON_DATA_IS_EGG))
     {
-        gPartyMenuUseExitCallback = FALSE;
-        PlaySE(SE_SELECT);
-        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
-        ScheduleBgCopyTilemapToVram(2);
-        gTasks[taskId].func = task;
+        IsaacItemWontHaveEffect(taskId, task);
+        return;
+    }
+    if (IsaacGetMonTierLevel(mon) >= ISAAC_SET_TIERS || !IsaacUpgradeSet(mon))
+    {
+        IsaacSuperTmTeachMove(taskId, task, mon);
         return;
     }
     gPartyMenuUseExitCallback = TRUE;
