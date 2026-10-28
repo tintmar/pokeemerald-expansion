@@ -2807,10 +2807,21 @@ bool8 IsaacUpgradeSet(struct Pokemon *mon)
 }
 
 // Super CT sur un Pokémon déjà au niveau de tier maximal : une attaque à apprendre, comme à la fin d'un combat
-// (PickUpgradeMove), MOVE_NONE s'il n'y a rien à gagner
+// (PickUpgradeMove), MOVE_NONE s'il n'y a rien à gagner. Le tirage ne dépend que du Pokémon (personnalité, espèce,
+// attaques) et de l'étage : refuser puis réessayer propose la même attaque.
 u16 IsaacPickSuperTmMove(struct Pokemon *mon)
 {
-    return PickUpgradeMove(mon, GetMonData(mon, MON_DATA_SPECIES));
+    rng_value_t saved = gRngValue;
+    u32 seed = GetMonData(mon, MON_DATA_PERSONALITY) ^ (GetMonData(mon, MON_DATA_SPECIES) << 16)
+             ^ (VarGet(VAR_ISAAC_FLOOR) * 0x9E3779B9), i;
+    u16 move;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+        seed = ISO_RANDOMIZE1(seed ^ GetMonData(mon, MON_DATA_MOVE1 + i));
+    gRngValue = LocalRandomSeed(seed);
+    move = PickUpgradeMove(mon, GetMonData(mon, MON_DATA_SPECIES));
+    gRngValue = saved;
+    return move;
 }
 
 // Dé Maudit : le Pokémon prend les attaques d'un set de son espèce tiré au hasard, au niveau X de ses attaques
