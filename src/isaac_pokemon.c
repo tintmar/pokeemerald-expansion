@@ -2981,9 +2981,13 @@ bool8 IsaacUseIdolOfChaos(struct Pokemon *mon)
     enum Species species = GetMonData(mon, MON_DATA_SPECIES);
     u32 level = IsaacGetMonTierLevel(mon), oldSeed = GetMonChaosSeed(mon), seed, count = 0, i, tier;
     u32 oldEvs[NUM_STATS], oldIvs[NUM_STATS];
+    u32 oldNature = GetMonData(mon, MON_DATA_HIDDEN_NATURE), nature;
     u16 oldMoves[MAX_MON_MOVES], move;
 
-    // nouvelle répartition (jamais la même), EVs et IVs compris, d'abord : les attaques suivent les nouvelles stats
+    // nouvelle répartition (jamais la même), EVs et IVs compris, et nouvelle nature au hasard (comme une Menthe, la
+    // personnalité ne change pas) d'abord : les attaques suivent les nouvelles stats
+    nature = Random() % NUM_NATURES;
+    SetMonData(mon, MON_DATA_HIDDEN_NATURE, &nature);
     seed = 1 + Random() % CHAOS_SEED_COUNT;
     if (seed == oldSeed)
         seed = seed % CHAOS_SEED_COUNT + 1;
@@ -3018,6 +3022,7 @@ bool8 IsaacUseIdolOfChaos(struct Pokemon *mon)
             SetMonData(mon, MON_DATA_HP_EV + i, &oldEvs[i]);
             SetMonData(mon, MON_DATA_HP_IV + i, &oldIvs[i]);
         }
+        SetMonData(mon, MON_DATA_HIDDEN_NATURE, &oldNature);
         SetMonChaosSeed(mon, oldSeed);
         CalculateMonStats(mon);
         return FALSE;
