@@ -12,7 +12,8 @@ struct Pokemon;
 #define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux
 #define ISAAC_SECRET_ABILITY_CHOICES  3  // talents secrets proposés par le révélateur de talents
 #define ISAAC_MOVE_TIER_SITUATIONAL  5  // tier des attaques situationnelles (src/data/isaac_move_tiers.h)
-// Rôle des attaques de statut (sIsaacMoveRoles, src/data/isaac_move_tiers.h)
+#define ISAAC_MOVE_TIER_SITUATIONAL_STRONG  6  // situationnelles fortes ([Strong] : soins fiables, Toxik, Abri...)
+// Rôle des attaques (sIsaacMoveRoles, src/data/isaac_move_tiers.h) ; ceux des attaques offensives : COMBO, STAT_FREE
 #define ISAAC_MOVE_ROLE_SETUP_PHYSICAL  (1 << 0)  // boost d'Attaque (ou de Vitesse)
 #define ISAAC_MOVE_ROLE_SETUP_SPECIAL   (1 << 1)  // boost d'Attaque Spéciale (ou de Vitesse)
 #define ISAAC_MOVE_ROLE_RECOVERY        (1 << 2)
@@ -21,6 +22,11 @@ struct Pokemon;
 #define ISAAC_MOVE_ROLE_COMBO           (1 << 5)  // inutile seule (Blabla Dodo, Dévorêve...) ou perd un tour (Giga Impact)
 #define ISAAC_MOVE_ROLE_DEF_BOOST       (1 << 6)
 #define ISAAC_MOVE_ROLE_OTHER           (1 << 7)
+#define ISAAC_MOVE_ROLE_DISRUPTION      (1 << 8)   // Provoc, Encore, Buée Noire, Entrave...
+#define ISAAC_MOVE_ROLE_SCREEN          (1 << 9)   // Protection, Mur Lumière
+#define ISAAC_MOVE_ROLE_SUPPORT         (1 << 10)  // soutien de l'équipe (Glas de Soin...), Hurlement, Demi-Tour...
+#define ISAAC_MOVE_ROLE_FIELD           (1 << 11)  // météo, terrain, Distorsion, Vent Arrière
+#define ISAAC_MOVE_ROLE_STAT_FREE       (1 << 12)  // attaque sans les stats d'attaque du lanceur (Big Splash, Tricherie...)
 #define ISAAC_MAX_EVOLUTION_CHOICES  8  // évolutions au choix d'une Pierre Évolution (Évoli : 5)
 
 // Catégorie d'un Pokémon (tools/isaac/build_categories.py, d'après tools/isaac/biome_roster.py) : septiles de BST des

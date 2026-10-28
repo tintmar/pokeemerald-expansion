@@ -48,6 +48,9 @@ HOW MOVES WERE TIERED (v3)
     Tier 4: Spore, Dark Void, Swords Dance, Nasty Plot, Calm Mind, Bulk Up, Dragon Dance, Quiver Dance, Shell Smash...
     Tier 3: Sleep Powder, Lovely Kiss (-> Spore), Coil, Growth.   Tier 2: Hypnosis, Sing, Charm, Screech, Work Up...
     Situational: Toxic, Will-O-Wisp, Protect, recovery, weather, screens..., each with a [Function] label.
+    Situational moves come in two strengths: [Strong] marks the reliable staples of defensive / support builds
+    (reliable recovery, Toxic, Will-O-Wisp, Thunder Wave, Protect, Substitute, Taunt, Encore, defense boosts...),
+    which the battle progression may offer to such builds even outside their sets; the others are niche.
   Multi-hit 25 BP moves (Bullet Seed, Icicle Spear, Rock Blast...) stay Tier 3; they play like Tier 4 on Skill Link users.
   Excluded: Z-Moves, Max/G-Max moves, Let's Go-only and CAP moves, doubles-only support moves and entry hazards
     (both listed at the end).
@@ -788,7 +791,7 @@ SITUATIONAL / UTILITY   [174 moves]
     Transform           Stat      —     —  10      [Copy / Random] Copies target's stats, moves, types, and Ability.
     Bide                Phys      —     —  10  +1  [Counterattack] Waits 2 turns; deals double the damage taken.
     Disable             Stat      —  100%  20      [Disruption] For 4 turns, disables the target's last move used.
-    Encore              Stat      —  100%   5      [Disruption] Target repeats its last move for its next 3 turns.
+    Encore              Stat      —  100%   5      [Disruption] [Strong] Target repeats its last move for its next 3 turns.
     Entrainment         Stat      —  100%  15      [Disruption] The target's Ability changes to match the user's.
     Perish Song         Stat      —     —   5      [Disruption] All active Pokemon will faint in 3 turns.
     Psych Up            Stat      —     —  10      [Disruption] Copies the target's current stat stages.
@@ -798,46 +801,46 @@ SITUATIONAL / UTILITY   [174 moves]
     Super Fang          Phys    fix   90%  10      [Fixed Damage] Does damage equal to 1/2 target's current HP.
     Guillotine          Phys      —   30%   5      [OHKO] OHKOs the target. Fails if user is a lower level.
     Horn Drill          Phys      —   30%   5      [OHKO] OHKOs the target. Fails if user is a lower level.
-    Roar                Stat      —     —  20  -6  [Pivot / Phaze] Forces the target to switch to a random ally.
-    Whirlwind           Stat      —     —  20  -6  [Pivot / Phaze] Forces the target to switch to a random ally.
+    Roar                Stat      —     —  20  -6  [Pivot / Phaze] [Strong] Forces the target to switch to a random ally.
+    Whirlwind           Stat      —     —  20  -6  [Pivot / Phaze] [Strong] Forces the target to switch to a random ally.
     Fake Out            Phys     40  100%  10  +3  [Priority Disruption] Hits first. First turn out only. 100% flinch chance.
     Feint               Phys     30  100%  10  +2  [Priority Disruption] Nullifies Detect, Protect, and Quick/Wide Guard.
     Endure              Stat      —     —  10  +4  [Protection] User survives attacks this turn with at least 1 HP.
-    Protect             Stat      —     —  10  +4  [Protection] Prevents moves from affecting the user this turn.
-    Substitute          Stat      —     —  10      [Protection] User takes 1/4 its max HP to put in a substitute.
-    Milk Drink          Stat      —     —   5      [Recovery] Heals the user by 50% of its max HP.  [Exclusive: Miltank line]
-    Morning Sun         Stat      —     —   5      [Recovery] Heals the user by a weather-dependent amount.
-    Pain Split          Stat      —     —  20      [Recovery] Shares HP of user and target equally.
-    Recover             Stat      —     —   5      [Recovery] Heals the user by 50% of its max HP.
-    Slack Off           Stat      —     —   5      [Recovery] Heals the user by 50% of its max HP.
-    Soft-Boiled         Stat      —     —   5      [Recovery] Heals the user by 50% of its max HP.
+    Protect             Stat      —     —  10  +4  [Protection] [Strong] Prevents moves from affecting the user this turn.
+    Substitute          Stat      —     —  10      [Protection] [Strong] User takes 1/4 its max HP to put in a substitute.
+    Milk Drink          Stat      —     —   5      [Recovery] [Strong] Heals the user by 50% of its max HP.  [Exclusive: Miltank line]
+    Morning Sun         Stat      —     —   5      [Recovery] [Strong] Heals the user by a weather-dependent amount.
+    Pain Split          Stat      —     —  20      [Recovery] [Strong] Shares HP of user and target equally.
+    Recover             Stat      —     —   5      [Recovery] [Strong] Heals the user by 50% of its max HP.
+    Slack Off           Stat      —     —   5      [Recovery] [Strong] Heals the user by 50% of its max HP.
+    Soft-Boiled         Stat      —     —   5      [Recovery] [Strong] Heals the user by 50% of its max HP.
     Stuff Cheeks        Stat      —     —  10      [Recovery] Must hold Berry to use. User eats Berry, Def +2.  [Exclusive: Gulpin line]
     Swallow             Stat      —     —  10      [Recovery] Heals the user based on uses of Stockpile.
-    Wish                Stat      —     —  10      [Recovery] Next turn, 50% of the user's max HP is restored.
+    Wish                Stat      —     —  10      [Recovery] [Strong] Next turn, 50% of the user's max HP is restored.
     Snore               Spec     50  100%  15      [Sleep Combo] User must be asleep. 30% chance to flinch target.
     Acupressure         Stat      —     —  30      [Stat Boost] Raises a random stat of the user or an ally by 2.
     Double Team         Stat      —     —  15      [Stat Boost] Raises the user's evasiveness by 1.
     Laser Focus         Stat      —     —  30      [Stat Boost] Until the end of the next turn, user's moves crit.
     Minimize            Stat      —     —  10      [Stat Boost] Raises the user's evasiveness by 2.
-    Stockpile           Stat      —     —  20      [Stat Boost] Raises user's Defense, Sp. Def by 1. Max 3 uses.
+    Stockpile           Stat      —     —  20      [Stat Boost] [Strong] Raises user's Defense, Sp. Def by 1. Max 3 uses.
     Attract             Stat      —  100%  15      [Status Inflict] A target of the opposite gender gets infatuated.
-    Glare               Stat      —  100%  30      [Status Inflict] Paralyzes the target.
+    Glare               Stat      —  100%  30      [Status Inflict] [Strong] Paralyzes the target.
     Swagger             Stat      —   85%  15      [Status Inflict] Raises the target's Attack by 2 and confuses it.
     Teeter Dance        Stat      —  100%  20      [Status Inflict] Confuses adjacent Pokemon.
-    Yawn                Stat      —     —  10      [Status Inflict] Puts the target to sleep after 1 turn.
+    Yawn                Stat      —     —  10      [Status Inflict] [Strong] Puts the target to sleep after 1 turn.
     Baton Pass          Stat      —     —  40      [Team Support] User switches, passing stat changes and more.
-    Heal Bell           Stat      —     —   5      [Team Support] Cures the user's party of all status conditions.
+    Heal Bell           Stat      —     —   5      [Team Support] [Strong] Cures the user's party of all status conditions.
     Lucky Chant         Stat      —     —  30      [Team Support] For 5 turns, shields user's party from critical hits.
     Refresh             Stat      —     —  20      [Team Support] User cures its burn, poison, or paralysis.
-    Revival Blessing    Stat      —     —   1      [Team Support] Revives a fainted Pokemon to 50% HP.  [Exclusive: Pawmi line]
+    Revival Blessing    Stat      —     —   1      [Team Support] [Strong] Revives a fainted Pokemon to 50% HP.  [Exclusive: Pawmi line]
     Safeguard           Stat      —     —  25      [Team Support] For 5 turns, protects user's party from status.
-    Shed Tail           Stat      —     —  10      [Team Support] User takes 1/2 its max HP to pass a substitute.  [Exclusive: Treecko line]
+    Shed Tail           Stat      —     —  10      [Team Support] [Strong] User takes 1/2 its max HP to pass a substitute.  [Exclusive: Treecko line]
     Block               Stat      —     —   5      [Trap] Prevents the target from switching out.
     Mean Look           Stat      —     —   5      [Trap] Prevents the target from switching out.
 
   -- FIRE (2) --
     Move                Cat      BP   Acc  PP Pri  Effect
-    Will-O-Wisp         Stat      —   85%  15      [Status Inflict] Burns the target.
+    Will-O-Wisp         Stat      —   85%  15      [Status Inflict] [Strong] Burns the target.
     Sunny Day           Stat      —     —   5      [Weather] For 5 turns, intense sunlight powers Fire moves.
 
   -- WATER (4) --
@@ -853,25 +856,25 @@ SITUATIONAL / UTILITY   [174 moves]
     Charge              Stat      —     —  20      [Stat Boost] +1 SpD, user's next Electric move 2x power.
     Magnet Rise         Stat      —     —  10      [Stat Boost] For 5 turns, the user has immunity to Ground.
     Magnetic Flux       Stat      —     —  20      [Stat Boost] Raises Def, Sp. Def of allies with Plus/Minus by 1.
-    Thunder Wave        Stat      —   90%  20      [Status Inflict] Paralyzes the target.
+    Thunder Wave        Stat      —   90%  20      [Status Inflict] [Strong] Paralyzes the target.
     Electric Terrain    Stat      —     —  10      [Terrain] 5 turns. Grounded: +Electric power, can't sleep.
 
   -- GRASS (10) --
     Move                Cat      BP   Acc  PP Pri  Effect
     Worry Seed          Stat      —  100%  10      [Disruption] The target's Ability becomes Insomnia.
-    Spiky Shield        Stat      —     —  10  +4  [Protection] Protects from moves. Contact: loses 1/8 max HP.
+    Spiky Shield        Stat      —     —  10  +4  [Protection] [Strong] Protects from moves. Contact: loses 1/8 max HP.
     Ingrain             Stat      —     —  20      [Recovery] Traps/grounds user; heals 1/16 max HP per turn.
-    Leech Seed          Stat      —   90%  10      [Recovery] 1/8 of target's HP is restored to user every turn.
-    Strength Sap        Stat      —  100%  10      [Recovery] User heals HP=target's Atk stat. Lowers Atk by 1.
-    Synthesis           Stat      —     —   5      [Recovery] Heals the user by a weather-dependent amount.
-    Cotton Guard        Stat      —     —  10      [Stat Boost] Raises the user's Defense by 3.
+    Leech Seed          Stat      —   90%  10      [Recovery] [Strong] 1/8 of target's HP is restored to user every turn.
+    Strength Sap        Stat      —  100%  10      [Recovery] [Strong] User heals HP=target's Atk stat. Lowers Atk by 1.
+    Synthesis           Stat      —     —   5      [Recovery] [Strong] Heals the user by a weather-dependent amount.
+    Cotton Guard        Stat      —     —  10      [Stat Boost] [Strong] Raises the user's Defense by 3.
     Stun Spore          Stat      —   75%  30      [Status Inflict] Paralyzes the target.
-    Aromatherapy        Stat      —     —   5      [Team Support] Cures the user's party of all status conditions.
+    Aromatherapy        Stat      —     —   5      [Team Support] [Strong] Cures the user's party of all status conditions.
     Grassy Terrain      Stat      —     —  10      [Terrain] 5 turns. Grounded: +Grass power, +1/16 max HP.
 
   -- ICE (7) --
     Move                Cat      BP   Acc  PP Pri  Effect
-    Haze                Stat      —     —  30      [Disruption] Eliminates all stat changes.
+    Haze                Stat      —     —  30      [Disruption] [Strong] Eliminates all stat changes.
     Sheer Cold          Spec      —   30%   5      [OHKO] OHKOs non-Ice targets. Fails if user's lower level.
     Aurora Veil         Stat      —     —  20      [Screen] For 5 turns, damage to allies halved. Snow only.
     Mist                Stat      —     —  30      [Team Support] For 5 turns, protects user's party from stat drops.
@@ -885,15 +888,15 @@ SITUATIONAL / UTILITY   [174 moves]
     Final Gambit        Spec    fix  100%   5      [Fixed Damage] Does damage equal to the user's HP. User faints.
     Circle Throw        Phys     60   90%  10  -6  [Pivot / Phaze] Forces the target to switch to a random ally.
     Upper Hand          Phys     65  100%  15  +3  [Priority Disruption] 100% flinch. Fails unless target using priority.
-    Detect              Stat      —     —   5  +4  [Protection] Prevents moves from affecting the user this turn.
+    Detect              Stat      —     —   5  +4  [Protection] [Strong] Prevents moves from affecting the user this turn.
 
   -- POISON (6) --
     Move                Cat      BP   Acc  PP Pri  Effect
     Clear Smog          Spec     50     —  15      [Disruption] Resets all of the target's stat stages to 0.
     Gastro Acid         Stat      —  100%  10      [Disruption] Nullifies the target's Ability.
-    Acid Armor          Stat      —     —  20      [Stat Boost] Raises the user's Defense by 2.
-    Toxic               Stat      —   90%  10      [Status Inflict] Badly poisons the target. Poison types can't miss.
-    Toxic Thread        Stat      —  100%  20      [Status Inflict] Lowers the target's Speed by 1 and poisons it.  [Exclusive: Spinarak line]
+    Acid Armor          Stat      —     —  20      [Stat Boost] [Strong] Raises the user's Defense by 2.
+    Toxic               Stat      —   90%  10      [Status Inflict] [Strong] Badly poisons the target. Poison types can't miss.
+    Toxic Thread        Stat      —  100%  20      [Status Inflict] [Strong] Lowers the target's Speed by 1 and poisons it.  [Exclusive: Spinarak line]
     Venom Drench        Stat      —  100%  20      [Status Inflict] Lowers Atk/Sp. Atk/Speed of poisoned foes by 1.
 
   -- GROUND (2) --
@@ -905,8 +908,8 @@ SITUATIONAL / UTILITY   [174 moves]
     Move                Cat      BP   Acc  PP Pri  Effect
     Mirror Move         Stat      —     —  20      [Copy / Random] User uses the target's last used move against it.
     Defog               Stat      —     —  15      [Disruption / Field] Removes screens and terrain on the target side; lowers its evasion by 1.
-    Tailwind            Stat      —     —  15      [Field] For 4 turns, allies' Speed is doubled.
-    Roost               Stat      —     —   5      [Recovery] Heals 50% HP. Flying-type removed 'til turn ends.
+    Tailwind            Stat      —     —  15      [Field] [Strong] For 4 turns, allies' Speed is doubled.
+    Roost               Stat      —     —   5      [Recovery] [Strong] Heals 50% HP. Flying-type removed 'til turn ends.
 
   -- PSYCHIC (33) --
     Move                Cat      BP   Acc  PP Pri  Effect
@@ -926,21 +929,21 @@ SITUATIONAL / UTILITY   [174 moves]
     Trick               Stat      —  100%  10      [Disruption] User switches its held item with the target's.
     Gravity             Stat      —     —   5      [Field] 5 turns: no Ground immunities, 1.67x accuracy.
     Magic Room          Stat      —     —  10      [Field] For 5 turns, all held items have no effect.
-    Trick Room          Stat      —     —   5  -7  [Field] Goes last. For 5 turns, turn order is reversed.
+    Trick Room          Stat      —     —   5  -7  [Field] [Strong] Goes last. For 5 turns, turn order is reversed.
     Wonder Room         Stat      —     —  10      [Field] For 5 turns, all Defense and Sp. Def stats switch.
     Teleport            Stat      —     —  20  -6  [Pivot / Phaze] User switches out.
     Magic Coat          Stat      —     —  15  +4  [Protection] Bounces back certain non-damaging moves.
     Heal Pulse          Stat      —     —  10      [Recovery] Heals the target by 50% of its max HP.
     Rest                Stat      —     —   5      [Recovery] User sleeps 2 turns and restores HP and status.
-    Light Screen        Stat      —     —  30      [Screen] For 5 turns, special damage to allies is halved.
-    Reflect             Stat      —     —  20      [Screen] For 5 turns, physical damage to allies is halved.
+    Light Screen        Stat      —     —  30      [Screen] [Strong] For 5 turns, special damage to allies is halved.
+    Reflect             Stat      —     —  20      [Screen] [Strong] For 5 turns, physical damage to allies is halved.
     Dream Eater         Spec    100  100%  15      [Sleep Combo] User gains 1/2 HP inflicted. Sleeping target only.
     Agility             Stat      —     —  30      [Stat Boost] Raises the user's Speed by 2.
-    Amnesia             Stat      —     —  20      [Stat Boost] Raises the user's Sp. Def by 2.
-    Barrier             Stat      —     —  20      [Stat Boost] Raises the user's Defense by 2.
-    Cosmic Power        Stat      —     —  20      [Stat Boost] Raises the user's Defense and Sp. Def by 1.
+    Amnesia             Stat      —     —  20      [Stat Boost] [Strong] Raises the user's Sp. Def by 2.
+    Barrier             Stat      —     —  20      [Stat Boost] [Strong] Raises the user's Defense by 2.
+    Cosmic Power        Stat      —     —  20      [Stat Boost] [Strong] Raises the user's Defense and Sp. Def by 1.
     Power Trick         Stat      —     —  10      [Stat Boost] Switches user's Attack and Defense stats.
-    Take Heart          Stat      —     —  15      [Stat Boost] Cures user's status, raises Sp. Atk, Sp. Def by 1.  [Exclusive: Manaphy line]
+    Take Heart          Stat      —     —  15      [Stat Boost] [Strong] Cures user's status, raises Sp. Atk, Sp. Def by 1.  [Exclusive: Manaphy line]
     Healing Wish        Stat      —     —  10      [Team Support] User faints. Next hurt Pokemon is fully healed.
     Psychic Terrain     Stat      —     —  10      [Terrain] 5 turns. Grounded: +Psychic power, priority-safe.
 
@@ -955,10 +958,10 @@ SITUATIONAL / UTILITY   [174 moves]
 
   -- GHOST (6) --
     Move                Cat      BP   Acc  PP Pri  Effect
-    Destiny Bond        Stat      —     —   5      [Disruption] If an opponent knocks out the user, it also faints.
+    Destiny Bond        Stat      —     —   5      [Disruption] [Strong] If an opponent knocks out the user, it also faints.
     Grudge              Stat      —     —   5      [Disruption] If the user faints, the attack used loses all its PP.
     Spite               Stat      —  100%  10      [Disruption] Lowers the PP of the target's last move by 4.
-    Curse               Stat      —     —  10      [Stat Boost] Curses if Ghost, else -1 Spe, +1 Atk, +1 Def.
+    Curse               Stat      —     —  10      [Stat Boost] [Strong] Curses if Ghost, else -1 Spe, +1 Atk, +1 Def.
     Confuse Ray         Stat      —  100%  10      [Status Inflict] Confuses the target.
     Nightmare           Stat      —  100%  15      [Status Inflict] A sleeping target is hurt by 1/4 max HP per turn.
 
@@ -974,9 +977,9 @@ SITUATIONAL / UTILITY   [174 moves]
     Embargo             Stat      —  100%  15      [Disruption] For 5 turns, the target's item has no effect.
     Snatch              Stat      —     —  10  +4  [Disruption] User steals certain support moves to use itself.
     Switcheroo          Stat      —  100%  10      [Disruption] User switches its held item with the target's.
-    Taunt               Stat      —  100%  20      [Disruption] Target can't use status moves its next 3 turns.
+    Taunt               Stat      —  100%  20      [Disruption] [Strong] Target can't use status moves its next 3 turns.
     Torment             Stat      —  100%  15      [Disruption] Target can't select the same move twice in a row.
-    Parting Shot        Stat      —  100%  20      [Pivot / Phaze] Lowers target's Atk, Sp. Atk by 1. User switches.  [Exclusive: Munkidori line]
+    Parting Shot        Stat      —  100%  20      [Pivot / Phaze] [Strong] Lowers target's Atk, Sp. Atk by 1. User switches.  [Exclusive: Munkidori line]
     Flatter             Stat      —  100%  15      [Status Inflict] Raises the target's Sp. Atk by 1 and confuses it.
     Memento             Stat      —  100%  10      [Team Support] Lowers target's Attack, Sp. Atk by 2. User faints.
     Pursuit             Phys     40  100%  20      [Trap / Revenge] If a foe is switching out, hits it at 2x power.
@@ -985,11 +988,11 @@ SITUATIONAL / UTILITY   [174 moves]
     Move                Cat      BP   Acc  PP Pri  Effect
     Metal Burst         Phys      —  100%  10      [Counterattack] If hit by an attack, returns 1.5x damage.
     Autotomize          Stat      —     —  15      [Stat Boost] Raises the user's Speed by 2; user loses 100 kg.
-    Iron Defense        Stat      —     —  15      [Stat Boost] Raises the user's Defense by 2.
+    Iron Defense        Stat      —     —  15      [Stat Boost] [Strong] Raises the user's Defense by 2.
 
   -- FAIRY (3) --
     Move                Cat      BP   Acc  PP Pri  Effect
-    Moonlight           Stat      —     —   5      [Recovery] Heals the user by a weather-dependent amount.
+    Moonlight           Stat      —     —   5      [Recovery] [Strong] Heals the user by a weather-dependent amount.
     Flower Shield       Stat      —     —  10      [Stat Boost] Raises Defense by 1 of all active Grass types.  [Exclusive: Sunkern line]
     Misty Terrain       Stat      —     —  10      [Terrain] 5 turns. Can't status,-Dragon power vs grounded.
 
