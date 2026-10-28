@@ -407,6 +407,7 @@ IsaacRoom_EventScript_Content::
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_ROCK_SMASH, IsaacRoom_EventScript_RockSmashTeacher
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_HEALER, IsaacRoom_EventScript_Healer
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_EV_TRAINER, IsaacRoom_EventScript_EvTrainer
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_SECRET_ABILITY, IsaacRoom_EventScript_SecretAbility
 	release
 	end
 
@@ -947,6 +948,86 @@ IsaacRoom_EventScript_EvTrainerNoNeed::
 	msgbox IsaacRoom_Text_EvTrainerNoNeed, MSGBOX_DEFAULT
 	release
 	end
+
+@ Révélateur de talents : propose ISAAC_SECRET_ABILITY_CHOICES talents forts au Pokémon choisi et en éveille un
+IsaacRoom_EventScript_SecretAbility::
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_SecretAbilityDone
+	msgbox IsaacRoom_Text_SecretAbilityIntro, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_SecretAbilityDeclined
+	special IsaacPrepareSecretAbility
+	goto_if_eq VAR_RESULT, 0, IsaacRoom_EventScript_SecretAbilityEgg
+	copyvar VAR_0x8007, VAR_RESULT
+IsaacRoom_EventScript_SecretAbilityMenu::
+	message IsaacRoom_Text_SecretAbilityWhich
+	waitmessage
+	setvar VAR_0x8006, 0
+IsaacRoom_EventScript_SecretAbilityPushChoice::
+	special IsaacBufferSecretAbilityChoice
+	dynmultipush IsaacRoom_Text_StrVar1, VAR_0x8006
+	addvar VAR_0x8006, 1
+	goto_if_lt VAR_0x8006, VAR_0x8007, IsaacRoom_EventScript_SecretAbilityPushChoice
+	dynmultistack 0, 0, FALSE, 5, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	closemessage
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, IsaacRoom_EventScript_SecretAbilityDeclined
+	copyvar VAR_0x8006, VAR_RESULT
+	special IsaacBufferSecretAbilityChoice
+	msgbox IsaacRoom_Text_SecretAbilityConfirm, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, IsaacRoom_EventScript_SecretAbilityMenu
+	special IsaacGiveSecretAbility
+	playfanfare MUS_LEVEL_UP
+	message IsaacRoom_Text_SecretAbilityAwakened
+	waitfanfare
+	waitmessage
+	special IsaacSetRoomCleared
+	msgbox IsaacRoom_Text_SecretAbilityDone, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_SecretAbilityDone::
+	msgbox IsaacRoom_Text_SecretAbilityDone, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_SecretAbilityDeclined::
+	msgbox IsaacRoom_Text_SecretAbilityDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_EventScript_SecretAbilityEgg::
+	msgbox IsaacRoom_Text_SecretAbilityEgg, MSGBOX_DEFAULT
+	release
+	end
+
+IsaacRoom_Text_SecretAbilityIntro:
+	.string "I see the abilities sleeping deep\n"
+	.string "inside every Pokémon.\p"
+	.string "I can awaken one, once per floor.\n"
+	.string "Which Pokémon should I read?$"
+
+IsaacRoom_Text_SecretAbilityWhich:
+	.string "One of these could awaken.\n"
+	.string "Which one?$"
+
+IsaacRoom_Text_SecretAbilityConfirm:
+	.string "{STR_VAR_1}:\n"
+	.string "{STR_VAR_2}\p"
+	.string "Awaken it in {STR_VAR_3}?$"
+
+IsaacRoom_Text_SecretAbilityAwakened:
+	.string "{STR_VAR_1}'s secret ability\n"
+	.string "{STR_VAR_2} awakened!$"
+
+IsaacRoom_Text_SecretAbilityDone:
+	.string "Its true nature is free now.\n"
+	.string "Use it well.$"
+
+IsaacRoom_Text_SecretAbilityDeclined:
+	.string "Come back if you change\n"
+	.string "your mind.$"
+
+IsaacRoom_Text_SecretAbilityEgg:
+	.string "Nothing sleeps in an Egg yet.$"
 
 IsaacRoom_Text_HealerIntro:
 	.string "My {STR_VAR_2} and I heal\n"

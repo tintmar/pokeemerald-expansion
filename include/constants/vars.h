@@ -270,10 +270,10 @@
 #define VAR_ISAAC_FALLEN_CROWN                           0x40F8 // Pokémon couronné relâché après le combat (isaac_pokemon.c)
 #define VAR_ISAAC_FALLEN_CROWN_PENDING                   0x40F9 // 1 : message du Pokémon couronné relâché en attente
 #define VAR_ISAAC_CAPTURE_GIFT_PENDING                   0x40FA // 1 : le Pokémaniac de la salle de capture va donner la Master Ball
-#define VAR_UNUSED_0x40FB                                0x40FB // Unused Var
-#define VAR_UNUSED_0x40FC                                0x40FC // Unused Var
-#define VAR_UNUSED_0x40FD                                0x40FD // Unused Var
-#define VAR_UNUSED_0x40FE                                0x40FE // Unused Var
+#define VAR_ISAAC_SECRET_ABILITY_SEEN_0                  0x40FB // Talents secrets déjà proposés dans la descente (isaac_pokemon.c)
+#define VAR_ISAAC_SECRET_ABILITY_SEEN_1                  0x40FC // Talents secrets déjà proposés dans la descente (isaac_pokemon.c)
+#define VAR_ISAAC_SECRET_ABILITY_SEEN_2                  0x40FD // Talents secrets déjà proposés dans la descente (isaac_pokemon.c)
+#define VAR_ISAAC_SECRET_ABILITY_SEEN_3                  0x40FE // Talents secrets déjà proposés dans la descente (isaac_pokemon.c)
 #define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
 
 #define VARS_END                                         0x40FF

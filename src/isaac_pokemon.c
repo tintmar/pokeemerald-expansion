@@ -39,6 +39,51 @@
 #include "data/isaac_categories.h"
 #include "data/isaac_move_tiers.h"
 
+// Talents secrets (tools/isaac/data/secret_abilities.txt) : comment juger si le talent va au Pokémon (voir
+// ScoreSecretAbility)
+enum SecretAbilityFit
+{
+    // attaque
+    SECRET_FIT_CONTACT,
+    SECRET_FIT_PUNCH,
+    SECRET_FIT_BITE,
+    SECRET_FIT_SLICE,
+    SECRET_FIT_PULSE,
+    SECRET_FIT_SOUND,
+    SECRET_FIT_RECOIL,
+    SECRET_FIT_MULTIHIT,
+    SECRET_FIT_SECONDARY,
+    SECRET_FIT_WEAK_MOVES,
+    SECRET_FIT_LOW_ACC,
+    SECRET_FIT_STAB,
+    SECRET_FIT_TYPE,
+    SECRET_FIT_NORMALIZE,
+    SECRET_FIT_WEATHER,
+    SECRET_FIT_PHYSICAL,
+    SECRET_FIT_SPECIAL,
+    SECRET_FIT_ATTACKER,
+    SECRET_FIT_STATUS_MOVES,
+    SECRET_FIT_HEALING,
+    // défense
+    SECRET_FIT_BULK,
+    SECRET_FIT_FRAIL,
+    SECRET_FIT_RESIST,
+    SECRET_FIT_WEAKNESSES,
+    // utilitaire
+    SECRET_FIT_SPEED,
+    SECRET_FIT_SLOW,
+    SECRET_FIT_ANY,
+};
+
+struct IsaacSecretAbility
+{
+    enum Ability ability;
+    enum SecretAbilityFit fit;
+    enum Type types[2];  // TYPE_NONE si l'adéquation n'en prend pas
+};
+
+#include "data/isaac_secret_abilities.h"
+
 // NULL si l'espèce n'a pas de sets (hors du roster)
 const struct TrainerMon *IsaacGetSet(enum Species species, u32 tier, u32 variant)
 {
@@ -1781,6 +1826,341 @@ void IsaacApplyBattlerGemType(enum BattlerId battler)
     gem = IsaacGetMonGemType(mon);
     if (gem != TYPE_NONE)
         gBattleMons[battler].types[1] = gem;
+}
+
+// ---------------------------------------------------------------------------
+// Talents secrets
+// ---------------------------------------------------------------------------
+
+// Talent secret éveillé par le révélateur de talents (enum Ability, ABILITY_NONE si aucun) : 9 bits, 3 dans chacun de
+// trois rubans de concours (pas de concours dans le jeu). Il remplace le talent de l'espèce, sauf sous une forme de
+// combat (Méga-Évolution, Primo-Résurgence...), qui garde le sien.
+static const u32 sSecretAbilityData[] = { MON_DATA_COOL_RIBBON, MON_DATA_BEAUTY_RIBBON, MON_DATA_CUTE_RIBBON };
+#define SECRET_ABILITY_DATA_BITS  3
+
+void IsaacSetMonSecretAbility(struct Pokemon *mon, enum Ability ability)
+{
+    u32 i, bits;
+
+    for (i = 0; i < ARRAY_COUNT(sSecretAbilityData); i++)
+    {
+        bits = (ability >> (SECRET_ABILITY_DATA_BITS * i)) & ((1 << SECRET_ABILITY_DATA_BITS) - 1);
+        SetMonData(mon, sSecretAbilityData[i], &bits);
+    }
+}
+
+// Talent secret du Pokémon sous la forme species
+enum Ability IsaacGetMonSecretAbility(struct Pokemon *mon, enum Species species)
+{
+    const struct SpeciesInfo *info = &gSpeciesInfo[species];
+    u32 i, ability = 0;
+
+    if (info->isMegaEvolution || info->isPrimalReversion || info->isUltraBurst || info->isGigantamax || info->isTeraForm)
+        return ABILITY_NONE;
+    for (i = 0; i < ARRAY_COUNT(sSecretAbilityData); i++)
+        ability |= GetMonData(mon, sSecretAbilityData[i]) << (SECRET_ABILITY_DATA_BITS * i);
+    return ability < ABILITIES_COUNT ? ability : ABILITY_NONE;
+}
+
+// En combat, après que le jeu a remis le talent de l'espèce (entrée en combat, relais) : le talent secret
+void IsaacApplyBattlerSecretAbility(enum BattlerId battler)
+{
+    struct Pokemon *mon = GetBattlerMon(battler);
+    enum Ability ability;
+
+    if (mon == NULL || !IsPlayerPartyMon(mon))
+        return;
+    ability = IsaacGetMonSecretAbility(mon, gBattleMons[battler].species);
+    if (ability != ABILITY_NONE)
+        gBattleMons[battler].ability = ability;
+}
+
+// Talents déjà proposés dans la descente : un bit par talent de sIsaacSecretAbilities, remis à zéro à chaque descente
+static const u16 sSecretAbilitySeenVars[] =
+{
+    VAR_ISAAC_SECRET_ABILITY_SEEN_0, VAR_ISAAC_SECRET_ABILITY_SEEN_1,
+    VAR_ISAAC_SECRET_ABILITY_SEEN_2, VAR_ISAAC_SECRET_ABILITY_SEEN_3,
+};
+STATIC_ASSERT(ARRAY_COUNT(sIsaacSecretAbilities) <= 16 * ARRAY_COUNT(sSecretAbilitySeenVars), sIsaacSecretAbilitiesFitSeenVars)
+
+static bool8 IsSecretAbilitySeen(u32 index)
+{
+    return (VarGet(sSecretAbilitySeenVars[index / 16]) >> (index % 16)) & 1;
+}
+
+void IsaacResetSecretAbilitiesSeen(void)
+{
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sSecretAbilitySeenVars); i++)
+        VarSet(sSecretAbilitySeenVars[i], 0);
+}
+
+void IsaacMarkSecretAbilitiesSeen(const enum Ability *abilities, u32 count)
+{
+    u32 i, j;
+
+    for (i = 0; i < ARRAY_COUNT(sIsaacSecretAbilities); i++)
+        for (j = 0; j < count; j++)
+            if (sIsaacSecretAbilities[i].ability == abilities[j])
+                VarSet(sSecretAbilitySeenVars[i / 16], VarGet(sSecretAbilitySeenVars[i / 16]) | (1 << (i % 16)));
+}
+
+struct SecretAbilityContext
+{
+    enum Species species;
+    enum Type types[2];  // Pierre Prisme comprise
+    u16 moves[MAX_MON_MOVES];
+    u32 damaging, status, healing;  // nombre d'attaques offensives, de statut, de soin
+    u32 bulkPct;  // PV + Défense + Défense Spéciale de base, en % du total des stats de base
+    bool8 physical, mixed;
+};
+
+static void InitSecretAbilityContext(struct SecretAbilityContext *ctx, struct Pokemon *mon)
+{
+    const struct SpeciesInfo *info;
+    u32 i, bst;
+
+    memset(ctx, 0, sizeof(*ctx));
+    ctx->species = GetMonData(mon, MON_DATA_SPECIES);
+    info = &gSpeciesInfo[ctx->species];
+    IsaacGetMonTypes(mon, ctx->types);
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        ctx->moves[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
+        if (ctx->moves[i] == MOVE_NONE)
+            continue;
+        if (GetMoveCategory(ctx->moves[i]) != DAMAGE_CATEGORY_STATUS)
+            ctx->damaging++;
+        else
+            ctx->status++;
+        if (IsHealingMove(ctx->moves[i]))
+            ctx->healing++;
+    }
+    bst = info->baseHP + info->baseAttack + info->baseDefense + info->baseSpAttack + info->baseSpDefense + info->baseSpeed;
+    ctx->bulkPct = bst ? (info->baseHP + info->baseDefense + info->baseSpDefense) * 100 / bst : 50;
+    ctx->physical = IsMonPhysicallyOriented(mon, ctx->species, &ctx->mixed);
+}
+
+static bool8 SecretContextHasType(const struct SecretAbilityContext *ctx, enum Type type)
+{
+    return type != TYPE_NONE && (ctx->types[0] == type || ctx->types[1] == type);
+}
+
+// Faiblesse du Pokémon au type : 2 (x4), 1 (x2), 0 (neutre), négatif s'il résiste, -2 s'il est immunisé
+static s32 GetSecretTypeWeakness(const struct SecretAbilityContext *ctx, enum Type type)
+{
+    s32 weakness = 0;
+    uq4_12_t effect;
+    u32 i;
+
+    for (i = 0; i < 2 && (i == 0 || ctx->types[1] != ctx->types[0]); i++)
+    {
+        effect = GetTypeModifier(type, ctx->types[i]);
+        if (effect == UQ_4_12(0.0))
+            return -2;
+        weakness += (effect > UQ_4_12(1.0)) - (effect < UQ_4_12(1.0));
+    }
+    return weakness;
+}
+
+// L'attaque offensive move profite-t-elle du talent ?
+static bool8 SecretAbilityBoostsMove(const struct IsaacSecretAbility *entry, const struct SecretAbilityContext *ctx, u16 move)
+{
+    switch (entry->fit)
+    {
+    case SECRET_FIT_CONTACT:    return MoveMakesContact(move);
+    case SECRET_FIT_PUNCH:      return IsPunchingMove(move);
+    case SECRET_FIT_BITE:       return IsBitingMove(move);
+    case SECRET_FIT_SLICE:      return IsSlicingMove(move);
+    case SECRET_FIT_PULSE:      return IsPulseMove(move);
+    case SECRET_FIT_SOUND:      return IsSoundMove(move);
+    case SECRET_FIT_RECOIL:     return GetMoveRecoil(move) != 0 || GetMoveEffect(move) == EFFECT_RECOIL_IF_MISS;
+    case SECRET_FIT_MULTIHIT:   return IsMultiHitMove(move);
+    case SECRET_FIT_SECONDARY:  return GetMoveAdditionalEffectCount(move) != 0;
+    case SECRET_FIT_WEAK_MOVES: return GetMovePower(move) > 1 && GetMovePower(move) <= 60;
+    case SECRET_FIT_LOW_ACC:    return GetMoveAccuracy(move) != 0 && GetMoveAccuracy(move) < 90;
+    case SECRET_FIT_STAB:       return SecretContextHasType(ctx, GetMoveType(move));
+    case SECRET_FIT_TYPE:
+    case SECRET_FIT_WEATHER:    return GetMoveType(move) == entry->types[0];
+    case SECRET_FIT_NORMALIZE:  return GetMoveType(move) == TYPE_NORMAL;
+    default:                    return FALSE;
+    }
+}
+
+// Score d'un talent qui renforce count attaques : la première compte beaucoup, chaque autre un peu moins
+static s32 ScoreSecretMoves(u32 count)
+{
+    return count ? 20 + 25 * count : 0;
+}
+
+// Adéquation du talent au Pokémon, de 0 (inutile) à 100, d'après ses attaques, ses stats et ses types. Les talents
+// liés à ses attaques (Griffe Dure, Poing de Fer...) l'emportent sur les talents utiles à tous (Intimidation...).
+static u32 ScoreSecretAbility(const struct IsaacSecretAbility *entry, const struct SecretAbilityContext *ctx)
+{
+    u32 count = 0, i;
+    s32 score, weakness;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+        if (ctx->moves[i] != MOVE_NONE && GetMoveCategory(ctx->moves[i]) != DAMAGE_CATEGORY_STATUS
+         && SecretAbilityBoostsMove(entry, ctx, ctx->moves[i]))
+            count++;
+    switch (entry->fit)
+    {
+    case SECRET_FIT_STAB:  // presque toujours là, mais moins décisif
+        score = count * 20;
+        break;
+    case SECRET_FIT_SECONDARY:  // beaucoup d'attaques ont un effet secondaire
+        score = count * 18;
+        break;
+    case SECRET_FIT_TYPE:
+    case SECRET_FIT_NORMALIZE:  // un type à lui : ses attaques de ce type (ou à venir) sont renforcées
+        score = ScoreSecretMoves(count);
+        if (SecretContextHasType(ctx, entry->types[0]))
+            score += count ? 20 : 10;
+        break;
+    case SECRET_FIT_WEATHER:
+        score = count * 20 + (SecretContextHasType(ctx, entry->types[0]) ? 40 : 0);
+        break;
+    case SECRET_FIT_PHYSICAL:
+    case SECRET_FIT_SPECIAL:
+        if (ctx->mixed)
+            score = 25;
+        else
+            score = (ctx->physical == (entry->fit == SECRET_FIT_PHYSICAL)) ? 45 : 0;
+        break;
+    case SECRET_FIT_ATTACKER:
+        score = 10 + ctx->damaging * 8;
+        break;
+    case SECRET_FIT_STATUS_MOVES:
+        score = ctx->status * 20;
+        break;
+    case SECRET_FIT_HEALING:
+        score = ScoreSecretMoves(ctx->healing);
+        break;
+    case SECRET_FIT_BULK:
+        score = min(max(((s32)ctx->bulkPct - 40) * 4, 10), 90);
+        break;
+    case SECRET_FIT_FRAIL:
+        score = min(max((55 - (s32)ctx->bulkPct) * 4, 10), 80);
+        break;
+    case SECRET_FIT_RESIST:  // une faiblesse en moins (ou en immunité)
+        score = 0;
+        for (i = 0; i < 2 && entry->types[i] != TYPE_NONE; i++)
+        {
+            weakness = GetSecretTypeWeakness(ctx, entry->types[i]);
+            score = max(score, (weakness >= 2) ? 90 : (weakness == 1) ? 55 : (weakness == 0) ? 10 : 0);
+        }
+        break;
+    case SECRET_FIT_WEAKNESSES:
+        score = 0;
+        for (i = 0; i < NUMBER_OF_MON_TYPES; i++)
+            if (IsRealType(i) && (weakness = GetSecretTypeWeakness(ctx, i)) > 0)
+                score += 12 * weakness;
+        score = min(score, 70);
+        break;
+    case SECRET_FIT_SPEED:  // pour un attaquant
+        score = (ctx->damaging >= 2) ? 45 : 15;
+        break;
+    case SECRET_FIT_SLOW:
+        score = (gSpeciesInfo[ctx->species].baseSpeed <= 50) ? 50 : (gSpeciesInfo[ctx->species].baseSpeed <= 70) ? 30 : 0;
+        break;
+    case SECRET_FIT_ANY:
+        score = 35;
+        break;
+    default:  // attaques qui profitent du talent
+        score = ScoreSecretMoves(count);
+        break;
+    }
+    return min(max(score, 0), 100);
+}
+
+static bool8 PartyHasSecretAbility(struct Pokemon *except, enum Ability ability)
+{
+    u32 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][i];
+
+        if (mon != except && GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE
+         && IsaacGetMonSecretAbility(mon, GetMonData(mon, MON_DATA_SPECIES)) == ability)
+            return TRUE;
+    }
+    return FALSE;
+}
+
+static bool8 SpeciesHasAbility(enum Species species, enum Ability ability)
+{
+    u32 i;
+
+    for (i = 0; i < NUM_ABILITY_SLOTS; i++)
+        if (GetSpeciesAbility(species, i) == ability)
+            return TRUE;
+    return FALSE;
+}
+
+// Attaque, défense, utilitaire : les choix proposés sont de préférence de familles différentes
+static u32 GetSecretAbilityFamily(enum SecretAbilityFit fit)
+{
+    if (fit <= SECRET_FIT_HEALING)
+        return 0;
+    return (fit <= SECRET_FIT_WEAKNESSES) ? 1 : 2;
+}
+
+#define SECRET_MIN_SCORE            15  // en dessous, le talent ne lui sert à rien
+#define SECRET_SEEN_DIVISOR         3   // déjà proposé dans la descente
+#define SECRET_PARTY_DIVISOR        4   // talent secret d'un autre Pokémon de l'équipe
+#define SECRET_SPECIES_DIVISOR      2   // un des talents de son espèce : pas si secret
+#define SECRET_SAME_FIT_DIVISOR     4   // même adéquation qu'un choix déjà tiré (Isograisse et Torche...)
+#define SECRET_SAME_FAMILY_DIVISOR  2   // même famille qu'un choix déjà tiré
+
+// Talents secrets proposés au Pokémon (ISAAC_SECRET_ABILITY_CHOICES au plus, dans out ; renvoie leur nombre), jamais
+// celui qu'il a : tirés au hasard (graine seed, les mêmes choix pour la même graine), chacun avec un poids du carré de
+// son adéquation (ScoreSecretAbility) pour que les talents qui lui vont le mieux sortent le plus, divisé pour varier
+// les propositions : talent déjà proposé dans la descente, déjà éveillé chez un autre Pokémon de l'équipe, de son
+// espèce ; et une fois un talent tiré, ceux de même adéquation ou de même famille (attaque, défense, utilitaire).
+u32 IsaacPickSecretAbilities(struct Pokemon *mon, u32 seed, enum Ability *out)
+{
+    struct SecretAbilityContext ctx;
+    u32 weights[ARRAY_COUNT(sIsaacSecretAbilities)], count, total, roll, score, i, j;
+    enum Ability current = GetMonAbility(mon);
+
+    InitSecretAbilityContext(&ctx, mon);
+    for (i = 0; i < ARRAY_COUNT(sIsaacSecretAbilities); i++)
+    {
+        const struct IsaacSecretAbility *entry = &sIsaacSecretAbilities[i];
+
+        score = (entry->ability == current) ? 0 : ScoreSecretAbility(entry, &ctx);
+        weights[i] = (score < SECRET_MIN_SCORE) ? 0 : score * score;
+        if (IsSecretAbilitySeen(i))
+            weights[i] /= SECRET_SEEN_DIVISOR;
+        if (PartyHasSecretAbility(mon, entry->ability))
+            weights[i] /= SECRET_PARTY_DIVISOR;
+        if (SpeciesHasAbility(ctx.species, entry->ability))
+            weights[i] /= SECRET_SPECIES_DIVISOR;
+    }
+    for (count = 0; count < ISAAC_SECRET_ABILITY_CHOICES; count++)
+    {
+        for (total = 0, i = 0; i < ARRAY_COUNT(sIsaacSecretAbilities); i++)
+            total += weights[i];
+        if (total == 0)
+            break;
+        seed = seed * 1103515245 + 12345;
+        roll = (seed >> 8) % total;
+        for (i = 0; roll >= weights[i]; i++)
+            roll -= weights[i];
+        out[count] = sIsaacSecretAbilities[i].ability;
+        weights[i] = 0;
+        for (j = 0; j < ARRAY_COUNT(sIsaacSecretAbilities); j++)
+        {
+            if (sIsaacSecretAbilities[j].fit == sIsaacSecretAbilities[i].fit)
+                weights[j] /= SECRET_SAME_FIT_DIVISOR;
+            else if (GetSecretAbilityFamily(sIsaacSecretAbilities[j].fit) == GetSecretAbilityFamily(sIsaacSecretAbilities[i].fit))
+                weights[j] /= SECRET_SAME_FAMILY_DIVISOR;
+        }
+    }
+    return count;
 }
 
 // ---------------------------------------------------------------------------

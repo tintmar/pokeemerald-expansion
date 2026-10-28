@@ -10,6 +10,7 @@ struct Pokemon;
 #define ISAAC_SET_VARIANTS  2  // variantes de chaque palier (A, B) : même force, rôles différents
 #define ISAAC_STARTER_CHOICES  6  // Pokémon proposés par le Montagnard du hub (écran de l'Usine de Combat)
 #define ISAAC_STARTER_PICKS    2  // Pokémon à choisir parmi eux
+#define ISAAC_SECRET_ABILITY_CHOICES  3  // talents secrets proposés par le révélateur de talents
 #define ISAAC_MOVE_TIER_SITUATIONAL  5  // tier des attaques situationnelles (src/data/isaac_move_tiers.h)
 // Rôle des attaques de statut (sIsaacMoveRoles, src/data/isaac_move_tiers.h)
 #define ISAAC_MOVE_ROLE_SETUP_PHYSICAL  (1 << 0)  // boost d'Attaque (ou de Vitesse)
@@ -147,5 +148,11 @@ enum Type IsaacGetMonGemType(struct Pokemon *mon);
 void IsaacGetMonTypes(struct Pokemon *mon, enum Type *types);
 bool8 IsaacUseTypeGem(struct Pokemon *mon, enum Type type);
 void IsaacApplyBattlerGemType(enum BattlerId battler);
+void IsaacSetMonSecretAbility(struct Pokemon *mon, enum Ability ability);
+enum Ability IsaacGetMonSecretAbility(struct Pokemon *mon, enum Species species);
+void IsaacApplyBattlerSecretAbility(enum BattlerId battler);
+void IsaacResetSecretAbilitiesSeen(void);
+void IsaacMarkSecretAbilitiesSeen(const enum Ability *abilities, u32 count);
+u32 IsaacPickSecretAbilities(struct Pokemon *mon, u32 seed, enum Ability *out);
 
 #endif // GUARD_ISAAC_POKEMON_H

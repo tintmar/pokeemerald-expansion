@@ -3140,6 +3140,7 @@ static void DoBattleIntro(void)
                 IsaacApplyBattlerGemType(battler);
                 IsaacClearSwitchInTotem(battler);  // donjon : en tête au début du combat, pas de Totem d'Entraide
                 gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
+                IsaacApplyBattlerSecretAbility(battler);
                 gBattleStruct->battlerState[battler].hpOnSwitchout = gBattleMons[battler].hp;
                 memset(&gBattleMons[battler].volatiles, 0, sizeof(struct Volatiles));
                 for (i = 0; i < NUM_BATTLE_STATS; i++)

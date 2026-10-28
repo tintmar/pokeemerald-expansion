@@ -3246,6 +3246,7 @@ static void Cmd_switchindataupdate(void)
     IsaacApplyBattlerGemType(battler);
     IsaacApplySwitchInTotem(battler);  // donjon : Totem d'Entraide
     gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
+    IsaacApplyBattlerSecretAbility(battler);  // donjon : talent secret
     #if TESTING
     if (gTestRunnerEnabled)
     {

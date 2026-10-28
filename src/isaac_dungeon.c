@@ -3035,7 +3035,9 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_HEALER : une vieille dame et son Leveinard soignent complètement un Pokémon (même K.O.), une fois
 //    (mise de côté pour l'instant, HEALER_ENABLED : la Restore Max fait la même chose) ;
 //  - ROOM_CONTENT_EV_TRAINER : un entraîneur met au maximum les IVs (31) et EVs (répartition du set 4 de l'espèce)
-//    d'un Pokémon, une fois.
+//    d'un Pokémon, une fois ;
+//  - ROOM_CONTENT_SECRET_ABILITY : à partir de SECRET_ABILITY_MIN_FLOOR, le révélateur de talents propose
+//    ISAAC_SECRET_ABILITY_CHOICES talents forts au Pokémon choisi (IsaacPickSecretAbilities) et en éveille un, une fois.
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
 
 #define ISAAC_EGG_HATCH_ROOMS  20
@@ -3060,6 +3062,7 @@ static bool8 FloorHasSecretRoom(void)
 #define DEVIL_PACT_MIN_FLOOR  3  // le pacte du diable n'apparaît qu'à partir de cet étage
 #define HEALER_ENABLED        FALSE
 #define SEER_ENABLED          FALSE  // le gardien du boss annonce son équipe à la place
+#define SECRET_ABILITY_MIN_FLOOR  2  // le révélateur de talents n'apparaît qu'à partir de cet étage
 
 static bool8 IsRoomContentAvailable(u32 content)
 {
@@ -3075,6 +3078,8 @@ static bool8 IsRoomContentAvailable(u32 content)
         return HEALER_ENABLED;
     case ROOM_CONTENT_SEER:
         return SEER_ENABLED;
+    case ROOM_CONTENT_SECRET_ABILITY:
+        return VarGet(VAR_ISAAC_FLOOR) >= SECRET_ABILITY_MIN_FLOOR;
     default:
         return TRUE;
     }
@@ -3180,6 +3185,7 @@ static void SetUpRoomContent(s32 x, s32 y)
         [ROOM_CONTENT_ROCK_SMASH] = { OBJ_EVENT_GFX_HIKER, OBJ_EVENT_GFX_SWIMMER_M },
         [ROOM_CONTENT_HEALER] = { OBJ_EVENT_GFX_OLD_WOMAN, OBJ_EVENT_GFX_SWIMMER_F },
         [ROOM_CONTENT_EV_TRAINER] = { OBJ_EVENT_GFX_MAN_3, OBJ_EVENT_GFX_SWIMMER_M },
+        [ROOM_CONTENT_SECRET_ABILITY] = { OBJ_EVENT_GFX_PSYCHIC_M, OBJ_EVENT_GFX_SWIMMER_M },
     };
     u32 content = GetRoomContent(x, y);
     struct ObjectEventTemplate *chansey;
@@ -3537,6 +3543,49 @@ void IsaacTutorReplaceMove(void)
     StringCopy(gStringVar2, GetMoveName(sTutorMove));
 }
 
+// Révélateur de talents : talents proposés au Pokémon n° VAR_0x8004 (IsaacPickSecretAbilities), VAR_RESULT = leur
+// nombre (0 pour un Œuf). Toujours les mêmes pour ce Pokémon dans cette salle : la graine vient de la salle et du
+// Pokémon, et les talents déjà proposés ne sont notés qu'une fois le talent éveillé (la salle est alors finie).
+static EWRAM_DATA enum Ability sSecretAbilityChoices[ISAAC_SECRET_ABILITY_CHOICES] = {0};
+static EWRAM_DATA u8 sSecretAbilityChoiceCount = 0;
+
+void IsaacPrepareSecretAbility(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    s32 x, y;
+
+    sSecretAbilityChoiceCount = 0;
+    if (!GetMonData(mon, MON_DATA_IS_EGG))
+    {
+        GetCurrentCell(&x, &y);
+        sSecretAbilityChoiceCount = IsaacPickSecretAbilities(mon, RoomRandom(x, y, 0x5AB1 + GetMonData(mon, MON_DATA_SPECIES))
+                                                                ^ GetMonData(mon, MON_DATA_PERSONALITY), sSecretAbilityChoices);
+    }
+    gSpecialVar_Result = sSecretAbilityChoiceCount;
+}
+
+// Talent proposé n° VAR_0x8006 : son nom dans gStringVar1, sa description dans gStringVar2, le Pokémon dans gStringVar3
+void IsaacBufferSecretAbilityChoice(void)
+{
+    enum Ability ability = sSecretAbilityChoices[min(gSpecialVar_0x8006, ISAAC_SECRET_ABILITY_CHOICES - 1)];
+
+    StringCopy(gStringVar1, gAbilitiesInfo[ability].name);
+    StringCopy(gStringVar2, gAbilitiesInfo[ability].description);
+    GetMonNickname(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], gStringVar3);
+}
+
+// Éveille le talent proposé n° VAR_0x8006 : gStringVar1 = le Pokémon, gStringVar2 = le talent
+void IsaacGiveSecretAbility(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    enum Ability ability = sSecretAbilityChoices[min(gSpecialVar_0x8006, ISAAC_SECRET_ABILITY_CHOICES - 1)];
+
+    IsaacSetMonSecretAbility(mon, ability);
+    IsaacMarkSecretAbilitiesSeen(sSecretAbilityChoices, sSecretAbilityChoiceCount);
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, gAbilitiesInfo[ability].name);
+}
+
 // Duel : le Pokémon du duelliste dans gStringVar1
 void IsaacPrepareDuel(void)
 {
@@ -3872,6 +3921,7 @@ static void WarpToNewFloor(u32 floor)
         RemoveBagItem(ITEM_LUCKY_COIN, 1);     // la Pièce Porte-Bonheur aussi
         IsaacGoldenHeartReset();
         IsaacResetProgressionPity();
+        IsaacResetSecretAbilitiesSeen();
     }
     VarSet(VAR_ISAAC_FLOOR, floor);
     VarSet(VAR_ISAAC_SEED, Random());
