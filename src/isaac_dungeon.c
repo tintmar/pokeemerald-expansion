@@ -2815,7 +2815,6 @@ static const u16 sShopSupportTMs[] =
     ITEM_TM_TRICK_ROOM,
     ITEM_TM_TAILWIND,
     ITEM_TM_PAIN_SPLIT,
-    ITEM_TM_ROAR,
 };
 
 static u16 PickGoodTM(u32 roll)
