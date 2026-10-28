@@ -1444,6 +1444,7 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
     u32 weights[UPGRADE_MAX_CANDIDATES], count = 0, fallbackTotal = 0, total = 0, roll, tier, rawTier, score, i;
     u8 typeCount[NUMBER_OF_MON_TYPES] = {0};
     u32 target = InitUpgradeContext(&ctx, mon, species);
+    enum Type gem = IsaacGetMonGemType(mon);
     bool8 jackpot, physical;
 
     for (move = 1; move < MOVES_COUNT && count < UPGRADE_MAX_CANDIDATES; move++)
@@ -1473,7 +1474,9 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
                 continue;
             score = ScoreOffensiveUpgrade(&ctx, move, tier);
         }
-        if (!CanSpeciesLearnMove(species, move))
+        // le type donné par la Pierre Prisme n'est presque jamais dans les attaques de l'espèce : elles sont permises
+        if (!CanSpeciesLearnMove(species, move)
+         && (gem == TYPE_NONE || GetMoveType(move) != gem || GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS))
             continue;
         if (score == 0)  // sans intérêt : seulement s'il n'y a rien d'autre
         {
