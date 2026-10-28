@@ -1482,6 +1482,15 @@ static u32 ScoreStatusUpgrade(const struct UpgradeContext *ctx, u16 move, u32 ti
     return score;
 }
 
+// Attaque offensive d'un de ses types dont il ne connaît aucune attaque ?
+static bool8 IsMissingStabUpgrade(const struct UpgradeContext *ctx, u16 move)
+{
+    enum Type type = GetMoveType(move);
+
+    return GetMoveCategory(move) != DAMAGE_CATEGORY_STATUS
+        && (type == ctx->types[0] || type == ctx->types[1]) && ctx->typeTier[type] == 0;
+}
+
 static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
 {
     struct UpgradeContext ctx;
@@ -1536,6 +1545,14 @@ static u16 PickUpgradeMove(struct Pokemon *mon, enum Species species)
     }
     if (count == 0)
         return fallback;
+    // un de ses types sans attaque (STAB manquant, Pierre Prisme comprise) passe avant tout le reste : s'il y a des
+    // candidates de ce type, ce sont les seules
+    for (i = 0; i < count && !IsMissingStabUpgrade(&ctx, moves[i]); i++)
+        ;
+    if (i != count)
+        for (i = 0; i < count; i++)
+            if (!IsMissingStabUpgrade(&ctx, moves[i]))
+                weights[i] = 0;
     // un type de coverage qui a beaucoup d'attaques candidates ne doit pas écraser les autres : poids x 2 / (n + 1)
     for (i = 0; i < count; i++)
     {
