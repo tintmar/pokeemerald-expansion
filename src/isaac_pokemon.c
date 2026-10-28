@@ -1975,7 +1975,8 @@ static bool8 SecretAbilityBoostsMove(const struct IsaacSecretAbility *entry, con
     case SECRET_FIT_SLICE:      return IsSlicingMove(move);
     case SECRET_FIT_PULSE:      return IsPulseMove(move);
     case SECRET_FIT_SOUND:      return IsSoundMove(move);
-    case SECRET_FIT_RECOIL:     return GetMoveRecoil(move) != 0 || GetMoveEffect(move) == EFFECT_RECOIL_IF_MISS;
+    case SECRET_FIT_RECOIL:     return GetMoveEffect(move) == EFFECT_RECOIL || GetMoveEffect(move) == EFFECT_RECOIL_IF_MISS
+                                     || GetMoveEffect(move) == EFFECT_CHLOROBLAST;
     case SECRET_FIT_MULTIHIT:   return IsMultiHitMove(move);
     case SECRET_FIT_SECONDARY:  return GetMoveAdditionalEffectCount(move) != 0;
     case SECRET_FIT_WEAK_MOVES: return GetMovePower(move) > 1 && GetMovePower(move) <= 60;
