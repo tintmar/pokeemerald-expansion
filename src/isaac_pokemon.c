@@ -2138,7 +2138,9 @@ enum Type IsaacGetMonGemType(struct Pokemon *mon)
 }
 
 // Idole de l'Inversion : chaque type a son contraire (les paires se touchent en super efficace dans un sens ou dans
-// l'autre ; inverser deux fois rend le type d'origine). Le drapeau est rangé dans un ruban (pas de rubans dans le jeu).
+// l'autre), et un second contraire (sSecondInvertedTypes, aussi en super efficace) pour un Pokémon dont les deux types
+// forment une paire (Plante / Poison...), qui sinon garderait ses types. Le drapeau est rangé dans un ruban (pas de
+// rubans dans le jeu) : une seconde Idole rend toujours les types d'origine.
 #define ISAAC_INVERTED_DATA  MON_DATA_WORLD_RIBBON
 
 static const u8 sInvertedTypes[NUMBER_OF_MON_TYPES] =
@@ -2154,10 +2156,47 @@ static const u8 sInvertedTypes[NUMBER_OF_MON_TYPES] =
     [TYPE_FLYING]   = TYPE_BUG,      [TYPE_BUG]      = TYPE_FLYING,
 };
 
+// Normal n'a pas de second contraire : seul Combat le touche en super efficace, et il ne touche rien
+static const u8 sSecondInvertedTypes[NUMBER_OF_MON_TYPES] =
+{
+    [TYPE_FIGHTING] = TYPE_PSYCHIC,
+    [TYPE_FIRE]     = TYPE_ROCK,     [TYPE_WATER]    = TYPE_ELECTRIC,
+    [TYPE_GRASS]    = TYPE_FIRE,     [TYPE_POISON]   = TYPE_GROUND,
+    [TYPE_ELECTRIC] = TYPE_FLYING,   [TYPE_GROUND]   = TYPE_ICE,
+    [TYPE_ICE]      = TYPE_FIRE,     [TYPE_DRAGON]   = TYPE_FAIRY,
+    [TYPE_PSYCHIC]  = TYPE_DARK,     [TYPE_GHOST]    = TYPE_DARK,
+    [TYPE_DARK]     = TYPE_FIGHTING, [TYPE_FAIRY]    = TYPE_STEEL,
+    [TYPE_ROCK]     = TYPE_WATER,    [TYPE_STEEL]    = TYPE_GROUND,
+    [TYPE_FLYING]   = TYPE_ROCK,     [TYPE_BUG]      = TYPE_FIRE,
+};
+
 // Type contraire (le même pour un type hors de la table : Mystère, Stellaire)
 static enum Type InvertType(enum Type type)
 {
     return (type < NUMBER_OF_MON_TYPES && sInvertedTypes[type] != TYPE_NONE) ? sInvertedTypes[type] : type;
+}
+
+// Second contraire (TYPE_NONE s'il n'y en a pas)
+static enum Type SecondInvertType(enum Type type)
+{
+    return (type < NUMBER_OF_MON_TYPES) ? sSecondInvertedTypes[type] : TYPE_NONE;
+}
+
+// Types inversés de deux types : leurs contraires, sauf si les deux types forment une paire (ils redonneraient les
+// mêmes) : le second prend alors son second contraire (le premier, si le second n'en a pas : Combat / Normal)
+static void InvertTypes(enum Type *types)
+{
+    enum Type type0 = types[0], type1 = types[1];
+
+    types[0] = InvertType(type0);
+    types[1] = InvertType(type1);
+    if (type0 != type1 && types[0] == type1 && types[1] == type0)
+    {
+        if (SecondInvertType(type1) != TYPE_NONE)
+            types[1] = SecondInvertType(type1);
+        else
+            types[0] = SecondInvertType(type0);
+    }
 }
 
 static bool8 IsMonInverted(struct Pokemon *mon)
@@ -2176,10 +2215,7 @@ static void GetMonTypesAsSpecies(struct Pokemon *mon, enum Species species, enum
     if (gem != TYPE_NONE)
         types[1] = gem;
     if (IsMonInverted(mon))
-    {
-        types[0] = InvertType(types[0]);
-        types[1] = InvertType(types[1]);
-    }
+        InvertTypes(types);
 }
 
 // Types du Pokémon, Gemme de Type et Idole de l'Inversion comprises
@@ -2188,16 +2224,32 @@ void IsaacGetMonTypes(struct Pokemon *mon, enum Type *types)
     GetMonTypesAsSpecies(mon, GetMonData(mon, MON_DATA_SPECIES), types);
 }
 
-// Gemme de Type : FALSE si le Pokémon a déjà ce type. Un Pokémon inversé reçoit bien ce type : la gemme rangée est son
-// contraire, que l'inversion retourne.
+// Gemme de Type : FALSE si le Pokémon a déjà ce type. Un Pokémon inversé reçoit bien ce type : la gemme rangée est
+// celle que l'inversion change en ce type (son contraire, presque toujours)
 bool8 IsaacUseTypeGem(struct Pokemon *mon, enum Type type)
 {
     enum Type types[2];
-    u32 value = IsMonInverted(mon) ? InvertType(type) : type;
+    u32 value = type, gem;
 
     IsaacGetMonTypes(mon, types);
     if (types[0] == type || types[1] == type)
         return FALSE;
+    if (IsMonInverted(mon))
+    {
+        value = InvertType(type);
+        for (gem = TYPE_NONE + 1; gem < NUMBER_OF_MON_TYPES; gem++)
+        {
+            if (!IsRealType(gem))
+                continue;
+            SetMonData(mon, ISAAC_GEM_TYPE_DATA, &gem);
+            IsaacGetMonTypes(mon, types);
+            if (types[1] == type)
+            {
+                value = gem;
+                break;
+            }
+        }
+    }
     SetMonData(mon, ISAAC_GEM_TYPE_DATA, &value);
     return TRUE;
 }
@@ -2974,12 +3026,30 @@ static const struct { bool8 learnable; bool8 sameCategoryOk; u8 maxGap; } sInver
     { FALSE, TRUE,  3 },  // n'importe laquelle du type
 };
 
-// Attaque offensive contraire de move pour le Pokémon (voir plus haut), tirée au hasard dans la première passe qui en
-// trouve ; jamais une attaque ISAAC_MOVE_ROLE_COMBO, situationnelle, ni une qu'il a déjà (taken). move si aucune.
-static u16 PickInvertedMove(struct Pokemon *mon, u16 move, const u16 *taken)
+// Type de l'attaque contraire d'une attaque de ce type, pour un Pokémon qui passe des types before aux types after : une
+// attaque d'un de ses types prend le type qui le remplace, une attaque de coverage le contraire de son type (le second
+// contraire si le premier est un de ses nouveaux types : elle reste du coverage)
+static enum Type GetInvertedMoveType(enum Type type, const enum Type *before, const enum Type *after)
+{
+    enum Type inverted;
+
+    if (type == before[0])
+        return after[0];
+    if (type == before[1])
+        return after[1];
+    inverted = InvertType(type);
+    if ((inverted == after[0] || inverted == after[1]) && SecondInvertType(type) != TYPE_NONE
+     && SecondInvertType(type) != after[0] && SecondInvertType(type) != after[1])
+        inverted = SecondInvertType(type);
+    return inverted;
+}
+
+// Attaque offensive contraire de move pour le Pokémon (voir plus haut), du type type, tirée au hasard dans la première
+// passe qui en trouve ; jamais une attaque ISAAC_MOVE_ROLE_COMBO, situationnelle, ni une qu'il a déjà (taken). move si
+// aucune.
+static u16 PickInvertedMove(struct Pokemon *mon, u16 move, enum Type type, const u16 *taken)
 {
     enum Species species = GetMonData(mon, MON_DATA_SPECIES);
-    enum Type type = InvertType(GetMoveType(move));
     enum DamageCategory category = GetMoveCategory(move) == DAMAGE_CATEGORY_PHYSICAL ? DAMAGE_CATEGORY_SPECIAL : DAMAGE_CATEGORY_PHYSICAL;
     u32 tier = GetMoveTierValue(move), pass, gap, candidate, moveTier, count, i;
     u16 picked;
@@ -3022,8 +3092,11 @@ bool8 IsaacUseIdolOfInversion(struct Pokemon *mon)
 {
     u16 moves[MAX_MON_MOVES], move;
     u32 value = !IsMonInverted(mon), i;
+    enum Type before[2], after[2];
 
+    IsaacGetMonTypes(mon, before);
     SetMonData(mon, ISAAC_INVERTED_DATA, &value);
+    IsaacGetMonTypes(mon, after);
     CalculateMonStats(mon);
     for (i = 0; i < MAX_MON_MOVES; i++)
         moves[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
@@ -3035,7 +3108,7 @@ bool8 IsaacUseIdolOfInversion(struct Pokemon *mon)
         if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
             move = GetInvertedStatusMove(move);
         else
-            move = PickInvertedMove(mon, move, moves);
+            move = PickInvertedMove(mon, move, GetInvertedMoveType(GetMoveType(move), before, after), moves);
         if (move == moves[i] || MonKnowsMove(mon, move))
             continue;
         moves[i] = move;
