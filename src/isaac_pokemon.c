@@ -2016,7 +2016,7 @@ static u32 StarterRandom(u32 *state)
 
 // Choix du Montagnard du hub : le Pokémon proposé n° index (0 à ISAAC_STARTER_CHOICES - 1). Les
 // ISAAC_STARTER_CHOICES / 2 premiers sont de catégorie 1, les autres de catégorie 2 (espèces avec des sets),
-// sans type en commun entre eux, de préférence d'un type super efficace contre le premier biome de la descente
+// sans type en commun entre eux, dont au moins un par catégorie d'un type super efficace contre le premier biome
 // (CountersBiome), avec le set 2 (variante au hasard). Les espèces sont tirées à l'index 0. Mêmes choix tant que
 // la descente n'a pas commencé (StarterRandom).
 void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
@@ -2032,7 +2032,7 @@ void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
     {
         const struct IsaacBiome *biome = &gIsaacBiomes[IsaacGetFirstBiome()];
         u16 picked[ISAAC_STARTER_CHOICES];
-        u32 chosen = 0, perCategory[2] = {0};
+        u32 chosen = 0, perCategory[2] = {0}, countersPerCategory[2] = {0};
 
         for (i = 0; i < ARRAY_COUNT(sIsaacRoster); i++)
             if (IsaacGetSpeciesCategory(sIsaacRoster[i]) <= ISAAC_CATEGORY_2 && IsaacSpeciesHasSet(sIsaacRoster[i]))
@@ -2042,8 +2042,10 @@ void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
             j = i + StarterRandom(&state) % (count - i);
             SWAP(candidates[i], candidates[j], tmp);
         }
-        // d'abord les espèces qui contrent le premier biome, puis les autres, jusqu'à ISAAC_STARTER_CHOICES / 2 par
-        // catégorie, en gardant seulement les espèces sans type commun avec celles déjà prises
+        // d'abord une espèce qui contre le premier biome par catégorie, puis les autres, jusqu'à
+        // ISAAC_STARTER_CHOICES / 2 par catégorie, en gardant seulement les espèces sans type commun avec celles déjà
+        // prises. Plus de contres réservés favoriseraient beaucoup les types rares qui contrent plusieurs biomes
+        // (Roche) au détriment de ceux qui n'en contrent aucun (Normal).
         for (pass = 0; pass < 2; pass++)
         {
             for (i = 0; i < count && chosen < ISAAC_STARTER_CHOICES; i++)
@@ -2054,11 +2056,13 @@ void IsaacCreateStarterChoice(struct Pokemon *mon, u32 index)
                     continue;
                 cat = IsaacGetSpeciesCategory(candidates[i]) - ISAAC_CATEGORY_1;
                 if (perCategory[cat] >= ISAAC_STARTER_CHOICES / 2
-                 || (pass == 0 && !CountersBiome(candidates[i], biome))
+                 || (pass == 0 && (countersPerCategory[cat] != 0 || !CountersBiome(candidates[i], biome)))
                  || SharesTypeWithStarters(candidates[i], picked, chosen))
                     continue;
                 picked[chosen++] = candidates[i];
                 perCategory[cat]++;
+                if (pass == 0)
+                    countersPerCategory[cat]++;
                 candidates[i] = SPECIES_NONE;
             }
         }
