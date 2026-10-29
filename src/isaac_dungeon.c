@@ -3065,7 +3065,7 @@ void IsaacKecleonGreeting(void)
 //  - ROOM_CONTENT_HEALER : une vieille dame et son Leveinard soignent complètement un Pokémon (même K.O.), une fois
 //    (mise de côté pour l'instant, HEALER_ENABLED : la Restore Max fait la même chose) ;
 //  - ROOM_CONTENT_EV_TRAINER : un entraîneur met au maximum les IVs (31) et EVs (répartition du set 4 de l'espèce)
-//    d'un Pokémon, une fois ;
+//    d'un Pokémon, une fois ; de moins en moins souvent en profondeur, jamais au 6e étage (sEvTrainerPct) ;
 //  - ROOM_CONTENT_SECRET_ABILITY : à partir de SECRET_ABILITY_MIN_FLOOR, le révélateur de talents propose
 //    ISAAC_SECRET_ABILITY_CHOICES talents forts au Pokémon choisi (IsaacPickSecretAbilities) et en éveille un, une fois.
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
@@ -3094,6 +3094,9 @@ static bool8 FloorHasSecretRoom(void)
 #define SEER_ENABLED          FALSE  // le gardien du boss annonce son équipe à la place
 #define SECRET_ABILITY_MIN_FLOOR  2  // le révélateur de talents n'apparaît qu'à partir de cet étage
 
+// Chances (%) que l'entraîneur d'IVs et d'EVs soit à l'étage, de plus en plus rare en profondeur, jamais au 6e
+static const u8 sEvTrainerPct[] = { 100, 100, 80, 60, 35, 0 };
+
 static bool8 IsRoomContentAvailable(u32 content)
 {
     switch (content)
@@ -3110,6 +3113,8 @@ static bool8 IsRoomContentAvailable(u32 content)
         return SEER_ENABLED;
     case ROOM_CONTENT_SECRET_ABILITY:
         return VarGet(VAR_ISAAC_FLOOR) >= SECRET_ABILITY_MIN_FLOOR;
+    case ROOM_CONTENT_EV_TRAINER:
+        return RoomRandom(0, 0, 0xE5E5) % 100 < sEvTrainerPct[min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvTrainerPct)) - 1];
     default:
         return TRUE;
     }
