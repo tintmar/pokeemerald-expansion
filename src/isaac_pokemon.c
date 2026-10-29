@@ -2794,15 +2794,54 @@ u32 IsaacGetMonTierLevel(struct Pokemon *mon)
     return min((sum + count - 1) / count, (u32)ISAAC_SET_TIERS);
 }
 
-// Super CT (ITEM_ABILITY_TRAINER) : le Pokémon prend les attaques du palier suivant de son espèce, même variante (FALSE s'il a déjà
-// le meilleur)
+// Penchant physique d'un set : attaques physiques moins attaques spéciales
+static s32 GetSetPhysicalLean(const struct TrainerMon *set)
+{
+    s32 lean = 0;
+    u32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        if (set->moves[i] == MOVE_NONE)
+            continue;
+        if (GetMoveCategory(set->moves[i]) == DAMAGE_CATEGORY_PHYSICAL)
+            lean++;
+        else if (GetMoveCategory(set->moves[i]) == DAMAGE_CATEGORY_SPECIAL)
+            lean--;
+    }
+    return lean;
+}
+
+// Super CT (ITEM_ABILITY_TRAINER) : le Pokémon prend les attaques du palier suivant de son espèce (FALSE s'il a déjà
+// le meilleur), dans la variante qui va à ses stats : celle qui penche le plus vers sa meilleure stat d'attaque
+// (Attaque ou Attaque Spéciale réelles : EVs, nature, Idoles comprises), sa variante actuelle à égalité. Sans ça un
+// Pokémon devenu spécial recevrait le set physique de sa variante d'origine.
 bool8 IsaacUpgradeSet(struct Pokemon *mon)
 {
-    u32 tier = IsaacGetMonSetTier(mon);
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    u32 tier = IsaacGetMonSetTier(mon), variant = IsaacGetMonSetVariant(mon), i;
+    s32 sign, lean, bestLean;
+    const struct TrainerMon *set;
 
     if (tier + 1 >= ISAAC_SET_TIERS)
         return FALSE;
-    return SetMovesFromSet(mon, tier + 1, IsaacGetMonSetVariant(mon));
+    sign = (GetMonData(mon, MON_DATA_ATK) > GetMonData(mon, MON_DATA_SPATK)) ? 1
+         : (GetMonData(mon, MON_DATA_ATK) < GetMonData(mon, MON_DATA_SPATK)) ? -1 : 0;
+    set = IsaacGetSet(species, tier + 1, variant);
+    bestLean = (set != NULL) ? sign * GetSetPhysicalLean(set) : -100;
+    for (i = 0; i < ISAAC_SET_VARIANTS; i++)
+    {
+        set = IsaacGetSet(species, tier + 1, i);
+        if (i == variant || set == NULL)
+            continue;
+        lean = sign * GetSetPhysicalLean(set);
+        if (lean > bestLean)
+        {
+            bestLean = lean;
+            variant = i;
+        }
+    }
+    return SetMovesFromSet(mon, tier + 1, variant);
 }
 
 // Super CT sur un Pokémon déjà au niveau de tier maximal : une attaque à apprendre, comme à la fin d'un combat
