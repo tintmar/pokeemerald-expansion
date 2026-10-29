@@ -5,12 +5,12 @@ Draft v3 — pivots by raw power, practical power for conditional moves, no snow
 
 SUMMARY
 --------------------------------------------------------------------------------------------------------------
-  Moves in pool: 651  (every move learnable by at least one Pokémon in pokemon_biomes_and_tiers.txt, plus every TM and HM; Gen 1-9 data)
+  Moves in pool: 649  (every move learnable by at least one Pokémon in pokemon_biomes_and_tiers.txt, plus every TM and HM; Gen 1-9 data)
   TIER 1 — WEAK                        80   (50 attacks, 30 status)
   TIER 2 — MEDIUM                     130   (114 attacks, 16 status)
   TIER 3 — STRONG                     136   (132 attacks, 4 status)
   TIER 4 — OPTIMAL                    131   (118 attacks, 13 status)
-  SITUATIONAL / UTILITY               174   (26 attacks, 148 status)
+  SITUATIONAL / UTILITY               172   (26 attacks, 146 status)
 
 HOW MOVES WERE TIERED (v3)
 --------------------------------------------------------------------------------------------------------------
@@ -766,9 +766,9 @@ TIER 4 — OPTIMAL (the competitive best of each type x category, or of a role) 
     Geomancy            Stat      —     —  10      [Setup] Charges, then raises SpA, SpD, Spe by 2 turn 2.  [Exclusive: Xerneas line]
 
 ==============================================================================================================
-SITUATIONAL / UTILITY   [174 moves]
+SITUATIONAL / UTILITY   [172 moves]
 ==============================================================================================================
-  -- NORMAL (67) --
+  -- NORMAL (65) --
     Move                Cat      BP   Acc  PP Pri  Effect
     Last Resort         Phys    140  100%   5      [Conditional] Fails unless each known move has been used.
     Natural Gift        Phys    var  100%  15      [Conditional] Power and type depends on the user's Berry.
@@ -801,8 +801,6 @@ SITUATIONAL / UTILITY   [174 moves]
     Super Fang          Phys    fix   90%  10      [Fixed Damage] Does damage equal to 1/2 target's current HP.
     Guillotine          Phys      —   30%   5      [OHKO] OHKOs the target. Fails if user is a lower level.
     Horn Drill          Phys      —   30%   5      [OHKO] OHKOs the target. Fails if user is a lower level.
-    Roar                Stat      —     —  20  -6  [Pivot / Phaze] [Strong] Forces the target to switch to a random ally.
-    Whirlwind           Stat      —     —  20  -6  [Pivot / Phaze] [Strong] Forces the target to switch to a random ally.
     Fake Out            Phys     40  100%  10  +3  [Priority Disruption] Hits first. First turn out only. 100% flinch chance.
     Feint               Phys     30  100%  10  +2  [Priority Disruption] Nullifies Detect, Protect, and Quick/Wide Guard.
     Endure              Stat      —     —  10  +4  [Protection] User survives attacks this turn with at least 1 HP.
@@ -1001,5 +999,7 @@ OMITTED MOVES
 ==============================================================================================================
   Entry hazards (removed from the game in v3):
     Spikes, Stealth Rock, Sticky Web, Toxic Spikes
+  Phazing moves (removed from the game for now):
+    Roar, Whirlwind
   Doubles-only support moves (tell me if the game has double battles and I will tier them):
     After You, Ally Switch, Celebrate, Coaching, Crafty Shield, Dragon Cheer, Follow Me, Happy Hour, Helping Hand, Quash, Quick Guard, Rage Powder, Spotlight, Wide Guard

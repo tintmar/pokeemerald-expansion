@@ -114,7 +114,9 @@ MID_ITEMS = {'LEFTOVERS', 'SITRUS_BERRY', 'LUM_BERRY', 'BLACK_SLUDGE', 'FLAME_OR
 FORBIDDEN_ITEMS = {'EVIOLITE'}
 
 # Pas d'entry hazards dans le jeu (ni de Grosses Bottes) : remplacés à la génération (voir remove_hazards)
-HAZARD_MOVES = {'STEALTH_ROCK', 'SPIKES', 'TOXIC_SPIKES', 'STICKY_WEB', 'STONE_AXE', 'CEASELESS_EDGE'}
+# Hurlement et Cyclone (forcer le changement) aussi retirés pour l'instant, remplacés de la même façon
+HAZARD_MOVES = {'STEALTH_ROCK', 'SPIKES', 'TOXIC_SPIKES', 'STICKY_WEB', 'STONE_AXE', 'CEASELESS_EDGE',
+                'ROAR', 'WHIRLWIND'}
 NERF_EXCLUDED |= HAZARD_MOVES
 ITEM_REPLACEMENTS = {'HEAVY_DUTY_BOOTS': 'LEFTOVERS'}
 HAZARD_MAX_POWER = [60, 70, 90]  # puissance maximale de l'attaque de remplacement, par palier
