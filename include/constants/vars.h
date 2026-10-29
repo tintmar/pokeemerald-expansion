@@ -68,7 +68,7 @@
 #define VAR_FRONTIER_MANIAC_FACILITY                     0x402F
 #define VAR_FRONTIER_GAMBLER_CHALLENGE                   0x4030
 #define VAR_FRONTIER_GAMBLER_SET_CHALLENGE               0x4031
-#define VAR_UNUSED_0x4032                                0x4032 // libre (était VAR_FRONTIER_GAMBLER_AMOUNT_BET, jeu principal)
+#define VAR_ISAAC_MAX_RESTORE_LUCK                       0x4032 // Retard des Restores Max des dresseurs, en centièmes + 1000 (isaac_dungeon.c)
 #define VAR_FRONTIER_GAMBLER_STATE                       0x4033
 
 #define VAR_DEOXYS_ROCK_STEP_COUNT                       0x4034

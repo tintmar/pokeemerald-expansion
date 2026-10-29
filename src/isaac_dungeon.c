@@ -1969,6 +1969,8 @@ u32 IsaacGetTrainerMoney(void)
 //  - une Restore Max avec TRAINER_LOOT_MAX_RESTORE_PCT % de chances, et une seconde avec la même chance multipliée par
 //    TRAINER_LOOT_SECOND_PCT_PER_FLOOR % par étage au-delà de l'étage 2 (toujours la même réponse pour une salle) : en
 //    moyenne 0,8 aux étages 1-2, 1 à l'étage 3, 1,2 au 4, 1,4 au 5, 1,6 à partir du 6.
+// Anti-malchance (TryMaxRestoreLuck) : le retard sur la moyenne attendue est compté sur la descente ; à
+// MAX_RESTORE_LUCK_GIVE de retard, le dresseur en donne une de plus.
 // En plus, TRAINER_LOOT_RARE_PCT % des dresseurs donnent un butin rare (PickTrainerRareLoot, toujours le même pour une
 // salle) : un objet spécial, une très bonne CT ou un objet de combat de la boutique.
 #define TRAINER_LOOT_MAX_RESTORE_PCT       80
@@ -1977,6 +1979,35 @@ u32 IsaacGetTrainerMoney(void)
 
 static u16 PickGoodTM(u32 roll);
 static u16 PickTrainerRareLoot(u32 roll);
+
+// Anti-malchance des Restores Max : retard (en centièmes de Restore Max) entre celles attendues en moyenne et celles
+// reçues des dresseurs depuis le début de la descente, dans VAR_ISAAC_MAX_RESTORE_LUCK (décalé de
+// MAX_RESTORE_LUCK_OFFSET pour l'avance). À MAX_RESTORE_LUCK_GIVE de retard, une de plus (le retard baisse d'une) ;
+// l'avance (bonne chance) ne compte que jusqu'à MAX_RESTORE_LUCK_MAX_AHEAD, pour ne pas en priver longtemps ensuite.
+#define MAX_RESTORE_LUCK_OFFSET     1000
+#define MAX_RESTORE_LUCK_GIVE       150
+#define MAX_RESTORE_LUCK_MAX_AHEAD  100
+
+// Butin de heals Restores Max, en moyenne expected (centièmes) : renvoie le nombre à donner, anti-malchance comprise
+static u32 TryMaxRestoreLuck(u32 heals, u32 expected)
+{
+    s32 behind = (s32)VarGet(VAR_ISAAC_MAX_RESTORE_LUCK) - MAX_RESTORE_LUCK_OFFSET;
+
+    behind += (s32)expected - 100 * (s32)heals;
+    if (behind >= MAX_RESTORE_LUCK_GIVE)
+    {
+        heals++;
+        behind -= 100;
+    }
+    behind = max(behind, -MAX_RESTORE_LUCK_MAX_AHEAD);
+    VarSet(VAR_ISAAC_MAX_RESTORE_LUCK, behind + MAX_RESTORE_LUCK_OFFSET);
+    return heals;
+}
+
+static void IsaacResetMaxRestoreLuck(void)
+{
+    VarSet(VAR_ISAAC_MAX_RESTORE_LUCK, MAX_RESTORE_LUCK_OFFSET);
+}
 
 static EWRAM_DATA u16 sLoot[4] = {0};
 static EWRAM_DATA u8 sLootCount = 0;
@@ -1993,6 +2024,7 @@ void IsaacPickTrainerLoot(void)
         heals++;
     if (RoomRandom(x, y, 0x1007) % 10000 < TRAINER_LOOT_MAX_RESTORE_PCT * secondPct)
         heals++;
+    heals = TryMaxRestoreLuck(heals, TRAINER_LOOT_MAX_RESTORE_PCT * (100 + secondPct) / 100);
     while (sLootCount < heals)
         sLoot[sLootCount++] = ITEM_MAX_RESTORE;
     if (RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_RARE_PCT)
@@ -4015,6 +4047,7 @@ static void WarpToNewFloor(u32 floor)
         RemoveBagItem(ITEM_LUCKY_COIN, 1);     // la Pièce Porte-Bonheur aussi
         IsaacGoldenHeartReset();
         IsaacResetProgressionPity();
+        IsaacResetMaxRestoreLuck();
         IsaacResetSecretAbilitiesSeen();
     }
     VarSet(VAR_ISAAC_FLOOR, floor);
