@@ -5044,7 +5044,7 @@ const struct ItemInfo gItemsInfo[] =
     // Donjon : Guérison qui relève aussi un Pokémon K.O. (effet du Rappel Max sur un K.O., voir PokemonItemEffect)
     [ITEM_MAX_RESTORE] =
     {
-        .name = ITEM_NAME("Restore Max"),
+        .name = ITEM_NAME("Max Restore"),
         .price = 0,
         .holdEffectParam = 255,
         .description = COMPOUND_STRING(
