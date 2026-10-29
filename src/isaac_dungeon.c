@@ -3708,8 +3708,8 @@ void IsaacPickBossReward(void)
     gSpecialVar_0x8004 = IsaacPickSpecialItem(RoomRandom(x, y, 0xB0B0), FALSE);
 }
 
-// Butin de la salle secrète, une entrée de la table tirée pour la salle (la Carte de Réduction, si on l'a déjà, est
-// remplacée par l'entrée suivante)
+// Butin de la salle secrète, une entrée de la table tirée pour la salle selon son poids (sSecretLootWeights : l'Idole
+// du Chaos un peu plus rare) ; la Carte de Réduction, si on l'a déjà, est remplacée par l'entrée suivante
 enum
 {
     SECRET_LOOT_ITEM_AND_TM,  // un très bon objet de combat et une très bonne CT
@@ -3721,10 +3721,26 @@ enum
     SECRET_LOOT_COUNT,
 };
 
+static const u8 sSecretLootWeights[SECRET_LOOT_COUNT] =
+{
+    [SECRET_LOOT_ITEM_AND_TM]   = 4,
+    [SECRET_LOOT_CURSED_DIE]    = 4,
+    [SECRET_LOOT_BLOOD_PACT]    = 4,
+    [SECRET_LOOT_IDOL_OF_CHAOS] = 3,
+    [SECRET_LOOT_DISCOUNT_CARD] = 4,
+    [SECRET_LOOT_HEALS]         = 4,
+};
+
 static void PickSecretRoomLoot(s32 x, s32 y)
 {
     u32 roll = RoomRandom(x, y, 0x600D);
-    u32 entry = roll % SECRET_LOOT_COUNT;
+    u32 total = 0, pick, entry;
+
+    for (entry = 0; entry < SECRET_LOOT_COUNT; entry++)
+        total += sSecretLootWeights[entry];
+    pick = roll % total;
+    for (entry = 0; pick >= sSecretLootWeights[entry]; entry++)
+        pick -= sSecretLootWeights[entry];
 
     if (entry == SECRET_LOOT_DISCOUNT_CARD && CheckBagHasItem(ITEM_DISCOUNT_CARD, 1))
         entry++;
