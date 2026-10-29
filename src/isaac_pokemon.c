@@ -227,7 +227,8 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // SPECIAL_ITEM_WEIGHT, sauf l'Omniboost (OMNIBOOST_WEIGHT, deux fois plus rare) et les deux Pierres Évolution, plus
 // rares en profondeur (sEvolutionStoneWeights : moitié à l'étage 4, quart à l'étage 5, absentes à partir de l'étage 6 ;
 // retirées pour l'instant : EVOLUTION_STONE_ENABLED, SUPER_EVOLUTION_STONE_ENABLED),
-// et la Super CT, de plus en plus rare (sAbilityTrainerWeights), rare à partir de l'étage 4. Dans la boutique (shop),
+// et la Super CT, de plus en plus rare (sAbilityTrainerWeights), rare à partir de l'étage 4 (retirée pour l'instant :
+// ABILITY_TRAINER_ENABLED). Dans la boutique (shop),
 // pas de Pierre Évolution après SHOP_EVOLUTION_STONE_MAX_FLOOR. La Pièce Porte-Bonheur est surtout au début
 // (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours seulement à partir de l'étage 4
 // (sFirstAidKitWeights), jamais si on a déjà FIRST_AID_KIT_MAX_RESTORES Restores Max ; la Pierre Prisme un peu moins courante (PRISM_STONE_WEIGHT), le Cœur Doré peu courant
@@ -249,6 +250,7 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 #define FIRST_AID_KIT_MAX_RESTORES  3
 #define EVOLUTION_STONE_ENABLED        FALSE
 #define SUPER_EVOLUTION_STONE_ENABLED  FALSE
+#define ABILITY_TRAINER_ENABLED        FALSE
 #define SHOP_EVOLUTION_STONE_MAX_FLOOR  3
 
 #define ISAAC_MAX_MEGA_STONES  (PARTY_SIZE * 2)  // Dracaufeu et Mewtwo ont deux Méga-Évolutions
@@ -352,7 +354,7 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
         else if (sSpecialItems[i] == ITEM_BOOST_HP)
             weights[i] = sStatBoostWeights[floor - 1];
         else if (sSpecialItems[i] == ITEM_ABILITY_TRAINER)
-            weights[i] = sAbilityTrainerWeights[floor - 1];
+            weights[i] = ABILITY_TRAINER_ENABLED ? sAbilityTrainerWeights[floor - 1] : 0;
         else if (sSpecialItems[i] == ITEM_OMNIBOOST)
             weights[i] = OMNIBOOST_WEIGHT;
         else if (sSpecialItems[i] == ITEM_ISAAC_GEM_FIRST)

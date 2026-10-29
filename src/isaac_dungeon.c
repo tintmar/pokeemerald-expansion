@@ -2012,7 +2012,8 @@ static void IsaacResetMaxRestoreLuck(void)
 static EWRAM_DATA u16 sLoot[4] = {0};
 static EWRAM_DATA u8 sLootCount = 0;
 
-void IsaacPickTrainerLoot(void)
+// Butin du dresseur de la salle courante ; rareGuaranteed : le butin rare est toujours donné (duelliste vaincu)
+static void PickTrainerLoot(bool8 rareGuaranteed)
 {
     s32 x, y;
     u32 secondPct, heals = 0;
@@ -2027,8 +2028,19 @@ void IsaacPickTrainerLoot(void)
     heals = TryMaxRestoreLuck(heals, TRAINER_LOOT_MAX_RESTORE_PCT * (100 + secondPct) / 100);
     while (sLootCount < heals)
         sLoot[sLootCount++] = ITEM_MAX_RESTORE;
-    if (RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_RARE_PCT)
+    if (rareGuaranteed || RoomRandom(x, y, 0x7E57) % 100 < TRAINER_LOOT_RARE_PCT)
         sLoot[sLootCount++] = PickTrainerRareLoot(RoomRandom(x, y, 0x7E58));
+}
+
+void IsaacPickTrainerLoot(void)
+{
+    PickTrainerLoot(FALSE);
+}
+
+// Duelliste vaincu : le butin d'un dresseur, butin rare garanti
+void IsaacPickDuelistLoot(void)
+{
+    PickTrainerLoot(TRUE);
 }
 
 // Objet suivant du butin (dresseur, salle trésor ou secrète) dans VAR_0x8004 (ITEM_NONE quand il n'y en a plus),
@@ -3115,7 +3127,8 @@ void IsaacKecleonGreeting(void)
 //    apprendre et ne connaît pas, dont au moins TUTOR_TYPE_CHOICES de ses types (Pierre Prisme comprise) ; il en apprend une (en oubliant une autre s'il en connaît déjà 4) ;
 //  - ROOM_CONTENT_DUELIST : le duelliste annonce son Pokémon (plus fort que ceux de l'étage, voir GetIsaacTrainer),
 //    puis combat en 1 contre 1 contre le Pokémon choisi par le joueur. Perdre ne renvoie pas au hub. Un seul duel :
-//    gagné, il donne une Restore Max et une Super CT ; perdu, une Restore Max pour relever le Pokémon K.O. ;
+//    gagné, il donne le butin d'un dresseur, butin rare garanti (IsaacPickDuelistLoot) ; perdu, une Restore Max pour
+//    relever le Pokémon K.O. ;
 //  - ROOM_CONTENT_SEER : le voyant annonce l'équipe du boss de l'étage (IsaacBufferBossTeam ; retiré pour
 //    l'instant, SEER_ENABLED : le gardien du boss le fait) ;
 //  - ROOM_CONTENT_ROCK_SMASH : un entraîneur apprend Éclate-Roc au Pokémon choisi, qui pourra briser les roches qui

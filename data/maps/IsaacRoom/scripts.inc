@@ -704,7 +704,8 @@ IsaacRoom_Text_TutorNothing:
 	.string "I have nothing to teach it…$"
 
 @ Duelliste : il annonce son Pokémon, puis combat en 1 contre 1 contre le Pokémon choisi (perdre ne renvoie pas au
-@ hub). Un seul duel : gagné, une Restore Max et une Super CT ; perdu, une Restore Max pour relever le Pokémon K.O.
+@ hub). Un seul duel : gagné, le butin d'un dresseur avec butin rare garanti ; perdu, une Restore Max pour relever le
+@ Pokémon K.O.
 IsaacRoom_EventScript_Duelist::
 	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_DuelistDone
 	special IsaacPrepareDuel
@@ -725,8 +726,13 @@ IsaacRoom_EventScript_DuelistAfter::
 	special IsaacSetRoomCleared
 	goto_if_ne VAR_0x8006, B_OUTCOME_WON, IsaacRoom_EventScript_DuelistLost
 	msgbox IsaacRoom_Text_DuelistWon, MSGBOX_DEFAULT
-	giveitem ITEM_MAX_RESTORE
-	giveitem ITEM_ABILITY_TRAINER
+	special IsaacPickDuelistLoot
+IsaacRoom_EventScript_DuelistLoot::
+	special IsaacNextLootItem
+	goto_if_eq VAR_0x8004, ITEM_NONE, IsaacRoom_EventScript_DuelistLootDone
+	giveitem VAR_0x8004
+	goto IsaacRoom_EventScript_DuelistLoot
+IsaacRoom_EventScript_DuelistLootDone::
 	release
 	end
 

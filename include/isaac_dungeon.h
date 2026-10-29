@@ -31,6 +31,7 @@ void IsaacCaptureGuideHasBall(void);
 void IsaacCaptureGuideGaveBall(void);
 void IsaacCaptureMonDone(void);
 void IsaacPickTrainerLoot(void);
+void IsaacPickDuelistLoot(void);
 void IsaacNextLootItem(void);
 void IsaacPrepareNurseArrival(void);
 void IsaacSettleNurse(void);
