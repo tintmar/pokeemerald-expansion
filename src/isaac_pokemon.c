@@ -942,6 +942,12 @@ void IsaacGoldenHeartStart(void)
     RecalculatePlayerPartyStats();
 }
 
+// Un Cœur Doré est-il utilisé et en attente du prochain boss ?
+bool8 IsaacIsGoldenHeartReady(void)
+{
+    return FlagGet(FLAG_ISAAC_GOLDEN_HEART_READY);
+}
+
 // Le Cœur Doré agit-il sur ce combat ? (annonce au début du combat, voir FIRST_TURN_EVENTS_ISAAC_GOLDEN_HEART)
 bool8 IsaacIsGoldenHeartActive(void)
 {

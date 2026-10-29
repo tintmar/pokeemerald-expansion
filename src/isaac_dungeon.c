@@ -3779,8 +3779,35 @@ static void PickSecretRoomLoot(s32 x, s32 y)
     }
 }
 
+// Coup de pouce de la salle trésor du dernier étage, selon l'état de l'équipe (ITEM_NONE : tirage normal) : plus de
+// TREASURE_HELP_MAX_KOS Pokémon K.O. et pas plus de TREASURE_HELP_MAX_REVIVES Rappels Max dans le Sac, une Trousse de
+// Secours ; sinon un Cœur Doré s'il n'en a ni dans le Sac ni en attente du boss
+#define TREASURE_HELP_MAX_KOS      2
+#define TREASURE_HELP_MAX_REVIVES  2
+
+static u16 GetLastFloorTreasureHelp(void)
+{
+    struct Pokemon *mon;
+    u32 kos = 0, i;
+
+    if (VarGet(VAR_ISAAC_FLOOR) != ISAAC_FLOOR_COUNT)
+        return ITEM_NONE;
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+    {
+        mon = &gParties[B_TRAINER_PLAYER][i];
+        if (!GetMonData(mon, MON_DATA_IS_EGG) && GetMonData(mon, MON_DATA_HP) == 0)
+            kos++;
+    }
+    if (kos > TREASURE_HELP_MAX_KOS && !CheckBagHasItem(ITEM_MAX_REVIVE, TREASURE_HELP_MAX_REVIVES + 1))
+        return ITEM_FIRST_AID_KIT;
+    if (!CheckBagHasItem(ITEM_GOLDEN_HEART, 1) && !IsaacIsGoldenHeartReady())
+        return ITEM_GOLDEN_HEART;
+    return ITEM_NONE;
+}
+
 // Objet(s) de la salle trésor ou de la salle secrète, à donner un par un (IsaacNextLootItem) : un objet spécial au
-// hasard dans une salle trésor, le butin de la table de la salle secrète (PickSecretRoomLoot)
+// hasard dans une salle trésor (ou le coup de pouce du dernier étage, GetLastFloorTreasureHelp), le butin de la table
+// de la salle secrète (PickSecretRoomLoot)
 void IsaacPickTreasureItem(void)
 {
     s32 x, y;
@@ -3789,6 +3816,8 @@ void IsaacPickTreasureItem(void)
     sLootCount = 0;
     if (GetRoom(x, y) == ROOM_SECRET)
         PickSecretRoomLoot(x, y);
+    else if ((sLoot[sLootCount] = GetLastFloorTreasureHelp()) != ITEM_NONE)
+        sLootCount++;
     else
         sLoot[sLootCount++] = IsaacPickSpecialItem(RoomRandom(x, y, 0x7EA5), FALSE);
 }
