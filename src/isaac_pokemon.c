@@ -1831,6 +1831,10 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
             score = ScoreOffensiveUpgrade(&ctx, move, tier);
             if (score != 0 && statFree)
                 score += ScoreStatFreeBonus(&ctx, mon, move);
+        // Idole de l'Inversion : les attaques offensives de ses anciens types ne sont plus les siennes (celles des
+        // nouveaux comptent comme STAB, ctx.types)
+        if (IsaacIsFormerTypeMove(mon, move))
+            continue;
         }
         // un type qui n'est pas celui de l'espèce (Pierre Prisme, Idole de l'Inversion) n'est presque jamais dans ses
         // attaques : les attaques offensives de ce type sont permises
@@ -2204,6 +2208,20 @@ static enum Type InvertType(enum Type type)
 }
 
 // Second contraire (TYPE_NONE s'il n'y en a pas)
+// Idole de l'Inversion : l'attaque offensive est-elle d'un de ses anciens types (ceux de son espèce) qui n'est pas
+// aussi un des nouveaux ? Elle n'est alors plus à lui (proposeur d'attaques, maître des capacités).
+bool8 IsaacIsFormerTypeMove(struct Pokemon *mon, u16 move)
+{
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    enum Type type = GetMoveType(move), types[2];
+
+    if (!IsMonInverted(mon) || GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS
+     || (type != GetSpeciesType(species, 0) && type != GetSpeciesType(species, 1)))
+        return FALSE;
+    IsaacGetMonTypes(mon, types);
+    return type != types[0] && type != types[1];
+}
+
 static enum Type SecondInvertType(enum Type type)
 {
     return (type < NUMBER_OF_MON_TYPES) ? sSecondInvertedTypes[type] : TYPE_NONE;

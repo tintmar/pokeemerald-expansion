@@ -3547,7 +3547,7 @@ void IsaacPrepareTutor(void)
     count = typed;
     for (i = 0; i < ARRAY_COUNT(sTutorMoves); i++)
         if (!MonKnowsMove(mon, sTutorMoves[i]) && !IsTutorMoveOfMonTypes(sTutorMoves[i], types)
-         && CanLearnTutorMove(species, sTutorMoves[i]))
+         && CanLearnTutorMove(species, sTutorMoves[i]) && !IsaacIsFormerTypeMove(mon, sTutorMoves[i]))
             candidates[count++] = sTutorMoves[i];
     GetCurrentCell(&x, &y);
     for (i = 0; i < TUTOR_CHOICES && i < count; i++)

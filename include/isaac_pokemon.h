@@ -146,6 +146,7 @@ bool8 IsaacUseBloodPact(struct Pokemon *mon);
 s32 IsaacRollCursedDie(struct Pokemon *mon, bool8 *ok);
 bool8 IsaacUseIdolOfChaos(struct Pokemon *mon);
 bool8 IsaacUseIdolOfInversion(struct Pokemon *mon);
+bool8 IsaacIsFormerTypeMove(struct Pokemon *mon, u16 move);
 u32 IsaacGetMonBaseStat(struct Pokemon *mon, enum Species species, u32 stat);
 bool8 IsaacUseGoldenHeart(void);
 void IsaacGoldenHeartReset(void);
