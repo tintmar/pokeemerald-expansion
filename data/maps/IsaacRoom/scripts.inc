@@ -406,7 +406,7 @@ IsaacRoom_EventScript_Content::
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_SEER, IsaacRoom_EventScript_Seer
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_ROCK_SMASH, IsaacRoom_EventScript_RockSmashTeacher
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_HEALER, IsaacRoom_EventScript_Healer
-	goto_if_eq VAR_RESULT, ROOM_CONTENT_EV_TRAINER, IsaacRoom_EventScript_EvTrainer
+	goto_if_eq VAR_RESULT, ROOM_CONTENT_MIND_COACH, IsaacRoom_EventScript_MindCoach
 	goto_if_eq VAR_RESULT, ROOM_CONTENT_SECRET_ABILITY, IsaacRoom_EventScript_SecretAbility
 	release
 	end
@@ -923,29 +923,29 @@ IsaacRoom_EventScript_Chansey::
 	release
 	end
 
-@ Entraîneur : IVs et EVs au maximum pour un Pokémon, une fois
-IsaacRoom_EventScript_EvTrainer::
-	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_EvTrainerDone
-	msgbox IsaacRoom_Text_EvTrainerIntro, MSGBOX_DEFAULT
+@ Coach mental : IVs au maximum pour un Pokémon, une fois
+IsaacRoom_EventScript_MindCoach::
+	goto_if_eq VAR_0x8005, TRUE, IsaacRoom_EventScript_MindCoachDone
+	msgbox IsaacRoom_Text_MindCoachIntro, MSGBOX_DEFAULT
 	special ChoosePartyMon
 	goto_if_ge VAR_0x8004, PARTY_SIZE, IsaacRoom_EventScript_TutorDeclined
-	special IsaacMaxEvsIvs
-	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_EvTrainerNoNeed
+	special IsaacMaxIvs
+	goto_if_eq VAR_RESULT, FALSE, IsaacRoom_EventScript_MindCoachNoNeed
 	playfanfare MUS_LEVEL_UP
-	message IsaacRoom_Text_EvTrainerDone
+	message IsaacRoom_Text_MindCoachDone
 	waitfanfare
 	waitmessage
 	special IsaacSetRoomCleared
 	release
 	end
 
-IsaacRoom_EventScript_EvTrainerDone::
-	msgbox IsaacRoom_Text_EvTrainerAfter, MSGBOX_DEFAULT
+IsaacRoom_EventScript_MindCoachDone::
+	msgbox IsaacRoom_Text_MindCoachAfter, MSGBOX_DEFAULT
 	release
 	end
 
-IsaacRoom_EventScript_EvTrainerNoNeed::
-	msgbox IsaacRoom_Text_EvTrainerNoNeed, MSGBOX_DEFAULT
+IsaacRoom_EventScript_MindCoachNoNeed::
+	msgbox IsaacRoom_Text_MindCoachNoNeed, MSGBOX_DEFAULT
 	release
 	end
 
@@ -1050,20 +1050,23 @@ IsaacRoom_Text_HealerNoNeed:
 IsaacRoom_Text_Chansey:
 	.string "{STR_VAR_2}: Chaaan-sey!$"
 
-IsaacRoom_Text_EvTrainerIntro:
-	.string "I'm a personal trainer.\n"
-	.string "One session with me and your\l"
-	.string "Pokémon reaches its full potential.\p"
-	.string "Which one do you want to train?$"
+IsaacRoom_Text_MindCoachIntro:
+	.string "I'm a mental coach.\n"
+	.string "Most Pokémon hold back without\l"
+	.string "even knowing it.\p"
+	.string "One session with me, and they\n"
+	.string "can use their full potential.\p"
+	.string "Which one should I work with?$"
 
-IsaacRoom_Text_EvTrainerDone:
-	.string "{STR_VAR_1} reached its full\n"
-	.string "potential!$"
+IsaacRoom_Text_MindCoachDone:
+	.string "{STR_VAR_1} unlocked its\n"
+	.string "full potential!$"
 
-IsaacRoom_Text_EvTrainerAfter:
-	.string "One session per client!\n"
-	.string "Good luck.$"
+IsaacRoom_Text_MindCoachAfter:
+	.string "The mind was the only limit.\n"
+	.string "One session each. Good luck!$"
 
-IsaacRoom_Text_EvTrainerNoNeed:
-	.string "That one is already maxed out!$"
+IsaacRoom_Text_MindCoachNoNeed:
+	.string "That one already uses its\n"
+	.string "full potential!$"
 

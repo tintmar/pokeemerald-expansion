@@ -73,7 +73,7 @@ void IsaacBufferTutorChoice(void);
 void IsaacPrepareRockSmash(void);
 void IsaacHealerHealMon(void);
 void IsaacBufferHealerPokemon(void);
-void IsaacMaxEvsIvs(void);
+void IsaacMaxIvs(void);
 const u8 *IsaacGetWallInteractScript(s16 x, s16 y);
 void IsaacBoostTrainerParty(u16 trainerId, struct Pokemon *party);
 const u8 *IsaacGetRoomTrainerIntro(const u8 *defaultText);

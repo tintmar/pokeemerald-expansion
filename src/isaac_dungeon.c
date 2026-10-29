@@ -3090,8 +3090,8 @@ void IsaacKecleonGreeting(void)
 //    ferment la salle secrète (seulement s'il y en a une, et si personne ne connaissait Éclate-Roc en début d'étage) ;
 //  - ROOM_CONTENT_HEALER : une vieille dame et son Leveinard soignent complètement un Pokémon (même K.O.), une fois
 //    (mise de côté pour l'instant, HEALER_ENABLED : la Restore Max fait la même chose) ;
-//  - ROOM_CONTENT_EV_TRAINER : un entraîneur met au maximum les IVs (31) et EVs (répartition du set 4 de l'espèce)
-//    d'un Pokémon, une fois ; de moins en moins souvent en profondeur, jamais au 6e étage (sEvTrainerPct) ;
+//  - ROOM_CONTENT_MIND_COACH : un coach mental met au maximum les IVs (31) d'un Pokémon, une fois (les EVs viennent des
+//    récompenses de combat) ; plus rare au dernier étage (sMindCoachPct) ;
 //  - ROOM_CONTENT_SECRET_ABILITY : à partir de SECRET_ABILITY_MIN_FLOOR, le révélateur de talents propose
 //    ISAAC_SECRET_ABILITY_CHOICES talents forts au Pokémon choisi (IsaacPickSecretAbilities) et en éveille un, une fois.
 // Une fois le contenu utilisé, la salle est « nettoyée » et le personnage reste là.
@@ -3120,8 +3120,8 @@ static bool8 FloorHasSecretRoom(void)
 #define SEER_ENABLED          FALSE  // le gardien du boss annonce son équipe à la place
 #define SECRET_ABILITY_MIN_FLOOR  2  // le révélateur de talents n'apparaît qu'à partir de cet étage
 
-// Chances (%) que l'entraîneur d'IVs et d'EVs soit à l'étage, de plus en plus rare en profondeur, jamais au 6e
-static const u8 sEvTrainerPct[] = { 100, 100, 80, 60, 35, 0 };
+// Chances (%) que le coach mental soit à l'étage : plus rare au dernier
+static const u8 sMindCoachPct[] = { 100, 100, 100, 100, 100, 40 };
 
 static bool8 IsRoomContentAvailable(u32 content)
 {
@@ -3139,8 +3139,8 @@ static bool8 IsRoomContentAvailable(u32 content)
         return SEER_ENABLED;
     case ROOM_CONTENT_SECRET_ABILITY:
         return VarGet(VAR_ISAAC_FLOOR) >= SECRET_ABILITY_MIN_FLOOR;
-    case ROOM_CONTENT_EV_TRAINER:
-        return RoomRandom(0, 0, 0xE5E5) % 100 < sEvTrainerPct[min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvTrainerPct)) - 1];
+    case ROOM_CONTENT_MIND_COACH:
+        return RoomRandom(0, 0, 0xE5E5) % 100 < sMindCoachPct[min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sMindCoachPct)) - 1];
     default:
         return TRUE;
     }
@@ -3245,7 +3245,7 @@ static void SetUpRoomContent(s32 x, s32 y)
         [ROOM_CONTENT_SEER]   = { OBJ_EVENT_GFX_PSYCHIC_M,  OBJ_EVENT_GFX_SWIMMER_M },
         [ROOM_CONTENT_ROCK_SMASH] = { OBJ_EVENT_GFX_HIKER, OBJ_EVENT_GFX_SWIMMER_M },
         [ROOM_CONTENT_HEALER] = { OBJ_EVENT_GFX_OLD_WOMAN, OBJ_EVENT_GFX_SWIMMER_F },
-        [ROOM_CONTENT_EV_TRAINER] = { OBJ_EVENT_GFX_MAN_3, OBJ_EVENT_GFX_SWIMMER_M },
+        [ROOM_CONTENT_MIND_COACH] = { OBJ_EVENT_GFX_EXPERT_F,  OBJ_EVENT_GFX_SWIMMER_F },
         [ROOM_CONTENT_SECRET_ABILITY] = { OBJ_EVENT_GFX_PSYCHIC_M, OBJ_EVENT_GFX_SWIMMER_M },
     };
     u32 content = GetRoomContent(x, y);
@@ -3866,38 +3866,24 @@ void IsaacHealerHealMon(void)
         HealPokemon(mon);
 }
 
-// Entraîneur : IVs à 31 et EVs de la répartition du set 4 de l'espèce (même variante) pour le Pokémon n° VAR_0x8004.
-// VAR_RESULT = FALSE pour un Œuf ou un Pokémon déjà au maximum ; gStringVar1 = son nom
-void IsaacMaxEvsIvs(void)
+// Coach mental : IVs du Pokémon n° VAR_0x8004 au maximum. VAR_RESULT = FALSE pour un Œuf ou s'ils l'étaient déjà ;
+// gStringVar1 = son nom
+void IsaacMaxIvs(void)
 {
-    // ordre des EVs dans les sets (TRAINER_PARTY_EVS) : PV, Att, Déf, AttSp, DéfSp, Vit
-    static const u8 sSetEvOrder[NUM_STATS] = { STAT_HP, STAT_ATK, STAT_DEF, STAT_SPATK, STAT_SPDEF, STAT_SPEED };
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
-    const struct TrainerMon *set;
-    u32 i, value;
-    bool32 changed = FALSE;
+    u32 value = MAX_PER_STAT_IVS, i;
 
     GetMonNickname(mon, gStringVar1);
     gSpecialVar_Result = FALSE;
     if (GetMonData(mon, MON_DATA_IS_EGG))
         return;
-    set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
     for (i = 0; i < NUM_STATS; i++)
     {
-        value = MAX_PER_STAT_IVS;
-        if (GetMonData(mon, MON_DATA_HP_IV + i) != value)
-            changed = TRUE;
+        if (GetMonData(mon, MON_DATA_HP_IV + i) != MAX_PER_STAT_IVS)
+            gSpecialVar_Result = TRUE;
         SetMonData(mon, MON_DATA_HP_IV + i, &value);
-        if (set != NULL && set->ev != NULL)
-        {
-            value = set->ev[i];
-            if (GetMonData(mon, MON_DATA_HP_EV + sSetEvOrder[i]) != value)
-                changed = TRUE;
-            SetMonData(mon, MON_DATA_HP_EV + sSetEvOrder[i], &value);
-        }
     }
     CalculateMonStats(mon);
-    gSpecialVar_Result = changed;
 }
 
 // Salle secrète à dresseur : une fois le dresseur vaincu, la récompense de la salle (sa table de butin, comme une salle

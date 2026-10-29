@@ -691,6 +691,6 @@ gSpecials::
 	def_special IsaacPrepareRockSmash
 	def_special IsaacHealerHealMon
 	def_special IsaacBufferHealerPokemon
-	def_special IsaacMaxEvsIvs
+	def_special IsaacMaxIvs
 	def_special IsaacBufferBossName
 	def_special IsaacCaptureMonDone
