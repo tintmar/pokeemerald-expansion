@@ -3412,22 +3412,25 @@ void IsaacDoTrade(void)
 }
 
 // Pacte du diable : objet proposé (toujours le même pour la salle) dans VAR_0x8006 et gStringVar2, tiré dans sa propre
-// table (sDevilPactItems, chances égales). VAR_RESULT = FALSE si l'équipe n'a pas au moins deux Pokémon (hors Œufs) :
-// on ne peut pas sacrifier le dernier.
+// table (sDevilPactItems, chances égales ; le Dé Maudit, en dernier, seulement jusqu'à DEVIL_PACT_DIE_MAX_FLOOR).
+// VAR_RESULT = FALSE si l'équipe n'a pas au moins deux Pokémon (hors Œufs) : on ne peut pas sacrifier le dernier.
+#define DEVIL_PACT_DIE_MAX_FLOOR  3
+
 static const u16 sDevilPactItems[] =
 {
     ITEM_IDOL_OF_CHAOS,
     ITEM_IDOL_OF_INVERSION,
-    ITEM_CURSED_DIE,
     ITEM_BLOOD_PACT,
+    ITEM_CURSED_DIE,
 };
 
 void IsaacPrepareDevilPact(void)
 {
+    u32 count = ARRAY_COUNT(sDevilPactItems) - (VarGet(VAR_ISAAC_FLOOR) > DEVIL_PACT_DIE_MAX_FLOOR);
     s32 x, y;
 
     GetCurrentCell(&x, &y);
-    gSpecialVar_0x8006 = sDevilPactItems[RoomRandom(x, y, 0xD3E1) % ARRAY_COUNT(sDevilPactItems)];
+    gSpecialVar_0x8006 = sDevilPactItems[RoomRandom(x, y, 0xD3E1) % count];
     CopyItemName(gSpecialVar_0x8006, gStringVar2);
     gSpecialVar_Result = CountPartyFighters() >= 2;
 }
