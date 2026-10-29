@@ -941,6 +941,12 @@ void IsaacGoldenHeartStart(void)
     RecalculatePlayerPartyStats();
 }
 
+// Le Cœur Doré agit-il sur ce combat ? (annonce au début du combat, voir FIRST_TURN_EVENTS_ISAAC_GOLDEN_HEART)
+bool8 IsaacIsGoldenHeartActive(void)
+{
+    return FlagGet(FLAG_ISAAC_GOLDEN_HEART_ACTIVE);
+}
+
 // Fin de n'importe quel combat : l'effet du Cœur Doré s'arrête
 void IsaacGoldenHeartEnd(void)
 {
@@ -1272,13 +1278,13 @@ static bool8 IsMoveInSpeciesSets(enum Species species, u16 move)
 //    toujours de quoi frapper, sans que tout build devienne offensif.
 #define UPGRADE_OFFENSIVE_MOVES   2
 #define UPGRADE_JACKPOT_RARITY    4   // une attaque d'un tier au-dessus du tier visé : 4 fois moins de chances
+#define UPGRADE_LOWER_STAB_TIERS  2   // STAB manquant sans attaque au tier visé : jusqu'à 2 tiers en dessous
 #define UPGRADE_MAX_COVERAGE      10  // plafond du score de coverage
 #define UPGRADE_WEAK_STAB_TIER    2   // sa meilleure attaque de son type est de ce tier ou moins : la remplacer presse
 #define UPGRADE_THREAT_TYPES      4   // types des biomes de cet étage et du suivant
 #define UPGRADE_MAX_CANDIDATES    128
 #define UPGRADE_SLOW_SPEED        50  // Distorsion : seulement pour une Vitesse de base de cette valeur ou moins
 
-#define UPGRADE_LOWER_STAB_TIERS  2   // STAB manquant sans attaque au tier visé : jusqu'à 2 tiers en dessous
 enum
 {
     UPGRADE_BUILD_OFFENSIVE,
@@ -1830,27 +1836,27 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
                 fallback = move;
             continue;
         }
+        if (!lowerStab && IsMissingStabUpgrade(&ctx, move))
+            stabAtTarget = TRUE;
+        belowTarget[count] = lowerStab;
         moves[count] = move;
         weights[count++] = score * score * (jackpot ? 1 : UPGRADE_JACKPOT_RARITY);
         if (GetMoveCategory(move) != DAMAGE_CATEGORY_STATUS)
             typeCount[GetMoveType(move)]++;
     }
     if (count == 0)
-        if (!lowerStab && IsMissingStabUpgrade(&ctx, move))
-            stabAtTarget = TRUE;
-        belowTarget[count] = lowerStab;
         return fallback;
+    // un STAB manquant d'un tier en dessous seulement s'il n'y en a pas au tier visé
+    if (stabAtTarget)
+        for (i = 0; i < count; i++)
+            if (belowTarget[i])
+                weights[i] = 0;
     // un de ses types sans attaque (STAB manquant, Pierre Prisme comprise) passe avant tout le reste (build offensif) ou
     // avant les autres attaques offensives (build équilibré ou défensif) : s'il y a des candidates de ce type, ce sont
     // les seules
     for (i = 0; i < count && !IsMissingStabUpgrade(&ctx, moves[i]); i++)
         ;
     if (i != count)
-    // un STAB manquant d'un tier en dessous seulement s'il n'y en a pas au tier visé
-    if (stabAtTarget)
-        for (i = 0; i < count; i++)
-            if (belowTarget[i])
-                weights[i] = 0;
         for (i = 0; i < count; i++)
             if (!IsMissingStabUpgrade(&ctx, moves[i])
              && (ctx.build == UPGRADE_BUILD_OFFENSIVE || GetMoveCategory(moves[i]) != DAMAGE_CATEGORY_STATUS))

@@ -3505,6 +3505,15 @@ static void TryDoEventsBeforeFirstTurn(void)
         memset(gQueuedStatBoosts, 0, sizeof(gQueuedStatBoosts)); // erase all totem boosts for Mirror Herb and Opportunist
         gBattleStruct->eventState.beforeFirstTurn++;
         break;
+    case FIRST_TURN_EVENTS_ISAAC_GOLDEN_HEART:
+        gBattleStruct->eventState.beforeFirstTurn++;
+        if (IsaacIsGoldenHeartActive())
+        {
+            gBattlerAttacker = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+            BattleScriptPushCursorAndCallback(BattleScript_IsaacGoldenHeart);
+            return;
+        }
+        break;
     case FIRST_TURN_SWITCH_IN_EVENTS:
         gBattleStruct->eventState.switchIn = 0;
         for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)

@@ -151,6 +151,7 @@ bool8 IsaacUseGoldenHeart(void);
 void IsaacGoldenHeartReset(void);
 void IsaacGoldenHeartStart(void);
 void IsaacGoldenHeartEnd(void);
+bool8 IsaacIsGoldenHeartActive(void);
 void IsaacProgressionStart(bool8 boss);
 void IsaacRecordActiveTurn(void);
 enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot);

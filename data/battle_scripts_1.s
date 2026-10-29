@@ -5395,6 +5395,13 @@ BattleScript_IsaacTeamworkTotem::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+@ Donjon : Cœur Doré utilisé pour ce combat contre le boss, au début du combat (sur le Pokémon de tête)
+BattleScript_IsaacGoldenHeart::
+	playanimation BS_ATTACKER, B_ANIM_TOTEM_FLARE, NULL
+	printstring STRINGID_ISAAC_GOLDENHEART
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
 BattleScript_AirBalloonMsgInRet::
 	printstring STRINGID_AIRBALLOONFLOAT
 	waitmessage B_WAIT_TIME_LONG
