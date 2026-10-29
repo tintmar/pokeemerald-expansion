@@ -971,30 +971,28 @@ void IsaacGoldenHeartEnd(void)
 
 // Pendant un combat contre un dresseur de salle ou le boss, chaque Pokémon de l'équipe compte ses tours actifs (sur le
 // terrain à la fin du tour). Combat gagné : le Pokémon qui n'est pas à son stade final et en a le plus évolue
-// (environ PROGRESSION_EVOLUTION_PCT % de chances, voir l'anti-malchance plus bas, toujours contre le boss ; s'il a plusieurs évolutions, l'une
-// de celles qui collent le mieux au biome), et apprend en même temps une attaque de tier supérieur pour sa nouvelle
-// espèce (PickUpgradeMove). Sinon, avec environ PROGRESSION_MOVE_PCT % de chances (PROGRESSION_MOVE_NO_EVOLUTION_PCT %
-// si personne ne peut évoluer) (toujours contre le boss), le Pokémon qui a le
-// plus de tours actifs apprend une attaque de tier supérieur, dans l'écran de l'évolution mais sans l'animation ; si la
-// moyenne de ses attaques est déjà de tier 4, il gagne à la place un cran d'EVs (IncreaseMonEvs), avec un simple
-// message dans la même scène. Sinon, avec environ PROGRESSION_EVS_PCT % de chances, ce même Pokémon gagne un cran d'EVs, ou, si
-// ses EVs sont au maximum, que son stade est final, que ses attaques sont de tier moyen 4 et qu'il n'a pas déjà de boost
-// (IsaacHasBoost), un boost de stat au hasard. Sinon, rien. À égalité, le premier de l'équipe.
+// (environ PROGRESSION_EVOLUTION_PCT % de chances, voir l'anti-malchance plus bas, toujours contre le boss ; s'il a
+// plusieurs évolutions, l'une de celles qui collent le mieux au biome), et apprend en même temps une attaque de tier
+// supérieur pour sa nouvelle espèce (PickUpgradeMove). Sinon, avec environ PROGRESSION_REWARD_PCT % de chances
+// (PROGRESSION_REWARD_NO_EVOLUTION_PCT % si personne ne peut évoluer ; toujours contre le boss), le Pokémon qui a le
+// plus de tours actifs reçoit une récompense : une attaque de tier supérieur (dans l'écran de l'évolution mais sans
+// l'animation) ou un cran d'EVs (IncreaseMonEvs, simple message dans la même scène), tirée selon la moyenne exacte des
+// tiers de ses attaques (GetMoveRewardPct : l'attaque presque sûre pour un set de bas tier, les EVs vers le tier 4).
+// Sans attaque à proposer, les EVs ; sans EVs à donner, l'attaque garde sa chance (sinon rien) ; si aucune, pas de
+// tirage. À égalité, le premier de l'équipe.
 #define PROGRESSION_EVOLUTION_PCT  25  // à tous les étages
-#define PROGRESSION_MOVE_PCT       25
-#define PROGRESSION_EVS_PCT        20  // après l'échec des deux autres tirages (EVs ou boost)
+#define PROGRESSION_REWARD_PCT     40
 
 // Anti-malchance (distribution pseudo-aléatoire, comme les coups critiques de Dota) : la chance d'un tirage est de
 // n x pas (en pour mille) au n-ième essai depuis le dernier succès, avec un pas choisi pour que le taux moyen reste
 // celui de PROGRESSION_*_PCT. Les séries d'échecs sont bien plus courtes : à 25 %, 8,5 % au premier essai, 25,5 % au
 // troisième, 51 % au sixième, succès garanti au douzième ; à 20 %, garanti au dix-huitième. Les échecs sont comptés
-// par tirage (évolution, attaque, EVs) dans VAR_ISAAC_PROGRESSION_PITY (4 bits chacun), remis à zéro à chaque
+// par tirage (évolution, récompense) dans VAR_ISAAC_PROGRESSION_PITY (4 bits chacun), remis à zéro à chaque
 // descente. Seuls les combats contre les dresseurs de salle comptent : jamais celui du boss, aux effets garantis.
 enum
 {
     PITY_EVOLUTION,
-    PITY_MOVE,
-    PITY_EVS,
+    PITY_REWARD,
 };
 
 #define PITY_BITS  4
@@ -1003,8 +1001,7 @@ enum
 static const u16 sPityStepPermille[] =
 {
     [PITY_EVOLUTION] = 85,  // ~ 25 %
-    [PITY_MOVE]      = 85,  // ~ 25 %
-    [PITY_EVS]       = 56,  // ~ 20 %
+    [PITY_REWARD]    = 202, // ~ 40 %
 };
 
 static u32 GetPityFails(u32 kind)
@@ -1012,9 +1009,9 @@ static u32 GetPityFails(u32 kind)
     return (VarGet(VAR_ISAAC_PROGRESSION_PITY) >> (kind * PITY_BITS)) & PITY_MAX;
 }
 
-// Personne ne peut évoluer : l'attaque prend la place de l'évolution, environ PROGRESSION_MOVE_NO_EVOLUTION_PCT %
-#define PROGRESSION_MOVE_NO_EVOLUTION_PCT  40
-#define PITY_MOVE_NO_EVOLUTION_STEP        202  // ~ 40 %
+// Personne ne peut évoluer : la récompense prend la place de l'évolution, environ PROGRESSION_REWARD_NO_EVOLUTION_PCT %
+#define PROGRESSION_REWARD_NO_EVOLUTION_PCT  50
+#define PITY_REWARD_NO_EVOLUTION_STEP        302  // ~ 50 %
 
 // Tirage du type kind avec un pas (pour mille) donné, sans le compter (voir RecordPity)
 static bool8 RollPityStep(u32 kind, u32 step)
@@ -1028,7 +1025,7 @@ static bool8 RollPity(u32 kind)
 }
 
 // Résultat du tirage : un succès remet le compteur d'échecs à zéro. Un tirage n'a lieu (et ne compte) que si le
-// Pokémon a quelque chose à gagner : personne qui puisse évoluer, ou attaques et EVs déjà au maximum, ne fait pas
+// Pokémon a quelque chose à gagner : personne qui puisse évoluer, ou ni attaque ni EVs à lui donner, ne fait pas
 // monter le compteur.
 static void RecordPity(u32 kind, bool8 success)
 {
@@ -1056,12 +1053,10 @@ enum
     PROGRESSION_SCENE_EVOLUTION,
     PROGRESSION_SCENE_MOVE,
     PROGRESSION_SCENE_EVS,
-    PROGRESSION_SCENE_BOOST,
 };
 
 static EWRAM_DATA u8 sIsaacActiveTurns[PARTY_SIZE] = {0};
 static EWRAM_DATA u8 sIsaacProgressionBattle = PROGRESSION_NONE;
-static EWRAM_DATA u8 sIsaacBoostedStat = 0;  // stat du boost de la scène PROGRESSION_SCENE_BOOST
 static EWRAM_DATA u8 sIsaacProgressionScene = PROGRESSION_SCENE_NONE;  // scène d'évolution lancée par la progression
 
 // Attaques à proposer pendant la scène d'évolution en cours (MOVE_NONE : aucune) : celles du set évolué
@@ -1120,45 +1115,43 @@ static u32 KeepBiomeEvolutions(u16 *choices, u32 count)
     return n;
 }
 
-// ordre des EVs d'un set (TRAINER_PARTY_EVS) : PV, Att, Déf, AttSp, DéfSp, Vit
-static const u8 sSetEvData[] = { MON_DATA_HP_EV, MON_DATA_ATK_EV, MON_DATA_DEF_EV, MON_DATA_SPATK_EV, MON_DATA_SPDEF_EV, MON_DATA_SPEED_EV };
+static bool8 GetMonTargetEvs(struct Pokemon *mon, u32 *target);
 
-// EVs restant à gagner par le Pokémon : total des EVs du dernier set de l'espèce (même variante), moins le total des
-// siens (0 s'il en a déjà autant). Le total compte, pas la répartition : un Pokémon qui a changé de variante (Dé Maudit,
-// Super CT) garde ses EVs de l'ancienne et n'en gagne pas de nouveaux au-delà de ce total.
-static u32 GetMonMissingEvs(struct Pokemon *mon, const struct TrainerMon *set)
+// EVs restant à gagner par le Pokémon : total de ses EVs visés (GetMonTargetEvs), moins le total des siens (0 s'il en
+// a déjà autant). Le total compte, pas la répartition : un Pokémon qui a changé de variante (Dé Maudit, Super CT) garde
+// ses EVs de l'ancienne et n'en gagne pas de nouveaux au-delà de ce total.
+static u32 GetMonMissingEvs(struct Pokemon *mon, const u32 *target)
 {
-    u32 target = 0, total = 0, i;
+    u32 targetTotal = 0, total = 0, i;
 
-    if (set == NULL || set->ev == NULL)
-        return 0;
-    for (i = 0; i < ARRAY_COUNT(sSetEvData); i++)
+    for (i = 0; i < NUM_STATS; i++)
     {
-        target += set->ev[i];
-        total += GetMonData(mon, sSetEvData[i]);
+        targetTotal += target[i];
+        total += GetMonData(mon, MON_DATA_HP_EV + i);
     }
-    return (total < target) ? target - total : 0;
+    return (total < targetTotal) ? targetTotal - total : 0;
 }
 
-// Un cran d'EVs : chaque stat du dernier set de l'espèce (même variante), qui est le maximum, gagne un quart de son EV
-// maximal, sans le dépasser, et sans que le total dépasse celui du set (GetMonMissingEvs). FALSE si le Pokémon a déjà
-// tous ses EVs.
+// Un cran d'EVs : chaque stat de ses EVs visés (GetMonTargetEvs), qui sont le maximum, gagne un quart de son EV visé,
+// sans le dépasser, et sans que le total dépasse celui visé (GetMonMissingEvs). FALSE si le Pokémon a déjà tous ses
+// EVs.
 static bool8 IncreaseMonEvs(struct Pokemon *mon)
 {
-    const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
-    u32 missing = GetMonMissingEvs(mon, set), i, current, cap, gain;
+    u32 target[NUM_STATS], missing, i, current, gain;
     bool8 changed = FALSE;
 
-    for (i = 0; i < ARRAY_COUNT(sSetEvData) && missing != 0; i++)
+    if (!GetMonTargetEvs(mon, target))
+        return FALSE;
+    missing = GetMonMissingEvs(mon, target);
+    for (i = 0; i < NUM_STATS && missing != 0; i++)
     {
-        cap = set->ev[i];
-        current = GetMonData(mon, sSetEvData[i]);
-        if (current >= cap)
+        current = GetMonData(mon, MON_DATA_HP_EV + i);
+        if (current >= target[i])
             continue;
-        gain = min(min(cap - current, max(cap / 4, 1)), missing);
+        gain = min(min(target[i] - current, max(target[i] / 4, 1u)), missing);
         missing -= gain;
         current += gain;
-        SetMonData(mon, sSetEvData[i], &current);
+        SetMonData(mon, MON_DATA_HP_EV + i, &current);
         changed = TRUE;
     }
     if (changed)
@@ -1169,13 +1162,12 @@ static bool8 IncreaseMonEvs(struct Pokemon *mon)
 // Le Pokémon peut-il encore gagner un cran d'EVs (voir IncreaseMonEvs) ?
 static bool8 CanIncreaseMonEvs(struct Pokemon *mon)
 {
-    const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
-    u32 i;
+    u32 target[NUM_STATS], i;
 
-    if (GetMonMissingEvs(mon, set) == 0)
+    if (!GetMonTargetEvs(mon, target) || GetMonMissingEvs(mon, target) == 0)
         return FALSE;
-    for (i = 0; i < ARRAY_COUNT(sSetEvData); i++)
-        if (GetMonData(mon, sSetEvData[i]) < set->ev[i])
+    for (i = 0; i < NUM_STATS; i++)
+        if (GetMonData(mon, MON_DATA_HP_EV + i) < target[i])
             return TRUE;
     return FALSE;
 }
@@ -1831,10 +1823,6 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
             score = ScoreOffensiveUpgrade(&ctx, move, tier);
             if (score != 0 && statFree)
                 score += ScoreStatFreeBonus(&ctx, mon, move);
-        // Idole de l'Inversion : les attaques offensives de ses anciens types ne sont plus les siennes (celles des
-        // nouveaux comptent comme STAB, ctx.types)
-        if (IsaacIsFormerTypeMove(mon, move))
-            continue;
         }
         // un type qui n'est pas celui de l'espèce (Pierre Prisme, Idole de l'Inversion) n'est presque jamais dans ses
         // attaques : les attaques offensives de ce type sont permises
@@ -1842,6 +1830,10 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
         if (!CanSpeciesLearnMove(species, move)
          && (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS || (moveType != ctx.types[0] && moveType != ctx.types[1])
           || moveType == GetSpeciesType(species, 0) || moveType == GetSpeciesType(species, 1)))
+            continue;
+        // Idole de l'Inversion : les attaques offensives de ses anciens types ne sont plus les siennes (celles des
+        // nouveaux comptent comme STAB, ctx.types)
+        if (IsaacIsFormerTypeMove(mon, move))
             continue;
         if (score == 0)  // sans intérêt : seulement s'il n'y a rien d'autre
         {
@@ -2020,14 +2012,39 @@ static bool8 TryProgressionEvs(struct Pokemon *mon, u32 slot, u32 *outSlot)
     return TRUE;
 }
 
-// Après le combat (une seule fois) : évolution ou attaque de tier supérieur (voir plus haut). Renvoie l'espèce de la
+// Chance (%) que la récompense soit une attaque plutôt que des EVs, d'après la moyenne exacte des tiers de ses attaques
+// (sans les situationnelles) : 100 jusqu'au tier REWARD_SURE_MOVE_TIER, puis de moins en moins, 0 au tier 4 (une
+// moyenne de 3,5 : 25 %). Sans attaque à tier, 100.
+#define REWARD_SURE_MOVE_TIER  2
+
+static u32 GetMoveRewardPct(struct Pokemon *mon)
+{
+    u32 sum = 0, count = 0, i, tier;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        tier = GetMoveTierValue(GetMonData(mon, MON_DATA_MOVE1 + i));
+        if (tier != 0)
+        {
+            sum += tier;
+            count++;
+        }
+    }
+    if (count == 0 || sum <= REWARD_SURE_MOVE_TIER * count)
+        return 100;
+    if (sum >= ISAAC_SET_TIERS * count)
+        return 0;
+    return (ISAAC_SET_TIERS * count - sum) * 100 / ((ISAAC_SET_TIERS - REWARD_SURE_MOVE_TIER) * count);
+}
+
+// Après le combat (une seule fois) : évolution ou récompense (attaque ou EVs, voir plus haut). Renvoie l'espèce de la
 // scène d'évolution à lancer (celle du Pokémon pour un simple apprentissage) et sa place dans l'équipe, SPECIES_NONE
 // s'il ne se passe rien.
 enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
 {
     u16 choices[ISAAC_MAX_EVOLUTION_CHOICES], move;
     u32 i, evolver = PARTY_SIZE, active = PARTY_SIZE, count;
-    bool8 boss = (sIsaacProgressionBattle == PROGRESSION_BOSS), rolled = FALSE, maxedMoves, canEvs, canBoost;
+    bool8 boss = (sIsaacProgressionBattle == PROGRESSION_BOSS), rolled = FALSE, canEvs;
     struct Pokemon *mon;
     enum Species species;
 
@@ -2069,60 +2086,30 @@ enum Species IsaacPickBattleProgression(bool8 won, u32 *outSlot)
         return SPECIES_NONE;
     mon = &gParties[B_TRAINER_PLAYER][active];
     species = GetMonData(mon, MON_DATA_SPECIES);
-    maxedMoves = (GetMonAverageMoveTier(mon) >= ISAAC_SET_TIERS);  // ses attaques n'ont plus rien à gagner
+    move = PickUpgradeMove(mon, species);
     canEvs = CanIncreaseMonEvs(mon);
-
-    // Attaque de tier supérieur, ou des EVs à la place si ses attaques sont au maximum ; tirage seulement s'il y a
-    // quelque chose à gagner
-    move = maxedMoves ? MOVE_NONE : PickUpgradeMove(mon, species);
-    if (maxedMoves ? canEvs : (move != MOVE_NONE))
+    if (move == MOVE_NONE && !canEvs)
+        return SPECIES_NONE;  // rien à lui donner : pas de tirage
+    rolled = boss || RollPityStep(PITY_REWARD, (evolver == PARTY_SIZE) ? PITY_REWARD_NO_EVOLUTION_STEP : sPityStepPermille[PITY_REWARD]);
+    if (!boss)
+        RecordPity(PITY_REWARD, rolled);
+    if (!rolled)
+        return SPECIES_NONE;
+    // attaque ou EVs selon le tier de ses attaques ; ses EVs au maximum ne rendent pas l'attaque plus probable (un set
+    // de tier 3,5 qu'il veut garder ne se la verrait pas proposer en boucle)
+    if (move != MOVE_NONE && Random() % 100 < GetMoveRewardPct(mon))
     {
-        // personne ne peut évoluer (pas de tirage d'évolution) : l'attaque est plus probable
-        rolled = boss || RollPityStep(PITY_MOVE, (evolver == PARTY_SIZE) ? PITY_MOVE_NO_EVOLUTION_STEP : sPityStepPermille[PITY_MOVE]);
-        if (!boss)
-            RecordPity(PITY_MOVE, rolled);
-        if (rolled && maxedMoves)
-        {
-            TryProgressionEvs(mon, active, outSlot);
-            return species;
-        }
-        if (rolled)
-        {
-            memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
-            sIsaacEvolutionMoves[MAX_MON_MOVES] = move;
-            sIsaacProgressionScene = PROGRESSION_SCENE_MOVE;
-            *outSlot = active;
-            return species;
-        }
+        memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
+        sIsaacEvolutionMoves[MAX_MON_MOVES] = move;
+        sIsaacProgressionScene = PROGRESSION_SCENE_MOVE;
+        *outSlot = active;
+        return species;
     }
-
-    // Un cran d'EVs, ou, s'ils sont au maximum, un boost de stat au hasard si le Pokémon est à son stade final, que ses
-    // attaques sont de tier moyen 4 et qu'il n'a pas déjà de boost ; tirage seulement si l'un des deux est possible.
-    // Contre le boss (rare : l'attaque n'a rien donné), simple tirage, hors anti-malchance.
-    canBoost = !canEvs && maxedMoves && !IsaacHasBoost(mon)
-            && IsaacGetEvolutionChoices(species, FALSE, choices, ARRAY_COUNT(choices)) == 0;
-    if (canEvs || canBoost)
-    {
-        rolled = boss ? (Random() % 100 < PROGRESSION_EVS_PCT) : RollPity(PITY_EVS);
-        if (!boss)
-            RecordPity(PITY_EVS, rolled);
-        if (rolled && canEvs)
-        {
-            TryProgressionEvs(mon, active, outSlot);
-            return species;
-        }
-        if (rolled)
-        {
-            sIsaacBoostedStat = Random() % NUM_STATS;
-            IsaacAddStatBoost(mon, sIsaacBoostedStat);
-            memset(sIsaacEvolutionMoves, 0, sizeof(sIsaacEvolutionMoves));
-            sIsaacProgressionScene = PROGRESSION_SCENE_BOOST;
-            *outSlot = active;
-            return species;
-        }
-    }
-    return SPECIES_NONE;
+    if (canEvs)
+        TryProgressionEvs(mon, active, outSlot);
+    return canEvs ? species : SPECIES_NONE;
 }
+
 
 // Début de la scène d'évolution : texte d'annonce, qui explique la progression après le combat. *learnOnly : la scène
 // ne fait qu'apprendre une attaque (pas d'animation d'évolution).
@@ -2131,27 +2118,13 @@ const u8 *IsaacGetEvolutionIntroText(bool8 *learnOnly)
     u32 scene = sIsaacProgressionScene;
 
     sIsaacProgressionScene = PROGRESSION_SCENE_NONE;
-    *learnOnly = (scene == PROGRESSION_SCENE_MOVE || scene == PROGRESSION_SCENE_EVS || scene == PROGRESSION_SCENE_BOOST);
+    *learnOnly = (scene == PROGRESSION_SCENE_MOVE || scene == PROGRESSION_SCENE_EVS);
     if (scene == PROGRESSION_SCENE_EVOLUTION)
         return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
                                "To reward its efforts…\pWhat? {STR_VAR_1} is evolving!");
     if (scene == PROGRESSION_SCENE_MOVE)
         return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
                                "It gained new experience!");
-    if (scene == PROGRESSION_SCENE_BOOST)
-    {
-        static const u8 *const sBoostTexts[NUM_STATS] =
-        {
-            [STAT_HP]    = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts HP rose for good!"),
-            [STAT_ATK]   = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts Attack rose for good!"),
-            [STAT_DEF]   = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts Defense rose for good!"),
-            [STAT_SPEED] = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts Speed rose for good!"),
-            [STAT_SPATK] = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts Sp. Atk rose for good!"),
-            [STAT_SPDEF] = COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\pIts Sp. Def rose for good!"),
-        };
-
-        return sBoostTexts[sIsaacBoostedStat % NUM_STATS];
-    }
     if (scene == PROGRESSION_SCENE_EVS)
         return COMPOUND_STRING("{STR_VAR_1} fought the hardest\nin this battle!\p"
                                "It feels stronger!");
@@ -2208,20 +2181,6 @@ static enum Type InvertType(enum Type type)
 }
 
 // Second contraire (TYPE_NONE s'il n'y en a pas)
-// Idole de l'Inversion : l'attaque offensive est-elle d'un de ses anciens types (ceux de son espèce) qui n'est pas
-// aussi un des nouveaux ? Elle n'est alors plus à lui (proposeur d'attaques, maître des capacités).
-bool8 IsaacIsFormerTypeMove(struct Pokemon *mon, u16 move)
-{
-    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
-    enum Type type = GetMoveType(move), types[2];
-
-    if (!IsMonInverted(mon) || GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS
-     || (type != GetSpeciesType(species, 0) && type != GetSpeciesType(species, 1)))
-        return FALSE;
-    IsaacGetMonTypes(mon, types);
-    return type != types[0] && type != types[1];
-}
-
 static enum Type SecondInvertType(enum Type type)
 {
     return (type < NUMBER_OF_MON_TYPES) ? sSecondInvertedTypes[type] : TYPE_NONE;
@@ -2247,6 +2206,20 @@ static void InvertTypes(enum Type *types)
 static bool8 IsMonInverted(struct Pokemon *mon)
 {
     return GetMonData(mon, ISAAC_INVERTED_DATA);
+}
+
+// Idole de l'Inversion : l'attaque offensive est-elle d'un de ses anciens types (ceux de son espèce) qui n'est pas
+// aussi un des nouveaux ? Elle n'est alors plus à lui (proposeur d'attaques, maître des capacités).
+bool8 IsaacIsFormerTypeMove(struct Pokemon *mon, u16 move)
+{
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    enum Type type = GetMoveType(move), types[2];
+
+    if (!IsMonInverted(mon) || GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS
+     || (type != GetSpeciesType(species, 0) && type != GetSpeciesType(species, 1)))
+        return FALSE;
+    IsaacGetMonTypes(mon, types);
+    return type != types[0] && type != types[1];
 }
 
 // Types du Pokémon s'il était de l'espèce donnée (sa forme en combat, son évolution) : sa Gemme de Type remplace le
@@ -2436,6 +2409,15 @@ static s32 GetSecretTypeWeakness(const struct SecretAbilityContext *ctx, enum Ty
     u32 i;
 
     for (i = 0; i < 2 && (i == 0 || ctx->types[1] != ctx->types[0]); i++)
+    {
+        effect = GetTypeModifier(type, ctx->types[i]);
+        if (effect == UQ_4_12(0.0))
+            return -2;
+        weakness += (effect > UQ_4_12(1.0)) - (effect < UQ_4_12(1.0));
+    }
+    return weakness;
+}
+
 // L'attaque baisse-t-elle les stats de son lanceur (Surchauffe, Close Combat, Draco-Météore...) ?
 static bool8 MoveLowersUserStats(u16 move)
 {
@@ -2449,15 +2431,6 @@ static bool8 MoveLowersUserStats(u16 move)
             return TRUE;
     }
     return FALSE;
-}
-
-    {
-        effect = GetTypeModifier(type, ctx->types[i]);
-        if (effect == UQ_4_12(0.0))
-            return -2;
-        weakness += (effect > UQ_4_12(1.0)) - (effect < UQ_4_12(1.0));
-    }
-    return weakness;
 }
 
 // L'attaque offensive move profite-t-elle du talent ?
@@ -2477,8 +2450,6 @@ static bool8 SecretAbilityBoostsMove(const struct IsaacSecretAbility *entry, con
     case SECRET_FIT_SECONDARY:  return GetMoveAdditionalEffectCount(move) != 0;
     case SECRET_FIT_WEAK_MOVES: return GetMovePower(move) > 1 && GetMovePower(move) <= 60;
     case SECRET_FIT_LOW_ACC:    return GetMoveAccuracy(move) != 0 && GetMoveAccuracy(move) < 90;
-#define SECRET_SELF_DROP_BOOST_MALUS  40  // Contrary : par attaque qui augmente ses stats (elle les baisserait)
-
     case SECRET_FIT_SELF_DROP:  return MoveLowersUserStats(move);
     case SECRET_FIT_STAB:     return SecretContextHasType(ctx, GetMoveType(move));
     case SECRET_FIT_TYPE:
@@ -2487,6 +2458,8 @@ static bool8 SecretAbilityBoostsMove(const struct IsaacSecretAbility *entry, con
     default:                    return FALSE;
     }
 }
+
+#define SECRET_SELF_DROP_BOOST_MALUS  40  // Contrary : par attaque qui augmente ses stats (elle les baisserait)
 
 // Score d'un talent qui renforce count attaques : la première compte beaucoup, chaque autre un peu moins
 static s32 ScoreSecretMoves(u32 count)
@@ -2550,12 +2523,6 @@ static u32 ScoreSecretAbility(const struct IsaacSecretAbility *entry, const stru
         {
             weakness = GetSecretTypeWeakness(ctx, entry->types[i]);
             score = max(score, (weakness >= 2) ? 90 : (weakness == 1) ? 55 : (weakness == 0) ? 10 : 0);
-    case SECRET_FIT_SELF_DROP:  // ses baisses deviennent des hausses, mais ses boosts (Danse Lames...) des baisses
-        score = ScoreSecretMoves(count);
-        for (i = 0; i < MAX_MON_MOVES; i++)
-            if (ctx->moves[i] != MOVE_NONE && IsStatRaisingMove(ctx->moves[i]))
-                score -= SECRET_SELF_DROP_BOOST_MALUS;
-        break;
         }
         break;
     case SECRET_FIT_WEAKNESSES:
@@ -2564,6 +2531,12 @@ static u32 ScoreSecretAbility(const struct IsaacSecretAbility *entry, const stru
             if (IsRealType(i) && (weakness = GetSecretTypeWeakness(ctx, i)) > 0)
                 score += 12 * weakness;
         score = min(score, 70);
+        break;
+    case SECRET_FIT_SELF_DROP:  // ses baisses deviennent des hausses, mais ses boosts (Danse Lames...) des baisses
+        score = ScoreSecretMoves(count);
+        for (i = 0; i < MAX_MON_MOVES; i++)
+            if (ctx->moves[i] != MOVE_NONE && IsStatRaisingMove(ctx->moves[i]))
+                score -= SECRET_SELF_DROP_BOOST_MALUS;
         break;
     case SECRET_FIT_SPEED:  // pour un attaquant
         score = (ctx->damaging >= 2) ? 45 : 15;
@@ -3012,44 +2985,51 @@ static u32 GetChaosBaseStat(struct Pokemon *mon, enum Species species, u32 stat)
     return min(max(total * weights[stat] / weightTotal, 1u), 255u);
 }
 
-// Répartit total entre les stats hors PV (out[STAT_ATK] à out[STAT_SPDEF]) au prorata des parts, cap au plus chacune ;
-// ce qu'une stat plafonnée ne peut pas prendre passe aux autres, et les restes des arrondis vont aux plus grosses parts
-static void DealByChaosWeights(u32 total, const u32 *weights, u32 cap, u32 *out)
+// Répartit total entre les stats de first à STAT_SPDEF (out[first] à out[STAT_SPDEF]) au prorata des parts, cap au plus
+// chacune ; ce qu'une stat plafonnée ne peut pas prendre passe aux autres, et les restes des arrondis vont aux plus
+// grosses parts
+static void DealByWeights(u32 total, const u32 *weights, u32 cap, u32 *out, u32 first)
 {
     u32 left = total, round, weightTotal, given, best, i;
 
-    for (i = STAT_ATK; i < NUM_STATS; i++)
+    for (i = first; i < NUM_STATS; i++)
         out[i] = 0;
     for (round = 0; round < NUM_STATS && left != 0; round++)
     {
         weightTotal = 0;
-        for (i = STAT_ATK; i < NUM_STATS; i++)
+        for (i = first; i < NUM_STATS; i++)
             if (out[i] < cap)
                 weightTotal += weights[i];
         if (weightTotal == 0)
             break;
         given = 0;
-        for (i = STAT_ATK; i < NUM_STATS; i++)
+        for (i = first; i < NUM_STATS; i++)
         {
             if (out[i] >= cap)
                 continue;
             out[i] += min(cap - out[i], left * weights[i] / weightTotal);
         }
-        for (i = STAT_ATK; i < NUM_STATS; i++)
+        for (i = first; i < NUM_STATS; i++)
             given += out[i];
         left = total - given;
     }
     while (left != 0)  // restes des arrondis, un par un
     {
         best = NUM_STATS;
-        for (i = STAT_ATK; i < NUM_STATS; i++)
-            if (out[i] < cap && (best == NUM_STATS || weights[i] > weights[best]))
+        for (i = first; i < NUM_STATS; i++)
+            if (out[i] < cap && weights[i] != 0 && (best == NUM_STATS || weights[i] > weights[best]))
                 best = i;
         if (best == NUM_STATS)
             break;
         out[best]++;
         left--;
     }
+}
+
+// Répartition entre les stats hors PV (voir DealByWeights)
+static void DealByChaosWeights(u32 total, const u32 *weights, u32 cap, u32 *out)
+{
+    DealByWeights(total, weights, cap, out, STAT_ATK);
 }
 
 // Les EVs et les IVs hors PV du Pokémon suivent la répartition : leurs totaux restent les mêmes, redistribués au
@@ -3343,6 +3323,30 @@ static void InvertMonInvestment(struct Pokemon *mon)
         brilliant = GetInvertedStat(brilliant - 1) + 1;
         SetMonData(mon, ISAAC_BRILLIANT_DATA, &brilliant);
     }
+}
+
+// EVs visés par le Pokémon (target[STAT_*]) : ceux du set final de sa variante actuelle, passés par ses Idoles
+// (échangés s'il est inversé, ceux hors PV répartis selon le tirage du Chaos, même total), visés par les récompenses de
+// combat. FALSE si l'espèce n'a pas ce set.
+static bool8 GetMonTargetEvs(struct Pokemon *mon, u32 *target)
+{
+    // ordre des EVs dans les sets (TRAINER_PARTY_EVS) : PV, Att, Déf, AttSp, DéfSp, Vit
+    static const u8 sSetEvOrder[NUM_STATS] = { STAT_HP, STAT_ATK, STAT_DEF, STAT_SPATK, STAT_SPDEF, STAT_SPEED };
+    const struct TrainerMon *set = IsaacGetSet(GetMonData(mon, MON_DATA_SPECIES), ISAAC_SET_TIERS - 1, IsaacGetMonSetVariant(mon));
+    u32 weights[NUM_STATS], seed = GetMonChaosSeed(mon), total = 0, i;
+
+    if (set == NULL || set->ev == NULL)
+        return FALSE;
+    for (i = 0; i < NUM_STATS; i++)
+        target[IsMonInverted(mon) ? GetInvertedStat(sSetEvOrder[i]) : sSetEvOrder[i]] = set->ev[i];
+    if (seed != 0)
+    {
+        for (i = STAT_ATK; i < NUM_STATS; i++)
+            total += target[i];
+        GetChaosWeights(mon, seed, weights);
+        DealByChaosWeights(total, weights, MAX_PER_STAT_EVS, target);
+    }
+    return TRUE;
 }
 
 // Idole de l'Inversion sur le Pokémon (voir plus haut) ; toujours TRUE
