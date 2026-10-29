@@ -1,5 +1,6 @@
 #include "global.h"
 #include "battle.h"
+#include "battle_ai_util.h"
 #include "battle_anim.h"
 #include "battle_message.h"
 #include "battle_scripts.h"
@@ -55,6 +56,7 @@ enum SecretAbilityFit
     SECRET_FIT_SECONDARY,
     SECRET_FIT_WEAK_MOVES,
     SECRET_FIT_LOW_ACC,
+    SECRET_FIT_SELF_DROP,
     SECRET_FIT_STAB,
     SECRET_FIT_TYPE,
     SECRET_FIT_NORMALIZE,
@@ -2416,6 +2418,21 @@ static s32 GetSecretTypeWeakness(const struct SecretAbilityContext *ctx, enum Ty
     u32 i;
 
     for (i = 0; i < 2 && (i == 0 || ctx->types[1] != ctx->types[0]); i++)
+// L'attaque baisse-t-elle les stats de son lanceur (Surchauffe, Close Combat, Draco-Météore...) ?
+static bool8 MoveLowersUserStats(u16 move)
+{
+    const struct AdditionalEffect *effect;
+    u32 i;
+
+    for (i = 0; i < GetMoveAdditionalEffectCount(move); i++)
+    {
+        effect = GetMoveAdditionalEffectById(move, i);
+        if (effect->self && (effect->moveEffect == MOVE_EFFECT_STAT_MINUS || effect->moveEffect == STAT_CHANGE_EFFECT_MINUS))
+            return TRUE;
+    }
+    return FALSE;
+}
+
     {
         effect = GetTypeModifier(type, ctx->types[i]);
         if (effect == UQ_4_12(0.0))
@@ -2442,7 +2459,10 @@ static bool8 SecretAbilityBoostsMove(const struct IsaacSecretAbility *entry, con
     case SECRET_FIT_SECONDARY:  return GetMoveAdditionalEffectCount(move) != 0;
     case SECRET_FIT_WEAK_MOVES: return GetMovePower(move) > 1 && GetMovePower(move) <= 60;
     case SECRET_FIT_LOW_ACC:    return GetMoveAccuracy(move) != 0 && GetMoveAccuracy(move) < 90;
-    case SECRET_FIT_STAB:       return SecretContextHasType(ctx, GetMoveType(move));
+#define SECRET_SELF_DROP_BOOST_MALUS  40  // Contrary : par attaque qui augmente ses stats (elle les baisserait)
+
+    case SECRET_FIT_SELF_DROP:  return MoveLowersUserStats(move);
+    case SECRET_FIT_STAB:     return SecretContextHasType(ctx, GetMoveType(move));
     case SECRET_FIT_TYPE:
     case SECRET_FIT_WEATHER:    return GetMoveType(move) == entry->types[0];
     case SECRET_FIT_NORMALIZE:  return GetMoveType(move) == TYPE_NORMAL;
@@ -2512,6 +2532,12 @@ static u32 ScoreSecretAbility(const struct IsaacSecretAbility *entry, const stru
         {
             weakness = GetSecretTypeWeakness(ctx, entry->types[i]);
             score = max(score, (weakness >= 2) ? 90 : (weakness == 1) ? 55 : (weakness == 0) ? 10 : 0);
+    case SECRET_FIT_SELF_DROP:  // ses baisses deviennent des hausses, mais ses boosts (Danse Lames...) des baisses
+        score = ScoreSecretMoves(count);
+        for (i = 0; i < MAX_MON_MOVES; i++)
+            if (ctx->moves[i] != MOVE_NONE && IsStatRaisingMove(ctx->moves[i]))
+                score -= SECRET_SELF_DROP_BOOST_MALUS;
+        break;
         }
         break;
     case SECRET_FIT_WEAKNESSES:

@@ -13,7 +13,7 @@ import gamedata as g
 
 MAX_USED = 64  # un bit par talent dans VAR_ISAAC_SECRET_ABILITY_SEEN_0..3
 FITS = {'CONTACT', 'PUNCH', 'BITE', 'SLICE', 'PULSE', 'SOUND', 'RECOIL', 'MULTIHIT', 'SECONDARY', 'WEAK_MOVES',
-        'LOW_ACC', 'STAB', 'TYPE', 'NORMALIZE', 'WEATHER', 'PHYSICAL', 'SPECIAL', 'ATTACKER', 'STATUS_MOVES',
+        'LOW_ACC', 'SELF_DROP', 'STAB', 'TYPE', 'NORMALIZE', 'WEATHER', 'PHYSICAL', 'SPECIAL', 'ATTACKER', 'STATUS_MOVES',
         'HEALING', 'BULK', 'FRAIL', 'RESIST', 'WEAKNESSES', 'SPEED', 'SLOW', 'ANY'}
 TYPE_COUNT = {'TYPE': (1, 1), 'NORMALIZE': (1, 1), 'WEATHER': (1, 1), 'RESIST': (1, 2)}  # (min, max), sinon aucun
 
