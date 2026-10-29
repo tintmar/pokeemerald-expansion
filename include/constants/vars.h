@@ -49,7 +49,7 @@
 #define VAR_OBJ_GFX_ID_F           0x401F
 
 // general purpose vars
-#define VAR_RECYCLE_GOODS                                0x4020
+#define VAR_MAIN_GAME_JUNK                               0x4020 // donjon : les variables du jeu principal (jamais joué) y pointent toutes
 #define VAR_REPEL_STEP_COUNT                             0x4021
 #define VAR_ICE_STEP_COUNT                               0x4022
 #define VAR_STARTER_MON                                  0x4023 // 0=Treecko, 1=Torchic, 2=Mudkip
@@ -68,7 +68,7 @@
 #define VAR_FRONTIER_MANIAC_FACILITY                     0x402F
 #define VAR_FRONTIER_GAMBLER_CHALLENGE                   0x4030
 #define VAR_FRONTIER_GAMBLER_SET_CHALLENGE               0x4031
-#define VAR_FRONTIER_GAMBLER_AMOUNT_BET                  0x4032
+#define VAR_UNUSED_0x4032                                0x4032 // libre (était VAR_FRONTIER_GAMBLER_AMOUNT_BET, jeu principal)
 #define VAR_FRONTIER_GAMBLER_STATE                       0x4033
 
 #define VAR_DEOXYS_ROCK_STEP_COUNT                       0x4034
@@ -87,7 +87,7 @@
 #define VAR_FANCLUB_FAN_COUNTER                          0x4041
 #define VAR_FANCLUB_LOSE_FAN_TIMER                       0x4042
 #define VAR_DEPT_STORE_FLOOR                             0x4043
-#define VAR_TRICK_HOUSE_LEVEL                            0x4044
+#define VAR_UNUSED_0x4044                                0x4044 // libre (était VAR_TRICK_HOUSE_LEVEL, jeu principal)
 #define VAR_POKELOT_PRIZE_ITEM                           0x4045
 #define VAR_NATIONAL_DEX                                 0x4046
 #define VAR_SEEDOT_SIZE_RECORD                           0x4047
@@ -96,158 +96,158 @@
 #define VAR_CRUISE_STEP_COUNT                            0x404A
 #define VAR_POKELOT_RND1                                 0x404B // Unused if OW_USE_DAILY_SEED_FOR_VANILLA_VARIABLES is TRUE
 #define VAR_POKELOT_RND2                                 0x404C // Unused if OW_USE_DAILY_SEED_FOR_VANILLA_VARIABLES is TRUE
-#define VAR_POKELOT_PRIZE_PLACE                          0x404D
+#define VAR_UNUSED_0x404D                                0x404D // libre (était VAR_POKELOT_PRIZE_PLACE, jeu principal)
 #define VAR_ISAAC_SEED                                   0x404E // Graine de l'étage du donjon (isaac_dungeon.c)
 #define VAR_LOTAD_SIZE_RECORD                            0x404F
-#define VAR_LITTLEROOT_TOWN_STATE                        0x4050
-#define VAR_OLDALE_TOWN_STATE                            0x4051
-#define VAR_DEWFORD_TOWN_STATE                           0x4052 // Unused Var
-#define VAR_LAVARIDGE_TOWN_STATE                         0x4053
+#define VAR_UNUSED_0x4050                                0x4050 // libre (était VAR_LITTLEROOT_TOWN_STATE, jeu principal)
+#define VAR_UNUSED_0x4051                                0x4051 // libre (était VAR_OLDALE_TOWN_STATE, jeu principal)
+#define VAR_UNUSED_0x4052                                0x4052 // libre (était VAR_DEWFORD_TOWN_STATE, jeu principal)
+#define VAR_UNUSED_0x4053                                0x4053 // libre (était VAR_LAVARIDGE_TOWN_STATE, jeu principal)
 #define VAR_CURRENT_SECRET_BASE                          0x4054 // was probably allocated for VAR_FALLARBOR_TOWN_STATE at one point
-#define VAR_VERDANTURF_TOWN_STATE                        0x4055 // Unused Var
-#define VAR_PACIFIDLOG_TOWN_STATE                        0x4056 // Unused Var
-#define VAR_PETALBURG_CITY_STATE                         0x4057
-#define VAR_SLATEPORT_CITY_STATE                         0x4058
-#define VAR_MAUVILLE_CITY_STATE                          0x4059 // Unused Var
-#define VAR_RUSTBORO_CITY_STATE                          0x405A
-#define VAR_FORTREE_CITY_STATE                           0x405B // Unused Var
-#define VAR_LILYCOVE_CITY_STATE                          0x405C // Unused Var
+#define VAR_UNUSED_0x4055                                0x4055 // libre (était VAR_VERDANTURF_TOWN_STATE, jeu principal)
+#define VAR_UNUSED_0x4056                                0x4056 // libre (était VAR_PACIFIDLOG_TOWN_STATE, jeu principal)
+#define VAR_UNUSED_0x4057                                0x4057 // libre (était VAR_PETALBURG_CITY_STATE, jeu principal)
+#define VAR_UNUSED_0x4058                                0x4058 // libre (était VAR_SLATEPORT_CITY_STATE, jeu principal)
+#define VAR_UNUSED_0x4059                                0x4059 // libre (était VAR_MAUVILLE_CITY_STATE, jeu principal)
+#define VAR_UNUSED_0x405A                                0x405A // libre (était VAR_RUSTBORO_CITY_STATE, jeu principal)
+#define VAR_UNUSED_0x405B                                0x405B // libre (était VAR_FORTREE_CITY_STATE, jeu principal)
+#define VAR_UNUSED_0x405C                                0x405C // libre (était VAR_LILYCOVE_CITY_STATE, jeu principal)
 #define VAR_MOSSDEEP_CITY_STATE                          0x405D
 #define VAR_SOOTOPOLIS_CITY_STATE                        0x405E
-#define VAR_EVER_GRANDE_CITY_STATE                       0x405F // Unused Var
-#define VAR_ROUTE101_STATE                               0x4060
-#define VAR_ROUTE102_STATE                               0x4061 // Unused Var
-#define VAR_ROUTE103_STATE                               0x4062 // Unused Var
-#define VAR_ROUTE104_STATE                               0x4063
-#define VAR_ROUTE105_STATE                               0x4064 // Unused Var
-#define VAR_ROUTE106_STATE                               0x4065 // Unused Var
-#define VAR_ROUTE107_STATE                               0x4066 // Unused Var
-#define VAR_ROUTE108_STATE                               0x4067 // Unused Var
-#define VAR_ROUTE109_STATE                               0x4068 // Unused Var
-#define VAR_ROUTE110_STATE                               0x4069
-#define VAR_ROUTE111_STATE                               0x406A // Unused Var
-#define VAR_ROUTE112_STATE                               0x406B // Unused Var
-#define VAR_ROUTE113_STATE                               0x406C // Unused Var
-#define VAR_ROUTE114_STATE                               0x406D // Unused Var
-#define VAR_ROUTE115_STATE                               0x406E // Unused Var
-#define VAR_ROUTE116_STATE                               0x406F
-#define VAR_ROUTE117_STATE                               0x4070 // Unused Var
-#define VAR_ROUTE118_STATE                               0x4071
-#define VAR_ROUTE119_STATE                               0x4072
-#define VAR_ROUTE120_STATE                               0x4073 // Unused Var
-#define VAR_ROUTE121_STATE                               0x4074
-#define VAR_ROUTE122_STATE                               0x4075 // Unused Var
-#define VAR_ROUTE123_STATE                               0x4076 // Unused Var
-#define VAR_ROUTE124_STATE                               0x4077 // Unused Var
-#define VAR_ROUTE125_STATE                               0x4078 // Unused Var
-#define VAR_ROUTE126_STATE                               0x4079 // Unused Var
-#define VAR_ROUTE127_STATE                               0x407A // Unused Var
-#define VAR_ROUTE128_STATE                               0x407B
-#define VAR_ROUTE129_STATE                               0x407C // Unused Var
-#define VAR_ROUTE130_STATE                               0x407D // Unused Var
-#define VAR_ROUTE131_STATE                               0x407E // Unused Var
-#define VAR_ROUTE132_STATE                               0x407F // Unused Var
-#define VAR_ROUTE133_STATE                               0x4080 // Unused Var
-#define VAR_ROUTE134_STATE                               0x4081 // Unused Var
-#define VAR_LITTLEROOT_HOUSES_STATE_MAY                  0x4082
+#define VAR_UNUSED_0x405F                                0x405F // libre (était VAR_EVER_GRANDE_CITY_STATE, jeu principal)
+#define VAR_UNUSED_0x4060                                0x4060 // libre (était VAR_ROUTE101_STATE, jeu principal)
+#define VAR_UNUSED_0x4061                                0x4061 // libre (était VAR_ROUTE102_STATE, jeu principal)
+#define VAR_UNUSED_0x4062                                0x4062 // libre (était VAR_ROUTE103_STATE, jeu principal)
+#define VAR_UNUSED_0x4063                                0x4063 // libre (était VAR_ROUTE104_STATE, jeu principal)
+#define VAR_UNUSED_0x4064                                0x4064 // libre (était VAR_ROUTE105_STATE, jeu principal)
+#define VAR_UNUSED_0x4065                                0x4065 // libre (était VAR_ROUTE106_STATE, jeu principal)
+#define VAR_UNUSED_0x4066                                0x4066 // libre (était VAR_ROUTE107_STATE, jeu principal)
+#define VAR_UNUSED_0x4067                                0x4067 // libre (était VAR_ROUTE108_STATE, jeu principal)
+#define VAR_UNUSED_0x4068                                0x4068 // libre (était VAR_ROUTE109_STATE, jeu principal)
+#define VAR_UNUSED_0x4069                                0x4069 // libre (était VAR_ROUTE110_STATE, jeu principal)
+#define VAR_UNUSED_0x406A                                0x406A // libre (était VAR_ROUTE111_STATE, jeu principal)
+#define VAR_UNUSED_0x406B                                0x406B // libre (était VAR_ROUTE112_STATE, jeu principal)
+#define VAR_UNUSED_0x406C                                0x406C // libre (était VAR_ROUTE113_STATE, jeu principal)
+#define VAR_UNUSED_0x406D                                0x406D // libre (était VAR_ROUTE114_STATE, jeu principal)
+#define VAR_UNUSED_0x406E                                0x406E // libre (était VAR_ROUTE115_STATE, jeu principal)
+#define VAR_UNUSED_0x406F                                0x406F // libre (était VAR_ROUTE116_STATE, jeu principal)
+#define VAR_UNUSED_0x4070                                0x4070 // libre (était VAR_ROUTE117_STATE, jeu principal)
+#define VAR_UNUSED_0x4071                                0x4071 // libre (était VAR_ROUTE118_STATE, jeu principal)
+#define VAR_UNUSED_0x4072                                0x4072 // libre (était VAR_ROUTE119_STATE, jeu principal)
+#define VAR_UNUSED_0x4073                                0x4073 // libre (était VAR_ROUTE120_STATE, jeu principal)
+#define VAR_UNUSED_0x4074                                0x4074 // libre (était VAR_ROUTE121_STATE, jeu principal)
+#define VAR_UNUSED_0x4075                                0x4075 // libre (était VAR_ROUTE122_STATE, jeu principal)
+#define VAR_UNUSED_0x4076                                0x4076 // libre (était VAR_ROUTE123_STATE, jeu principal)
+#define VAR_UNUSED_0x4077                                0x4077 // libre (était VAR_ROUTE124_STATE, jeu principal)
+#define VAR_UNUSED_0x4078                                0x4078 // libre (était VAR_ROUTE125_STATE, jeu principal)
+#define VAR_UNUSED_0x4079                                0x4079 // libre (était VAR_ROUTE126_STATE, jeu principal)
+#define VAR_UNUSED_0x407A                                0x407A // libre (était VAR_ROUTE127_STATE, jeu principal)
+#define VAR_UNUSED_0x407B                                0x407B // libre (était VAR_ROUTE128_STATE, jeu principal)
+#define VAR_UNUSED_0x407C                                0x407C // libre (était VAR_ROUTE129_STATE, jeu principal)
+#define VAR_UNUSED_0x407D                                0x407D // libre (était VAR_ROUTE130_STATE, jeu principal)
+#define VAR_UNUSED_0x407E                                0x407E // libre (était VAR_ROUTE131_STATE, jeu principal)
+#define VAR_UNUSED_0x407F                                0x407F // libre (était VAR_ROUTE132_STATE, jeu principal)
+#define VAR_UNUSED_0x4080                                0x4080 // libre (était VAR_ROUTE133_STATE, jeu principal)
+#define VAR_UNUSED_0x4081                                0x4081 // libre (était VAR_ROUTE134_STATE, jeu principal)
+#define VAR_UNUSED_0x4082                                0x4082 // libre (était VAR_LITTLEROOT_HOUSES_STATE_MAY, jeu principal)
 #define VAR_ISAAC_FLOOR                                  0x4083 // Étage du donjon (1 = premier)
-#define VAR_BIRCH_LAB_STATE                              0x4084
-#define VAR_PETALBURG_GYM_STATE                          0x4085 // 0-1: Wally tutorial, 2-6: 0-4 badges, 7: Defeated Norman, 8: Rematch Norman
+#define VAR_UNUSED_0x4084                                0x4084 // libre (était VAR_BIRCH_LAB_STATE, jeu principal)
+#define VAR_UNUSED_0x4085                                0x4085 // libre (était VAR_PETALBURG_GYM_STATE, jeu principal)
 #define VAR_CONTEST_HALL_STATE                           0x4086
 #define VAR_CABLE_CLUB_STATE                             0x4087
 #define VAR_CONTEST_TYPE                                 0x4088
 #define VAR_SECRET_BASE_INITIALIZED                      0x4089
-#define VAR_CONTEST_PRIZE_PICKUP                         0x408A
+#define VAR_UNUSED_0x408A                                0x408A // libre (était VAR_CONTEST_PRIZE_PICKUP, jeu principal)
 #define VAR_ISAAC_ROOM                                   0x408B // Cellule de la salle courante (y * ISAAC_GRID_W + x)
-#define VAR_LITTLEROOT_HOUSES_STATE_BRENDAN              0x408C
-#define VAR_LITTLEROOT_RIVAL_STATE                       0x408D
-#define VAR_BOARD_BRINEY_BOAT_STATE                      0x408E
-#define VAR_DEVON_CORP_3F_STATE                          0x408F
-#define VAR_BRINEY_HOUSE_STATE                           0x4090
+#define VAR_UNUSED_0x408C                                0x408C // libre (était VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, jeu principal)
+#define VAR_UNUSED_0x408D                                0x408D // libre (était VAR_LITTLEROOT_RIVAL_STATE, jeu principal)
+#define VAR_UNUSED_0x408E                                0x408E // libre (était VAR_BOARD_BRINEY_BOAT_STATE, jeu principal)
+#define VAR_UNUSED_0x408F                                0x408F // libre (était VAR_DEVON_CORP_3F_STATE, jeu principal)
+#define VAR_UNUSED_0x4090                                0x4090 // libre (était VAR_BRINEY_HOUSE_STATE, jeu principal)
 #define VAR_ISAAC_VISITED_0                              0x4091 // Salles visitées de l'étage, cellules 0-15 (isaac_dungeon.c)
-#define VAR_LITTLEROOT_INTRO_STATE                       0x4092
-#define VAR_MAUVILLE_GYM_STATE                           0x4093
-#define VAR_LILYCOVE_MUSEUM_2F_STATE                     0x4094
+#define VAR_UNUSED_0x4092                                0x4092 // libre (était VAR_LITTLEROOT_INTRO_STATE, jeu principal)
+#define VAR_UNUSED_0x4093                                0x4093 // libre (était VAR_MAUVILLE_GYM_STATE, jeu principal)
+#define VAR_UNUSED_0x4094                                0x4094 // libre (était VAR_LILYCOVE_MUSEUM_2F_STATE, jeu principal)
 #define VAR_LILYCOVE_FAN_CLUB_STATE                      0x4095
-#define VAR_BRINEY_LOCATION                              0x4096
+#define VAR_UNUSED_0x4096                                0x4096 // libre (était VAR_BRINEY_LOCATION, jeu principal)
 #define VAR_INIT_SECRET_BASE                             0x4097
-#define VAR_PETALBURG_WOODS_STATE                        0x4098
-#define VAR_LILYCOVE_CONTEST_LOBBY_STATE                 0x4099
+#define VAR_UNUSED_0x4098                                0x4098 // libre (était VAR_PETALBURG_WOODS_STATE, jeu principal)
+#define VAR_UNUSED_0x4099                                0x4099 // libre (était VAR_LILYCOVE_CONTEST_LOBBY_STATE, jeu principal)
 #define VAR_RUSTURF_TUNNEL_STATE                         0x409A
 #define VAR_ISAAC_VISITED_1                              0x409B // Salles visitées, cellules 16-31
-#define VAR_ELITE_4_STATE                                0x409C
+#define VAR_UNUSED_0x409C                                0x409C // libre (était VAR_ELITE_4_STATE, jeu principal)
 #define VAR_ISAAC_VISITED_2                              0x409D // Salles visitées, cellules 32-47
-#define VAR_MOSSDEEP_SPACE_CENTER_STAIR_GUARD_STATE      0x409E
-#define VAR_MOSSDEEP_SPACE_CENTER_STATE                  0x409F
-#define VAR_SLATEPORT_HARBOR_STATE                       0x40A0
+#define VAR_UNUSED_0x409E                                0x409E // libre (était VAR_MOSSDEEP_SPACE_CENTER_STAIR_GUARD_STATE, jeu principal)
+#define VAR_UNUSED_0x409F                                0x409F // libre (était VAR_MOSSDEEP_SPACE_CENTER_STATE, jeu principal)
+#define VAR_UNUSED_0x40A0                                0x40A0 // libre (était VAR_SLATEPORT_HARBOR_STATE, jeu principal)
 #define VAR_ISAAC_VISITED_3                              0x40A1 // Salles visitées, cellules 48-63
-#define VAR_SEAFLOOR_CAVERN_STATE                        0x40A2
-#define VAR_CABLE_CAR_STATION_STATE                      0x40A3
-#define VAR_SAFARI_ZONE_STATE                            0x40A4  // 0: In or out of SZ, 1: Player exiting SZ, 2: Player entering SZ
-#define VAR_TRICK_HOUSE_BEING_WATCHED_STATE              0x40A5
-#define VAR_TRICK_HOUSE_FOUND_TRICK_MASTER               0x40A6
-#define VAR_TRICK_HOUSE_ENTRANCE_STATE                   0x40A7
+#define VAR_UNUSED_0x40A2                                0x40A2 // libre (était VAR_SEAFLOOR_CAVERN_STATE, jeu principal)
+#define VAR_UNUSED_0x40A3                                0x40A3 // libre (était VAR_CABLE_CAR_STATION_STATE, jeu principal)
+#define VAR_UNUSED_0x40A4                                0x40A4 // libre (était VAR_SAFARI_ZONE_STATE, jeu principal)
+#define VAR_UNUSED_0x40A5                                0x40A5 // libre (était VAR_TRICK_HOUSE_BEING_WATCHED_STATE, jeu principal)
+#define VAR_UNUSED_0x40A6                                0x40A6 // libre (était VAR_TRICK_HOUSE_FOUND_TRICK_MASTER, jeu principal)
+#define VAR_UNUSED_0x40A7                                0x40A7 // libre (était VAR_TRICK_HOUSE_ENTRANCE_STATE, jeu principal)
 #define VAR_ISAAC_VISITED_4                              0x40A8 // Salles visitées, cellules 64-71
 #define VAR_CYCLING_CHALLENGE_STATE                      0x40A9
-#define VAR_SLATEPORT_MUSEUM_1F_STATE                    0x40AA
-#define VAR_TRICK_HOUSE_PUZZLE_1_STATE                   0x40AB
-#define VAR_TRICK_HOUSE_PUZZLE_2_STATE                   0x40AC
-#define VAR_TRICK_HOUSE_PUZZLE_3_STATE                   0x40AD
-#define VAR_TRICK_HOUSE_PUZZLE_4_STATE                   0x40AE
-#define VAR_TRICK_HOUSE_PUZZLE_5_STATE                   0x40AF
-#define VAR_TRICK_HOUSE_PUZZLE_6_STATE                   0x40B0
-#define VAR_TRICK_HOUSE_PUZZLE_7_STATE                   0x40B1
-#define VAR_TRICK_HOUSE_PUZZLE_8_STATE                   0x40B2
+#define VAR_UNUSED_0x40AA                                0x40AA // libre (était VAR_SLATEPORT_MUSEUM_1F_STATE, jeu principal)
+#define VAR_UNUSED_0x40AB                                0x40AB // libre (était VAR_TRICK_HOUSE_PUZZLE_1_STATE, jeu principal)
+#define VAR_UNUSED_0x40AC                                0x40AC // libre (était VAR_TRICK_HOUSE_PUZZLE_2_STATE, jeu principal)
+#define VAR_UNUSED_0x40AD                                0x40AD // libre (était VAR_TRICK_HOUSE_PUZZLE_3_STATE, jeu principal)
+#define VAR_UNUSED_0x40AE                                0x40AE // libre (était VAR_TRICK_HOUSE_PUZZLE_4_STATE, jeu principal)
+#define VAR_UNUSED_0x40AF                                0x40AF // libre (était VAR_TRICK_HOUSE_PUZZLE_5_STATE, jeu principal)
+#define VAR_UNUSED_0x40B0                                0x40B0 // libre (était VAR_TRICK_HOUSE_PUZZLE_6_STATE, jeu principal)
+#define VAR_UNUSED_0x40B1                                0x40B1 // libre (était VAR_TRICK_HOUSE_PUZZLE_7_STATE, jeu principal)
+#define VAR_UNUSED_0x40B2                                0x40B2 // libre (était VAR_TRICK_HOUSE_PUZZLE_8_STATE, jeu principal)
 #define VAR_WEATHER_INSTITUTE_STATE                      0x40B3
 #define VAR_SS_TIDAL_STATE                               0x40B4
-#define VAR_TRICK_HOUSE_ENTER_FROM_CORRIDOR              0x40B5
-#define VAR_TRICK_HOUSE_PUZZLE_7_STATE_2                 0x40B6 // Leftover from RS, never set
-#define VAR_SLATEPORT_FAN_CLUB_STATE                     0x40B7
+#define VAR_UNUSED_0x40B5                                0x40B5 // libre (était VAR_TRICK_HOUSE_ENTER_FROM_CORRIDOR, jeu principal)
+#define VAR_UNUSED_0x40B6                                0x40B6 // libre (était VAR_TRICK_HOUSE_PUZZLE_7_STATE_2, jeu principal)
+#define VAR_UNUSED_0x40B7                                0x40B7 // libre (était VAR_SLATEPORT_FAN_CLUB_STATE, jeu principal)
 #define VAR_ISAAC_BIOME_ORDER                            0x40B8 // Ordre des biomes de la descente (graine, isaac_dungeon.c)
-#define VAR_MT_PYRE_STATE                                0x40B9
-#define VAR_NEW_MAUVILLE_STATE                           0x40BA
+#define VAR_UNUSED_0x40B9                                0x40B9 // libre (était VAR_MT_PYRE_STATE, jeu principal)
+#define VAR_UNUSED_0x40BA                                0x40BA // libre (était VAR_NEW_MAUVILLE_STATE, jeu principal)
 #define VAR_ISAAC_ASCENSION                              0x40BB // Niveau d'ascension choisi pour les descentes (isaac_dungeon.c)
 #define VAR_BRAVO_TRAINER_BATTLE_TOWER_ON                0x40BC
-#define VAR_JAGGED_PASS_ASH_WEATHER                      0x40BD
-#define VAR_GLASS_WORKSHOP_STATE                         0x40BE
-#define VAR_METEOR_FALLS_STATE                           0x40BF
-#define VAR_SOOTOPOLIS_MYSTERY_EVENTS_STATE              0x40C0
-#define VAR_TRICK_HOUSE_PRIZE_PICKUP                     0x40C1
+#define VAR_UNUSED_0x40BD                                0x40BD // libre (était VAR_JAGGED_PASS_ASH_WEATHER, jeu principal)
+#define VAR_UNUSED_0x40BE                                0x40BE // libre (était VAR_GLASS_WORKSHOP_STATE, jeu principal)
+#define VAR_UNUSED_0x40BF                                0x40BF // libre (était VAR_METEOR_FALLS_STATE, jeu principal)
+#define VAR_UNUSED_0x40C0                                0x40C0 // libre (était VAR_SOOTOPOLIS_MYSTERY_EVENTS_STATE, jeu principal)
+#define VAR_UNUSED_0x40C1                                0x40C1 // libre (était VAR_TRICK_HOUSE_PRIZE_PICKUP, jeu principal)
 #define VAR_PACIFIDLOG_TM_RECEIVED_DAY                   0x40C2
-#define VAR_VICTORY_ROAD_1F_STATE                        0x40C3
-#define VAR_FOSSIL_RESURRECTION_STATE                    0x40C4
-#define VAR_WHICH_FOSSIL_REVIVED                         0x40C5
-#define VAR_STEVENS_HOUSE_STATE                          0x40C6
-#define VAR_OLDALE_RIVAL_STATE                           0x40C7
-#define VAR_JAGGED_PASS_STATE                            0x40C8
-#define VAR_SCOTT_PETALBURG_ENCOUNTER                    0x40C9
+#define VAR_UNUSED_0x40C3                                0x40C3 // libre (était VAR_VICTORY_ROAD_1F_STATE, jeu principal)
+#define VAR_UNUSED_0x40C4                                0x40C4 // libre (était VAR_FOSSIL_RESURRECTION_STATE, jeu principal)
+#define VAR_UNUSED_0x40C5                                0x40C5 // libre (était VAR_WHICH_FOSSIL_REVIVED, jeu principal)
+#define VAR_UNUSED_0x40C6                                0x40C6 // libre (était VAR_STEVENS_HOUSE_STATE, jeu principal)
+#define VAR_UNUSED_0x40C7                                0x40C7 // libre (était VAR_OLDALE_RIVAL_STATE, jeu principal)
+#define VAR_UNUSED_0x40C8                                0x40C8 // libre (était VAR_JAGGED_PASS_STATE, jeu principal)
+#define VAR_UNUSED_0x40C9                                0x40C9 // libre (était VAR_SCOTT_PETALBURG_ENCOUNTER, jeu principal)
 #define VAR_SKY_PILLAR_STATE                             0x40CA
 #define VAR_MIRAGE_TOWER_STATE                           0x40CB
-#define VAR_FOSSIL_MANIAC_STATE                          0x40CC
-#define VAR_CABLE_CLUB_TUTORIAL_STATE                    0x40CD
+#define VAR_UNUSED_0x40CC                                0x40CC // libre (était VAR_FOSSIL_MANIAC_STATE, jeu principal)
+#define VAR_UNUSED_0x40CD                                0x40CD // libre (était VAR_CABLE_CLUB_TUTORIAL_STATE, jeu principal)
 #define VAR_FRONTIER_BATTLE_MODE                         0x40CE
 #define VAR_FRONTIER_FACILITY                            0x40CF
-#define VAR_HAS_ENTERED_BATTLE_FRONTIER                  0x40D0 // Var is used like a flag.
-#define VAR_SCOTT_STATE                                  0x40D1
-#define VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE               0x40D2
-#define VAR_DEX_UPGRADE_JOHTO_STARTER_STATE              0x40D3
-#define VAR_SS_TIDAL_SCOTT_STATE                         0x40D4 // Always equal to FLAG_MET_SCOTT_ON_SS_TIDAL
-#define VAR_ROAMER_POKEMON                               0x40D5 // 0 = Latias, 1 = Latios
+#define VAR_UNUSED_0x40D0                                0x40D0 // libre (était VAR_HAS_ENTERED_BATTLE_FRONTIER, jeu principal)
+#define VAR_UNUSED_0x40D1                                0x40D1 // libre (était VAR_SCOTT_STATE, jeu principal)
+#define VAR_UNUSED_0x40D2                                0x40D2 // libre (était VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE, jeu principal)
+#define VAR_UNUSED_0x40D3                                0x40D3 // libre (était VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, jeu principal)
+#define VAR_UNUSED_0x40D4                                0x40D4 // libre (était VAR_SS_TIDAL_SCOTT_STATE, jeu principal)
+#define VAR_UNUSED_0x40D5                                0x40D5 // libre (était VAR_ROAMER_POKEMON, jeu principal)
 #define VAR_TRAINER_HILL_IS_ACTIVE                       0x40D6
-#define VAR_SKY_PILLAR_RAYQUAZA_CRY_DONE                 0x40D7
-#define VAR_SOOTOPOLIS_WALLACE_STATE                     0x40D8
-#define VAR_HAS_TALKED_TO_SEAFLOOR_CAVERN_ENTRANCE_GRUNT 0x40D9
-#define VAR_REGISTER_BIRCH_STATE                         0x40DA
+#define VAR_UNUSED_0x40D7                                0x40D7 // libre (était VAR_SKY_PILLAR_RAYQUAZA_CRY_DONE, jeu principal)
+#define VAR_UNUSED_0x40D8                                0x40D8 // libre (était VAR_SOOTOPOLIS_WALLACE_STATE, jeu principal)
+#define VAR_UNUSED_0x40D9                                0x40D9 // libre (était VAR_HAS_TALKED_TO_SEAFLOOR_CAVERN_ENTRANCE_GRUNT, jeu principal)
+#define VAR_UNUSED_0x40DA                                0x40DA // libre (était VAR_REGISTER_BIRCH_STATE, jeu principal)
 #define VAR_ISAAC_ASCENSION_MAX                          0x40DB // Plus haut niveau d'ascension débloqué
 #define VAR_ISAAC_HUB_SCENE                              0x40DC // Scène du hub en attente (ISAAC_HUB_SCENE_*)
 #define VAR_GIFT_PICHU_SLOT                              0x40DD
-#define VAR_GIFT_UNUSED_1                                0x40DE // Var is written to, but never read
-#define VAR_GIFT_UNUSED_2                                0x40DF // Var is written to, but never read
-#define VAR_GIFT_UNUSED_3                                0x40E0 // Var is written to, but never read
-#define VAR_GIFT_UNUSED_4                                0x40E1 // Var is written to, but never read
-#define VAR_GIFT_UNUSED_5                                0x40E2 // Var is written to, but never read
-#define VAR_GIFT_UNUSED_6                                0x40E3 // Var is written to, but never read
-#define VAR_GIFT_UNUSED_7                                0x40E4 // var is written to, but never read
+#define VAR_UNUSED_0x40DE                                0x40DE // libre (était VAR_GIFT_UNUSED_1, jeu principal)
+#define VAR_UNUSED_0x40DF                                0x40DF // libre (était VAR_GIFT_UNUSED_2, jeu principal)
+#define VAR_UNUSED_0x40E0                                0x40E0 // libre (était VAR_GIFT_UNUSED_3, jeu principal)
+#define VAR_UNUSED_0x40E1                                0x40E1 // libre (était VAR_GIFT_UNUSED_4, jeu principal)
+#define VAR_UNUSED_0x40E2                                0x40E2 // libre (était VAR_GIFT_UNUSED_5, jeu principal)
+#define VAR_UNUSED_0x40E3                                0x40E3 // libre (était VAR_GIFT_UNUSED_6, jeu principal)
+#define VAR_UNUSED_0x40E4                                0x40E4 // libre (était VAR_GIFT_UNUSED_7, jeu principal)
 #define VAR_ISAAC_PROGRESSION_PITY                       0x40E5 // Anti-malchance des récompenses de combat (isaac_pokemon.c)
 #define VAR_DAILY_SLOTS                                  0x40E6
 #define VAR_DAILY_WILDS                                  0x40E7
@@ -277,6 +277,130 @@
 #define VAR_ISAAC_RIVAL_ROOM                             0x40FF // Salle du rival choisie en cours d'étage (cellule + 1, 0 : pas encore)
 
 #define VARS_END                                         0x40FF
+
+// Donjon : le jeu principal n'est jamais joué. Ses variables (scripts de ses maps seulement, ou jamais lues) pointent
+// toutes vers VAR_MAIN_GAME_JUNK pour que ces scripts compilent encore ; leurs places sont libres (VAR_UNUSED_*).
+#define VAR_RECYCLE_GOODS                                VAR_MAIN_GAME_JUNK
+#define VAR_FRONTIER_GAMBLER_AMOUNT_BET                  VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_LEVEL                            VAR_MAIN_GAME_JUNK
+#define VAR_POKELOT_PRIZE_PLACE                          VAR_MAIN_GAME_JUNK
+#define VAR_LITTLEROOT_TOWN_STATE                        VAR_MAIN_GAME_JUNK
+#define VAR_OLDALE_TOWN_STATE                            VAR_MAIN_GAME_JUNK
+#define VAR_DEWFORD_TOWN_STATE                           VAR_MAIN_GAME_JUNK
+#define VAR_LAVARIDGE_TOWN_STATE                         VAR_MAIN_GAME_JUNK
+#define VAR_VERDANTURF_TOWN_STATE                        VAR_MAIN_GAME_JUNK
+#define VAR_PACIFIDLOG_TOWN_STATE                        VAR_MAIN_GAME_JUNK
+#define VAR_PETALBURG_CITY_STATE                         VAR_MAIN_GAME_JUNK
+#define VAR_SLATEPORT_CITY_STATE                         VAR_MAIN_GAME_JUNK
+#define VAR_MAUVILLE_CITY_STATE                          VAR_MAIN_GAME_JUNK
+#define VAR_RUSTBORO_CITY_STATE                          VAR_MAIN_GAME_JUNK
+#define VAR_FORTREE_CITY_STATE                           VAR_MAIN_GAME_JUNK
+#define VAR_LILYCOVE_CITY_STATE                          VAR_MAIN_GAME_JUNK
+#define VAR_EVER_GRANDE_CITY_STATE                       VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE101_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE102_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE103_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE104_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE105_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE106_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE107_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE108_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE109_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE110_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE111_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE112_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE113_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE114_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE115_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE116_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE117_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE118_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE119_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE120_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE121_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE122_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE123_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE124_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE125_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE126_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE127_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE128_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE129_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE130_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE131_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE132_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE133_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_ROUTE134_STATE                               VAR_MAIN_GAME_JUNK
+#define VAR_LITTLEROOT_HOUSES_STATE_MAY                  VAR_MAIN_GAME_JUNK
+#define VAR_BIRCH_LAB_STATE                              VAR_MAIN_GAME_JUNK
+#define VAR_PETALBURG_GYM_STATE                          VAR_MAIN_GAME_JUNK
+#define VAR_CONTEST_PRIZE_PICKUP                         VAR_MAIN_GAME_JUNK
+#define VAR_LITTLEROOT_HOUSES_STATE_BRENDAN              VAR_MAIN_GAME_JUNK
+#define VAR_LITTLEROOT_RIVAL_STATE                       VAR_MAIN_GAME_JUNK
+#define VAR_BOARD_BRINEY_BOAT_STATE                      VAR_MAIN_GAME_JUNK
+#define VAR_DEVON_CORP_3F_STATE                          VAR_MAIN_GAME_JUNK
+#define VAR_BRINEY_HOUSE_STATE                           VAR_MAIN_GAME_JUNK
+#define VAR_LITTLEROOT_INTRO_STATE                       VAR_MAIN_GAME_JUNK
+#define VAR_MAUVILLE_GYM_STATE                           VAR_MAIN_GAME_JUNK
+#define VAR_LILYCOVE_MUSEUM_2F_STATE                     VAR_MAIN_GAME_JUNK
+#define VAR_BRINEY_LOCATION                              VAR_MAIN_GAME_JUNK
+#define VAR_PETALBURG_WOODS_STATE                        VAR_MAIN_GAME_JUNK
+#define VAR_LILYCOVE_CONTEST_LOBBY_STATE                 VAR_MAIN_GAME_JUNK
+#define VAR_ELITE_4_STATE                                VAR_MAIN_GAME_JUNK
+#define VAR_MOSSDEEP_SPACE_CENTER_STAIR_GUARD_STATE      VAR_MAIN_GAME_JUNK
+#define VAR_MOSSDEEP_SPACE_CENTER_STATE                  VAR_MAIN_GAME_JUNK
+#define VAR_SLATEPORT_HARBOR_STATE                       VAR_MAIN_GAME_JUNK
+#define VAR_SEAFLOOR_CAVERN_STATE                        VAR_MAIN_GAME_JUNK
+#define VAR_CABLE_CAR_STATION_STATE                      VAR_MAIN_GAME_JUNK
+#define VAR_SAFARI_ZONE_STATE                            VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_BEING_WATCHED_STATE              VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_FOUND_TRICK_MASTER               VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_ENTRANCE_STATE                   VAR_MAIN_GAME_JUNK
+#define VAR_SLATEPORT_MUSEUM_1F_STATE                    VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_PUZZLE_1_STATE                   VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_PUZZLE_2_STATE                   VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_PUZZLE_3_STATE                   VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_PUZZLE_4_STATE                   VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_PUZZLE_5_STATE                   VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_PUZZLE_6_STATE                   VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_PUZZLE_7_STATE                   VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_PUZZLE_8_STATE                   VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_ENTER_FROM_CORRIDOR              VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_PUZZLE_7_STATE_2                 VAR_MAIN_GAME_JUNK
+#define VAR_SLATEPORT_FAN_CLUB_STATE                     VAR_MAIN_GAME_JUNK
+#define VAR_MT_PYRE_STATE                                VAR_MAIN_GAME_JUNK
+#define VAR_NEW_MAUVILLE_STATE                           VAR_MAIN_GAME_JUNK
+#define VAR_JAGGED_PASS_ASH_WEATHER                      VAR_MAIN_GAME_JUNK
+#define VAR_GLASS_WORKSHOP_STATE                         VAR_MAIN_GAME_JUNK
+#define VAR_METEOR_FALLS_STATE                           VAR_MAIN_GAME_JUNK
+#define VAR_SOOTOPOLIS_MYSTERY_EVENTS_STATE              VAR_MAIN_GAME_JUNK
+#define VAR_TRICK_HOUSE_PRIZE_PICKUP                     VAR_MAIN_GAME_JUNK
+#define VAR_VICTORY_ROAD_1F_STATE                        VAR_MAIN_GAME_JUNK
+#define VAR_FOSSIL_RESURRECTION_STATE                    VAR_MAIN_GAME_JUNK
+#define VAR_WHICH_FOSSIL_REVIVED                         VAR_MAIN_GAME_JUNK
+#define VAR_STEVENS_HOUSE_STATE                          VAR_MAIN_GAME_JUNK
+#define VAR_OLDALE_RIVAL_STATE                           VAR_MAIN_GAME_JUNK
+#define VAR_JAGGED_PASS_STATE                            VAR_MAIN_GAME_JUNK
+#define VAR_SCOTT_PETALBURG_ENCOUNTER                    VAR_MAIN_GAME_JUNK
+#define VAR_FOSSIL_MANIAC_STATE                          VAR_MAIN_GAME_JUNK
+#define VAR_CABLE_CLUB_TUTORIAL_STATE                    VAR_MAIN_GAME_JUNK
+#define VAR_HAS_ENTERED_BATTLE_FRONTIER                  VAR_MAIN_GAME_JUNK
+#define VAR_SCOTT_STATE                                  VAR_MAIN_GAME_JUNK
+#define VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE               VAR_MAIN_GAME_JUNK
+#define VAR_DEX_UPGRADE_JOHTO_STARTER_STATE              VAR_MAIN_GAME_JUNK
+#define VAR_SS_TIDAL_SCOTT_STATE                         VAR_MAIN_GAME_JUNK
+#define VAR_ROAMER_POKEMON                               VAR_MAIN_GAME_JUNK
+#define VAR_SKY_PILLAR_RAYQUAZA_CRY_DONE                 VAR_MAIN_GAME_JUNK
+#define VAR_SOOTOPOLIS_WALLACE_STATE                     VAR_MAIN_GAME_JUNK
+#define VAR_HAS_TALKED_TO_SEAFLOOR_CAVERN_ENTRANCE_GRUNT VAR_MAIN_GAME_JUNK
+#define VAR_REGISTER_BIRCH_STATE                         VAR_MAIN_GAME_JUNK
+#define VAR_GIFT_UNUSED_1                                VAR_MAIN_GAME_JUNK
+#define VAR_GIFT_UNUSED_2                                VAR_MAIN_GAME_JUNK
+#define VAR_GIFT_UNUSED_3                                VAR_MAIN_GAME_JUNK
+#define VAR_GIFT_UNUSED_4                                VAR_MAIN_GAME_JUNK
+#define VAR_GIFT_UNUSED_5                                VAR_MAIN_GAME_JUNK
+#define VAR_GIFT_UNUSED_6                                VAR_MAIN_GAME_JUNK
+#define VAR_GIFT_UNUSED_7                                VAR_MAIN_GAME_JUNK
 #define VARS_COUNT                                       (VARS_END - VARS_START + 1)
 
 #define SPECIAL_VARS_START            0x8000
