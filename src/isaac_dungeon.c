@@ -3338,35 +3338,69 @@ static u16 PickSpeciesOfAnyBiome(enum IsaacCategory category, u32 minBst, u16 ex
     return species;
 }
 
-// Œuf confié : VAR_RESULT = FALSE si l'équipe est pleine. L'espèce est la plus forte (BST) de EGG_SPECIES_DRAWS tirages.
+// Œuf confié : VAR_RESULT = FALSE si l'équipe est pleine. L'espèce est la plus forte (BST) de EGG_SPECIES_DRAWS tirages,
+// d'une lignée absente de l'équipe (PartyHasLine) ; si on en a obtenu une de la même lignée entre-temps, l'espèce est
+// tirée à nouveau juste avant l'éclosion (IsaacTickEggs).
 #define EGG_SPECIES_DRAWS  3
+#define EGG_SPECIES_TRIES  32
+
+// Première espèce de la lignée (Magnéti pour Magnéton ou Magnézone)
+static u16 GetLineBaseSpecies(u16 species)
+{
+    u16 pre;
+
+    while ((pre = GetSpeciesPreEvolution(species)) != SPECIES_NONE)
+        species = pre;
+    return species;
+}
+
+// Un Pokémon de l'équipe (hors Œufs) est-il de la lignée de species ?
+static bool8 PartyHasLine(u16 species)
+{
+    u16 base = GetLineBaseSpecies(species);
+    u32 i;
+
+    for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG)
+         && GetLineBaseSpecies(GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES)) == base)
+            return TRUE;
+    return FALSE;
+}
+
+// Crée dans mon un Œuf de l'étage de l'Œuf, qui éclot dans rooms salles
+static void CreateIsaacEgg(struct Pokemon *mon, u32 seed, u32 rooms)
+{
+    u32 draws, try, value;
+    u16 species = SPECIES_NONE, candidate;
+
+    for (draws = 0, try = 0; draws < EGG_SPECIES_DRAWS && try < EGG_SPECIES_TRIES; try++)
+    {
+        candidate = PickSpeciesOfAnyBiome(GetEggFloor() == 1 ? ISAAC_CATEGORY_5 : ISAAC_CATEGORY_7, 0,
+                                          SPECIES_NONE, seed ^ (try * 0x9E3779B9));
+        if (candidate == SPECIES_NONE || PartyHasLine(candidate))
+            continue;
+        draws++;
+        if (species == SPECIES_NONE || IsaacGetSpeciesBST(candidate) > IsaacGetSpeciesBST(species))
+            species = candidate;
+    }
+    if (species == SPECIES_NONE)
+        species = candidate;
+    IsaacCreateMonFromSet(mon, species, 1, (seed >> 16) % ISAAC_SET_VARIANTS, seed);
+    value = TRUE;
+    SetMonData(mon, MON_DATA_IS_EGG, &value);
+    SetMonData(mon, MON_DATA_FRIENDSHIP, &rooms);  // compteur de salles avant l'éclosion (voir TryToHatchEgg dans daycare.c)
+    SetMonData(mon, MON_DATA_NICKNAME, gText_EggNickname);
+}
 
 void IsaacGiveEgg(void)
 {
-    struct Pokemon *mon;
     s32 x, y;
-    u32 seed, value, i;
-    u16 species, candidate;
 
     gSpecialVar_Result = FALSE;
     if (gPartiesCount[B_TRAINER_PLAYER] >= PARTY_SIZE)
         return;
     GetCurrentCell(&x, &y);
-    seed = RoomRandom(x, y, 0xE66);
-    for (i = 0, species = SPECIES_NONE; i < EGG_SPECIES_DRAWS; i++)
-    {
-        candidate = PickSpeciesOfAnyBiome(VarGet(VAR_ISAAC_FLOOR) == 1 ? ISAAC_CATEGORY_5 : ISAAC_CATEGORY_7, 0,
-                                          SPECIES_NONE, seed ^ (i * 0x9E3779B9));
-        if (species == SPECIES_NONE || IsaacGetSpeciesBST(candidate) > IsaacGetSpeciesBST(species))
-            species = candidate;
-    }
-    mon = &gParties[B_TRAINER_PLAYER][gPartiesCount[B_TRAINER_PLAYER]];
-    IsaacCreateMonFromSet(mon, species, 1, (seed >> 16) % ISAAC_SET_VARIANTS, seed);
-    value = TRUE;
-    SetMonData(mon, MON_DATA_IS_EGG, &value);
-    value = ISAAC_EGG_HATCH_ROOMS;  // compteur de salles avant l'éclosion (voir TryToHatchEgg dans daycare.c)
-    SetMonData(mon, MON_DATA_FRIENDSHIP, &value);
-    SetMonData(mon, MON_DATA_NICKNAME, gText_EggNickname);
+    CreateIsaacEgg(&gParties[B_TRAINER_PLAYER][gPartiesCount[B_TRAINER_PLAYER]], RoomRandom(x, y, 0xE66), ISAAC_EGG_HATCH_ROOMS);
     CalculatePlayerPartyCount();
     gSpecialVar_Result = TRUE;
 }
@@ -3401,20 +3435,25 @@ void IsaacReleasePartyMon(void)
     CalculatePlayerPartyCount();
 }
 
-// Nouvelle salle visitée : les Œufs de l'équipe se rapprochent de l'éclosion
+// Nouvelle salle visitée : les Œufs de l'équipe se rapprochent de l'éclosion. Juste avant d'éclore, un Œuf dont la
+// lignée est arrivée dans l'équipe entre-temps change d'espèce (CreateIsaacEgg).
 static void IsaacTickEggs(void)
 {
+    struct Pokemon *mon;
     u32 i, rooms;
 
     for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
     {
-        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+        mon = &gParties[B_TRAINER_PLAYER][i];
+        if (!GetMonData(mon, MON_DATA_IS_EGG))
             continue;
-        rooms = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_FRIENDSHIP);
+        rooms = GetMonData(mon, MON_DATA_FRIENDSHIP);
         if (rooms != 0)
         {
             rooms--;
-            SetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_FRIENDSHIP, &rooms);
+            SetMonData(mon, MON_DATA_FRIENDSHIP, &rooms);
+            if (rooms == 0 && PartyHasLine(GetMonData(mon, MON_DATA_SPECIES)))
+                CreateIsaacEgg(mon, Random32(), 0);
         }
     }
 }
