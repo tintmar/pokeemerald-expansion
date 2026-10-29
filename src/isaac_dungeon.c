@@ -3780,7 +3780,7 @@ static void PickSecretRoomLoot(s32 x, s32 y)
 }
 
 // Coup de pouce de la salle trésor du dernier étage, selon l'état de l'équipe (ITEM_NONE : tirage normal) : plus de
-// TREASURE_HELP_MAX_KOS Pokémon K.O. et pas plus de TREASURE_HELP_MAX_RESTORES Restores Max dans le Sac, une Trousse de
+// TREASURE_HELP_MAX_KOS Pokémon K.O. et pas plus de TREASURE_HELP_MAX_RESTORES Restores Max et Rappels Max (ensemble) dans le Sac, une Trousse de
 // Secours ; sinon un Cœur Doré s'il n'en a ni dans le Sac ni en attente du boss
 #define TREASURE_HELP_MAX_KOS       2
 #define TREASURE_HELP_MAX_RESTORES  2
@@ -3798,7 +3798,7 @@ static u16 GetLastFloorTreasureHelp(void)
         if (!GetMonData(mon, MON_DATA_IS_EGG) && GetMonData(mon, MON_DATA_HP) == 0)
             kos++;
     }
-    if (kos > TREASURE_HELP_MAX_KOS && !CheckBagHasItem(ITEM_MAX_RESTORE, TREASURE_HELP_MAX_RESTORES + 1))
+    if (kos > TREASURE_HELP_MAX_KOS && CountTotalItemQuantityInBag(ITEM_MAX_RESTORE) + CountTotalItemQuantityInBag(ITEM_MAX_REVIVE) <= TREASURE_HELP_MAX_RESTORES)
         return ITEM_FIRST_AID_KIT;
     if (!CheckBagHasItem(ITEM_GOLDEN_HEART, 1) && !IsaacIsGoldenHeartReady())
         return ITEM_GOLDEN_HEART;
