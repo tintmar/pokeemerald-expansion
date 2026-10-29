@@ -4922,6 +4922,10 @@ void MonGainEVs(struct Pokemon *mon, enum Species defeatedSpecies)
     u8 bonus;
     u32 currentEVCap = GetCurrentEVCap();
 
+    // donjon Isaac : pas d'EVs pour les Pokémon vaincus (ils viennent des récompenses de combat et de l'entraîneur)
+    if (TRUE)
+        return;
+
     heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
     holdEffect = GetItemHoldEffect(heldItem);
 
