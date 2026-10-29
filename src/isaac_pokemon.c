@@ -1278,6 +1278,7 @@ static bool8 IsMoveInSpeciesSets(enum Species species, u16 move)
 #define UPGRADE_MAX_CANDIDATES    128
 #define UPGRADE_SLOW_SPEED        50  // Distorsion : seulement pour une Vitesse de base de cette valeur ou moins
 
+#define UPGRADE_LOWER_STAB_TIERS  2   // STAB manquant sans attaque au tier visé : jusqu'à 2 tiers en dessous
 enum
 {
     UPGRADE_BUILD_OFFENSIVE,
@@ -1770,7 +1771,8 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
     u8 typeCount[NUMBER_OF_MON_TYPES] = {0};
     u32 target = InitUpgradeContext(&ctx, mon, species);
     enum Type moveType;
-    bool8 jackpot, physical, statFree, hasStatus;
+    bool8 jackpot, physical, statFree, hasStatus, lowerStab, stabAtTarget = FALSE;
+    u8 belowTarget[UPGRADE_MAX_CANDIDATES];
 
     if (forcedTarget != 0)
         target = forcedTarget;
@@ -1794,7 +1796,10 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
         if (statFree && tier == 4 && target >= 3)
             tier = target;
         jackpot = (tier == target + 1);
-        if (tier != target && !jackpot)
+        // STAB manquant : aussi un ou deux tiers en dessous, si son espèce n'en a pas au tier visé (Dracolosse n'a
+        // aucune attaque physique Dragon ou Vol de tier 4 : sans ça, il recevrait du coverage)
+        lowerStab = (tier < target && tier + UPGRADE_LOWER_STAB_TIERS >= target && IsMissingStabUpgrade(&ctx, move));
+        if (tier != target && !jackpot && !lowerStab)
             continue;
         if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
         {
@@ -1831,6 +1836,9 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
             typeCount[GetMoveType(move)]++;
     }
     if (count == 0)
+        if (!lowerStab && IsMissingStabUpgrade(&ctx, move))
+            stabAtTarget = TRUE;
+        belowTarget[count] = lowerStab;
         return fallback;
     // un de ses types sans attaque (STAB manquant, Pierre Prisme comprise) passe avant tout le reste (build offensif) ou
     // avant les autres attaques offensives (build équilibré ou défensif) : s'il y a des candidates de ce type, ce sont
@@ -1838,6 +1846,11 @@ static u16 PickUpgradeMoveAtTier(struct Pokemon *mon, enum Species species, u32 
     for (i = 0; i < count && !IsMissingStabUpgrade(&ctx, moves[i]); i++)
         ;
     if (i != count)
+    // un STAB manquant d'un tier en dessous seulement s'il n'y en a pas au tier visé
+    if (stabAtTarget)
+        for (i = 0; i < count; i++)
+            if (belowTarget[i])
+                weights[i] = 0;
         for (i = 0; i < count; i++)
             if (!IsMissingStabUpgrade(&ctx, moves[i])
              && (ctx.build == UPGRADE_BUILD_OFFENSIVE || GetMoveCategory(moves[i]) != DAMAGE_CATEGORY_STATUS))
