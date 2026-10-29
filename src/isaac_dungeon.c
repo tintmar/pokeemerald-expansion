@@ -1426,7 +1426,8 @@ static void GetBossGuardPos(s32 x, s32 y, bool8 aside, s32 *outX, s32 *outY, u32
 // Rival
 // ---------------------------------------------------------------------------
 // Aux étages RIVAL_FLOOR_STEP, 2 x RIVAL_FLOOR_STEP... (2, 4 et 6), le rival attend dans une salle normale tirée pour
-// l'étage (pas celle du gardien du boss) : un guetteur, qui voit toute la salle. Son équipe, tirée pour la descente
+// l'étage (pas celle du gardien du boss ; à la première rencontre, la salle du dernier dresseur rencontré, voir
+// RIVAL_LATE_ENCOUNTER) : un guetteur, qui voit toute la salle. Son équipe, tirée pour la descente
 // parmi les espèces de tous les biomes (avec des sets, sans type en commun entre elles), grandit à chaque rencontre
 // (sRivalJoinCount Pokémon de plus, des catégories sRivalJoinCategories) : ceux d'avant reviennent évolués d'un stade
 // (s'ils le peuvent ; même branche et même variante de set à chaque descente), et toute l'équipe prend un meilleur set
@@ -1459,6 +1460,12 @@ static s32 GetRivalEncounter(void)
     return floor / RIVAL_FLOOR_STEP - 1;
 }
 
+// Première rencontre (RIVAL_LATE_ENCOUNTER) : le rival n'a pas de salle tirée d'avance, il prend la place du dernier
+// dresseur de salle normale qu'on rencontre (pas le gardien du boss), choisie en entrant dans la dernière salle de
+// dresseur pas encore visitée (TryPlaceLateRival) et gardée dans VAR_ISAAC_RIVAL_ROOM. Il ne compte donc pas parmi
+// les salles qui ont forcément un dresseur (IsForcedTrainerRoom) : les dresseurs de l'étage ne changent pas.
+#define RIVAL_LATE_ENCOUNTER  0
+
 // Cellule de la salle du rival à l'étage (y * ISAAC_GRID_W + x), -1 s'il n'est pas là
 static s32 GetRivalRoom(void)
 {
@@ -1468,6 +1475,8 @@ static s32 GetRivalRoom(void)
 
     if (GetRivalEncounter() < 0)
         return -1;
+    if (GetRivalEncounter() == RIVAL_LATE_ENCOUNTER)
+        return (s32)VarGet(VAR_ISAAC_RIVAL_ROOM) - 1;
     for (y = 0; y < ISAAC_GRID_H; y++)
         for (x = 0; x < ISAAC_GRID_W; x++)
             if (GetRoom(x, y) == ROOM_NORMAL && !IsBossGuardRoom(x, y))
@@ -1554,7 +1563,7 @@ static bool8 IsRoomContentAvailable(u32 content);
 
 static bool8 IsForcedTrainerRoom(s32 x, s32 y)
 {
-    return IsBossGuardRoom(x, y) || IsRivalRoom(x, y);
+    return IsBossGuardRoom(x, y) || (GetRivalEncounter() != RIVAL_LATE_ENCOUNTER && IsRivalRoom(x, y));
 }
 
 // Contenus de salle (ROOM_CONTENT_*) disponibles à cet étage
@@ -1613,6 +1622,23 @@ static bool8 RoomHasTrainer(s32 x, s32 y)
     if (GetRoom(x, y) == ROOM_SECRET)
         return GetSecretRoomContent(x, y) == SECRET_TRAINER;
     return NormalRoomRollsTrainer(x, y) && y * ISAAC_GRID_W + x != GetForcedRockSmashRoom();
+}
+
+// Entrée dans une salle pas encore visitée (avant SetVisited) : à l'étage de la première rencontre, si c'est la
+// dernière salle normale avec un dresseur (hors gardien du boss) qu'on n'a pas encore vue, le rival y prend sa place
+static void TryPlaceLateRival(s32 x, s32 y)
+{
+    s32 cx, cy;
+
+    if (GetRivalEncounter() != RIVAL_LATE_ENCOUNTER || VarGet(VAR_ISAAC_RIVAL_ROOM) != 0
+     || GetRoom(x, y) != ROOM_NORMAL || IsBossGuardRoom(x, y) || !RoomHasTrainer(x, y))
+        return;
+    for (cy = 0; cy < ISAAC_GRID_H; cy++)
+        for (cx = 0; cx < ISAAC_GRID_W; cx++)
+            if ((cx != x || cy != y) && GetRoom(cx, cy) == ROOM_NORMAL && !IsBossGuardRoom(cx, cy)
+             && RoomHasTrainer(cx, cy) && !IsVisited(cx, cy))
+                return;
+    VarSet(VAR_ISAAC_RIVAL_ROOM, y * ISAAC_GRID_W + x + 1);
 }
 
 static const struct IsaacTrainerType *GetRoomTrainerType(s32 x, s32 y)
@@ -4009,6 +4035,7 @@ static void WarpToNewFloor(u32 floor)
     VarSet(VAR_ISAAC_SEED, Random());
     ClearVisited();
     ClearClearedRooms();
+    VarSet(VAR_ISAAC_RIVAL_ROOM, 0);
     FlagClear(FLAG_ISAAC_MASTER_BALL_GIVEN);
     VarSet(VAR_ISAAC_SHOP_SITUATIONAL, 0);  // la boutique du nouvel étage sera figée à sa première visite
     for (u32 i = 0; i < CAPTURE_MAX_MONS; i++)
@@ -4308,7 +4335,10 @@ void IsaacPaintRoom(void)
     BuildFloorPlan();
     GetCurrentCell(&x, &y);
     if (!IsVisited(x, y))
+    {
         IsaacTickEggs();
+        TryPlaceLateRival(x, y);
+    }
     SetVisited(x, y);
     CarveRoom();
     PaintRoom();

@@ -274,7 +274,7 @@
 #define VAR_ISAAC_SECRET_ABILITY_SEEN_1                  0x40FC // Talents secrets déjà proposés dans la descente (isaac_pokemon.c)
 #define VAR_ISAAC_SECRET_ABILITY_SEEN_2                  0x40FD // Talents secrets déjà proposés dans la descente (isaac_pokemon.c)
 #define VAR_ISAAC_SECRET_ABILITY_SEEN_3                  0x40FE // Talents secrets déjà proposés dans la descente (isaac_pokemon.c)
-#define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
+#define VAR_ISAAC_RIVAL_ROOM                             0x40FF // Salle du rival choisie en cours d'étage (cellule + 1, 0 : pas encore)
 
 #define VARS_END                                         0x40FF
 #define VARS_COUNT                                       (VARS_END - VARS_START + 1)
