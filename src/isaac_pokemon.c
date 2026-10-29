@@ -227,8 +227,8 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 // retirées pour l'instant : EVOLUTION_STONE_ENABLED, SUPER_EVOLUTION_STONE_ENABLED),
 // et la Super CT, de plus en plus rare (sAbilityTrainerWeights), rare à partir de l'étage 4. Dans la boutique (shop),
 // pas de Pierre Évolution après SHOP_EVOLUTION_STONE_MAX_FLOOR. La Pièce Porte-Bonheur est surtout au début
-// (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours surtout à la fin (sFirstAidKitWeights, retirée pour
-// l'instant : FIRST_AID_KIT_ENABLED) ; la Pierre Prisme un peu moins courante (PRISM_STONE_WEIGHT), le Cœur Doré peu courant
+// (sLuckyCoinWeights, jamais si on l'a déjà), la Trousse de Secours seulement aux étages 5 et 6
+// (sFirstAidKitWeights) ; la Pierre Prisme un peu moins courante (PRISM_STONE_WEIGHT), le Cœur Doré peu courant
 // (GOLDEN_HEART_WEIGHT). La Master Ball est peu courante (MASTER_BALL_WEIGHT). Le Cristal Méga n'apparaît que si un
 // Pokémon de l'équipe a sa Méga-Gemme (tenue ou dans le sac). Les deux Idoles (Chaos, Inversion) ont le poids normal.
 // Les 6 boosts de stat partagent une seule entrée (puis la stat est tirée), pour ne pas être 6 fois plus courants, un
@@ -244,7 +244,6 @@ u32 IsaacGetEvolutionChoices(enum Species species, bool32 toFinalStage, u16 *out
 #define Z_TM_WEIGHT          2
 #define MASTER_BALL_WEIGHT   2
 #define GOLDEN_HEART_MIN_FLOOR  4
-#define FIRST_AID_KIT_ENABLED   FALSE
 #define EVOLUTION_STONE_ENABLED        FALSE
 #define SUPER_EVOLUTION_STONE_ENABLED  FALSE
 #define SHOP_EVOLUTION_STONE_MAX_FLOOR  3
@@ -331,7 +330,7 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
     static const u8 sEvolutionStoneWeights[] = { 4, 4, 4, 2, 1, 0 };  // étages 1 à 6 (et au-delà)
     static const u8 sAbilityTrainerWeights[] = { 4, 3, 2, 1, 1, 1 };
     static const u8 sLuckyCoinWeights[] = { 4, 3, 3, 2, 1, 0 };
-    static const u8 sFirstAidKitWeights[] = { 1, 1, 2, 3, 4, 5 };
+    static const u8 sFirstAidKitWeights[] = { 0, 0, 0, 0, 4, 5 };
     static const u8 sStatBoostWeights[] = { 4, 4, 4, 5, 6, 6 };
     u32 floor = min(max(VarGet(VAR_ISAAC_FLOOR), 1u), ARRAY_COUNT(sEvolutionStoneWeights));
     u32 weights[ARRAY_COUNT(sSpecialItems)], total = 0, pick, i;
@@ -360,7 +359,7 @@ u16 IsaacPickSpecialItem(u32 roll, bool8 shop)
         else if (sSpecialItems[i] == ITEM_LUCKY_COIN)
             weights[i] = CheckBagHasItem(ITEM_LUCKY_COIN, 1) ? 0 : sLuckyCoinWeights[floor - 1];
         else if (sSpecialItems[i] == ITEM_FIRST_AID_KIT)
-            weights[i] = FIRST_AID_KIT_ENABLED ? sFirstAidKitWeights[floor - 1] : 0;
+            weights[i] = sFirstAidKitWeights[floor - 1];
         else if (sSpecialItems[i] == ITEM_PRISM_STONE)
             weights[i] = PRISM_STONE_WEIGHT;
         else if (sSpecialItems[i] == ITEM_Z_TM)
